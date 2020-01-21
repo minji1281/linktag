@@ -15,7 +15,7 @@ public class BaseConst {
     /**
      * 가입
      */
-    public static final String URL_EMPINPUT = "{host}/Mobile/EMPINPUT";
+    public static final String EMP_CONTROL = "{host}/Mobile/EMP_CONTROL";
     //--------------------------------------------------
 
     public static final String URL_LOGIN = "{host}/Mobile/M_LOGIN";

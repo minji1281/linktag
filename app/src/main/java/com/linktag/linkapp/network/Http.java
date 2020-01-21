@@ -49,7 +49,7 @@ public class Http extends HttpBaseService {
 
 
         @FormUrlEncoded
-        @POST(BaseConst.URL_EMPINPUT)
+        @POST(BaseConst.EMP_CONTROL)
         Call<OCM_Model> signUp(
                 @Path(value = "host", encoded = true) String host,
                 @Field(value = "GUBUN") String GUBUN,

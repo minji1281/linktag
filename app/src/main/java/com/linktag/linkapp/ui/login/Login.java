@@ -17,7 +17,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.linktag.linkapp.ui.member_sign_up.SignUp;
+import com.linktag.linkapp.ui.sign_up.SignUp;
 import com.linktag.linkapp.model.LOGIN_Model;
 import com.linktag.linkapp.ui.bus.BusSelectMain;
 import com.linktag.linkapp.value_object.LoginVO;

@@ -79,7 +79,7 @@
             android:theme="@style/TranslucentUser"
             android:excludeFromRecents="true"/>
         <activity
-            android:name=".ui.member_sign_up.SignUp"
+            android:name=".ui.sign_up.SignUp"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
         <activity android:name=".ui.scanner.ScanBarcode" />

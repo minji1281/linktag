@@ -8,7 +8,7 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context="com.linktag.linkapp.ui.member_sign_up.SignUp">
+    tools:context="com.linktag.linkapp.ui.sign_up.SignUp">
 
     <com.linktag.base.base_header.BaseHeader
         android:id="@+id/header"

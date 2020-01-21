@@ -1,4 +1,4 @@
-package com.linktag.linkapp.ui.member_sign_up;
+package com.linktag.linkapp.ui.sign_up;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
