@@ -327,8 +327,8 @@ public class Login extends BaseActivity {
 
 
 
-        goStore();
-      //  goMain();
+      //  goStore();
+        goMain();
 /*
 
         if(mUser.Value.CTU_08.equals("")){
@@ -364,7 +364,7 @@ public class Login extends BaseActivity {
     /**
      *
      */
-    private void goStore(){
+    private void goMain(){
         Intent intent = new Intent(mContext, Main.class);
         mContext.startActivity(intent);
         finish();
@@ -373,7 +373,7 @@ public class Login extends BaseActivity {
     /**
      * 메인으로 이동한다.
      */
-    private void goMain() {
+    private void goStore() {
         Intent intent = new Intent(mContext, Main.class);
         mContext.startActivity(intent);
 
