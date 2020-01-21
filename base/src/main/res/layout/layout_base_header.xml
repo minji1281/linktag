@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/layoutHeader"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/colorAccent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="56dp">
+
+        <!--왼쪽-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent">
+
+            <ImageButton
+                android:id="@+id/btnHeaderLeft"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/transparent_color"
+                android:contentDescription="@null"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp"
+                android:src="@drawable/selector_base_header_btn_back" />
+
+            <Button
+                android:id="@+id/btnHeaderLeftText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/selector_btn_background"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/common_cancel"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_normal"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </LinearLayout>
+
+        <!--가운데 타이틀-->
+        <TextView
+            android:id="@+id/tvHeaderTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginStart="50dp"
+            android:layout_marginEnd="50dp"
+            android:text="Title"
+            android:textColor="@color/white"
+            android:textSize="@dimen/text_normal"
+            android:textStyle="bold" />
+
+        <!--오른쪽-->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:orientation="horizontal"
+            android:paddingEnd="16dp">
+
+            <ImageButton
+                android:id="@+id/btnHeaderRight2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/transparent_color"
+                android:contentDescription="@null"
+                android:padding="10dp"
+                android:src="@drawable/btn_noti_white"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <ImageButton
+                android:id="@+id/btnHeaderRight1"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@color/transparent_color"
+                android:contentDescription="@null"
+                android:padding="10dp"
+                android:src="@drawable/btn_setting_white"
+                android:visibility="gone"
+                tools:visibility="visible" />
+
+            <Button
+                android:id="@+id/btnHeaderText"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:background="@drawable/selector_btn_background"
+                android:minWidth="0dp"
+                android:minHeight="0dp"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="@string/common_save"
+                android:textColor="@color/white"
+                android:textSize="@dimen/text_normal"
+                android:visibility="gone"
+                tools:visibility="visible" />
+        </LinearLayout>
+    </RelativeLayout>
+
+    <LinearLayout style="@style/common_horizontal_line" />
+
+</LinearLayout>

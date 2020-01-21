@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorDefaultBackground"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:context="com.linktag.linkapp.ui.member_sign_up.SignUp">
+
+    <com.linktag.base.base_header.BaseHeader
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_text="@string/sign_up_0" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/login_item_title"
+                    android:text="이메일" />
+
+                <EditText
+                    android:id="@+id/etEmail"
+                    style="@style/login_input"
+                    android:layout_marginTop="8dp"
+                    android:hint="이메일"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="20" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/login_item_title"
+                    android:text="이름" />
+
+                <EditText
+                    android:id="@+id/etName"
+                    style="@style/login_input"
+                    android:layout_marginTop="8dp"
+                    android:hint="이름"
+                    android:maxLength="10" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <TextView
+                    style="@style/login_item_title"
+                    android:text="휴대폰 번호" />
+
+                <EditText
+                    android:id="@+id/etMobile"
+                    style="@style/login_input"
+                    android:layout_marginTop="8dp"
+                    android:digits="0123456789-"
+                    android:hint="휴대폰 번호"
+                    android:inputType="numberSigned"
+                    android:maxLength="13" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        style="@style/login_item_title"
+                        android:text="비밀번호" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:text="영문, 숫자를 포함한 7-30자 입력"
+                        android:textColor="#6E6E6E"
+                        android:textSize="@dimen/text_small" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <EditText
+                        android:id="@+id/etPassword"
+                        style="@style/login_input"
+                        android:layout_marginTop="8dp"
+                        android:hint="비밀번호 입력"
+                        android:inputType="textPassword"
+                        android:maxLength="30" />
+
+                    <ImageView
+                        android:id="@+id/imgShowPassword"
+                        android:layout_width="40dp"
+                        android:layout_height="40dp"
+                        android:layout_alignParentEnd="true"
+                        android:adjustViewBounds="true"
+                        android:clickable="true"
+                        android:focusable="true"
+                        android:padding="4dp"
+                        android:src="@drawable/selector_show_password" />
+                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/etPasswordConfirm"
+                    style="@style/login_input"
+                    android:layout_marginTop="8dp"
+                    android:hint="비밀번호 입력"
+                    android:inputType="textPassword"
+                    android:maxLength="30" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="16dp">
+
+                <CheckBox
+                    android:id="@+id/ckbAll"
+                    style="@style/login_checkbox"
+                    android:text="전체동의 (선택항목 포함)" />
+
+                <CheckBox
+                    android:id="@+id/ckbTerms"
+                    style="@style/login_checkbox"
+                    android:text="알밤 서비스 이용약관 동의" />
+
+                <CheckBox
+                    android:id="@+id/ckbPrivacy"
+                    style="@style/login_checkbox"
+                    android:text="개인정보 수집 및 이용 동의" />
+
+                <CheckBox
+                    android:id="@+id/ckbMarketing"
+                    style="@style/login_checkbox"
+                    android:text="마케팅 활용 동의(선택)" />
+            </LinearLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#EFF1F4"
+                android:padding="16dp">
+
+                <Button
+                    android:id="@+id/btnNext"
+                    style="@style/common_button"
+                    android:text="가입"
+                    tools:enabled="false" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>

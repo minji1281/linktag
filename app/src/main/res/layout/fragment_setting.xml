@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f0f0f0"
+    tools:context="com.linktag.linkapp.ui.settings_main.SettingFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <!--프로필-->
+        <LinearLayout
+            android:id="@+id/layoutUserInfo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="24dp">
+
+            <!-- 프로필 사진 -->
+            <ImageView
+                android:id="@+id/imgUserPhoto"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_gravity="center_horizontal"
+                android:adjustViewBounds="true"
+                android:background="@drawable/shape_round"
+                android:src="@drawable/main_profile_no_image" />
+
+            <!-- 프로필 이름 -->
+            <TextView
+                android:id="@+id/tvUserName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_bigger"
+                tools:text="이도" />
+
+            <TextView
+                android:id="@+id/tvUserPhone"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                tools:text="01012345678"
+                android:textColor="#797979"
+                android:textSize="@dimen/text_normal" />
+            <TextView
+                android:id="@+id/tvInout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="8dp"
+                tools:text="진성훈"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_bigger"
+                android:visibility="gone"/>
+        </LinearLayout>
+
+        <!--설정-->
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <Button
+                android:id="@+id/btnProfile"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:drawableEnd="@drawable/btn_next_gray"
+                android:gravity="start|center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="프로필 설정"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_normal" />
+
+            <LinearLayout style="@style/common_horizontal_line" />
+
+            <Button
+                android:id="@+id/btnPwd"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:drawableEnd="@drawable/btn_next_gray"
+                android:gravity="start|center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="비밀번호 변경"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_normal" />
+
+            <LinearLayout style="@style/common_horizontal_line" />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:drawableEnd="@drawable/btn_next_gray"
+                android:gravity="start|center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="프로필 설정"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_normal"
+                android:visibility="invisible" />
+
+            <Button
+                android:id="@+id/btnGoHomepage"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:drawableEnd="@drawable/btn_next_gray"
+                android:gravity="start|center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="홈페이지 바로가기"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_normal" />
+
+            <LinearLayout style="@style/common_horizontal_line" />
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:background="@color/white"
+                android:drawableEnd="@drawable/btn_next_gray"
+                android:gravity="start|center_vertical"
+                android:paddingStart="16dp"
+                android:paddingEnd="16dp"
+                android:text="로그아웃"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_normal" />
+
+            <LinearLayout style="@style/common_horizontal_line" />
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <!-- BaseHeader 속성 -->
+    <declare-styleable name="BaseHeader">
+        <attr name="title_text" format="reference|string" />
+        <attr name="btn_text_text" format="reference|string" />        
+        <attr name="btn_text_visibility" format="enum">
+            <enum name="visible" value="0x00000000" />
+            <enum name="invisible" value="0x00000004" />
+            <enum name="gone" value="0x00000008" />
+        </attr>
+        <attr name="btn_left_text_text" format="reference|string" />
+        <attr name="btn_left_text_visibility" format="enum">
+            <enum name="visible" value="0x00000000" />
+            <enum name="invisible" value="0x00000004" />
+            <enum name="gone" value="0x00000008" />
+        </attr>
+        <attr name="btn_left_visibility" format="enum">
+            <enum name="visible" value="0x00000000" />
+            <enum name="invisible" value="0x00000004" />
+            <enum name="gone" value="0x00000008" />
+        </attr>
+        <attr name="btn_right1_visibility" format="enum">
+            <enum name="visible" value="0x00000000" />
+            <enum name="invisible" value="0x00000004" />
+            <enum name="gone" value="0x00000008" />
+        </attr>
+        <attr name="btn_left1_visibility" format="enum">
+            <enum name="visible" value="0x00000000" />
+            <enum name="invisible" value="0x00000004" />
+            <enum name="gone" value="0x00000008" />
+        </attr>
+        <attr name="btn_right2_visibility" format="enum">
+            <enum name="visible" value="0x00000000" />
+            <enum name="invisible" value="0x00000004" />
+            <enum name="gone" value="0x00000008" />
+        </attr>
+        <attr name="btn_left_src" format="reference" />
+        <attr name="btn_right1_src" format="reference" />
+        <attr name="btn_right2_src" format="reference" />
+        <attr name="btn_right3_src" format="reference" />
+        <attr name="btn_left1_src" format="reference" />
+    </declare-styleable>
+
+</resources>

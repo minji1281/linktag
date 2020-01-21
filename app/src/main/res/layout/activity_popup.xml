@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="#eeeeee"
+    android:orientation="vertical"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content">
+
+    <!-- 타이틀바 -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="53dp"
+        android:background="@drawable/main_background">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:text="설정"
+            android:paddingLeft="33dp"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btnCancel"
+            android:layout_width="@dimen/capture_button_size"
+            android:layout_weight="1"
+            android:layout_height="37dp"
+            android:background="@drawable/cancel_effect"
+            android:onClick="AllClose"/>
+
+
+    </LinearLayout>
+    <!-- //end 타이틀바 -->
+
+
+    <!-- Notice -->
+
+    <View
+        android:background="#66bdbdbd"
+        android:layout_width="match_parent"
+        android:layout_height="1dp" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f0f0f0"
+        tools:context="com.linktag.linkapp.ui.settings_main.SettingFragment">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <!--프로필-->
+
+            <!--설정-->
+            <LinearLayout
+                android:id="@+id/layoutUserInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:padding="24dp">
+
+                <!-- 프로필 사진 -->
+                <ImageView
+                    android:id="@+id/imgUserPhoto"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_gravity="center_horizontal"
+                    android:adjustViewBounds="true"
+                    android:background="@drawable/shape_round"
+                    android:src="@drawable/main_profile_no_image"
+                    android:visibility="gone" />
+
+                <!-- 프로필 이름 -->
+
+
+                <TextView
+                    android:id="@+id/tvUserName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_normal"
+                    tools:text="이산이" />
+
+                <TextView
+                    android:id="@+id/tvUserEmail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:textColor="#797979"
+                    android:textSize="@dimen/text_normal"
+                    tools:text="admin@esansoft.co.kr" />
+
+                <TextView
+                    android:id="@+id/tvInout"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="8dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_bigger"
+                    android:visibility="gone"
+                    tools:text="진성훈" />
+
+                <EditText
+                    android:id="@+id/etUserName"
+                    android:layout_width="200dp"
+                    android:layout_height="match_parent"
+                    android:layout_alignParentEnd="true"
+                    android:layout_centerVertical="true"
+                    android:background="@color/transparent_color"
+                    android:gravity="center_vertical"
+                    android:hint="이름"
+                    android:maxLength="30"
+                    android:singleLine="true"
+                    android:text="이순신"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold"
+                    android:visibility="gone"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+<!--                <Button-->
+<!--                    android:id="@+id/btnProfile"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="48dp"-->
+<!--                    android:background="@color/white"-->
+<!--                    android:drawableEnd="@drawable/btn_next_gray"-->
+<!--                    android:gravity="start|center_vertical"-->
+<!--                    android:paddingStart="16dp"-->
+<!--                    android:paddingEnd="16dp"-->
+<!--                    android:text="프로필 설정"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="@dimen/text_normal" />-->
+
+                <ToggleButton
+                    android:id="@+id/toggleRutc"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:textOn="노선 변경"
+                    android:textOff="노선 변경"
+                    android:drawableEnd="@drawable/btn_next_gray"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_normal"
+                    android:onClick="onRutcToggleClicked"/>
+
+                <LinearLayout style="@style/common_horizontal_line" />
+
+                <LinearLayout
+                    android:id="@+id/layoutRutc"
+                    android:layout_width="match_parent"
+                    android:layout_height="350dp"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="16dp"
+                        android:background="@drawable/shape_base_border"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:id="@+id/btnSearch"
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:layout_margin="16dp"
+                            android:adjustViewBounds="true"
+                            android:scaleType="fitCenter"
+                            android:src="@drawable/find_work_place_search" />
+
+                        <EditText
+                            android:id="@+id/etSearch"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/transparent_color"
+                            android:hint="노선명"
+                            android:maxLength="20"
+                            android:singleLine="true"
+                            android:textSize="@dimen/text_normal" />
+
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal"
+                        android:visibility="gone">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="16dp"
+                            android:background="@drawable/shape_base_border">
+
+                            <Spinner
+                                android:id="@+id/spinnerCity"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/find_work_place_city"
+                                android:padding="4dp" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="8dp"
+                            android:layout_marginEnd="16dp"
+                            android:background="@drawable/shape_base_border">
+
+                            <Spinner
+                                android:id="@+id/spinnerStreet"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:entries="@array/find_work_place_street"
+                                android:padding="4dp" />
+                        </LinearLayout>
+                    </LinearLayout>
+
+                    <ListView
+                        android:id="@+id/listrutcView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:divider="@null"
+                        tools:listitem="@layout/listitem_find_bus" />
+
+
+                </LinearLayout>
+
+                <LinearLayout style="@style/common_horizontal_line" />
+
+
+                <ToggleButton
+                    android:id="@+id/toggle"
+                    android:background="@color/white"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:textOn="비밀번호 변경"
+                    android:textOff="비밀번호 변경"
+                    android:drawableEnd="@drawable/btn_next_gray"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_normal"
+                    android:onClick="onToggleClicked"/>
+
+                <LinearLayout style="@style/common_horizontal_line" />
+
+                <LinearLayout
+                    android:id="@+id/layoutChangePwd"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/white"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical">
+
+
+                        <EditText
+                            android:id="@+id/etOldPwd"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:ems="20"
+                            android:hint="기존 비밀번호를 입력해 주세요"
+                            android:inputType="textPassword"
+                            android:nextFocusDown="@id/etNewPwd1"
+                            android:textSize="@dimen/text_smaller" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical">
+
+
+                        <EditText
+                            android:id="@+id/etNewPwd1"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:ems="20"
+                            android:hint="새 비밀번호를 입력해주세요."
+                            android:inputType="textPassword"
+                            android:nextFocusDown="@id/etNewPwd2"
+                            android:textSize="@dimen/text_smaller" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical">
+
+
+                        <EditText
+                            android:id="@+id/etNewPwd2"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginStart="20dp"
+                            android:layout_marginEnd="20dp"
+                            android:ems="20"
+                            android:hint="새 비밀번호를 한번 더 확인해주세요."
+                            android:inputType="textPassword"
+                            android:nextFocusDown="@id/btnSubmitPwd"
+                            android:textSize="@dimen/text_smaller" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:background="@color/white"
+                        android:gravity="center_vertical">
+
+
+                        <Button
+                            android:id="@+id/btnSubmitPwd"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@color/colorTextGray"
+                            android:text="확인"
+                            android:textColor="@android:color/white"
+                            android:textSize="15dp"
+                            android:onClick="Onsubmit"/>
+                    </RelativeLayout>
+                </LinearLayout>
+
+                <LinearLayout style="@style/common_horizontal_line" />
+
+                <Button
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/btn_next_gray"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="프로필 설정"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_normal"
+                    android:visibility="invisible" />
+
+                <LinearLayout style="@style/common_horizontal_line" />
+
+                <Button
+                    android:id="@+id/btnLogout"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:background="@color/white"
+                    android:drawableEnd="@drawable/btn_next_gray"
+                    android:gravity="start|center_vertical"
+                    android:paddingStart="16dp"
+                    android:paddingEnd="16dp"
+                    android:text="로그아웃"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_normal"
+                    android:onClick="Onfinish"/>
+
+                <LinearLayout style="@style/common_horizontal_line" />
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+    <!--// 닫기 버튼 -->
+</LinearLayout>

@@ -1,0 +1,44 @@
+<resources>
+    <string name="app_name">LINK TAG</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+    <string name="nav_header_title">Android Studio</string>
+    <string name="nav_header_subtitle">android.studio@android.com</string>
+    <string name="nav_header_desc">Navigation header</string>
+    <string name="action_settings">Settings</string>
+
+    <!--회원가입-->
+    <string name="sign_up_0">Sign Up</string>
+    <string name="sign_up_1">Forgot your ID &amp; PASSWORD</string>
+
+    <string name="login_0">E-mail not found.</string>
+    <string name="login_1">Passwords do not match.</string>
+    <string name="login_2">Email not found.</string>
+    <string name="login_3">Please check your e-mail account.</string>
+    <string name="login_err">"An error occurred.\nPlease contact your administrator."</string>
+
+    <string name="main_back">Press Back again to exit.</string>
+
+    <string name="commute_0">Lately</string>
+    <string name="commute_1">No record</string>
+    <string name="commute_2">Go to work</string>
+    <string name="commute_3">Off work</string>
+    <string name="commute_4">Find work</string>
+    <string name="commute_5">You are already taken to work.</string>
+    <string name="commute_6">Already out of work.</string>
+    <string name="commute_7">Working journal</string>
+    <string name="commute_8">There is no work comment.</string>
+    <string name="commute_9">Time</string>
+    <string name="commute_10">M월d일</string>
+    <string name="commute_11">Already traveled.</string>
+    <string name="commute_12">Training has already been processed.</string>
+
+    <!-- 로그인 설명 -->
+    <string name="title_name">Cloud platform</string>
+    <string name="login_hint1">Enter your mobile number</string>
+    <string name="login_hint2">Enter Password</string>
+    <string name="login_hint3">Save ID</string>
+    <string name="login_hint4">Auto-Login</string>
+    <string name="login_btn1">Login</string>
+
+</resources>
