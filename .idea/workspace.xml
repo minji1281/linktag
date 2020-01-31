@@ -11,25 +11,7 @@
     <option name="TOOL_WINDOW_CONFIGURED_FILTER" value="Firebase" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e849761b-8cd5-4654-90fd-ff5a85541956" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/model/BRDModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/model/DSHModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/model/NOTModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/board/BoardBRDAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/board/BoardDetail.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/board/BoardMain.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/board/BoardNOTAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dash_state/DashStateAdapter.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/value_object/BRD_VO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/value_object/DSH_VO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/value_object/NOT_VO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/selector_main_scan.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_board_detail.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_board_main.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/listitem_brd_record.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/layout/listitem_dsh_record.xml" afterDir="false" />
-    </list>
+    <list default="true" id="e849761b-8cd5-4654-90fd-ff5a85541956" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,8 +64,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/board/BoardDetail.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="72">
-              <caret line="208" lean-forward="true" selection-start-line="208" selection-end-line="208" />
+            <state relative-caret-position="433">
+              <caret line="212" column="24" lean-forward="true" selection-start-line="212" selection-start-column="24" selection-end-line="212" selection-end-column="24" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#3916#3932#0" expanded="true" />
@@ -290,7 +272,7 @@
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
-    <navigator proportions="" version="1">
+    <navigator currentView="ProjectPane" proportions="" version="1">
       <hideEmptyPackages AndroidView="true" PackagesPane="true" ProjectPane="true" />
       <foldersAlwaysOnTop value="true" />
     </navigator>
@@ -314,160 +296,7 @@
           <select />
         </subPane>
       </pane>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="model" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="network" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="board" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="dash_state" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="main" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="settings_profile" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="sign_up" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="work_record" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="work_state" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="value_object" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="base" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="base" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="user_interface" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
+      <pane id="AndroidView" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -709,7 +538,14 @@
       <option name="project" value="LOCAL" />
       <updated>1580436273749</updated>
     </task>
-    <option name="localTasksCounter" value="8" />
+    <task id="LOCAL-00008" summary="0.0.1">
+      <created>1580436534223</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1580436534223</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TodoView">
@@ -723,6 +559,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1066" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" sideWeight="0.50150603" side_tool="true" weight="0.19349681" />
       <window_info active="true" content_ui="combo" id="Project" order="1" sideWeight="0.49849397" visible="true" weight="0.19936034" />
@@ -733,14 +570,14 @@
       <window_info id="Designer" order="6" />
       <window_info id="Resources Explorer" order="7" weight="0.329602" />
       <window_info id="Capture Tool" order="8" />
-      <window_info anchor="bottom" id="Version Control" order="0" sideWeight="0.49946696" visible="true" weight="0.3290461" />
+      <window_info anchor="bottom" id="Version Control" order="0" sideWeight="0.49946696" weight="0.3290461" />
       <window_info anchor="bottom" id="Logcat" order="1" sideWeight="0.66684437" weight="0.4619507" />
       <window_info anchor="bottom" id="TODO" order="2" weight="0.3295325" />
       <window_info anchor="bottom" id="Find" order="3" weight="0.32974428" />
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.3295325" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.50053304" side_tool="true" visible="true" weight="0.3290461" />
       <window_info anchor="bottom" id="Build" order="6" sideWeight="0.5522388" weight="0.29367632" />
-      <window_info anchor="bottom" id="Messages" order="7" visible="true" weight="0.3295325" />
+      <window_info anchor="bottom" id="Messages" order="7" sideWeight="0.49946696" visible="true" weight="0.3290461" />
       <window_info anchor="bottom" id="Android Profiler" order="8" weight="0.32976446" />
       <window_info anchor="bottom" id="Run" order="9" sideWeight="0.6034115" weight="0.3118971" />
       <window_info anchor="bottom" id="Debug" order="10" sideWeight="0.49840087" weight="0.3290461" />
@@ -1180,8 +1017,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/board/BoardDetail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="72">
-          <caret line="208" lean-forward="true" selection-start-line="208" selection-end-line="208" />
+        <state relative-caret-position="433">
+          <caret line="212" column="24" lean-forward="true" selection-start-line="212" selection-start-column="24" selection-end-line="212" selection-end-column="24" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#3916#3932#0" expanded="true" />
