@@ -42,4 +42,9 @@ public class BaseConst {
 //    public static final String URL_CMT_CONTROL = "{host}/Mobile/CMT_CONTROL";
 //    public static final String URL_CMTL_CONTROL = "{host}/Mobile/CMTL_CONTROL";
 
+
+    //장독
+    public static final String URL_JDM_SELECT = "{host}/Mobile/JDM_SELECT";
+    public static final String URL_JDM_CONTROL = "{host}/Mobile/JDM_CONTROL";
+
 }

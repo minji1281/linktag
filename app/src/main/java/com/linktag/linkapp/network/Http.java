@@ -1,6 +1,7 @@
 package com.linktag.linkapp.network;
 
 import com.linktag.linkapp.model.CFB_Model;
+import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.model.WTH_Model;
 import com.linktag.linkapp.model.RUTC_Model;
@@ -227,6 +228,46 @@ public class Http extends HttpBaseService {
                 @Field(value = "NOT_98") String NOT_98
         );
     }
+
+
+    //--------------------------------------------------
+    // 장독
+    //--------------------------------------------------
+    public static IJDM jdm(TYPE type) {
+        return (IJDM) retrofit(IJDM.class, type);
+    }
+
+    public interface IJDM {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_JDM_SELECT)
+        Call<JDMModel> JDM_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "JDM_ID") String JDM_ID,
+                @Field(value = "JDM_01") String JDM_01,
+                @Field(value = "OCM_01") String OCM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_JDM_CONTROL)
+        Call<JDMModel> JDM_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "JDM_ID") String JDM_ID,
+                @Field(value = "JDM_01") String JDM_01,
+                @Field(value = "JDM_02") String JDM_02,
+                @Field(value = "JDM_03") String JDM_03,
+                @Field(value = "JDM_04") String JDM_04,
+                @Field(value = "JDM_96") String JDM_96,
+                @Field(value = "JDM_97") String JDM_97,
+                @Field(value = "JDM_98") String JDM_98,
+                @Field(value = "ARM_03") String ARM_03
+
+        );
+
+    }
+
 
 
     //--------------------------------------------------

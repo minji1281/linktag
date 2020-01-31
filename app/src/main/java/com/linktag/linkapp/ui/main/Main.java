@@ -38,12 +38,15 @@ public class Main extends BaseActivity {
     private final int TAB_PAGE_COMMENT = 1;
     private final int TAB_PAGE_APPLY = 2;
     private final int TAB_PAGE_SETTING = 3;
+    private final int TAB_PAGE_JDM = 4; //장독테스트
 
     // Variable
     private CommuteFragment fragmentHome;
     private WorkFragment fragmentWork;
     private ApplyFragment fragmentApply;
     private SettingFragment fragmentSetting;
+    private JDMFragment fragmentJdm;
+
 
     private BaseViewPager viewPager;
     private ViewPagerAdapter mViewPagerAdapter;
@@ -55,6 +58,7 @@ public class Main extends BaseActivity {
     private TextView tvMainWork;
     private TextView tvMainScan;
     private TextView tvMainSetting;
+    private  TextView tvMainJdm;  //장독 테스트
 
     private BroadcastReceiver mBroadcastLogout = new BroadcastReceiver() {
         @Override
@@ -92,6 +96,10 @@ public class Main extends BaseActivity {
         tvMainScan.setOnClickListener(v -> goScan());
         tvMainSetting = findViewById(R.id.tvMainSetting);
         tvMainSetting.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_SETTING));
+
+        //장독테스트
+        tvMainJdm = findViewById(R.id.tvMainJdm);
+        tvMainJdm.setOnClickListener(view -> setCurrentViewPager(TAB_PAGE_JDM));
 
         initViewPager();
     }
@@ -145,6 +153,7 @@ public class Main extends BaseActivity {
         fragmentWork = new WorkFragment();
         fragmentApply = new ApplyFragment();
         fragmentSetting = new SettingFragment();
+        fragmentJdm = new JDMFragment();
 
         fragmentHome.setOnLoadingDialog(callLoadingBar);
         fragmentWork.setOnLoadingDialog(callLoadingBar);
@@ -155,6 +164,7 @@ public class Main extends BaseActivity {
         mListFragment.add(fragmentWork);
         mListFragment.add(fragmentApply);
         mListFragment.add(fragmentSetting);
+        mListFragment.add(fragmentJdm);
 
         mViewPagerAdapter = new ViewPagerAdapter(this.getSupportFragmentManager(), mListFragment);
         viewPager.setAdapter(mViewPagerAdapter);
@@ -212,6 +222,13 @@ public class Main extends BaseActivity {
             case TAB_PAGE_SETTING:
                 tvMainSetting.setSelected(true);
                 header.tvHeaderTitle.setText(R.string.home_04);
+                header.btnHeaderRight1.setVisibility(View.GONE);
+                header.btnHeaderText.setVisibility(View.GONE);
+                break;
+
+            case TAB_PAGE_JDM:
+                tvMainJdm.setSelected(true);
+                header.tvHeaderTitle.setText("장독관리");
                 header.btnHeaderRight1.setVisibility(View.GONE);
                 header.btnHeaderText.setVisibility(View.GONE);
                 break;
