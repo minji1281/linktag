@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
@@ -27,6 +28,7 @@ import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.login.Login;
 import com.linktag.linkapp.ui.main.Main;
 
 import java.util.regex.Pattern;
@@ -264,7 +266,10 @@ public class SignUp extends BaseActivity {
 
                             if (response.body().Data.get(0).Validation) {
                                 // UserInterface 연결
-                                BaseAlert.show("가입을 완료하였습니다.", (dialog, which) -> goMain());
+                            //    BaseAlert.show("가입을 완료하였습니다.", (dialog, which) -> goMain());
+                             //   BaseAlert.show(getString(R.string.sign_up_2));
+                                Toast.makeText(getApplicationContext(), getString(R.string.sign_up_2), Toast.LENGTH_SHORT).show();
+                                goLogin();
                             } else {
                                 // ErrorMsg
                                 BaseAlert.show("가입에 실패했습니다.");
@@ -288,6 +293,12 @@ public class SignUp extends BaseActivity {
      */
     private void goMain() {
         Intent intent = new Intent(mContext, Main.class);
+        mContext.startActivity(intent);
+        finish();
+    }
+
+    private void goLogin() {
+        Intent intent = new Intent(mContext, Login.class);
         mContext.startActivity(intent);
         finish();
     }

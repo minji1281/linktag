@@ -31,7 +31,6 @@
         <activity
             android:name=".ui.intro.Intro"
             android:screenOrientation="portrait"
-            android:excludeFromRecents="true"
             android:theme="@style/SplashTheme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -52,37 +51,43 @@
         </activity>
         <!-- 팝업 Activity -->
         <activity android:name=".ui.login.Popup"
-                  android:theme="@android:style/Theme.Dialog"
-                  android:excludeFromRecents="true"/>
+                  android:theme="@android:style/Theme.Dialog"/>
         <activity
             android:name=".ui.settings_profile.ProfileMain"
             android:screenOrientation="portrait"
-            android:theme="@style/TranslucentUser"
-            android:excludeFromRecents="true"/>
+            android:theme="@style/TranslucentUser"/>
         <activity
         android:name=".ui.permission_info.PermissionInfo"
         android:screenOrientation="portrait"
         android:theme="@style/TranslucentUser" />
+<!--        <activity-->
+<!--            android:name=".ui.bus.BusSelectMain"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:theme="@style/TranslucentUser"/>-->
         <activity
-            android:name=".ui.bus.BusSelectMain"
+            android:name=".ui.board.BoardMain"
             android:screenOrientation="portrait"
-            android:theme="@style/TranslucentUser"
-            android:excludeFromRecents="true"/>
+            android:theme="@style/TranslucentUser"/>
+        <activity
+            android:name=".ui.board.BoardDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"/>
         <activity
             android:name=".ui.login.Login"
             android:screenOrientation="portrait"
-            android:theme="@style/TranslucentUser"
-            android:excludeFromRecents="true"/>
+            android:theme="@style/TranslucentUser"/>
         <activity
             android:name=".ui.main.Main"
             android:screenOrientation="portrait"
-            android:theme="@style/TranslucentUser"
-            android:excludeFromRecents="true"/>
+            android:theme="@style/TranslucentUser"/>
         <activity
             android:name=".ui.sign_up.SignUp"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
         <activity android:name=".ui.scanner.ScanBarcode" />
+
+        <!-- ================================== -->
+
 
         <!-- ================================== -->
         <!-- Service -->

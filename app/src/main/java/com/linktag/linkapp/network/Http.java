@@ -7,7 +7,9 @@ import com.linktag.linkapp.model.RUTC_Model;
 import com.linktag.linkapp.model.RTSC_Model;
 import com.linktag.linkapp.model.LOGIN_Model;
 import com.linktag.linkapp.model.BHM_Model;
-import com.linktag.linkapp.model.LEDModel;
+import com.linktag.linkapp.model.DSHModel;
+import com.linktag.linkapp.model.BRDModel;
+import com.linktag.linkapp.model.NOTModel;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -150,48 +152,79 @@ public class Http extends HttpBaseService {
 
     }
 
+    //--------------------------------------------------
+    // 대쉬보드
+    //--------------------------------------------------
+    public static IDSH commute(TYPE type){ return (IDSH) retrofit(IDSH.class, type); }
 
-    public static ICMT commute(TYPE type){ return (ICMT) retrofit(ICMT.class, type); }
-
-    public interface ICMT {
+    public interface IDSH {
 
         @FormUrlEncoded
-        @POST(BaseConst.URL_CMT_SELECT)
-        Call<LEDModel> CMT_SELECT(
+        @POST(BaseConst.URL_DSH_SELECT)
+        Call<DSHModel> DSH_SELECT(
                 @Path(value = "host", encoded = true) String host,
                 @Field(value = "GUBUN") String GUBUN,
-                @Field(value = "LED_ID") String LED_ID,
-                @Field(value = "LED_01") String LED_01,
-                @Field(value = "LED_02") String LED_02,
-                @Field(value = "LED_04") String LED_04,
-                @Field(value = "LED_05") String LED_05,
-                @Field(value = "LED_23ST") String LED_23ST,
-                @Field(value = "LED_23ED") String LED_23ED
+                @Field(value = "DSH_ID") String DSH_ID,
+                @Field(value = "DSH_01") String DSH_01,
+                @Field(value = "DSH_02") String DSH_02,
+                @Field(value = "DSH_03") String DSH_03,
+                @Field(value = "DSH_04") String DSH_04
         );
 
         @FormUrlEncoded
-        @POST(BaseConst.URL_CMTL_CONTROL)
-        Call<LEDModel> CMTL_CONTROL(
+        @POST(BaseConst.URL_BRD_SELECT)
+        Call<BRDModel> BRD_SELECT(
                 @Path(value = "host", encoded = true) String host,
                 @Field(value = "GUBUN") String GUBUN,
-                @Field(value = "LED_ID") String LED_ID,
-                @Field(value = "LED_01") String LED_01,
-                @Field(value = "LED_02") String LED_02,
+                @Field(value = "BRD_ID") String BRD_ID,
+                @Field(value = "BRD_01") String BRD_01,
+                @Field(value = "BRD_02") String BRD_02,
+                @Field(value = "BRD_03") String BRD_03,
+                @Field(value = "BRD_04") String BRD_04,
+                @Field(value = "BRD_06") String BRD_06
+        );
 
-                @Field(value = "LED_04") String LED_04,
-                @Field(value = "LED_05") String LED_05,
+        @FormUrlEncoded
+        @POST(BaseConst.URL_BRD_CONTROL)
+        Call<BRDModel> BRD_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "BRD_ID") String BRD_ID,
+                @Field(value = "BRD_01") String BRD_01,
+                @Field(value = "BRD_02") String BRD_02,
+                @Field(value = "BRD_03") String BRD_03,
+                @Field(value = "BRD_04") String BRD_04,
+                @Field(value = "BRD_05") String BRD_05,
+                @Field(value = "BRD_06") String BRD_06,
+                @Field(value = "BRD_98") String BRD_98
+        );
 
-                @Field(value = "LED_07") String LED_07,
+        @FormUrlEncoded
+        @POST(BaseConst.URL_NOT_SELECT)
+        Call<NOTModel> NOT_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "NOT_ID") String NOT_ID,
+                @Field(value = "NOT_01") String NOT_01,
+                @Field(value = "NOT_02") String NOT_02,
+                @Field(value = "NOT_03") String NOT_03,
+                @Field(value = "NOT_04") String NOT_04,
+                @Field(value = "NOT_06") String NOT_06
+        );
 
-                @Field(value = "LED_23") String LED_23,
-                @Field(value = "LED_25") String LED_25,
-
-                @Field(value = "LED_90") Double LED_90,
-                @Field(value = "LED_91") Double LED_91,
-
-                @Field(value = "LED_97") String LED_97,
-                @Field(value = "LED_98") String LED_98
-
+        @FormUrlEncoded
+        @POST(BaseConst.URL_NOT_CONTROL)
+        Call<NOTModel> NOT_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "NOT_ID") String NOT_ID,
+                @Field(value = "NOT_01") String NOT_01,
+                @Field(value = "NOT_02") String NOT_02,
+                @Field(value = "NOT_03") String NOT_03,
+                @Field(value = "NOT_04") String NOT_04,
+                @Field(value = "NOT_05") String NOT_05,
+                @Field(value = "NOT_06") String NOT_06,
+                @Field(value = "NOT_98") String NOT_98
         );
     }
 

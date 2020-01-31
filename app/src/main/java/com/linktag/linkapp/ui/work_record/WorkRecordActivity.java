@@ -8,6 +8,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -41,7 +42,9 @@ public class WorkRecordActivity extends BaseActivity {
     TextView tvUserName;
     TextView tvWorkType;
     TextView tvWorkTime;
+    TextView tvWorkDate;
     TextView tvWorkState;
+    Button btnMove;
 
 
     private LED_VO mCMTV0;
@@ -71,6 +74,8 @@ public class WorkRecordActivity extends BaseActivity {
         tvWorkType = findViewById(R.id.tvWorkType);
         tvWorkTime = findViewById(R.id.tvWorkTime);
         tvWorkTime.setVisibility(View.GONE);
+        tvWorkDate = findViewById(R.id.tvWorkDate);
+        tvWorkDate.setVisibility(View.GONE);
         tvWorkState = findViewById(R.id.tvWorkState);
         tvWorkState.setVisibility(View.GONE);
 
@@ -101,59 +106,59 @@ public class WorkRecordActivity extends BaseActivity {
     }
 
     private void requestATDVIEW() {
-        if(!ClsNetworkCheck.isConnectable(mContext)){
-            BaseAlert.show(getString(R.string.common_network_error));
-            return;
-        }
-
-        openLoadingBar();
-
-        String strToday = ClsDateTime.getNow("yyyyMMdd");
-
-        Call<LEDModel> call = Http.commute(HttpBaseService.TYPE.POST).CMT_SELECT(
-                BaseConst.URL_HOST,
-                "LIST2",
-                mCMTV0.LED_ID,
-                "CMT",
-                "",
-                mCMTV0.LED_04,
-                "",
-                ClsDateTime.getNow("yyyyMMdd"),
-                ""
-        );
-
-        call.enqueue(new Callback<LEDModel>(){
-            @SuppressLint("HandlerLeak")
-            @Override
-            public void onResponse(Call<LEDModel> all, Response<LEDModel> response){
-                Message msg = new Message();
-                msg.obj = response;
-                msg.what = 100;
-
-                new Handler(){
-                    @Override
-                    public void handleMessage(Message msg){
-                        if(msg.what == 100){
-                            closeLoadingBar();
-
-                            Response<LEDModel> response = (Response<LEDModel>) msg.obj;
-
-                            mList = response.body().Data;
-                            if (mList == null)
-                                mList = new ArrayList<>();
-
-                            mAdapter.updateData(mList);
-                            mAdapter.notifyDataSetChanged();
-                            swipeRefresh.setRefreshing(false);
-
-                        }
-                    }
-                }.sendMessage(msg);
-            }
-
-            @Override
-            public void onFailure(Call<LEDModel> call, Throwable t){ closeLoadingBar(); }
-        });
+//        if(!ClsNetworkCheck.isConnectable(mContext)){
+//            BaseAlert.show(getString(R.string.common_network_error));
+//            return;
+//        }
+//
+//        openLoadingBar();
+//
+//        String strToday = ClsDateTime.getNow("yyyyMMdd");
+//
+//        Call<LEDModel> call = Http.commute(HttpBaseService.TYPE.POST).CMT_SELECT(
+//                BaseConst.URL_HOST,
+//                "LIST2",
+//                mCMTV0.LED_ID,
+//                "CMT",
+//                "",
+//                mCMTV0.LED_04,
+//                "",
+//                ClsDateTime.getNow("yyyyMMdd"),
+//                ""
+//        );
+//
+//        call.enqueue(new Callback<LEDModel>(){
+//            @SuppressLint("HandlerLeak")
+//            @Override
+//            public void onResponse(Call<LEDModel> all, Response<LEDModel> response){
+//                Message msg = new Message();
+//                msg.obj = response;
+//                msg.what = 100;
+//
+//                new Handler(){
+//                    @Override
+//                    public void handleMessage(Message msg){
+//                        if(msg.what == 100){
+//                            closeLoadingBar();
+//
+//                            Response<LEDModel> response = (Response<LEDModel>) msg.obj;
+//
+//                            mList = response.body().Data;
+//                            if (mList == null)
+//                                mList = new ArrayList<>();
+//
+//                            mAdapter.updateData(mList);
+//                            mAdapter.notifyDataSetChanged();
+//                            swipeRefresh.setRefreshing(false);
+//
+//                        }
+//                    }
+//                }.sendMessage(msg);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<LEDModel> call, Throwable t){ closeLoadingBar(); }
+//        });
 
     }
 

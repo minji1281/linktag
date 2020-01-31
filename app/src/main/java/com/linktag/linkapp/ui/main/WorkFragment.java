@@ -71,15 +71,15 @@ public class WorkFragment extends BaseFragment {
     public void onResume(){
         super.onResume();
 
-        requestCMT_SELECT();
+       // requestCMT_SELECT();
     }
 
     private void initLayout() {
         listView = view.findViewById(R.id.listView);
         listView.setOnItemClickListener((parent, view, position, id) -> goWorkRecord(position));
 
-        swipeRefresh = view.findViewById(R.id.swipeRefresh);
-        swipeRefresh.setOnRefreshListener(() -> requestCMT_SELECT());
+//        swipeRefresh = view.findViewById(R.id.swipeRefresh);
+//        swipeRefresh.setOnRefreshListener(() -> requestCMT_SELECT());
     }
 
     private void goWorkRecord(int position) {
@@ -92,75 +92,75 @@ public class WorkFragment extends BaseFragment {
     protected void initialize(){
         mList = new ArrayList<>();
 
-        mAdapter = new WorkStateAdapter(mContext, mList);
+ //       mAdapter = new WorkStateAdapter(mContext, mList);
         listView.setAdapter(mAdapter);
     }
 
 
-    public void requestCMT_SELECT() {
-
-        System.out.println("$$$$$$$$$$$$$$$됐다 됐다 잘 됐다.");
-        // 인터넷 연결 여부 확인
-        if(!ClsNetworkCheck.isConnectable(mContext)){
-            BaseAlert.show(getString(R.string.common_network_error));
-            return;
-        }
-
-        openLoadingBar();
-
-        String strToday = ClsDateTime.getNow("yyyyMMdd");
-
-
-        Call<LEDModel> call = Http.commute(HttpBaseService.TYPE.POST).CMT_SELECT(
-                BaseConst.URL_HOST,
-                "LIST",
-                mUser.Value.CTM_01,
-                "CMT",
-                "",
-                mUser.Value.OCM_01,
-                "",
-                ClsDateTime.getNow("yyyyMMdd"),
-                ""
-        );
-
-        call.enqueue(new Callback<LEDModel>() {
-            @SuppressLint("HandlerLeak")
-            @Override
-            public void onResponse(Call<LEDModel> call, Response<LEDModel> response) {
-                Message msg = new Message();
-                msg.obj = response;
-                msg.what = 100;
-
-                new Handler(){
-                    @Override
-                    public void handleMessage(Message msg){
-                        if(msg.what == 100){
-                            closeLoadingBar();
-
-                            Response<LEDModel> response = (Response<LEDModel>) msg.obj;
-
-                            mList = response.body().Data;
-                            if(mList == null)
-                                mList = new ArrayList<>();
-
-                            mAdapter.updateData(mList);
-                            mAdapter.notifyDataSetChanged();
-                            swipeRefresh.setRefreshing(false);
-
-                        }
-                    }
-                }.sendMessage(msg);
-            }
-
-            @Override
-            public void onFailure(Call<LEDModel> call, Throwable t) {
-                Log.d("Test", t.getMessage());
-                closeLoadingBar();
-
-            }
-        });
-
-    }
+//    public void requestCMT_SELECT() {
+//
+//        System.out.println("$$$$$$$$$$$$$$$됐다 됐다 잘 됐다.");
+//        // 인터넷 연결 여부 확인
+//        if(!ClsNetworkCheck.isConnectable(mContext)){
+//            BaseAlert.show(getString(R.string.common_network_error));
+//            return;
+//        }
+//
+//        openLoadingBar();
+//
+//        String strToday = ClsDateTime.getNow("yyyyMMdd");
+//
+//
+//        Call<LEDModel> call = Http.commute(HttpBaseService.TYPE.POST).CMT_SELECT(
+//                BaseConst.URL_HOST,
+//                "LIST",
+//                mUser.Value.CTM_01,
+//                "CMT",
+//                "",
+//                mUser.Value.OCM_01,
+//                "",
+//                ClsDateTime.getNow("yyyyMMdd"),
+//                ""
+//        );
+//
+//        call.enqueue(new Callback<LEDModel>() {
+//            @SuppressLint("HandlerLeak")
+//            @Override
+//            public void onResponse(Call<LEDModel> call, Response<LEDModel> response) {
+//                Message msg = new Message();
+//                msg.obj = response;
+//                msg.what = 100;
+//
+//                new Handler(){
+//                    @Override
+//                    public void handleMessage(Message msg){
+//                        if(msg.what == 100){
+//                            closeLoadingBar();
+//
+//                            Response<LEDModel> response = (Response<LEDModel>) msg.obj;
+//
+//                            mList = response.body().Data;
+//                            if(mList == null)
+//                                mList = new ArrayList<>();
+//
+//                            mAdapter.updateData(mList);
+//                            mAdapter.notifyDataSetChanged();
+//                            swipeRefresh.setRefreshing(false);
+//
+//                        }
+//                    }
+//                }.sendMessage(msg);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<LEDModel> call, Throwable t) {
+//                Log.d("Test", t.getMessage());
+//                closeLoadingBar();
+//
+//            }
+//        });
+//
+//    }
 
 
 

@@ -1,155 +1,48 @@
 package com.linktag.linkapp.ui.main;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
-import android.graphics.Bitmap;
-import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.ColorMatrix;
-import android.graphics.ColorMatrixColorFilter;
-import android.graphics.Paint;
-import android.location.Address;
-import android.location.Geocoder;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
-import android.os.Environment;
-import android.os.Handler;
-import android.os.Message;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.annotation.UiThread;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
-import android.text.Spannable;
-import android.text.SpannableString;
-import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
-import android.util.Log;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.Adapter;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.linktag.base.base_header.BaseHeader;
-import com.linktag.linkapp.model.RTSC_Model;
-import com.linktag.linkapp.model.RUTC_Model;
-import com.linktag.linkapp.ui.bus.BusMainAdapter;
-import com.linktag.linkapp.API.ClovaFace;
-import com.linktag.linkapp.API.WeatherAPI;
-import com.linktag.linkapp.FaceCenterCircleView.FaceCenterCrop;
-import com.linktag.linkapp.FaceDetectionUtil.FaceDetectionProcessor;
-import com.linktag.linkapp.FaceDetectionUtil.FaceDetectionResultListener;
-import com.linktag.linkapp.FaceDetectionUtil.common.CameraSource;
-import com.linktag.linkapp.FaceDetectionUtil.common.CameraSourcePreview;
-import com.linktag.linkapp.FaceDetectionUtil.common.FrameMetadata;
-import com.linktag.linkapp.FaceDetectionUtil.common.GraphicOverlay;
-import com.linktag.linkapp.Utils.Imageutils;
-import com.linktag.linkapp.model.BHM_Model;
-import com.linktag.linkapp.network.BaseConst;
-import com.linktag.linkapp.network.Http;
-import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.login.Popup;
 import com.linktag.linkapp.ui.work_place_search.FindWorkPlace;
-import com.linktag.linkapp.value_object.BhmVO;
-import com.linktag.linkapp.value_object.CfbVO;
-import com.linktag.linkapp.value_object.RtscVO;
-import com.linktag.base.linkapp;
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_view_pager.BaseViewPager;
 import com.linktag.base.base_view_pager.ViewPagerAdapter;
-import com.linktag.base.network.ClsNetworkCheck;
-import com.linktag.base.util.BaseAlert;
-import com.linktag.base.util.ClsDateTime;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.ui.login.Login;
 import com.linktag.linkapp.ui.scanner.ScanBarcode;
 import com.linktag.linkapp.ui.settings_main.SettingFragment;
-import com.github.mikephil.charting.charts.BarChart;
-import com.github.mikephil.charting.charts.BarLineChartBase;
-import com.github.mikephil.charting.charts.CombinedChart;
-import com.github.mikephil.charting.components.AxisBase;
-import com.github.mikephil.charting.components.Description;
-import com.github.mikephil.charting.components.XAxis;
-import com.github.mikephil.charting.components.YAxis;
-import com.github.mikephil.charting.data.BarData;
-import com.github.mikephil.charting.data.BarDataSet;
-import com.github.mikephil.charting.data.BarEntry;
-import com.github.mikephil.charting.data.Entry;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
-import com.github.mikephil.charting.formatter.IndexAxisValueFormatter;
-import com.github.mikephil.charting.interfaces.datasets.IBarDataSet;
-import com.google.android.gms.common.ConnectionResult;
-import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.firebase.ml.vision.FirebaseVision;
-import com.google.firebase.ml.vision.face.FirebaseVisionFace;
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetector;
-import com.google.firebase.ml.vision.face.FirebaseVisionFaceDetectorOptions;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 
-import com.naver.maps.geometry.LatLng;
-import com.naver.maps.geometry.LatLngBounds;
-import com.naver.maps.map.CameraPosition;
-import com.naver.maps.map.MapFragment;
-import com.naver.maps.map.NaverMap;
-import com.naver.maps.map.NaverMapSdk;
-import com.naver.maps.map.OnMapReadyCallback;
-import com.naver.maps.map.overlay.InfoWindow;
-import com.naver.maps.map.overlay.Marker;
-import com.naver.maps.map.overlay.OverlayImage;
-import com.naver.maps.map.overlay.PolylineOverlay;
 
 
 import java.io.File;
-import java.io.IOException;
-import java.text.SimpleDateFormat;
+
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Calendar;
-import java.util.Collections;
-import java.util.Date;
+
 import java.util.List;
-import java.util.Locale;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
-import static com.linktag.linkapp.Utils.FaceDetectionScanner.Constants.KEY_CAMERA_PERMISSION_GRANTED;
-import static com.linktag.linkapp.Utils.FaceDetectionScanner.Constants.PERMISSION_REQUEST_CAMERA;
 
 public class Main extends BaseActivity {
     private final int TAB_PAGE_HOME = 0;
-    private final int TAB_PAGE_WORK = 1;
-  //  private final int TAB_PAGE_APPLY = 2;
+    private final int TAB_PAGE_COMMENT = 1;
+    private final int TAB_PAGE_APPLY = 2;
     private final int TAB_PAGE_SETTING = 3;
 
     // Variable
     private CommuteFragment fragmentHome;
     private WorkFragment fragmentWork;
-  //  private ApplyFragment fragmentApply;
+    private ApplyFragment fragmentApply;
     private SettingFragment fragmentSetting;
 
     private BaseViewPager viewPager;
@@ -160,7 +53,7 @@ public class Main extends BaseActivity {
     private BaseHeader header;
     private TextView tvMainHome;
     private TextView tvMainWork;
-    private TextView tvMainApply;
+    private TextView tvMainScan;
     private TextView tvMainSetting;
 
     private BroadcastReceiver mBroadcastLogout = new BroadcastReceiver() {
@@ -193,9 +86,10 @@ public class Main extends BaseActivity {
         tvMainHome = findViewById(R.id.tvMainHome);
         tvMainHome.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_HOME));
         tvMainWork = findViewById(R.id.tvMainWork);
-        tvMainWork.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_WORK));
-//        tvMainApply = findViewById(R.id.tvMainApply);
-//        tvMainApply.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_APPLY));
+        tvMainWork.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_COMMENT));
+        tvMainScan = findViewById(R.id.tvMainScan);
+      //  tvMainScan.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_APPLY));
+        tvMainScan.setOnClickListener(v -> goScan());
         tvMainSetting = findViewById(R.id.tvMainSetting);
         tvMainSetting.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_SETTING));
 
@@ -249,17 +143,17 @@ public class Main extends BaseActivity {
 
         fragmentHome = new CommuteFragment();
         fragmentWork = new WorkFragment();
-    //    fragmentApply = new ApplyFragment();
+        fragmentApply = new ApplyFragment();
         fragmentSetting = new SettingFragment();
 
         fragmentHome.setOnLoadingDialog(callLoadingBar);
         fragmentWork.setOnLoadingDialog(callLoadingBar);
-     //   fragmentApply.setOnLoadingDialog(callLoadingBar);
+        fragmentApply.setOnLoadingDialog(callLoadingBar);
         fragmentSetting.setOnLoadingDialog(callLoadingBar);
 
         mListFragment.add(fragmentHome);
         mListFragment.add(fragmentWork);
-    //    mListFragment.add(fragmentApply);
+        mListFragment.add(fragmentApply);
         mListFragment.add(fragmentSetting);
 
         mViewPagerAdapter = new ViewPagerAdapter(this.getSupportFragmentManager(), mListFragment);
@@ -289,36 +183,35 @@ public class Main extends BaseActivity {
     private void setTag() {
         tvMainHome.setSelected(false);
         tvMainWork.setSelected(false);
-    //    tvMainApply.setSelected(false);
+        tvMainScan.setSelected(false);
         tvMainSetting.setSelected(false);
 
         switch (viewPager.getCurrentItem()) {
             case TAB_PAGE_HOME:
                 tvMainHome.setSelected(true);
-                header.tvHeaderTitle.setText("스캔");
-                header.btnHeaderRight1.setVisibility(View.VISIBLE);
+                header.tvHeaderTitle.setText(R.string.home_01);
+                header.btnHeaderRight1.setVisibility(View.GONE);
                 header.btnHeaderText.setVisibility(View.GONE);
                 break;
-            case TAB_PAGE_WORK:
+            case TAB_PAGE_COMMENT:
                 tvMainWork.setSelected(true);
-                header.tvHeaderTitle.setText("대시보드");
+                header.tvHeaderTitle.setText(R.string.home_02);
                 header.btnHeaderRight1.setVisibility(View.GONE);
                 header.btnHeaderText.setVisibility(View.GONE);
 
-                if(fragmentWork != null && fragmentWork.getContext() != null)
-                    fragmentWork.requestCMT_SELECT();
+//                if(fragmentWork != null && fragmentWork.getContext() != null)
+//                    fragmentWork.requestCMT_SELECT();
                 break;
-//            case TAB_PAGE_APPLY:
-//                tvMainApply.setSelected(true);
-//                header.tvHeaderTitle.setText("연차/연장");
-//                header.btnHeaderRight1.setVisibility(View.GONE);
-//                header.btnHeaderText.setText("신청");
-//                header.btnHeaderText.setVisibility(View.VISIBLE);
-
- //               break;
+            case TAB_PAGE_APPLY:
+                tvMainScan.setSelected(true);
+                header.tvHeaderTitle.setText(R.string.home_03);
+                header.btnHeaderRight1.setVisibility(View.GONE);
+                header.btnHeaderText.setText("신청");
+                header.btnHeaderText.setVisibility(View.GONE);
+                break;
             case TAB_PAGE_SETTING:
                 tvMainSetting.setSelected(true);
-                header.tvHeaderTitle.setText("설정");
+                header.tvHeaderTitle.setText(R.string.home_04);
                 header.btnHeaderRight1.setVisibility(View.GONE);
                 header.btnHeaderText.setVisibility(View.GONE);
                 break;
@@ -370,9 +263,10 @@ public class Main extends BaseActivity {
 
                 if (result.getFormatName() != null)
                 {
-                    String qrData = result.getContents();
-                    fragmentHome.setScan(qrData);
+//                    String qrData = result.getContents();
+//                    fragmentHome.setScan(qrData);
 
+                    Toast.makeText(this, "Scanned: " + result.getContents(), Toast.LENGTH_LONG).show();
                 }
 
 

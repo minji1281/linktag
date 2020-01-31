@@ -6,21 +6,24 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.value_object.LED_VO;
+import com.linktag.linkapp.value_object.DSH_VO;
 import com.linktag.base.util.ClsDateTime;
+
 
 import java.util.ArrayList;
 
 public class WorkStateAdapter extends BaseAdapter {
     private Context mContext;
-    private ArrayList<LED_VO> mList;
+    private ArrayList<DSH_VO> mList;
     private LayoutInflater mInflater;
 
-    public WorkStateAdapter(Context context, ArrayList<LED_VO> list) {
+    public WorkStateAdapter(Context context, ArrayList<DSH_VO> list) {
         this.mContext = context;
         this.mList = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -49,15 +52,25 @@ public class WorkStateAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.listitem_work_record, parent, false);
 
             viewHolder = new ViewHolder();
-            viewHolder.imgUserPhoto = convertView.findViewById(R.id.imgUserPhoto);
+          //  viewHolder.imgUserPhoto = convertView.findViewById(R.id.imgUserPhoto);
             if (Build.VERSION.SDK_INT >= 21) {
-                viewHolder.imgUserPhoto.setClipToOutline(true);
+            //    viewHolder.imgUserPhoto.setClipToOutline(true);
             }
 
             viewHolder.tvUserName = convertView.findViewById(R.id.tvUserName);
             viewHolder.tvWorkType = convertView.findViewById(R.id.tvWorkType);
             viewHolder.tvWorkTime = convertView.findViewById(R.id.tvWorkTime);
+            viewHolder.tvWorkDate = convertView.findViewById(R.id.tvWorkDate);
             viewHolder.tvWorkState = convertView.findViewById(R.id.tvWorkState);
+            viewHolder.hidd_gubun= convertView.findViewById(R.id.hidd_gubun);
+            viewHolder.btnMove = convertView.findViewById(R.id.btnMove);
+            viewHolder.btnMove.setOnClickListener(v -> test(viewHolder.hidd_gubun.getText().toString()));
+
+
+
+
+
+
 
             convertView.setTag(viewHolder);
         } else {
@@ -70,11 +83,22 @@ public class WorkStateAdapter extends BaseAdapter {
 //                .error(R.drawable.main_profile_no_image)
 //                .into(viewHolder.imgUserPhoto);
 
-        viewHolder.tvUserName.setText(mList.get(position).LED_04_NM);
-        viewHolder.tvWorkType.setText(mList.get(position).CDO_06_NM + "  " + mList.get(position).CDO_07_NM);
-        viewHolder.tvWorkTime.setText(ClsDateTime.ConvertStringBuffer(mList.get(position).LED_07, ":", 2) + " - " +
-                                      ClsDateTime.ConvertStringBuffer(mList.get(position).LED_08, ":", 2));
-        viewHolder.tvWorkState.setText(mList.get(position).STAT);
+        if(mList.get(position).DSH_GB.equals("BRD") ){viewHolder.tvUserName.setText(R.string.dash_01); viewHolder.hidd_gubun.setText("BRD");}
+        else if(mList.get(position).DSH_GB.equals("NOT") ){viewHolder.tvUserName.setText(R.string.dash_02); viewHolder.hidd_gubun.setText("NOT"); }
+     //   viewHolder.tvUserName.setText(mList.get(position).DSH_01);
+
+        if(mList.get(position).DSH_97.equals("") ){viewHolder.tvWorkType.setText("");}
+        else {viewHolder.tvWorkType.setText(mList.get(position).DSH_97);}
+
+        if(mList.get(position).DSH_06.equals("") ){viewHolder.tvWorkDate.setText("");}
+        else {viewHolder.tvWorkDate.setText(mList.get(position).DSH_06.substring(0,4)+"-"+mList.get(position).DSH_06.substring(4,6)+"-"+mList.get(position).DSH_06.substring(6,8));}
+
+
+        if(mList.get(position).DSH_09.equals("") ){viewHolder.tvWorkTime.setText("0");}
+        else {viewHolder.tvWorkTime.setText(mList.get(position).DSH_09);}
+//        viewHolder.tvWorkType.setText(mList.get(position).DSH_04);
+//        viewHolder.tvWorkTime.setText(mList.get(position).DSH_06);
+//        viewHolder.tvWorkState.setText(mList.get(position).DSH_97);
 
         /*
         String strWorkType = "시급직";
@@ -92,15 +116,24 @@ public class WorkStateAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void updateData(ArrayList<LED_VO> list) {
+    public void updateData(ArrayList<DSH_VO> list) {
         mList = list;
     }
 
+    private void test(String gubun){
+
+        Toast.makeText(mContext,gubun, Toast.LENGTH_SHORT).show();
+    }
+
+
     static class ViewHolder {
-        ImageView imgUserPhoto;
+      //  ImageView imgUserPhoto;
         TextView tvUserName;
+        TextView tvWorkDate;
         TextView tvWorkType;
         TextView tvWorkTime;
         TextView tvWorkState;
+        TextView hidd_gubun;
+        ImageButton btnMove;
     }
 }

@@ -8,12 +8,18 @@
     android:orientation="vertical"
     tools:context=".ui.main.Main">
 
+<!--    <com.linktag.base.base_header.BaseHeader-->
+<!--        android:id="@+id/header"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        app:btn_right1_visibility="gone"-->
+<!--        app:btn_right1_src="@drawable/main_scan"-->
+<!--        app:btn_left_visibility="gone"/>-->
+
     <com.linktag.base.base_header.BaseHeader
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:btn_right1_visibility="gone"
-        app:btn_right1_src="@drawable/main_scan"
         app:btn_left_visibility="gone"/>
 
     <com.linktag.base.base_view_pager.BaseViewPager
@@ -41,7 +47,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/selector_main_home"
             android:gravity="center"
-            android:text="스캔"
+            android:text="@string/home_01"
             android:textColor="@drawable/selector_main_tab_text"
             android:textSize="@dimen/text_small" />
 
@@ -52,21 +58,21 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/selector_main_work"
             android:gravity="center"
-            android:text="대시보드"
+            android:text="@string/home_02"
             android:textColor="@drawable/selector_main_tab_text"
             android:textSize="@dimen/text_small" />
 
         <TextView
-            android:id="@+id/tvMainApply"
+            android:id="@+id/tvMainScan"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:drawableTop="@drawable/selector_main_apply"
+            android:drawableTop="@drawable/selector_main_scan"
             android:gravity="center"
-            android:text="연차/연장"
+            android:text="@string/home_03"
             android:textColor="@drawable/selector_main_tab_text"
-            android:visibility="gone"
             android:textSize="@dimen/text_small" />
+
 
         <TextView
             android:id="@+id/tvMainSetting"
@@ -75,7 +81,7 @@
             android:layout_weight="1"
             android:drawableTop="@drawable/selector_main_setting"
             android:gravity="center"
-            android:text="설정"
+            android:text="@string/home_04"
             android:textColor="@drawable/selector_main_tab_text"
             android:textSize="@dimen/text_small" />
     </LinearLayout>

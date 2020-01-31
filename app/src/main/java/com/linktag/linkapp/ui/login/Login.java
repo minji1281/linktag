@@ -19,7 +19,6 @@ import android.widget.Toast;
 
 import com.linktag.linkapp.ui.sign_up.SignUp;
 import com.linktag.linkapp.model.LOGIN_Model;
-import com.linktag.linkapp.ui.bus.BusSelectMain;
 import com.linktag.linkapp.value_object.LoginVO;
 import com.linktag.base.linkapp;
 import com.linktag.base.base_activity.BaseActivity;
@@ -145,29 +144,29 @@ public class Login extends BaseActivity {
     }
 
     private void alertTest(){
-        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-
-        builder.setTitle("매장 선택");
-        builder.setMessage("최근에 선택한 가나다 매장으로 진행하시겠습니까?");
-        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(mContext, "Yes clicked", Toast.LENGTH_LONG).show();
-            }
-        });
-        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(mContext, "No clicked", Toast.LENGTH_LONG).show();
-            }
-        });
-        builder.setNeutralButton("예(한달간 표시안함)", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                Toast.makeText(mContext, "test", Toast.LENGTH_LONG).show();
-            }
-        });
-        builder.create().show();
+//        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+//
+//        builder.setTitle("매장 선택");
+//        builder.setMessage("최근에 선택한 가나다 매장으로 진행하시겠습니까?");
+//        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(mContext, "Yes clicked", Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(mContext, "No clicked", Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        builder.setNeutralButton("예(한달간 표시안함)", new DialogInterface.OnClickListener() {
+//            @Override
+//            public void onClick(DialogInterface dialog, int which) {
+//                Toast.makeText(mContext, "test", Toast.LENGTH_LONG).show();
+//            }
+//        });
+//        builder.create().show();
     }
 
     /**

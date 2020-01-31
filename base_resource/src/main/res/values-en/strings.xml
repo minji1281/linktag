@@ -10,6 +10,7 @@
     <!--회원가입-->
     <string name="sign_up_0">Sign Up</string>
     <string name="sign_up_1">Forgot your ID &amp; PASSWORD</string>
+    <string name="sign_up_2">Sign up is complete. Please log in again.</string>
 
     <string name="login_0">E-mail not found.</string>
     <string name="login_1">Passwords do not match.</string>
@@ -33,6 +34,26 @@
     <string name="commute_11">Already traveled.</string>
     <string name="commute_12">Training has already been processed.</string>
 
+    <!-- 홈 -->
+
+    <string name="home_01">HOME</string>
+    <string name="home_02">COMMENT</string>
+    <string name="home_03">SCAN</string>
+    <string name="home_04">SETTING</string>
+
+    <!-- 대쉬보드 -->
+    <string name="dash_01">NOTICE</string>
+    <string name="dash_02">BOARD</string>
+    <string name="dash_03">You have no recent posts</string>
+    <string name="dash_04">Write</string>
+    <string name="dash_05">Cancel</string>
+    <string name="dash_06">Save</string>
+    <string name="dash_07">Comment</string>
+    <string name="dash_08">Subject</string>
+    <string name="dash_09">Contents</string>
+    <string name="dash_10">Please enter a subject line.</string>
+    <string name="dash_11">Please enter the content.</string>
+
     <!-- 로그인 설명 -->
     <string name="title_name">Cloud platform</string>
     <string name="login_hint1">Enter your mobile number</string>
@@ -40,5 +61,6 @@
     <string name="login_hint3">Save ID</string>
     <string name="login_hint4">Auto-Login</string>
     <string name="login_btn1">Login</string>
+    <string name="dash_12">Delete</string>
 
 </resources>
