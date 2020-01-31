@@ -28,4 +28,10 @@
 
     <color name="colorDefault">#62b7ee</color>
     <color name="colorTextGray">#9dc8c8</color>
+
+    <color name="List1">#5E5E5E</color>
+    <color name="List2">#9E9E9E</color>
+    <color name="List3">#5E5E5E</color>
+    <color name="colorListBack">#EFF6FB</color>
+    <color name="detail_button_background">#2ECC70</color>
 </resources>

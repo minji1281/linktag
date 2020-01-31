@@ -134,6 +134,18 @@
             android:name=".ui.jdm_class.DetailJdm"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
+
+        <!-- 물주기 -->
+        <activity
+            android:name=".ui.pot.PotList"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"
+            android:excludeFromRecents="true"/>
+        <activity
+            android:name=".ui.pot.PotDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"
+            android:excludeFromRecents="true"/>
     </application>
 
 </manifest>

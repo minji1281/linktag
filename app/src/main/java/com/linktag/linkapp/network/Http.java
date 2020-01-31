@@ -3,6 +3,7 @@ package com.linktag.linkapp.network;
 import com.linktag.linkapp.model.CFB_Model;
 import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.model.OCM_Model;
+import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.model.WTH_Model;
 import com.linktag.linkapp.model.RUTC_Model;
 import com.linktag.linkapp.model.RTSC_Model;
@@ -358,6 +359,47 @@ public class Http extends HttpBaseService {
                 @Field(value = "WTH_08") float WTH_08,
                 @Field(value = "WTH_09") float WTH_09
 
+        );
+
+    }
+
+
+    //--------------------------------------------------
+    // 물주기
+    //--------------------------------------------------
+    public static IPOT pot(TYPE type) {
+        return (IPOT) retrofit(IPOT.class, type);
+    }
+
+    public interface IPOT {
+
+        @FormUrlEncoded
+        @POST(BaseConst.POT_SELECT)
+        Call<POT_Model> POT_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "POT_ID") String POT_ID,     // 컨테이너
+                @Field(value = "POT_01") String POT_01,     // 코드번호
+                @Field(value = "OCM_01") String OCM_01      // 사용자 아이디
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.POT_CONTROL)
+        Call<POT_Model> POT_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "POT_ID") String POT_ID,
+                @Field(value = "POT_01") String POT_01,
+                @Field(value = "POT_02") String POT_02,
+                @Field(value = "POT_04") int POT_04,
+
+                @Field(value = "POT_05") String POT_05,
+                @Field(value = "POT_06") String POT_06,
+                @Field(value = "POT_81") String POT_81,
+                @Field(value = "POT_96") String POT_96,
+                @Field(value = "POT_98") String POT_98,
+
+                @Field(value = "ARM_03") String ARM_03
         );
 
     }

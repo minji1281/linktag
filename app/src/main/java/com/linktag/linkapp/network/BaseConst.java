@@ -47,4 +47,8 @@ public class BaseConst {
     public static final String URL_JDM_SELECT = "{host}/Mobile/JDM_SELECT";
     public static final String URL_JDM_CONTROL = "{host}/Mobile/JDM_CONTROL";
 
+    //물주기
+    public static final String POT_SELECT = "{host}/Mobile/POT_SELECT";
+    public static final String POT_CONTROL = "{host}/Mobile/POT_CONTROL";
+
 }
