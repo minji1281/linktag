@@ -1,6 +1,8 @@
 package com.linktag.linkapp.ui.pot;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -95,6 +97,8 @@ public class PotList extends BaseActivity {
                 intent.putExtra("ARM_03", mList.get(position).ARM_03);
                 intent.putExtra("POT_96", mList.get(position).POT_96);
                 intent.putExtra("POT_06", mList.get(position).POT_06);
+                intent.putExtra("POT_01", mList.get(position).POT_01);
+                intent.putExtra("POT_97", mList.get(position).POT_97);
                 mContext.startActivity(intent);
             }
         });
@@ -105,15 +109,17 @@ public class PotList extends BaseActivity {
     @Override
     protected void initialize() {
         mList = new ArrayList<>();
-        mAdapter = new PotAdapter(mContext, mList);
+        mAdapter = new PotAdapter(mContext, mList); //, this
         listView.setAdapter(mAdapter);
 
-        requestPOT_SELECT();
+        //requestPOT_SELECT();
     }
 
     @Override
     protected void onResume(){
         super.onResume();
+
+        requestPOT_SELECT();
     }
 
     private void requestPOT_SELECT(){
@@ -174,5 +180,49 @@ public class PotList extends BaseActivity {
             }
         });
     }
+
+//    @Override
+//    public void onListAlarmClick(String btnName, int position) {
+//        String btn1 = "APPROVE";
+//        String btn2 = "RETURN";
+//        LED_VO data = mList.get(position);
+//        String nm = data.LED_05.equals("1") ? "연차" : "연장";
+//
+//        if (btnName.equals(btn1)) {
+//            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+//            builder.setMessage("해당 " + nm + "을/를 승인하시겠습니까?");
+//            builder.setPositiveButton("예",
+//                    new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            requestBVA_CONTROL("UPDATE19", data.LED_02, "Y");
+//                        }
+//                    });
+//            builder.setNegativeButton("취소",
+//                    new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    });
+//            builder.show();
+//
+//        } else if (btnName.equals(btn2)){
+//            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+//            builder.setMessage("해당 " + nm + "을/를 반려하시겠습니까?");
+//            builder.setPositiveButton("예",
+//                    new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//                            requestBVA_CONTROL("UPDATE19", data.LED_02, "R");
+//                        }
+//                    });
+//            builder.setNegativeButton("취소",
+//                    new DialogInterface.OnClickListener() {
+//                        public void onClick(DialogInterface dialog, int which) {
+//
+//                        }
+//                    });
+//            builder.show();
+//        }
+//
+//    }
 
 }

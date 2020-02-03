@@ -22,4 +22,6 @@ public class PotVO implements Serializable {
     public String DDAY;       // 다음 알림시간까지 D-day
     public String ARM_03;       // 해당 사용자의 알림여부
 
+    public boolean Validation;
+
 }

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
+    android:background="@color/colorListBack"
     tools:context=".ui.pot.PotList">
 
     <com.linktag.base.base_header.BaseHeader
@@ -16,7 +17,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/colorListBack"
         android:orientation="vertical">
 
         <ListView
