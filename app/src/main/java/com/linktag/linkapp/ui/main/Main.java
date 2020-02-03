@@ -21,6 +21,7 @@ import com.linktag.base.base_view_pager.ViewPagerAdapter;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.ui.login.Login;
+import com.linktag.linkapp.ui.menu.Menu;
 import com.linktag.linkapp.ui.scanner.ScanBarcode;
 import com.linktag.linkapp.ui.settings_main.SettingFragment;
 import com.linktag.linkapp.ui.work_place_search.FindWorkPlace;
@@ -81,7 +82,9 @@ public class Main extends BaseActivity {
     @Override
     protected void initLayout() {
         header = findViewById(R.id.header);
-        header.btnHeaderRight1.setOnClickListener(v -> goScan());
+        header.btnHeaderRight3.setOnClickListener(v -> goMenu());
+
+        //header.btnHeaderRight1.setOnClickListener(v -> goScan());
 
         tvMainHome = findViewById(R.id.tvMainHome);
         tvMainHome.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_HOME));
@@ -202,12 +205,14 @@ public class Main extends BaseActivity {
                 tvMainHome.setSelected(true);
                 header.tvHeaderTitle.setText(R.string.home_01);
                 header.btnHeaderRight1.setVisibility(View.GONE);
+                header.btnHeaderRight3.setVisibility(View.VISIBLE);
                 header.btnHeaderText.setVisibility(View.GONE);
                 break;
             case TAB_PAGE_COMMENT:
                 tvMainWork.setSelected(true);
                 header.tvHeaderTitle.setText(R.string.home_02);
                 header.btnHeaderRight1.setVisibility(View.GONE);
+                header.btnHeaderRight3.setVisibility(View.VISIBLE);
                 header.btnHeaderText.setVisibility(View.GONE);
 
 //                if(fragmentWork != null && fragmentWork.getContext() != null)
@@ -217,6 +222,7 @@ public class Main extends BaseActivity {
                 tvMainScan.setSelected(true);
                 header.tvHeaderTitle.setText(R.string.home_03);
                 header.btnHeaderRight1.setVisibility(View.GONE);
+                header.btnHeaderRight3.setVisibility(View.VISIBLE);
                 header.btnHeaderText.setText("신청");
                 header.btnHeaderText.setVisibility(View.GONE);
                 break;
@@ -224,6 +230,7 @@ public class Main extends BaseActivity {
                 tvMainSetting.setSelected(true);
                 header.tvHeaderTitle.setText(R.string.home_04);
                 header.btnHeaderRight1.setVisibility(View.GONE);
+                header.btnHeaderRight3.setVisibility(View.VISIBLE);
                 header.btnHeaderText.setVisibility(View.GONE);
                 break;
 
@@ -246,6 +253,14 @@ public class Main extends BaseActivity {
         integrator.setCaptureActivity(ScanBarcode.class);
         integrator.setOrientationLocked(false);
         integrator.initiateScan();
+    }
+
+    /**
+     * 메뉴 화면 이동
+     */
+    private void goMenu(){
+        Intent intent = new Intent(mContext, Menu.class);
+        mContext.startActivity(intent);
     }
 
     /**
