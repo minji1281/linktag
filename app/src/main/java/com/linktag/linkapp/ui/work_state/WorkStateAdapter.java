@@ -12,7 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.value_object.DSH_VO;
+import com.linktag.linkapp.value_object.CMT_VO;
 import com.linktag.base.util.ClsDateTime;
 
 
@@ -20,10 +20,10 @@ import java.util.ArrayList;
 
 public class WorkStateAdapter extends BaseAdapter {
     private Context mContext;
-    private ArrayList<DSH_VO> mList;
+    private ArrayList<CMT_VO> mList;
     private LayoutInflater mInflater;
 
-    public WorkStateAdapter(Context context, ArrayList<DSH_VO> list) {
+    public WorkStateAdapter(Context context, ArrayList<CMT_VO> list) {
         this.mContext = context;
         this.mList = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -83,19 +83,22 @@ public class WorkStateAdapter extends BaseAdapter {
 //                .error(R.drawable.main_profile_no_image)
 //                .into(viewHolder.imgUserPhoto);
 
-        if(mList.get(position).DSH_GB.equals("BRD") ){viewHolder.tvUserName.setText(R.string.dash_01); viewHolder.hidd_gubun.setText("BRD");}
-        else if(mList.get(position).DSH_GB.equals("NOT") ){viewHolder.tvUserName.setText(R.string.dash_02); viewHolder.hidd_gubun.setText("NOT"); }
+        if(mList.get(position).CMT_GB.equals("BRD") ){viewHolder.tvUserName.setText(R.string.dash_01); viewHolder.hidd_gubun.setText("BRD");}
+        else if(mList.get(position).CMT_GB.equals("NOT") ){viewHolder.tvUserName.setText(R.string.dash_02); viewHolder.hidd_gubun.setText("NOT"); }
      //   viewHolder.tvUserName.setText(mList.get(position).DSH_01);
 
-        if(mList.get(position).DSH_97.equals("") ){viewHolder.tvWorkType.setText("");}
-        else {viewHolder.tvWorkType.setText(mList.get(position).DSH_97);}
+        if(mList.get(position).CMT_03.equals("") ){viewHolder.tvWorkType.setText("");}
+        else {viewHolder.tvWorkType.setText(mList.get(position).CMT_03);}
 
-        if(mList.get(position).DSH_06.equals("") ){viewHolder.tvWorkDate.setText("");}
-        else {viewHolder.tvWorkDate.setText(mList.get(position).DSH_06.substring(0,4)+"-"+mList.get(position).DSH_06.substring(4,6)+"-"+mList.get(position).DSH_06.substring(6,8));}
+        if(mList.get(position).CMT_02.equals("") ){viewHolder.tvWorkDate.setText("");}
+        else {viewHolder.tvWorkDate.setText(mList.get(position).CMT_02);}
+
+//        if(mList.get(position).DSH_06.equals("") ){viewHolder.tvWorkDate.setText("");}
+//        else {viewHolder.tvWorkDate.setText(mList.get(position).DSH_06.substring(0,4)+"-"+mList.get(position).DSH_06.substring(4,6)+"-"+mList.get(position).DSH_06.substring(6,8));}
 
 
-        if(mList.get(position).DSH_09.equals("") ){viewHolder.tvWorkTime.setText("0");}
-        else {viewHolder.tvWorkTime.setText(mList.get(position).DSH_09);}
+        if(mList.get(position).CMT_01.equals("") ){viewHolder.tvWorkTime.setText("0");}
+        else {viewHolder.tvWorkTime.setText(mList.get(position).CMT_01);}
 //        viewHolder.tvWorkType.setText(mList.get(position).DSH_04);
 //        viewHolder.tvWorkTime.setText(mList.get(position).DSH_06);
 //        viewHolder.tvWorkState.setText(mList.get(position).DSH_97);
@@ -116,7 +119,7 @@ public class WorkStateAdapter extends BaseAdapter {
         return convertView;
     }
 
-    public void updateData(ArrayList<DSH_VO> list) {
+    public void updateData(ArrayList<CMT_VO> list) {
         mList = list;
     }
 

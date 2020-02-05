@@ -34,10 +34,17 @@ public class BaseConst {
 
     //대쉬보드
     public static final String URL_DSH_SELECT = "{host}/Mobile/DSH_SELECT";
+    public static final String URL_CMT_SELECT = "{host}/Mobile/CMT_SELECT";
     public static final String URL_BRD_SELECT = "{host}/Mobile/BRD_SELECT";
     public static final String URL_BRD_CONTROL = "{host}/Mobile/BRD_CONTROL";
     public static final String URL_NOT_SELECT = "{host}/Mobile/NOT_SELECT";
     public static final String URL_NOT_CONTROL = "{host}/Mobile/NOT_CONTROL";
+
+    public static final String URL_BRC_SELECT = "{host}/Mobile/BRC_SELECT";
+    public static final String URL_BRC_CONTROL = "{host}/Mobile/BRC_CONTROL";
+
+    public static final String URL_NOC_SELECT = "{host}/Mobile/NOC_SELECT";
+    public static final String URL_NOC_CONTROL = "{host}/Mobile/NOC_CONTROL";
 
 //    public static final String URL_CMT_CONTROL = "{host}/Mobile/CMT_CONTROL";
 //    public static final String URL_CMTL_CONTROL = "{host}/Mobile/CMTL_CONTROL";

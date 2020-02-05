@@ -47,14 +47,6 @@
     <string name="dash_01">공지사항</string>
     <string name="dash_02">자유게시판</string>
     <string name="dash_03">최근 작성한 글이 없습니다.</string>
-
-    <!-- 로그인 설명 -->
-    <string name="title_name">클라우드 플랫폼</string>
-    <string name="login_hint1">이메일주소 입력</string>
-    <string name="login_hint2">비밀번호 입력</string>
-    <string name="login_hint3">아이디저장</string>
-    <string name="login_hint4">자동로그인</string>
-    <string name="login_btn1">로그인</string>
     <string name="dash_04">작성</string>
     <string name="dash_05">취소</string>
     <string name="dash_06">저장</string>
@@ -64,5 +56,19 @@
     <string name="dash_10">제목을 입력해주세요.</string>
     <string name="dash_11">내용을 입력해주세요.</string>
     <string name="dash_12">삭제</string>
+    <string name="dash_13">[공지사항]</string>
+    <string name="dash_14">[자유게시판]</string>
+    <string name="dash_15">[댓글]</string>
+    <string name="dash_16">등록</string>
+    <string name="dash_17">댓글을 남겨보세요.</string>
+
+    <!-- 로그인 설명 -->
+    <string name="title_name">클라우드 플랫폼</string>
+    <string name="login_hint1">이메일주소 입력</string>
+    <string name="login_hint2">비밀번호 입력</string>
+    <string name="login_hint3">아이디저장</string>
+    <string name="login_hint4">자동로그인</string>
+    <string name="login_btn1">로그인</string>
+
 
 </resources>

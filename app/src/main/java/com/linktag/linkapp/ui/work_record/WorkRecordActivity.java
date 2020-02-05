@@ -40,6 +40,7 @@ public class WorkRecordActivity extends BaseActivity {
     SwipeRefreshLayout swipeRefresh;
     ImageView imgUserPhoto;
     TextView tvUserName;
+    TextView tvUserSub;
     TextView tvWorkType;
     TextView tvWorkTime;
     TextView tvWorkDate;
