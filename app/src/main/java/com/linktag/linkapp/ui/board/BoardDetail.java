@@ -94,7 +94,7 @@ public class BoardDetail extends BaseActivity {
         if(getIntent().getStringExtra("DSH_01").equals("")){ getDSH_01 = "";}else{getDSH_01 = getIntent().getStringExtra("DSH_01");}
         if(getIntent().getStringExtra("DSH_04").equals("")){ getDSH_04 = "";}else{getDSH_04 = getIntent().getStringExtra("DSH_04");}
         if(getIntent().getStringExtra("DSH_05").equals("")){ getDSH_05 = "";}else{getDSH_05 = getIntent().getStringExtra("DSH_05");}
-        if(getIntent().getStringExtra("DSH_09").equals("")){ getDSH_09 = "";}else{getDSH_09 = getIntent().getStringExtra("DSH_09");}
+        if(getIntent().getStringExtra("DSH_09").equals("")){ getDSH_09 = "0";}else{getDSH_09 = getIntent().getStringExtra("DSH_09");}
 
         mBoard1 = this;
 

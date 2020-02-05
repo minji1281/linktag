@@ -67,8 +67,8 @@ public class BoardNOCAdapter extends BaseAdapter {
         vh.tvWorkType.setText(mList.get(position).NOC_03); // 내용
         vh.hidd_gubun.setText("NOC");
 
-        if(mList.get(position).NOC_01.equals("") ){vh.hidd_CMT_01.setText("");}
-        else {vh.hidd_CMT_01.setText(mList.get(position).NOC_01);}
+        if(mList.get(position).NOC_02.equals("") ){vh.hidd_CMT_01.setText("");}
+        else {vh.hidd_CMT_01.setText(mList.get(position).NOC_02);}
 
 
 //        vh.tvWorkTime.setText(mList.get(position).NOC_03);
@@ -83,13 +83,13 @@ public class BoardNOCAdapter extends BaseAdapter {
 
     public void updateData(ArrayList<NOC_VO> list){ mList = list;}
 
-    private void test(String gubun, String CMT_01){
+    private void test(String gubun, String CMT_02){
 //        Intent intent = new Intent(mContext, BoardMain.class);
 //        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
 //        intent.putExtra("CMT_GB", gubun);
 //        mContext.startActivity(intent);
 //        Toast.makeText(mContext,gubun, Toast.LENGTH_SHORT).show();
-        ((BoardPopup)BoardPopup.mContext5).Onsubmit(gubun,CMT_01);
+        ((BoardPopup)BoardPopup.mContext5).Onsubmit(gubun,CMT_02);
 
     }
 

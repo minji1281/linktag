@@ -147,7 +147,7 @@ public class BoardMain extends BaseActivity {
             intent.putExtra("DSH_01", "");
             intent.putExtra("DSH_04", "");
             intent.putExtra("DSH_05", "");
-            intent.putExtra("DSH_09", "");
+            intent.putExtra("DSH_09", "0");
             intent.putExtra("DSH_GB", GUBUN);
 
             mContext.startActivity(intent);
