@@ -90,6 +90,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
         <activity android:name=".ui.scanner.ScanBarcode" />
+        <activity
+            android:name=".ui.menu.Menu"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser" />
 
         <!-- ================================== -->
 

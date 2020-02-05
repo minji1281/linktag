@@ -36,6 +36,11 @@
             <enum name="invisible" value="0x00000004" />
             <enum name="gone" value="0x00000008" />
         </attr>
+        <attr name="btn_right3_visibility" format="enum">
+            <enum name="visible" value="0x00000000" />
+            <enum name="invisible" value="0x00000004" />
+            <enum name="gone" value="0x00000008" />
+        </attr>
         <attr name="btn_left_src" format="reference" />
         <attr name="btn_right1_src" format="reference" />
         <attr name="btn_right2_src" format="reference" />
