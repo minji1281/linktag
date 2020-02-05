@@ -274,6 +274,27 @@ public class Http extends HttpBaseService {
 
         );
 
+        @FormUrlEncoded
+        @POST(BaseConst.CTD_CONTROL)
+        Call<CTD_Model> CTD_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "CTD_01") String CTD_01,
+                @Field(value = "CTD_02") String CTD_02,
+                @Field(value = "CTD_03") String CTD_03,
+                @Field(value = "CTD_04") String CTD_04,
+                @Field(value = "CTD_05") String CTD_05,
+                @Field(value = "CTD_06") double CTD_06,
+                @Field(value = "CTD_07") String CTD_07,
+                @Field(value = "CTD_08") String CTD_08,
+                @Field(value = "CTD_09") String CTD_09,
+                @Field(value = "CTD_10") String CTD_10,
+                @Field(value = "CTD_97") String CTD_97,
+                @Field(value = "CTD_98") String CTD_98
+        );
+
+
+
     }
 
     //--------------------------------------------------
