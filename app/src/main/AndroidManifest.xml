@@ -73,6 +73,10 @@
             android:name=".ui.board.BoardDetail"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
+        <!-- 팝업 Activity -->
+        <activity android:name=".ui.board.BoardPopup"
+            android:theme="@android:style/Theme.Dialog"
+            android:excludeFromRecents="true"/>
         <activity
             android:name=".ui.login.Login"
             android:screenOrientation="portrait"

@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:layout_margin="10dp"
     android:orientation="vertical"
     android:descendantFocusability="blocksDescendants"
     tools:context=".ui.board.BoardMain">
@@ -78,12 +77,32 @@
         </LinearLayout>
     </LinearLayout>
 
-    <ListView
-        android:id="@+id/listView"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        tools:listitem="@layout/listitem_dsh_record" />
+        android:layout_height="wrap_content"
+        android:orientation="horizontal">
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:foregroundGravity="center"
+            tools:listitem="@layout/listitem_brd_record" />
+        <LinearLayout
+            android:id="@+id/linearLayout1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
 
+            android:orientation="vertical" android:layout_alignParentRight="true" android:layout_alignParentBottom="true">
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/plus"
+                android:layout_marginBottom="10dp"
+                android:layout_marginEnd="10dp"
+                android:onClick="New"/>
+        </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>

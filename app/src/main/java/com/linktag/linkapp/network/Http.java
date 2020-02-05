@@ -1,7 +1,10 @@
 package com.linktag.linkapp.network;
 
+import com.linktag.linkapp.model.BRCModel;
 import com.linktag.linkapp.model.CFB_Model;
+import com.linktag.linkapp.model.CMTModel;
 import com.linktag.linkapp.model.JDMModel;
+import com.linktag.linkapp.model.NOCModel;
 import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.model.WTH_Model;
@@ -174,6 +177,18 @@ public class Http extends HttpBaseService {
         );
 
         @FormUrlEncoded
+        @POST(BaseConst.URL_CMT_SELECT)
+        Call<CMTModel> CMT_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "CMT_ID") String CMT_ID,
+                @Field(value = "CMT_01") String CMT_01,
+                @Field(value = "CMT_02") String CMT_02,
+                @Field(value = "CMT_03") String CMT_03,
+                @Field(value = "CMT_98") String CMT_98
+        );
+
+        @FormUrlEncoded
         @POST(BaseConst.URL_BRD_SELECT)
         Call<BRDModel> BRD_SELECT(
                 @Path(value = "host", encoded = true) String host,
@@ -185,6 +200,8 @@ public class Http extends HttpBaseService {
                 @Field(value = "BRD_04") String BRD_04,
                 @Field(value = "BRD_06") String BRD_06
         );
+
+
 
         @FormUrlEncoded
         @POST(BaseConst.URL_BRD_CONTROL)
@@ -199,6 +216,33 @@ public class Http extends HttpBaseService {
                 @Field(value = "BRD_05") String BRD_05,
                 @Field(value = "BRD_06") String BRD_06,
                 @Field(value = "BRD_98") String BRD_98
+        );
+
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_BRC_SELECT)
+        Call<BRCModel> BRC_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "BRC_ID") String BRC_ID,
+                @Field(value = "BRC_01") String BRC_01,
+                @Field(value = "BRC_02") String BRC_02,
+                @Field(value = "BRC_03") String BRC_03,
+                @Field(value = "BRC_98") String BRC_98
+        );
+
+
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_BRC_CONTROL)
+        Call<BRCModel> BRC_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "BRC_ID") String BRC_ID,
+                @Field(value = "BRC_01") String BRC_01,
+                @Field(value = "BRC_02") String BRC_02,
+                @Field(value = "BRC_03") String BRC_03,
+                @Field(value = "BRC_98") String BRC_98
         );
 
         @FormUrlEncoded
@@ -228,6 +272,37 @@ public class Http extends HttpBaseService {
                 @Field(value = "NOT_06") String NOT_06,
                 @Field(value = "NOT_98") String NOT_98
         );
+
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_NOC_SELECT)
+        Call<NOCModel> NOC_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "NOC_ID") String NOC_ID,
+                @Field(value = "NOC_01") String NOC_01,
+                @Field(value = "NOC_02") String NOC_02,
+                @Field(value = "NOC_03") String NOC_03,
+                @Field(value = "NOC_98") String NOC_98
+        );
+
+
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_NOC_CONTROL)
+        Call<NOCModel> NOC_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "NOC_ID") String NOC_ID,
+                @Field(value = "NOC_01") String NOC_01,
+                @Field(value = "NOC_02") String NOC_02,
+                @Field(value = "NOC_03") String NOC_03,
+                @Field(value = "NOC_98") String NOC_98
+        );
+        
+        
+        
+        
     }
 
 

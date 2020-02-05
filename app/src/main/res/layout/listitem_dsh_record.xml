@@ -29,12 +29,12 @@
             android:layout_marginStart="10dp"
             android:layout_marginEnd="10dp"
             android:layout_marginTop="6dp"
-            android:layout_marginBottom="6dp"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
                 android:orientation="horizontal">
                 <TextView
                     android:id="@+id/tvUserName"
@@ -73,13 +73,14 @@
             <View
                 android:layout_width="wrap_content"
                 android:layout_height="0.3dp"
+                android:layout_marginBottom="5dp"
                 android:background="#4682B4" />
 
             <TextView
                 android:id="@+id/tvWorkType"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="4dp"
+                android:layout_marginBottom="10dp"
                 android:ellipsize="end"
                 android:singleLine="true"
                 android:textSize="@dimen/text_small"
@@ -98,7 +99,7 @@
                     android:ellipsize="end"
                     android:minWidth="80dp"
                     android:singleLine="true"
-                    android:textColor="@color/colorTextGray"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/text_small"
                     tools:text="10:18" />
 
@@ -123,6 +124,7 @@
                     android:singleLine="true"
                     android:textColor="#00BAF7"
                     android:textSize="@dimen/text_normal"
+                    android:visibility="gone"
                     tools:text="근무중" />
             </LinearLayout>
         </LinearLayout>

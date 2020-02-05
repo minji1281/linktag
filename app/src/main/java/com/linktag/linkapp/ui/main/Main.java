@@ -75,7 +75,6 @@ public class Main extends BaseActivity {
 
         initialize();
 
-        checkPwd();
     }
 
     @Override
@@ -88,7 +87,7 @@ public class Main extends BaseActivity {
         tvMainWork = findViewById(R.id.tvMainWork);
         tvMainWork.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_COMMENT));
         tvMainScan = findViewById(R.id.tvMainScan);
-      //  tvMainScan.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_APPLY));
+        tvMainScan.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_APPLY));
         tvMainScan.setOnClickListener(v -> goScan());
         tvMainSetting = findViewById(R.id.tvMainSetting);
         tvMainSetting.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_SETTING));
@@ -214,11 +213,12 @@ public class Main extends BaseActivity {
 //                    fragmentWork.requestCMT_SELECT();
                 break;
             case TAB_PAGE_APPLY:
-                tvMainScan.setSelected(true);
-                header.tvHeaderTitle.setText(R.string.home_03);
-                header.btnHeaderRight1.setVisibility(View.GONE);
-                header.btnHeaderText.setText("신청");
-                header.btnHeaderText.setVisibility(View.GONE);
+//                tvMainScan.setSelected(true);
+//                header.tvHeaderTitle.setText(R.string.home_03);
+//                header.btnHeaderRight1.setVisibility(View.GONE);
+//                header.btnHeaderText.setText("신청");
+//                header.btnHeaderText.setVisibility(View.GONE);
+                goScan();
                 break;
             case TAB_PAGE_SETTING:
                 tvMainSetting.setSelected(true);
