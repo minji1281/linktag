@@ -8,10 +8,6 @@ public class BaseConst {
     //--------------------------------------------------
     public static String URL_HOST = "http://app.linktag.io";
 
-    //--------------------------------------------------
-    // 회원
-    public static final String URL_EMPVIEW = "{host}/Mobile/EMPVIEW";
-
     /**
      * 가입
      */
@@ -21,16 +17,6 @@ public class BaseConst {
     public static final String URL_LOGIN = "{host}/Mobile/M_LOGIN";
 
     public static final String OCM_CONTROL = "{host}/Mobile/OCM_CONTROL";
-
-
-    public static final String CFB_CONTROL = "{host}/Mobile/CFB_CONTROL";
-
-    public static final String WTH_CONTROL = "{host}/Mobile/WTH_CONTROL";
-
-    public static final String RUTC_SELECT = "{host}/Mobile/RUTC_SELECT";
-    public static final String RTSC_SELECT = "{host}/Mobile/RTSC_SELECT";
-
-    public static final String BHM_SELECT = "{host}/Mobile/BHM_SELECT";
 
     //대쉬보드
     public static final String URL_DSH_SELECT = "{host}/Mobile/DSH_SELECT";
@@ -51,6 +37,7 @@ public class BaseConst {
 
     // 메뉴
     public static final String CTD_SELECT = "{host}/Mobile/CTD_SELECT";
+    public static final String CTD_CONTROL = "{host}/Mobile/CTD_CONTROL";
     public static final String SVC_SELECT = "{host}/Mobile/SVC_SELECT";
 
     //장독

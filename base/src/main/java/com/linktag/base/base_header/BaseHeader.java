@@ -99,7 +99,7 @@ public class BaseHeader extends LinearLayout {
         btnHeaderRight2.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_right2_visibility, View.GONE));
 
         // 오른쪽3 버튼 visibility 설정
-        btnHeaderRight3.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_right3_visibility, View.VISIBLE));
+        btnHeaderRight3.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_right3_visibility, View.GONE));
 
         // 오른쪽 텍스트 버튼
         btnHeaderText.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_text_visibility, View.GONE));

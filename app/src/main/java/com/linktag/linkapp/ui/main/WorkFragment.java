@@ -27,8 +27,6 @@ import android.widget.Toast;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.base.util.ClsDateTime;
-import com.linktag.linkapp.API.ClovaFace;
-import com.linktag.linkapp.API.WeatherAPI;
 import com.linktag.base.base_fragment.BaseFragment;
 import com.linktag.linkapp.R;
 import com.linktag.base.util.ClsImage;

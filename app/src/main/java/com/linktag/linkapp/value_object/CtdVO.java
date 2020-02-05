@@ -28,6 +28,8 @@ public class CtdVO implements Serializable {
     public String CTM_01;
     public String CTM_17;
 
+    public String CTN_02;
+
     public String SVC_01;        //
     public String SVC_18;        //
     public String SVC_90;        //

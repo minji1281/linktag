@@ -138,7 +138,7 @@ public class Login extends BaseActivity {
         chkAutoLogin.setChecked(mSettings.Value.AutoLogin);
 
         btnLogin = findViewById(R.id.btnLogin);
-        btnLogin.setEnabled(false);
+        //btnLogin.setEnabled(false);
         btnLogin.setOnClickListener(v -> requestEMPVIEW());
         //btnLogin.setOnClickListener(v -> alertTest());
     }
@@ -239,12 +239,21 @@ public class Login extends BaseActivity {
         // 여기서 <SampleModel> 은 받을 데이터의 형태(Json format)
         Call<LOGIN_Model> call = Http.login(HttpBaseService.TYPE.POST).login(
                 BaseConst.URL_HOST,
-                "LOGIN_BUS",
+                "LOGIN",
                 strPassword,
                 strEmail,
-                "AUB1",     // BUS -> AUB1, SHOP -> AUS1
+                "",     // BUS -> AUB1, SHOP -> AUS1
                 ""
         );
+
+//        Call<LOGIN_Model> call = Http.login(HttpBaseService.TYPE.POST).login(
+//                BaseConst.URL_HOST,
+//                "LOGIN",
+//                strPassword,
+//                strEmail,
+//                "",     // BUS -> AUB1, SHOP -> AUS1
+//                ""
+//        );
 
         // Api 호출 후 response 받을 위치
         call.enqueue(new Callback<LOGIN_Model>() {
@@ -305,46 +314,25 @@ public class Login extends BaseActivity {
      */
     private void setSession(LoginVO loginVO) {
         mUser.Value.CTM_01 = loginVO.CTM_01;
+        mUser.Value.CTM_17 = loginVO.CTM_17;
+        mUser.Value.CTM_19 = loginVO.CTM_19;
+
         mUser.Value.OCP_ID = loginVO.OCP_ID;
-        mUser.Value.CTU_08 = loginVO.CTU_08;
-        mUser.Value.CTU_09 = loginVO.CTU_09;
+        mUser.Value.OCP_01 = loginVO.OCP_01;
 
         mUser.Value.OCM_01 = loginVO.OCM_01;
         mUser.Value.OCM_02 = loginVO.OCM_02;
         mUser.Value.OCM_03 = loginVO.OCM_03;
+        mUser.Value.OCM_03_CHK = loginVO.OCM_03_CHK;
         mUser.Value.OCM_21 = loginVO.OCM_21;
-        mUser.Value.OCM_25 = loginVO.OCM_25;
         mUser.Value.OCM_28 = loginVO.OCM_28;
         mUser.Value.OCM_29 = loginVO.OCM_29;
         mUser.Value.OCM_31 = loginVO.OCM_31;
         mUser.Value.OCM_32 = loginVO.OCM_32;
         mUser.Value.OCM_51 = loginVO.OCM_51;
-        mUser.Value.OCP_01 = loginVO.OCP_01;
-        mUser.Value.OCM_03_CHK = loginVO.OCM_03_CHK;
-        mUser.Value.OCP_ADD= loginVO.OCP_2102;
 
-
-
-
-      //  goStore();
         goMain();
-/*
 
-        if(mUser.Value.CTU_08.equals("")){
-            goStore();
-        } else {
-            if(mUser.Value.CTU_09.equals("")){
-                // alert
-            } else {
-                if(Integer.parseInt(ClsDateTime.getNow("yyyyMMdd")) > Integer.parseInt(mUser.Value.CTU_09)){
-                    // alert
-                } else {
-                    goMain();
-                }
-            }
-        }
-
- */
     }
 
     /**
@@ -389,7 +377,6 @@ public class Login extends BaseActivity {
 
 
         finish();
-
 
     }
 

@@ -31,7 +31,7 @@ public class InterfaceSettings {
             return;
 
         mContext = context;
-        preferences = context.getSharedPreferences("AuasBus", Activity.MODE_PRIVATE);
+        preferences = context.getSharedPreferences("LinkTag", Activity.MODE_PRIVATE);
         editor = preferences.edit();
         Value = new SettingsValue();
         loadSettings();

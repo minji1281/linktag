@@ -20,6 +20,7 @@ import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.main.JDMMain;
 import com.linktag.linkapp.value_object.CtdVO;
 
 import java.util.ArrayList;
@@ -86,7 +87,7 @@ public class ServiceFragment extends BaseFragment implements ServiceAdapter.Serv
 
     public void requestCTD_SELECT() {
         // 인터넷 연결 여부 확인
-        if(!ClsNetworkCheck.isConnectable(mContext )){
+        if(!ClsNetworkCheck.isConnectable(mContext)){
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }
@@ -96,7 +97,7 @@ public class ServiceFragment extends BaseFragment implements ServiceAdapter.Serv
         Call<CTD_Model> call = Http.ctd(HttpBaseService.TYPE.POST).CTD_SELECT(
                 BaseConst.URL_HOST,
                 "LIST_SERVICE",
-                "C200100001",
+                mUser.Value.CTM_01,
                 "",
                 ""
         );
@@ -141,9 +142,16 @@ public class ServiceFragment extends BaseFragment implements ServiceAdapter.Serv
 
     @Override
     public void onGridBtnClick(int position) {
-        mActivity.finish();
+        //mActivity.finish();
 
         // 누르면 해당 서비스로 이동하게 구현
         // mList.get(position)
+        String SVC_01 = mList.get(position).SVC_01;
+        String CTN_02 = mList.get(position).CTN_02;
+
+        ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, SVC_01, CTN_02);
+        changeActivityCls.changeService();
+
+        mActivity.finish();
     }
 }

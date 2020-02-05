@@ -10,7 +10,6 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.linktag.linkapp.API.GPSInfo;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.value_object.BRD_VO;
 

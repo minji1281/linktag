@@ -14,7 +14,7 @@
 
     <string name="login_0">휴대전화 번호를 찾을 수 없습니다.</string>
     <string name="login_1">비밀번호가 일치하지 않습니다.</string>
-    <string name="login_2">근태 사원정보에서 이메일을 찾을 수 없습니다.</string>
+    <string name="login_2">이메일 정보를 찾을 수 없습니다.</string>
     <string name="login_3">이메일 계정을 확인해 주세요.</string>
     <string name="login_err">"알 수 없는 에러 발생.\n관리자에게 문의해 주세요."</string>
 
