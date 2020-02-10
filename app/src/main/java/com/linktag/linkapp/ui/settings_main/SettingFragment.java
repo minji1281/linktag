@@ -81,7 +81,7 @@ public class SettingFragment extends BaseFragment {
      * 홈페이지로 이동
      */
     private void goHomepage() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://bus.auas.ai"));
+        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://linktag.io"));
         mContext.startActivity(intent);
     }
 

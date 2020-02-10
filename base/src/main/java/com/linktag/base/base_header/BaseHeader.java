@@ -43,6 +43,8 @@ public class BaseHeader extends LinearLayout {
     public ImageButton btnHeaderRight1;
     // 오른쪽2 버튼
     public ImageButton btnHeaderRight2;
+    // 오른쪽3 버튼
+    public ImageButton btnHeaderRight3;
     // 텍스트 버튼
     public Button btnHeaderText;
     // 왼쪽 텍스트 버튼
@@ -57,6 +59,8 @@ public class BaseHeader extends LinearLayout {
     private OnClick mClickRight1;
     // Right2 버튼 클릭 이벤트
     private OnClick mClickRight2;
+    // Right3 버튼 클릭 이벤트
+    private OnClick mClickRight3;
     // Text 버튼 클릭 이벤트
     private OnClick mClickText;
     // Left Text 버튼 클릭 이벤트
@@ -94,6 +98,9 @@ public class BaseHeader extends LinearLayout {
         // 오른쪽2 버튼 visibility 설정
         btnHeaderRight2.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_right2_visibility, View.GONE));
 
+        // 오른쪽3 버튼 visibility 설정
+        btnHeaderRight3.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_right3_visibility, View.GONE));
+
         // 오른쪽 텍스트 버튼
         btnHeaderText.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_text_visibility, View.GONE));
 
@@ -124,6 +131,11 @@ public class BaseHeader extends LinearLayout {
         int nBtnRight2Src = typedArray.getResourceId(R.styleable.BaseHeader_btn_right2_src, -1);
         if (nBtnRight2Src != -1)
             btnHeaderRight2.setImageResource(nBtnRight2Src);
+
+        // 이미지 설정
+        int nBtnRight3Src = typedArray.getResourceId(R.styleable.BaseHeader_btn_right3_src, -1);
+        if (nBtnRight3Src != -1)
+            btnHeaderRight3.setImageResource(nBtnRight3Src);
 
         for (int i = 0; i < attrs.getAttributeCount(); i++) {
             String attributeName = attrs.getAttributeName(i);
@@ -156,6 +168,7 @@ public class BaseHeader extends LinearLayout {
         btnHeaderLeft = (ImageButton) v.findViewById(R.id.btnHeaderLeft);
         btnHeaderRight1 = (ImageButton) v.findViewById(R.id.btnHeaderRight1);
         btnHeaderRight2 = (ImageButton) v.findViewById(R.id.btnHeaderRight2);
+        btnHeaderRight3 = (ImageButton) v.findViewById(R.id.btnHeaderRight3);
 
         btnHeaderText = (Button) v.findViewById(R.id.btnHeaderText);
         btnHeaderLeftText = (Button) v.findViewById(R.id.btnHeaderLeftText);
@@ -174,6 +187,8 @@ public class BaseHeader extends LinearLayout {
         setHeaderRightButton1();
 
         setHeaderRightButton2();
+
+        setHeaderRightButton3();
 
         setHeaderText();
 
@@ -235,6 +250,20 @@ public class BaseHeader extends LinearLayout {
                     mClickRight1.onClick(v);
                 } else {
                     Toast.makeText(mContext, "Click Right1 Button", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+    }
+
+    private void setHeaderRightButton3() {
+        // 버튼 이벤트
+        btnHeaderRight3.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (mClickRight3 != null) {
+                    mClickRight3.onClick(v);
+                } else {
+                    Toast.makeText(mContext, "Click Right3 Button", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -345,6 +374,12 @@ public class BaseHeader extends LinearLayout {
         }
     }
 
+    public void SetCallbackBtnRight3(View view) {
+        if (mClickRight3 != null) {
+            mClickRight3.onClick(view);
+        }
+    }
+
     public void SetCallbackBtnText(View view) {
         if (mClickText != null) {
             mClickText.onClick(view);
@@ -367,6 +402,10 @@ public class BaseHeader extends LinearLayout {
 
     public void SetOnClickRight2(OnClick callback) {
         mClickRight2 = callback;
+    }
+
+    public void SetOnClickRight3(OnClick callback) {
+        mClickRight3 = callback;
     }
 
     public void SetOnClickText(OnClick callback) {

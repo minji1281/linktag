@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -50,6 +52,7 @@ public class BoardMain extends BaseActivity {
     private EditText etSearch;
     private ListView listView;
     private ImageView btnSearch;
+    private ImageButton btnMove;
 
     //======================
     // Variable
@@ -75,10 +78,9 @@ public class BoardMain extends BaseActivity {
         if(getIntent().getStringExtra("DSH_GB").equals("BRD")){ GUBUN = "BRD";}
         else if(getIntent().getStringExtra("DSH_GB").equals("NOT")){ GUBUN = "NOT";}
 
-
         initLayout();
-
         initialize();
+
     }
 
     @Override
@@ -137,6 +139,21 @@ public class BoardMain extends BaseActivity {
 //        BRDList = new ArrayList<>();
 //        BRDAdapter = new BoardBRDAdapter(mContext, BRDList);
 //        listView.setAdapter(BRDAdapter);
+    }
+
+    //확인 버튼 클릭
+    public void New(View v){
+            Intent intent = new Intent(mContext, BoardDetail.class);
+            intent.putExtra("DSH_01", "");
+            intent.putExtra("DSH_04", "");
+            intent.putExtra("DSH_05", "");
+            intent.putExtra("DSH_09", "0");
+            intent.putExtra("DSH_GB", GUBUN);
+
+            mContext.startActivity(intent);
+            // Log.d("***********************",String.valueOf(BRDList.get(position).RUTC_01));
+
+//        Toast.makeText(mActivity, "일단 테스트 합니다.", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -281,6 +298,7 @@ public class BoardMain extends BaseActivity {
         intent.putExtra("DSH_01", BRDList.get(position).BRD_01);
         intent.putExtra("DSH_04", BRDList.get(position).BRD_04);
         intent.putExtra("DSH_05", BRDList.get(position).BRD_05);
+        intent.putExtra("DSH_09", BRDList.get(position).BRD_09);
         intent.putExtra("DSH_GB", GUBUN);
 
         mContext.startActivity(intent);
@@ -289,17 +307,18 @@ public class BoardMain extends BaseActivity {
 
 
     private void goNOTRecord(int position) {
-
-
-
         Intent intent = new Intent(mContext, BoardDetail.class);
         intent.putExtra(BoardDetail.WORK_STATE, NOTList.get(position));
         intent.putExtra("DSH_01", NOTList.get(position).NOT_01);
         intent.putExtra("DSH_04", NOTList.get(position).NOT_04);
         intent.putExtra("DSH_05", NOTList.get(position).NOT_05);
+        intent.putExtra("DSH_09", NOTList.get(position).NOT_09);
         intent.putExtra("DSH_GB", GUBUN);
         mContext.startActivity(intent);
        // Log.d("***********************",String.valueOf(BRDList.get(position).RUTC_01));
     }
+
+
+
 
 }

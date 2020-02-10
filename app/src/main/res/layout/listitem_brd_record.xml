@@ -58,6 +58,7 @@
                     android:layout_weight="1"
                     android:src="@drawable/btn_next_gray"
                     android:background="@android:color/transparent"
+                    android:visibility="gone"
                     android:scaleType="fitEnd">
                 </ImageButton>
             </LinearLayout>

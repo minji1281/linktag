@@ -6,13 +6,6 @@ public class SettingsKey {
     public static String AutoID = "AutoID";
     public static String AutoLogin = "AutoLogin";
 
-    public static String WorkLongitude = "WorkLongitude";
-    public static String WorkLatitude = "WorkLatitude";
-    public static String WorkStart = "WorkStart";
-    public static String WorkEnd = "WorkEnd";
-    public static String GPSCount = "GPSCount";
-    public static String GPSTime = "GPSTime";
-
     public static String CTM_01 = "CTM_01";
     public static String OCM_01 = "OCM_01";
     public static String OCM_02 = "OCM_02";

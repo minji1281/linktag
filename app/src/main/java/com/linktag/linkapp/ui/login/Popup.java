@@ -5,17 +5,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.Nullable;
 import android.support.v4.content.LocalBroadcastManager;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -27,16 +23,12 @@ import android.widget.ToggleButton;
 
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.OCM_Model;
-import com.linktag.linkapp.model.RUTC_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.bus.BusSelectMain;
-import com.linktag.linkapp.ui.bus.BusSelectAdapter;
+//import com.linktag.linkapp.ui.bus.BusSelectAdapter;
 
-import com.linktag.linkapp.ui.main.Main;
 import com.linktag.linkapp.value_object.OcmVO;
-import com.linktag.linkapp.value_object.RutcVO;
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.settings.SettingsKey;
@@ -47,7 +39,6 @@ import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.regex.Pattern;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -76,8 +67,8 @@ public class Popup extends BaseActivity {
     ListView listrutcView;
     ImageView btnSearch;
 
-    BusSelectAdapter mAdapter;
-    ArrayList<RutcVO> mList;
+//    BusSelectAdapter mAdapter;
+//    ArrayList<RutcVO> mList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -117,9 +108,9 @@ public class Popup extends BaseActivity {
 
     @Override
     protected void initialize() {
-        mList = new ArrayList<>();
-        mAdapter = new BusSelectAdapter(mContext, mList);
-        listrutcView.setAdapter(mAdapter);
+//        mList = new ArrayList<>();
+//        mAdapter = new BusSelectAdapter(mContext, mList);
+//        listrutcView.setAdapter(mAdapter);
     }
 
     @Override
@@ -135,14 +126,14 @@ public class Popup extends BaseActivity {
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
-                    requestRUTC_SELECT();
+                    //requestRUTC_SELECT();
                     return true;
                 }
                 return false;
             }
         });
         btnSearch = findViewById(R.id.btnSearch);
-        btnSearch.setOnClickListener(v -> requestRUTC_SELECT());
+        //btnSearch.setOnClickListener(v -> requestRUTC_SELECT());
 
         listrutcView = findViewById(R.id.listrutcView);
         listrutcView.setOnItemClickListener((parent, view, position, id) -> goWorkRecord(position));
@@ -154,7 +145,7 @@ public class Popup extends BaseActivity {
     protected void onResume(){
         super.onResume();
 
-        requestRUTC_SELECT();
+        //requestRUTC_SELECT();
     }
 
 
@@ -339,64 +330,64 @@ public class Popup extends BaseActivity {
         }
     }
 
-    private void requestRUTC_SELECT(){
-        //인터넷 연결 여부 확인
-        if(!ClsNetworkCheck.isConnectable(mContext)){
-            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
-            return;
-        }
-
-        //openLoadingBar();
-
-        String GUBUN = "LIST";
-        String RUTC_ID = mUser.Value.CTM_01;
-        String RUTC_03 = etSearch.getText().toString();
-        String RUTC_07 = "";
-        String RUTC_08 = "";
-        Call<RUTC_Model> call = Http.rutc(HttpBaseService.TYPE.POST).RUTC_SELECT(
-                BaseConst.URL_HOST,
-                GUBUN,
-                RUTC_ID,
-                RUTC_03,
-                RUTC_07,
-                RUTC_08
-        );
-
-
-        call.enqueue(new Callback<RUTC_Model>(){
-            @SuppressLint("HandlerLeak")
-            @Override
-            public void onResponse(Call<RUTC_Model> call, Response<RUTC_Model> response){
-                Message msg = new Message();
-                msg.obj = response;
-                msg.what = 100;
-
-                new Handler(){
-                    @Override
-                    public void handleMessage(Message msg){
-
-                        if(msg.what == 100){
-                            Response<RUTC_Model> response = (Response<RUTC_Model>) msg.obj;
-
-                            mList = response.body().Data;
-                            if(mList == null)
-                                mList = new ArrayList<>();
-
-                            mAdapter.updateData(mList);
-                            mAdapter.notifyDataSetChanged();
-
-                        }
-                    }
-                }.sendMessage(msg);
-            }
-
-            @Override
-            public void onFailure(Call<RUTC_Model> call, Throwable t){
-                Log.d("RUTC_SELECT", t.getMessage());
-                //closeLoadingBar();
-            }
-        });
-    }
+//    private void requestRUTC_SELECT(){
+//        //인터넷 연결 여부 확인
+//        if(!ClsNetworkCheck.isConnectable(mContext)){
+//            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+//            return;
+//        }
+//
+//        //openLoadingBar();
+//
+//        String GUBUN = "LIST";
+//        String RUTC_ID = mUser.Value.CTM_01;
+//        String RUTC_03 = etSearch.getText().toString();
+//        String RUTC_07 = "";
+//        String RUTC_08 = "";
+//        Call<RUTC_Model> call = Http.rutc(HttpBaseService.TYPE.POST).RUTC_SELECT(
+//                BaseConst.URL_HOST,
+//                GUBUN,
+//                RUTC_ID,
+//                RUTC_03,
+//                RUTC_07,
+//                RUTC_08
+//        );
+//
+//
+//        call.enqueue(new Callback<RUTC_Model>(){
+//            @SuppressLint("HandlerLeak")
+//            @Override
+//            public void onResponse(Call<RUTC_Model> call, Response<RUTC_Model> response){
+//                Message msg = new Message();
+//                msg.obj = response;
+//                msg.what = 100;
+//
+//                new Handler(){
+//                    @Override
+//                    public void handleMessage(Message msg){
+//
+//                        if(msg.what == 100){
+//                            Response<RUTC_Model> response = (Response<RUTC_Model>) msg.obj;
+//
+//                            mList = response.body().Data;
+//                            if(mList == null)
+//                                mList = new ArrayList<>();
+//
+//                            mAdapter.updateData(mList);
+//                            mAdapter.notifyDataSetChanged();
+//
+//                        }
+//                    }
+//                }.sendMessage(msg);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<RUTC_Model> call, Throwable t){
+//                Log.d("RUTC_SELECT", t.getMessage());
+//                //closeLoadingBar();
+//            }
+//        });
+//    }
 
     private void goWorkRecord(int position) {
 
@@ -408,12 +399,12 @@ public class Popup extends BaseActivity {
         SimpleDateFormat sdfNow = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         String formatDate = sdfNow.format(date);
 
-        mUser.Value.RUTC_01 = String.valueOf(mList.get(position).RUTC_01);  //   #008  --노선번호
-        mUser.Value.RUTC_03 = String.valueOf(mList.get(position).RUTC_03);  //   #008  --노선번호
-        mUser.Value.RUTC_ST = formatDate;  //   #008  --운행시작시간
-
-        mUser.Value.RUTC_04 = String.valueOf(mList.get(position).RUTC_04);  //   #008  --기점
-        mUser.Value.RUTC_05 = String.valueOf(mList.get(position).RUTC_05);  //   #008  --종점
+//        mUser.Value.RUTC_01 = String.valueOf(mList.get(position).RUTC_01);  //   #008  --노선번호
+//        mUser.Value.RUTC_03 = String.valueOf(mList.get(position).RUTC_03);  //   #008  --노선번호
+//        mUser.Value.RUTC_ST = formatDate;  //   #008  --운행시작시간
+//
+//        mUser.Value.RUTC_04 = String.valueOf(mList.get(position).RUTC_04);  //   #008  --기점
+//        mUser.Value.RUTC_05 = String.valueOf(mList.get(position).RUTC_05);  //   #008  --종점
 
      //   tvBusNm.setText(String.valueOf(mList.get(position).RUTC_03));
         Toast.makeText(mActivity, "운행시간이 초기화 됩니다.", Toast.LENGTH_LONG).show();

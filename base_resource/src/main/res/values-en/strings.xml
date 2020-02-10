@@ -62,5 +62,10 @@
     <string name="login_hint4">Auto-Login</string>
     <string name="login_btn1">Login</string>
     <string name="dash_12">Delete</string>
+    <string name="dash_13">[NOTICE]</string>
+    <string name="dash_14">[BOARD]</string>
+    <string name="dash_15">[COMMENT]</string>
+    <string name="dash_16">Save</string>
+    <string name="dash_17">Please write a comment.</string>
 
 </resources>

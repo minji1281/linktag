@@ -86,15 +86,20 @@ public class DashStateAdapter extends BaseAdapter {
         else if(mList.get(position).DSH_GB.equals("NOT") ){viewHolder.tvUserName.setText(R.string.dash_02); viewHolder.hidd_gubun.setText("NOT"); }
      //   viewHolder.tvUserName.setText(mList.get(position).DSH_01);
 
-        if(mList.get(position).DSH_97.equals("") ){viewHolder.tvWorkType.setText("");}
-        else {viewHolder.tvWorkType.setText(mList.get(position).DSH_97);}
+        if(mList.get(position).DSH_97.equals("") ){viewHolder.tvWorkTime.setText("");}
+        else {viewHolder.tvWorkTime.setText(mList.get(position).DSH_97);}
+
+        if(mList.get(position).DSH_04.equals("") ){viewHolder.tvWorkType.setText("");}
+        else {viewHolder.tvWorkType.setText(mList.get(position).DSH_04);}
 
         if(mList.get(position).DSH_06.equals("") ){viewHolder.tvWorkDate.setText("");}
         else {viewHolder.tvWorkDate.setText(mList.get(position).DSH_06.substring(0,4)+"-"+mList.get(position).DSH_06.substring(4,6)+"-"+mList.get(position).DSH_06.substring(6,8));}
 
 
-        if(mList.get(position).DSH_09.equals("") ){viewHolder.tvWorkTime.setText("0");}
-        else {viewHolder.tvWorkTime.setText(mList.get(position).DSH_09);}
+//        if(mList.get(position).DSH_09.equals("") ){viewHolder.tvWorkTime.setText("0");}
+//        else {viewHolder.tvWorkTime.setText(mList.get(position).DSH_09);}
+
+
 
 
         return convertView;
