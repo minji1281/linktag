@@ -3,6 +3,7 @@ package com.linktag.linkapp.ui.pot;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.alarm.AlarmMain;
 import com.linktag.linkapp.value_object.PotVO;
 
 import retrofit2.Call;
@@ -62,6 +64,9 @@ public class PotDetail extends BaseActivity {
     // Initialize
     //======================
 
+    public String ARM_03 = "N";
+    public int ARM_04 = 0;
+
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -78,8 +83,7 @@ public class PotDetail extends BaseActivity {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
-        //작성자면 삭제버튼 보임
-        if(getIntent().getExtras().getString("POT_97").equals(mUser.Value.OCM_01)){
+        if(getIntent().getExtras().getString("POT_97").equals(mUser.Value.OCM_01)){ //작성자만 삭제버튼 보임
             header.btnHeaderRight1.setVisibility((View.VISIBLE));
             header.btnHeaderRight1.setMaxWidth(50);
             header.btnHeaderRight1.setMaxHeight(50);
@@ -88,7 +92,7 @@ public class PotDetail extends BaseActivity {
                 @Override
                 public void onClick(View v) {
                     new AlertDialog.Builder(mActivity)
-                            .setMessage("삭제하시겠습니까?")
+                            .setMessage("해당 화분을 삭제하시겠습니까?")
                             .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                 @RequiresApi(api = Build.VERSION_CODES.M)
                                 @Override
@@ -188,10 +192,8 @@ public class PotDetail extends BaseActivity {
 
         tpAlarmTime.setHour(Integer.parseInt(getIntent().getExtras().getString("POT_96").substring(8, 10)));
         tpAlarmTime.setMinute(Integer.parseInt(getIntent().getExtras().getString("POT_96").substring(10)));
-    }
 
-    private void setOnClickDelete(){
-        //Toast.makeText(mContext, "삭제 준비중입니다!!!", Toast.LENGTH_SHORT).show();
+        ARM_04 = getIntent().getExtras().getInt("ARM_04");
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
@@ -217,11 +219,15 @@ public class PotDetail extends BaseActivity {
         String POT_06 = etMemo.getText().toString(); //메모
         String POT_81 = ""; //이미지
         String POT_96 = (tpAlarmTime.getHour()<10 ? "0" + String.valueOf(tpAlarmTime.getHour()) : String.valueOf(tpAlarmTime.getHour())) + (tpAlarmTime.getMinute()<10 ? "0" + String.valueOf(tpAlarmTime.getMinute()) : String.valueOf(tpAlarmTime.getMinute())); //알림시간
-        String POT_98 = "M191100001"; //사용자코드 mUser.Value.OCM_01 수정해야돼!!!
-        String ARM_03 = "N";
+        String POT_98 = mUser.Value.OCM_01; //사용자코드
         if(swAlarm.isChecked()){ //알림여부
             ARM_03 = "Y";
         }
+        else{
+            ARM_03 = "N";
+        }
+
+        //Toast.makeText(mActivity, ARM_03, Toast.LENGTH_SHORT).show();
 
         Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_CONTROL(
                 BaseConst.URL_HOST,
@@ -260,6 +266,36 @@ public class PotDetail extends BaseActivity {
                                 callBack(GUB, new PotVO());
                             }
                             else{
+                                AlarmMain alarmMain = new AlarmMain();
+                                int ID = response.body().Data.get(0).ARM_04;
+                                alarmMain.deleteAlarm(getApplicationContext(), ARM_04); //기존 푸시알람 해제
+                                ARM_04 = ID;
+
+                                if(ARM_03.equals("Y")){
+                                    String alarmTitle = "물주기 - " + response.body().Data.get(0).POT_02;
+                                    String alarmText = "식물에게 물을 주세요~";
+                                    String className = ".ui.pot.PotList";
+
+                                    Intent intent = new Intent();
+                                    intent.putExtra("POT_81", response.body().Data.get(0).POT_81);
+                                    intent.putExtra("POT_02", response.body().Data.get(0).POT_02);
+                                    intent.putExtra("POT_03_T", response.body().Data.get(0).POT_03_T);
+                                    intent.putExtra("POT_04", response.body().Data.get(0).POT_04);
+                                    intent.putExtra("POT_05", response.body().Data.get(0).POT_05);
+                                    intent.putExtra("ARM_03", response.body().Data.get(0).ARM_03);
+                                    intent.putExtra("POT_96", response.body().Data.get(0).POT_96);
+                                    intent.putExtra("POT_06", response.body().Data.get(0).POT_06);
+                                    intent.putExtra("POT_01", response.body().Data.get(0).POT_01);
+                                    intent.putExtra("POT_97", response.body().Data.get(0).POT_97);
+                                    intent.putExtra("className", className);
+
+                                    intent.putExtra("ID", ID);
+                                    intent.putExtra("alarmTitle", alarmTitle);
+                                    intent.putExtra("alarmText", alarmText);
+
+                                    alarmMain.setAlarm(getApplicationContext(), intent); //새로운 푸시알람 설정
+                                }
+
                                 callBack(GUB, response.body().Data.get(0));
                             }
                         }
@@ -277,9 +313,10 @@ public class PotDetail extends BaseActivity {
     }
 
     private void callBack(String GUB, PotVO data){
-//        if(data.Validation){ //vs 서버올리면 수정해주석풀어!!
+        if(data.Validation){
             switch(GUB){
                 case "UPDATE":
+                    finish();
                     break;
                 case "WATER":
                     setUserData(data);
@@ -288,7 +325,7 @@ public class PotDetail extends BaseActivity {
                     finish();
                     break;
             }
-//        }
+        }
 
     }
 

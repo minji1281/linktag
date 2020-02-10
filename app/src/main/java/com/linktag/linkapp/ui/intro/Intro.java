@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.util.ClsNotificationChannel;
@@ -54,6 +55,12 @@ public class Intro extends BaseActivity {
      */
     private void goLogin() {
         Intent intent = new Intent(mContext, Login.class);
+
+        if(getIntent().getExtras() != null){
+            intent = getIntent();
+            intent.setClass(mContext, Login.class);
+        }
+
         mContext.startActivity(intent);
         finish();
     }

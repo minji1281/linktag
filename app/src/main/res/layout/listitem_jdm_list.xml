@@ -77,15 +77,6 @@
                 android:textStyle="bold" />
         </LinearLayout>
 
-<!--        <Button-->
-<!--            android:id="@+id/btn_alarm_state"-->
-<!--            android:layout_width="45dp"-->
-<!--            android:layout_height="45dp"-->
-<!--            android:layout_gravity="center_vertical"-->
-<!--            android:layout_marginStart="15dp"-->
-<!--            android:background="@drawable/btn_alarm_state"-->
-<!--            android:stateListAnimator="@null"-->
-<!--            />-->
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="45dp"

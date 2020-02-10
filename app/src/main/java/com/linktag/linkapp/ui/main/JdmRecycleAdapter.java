@@ -2,7 +2,6 @@ package com.linktag.linkapp.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.ui.jdm_class.DetailJdm;
@@ -71,11 +69,11 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         TextView tv_memo;
         TextView tv_date;
         TextView tv_time;
-        boolean bool = false;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
-
+            int position = getAdapterPosition();
+            //String alarm_state = mList.get(position).ARM_03;
             imageview = itemView.findViewById(R.id.imageView);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_memo = itemView.findViewById(R.id.tv_memo);
@@ -101,18 +99,13 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
             });
 
             imageview.setOnClickListener(new View.OnClickListener() {
-
                 @Override
                 public void onClick(View view) {
-                    if (bool == true) {
-                        imageview.setImageResource(R.drawable.alarm_state_off);
-                        bool = false;
-                        Toast.makeText(mContext, "["+tv_name.getText()+"] 알림 비활성화",Toast.LENGTH_SHORT).show();
-                    } else {
-                        imageview.setImageResource(R.drawable.alarm_state_on);
-                        bool = true;
-                        Toast.makeText(mContext, "["+tv_name.getText()+"] 알림 활성화",Toast.LENGTH_SHORT).show();
-                    }
+//                    if (alarm_state.equals("Y")) {
+//                        imageview.setImageResource(R.drawable.alarm_state_on);
+//                    } else {
+//                        imageview.setImageResource(R.drawable.alarm_state_off);
+//                    }
                 }
             });
         }
