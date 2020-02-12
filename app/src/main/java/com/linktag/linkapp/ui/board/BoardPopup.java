@@ -399,8 +399,6 @@ public class BoardPopup extends BaseActivity {
         else {((BoardDetail)BoardDetail.mBoard1).CalcCmt("-"); }
         listView.smoothScrollToPosition( 0 );
 
-        requestTKN_SELECT(getDSH_97);
-
     }
 
 
@@ -570,8 +568,6 @@ public class BoardPopup extends BaseActivity {
     }
 
     private void requestTKN_SELECT(String user){
-
-
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
@@ -608,16 +604,8 @@ public class BoardPopup extends BaseActivity {
                 new Handler(){
                     @Override
                     public void handleMessage(Message msg){
-
                         if(msg.what == 100){
-
-
                             String alarmText = "";
-
-//                            if(GUBUN.equals("BRC")){ alarmTitle = getString(R.string.dash_18); }
-//                            else if(GUBUN.equals("NOC")){ alarmTitle = getString(R.string.dash_19);}
-
-
                             alarmText = getString(R.string.dash_20);
 
                             String result = alarmTitle.concat(getDSH_04);
@@ -632,16 +620,7 @@ public class BoardPopup extends BaseActivity {
 
                                 while(i < response.body().Total)
                                 {
-
-                                 //   requestTKN_CALL(response.body().Data.get(i).TKN_04, alarmTitle, alarmText);
                                     requestTKN_CALL(response.body().Data.get(i).TKN_04, result, getComment);
-//
-//                                    Handler mHandler = new Handler();
-//                                    mHandler.postDelayed(new Runnable()  {
-//                                        public void run() {
-//                                            // 시간 지난 후 실행할 코딩
-//                                        }
-//                                    }, 500); // 0.5초후
                                     i++;
                                 }
                                 closeLoadingBar();
@@ -681,7 +660,6 @@ public class BoardPopup extends BaseActivity {
                 content
         );
 
-
         call.enqueue(new Callback<TKNModel>(){
             @SuppressLint("HandlerLeak")
             @Override
@@ -689,41 +667,6 @@ public class BoardPopup extends BaseActivity {
                 Message msg = new Message();
                 msg.obj = response;
                 msg.what = 100;
-
-//                new Handler(){
-//                    @Override
-//                    public void handleMessage(Message msg){
-//
-//                        if(msg.what == 100){
-//                            Response<TKNModel> response = (Response<TKNModel>) msg.obj;
-//
-////                            TKNList = response.body().Data;
-////                            if(TKNList == null)
-////                                TKNList = new ArrayList<>();
-////
-////                            TKNAdapter.updateData(TKNList);
-////                            TKNAdapter.notifyDataSetChanged();
-//                            if (response.body().Total==0) {
-//
-//                                requestTKN_CONTROL("INSERT", "0", token);
-//                            }
-//                            else{
-//                                return;
-//                            }
-////
-////                            } else {
-////                                // ErrorMsg
-////                              //  requestTKN_CONTROL("UPDATE", response.body().Data.get(0).TKN_01, response.body().Data.get(0).TKN_04);   //무조건 첫 단말기만
-////                                requestTKN_CONTROL("UPDATE", response.body().Data.get(0).TKN_01, token);   // 바뀐 폰으로 알림 이동
-////                            }
-//
-//                        }
-//                    }
-//                }.sendMessage(msg);
-
-
-
-
             }
 
             @Override
