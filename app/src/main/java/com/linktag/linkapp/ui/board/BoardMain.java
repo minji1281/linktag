@@ -148,6 +148,7 @@ public class BoardMain extends BaseActivity {
             intent.putExtra("DSH_04", "");
             intent.putExtra("DSH_05", "");
             intent.putExtra("DSH_09", "0");
+            intent.putExtra("DSH_97","");
             intent.putExtra("DSH_GB", GUBUN);
 
             mContext.startActivity(intent);
@@ -299,6 +300,7 @@ public class BoardMain extends BaseActivity {
         intent.putExtra("DSH_04", BRDList.get(position).BRD_04);
         intent.putExtra("DSH_05", BRDList.get(position).BRD_05);
         intent.putExtra("DSH_09", BRDList.get(position).BRD_09);
+        intent.putExtra("DSH_97", BRDList.get(position).BRD_97);
         intent.putExtra("DSH_GB", GUBUN);
 
         mContext.startActivity(intent);
@@ -313,6 +315,7 @@ public class BoardMain extends BaseActivity {
         intent.putExtra("DSH_04", NOTList.get(position).NOT_04);
         intent.putExtra("DSH_05", NOTList.get(position).NOT_05);
         intent.putExtra("DSH_09", NOTList.get(position).NOT_09);
+        intent.putExtra("DSH_97", NOTList.get(position).NOT_97);
         intent.putExtra("DSH_GB", GUBUN);
         mContext.startActivity(intent);
        // Log.d("***********************",String.valueOf(BRDList.get(position).RUTC_01));

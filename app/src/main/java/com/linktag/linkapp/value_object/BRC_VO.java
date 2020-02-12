@@ -17,6 +17,7 @@ public class BRC_VO implements Serializable {
     public String BRC_98;
     public String BRC_98NM;
     public String BRC_99;
+    public String BRD_97;
 
     public boolean Validation;
     public boolean isSuccess;

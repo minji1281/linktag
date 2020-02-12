@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -26,6 +28,7 @@ import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.BRCModel;
 import com.linktag.linkapp.model.NOCModel;
+import com.linktag.linkapp.model.TKNModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
@@ -67,6 +70,10 @@ public class BoardPopup extends BaseActivity {
 
     String GUBUN="";
     String getDSH_01="";
+    String getDSH_97="";
+    String getDSH_04="";
+    String getComment = "";
+    String alarmTitle = "";
 
 
 
@@ -75,13 +82,24 @@ public class BoardPopup extends BaseActivity {
     //======================
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        requestWindowFeature(Window.FEATURE_NO_TITLE); // 타이틀 바 없애기
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_comment_popup);
 
+//        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+//                WindowManager.LayoutParams.FLAG_FULLSCREEN);
         if(getIntent().getStringExtra("DSH_GB").equals("BRD")){ GUBUN = "BRC";}
         else if(getIntent().getStringExtra("DSH_GB").equals("NOT")){ GUBUN = "NOC";}
 
         if(getIntent().getStringExtra("DSH_01").equals("")){ getDSH_01 = "";}else{getDSH_01 = getIntent().getStringExtra("DSH_01");}
+        if(getIntent().getStringExtra("DSH_04").equals("")){ getDSH_04 = "";}else{getDSH_04 = getIntent().getStringExtra("DSH_04");}
+        if(getIntent().getStringExtra("DSH_97").equals("")){ getDSH_97 = "";}else{getDSH_97 = getIntent().getStringExtra("DSH_97");}
+//        if(GUBUN.equals("BRC")){ alarmTitle = getString(R.string.dash_21); }
+//        else if(GUBUN.equals("NOC")){ alarmTitle = getString(R.string.dash_22);}
+
+        if(getIntent().getStringExtra("DSH_GB").equals("BRD")){alarmTitle = getString(R.string.dash_21);}
+        else if(getIntent().getStringExtra("DSH_GB").equals("NOT")){ alarmTitle = getString(R.string.dash_22);}
+
         mContext5 = this;
 
         etComment = findViewById(R.id.etComment);
@@ -222,6 +240,11 @@ public class BoardPopup extends BaseActivity {
         finish();
     }
 
+    //취소 버튼 클릭
+    public void AllClear(View v){
+        etComment.setText("");
+    }
+
     public void AllNew(View v){  // 신규등록
 
         Onsubmit(GUBUN, "");
@@ -232,13 +255,13 @@ public class BoardPopup extends BaseActivity {
         String status = "";
         if(CMT_01.equals("")){status = "INSERT";}else{status = "DELETE";}
 
-        if(Gub.equals("BRC")){ requestBRD_CONTROL(status, CMT_01);}
+        if(Gub.equals("BRC")){ requestBRC_CONTROL(status, CMT_01);}
         else if(Gub.equals("NOC")){ requestNOC_CONTROL(status, CMT_01);}
 
     }
 
 
-    private void requestBRD_CONTROL(String GUB, String CMT_02){
+    private void requestBRC_CONTROL(String GUB, String CMT_02){
         if(!validationCheck(GUB))
             return;
 
@@ -249,6 +272,8 @@ public class BoardPopup extends BaseActivity {
         }
 
         openLoadingBar();
+
+        getComment = etComment.getText().toString();
 
         String GUBUN = GUB;
         String BRC_ID = mUser.Value.CTM_01;
@@ -300,7 +325,7 @@ public class BoardPopup extends BaseActivity {
 
     private void callBack_BRC(String GUB, BRC_VO data){
          requestBRC_SELECT();
-        if(GUB.equals("INSERT")){etComment.setText(""); ((BoardDetail)BoardDetail.mBoard1).CalcCmt("+");}
+        if(GUB.equals("INSERT")){etComment.setText(""); ((BoardDetail)BoardDetail.mBoard1).CalcCmt("+"); requestTKN_SELECT(getDSH_97);}
         else {((BoardDetail)BoardDetail.mBoard1).CalcCmt("-"); }
         listView.smoothScrollToPosition( 0 );
 
@@ -317,6 +342,8 @@ public class BoardPopup extends BaseActivity {
         }
 
         openLoadingBar();
+
+        getComment = etComment.getText().toString();
 
         String GUBUN = GUB;
         String NOC_ID = mUser.Value.CTM_01;
@@ -368,11 +395,11 @@ public class BoardPopup extends BaseActivity {
 
     private void callBack_NOC(String GUB, NOC_VO data){
         requestNOC_SELECT();
-        if(GUB.equals("INSERT")){etComment.setText(""); ((BoardDetail)BoardDetail.mBoard1).CalcCmt("+");}
+        if(GUB.equals("INSERT")){etComment.setText(""); ((BoardDetail)BoardDetail.mBoard1).CalcCmt("+"); requestTKN_SELECT(getDSH_97);}
         else {((BoardDetail)BoardDetail.mBoard1).CalcCmt("-"); }
         listView.smoothScrollToPosition( 0 );
 
-
+        requestTKN_SELECT(getDSH_97);
 
     }
 
@@ -540,6 +567,171 @@ public class BoardPopup extends BaseActivity {
         intent.putExtra("DSH_GB", GUBUN);
         mContext.startActivity(intent);
        // Log.d("***********************",String.valueOf(BRCList.get(position).RUTC_01));
+    }
+
+    private void requestTKN_SELECT(String user){
+
+
+        //인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //openLoadingBar();
+
+        String GUBUN = "SEND";
+        String TKN_ID = mUser.Value.CTM_01;
+        String TKN_01 = "";
+        String TKN_02 = user;
+        String TKN_03 = "";
+        String TKN_04 = "";
+        Call<TKNModel> call = Http.push(HttpBaseService.TYPE.POST).TKN_SELECT(
+                BaseConst.URL_HOST,
+                GUBUN,
+                TKN_ID,
+                TKN_01,
+                TKN_02,
+                TKN_03,
+                TKN_04
+        );
+
+
+        call.enqueue(new Callback<TKNModel>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<TKNModel> call, Response<TKNModel> response){
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+
+                        if(msg.what == 100){
+
+
+                            String alarmText = "";
+
+//                            if(GUBUN.equals("BRC")){ alarmTitle = getString(R.string.dash_18); }
+//                            else if(GUBUN.equals("NOC")){ alarmTitle = getString(R.string.dash_19);}
+
+
+                            alarmText = getString(R.string.dash_20);
+
+                            String result = alarmTitle.concat(getDSH_04);
+                            String tagname = etComment.getText().toString();
+
+                            Response<TKNModel> response = (Response<TKNModel>) msg.obj;
+                            openLoadingBar();
+
+                            if (response.body().Total > 0) {
+
+                                int i = 0;
+
+                                while(i < response.body().Total)
+                                {
+
+                                 //   requestTKN_CALL(response.body().Data.get(i).TKN_04, alarmTitle, alarmText);
+                                    requestTKN_CALL(response.body().Data.get(i).TKN_04, result, getComment);
+//
+//                                    Handler mHandler = new Handler();
+//                                    mHandler.postDelayed(new Runnable()  {
+//                                        public void run() {
+//                                            // 시간 지난 후 실행할 코딩
+//                                        }
+//                                    }, 500); // 0.5초후
+                                    i++;
+                                }
+                                closeLoadingBar();
+
+                            }
+                            else{
+                                return;
+                            }
+
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<TKNModel> call, Throwable t){
+                Log.d("TKN_SELECT", t.getMessage());
+                //closeLoadingBar();
+            }
+        });
+    }
+
+
+    private void requestTKN_CALL(String device, String title, String content ){
+        //인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //openLoadingBar();
+
+        Call<TKNModel> call = Http.push(HttpBaseService.TYPE.POST).NotifyAsync(
+                BaseConst.URL_HOST,
+                device,
+                title,
+                content
+        );
+
+
+        call.enqueue(new Callback<TKNModel>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<TKNModel> call, Response<TKNModel> response){
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+//                new Handler(){
+//                    @Override
+//                    public void handleMessage(Message msg){
+//
+//                        if(msg.what == 100){
+//                            Response<TKNModel> response = (Response<TKNModel>) msg.obj;
+//
+////                            TKNList = response.body().Data;
+////                            if(TKNList == null)
+////                                TKNList = new ArrayList<>();
+////
+////                            TKNAdapter.updateData(TKNList);
+////                            TKNAdapter.notifyDataSetChanged();
+//                            if (response.body().Total==0) {
+//
+//                                requestTKN_CONTROL("INSERT", "0", token);
+//                            }
+//                            else{
+//                                return;
+//                            }
+////
+////                            } else {
+////                                // ErrorMsg
+////                              //  requestTKN_CONTROL("UPDATE", response.body().Data.get(0).TKN_01, response.body().Data.get(0).TKN_04);   //무조건 첫 단말기만
+////                                requestTKN_CONTROL("UPDATE", response.body().Data.get(0).TKN_01, token);   // 바뀐 폰으로 알림 이동
+////                            }
+//
+//                        }
+//                    }
+//                }.sendMessage(msg);
+
+
+
+
+            }
+
+            @Override
+            public void onFailure(Call<TKNModel> call, Throwable t){
+                Log.d("TKN_SELECT", t.getMessage());
+                //closeLoadingBar();
+            }
+        });
     }
 
 }
