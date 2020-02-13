@@ -1,5 +1,6 @@
 package com.linktag.linkapp.value_object;
 
+//import java.io.File;
 import java.io.Serializable;
 
 public class PotVO implements Serializable {
@@ -24,5 +25,6 @@ public class PotVO implements Serializable {
     public int ARM_04;       // 알림ID
 
     public boolean Validation;
+//    public File POT_81_F;
 
 }

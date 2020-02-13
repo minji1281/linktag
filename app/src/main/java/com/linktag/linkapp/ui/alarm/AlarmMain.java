@@ -21,7 +21,7 @@ public class AlarmMain {
     public void setAlarm(Context context, Intent intent) {
 
         String alarmTime = intent.getExtras().getString("POT_96");
-        PotVO ppptest = (PotVO) intent.getExtras().getSerializable("ppptest");
+//        PotVO ppptest = (PotVO) intent.getExtras().getSerializable("ppptest");
 //        Intent alarmintent = new Intent(context, AlarmReceiver.class);
 //        alarmintent.putExtra("ppptest", (PotVO) intent.getExtras().getSerializable("ppptest"));
 
@@ -33,22 +33,24 @@ public class AlarmMain {
         int AlarmMinute = Integer.parseInt(alarmTime.substring(10,12));
 
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, AlarmYear);
-        calendar.set(Calendar.MONTH, AlarmMonth - 1);
-        calendar.set(Calendar.DATE, AlarmDay);
-        calendar.set(Calendar.HOUR_OF_DAY, AlarmHour);
-        calendar.set(Calendar.MINUTE, AlarmMinute);
-        calendar.set(Calendar.SECOND, 0);
+//        calendar.set(Calendar.MINUTE, AlarmMinute);
+//        calendar.set(Calendar.YEAR, AlarmYear);
+//        calendar.set(Calendar.MONTH, AlarmMonth - 1);
+//        calendar.set(Calendar.DATE, AlarmDay);
+//        calendar.set(Calendar.HOUR_OF_DAY, AlarmHour);
+//        calendar.set(Calendar.MINUTE, AlarmMinute);
+//        calendar.set(Calendar.SECOND, 0);
 
-        if (calendar.before(Calendar.getInstance())) { // 알림시간이 지났으면 토스트메세지 띄우기
-            Toast.makeText(context, "알림시간이 지났습니다!\r\n일자 및 시간을 업데이트 해주세요.", Toast.LENGTH_SHORT).show();
-        }
-        else{
-            String date_text = new SimpleDateFormat("yyyy년 MM월 dd일 EE요일 a hh시 mm분 ", Locale.getDefault()).format(calendar.getTime());
-            Toast.makeText(context,"알람이 " + date_text + "으로 설정되었습니다!", Toast.LENGTH_SHORT).show();
-
-            alarmNotification(context, intent, calendar);
-        }
+//        if (calendar.before(Calendar.getInstance())) { // 알림시간이 지났으면 토스트메세지 띄우기
+//            Toast.makeText(context, "알림시간이 지났습니다!\r\n일자 및 시간을 업데이트 해주세요.", Toast.LENGTH_SHORT).show();
+//        }
+//        else{
+//            String date_text = new SimpleDateFormat("yyyy년 MM월 dd일 EE요일 a hh시 mm분 ", Locale.getDefault()).format(calendar.getTime());
+//            Toast.makeText(context,"알람이 " + date_text + "으로 설정되었습니다!", Toast.LENGTH_SHORT).show();
+//
+//            alarmNotification(context, intent, calendar);
+//        }
+        alarmNotification(context, intent, calendar);
 
     }
 

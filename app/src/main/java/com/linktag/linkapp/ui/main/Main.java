@@ -77,6 +77,7 @@ public class Main extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main_home);
 
         initLayout();
@@ -84,12 +85,6 @@ public class Main extends BaseActivity {
         initialize();
 
         checkPwd();
-
-        if(getIntent().getExtras() != null){
-            Intent intent = getIntent();
-            intent.setClassName(mContext.getPackageName(), mContext.getPackageName() + intent.getExtras().getString("className"));
-            mContext.startActivity(intent);
-        }
     }
 
     @Override

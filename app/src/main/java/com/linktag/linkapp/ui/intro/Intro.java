@@ -56,11 +56,6 @@ public class Intro extends BaseActivity {
     private void goLogin() {
         Intent intent = new Intent(mContext, Login.class);
 
-        if(getIntent().getExtras() != null){
-            intent = getIntent();
-            intent.setClass(mContext, Login.class);
-        }
-
         mContext.startActivity(intent);
         finish();
     }

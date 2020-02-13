@@ -354,10 +354,6 @@ public class Login extends BaseActivity {
      */
     private void goMain(){
         Intent intent = new Intent(mContext, Main.class);
-        if(getIntent().getExtras() != null){
-            intent = getIntent();
-            intent.setClass(mContext, Main.class);
-        }
         mContext.startActivity(intent);
         finish();
     }

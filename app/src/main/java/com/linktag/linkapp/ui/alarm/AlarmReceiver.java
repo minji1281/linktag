@@ -41,23 +41,25 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationManager notificationManager = (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
         String className = intent.getExtras().getString("className");
-//        intent.setClassName(context.getPackageName(), context.getPackageName() + className);
-        intent.setClassName(context.getPackageName(), context.getPackageName() + ".ui.intro.Intro");
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.setClassName(context, context.getPackageName() + className);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK|Intent.FLAG_ACTIVITY_SINGLE_TOP|Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS|Intent.FLAG_ACTIVITY_NEW_TASK);
         PendingIntent pendingI = PendingIntent.getActivity(context, ID,
                 intent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "linktag alarm");
 //        builder.setContentIntent(resultPendingIntent);
 
-//        //        Intent resultIntent = new Intent(context, PotList.class);
+////        Intent resultIntent = new Intent(context, PotList.class);
 //        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
-//        stackBuilder.addParentStack(PotScan.class);
+//        stackBuilder.addParentStack(intent.getComponent());
+////        intent.setClassName(context.getPackageName(), context.getPackageName() + ".ui.login.Login");
 //        stackBuilder.addNextIntent(intent);
 ////        stackBuilder.addNextIntentWithParentStack(resultIntent);
 //        PendingIntent resultPendingIntent =
 //                stackBuilder.getPendingIntent(ID, PendingIntent.FLAG_UPDATE_CURRENT);
+
 
         //OREO API 26 이상에서는 채널 필요
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {

@@ -1,23 +1,14 @@
 package com.linktag.linkapp.ui.pot;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.RequiresApi;
 import android.text.Html;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.NumberPicker;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
@@ -30,12 +21,7 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.value_object.PotVO;
 
-import org.w3c.dom.Text;
-
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -52,13 +38,6 @@ public class PotScan extends BaseActivity {
     private TextView tvDDAY;
     private TextView tvPOT_03_T;
 //
-//    private NumberPicker npCycle;
-//    private NumberPicker npCycle2;
-//
-//    private Switch swAlarm;
-//
-//    private TimePicker tpAlarmTime;
-//
     private Button btnDetail;
     private Button btnWater;
 
@@ -73,6 +52,7 @@ public class PotScan extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_pot_scan);
 
         initLayout();
@@ -135,8 +115,6 @@ public class PotScan extends BaseActivity {
         super.onResume();
 
         initialize();
-
-//        Toast.makeText(mActivity, getIntent().getExtras().getString("POT_02"), Toast.LENGTH_SHORT).show();
     }
 
     public void moveDetail(){
@@ -145,7 +123,6 @@ public class PotScan extends BaseActivity {
         mContext.startActivity(getIntent());
     }
 
-//    @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestPOT_CONTROL(String GUB){
 
         //인터넷 연결 여부 확인

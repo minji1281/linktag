@@ -47,5 +47,6 @@ public class BaseConst {
     //물주기
     public static final String POT_SELECT = "{host}/Mobile/POT_SELECT";
     public static final String POT_CONTROL = "{host}/Mobile/POT_CONTROL";
+//    public static final String POT_CONTROL2 = "{host}/Mobile/POT_CONTROL";
 
 }

@@ -391,7 +391,29 @@ public class Http extends HttpBaseService {
                 @Field(value = "POT_98") String POT_98,
 
                 @Field(value = "ARM_03") String ARM_03
-        );
+                );
+
+        //이미지 테스트용...
+//        @Multipart
+//        @FormUrlEncoded
+//        @POST(BaseConst.POT_CONTROL2)
+//        Call<POT_Model> POT_CONTROL2(
+//                @Path(value = "host", encoded = true) String host,
+//                @Field(value = "GUBUN") String GUBUN,
+//                @Field(value = "POT_ID") String POT_ID,
+//                @Field(value = "POT_01") String POT_01,
+//                @Field(value = "POT_02") String POT_02,
+//                @Field(value = "POT_04") int POT_04,
+//
+//                @Field(value = "POT_05") String POT_05,
+//                @Field(value = "POT_06") String POT_06,
+//                @Field(value = "POT_81") String POT_81,
+//                @Field(value = "POT_96") String POT_96,
+//                @Field(value = "POT_98") String POT_98,
+//
+//                @Field(value = "ARM_03") String ARM_03,
+//                @Part("POT_81_F\"; filename=\"pp.png\" ") RequestBody POT_81_F
+//        );
 
     }
 

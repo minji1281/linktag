@@ -162,21 +162,19 @@
             android:excludeFromRecents="true"/>
         <activity
             android:name=".ui.pot.PotScan"
-            android:parentActivityName=".ui.pot.PotList">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value=".ui.pot.PotList" />
-        </activity>
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"
+            android:excludeFromRecents="true"/>
 
         <!-- 푸시알람 -->
-        <receiver android:name=".ui.alarm.DeviceBootReceiver"
-            android:enabled="false">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED" />
-            </intent-filter>
-        </receiver>
+<!--        <receiver android:name=".ui.alarm.DeviceBootReceiver"-->
+<!--            android:enabled="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
 
-        <receiver android:name=".ui.alarm.AlarmReceiver" />
+<!--        <receiver android:name=".ui.alarm.AlarmReceiver" />-->
 
     </application>
 

@@ -29,37 +29,37 @@
             android:orientation="vertical">
 
             <!-- 식물 사진 -->
-            <RelativeLayout
-                android:id="@+id/layoutPhoto"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/list_round_shape"
-                android:shape="rectangle">
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/layoutPhoto"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="150dp"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:background="@drawable/list_round_shape"-->
+<!--                android:shape="rectangle">-->
 
-                <TextView
-                    android:id="@+id/tvLabelPhoto"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:text="이미지"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_small"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvLabelPhoto"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:text="이미지"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="@dimen/text_small"-->
+<!--                    android:textStyle="bold" />-->
 
-                <ImageView
-                    android:id="@+id/imgPhoto"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/tvLabelPhoto"
-                    android:padding="10dp"
-                    app:srcCompat="@drawable/ic_menu_gallery" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgPotPhoto"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_toRightOf="@id/tvLabelPhoto"-->
+<!--                    android:padding="10dp"-->
+<!--                    app:srcCompat="@drawable/ic_menu_gallery" />-->
 
-            </RelativeLayout>
+<!--            </RelativeLayout>-->
 
             <!-- 명칭 -->
             <RelativeLayout
@@ -67,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/list_round_shape"
