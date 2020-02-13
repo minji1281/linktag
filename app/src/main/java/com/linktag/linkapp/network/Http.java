@@ -413,7 +413,7 @@ public class Http extends HttpBaseService {
 //                @Field(value = "POT_98") String POT_98,
 //
 //                @Field(value = "ARM_03") String ARM_03,
-//                @Part("POT_81_F\"; filename=\"pp.png\" ") RequestBody POT_81_F
+//                @Part("POT_81_F") MultipartBody.Part POT_81_F
 //        );
 
     }

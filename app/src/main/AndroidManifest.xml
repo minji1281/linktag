@@ -165,6 +165,11 @@
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser"
             android:excludeFromRecents="true"/>
+        <activity
+            android:name=".ui.pot.PotNew"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"
+            android:excludeFromRecents="true"/>
 
         <!-- 푸시알람 -->
 <!--        <receiver android:name=".ui.alarm.DeviceBootReceiver"-->

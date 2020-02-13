@@ -8,6 +8,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +37,7 @@ public class PotList extends BaseActivity implements PotAdapter.AlarmClickListen
     private BaseHeader header;
     private ListView listView;
     private TextView emptyText;
+    private ImageView imgNew;
 
     //======================
     // Variable
@@ -62,6 +64,10 @@ public class PotList extends BaseActivity implements PotAdapter.AlarmClickListen
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setVisibility((View.GONE));
+
+        //신규등록 test
+        imgNew = findViewById(R.id.imgNew);
+        imgNew.setOnClickListener(v -> goPotNew());
 
         listView = findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -280,6 +286,13 @@ public class PotList extends BaseActivity implements PotAdapter.AlarmClickListen
         Toast.makeText(mContext, "준비중 입니다.", Toast.LENGTH_LONG).show();
 
 //        requestPOT_CONTROL("ALARM_UPDATE", data);
+    }
+
+    //신규등록 test
+    private void goPotNew(){
+//        Toast.makeText(mContext, "신규등록", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(mContext, PotNew.class);
+        mContext.startActivity(intent);
     }
 
 }

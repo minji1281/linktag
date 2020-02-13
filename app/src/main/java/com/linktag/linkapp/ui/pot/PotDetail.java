@@ -52,6 +52,7 @@ import java.net.URL;
 import java.util.Locale;
 
 import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -402,7 +403,8 @@ public class PotDetail extends BaseActivity {
 //        File file = new File(fpath);
 ////        File file = fileTakePhoto;
 //
-//        RequestBody POT_81_F = RequestBody.create(MediaType.parse("image/jpeg"), file);
+////        RequestBody POT_81_F = RequestBody.create(MediaType.parse("image/jpeg"), file);
+//        MultipartBody POT_81_F = MultipartBody.Part.createFormData("POT_81_F", file.getPath(), RequestBody.create(MediaType.parse("image/jpeg"), file));
 //
 //        Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_CONTROL(
 //                BaseConst.URL_HOST,
