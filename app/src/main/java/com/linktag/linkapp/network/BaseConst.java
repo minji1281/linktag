@@ -8,6 +8,11 @@ public class BaseConst {
     //--------------------------------------------------
     public static String URL_HOST = "http://app.linktag.io";
 
+    //토큰발행
+    public static final String URL_TKN_SELECT = "{host}/Mobile/TKN_SELECT";
+    public static final String URL_TKN_CONTROL = "{host}/Mobile/TKN_CONTROL";
+    public static final String URL_TKN_CALL = "{host}/Mobile/NotifyAsync";
+
     /**
      * 가입
      */

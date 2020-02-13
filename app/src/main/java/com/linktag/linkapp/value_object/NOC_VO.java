@@ -17,6 +17,7 @@ public class NOC_VO implements Serializable {
     public String NOC_98;
     public String NOC_98NM;
     public String NOC_99;
+    public String NOT_97;
 
     public boolean Validation;
     public boolean isSuccess;

@@ -12,6 +12,7 @@ import com.linktag.linkapp.model.LOGIN_Model;
 import com.linktag.linkapp.model.DSHModel;
 import com.linktag.linkapp.model.BRDModel;
 import com.linktag.linkapp.model.NOTModel;
+import com.linktag.linkapp.model.TKNModel;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -414,6 +415,53 @@ public class Http extends HttpBaseService {
 //                @Field(value = "ARM_03") String ARM_03,
 //                @Part("POT_81_F\"; filename=\"pp.png\" ") RequestBody POT_81_F
 //        );
+
+    }
+
+
+    //--------------------------------------------------
+    // 대쉬보드
+    //--------------------------------------------------
+    public static IPSH push(TYPE type){ return (IPSH) retrofit(IPSH.class, type); }
+
+    public interface IPSH {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_TKN_SELECT)
+        Call<TKNModel> TKN_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "TKN_ID") String TKN_ID,
+                @Field(value = "TKN_01") String TKN_01,
+                @Field(value = "TKN_02") String TKN_02,
+                @Field(value = "TKN_03") String TKN_03,
+                @Field(value = "TKN_04") String TKN_04
+        );
+
+        
+        @FormUrlEncoded
+        @POST(BaseConst.URL_TKN_CONTROL)
+        Call<TKNModel> TKN_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "TKN_ID") String TKN_ID,
+                @Field(value = "TKN_01") String TKN_01,
+                @Field(value = "TKN_02") String TKN_02,
+                @Field(value = "TKN_03") String TKN_03,
+                @Field(value = "TKN_04") String TKN_04,
+                @Field(value = "TKN_98") String TKN_98
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_TKN_CALL)
+        Call<TKNModel> NotifyAsync(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "to") String to,
+                @Field(value = "title") String title,
+                @Field(value = "body") String body
+        );
+
+
 
     }
 

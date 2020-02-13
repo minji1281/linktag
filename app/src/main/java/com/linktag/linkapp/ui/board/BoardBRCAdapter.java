@@ -55,6 +55,7 @@ public class BoardBRCAdapter extends BaseAdapter {
             vh.tvWorkState = convertView.findViewById(R.id.tvWorkState);
             vh.btnMove = convertView.findViewById(R.id.btnMove);
             vh.hidd_CMT_01= convertView.findViewById(R.id.hidd_CMT_01);
+            vh.hidd_CMT_97= convertView.findViewById(R.id.hidd_CMT_97);
             vh.hidd_gubun= convertView.findViewById(R.id.hidd_gubun);
             vh.btnMove.setOnClickListener(v -> test(vh.hidd_gubun.getText().toString(), vh.hidd_CMT_01.getText().toString()));
          //   vh.btnMove.setOnClickListener(v -> test(vh.hidd_gubun.getText().toString()));
@@ -80,6 +81,9 @@ public class BoardBRCAdapter extends BaseAdapter {
         else {vh.hidd_CMT_01.setText(mList.get(position).BRC_02);}
 
 
+        if(mList.get(position).BRD_97.equals("") ){vh.hidd_CMT_97.setText("");}
+        else {vh.hidd_CMT_97.setText(mList.get(position).BRD_97);}
+
         return convertView;
     }
 
@@ -103,6 +107,7 @@ public class BoardBRCAdapter extends BaseAdapter {
         TextView tvWorkState;
         TextView hidd_gubun;
         TextView hidd_CMT_01;
+        TextView hidd_CMT_97;
         ImageButton btnMove;
 
     }

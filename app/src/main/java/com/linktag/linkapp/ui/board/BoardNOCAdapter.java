@@ -56,6 +56,7 @@ public class BoardNOCAdapter extends BaseAdapter {
             vh.btnMove = convertView.findViewById(R.id.btnMove);
             vh.hidd_CMT_01= convertView.findViewById(R.id.hidd_CMT_01);
             vh.hidd_gubun= convertView.findViewById(R.id.hidd_gubun);
+            vh.hidd_CMT_97= convertView.findViewById(R.id.hidd_CMT_97);
             vh.btnMove.setOnClickListener(v -> test(vh.hidd_gubun.getText().toString(), vh.hidd_CMT_01.getText().toString()));
 
             convertView.setTag(vh);
@@ -66,6 +67,10 @@ public class BoardNOCAdapter extends BaseAdapter {
         vh.tvUserName.setText(mList.get(position).NOC_98+ " ("+ mList.get(position).NOC_98NM+ ")"); //작성자
         vh.tvWorkType.setText(mList.get(position).NOC_03); // 내용
         vh.hidd_gubun.setText("NOC");
+
+
+        if(mList.get(position).NOT_97.equals("") ){vh.hidd_CMT_97.setText("");}
+        else {vh.hidd_CMT_97.setText(mList.get(position).NOT_97);}
 
         if(mList.get(position).NOC_02.equals("") ){vh.hidd_CMT_01.setText("");}
         else {vh.hidd_CMT_01.setText(mList.get(position).NOC_02);}
@@ -101,6 +106,7 @@ public class BoardNOCAdapter extends BaseAdapter {
         TextView tvWorkState;
         TextView hidd_gubun;
         TextView hidd_CMT_01;
+        TextView hidd_CMT_97;
         ImageButton btnMove;
 
     }

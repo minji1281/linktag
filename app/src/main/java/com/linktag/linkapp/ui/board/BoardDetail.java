@@ -76,6 +76,7 @@ public class BoardDetail extends BaseActivity {
     String getDSH_04 = "";
     String getDSH_05 = "";
     String getDSH_09 = "";
+    String getDSH_97 = "";
 
     //======================
     // Initialize
@@ -95,6 +96,7 @@ public class BoardDetail extends BaseActivity {
         if(getIntent().getStringExtra("DSH_04").equals("")){ getDSH_04 = "";}else{getDSH_04 = getIntent().getStringExtra("DSH_04");}
         if(getIntent().getStringExtra("DSH_05").equals("")){ getDSH_05 = "";}else{getDSH_05 = getIntent().getStringExtra("DSH_05");}
         if(getIntent().getStringExtra("DSH_09").equals("")){ getDSH_09 = "0";}else{getDSH_09 = getIntent().getStringExtra("DSH_09");}
+        if(getIntent().getStringExtra("DSH_97").equals("")){ getDSH_97 = "";}else{getDSH_97 = getIntent().getStringExtra("DSH_97");}
 
         mBoard1 = this;
 
@@ -373,6 +375,9 @@ public class BoardDetail extends BaseActivity {
         intent.putExtra("DSH_GB", DSH_GB);
         intent.putExtra("DSH_01", getDSH_01);
         intent.putExtra("DSH_ID", mUser.Value.OCM_01);
+        intent.putExtra("DSH_97", getDSH_97);
+        intent.putExtra("DSH_04", getDSH_04);
+
         startActivityForResult(intent, 1);
     }
 

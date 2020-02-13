@@ -6,7 +6,40 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
-    <!-- 타이틀바 -->
+    <!-- 타이틀 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:orientation="horizontal"
+        android:background="#000"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="start|center"
+            android:text="@string/dash_15"
+            android:paddingLeft="10dp"
+            android:layout_weight="1"
+            android:textColor="#000"
+            android:textSize="15dp" />
+
+        <ImageButton
+            android:id="@+id/btnExit"
+            android:layout_width="25dp"
+            android:layout_height="25dp"
+            android:layout_marginRight="15dp"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:background="@drawable/btn_cancel_gray"
+            android:onClick="AllClose"/>
+
+
+
+
+    </LinearLayout>
+
+    <!-- 헤더 -->
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
@@ -18,7 +51,6 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:gravity="start|center"
-            android:text="@string/dash_15"
             android:paddingLeft="10dp"
             android:textColor="#000"
             android:textSize="15dp" />
@@ -29,7 +61,7 @@
             android:layout_height="25dp"
             android:scaleType="fitEnd"
             android:gravity="left"
-            android:layout_marginLeft="20dp"
+            android:layout_marginLeft="10dp"
             android:layout_gravity="center"
             android:background="@drawable/refresh"
             android:onClick="AllRefresh"/>
@@ -455,7 +487,7 @@
                             android:background="@drawable/shape_cancel_border"
                             android:textSize="@dimen/text_normal"
                             android:layout_marginBottom="10dp"
-                            android:onClick="AllClose"/>
+                            android:onClick="AllClear"/>
                         <Button
                             android:layout_width="match_parent"
                             android:layout_height="20dp"
