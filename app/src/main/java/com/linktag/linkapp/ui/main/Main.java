@@ -106,7 +106,7 @@ public class Main extends BaseActivity {
 
         //장독테스트
         tvMainJdm = findViewById(R.id.tvMainJdm);
-        tvMainJdm.setOnClickListener(v -> goPot());
+//        tvMainJdm.setOnClickListener(v -> goPot());
 
         initViewPager();
     }
