@@ -74,13 +74,12 @@ public class AirAdapter extends BaseAdapter implements View.OnClickListener {
 
         //Image
         viewHolder.imgAirIcon.setImageResource(R.drawable.ic_launcher);
-//        if(mList.get(position).ARM_03.equals("Y")){
-//            viewHolder.imgAlarmIcon.setImageResource(R.drawable.main_noti_selected);
-//        }
-//        else{ //N
-//            viewHolder.imgAlarmIcon.setImageResource(R.drawable.btn_noti_off_gray);
-//        }
-        viewHolder.imgAlarmIcon.setImageResource(R.drawable.btn_noti_off_gray); //서버안올려서 테스트
+        if(mList.get(position).ARM_03.equals("Y")){
+            viewHolder.imgAlarmIcon.setImageResource(R.drawable.main_noti_selected);
+        }
+        else{ //N
+            viewHolder.imgAlarmIcon.setImageResource(R.drawable.btn_noti_off_gray);
+        }
         viewHolder.imgAlarmIcon.setTag(position);
         viewHolder.imgAlarmIcon.setOnClickListener(this);
 

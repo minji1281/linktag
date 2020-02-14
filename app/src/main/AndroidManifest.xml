@@ -218,6 +218,13 @@
             android:theme="@style/TranslucentUser"
             android:excludeFromRecents="true"/>
 
+        <!-- 화장품 유통기한 관리 -->
+        <activity
+            android:name=".ui.cos.CodList"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"
+            android:excludeFromRecents="true"/>
+
         <!-- 푸시알람 -->
         <!--        <receiver android:name=".ui.alarm.DeviceBootReceiver"-->
         <!--            android:enabled="false">-->

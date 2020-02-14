@@ -1,4 +1,4 @@
-package com.linktag.linkapp.ui.air;
+package com.linktag.linkapp.ui.cos;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -17,12 +17,13 @@ import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.model.AIRModel;
+import com.linktag.linkapp.model.CODModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.air.AirAdapter;
-import com.linktag.linkapp.value_object.AIR_VO;
+import com.linktag.linkapp.ui.cos.CodAdapter;
+//import com.linktag.linkapp.ui.air.CodDetail;
+import com.linktag.linkapp.value_object.COD_VO;
 
 import java.util.ArrayList;
 
@@ -31,7 +32,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class AirList extends BaseActivity implements AirAdapter.AlarmClickListener {
+public class CodList extends BaseActivity implements CodAdapter.AlarmClickListener {
     //======================
     // Layout
     //======================
@@ -43,8 +44,8 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
     //======================
     // Variable
     //======================
-    private AirAdapter mAdapter;
-    private ArrayList<AIR_VO> mList;
+    private CodAdapter mAdapter;
+    private ArrayList<COD_VO> mList;
 
 
     //======================
@@ -54,7 +55,7 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_air_list);
+        setContentView(R.layout.activity_cod_list);
 
         initLayout();
 
@@ -68,18 +69,18 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
 
         //신규등록 test
         imgNew = findViewById(R.id.imgNew);
-        imgNew.setOnClickListener(v -> goAirNew());
+        imgNew.setOnClickListener(v -> goCodNew());
 
         listView = findViewById(R.id.listView);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(mContext, AirDetail.class);
-                AIR_VO AIR = mList.get(position);
-                intent.putExtra("AIR", AIR);
-                mContext.startActivity(intent);
-            }
-        });
+//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            @Override
+//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                Intent intent = new Intent(mContext, CodDetail.class);
+//                COD_VO AIR = mList.get(position);
+//                intent.putExtra("COD", COD);
+//                mContext.startActivity(intent);
+//            }
+//        });
         emptyText = findViewById(R.id.empty);
         listView.setEmptyView(emptyText);
     }
@@ -87,20 +88,20 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
     @Override
     protected void initialize() {
         mList = new ArrayList<>();
-        mAdapter = new AirAdapter(mContext, mList, this);
+        mAdapter = new CodAdapter(mContext, mList, this);
         listView.setAdapter(mAdapter);
 
-        //requestAIR_SELECT();
+        //requestCOD_SELECT();
     }
 
     @Override
     protected void onResume(){
         super.onResume();
 
-        requestAIR_SELECT();
+        requestCOD_SELECT();
     }
 
-    private void requestAIR_SELECT(){
+    private void requestCOD_SELECT(){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
@@ -110,22 +111,24 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
         openLoadingBar();
 
         String GUBUN = "LIST";
-        String AIR_ID = "1"; //컨테이너
-        String AIR_01 = "";
+        String COD_ID = "1"; //컨테이너
+        String COD_01 = ""; //코드번호
+        String COD_95 = ""; //화장품코드 수정해야돼!!!
         String OCM_01 = mUser.Value.OCM_01; //사용자 아이디
 
-        Call<AIRModel> call = Http.air(HttpBaseService.TYPE.POST).AIR_SELECT(
+        Call<CODModel> call = Http.cod(HttpBaseService.TYPE.POST).COD_SELECT(
                 BaseConst.URL_HOST,
                 GUBUN,
-                AIR_ID,
-                AIR_01,
+                COD_ID,
+                COD_01,
+                COD_95,
                 OCM_01
         );
 
-        call.enqueue(new Callback<AIRModel>(){
+        call.enqueue(new Callback<CODModel>(){
             @SuppressLint("HandlerLeak")
             @Override
-            public void onResponse(Call<AIRModel> call, Response<AIRModel> response){
+            public void onResponse(Call<CODModel> call, Response<CODModel> response){
                 Message msg = new Message();
                 msg.obj = response;
                 msg.what = 100;
@@ -136,7 +139,7 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
                         if(msg.what == 100){
                             closeLoadingBar();
 
-                            Response<AIRModel> response = (Response<AIRModel>) msg.obj;
+                            Response<CODModel> response = (Response<CODModel>) msg.obj;
 
                             mList = response.body().Data;
 
@@ -152,8 +155,8 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
             }
 
             @Override
-            public void onFailure(Call<AIRModel> call, Throwable t){
-                Log.d("AIR_SELECT", t.getMessage());
+            public void onFailure(Call<CODModel> call, Throwable t){
+                Log.d("COD_SELECT", t.getMessage());
                 closeLoadingBar();
             }
         });
@@ -161,7 +164,7 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
 
     @Override
     public void onListAlarmClick(int position) {
-//        AIR_VO data = mList.get(position);
+//        COD_VO data = mList.get(position);
 //
 //        if(data.ARM_03.equals("Y")){
 //            data.ARM_03 = "N";
@@ -174,10 +177,10 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
     }
 
     //신규등록 test
-    private void goAirNew(){
-//        Toast.makeText(mContext, "신규등록", Toast.LENGTH_LONG).show();
-        Intent intent = new Intent(mContext, AirDetail.class);
-        mContext.startActivity(intent);
+    private void goCodNew(){
+        Toast.makeText(mContext, "신규등록", Toast.LENGTH_LONG).show();
+//        Intent intent = new Intent(mContext, CodDetail.class);
+//        mContext.startActivity(intent);
     }
 
 }

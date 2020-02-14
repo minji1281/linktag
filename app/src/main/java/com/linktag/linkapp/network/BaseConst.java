@@ -78,4 +78,10 @@ public class BaseConst {
     public static final String AIR_SELECT = "{host}/Mobile/AIR_SELECT";
     public static final String AIR_CONTROL = "{host}/Mobile/AIR_CONTROL";
 
+    //화장품 유통기한 관리
+    public static final String COS_SELECT = "{host}/Mobile/COS_SELECT";
+    public static final String COS_CONTROL = "{host}/Mobile/COS_CONTROL";
+    public static final String COD_SELECT = "{host}/Mobile/COD_SELECT";
+    public static final String COD_CONTROL = "{host}/Mobile/COD_CONTROL";
+
 }
