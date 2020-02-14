@@ -1,4 +1,4 @@
-package com.linktag.linkapp.ui.jdm;
+package com.linktag.linkapp.ui.pcm;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -18,6 +18,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.linktag.base.network.ClsNetworkCheck;
+import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.network.BaseConst;
@@ -26,7 +27,7 @@ import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm_service.AlarmHATT;
 import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
 import com.linktag.linkapp.value_object.ArmVO;
-import com.linktag.linkapp.value_object.JdmVO;
+import com.linktag.linkapp.value_object.PcmVO;
 
 import java.util.ArrayList;
 
@@ -34,24 +35,26 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.ViewHolder> {
+public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<JdmVO> mList;
+    private ArrayList<PcmVO> mList;
     private LayoutInflater mInflater;
     private View view;
+    private InterfaceUser mUser;
 
-    JdmRecycleAdapter(Context context, ArrayList<JdmVO> list) {
+    PcmRecycleAdapter(Context context, ArrayList<PcmVO> list) {
         mContext = context;
         mList = list;
+        mUser = InterfaceUser.getInstance();
     }
 
     @NonNull
     @Override
-    public JdmRecycleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public PcmRecycleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = mInflater.inflate(R.layout.listitem_jdm_list, parent, false);
-        JdmRecycleAdapter.ViewHolder viewHolder = new JdmRecycleAdapter.ViewHolder(view);
+        view = mInflater.inflate(R.layout.listitem_pcm_list, parent, false);
+        PcmRecycleAdapter.ViewHolder viewHolder = new PcmRecycleAdapter.ViewHolder(view);
 
 
         return viewHolder;
@@ -59,12 +62,12 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        String Format = mList.get(position).JDM_96;
+        String Format = mList.get(position).PCM_96;
         String dateFormat = Format.substring(2, 4) + "." + Format.substring(4, 6) + "." + Format.substring(6, 8);
         String timeFormat = Format.substring(8, 10) + ":" + Format.substring(10);
 
-        viewHolder.tv_name.setText(mList.get(position).JDM_02);
-        viewHolder.tv_memo.setText(mList.get(position).JDM_03);
+        viewHolder.tv_name.setText(mList.get(position).PCM_02);
+        viewHolder.tv_memo.setText(mList.get(position).PCM_03);
         viewHolder.tv_date.setText(dateFormat);
         viewHolder.tv_time.setText(timeFormat);
 
@@ -80,21 +83,21 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
                 ArmVO armVO = new ArmVO();
 
-                armVO.setARM_ID(mList.get(position).JDM_ID);
-                armVO.setARM_01(mList.get(position).JDM_01);
-                armVO.setARM_02("M191100001");
+                armVO.setARM_ID(mList.get(position).PCM_ID);
+                armVO.setARM_01(mList.get(position).PCM_01);
+                armVO.setARM_02(mUser.Value.OCM_01);
                 armVO.setARM_03(mList.get(position).ARM_03);
                 armVO.setARM_95("");
-                armVO.setARM_98("M191100001");
+                armVO.setARM_98(mUser.Value.OCM_01);
 
                 requestARM_CONTROL(armVO, position);
 
                 if (mList.get(position).ARM_03.equals("Y")) {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-                    Toast.makeText(mContext, "[" + mList.get(position).JDM_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "[" + mList.get(position).PCM_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
                 } else {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + mList.get(position).JDM_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "[" + mList.get(position).PCM_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
 
 
                 }
@@ -146,17 +149,17 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                 public void onClick(View view) {
                     int position = getAdapterPosition();
 
-                    JdmVO jdmvo = new JdmVO();
-                    jdmvo.setJDM_01(mList.get(position).JDM_01);
-                    jdmvo.setJDM_02(tv_name.getText().toString());
-                    jdmvo.setJDM_03(tv_memo.getText().toString());
-                    jdmvo.setJDM_04(mList.get(position).JDM_04);
-                    jdmvo.setJDM_96(mList.get(position).JDM_96);
-                    jdmvo.setARM_03(mList.get(position).ARM_03);
-                    jdmvo.setARM_04(mList.get(position).ARM_04);
+                    PcmVO pcmvo = new PcmVO();
+                    pcmvo.setPCM_ID(mList.get(position).PCM_ID);
+                    pcmvo.setPCM_01(mList.get(position).PCM_01);
+                    pcmvo.setPCM_02(tv_name.getText().toString());
+                    pcmvo.setPCM_03(tv_memo.getText().toString());
+                    pcmvo.setPCM_96(mList.get(position).PCM_96);
+                    pcmvo.setARM_03(mList.get(position).ARM_03);
+                    pcmvo.setARM_04(mList.get(position).ARM_04);
 
-                    Intent intent = new Intent(mContext, DetailJdm.class);
-                    intent.putExtra("JdmVO", jdmvo);
+                    Intent intent = new Intent(mContext, DetailPcm.class);
+                    intent.putExtra("PcmVO", pcmvo);
                     mContext.startActivity(intent);
                 }
             });
@@ -164,7 +167,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         }
     }
 
-    public void updateData(ArrayList<JdmVO> list) {
+    public void updateData(ArrayList<PcmVO> list) {
         mList = list;
     }
 
@@ -216,31 +219,30 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                             } else {
                                 mList.get(position).setARM_03("Y");
 
-                                Intent intent = new Intent(mContext, Alarm_Receiver.class);
-                                intent.putExtra("notify_id", responseData.get(0).ARM_04);
-                                intent.putExtra("calDateTime", mList.get(position).JDM_96);
-                                intent.putExtra("contentTitle", "장독관리" + mList.get(position).JDM_02);
-                                intent.putExtra("contentText", mList.get(position).JDM_03);
-                                intent.putExtra("className", ".ui.intro.Intro");
-                                intent.putExtra("gotoActivity", ".ui.jdm.JDMMain");
-                                intent.putExtra("gotoLogin", ".ui.login.Login");
-                                intent.putExtra("gotoMain", ".ui.main.Main");
-
-
-                                JdmVO jdmvo = new JdmVO();
-                                jdmvo.setJDM_01( mList.get(position).getJDM_01());
-                                jdmvo.setJDM_02( mList.get(position).getJDM_02());
-                                jdmvo.setJDM_03( mList.get(position).getJDM_03());
-                                jdmvo.setJDM_04( mList.get(position).getJDM_04());
-                                jdmvo.setJDM_96( mList.get(position).getJDM_96());
-                                jdmvo.setARM_03( mList.get(position).getARM_03());
-
-                                intent.putExtra("mList",mList);
-
-                                intent.putExtra("JdmVO", jdmvo);
-
-
-                                new AlarmHATT(mContext).Alarm(intent);
+//                                Intent intent = new Intent(mContext, Alarm_Receiver.class);
+//                                intent.putExtra("notify_id", responseData.get(0).ARM_04);
+//                                intent.putExtra("calDateTime", mList.get(position).PCM_96);
+//                                intent.putExtra("contentTitle", "PC 관리" + mList.get(position).PCM_02);
+//                                intent.putExtra("contentText", mList.get(position).PCM_03);
+//                                intent.putExtra("className", ".ui.intro.Intro");
+//                                intent.putExtra("gotoActivity", ".ui.pcm.PCMMain");
+//                                intent.putExtra("gotoLogin", ".ui.login.Login");
+//                                intent.putExtra("gotoMain", ".ui.main.Main");
+//
+//
+//                                PcmVO pcmvo = new PcmVO();
+//                                pcmvo.setPCM_ID( mList.get(position).getPCM_ID());
+//                                pcmvo.setPCM_01( mList.get(position).getPCM_01());
+//                                pcmvo.setPCM_02( mList.get(position).getPCM_02());
+//                                pcmvo.setPCM_03( mList.get(position).getPCM_03());
+//                                pcmvo.setPCM_96( mList.get(position).getPCM_96());
+//                                pcmvo.setARM_03( mList.get(position).getARM_03());
+//
+//                                intent.putExtra("mList",mList);
+//
+//                                intent.putExtra("PcmVO", pcmvo);
+//
+//                                new AlarmHATT(mContext).Alarm(intent);
 
                             }
 

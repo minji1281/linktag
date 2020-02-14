@@ -1,12 +1,10 @@
-package com.linktag.linkapp.ui.trp;
+package com.linktag.linkapp.ui.pcm;
 
 import android.annotation.SuppressLint;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -16,12 +14,13 @@ import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.model.TRDModel;
+import com.linktag.linkapp.model.PCMModel;
 import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.value_object.TrdVO;
+import com.linktag.linkapp.ui.trp.TrpRecycleAdapter;
+import com.linktag.linkapp.value_object.PcmVO;
 import com.linktag.linkapp.value_object.TrpVO;
 
 import java.util.ArrayList;
@@ -30,27 +29,27 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TRPMain extends BaseActivity {
+public class PCMMain extends BaseActivity {
 
     private View view;
     private SwipeRefreshLayout swipeRefresh;
 
-    private TrpRecycleAdapter mAdapter;
+    private PcmRecycleAdapter mAdapter;
 
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
 
-    private ArrayList<TrpVO> mList;
+    private ArrayList<PcmVO> mList;
 
 
-    public TRPMain() {
+    public PCMMain() {
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_trp);
+        setContentView(R.layout.activity_pcm);
         initLayout();
         initialize();
 
@@ -61,7 +60,7 @@ public class TRPMain extends BaseActivity {
     public void onResume() {
         super.onResume();
 
-        requestTRP_SELECT();
+        requestPCM_SELECT();
 
 
     }
@@ -74,11 +73,10 @@ public class TRPMain extends BaseActivity {
 
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
-//        swipeRefresh.setOnRefreshListener(() -> requestJMD_SELECT());
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                requestTRP_SELECT();
+                requestPCM_SELECT();
                 swipeRefresh.setRefreshing(false);
             }
         });
@@ -89,12 +87,12 @@ public class TRPMain extends BaseActivity {
         mList = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new TrpRecycleAdapter(mContext, mList);
+        mAdapter = new PcmRecycleAdapter(mContext, mList);
         recyclerView.setAdapter(mAdapter);
     }
 
 
-    public void requestTRP_SELECT() {
+    public void requestPCM_SELECT() {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(getString(R.string.common_network_error));
@@ -106,19 +104,19 @@ public class TRPMain extends BaseActivity {
         //String strToday = ClsDateTime.getNow("yyyyMMdd");
 
 
-        Call<TRPModel> call = Http.trp(HttpBaseService.TYPE.POST).TRP_SELECT(
+        Call<PCMModel> call = Http.pcm(HttpBaseService.TYPE.POST).PCM_SELECT(
                 BaseConst.URL_HOST,
-                "TRP_LIST",
-                "1",
+                "LIST",
+                mUser.Value.CTM_01,
                 "",
-                "M191100001"
+                mUser.Value.OCM_01
         );
 
 
-        call.enqueue(new Callback<TRPModel>() {
+        call.enqueue(new Callback<PCMModel>() {
             @SuppressLint("HandlerLeak")
             @Override
-            public void onResponse(Call<TRPModel> call, Response<TRPModel> response) {
+            public void onResponse(Call<PCMModel> call, Response<PCMModel> response) {
                 Message msg = new Message();
                 msg.obj = response;
                 msg.what = 100;
@@ -129,7 +127,7 @@ public class TRPMain extends BaseActivity {
                         if (msg.what == 100) {
                             closeLoadingBar();
 
-                            Response<TRPModel> response = (Response<TRPModel>) msg.obj;
+                            Response<PCMModel> response = (Response<PCMModel>) msg.obj;
 
                             mList = response.body().Data;
                             if (mList == null)
@@ -145,7 +143,7 @@ public class TRPMain extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<TRPModel> call, Throwable t) {
+            public void onFailure(Call<PCMModel> call, Throwable t) {
                 Log.d("Test", t.getMessage());
                 closeLoadingBar();
 

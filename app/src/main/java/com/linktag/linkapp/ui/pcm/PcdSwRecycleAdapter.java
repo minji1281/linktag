@@ -14,6 +14,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -35,42 +36,40 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PcdHwRecycleAdapter extends RecyclerView.Adapter<PcdHwRecycleAdapter.ViewHolder> {
+public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapter.ViewHolder> {
 
     private Context mContext;
     private ArrayList<PcdVO> mList;
     private LayoutInflater mInflater;
     private View view;
-    private PcdHwRecycleAdapter mAdapter;
+    private PcdSwRecycleAdapter mAdapter;
 
     private HashMap<String, String> map = new HashMap<String, String>();
 
 
-    PcdHwRecycleAdapter(Context context, ArrayList<PcdVO> list) {
+    PcdSwRecycleAdapter(Context context, ArrayList<PcdVO> list) {
         mContext = context;
         mList = list;
-        map.put("선택", "0");
-        map.put("CPU", "1");
-        map.put("메인보드", "2");
-        map.put("그래픽카드", "3");
-        map.put("RAM", "4");
-        map.put("SSD", "5");
-        map.put("HDD", "6");
-        map.put("파워", "7");
-        map.put("쿨러", "8");
-        map.put("케이스", "9");
+
+        map.put("0", "선택");
+        map.put("1", "운영체제");
+        map.put("2", "그래픽드라");
+        map.put("3", "어도비");
+        map.put("4", "백신");
+        map.put("5", "기타");
     }
 
-    public void setmAdapter(PcdHwRecycleAdapter mAdapter) {
+
+    public void setmAdapter(PcdSwRecycleAdapter mAdapter) {
         this.mAdapter = mAdapter;
     }
 
     @NonNull
     @Override
-    public PcdHwRecycleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public PcdSwRecycleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = mInflater.inflate(R.layout.listitem_pcd_hw_list, parent, false);
-        PcdHwRecycleAdapter.ViewHolder viewHolder = new PcdHwRecycleAdapter.ViewHolder(view);
+        view = mInflater.inflate(R.layout.listitem_pcd_sw_list, parent, false);
+        PcdSwRecycleAdapter.ViewHolder viewHolder = new PcdSwRecycleAdapter.ViewHolder(view);
 
 
         return viewHolder;
@@ -79,55 +78,14 @@ public class PcdHwRecycleAdapter extends RecyclerView.Adapter<PcdHwRecycleAdapte
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        viewHolder.tv_hw.setText(mList.get(position).PCD_05);
-        viewHolder.sp_hw.setSelection(Integer.parseInt(mList.get(position).PCD_04));
 
-        if (mList.get(position).PCD_04.equals("0")) {
-            viewHolder.imageView.setImageResource(R.drawable.ic_plus_round);
-        } else {
-            viewHolder.imageView.setImageResource(R.drawable.ic_minus_round);
-        }
-
-        viewHolder.sp_hw.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int pos, long id) {
-
-                mList.get(position).setPCD_04(map.get(viewHolder.sp_hw.getSelectedItem()));
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-
+        viewHolder.tv_name.setText(map.get(mList.get(position).PCD_04));
+        viewHolder.tv_detail.setText(mList.get(position).PCD_05);
 
         viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View view) {
-
-                mList.get(position).setPCD_05(viewHolder.tv_hw.getText().toString());
-
-                Drawable tempImg = viewHolder.imageView.getDrawable();
-                Drawable tempRes = mContext.getResources().getDrawable(R.drawable.ic_plus_round);
-                Bitmap tmpBitmap = ((BitmapDrawable) tempImg).getBitmap();
-                Bitmap tmpBitmapRes = ((BitmapDrawable) tempRes).getBitmap();
-
-
-                if (tmpBitmap.equals(tmpBitmapRes)) {
-                    if (mList.get(position).getPCD_04().equals("0")) {
-                        Toast.makeText(mContext, "선택 필요", Toast.LENGTH_SHORT).show();
-                        return;
-                    } else {
-                        viewHolder.imageView.setImageResource(R.drawable.ic_minus_round);
-                        mList.get(position).setGUBUN("INSERT");
-                    }
-                } else {
-                    mList.get(position).setGUBUN("DELETE");
-                }
-
                 requestPCD_CONTROL(mList.get(position));
             }
         });
@@ -142,9 +100,11 @@ public class PcdHwRecycleAdapter extends RecyclerView.Adapter<PcdHwRecycleAdapte
             return;
         }
 
+        String GUBUN = pcdVO.GUBUN;
+
         Call<PCDModel> call = Http.pcd(HttpBaseService.TYPE.POST).PCD_CONTROL(
                 BaseConst.URL_HOST,
-                pcdVO.GUBUN,
+                "DELETE",
                 pcdVO.PCD_ID,
                 pcdVO.PCD_01,
                 pcdVO.PCD_02,
@@ -201,16 +161,16 @@ public class PcdHwRecycleAdapter extends RecyclerView.Adapter<PcdHwRecycleAdapte
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        private Spinner sp_hw;
-        private TextView tv_hw;
+        private TextView tv_name;
+        private TextView tv_detail;
         private ImageView imageView;
 
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            sp_hw = itemView.findViewById(R.id.sp_hw);
-            tv_hw = itemView.findViewById(R.id.tv_hw);
+            tv_name = itemView.findViewById(R.id.tv_name);
+            tv_detail = itemView.findViewById(R.id.tv_detail);
             imageView = itemView.findViewById(R.id.imageView);
 
         }

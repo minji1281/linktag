@@ -45,9 +45,24 @@ public class BaseConst {
     public static final String CTD_CONTROL = "{host}/Mobile/CTD_CONTROL";
     public static final String SVC_SELECT = "{host}/Mobile/SVC_SELECT";
 
+    //알람
+    public static final String URL_ARM_CONTROL = "{host}/Mobile/ARM_CONTROL";
+
     //장독
     public static final String URL_JDM_SELECT = "{host}/Mobile/JDM_SELECT";
     public static final String URL_JDM_CONTROL = "{host}/Mobile/JDM_CONTROL";
+
+    //복약
+    public static final String URL_TRP_SELECT = "{host}/Mobile/TRP_SELECT";
+    public static final String URL_TRP_CONTROL = "{host}/Mobile/TRP_CONTROL";
+    public static final String URL_TRD_SELECT = "{host}/Mobile/TRD_SELECT";
+    public static final String URL_TRD_CONTROL = "{host}/Mobile/TRD_CONTROL";
+
+    //PC
+    public static final String URL_PCM_SELECT = "{host}/Mobile/PCM_SELECT";
+    public static final String URL_PCM_CONTROL = "{host}/Mobile/PCM_CONTROL";
+    public static final String URL_PCD_SELECT = "{host}/Mobile/PCD_SELECT";
+    public static final String URL_PCD_CONTROL = "{host}/Mobile/PCD_CONTROL";
 
     //물주기
     public static final String POT_SELECT = "{host}/Mobile/POT_SELECT";

@@ -1,15 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="hw">
+    <string-array name="sw">
         <item>선택</item>
-        <item>CPU</item>
-        <item>메인보드</item>
-        <item>그래픽카드</item>
-        <item>RAM</item>
-        <item>SSD</item>
-        <item>HDD</item>
-        <item>파워</item>
-        <item>쿨러</item>
-        <item>케이스</item>
+        <item>운영체제</item>
+        <item>그래픽드라이버</item>
+        <item>어도비</item>
+        <item>백신</item>
+        <item>기타</item>
     </string-array>
 </resources>

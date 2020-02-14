@@ -1,4 +1,4 @@
-package com.linktag.linkapp.TRP_Management;
+package com.linktag.linkapp.ui.trp;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -15,13 +16,12 @@ import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.model.JDMModel;
+import com.linktag.linkapp.model.TRDModel;
 import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.main.JdmRecycleAdapter;
-import com.linktag.linkapp.value_object.JdmVO;
+import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
 
 import java.util.ArrayList;
@@ -39,7 +39,9 @@ public class TRPMain extends BaseActivity {
 
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
+
     private ArrayList<TrpVO> mList;
+
 
     public TRPMain() {
     }
@@ -52,12 +54,6 @@ public class TRPMain extends BaseActivity {
         initLayout();
         initialize();
 
-        if (getIntent().hasExtra("className")) {
-            Intent intent = getIntent();
-            Push_goActivity(intent);
-        }
-
-
 
     }
 
@@ -68,11 +64,6 @@ public class TRPMain extends BaseActivity {
         requestTRP_SELECT();
 
 
-    }
-
-    private void Push_goActivity(Intent intent) {
-        intent.setClassName(mContext, getPackageName() + ".ui.jdm_class.DetailJdm");
-        mContext.startActivity(intent);
     }
 
 
@@ -117,10 +108,10 @@ public class TRPMain extends BaseActivity {
 
         Call<TRPModel> call = Http.trp(HttpBaseService.TYPE.POST).TRP_SELECT(
                 BaseConst.URL_HOST,
-                "LIST",
-                "1",
+                "TRP_LIST",
+                mUser.Value.CTM_01,
                 "",
-                "M191100001"
+                mUser.Value.OCM_01
         );
 
 
@@ -162,4 +153,5 @@ public class TRPMain extends BaseActivity {
         });
 
     }
+
 }

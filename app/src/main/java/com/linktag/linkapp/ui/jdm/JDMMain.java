@@ -1,4 +1,4 @@
-package com.linktag.linkapp.ui.main;
+package com.linktag.linkapp.ui.jdm;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -71,7 +71,7 @@ public class JDMMain extends BaseActivity {
     }
 
     private void Push_goActivity(Intent intent) {
-        intent.setClassName(mContext, getPackageName() + ".ui.jdm_class.DetailJdm");
+        intent.setClassName(mContext, getPackageName() + ".ui.jdm.DetailJdm");
         mContext.startActivity(intent);
     }
 
@@ -121,7 +121,7 @@ public class JDMMain extends BaseActivity {
         Call<JDMModel> call = Http.jdm(HttpBaseService.TYPE.POST).JDM_SELECT(
                 BaseConst.URL_HOST,
                 "LIST",
-                CTN_02,
+                mUser.Value.CTM_01,
                 "",
                 mUser.Value.OCM_01
         );

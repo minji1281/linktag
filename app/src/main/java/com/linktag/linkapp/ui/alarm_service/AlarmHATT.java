@@ -7,8 +7,6 @@ import android.content.Intent;
 import android.os.Build;
 import android.widget.Toast;
 
-import com.linktag.linkapp.ui.main.JDMMain;
-
 import java.util.Calendar;
 
 public class AlarmHATT {
@@ -19,24 +17,22 @@ public class AlarmHATT {
         this.context = context;
     }
 
-    public void Alarm(String datetime) {
+    public void Alarm(Intent intent) {
 
 
+        int notify_id = intent.getExtras().getInt("notify_id");
         AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 
-        Intent intent = new Intent(context, Alarm_Receiver.class);
+        PendingIntent sender = PendingIntent.getBroadcast(context, notify_id, intent, PendingIntent.FLAG_IMMUTABLE);
 
-        PendingIntent sender = PendingIntent.getBroadcast(context, 0, intent, 0);
-
+        String calDateTime = intent.getExtras().getString("calDateTime");
         Calendar calendar = Calendar.getInstance();
-        calendar.set(Calendar.YEAR, Integer.parseInt(datetime.substring(0,4)));
-        calendar.set(Calendar.MONTH, Integer.parseInt(datetime.substring(4,6))-1);
-        calendar.set(Calendar.DATE, Integer.parseInt(datetime.substring(6,8)));
-        calendar.set(Calendar.HOUR, Integer.parseInt(datetime.substring(8,10)));
-        calendar.set(Calendar.MINUTE, Integer.parseInt(datetime.substring(10,12)));
+        calendar.set(Calendar.YEAR, Integer.parseInt(calDateTime.substring(0, 4)));
+        calendar.set(Calendar.MONTH, Integer.parseInt(calDateTime.substring(4, 6)) - 1);
+        calendar.set(Calendar.DATE, Integer.parseInt(calDateTime.substring(6, 8)));
+        calendar.set(Calendar.HOUR_OF_DAY, Integer.parseInt(calDateTime.substring(8, 10)));
+        calendar.set(Calendar.MINUTE, Integer.parseInt(calDateTime.substring(10, 12)));
         calendar.set(Calendar.SECOND, 0);
-
-
 
         if (Build.VERSION.SDK_INT < Build.VERSION_CODES.M) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -55,4 +51,7 @@ public class AlarmHATT {
 
         }
     }
+
+
+
 }

@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.ui.jdm_class.DetailJdm;
+import com.linktag.linkapp.ui.jdm.DetailJdm;
 import com.linktag.linkapp.value_object.JdmVO;
 
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package com.linktag.linkapp.ui.jdm_class;
+package com.linktag.linkapp.ui.jdm;
 
 import android.app.AlarmManager;
 import android.app.DatePickerDialog;
@@ -6,7 +6,6 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Parcelable;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.view.View;
@@ -96,7 +95,7 @@ public class DetailJdm  extends BaseActivity implements Serializable{
             intent.putExtra("contentTitle","장독관리" + jdmVO.getJDM_02());
             intent.putExtra("contentText",jdmVO.getJDM_03());
             intent.putExtra("className", ".ui.intro.Intro");
-            intent.putExtra("gotoActivity", ".ui.main.JDMMain");
+            intent.putExtra("gotoActivity", ".ui.jdm.JDMMain");
 
 
             JdmVO jdmvo = new JdmVO();
@@ -124,8 +123,8 @@ public class DetailJdm  extends BaseActivity implements Serializable{
                 ed_memo.getText().toString(),
                 jdmVO.JDM_04,
                 jdmVO.JDM_96,
-                "M191100001",
-                "M191100001",
+                mUser.Value.OCM_01,
+                mUser.Value.OCM_01,
                 jdmVO.ARM_03
         );
 

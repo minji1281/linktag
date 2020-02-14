@@ -12,7 +12,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="장독관리"
+        app:title_text="PC관리"
         />
 
     <com.linktag.base.base_view_pager.BaseViewPager
@@ -33,7 +33,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/list_background"
-            tools:listitem="@layout/listitem_jdm_list" />
+            tools:listitem="@layout/listitem_pcm_list" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
 </LinearLayout>

@@ -223,7 +223,7 @@
                         android:layout_width="150dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical|right"
-                        android:background="@drawable/list_item_round_button"
+                        android:background="@drawable/list_item_round_button_yellow"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
                         android:text="지정일 알림 사용"

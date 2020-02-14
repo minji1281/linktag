@@ -1,4 +1,4 @@
-package com.linktag.linkapp.ui.main;
+package com.linktag.linkapp.ui.jdm;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -18,16 +18,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.linktag.base.network.ClsNetworkCheck;
-import com.linktag.base.util.BaseAlert;
+import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.ARMModel;
-import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm_service.AlarmHATT;
 import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
-import com.linktag.linkapp.ui.jdm_class.DetailJdm;
 import com.linktag.linkapp.value_object.ArmVO;
 import com.linktag.linkapp.value_object.JdmVO;
 
@@ -43,10 +41,12 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
     private ArrayList<JdmVO> mList;
     private LayoutInflater mInflater;
     private View view;
+    private InterfaceUser mUser;
 
     JdmRecycleAdapter(Context context, ArrayList<JdmVO> list) {
         mContext = context;
         mList = list;
+        mUser = InterfaceUser.getInstance();
     }
 
     @NonNull
@@ -85,10 +85,10 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
                 armVO.setARM_ID(mList.get(position).JDM_ID);
                 armVO.setARM_01(mList.get(position).JDM_01);
-                armVO.setARM_02("M191100001");
+                armVO.setARM_02(mUser.Value.OCM_01);
                 armVO.setARM_03(mList.get(position).ARM_03);
                 armVO.setARM_95("");
-                armVO.setARM_98("M191100001");
+                armVO.setARM_98(mUser.Value.OCM_01);
 
                 requestARM_CONTROL(armVO, position);
 
@@ -225,7 +225,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                                 intent.putExtra("contentTitle", "장독관리" + mList.get(position).JDM_02);
                                 intent.putExtra("contentText", mList.get(position).JDM_03);
                                 intent.putExtra("className", ".ui.intro.Intro");
-                                intent.putExtra("gotoActivity", ".ui.main.JDMMain");
+                                intent.putExtra("gotoActivity", ".ui.jdm.JDMMain");
                                 intent.putExtra("gotoLogin", ".ui.login.Login");
                                 intent.putExtra("gotoMain", ".ui.main.Main");
 

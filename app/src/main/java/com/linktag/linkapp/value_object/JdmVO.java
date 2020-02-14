@@ -1,8 +1,12 @@
 package com.linktag.linkapp.value_object;
 
+import android.content.Intent;
+
+import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
+
 import java.io.Serializable;
 
-public class JdmVO implements Serializable {
+public class JdmVO implements Serializable  {
 
     public String JDM_ID; // 컨테이너번호
     public String JDM_01; // 코드 일련번호
@@ -17,6 +21,62 @@ public class JdmVO implements Serializable {
     public String ARM_01;
     public String ARM_02;
     public String ARM_03;
+
+    public int Notify_Id;
+    public String CalDateTime;
+    public String ContentTitle;
+    public String ContentText;
+    public String ClassName;
+
+    public int getNotify_Id() {
+        return Notify_Id;
+    }
+
+    public void setNotify_Id(int notify_Id) {
+        Notify_Id = notify_Id;
+    }
+
+    public String getCalDateTime() {
+        return CalDateTime;
+    }
+
+    public void setCalDateTime(String calDateTime) {
+        CalDateTime = calDateTime;
+    }
+
+    public String getContentTitle() {
+        return ContentTitle;
+    }
+
+    public void setContentTitle(String contentTitle) {
+        ContentTitle = contentTitle;
+    }
+
+    public String getContentText() {
+        return ContentText;
+    }
+
+    public void setContentText(String contentText) {
+        ContentText = contentText;
+    }
+
+    public String getClassName() {
+        return ClassName;
+    }
+
+    public void setClassName(String className) {
+        ClassName = className;
+    }
+
+    public int ARM_04;
+
+    public int getARM_04() {
+        return ARM_04;
+    }
+
+    public void setARM_04(int ARM_04) {
+        this.ARM_04 = ARM_04;
+    }
 
     public String getARM_ID() {
         return ARM_ID;

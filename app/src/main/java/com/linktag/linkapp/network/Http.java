@@ -1,11 +1,14 @@
 package com.linktag.linkapp.network;
 
+import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.model.BRCModel;
 import com.linktag.linkapp.model.CMTModel;
 import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.model.NOCModel;
 import com.linktag.linkapp.model.OCM_Model;
+import com.linktag.linkapp.model.PCDModel;
+import com.linktag.linkapp.model.PCMModel;
 import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.model.SVC_Model;
 import com.linktag.linkapp.model.LOGIN_Model;
@@ -13,6 +16,8 @@ import com.linktag.linkapp.model.DSHModel;
 import com.linktag.linkapp.model.BRDModel;
 import com.linktag.linkapp.model.NOTModel;
 import com.linktag.linkapp.model.TKNModel;
+import com.linktag.linkapp.model.TRDModel;
+import com.linktag.linkapp.model.TRPModel;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -317,6 +322,30 @@ public class Http extends HttpBaseService {
 
     }
 
+    // 사용자 알람
+    //--------------------------------------------------
+
+    public static IARM arm(TYPE type) {
+        return (IARM) retrofit(IARM.class, type);
+    }
+
+    public interface IARM {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_ARM_CONTROL)
+        Call<ARMModel> ARM_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "ARM_ID") String ARM_ID,
+                @Field(value = "ARM_01") String ARM_01,
+                @Field(value = "ARM_02") String ARM_02,
+                @Field(value = "ARM_03") String ARM_03,
+                @Field(value = "ARM_95") String ARM_95,
+                @Field(value = "ARM_98") String ARM_98
+
+        );
+
+    }
 
     //--------------------------------------------------
     // 장독
@@ -356,6 +385,181 @@ public class Http extends HttpBaseService {
 
     }
 
+    //--------------------------------------------------
+    // PC
+    //--------------------------------------------------
+    public static IPCM pcm(TYPE type) {
+        return (IPCM) retrofit(IPCM.class, type);
+    }
+
+    public interface IPCM {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_PCM_SELECT)
+        Call<PCMModel> PCM_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "PCM_ID") String PCM_ID,
+                @Field(value = "PCM_01") String PCM_01,
+                @Field(value = "OCM_01") String OCM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_PCM_CONTROL)
+        Call<PCMModel> PCM_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "PCM_ID") String PCM_ID,
+                @Field(value = "PCM_01") String PCM_01,
+                @Field(value = "PCM_02") String PCM_02,
+                @Field(value = "PCM_03") String PCM_03,
+                @Field(value = "PCM_96") String PCM_96,
+                @Field(value = "PCM_97") String PCM_97,
+                @Field(value = "PCM_98") String PCM_98,
+                @Field(value = "ARM_03") String ARM_03
+
+        );
+
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_PCD_SELECT)
+        Call<PCDModel> PCD_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "PCD_ID") String PCD_ID,
+                @Field(value = "PCD_01") String PCD_01,
+                @Field(value = "OCM_01") String OCM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_PCD_CONTROL)
+        Call<PCDModel> PCD_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "PCD_ID") String PCD_ID,
+                @Field(value = "PCD_01") String PCD_01,
+                @Field(value = "PCD_02") String PCD_02,
+                @Field(value = "PCD_03") String PCD_03,
+                @Field(value = "PCD_04") String PCD_04,
+                @Field(value = "PCD_05") String PCD_05,
+                @Field(value = "PCD_98") String PCD_98
+
+        );
+
+    }
+    public static IPCD pcd(TYPE type) {
+        return (IPCD) retrofit(IPCD.class, type);
+    }
+
+    public interface IPCD {
+
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_PCD_SELECT)
+        Call<PCDModel> PCD_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "PCD_ID") String PCD_ID,
+                @Field(value = "PCD_01") String PCD_01,
+                @Field(value = "OCM_01") String OCM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_PCD_CONTROL)
+        Call<PCDModel> PCD_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "PCD_ID") String PCD_ID,
+                @Field(value = "PCD_01") String PCD_01,
+                @Field(value = "PCD_02") String PCD_02,
+                @Field(value = "PCD_03") String PCD_03,
+                @Field(value = "PCD_04") String PCD_04,
+                @Field(value = "PCD_05") String PCD_05,
+                @Field(value = "PCD_98") String PCD_98
+
+        );
+
+    }
+
+    //--------------------------------------------------
+    // 복약
+    //--------------------------------------------------
+    public static ITRP trp(TYPE type) {
+        return (ITRP) retrofit(ITRP.class, type);
+    }
+
+    public interface ITRP {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_TRP_SELECT)
+        Call<TRPModel> TRP_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "TRP_ID") String TRP_ID,
+                @Field(value = "TRP_01") String TRP_01,
+                @Field(value = "OCM_01") String OCM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_TRP_CONTROL)
+        Call<TRPModel> TRP_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "TRP_ID") String TRP_ID,
+                @Field(value = "TRP_01") String TRP_01,
+                @Field(value = "TRP_02") String TRP_02,
+                @Field(value = "TRP_03") String TRP_03,
+                @Field(value = "TRP_04") String TRP_04,
+                @Field(value = "TRP_97") String TRP_97,
+                @Field(value = "TRP_98") String TRP_98,
+                @Field(value = "ARM_03") String ARM_03
+
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_TRD_CONTROL)
+        Call<TRPModel> TRD_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "TRP_ID") String TRP_ID,
+                @Field(value = "TRP_01") String TRP_01,
+                @Field(value = "TRP_02") String TRP_02,
+                @Field(value = "TRP_96") String TRP_96,
+                @Field(value = "TRP_98") String TRP_98
+        );
+
+
+    }
+
+    public static ITRD trd(TYPE type) {
+        return (ITRD) retrofit(ITRD.class, type);
+    }
+
+    public interface ITRD {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_TRD_SELECT)
+        Call<TRDModel> TRD_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "TRD_ID") String TRD_ID,
+                @Field(value = "TRD_01") String TRD_01,
+                @Field(value = "OCM_01") String OCM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_TRD_CONTROL)
+        Call<TRDModel> TRD_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "TRD_ID") String TRD_ID,
+                @Field(value = "TRD_01") String TRD_01,
+                @Field(value = "TRD_02") String TRD_02,
+                @Field(value = "TRD_96") String TRD_96,
+                @Field(value = "TRD_98") String TRD_98
+        );
+
+    }
     //--------------------------------------------------
     // 물주기
     //--------------------------------------------------

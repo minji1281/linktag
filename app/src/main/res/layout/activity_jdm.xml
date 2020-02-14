@@ -26,7 +26,7 @@
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:context=".ui.main.JDMMain">
+        tools:context=".ui.jdm.JDMMain">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"

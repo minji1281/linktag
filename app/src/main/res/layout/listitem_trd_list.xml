@@ -9,7 +9,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/shape_base_border"
+        android:background="@drawable/shape_base_border_height_none"
         android:orientation="vertical"
         android:padding="8dp">
 
@@ -19,125 +19,39 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="65dp"
-                android:layout_height="65dp"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
                 android:layout_gravity="center_vertical"
                 android:background="@drawable/ic_trp" />
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="15dp"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:text="감기약"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <TextView
-                    android:id="@+id/tv_memo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="점심물약이랑 같이 먹을것."
-                    android:textSize="12dp" />
-            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="1"
+                android:layout_marginStart="5dp"
                 android:orientation="vertical">
 
                 <TextView
-                    android:id="@+id/tv_week"
+                    android:id="@+id/tv_dateTime"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="월화수목금"
-                    android:textAlignment="textEnd"
+                    android:text="오전 06:00"
+                    android:textAlignment="textStart"
                     android:textSize="13dp"
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!--        <Button-->
-            <!--            android:id="@+id/btn_alarm_state"-->
-            <!--            android:layout_width="45dp"-->
-            <!--            android:layout_height="45dp"-->
-            <!--            android:layout_gravity="center_vertical"-->
-            <!--            android:layout_marginStart="15dp"-->
-            <!--            android:background="@drawable/btn_alarm_state"-->
-            <!--            android:stateListAnimator="@null"-->
-            <!--            />-->
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/alarm_state_on" />
-
-
-        </LinearLayout>
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1dp"
-            android:background="@color/colorPrimaryDark" />
-
-        <LinearLayout
-            android:paddingTop="4dp"
-            android:paddingStart="4dp"
-            android:paddingEnd="4dp"
-            android:orientation="horizontal"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_time1"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="오전 8:00" />
-
-            <TextView
-                android:id="@+id/tv_time2"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="오전 8:00" />
-
-            <TextView
-                android:id="@+id/tv_time3"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="오전 8:00" />
-            <TextView
-                android:id="@+id/tv_time4"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="오전 8:00" />
-            <TextView
-                android:id="@+id/tv_time5"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:text="오전 8:00" />
-
+                android:background="@drawable/btn_round_black"
+                android:text="X"
+                android:textColor="#FFF"
+                />
 
         </LinearLayout>
 

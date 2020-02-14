@@ -2,17 +2,9 @@ package com.linktag.linkapp.value_object;
 
 import java.io.Serializable;
 
-public class PcmVO implements Serializable {
+public class PcdVO implements Serializable {
 
-
-    public String PCM_ID; // 컨테이너 번호
-    public String PCM_01; // 코드 일련번호
-    public String PCM_02; // 명칭
-    public String PCM_03; // 메모
-    public String PCM_96; // 알림 지정일자
-    public String PCM_97; // 작성자 아이디
-    public String PCM_98; // 최종수정자 아이디
-
+    public String GUBUN;
     public String PCD_ID;  //컨테이너번호
     public String PCD_01;  //코드 일련번호
     public String PCD_02;  //일련번호
@@ -34,60 +26,12 @@ public class PcmVO implements Serializable {
     public String ContentText;
 
 
-    public String getPCM_ID() {
-        return PCM_ID;
+    public String getGUBUN() {
+        return GUBUN;
     }
 
-    public void setPCM_ID(String PCM_ID) {
-        this.PCM_ID = PCM_ID;
-    }
-
-    public String getPCM_01() {
-        return PCM_01;
-    }
-
-    public void setPCM_01(String PCM_01) {
-        this.PCM_01 = PCM_01;
-    }
-
-    public String getPCM_02() {
-        return PCM_02;
-    }
-
-    public void setPCM_02(String PCM_02) {
-        this.PCM_02 = PCM_02;
-    }
-
-    public String getPCM_03() {
-        return PCM_03;
-    }
-
-    public void setPCM_03(String PCM_03) {
-        this.PCM_03 = PCM_03;
-    }
-
-    public String getPCM_96() {
-        return PCM_96;
-    }
-
-    public void setPCM_96(String PCM_96) {
-        this.PCM_96 = PCM_96;
-    }
-
-    public String getPCM_97() {
-        return PCM_97;
-    }
-
-    public void setPCM_97(String PCM_97) {
-        this.PCM_97 = PCM_97;
-    }
-
-    public String getPCM_98() {
-        return PCM_98;
-    }
-
-    public void setPCM_98(String PCM_98) {
-        this.PCM_98 = PCM_98;
+    public void setGUBUN(String GUBUN) {
+        this.GUBUN = GUBUN;
     }
 
     public String getPCD_ID() {

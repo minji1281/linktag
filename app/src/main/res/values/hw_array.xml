@@ -1,2 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources></resources>
+<resources>
+    <string-array name="hw">
+        <item>선택</item>
+        <item>CPU</item>
+        <item>메인보드</item>
+        <item>그래픽카드</item>
+        <item>RAM</item>
+        <item>SSD</item>
+        <item>HDD</item>
+        <item>파워</item>
+        <item>쿨러</item>
+        <item>OOD</item>
+        <item>케이스</item>
+    </string-array>
+</resources>

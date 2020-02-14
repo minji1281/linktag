@@ -85,13 +85,13 @@
             android:textColor="@drawable/selector_main_tab_text"
             android:textSize="@dimen/text_small" />
         <TextView
-            android:id="@+id/tvMainJdm"
+            android:id="@+id/tvMainTest"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:drawableTop="@drawable/selector_main_setting"
             android:gravity="center"
-            android:text="장독"
+            android:text="테스트"
             android:textColor="@drawable/selector_main_tab_text"
             android:textSize="@dimen/text_small" />
     </LinearLayout>

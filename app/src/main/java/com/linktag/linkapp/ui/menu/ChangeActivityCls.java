@@ -3,7 +3,8 @@ package com.linktag.linkapp.ui.menu;
 import android.content.Context;
 import android.content.Intent;
 
-import com.linktag.linkapp.ui.main.JDMMain;
+import com.linktag.linkapp.ui.jdm.JDMMain;
+import com.linktag.linkapp.ui.jdm.JDMMain;
 import com.linktag.linkapp.ui.pot.PotList;
 
 public class ChangeActivityCls {

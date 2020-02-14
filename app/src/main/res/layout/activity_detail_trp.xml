@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -9,27 +10,27 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="장독관리" />
+        app:title_text="복약관리" />
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/list_background"
-        android:layout_weight="1">
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:background="@color/list_background">
 
-        <LinearLayout
-            android:id="@+id/linearLayout"
+        <RelativeLayout
+            android:id="@+id/relativeLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_8sdp"
             android:background="@color/list_background"
             android:orientation="vertical">
 
             <LinearLayout
-
+                android:id="@+id/root_linearLayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
                 android:layout_margin="@dimen/_5sdp"
                 android:background="@drawable/list_item_layout"
                 android:orientation="horizontal">
@@ -40,7 +41,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|left"
                     android:layout_weight="1"
-                    android:text="장독 명"
+                    android:text="명 칭"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
@@ -51,15 +52,16 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="4"
                     android:background="@null"
-                    android:hint="장독명을 입력하세요."
+                    android:hint="명칭을 입력하세요."
                     android:textSize="@dimen/_10sdp" />
 
             </LinearLayout>
 
             <LinearLayout
-
+                android:id="@+id/child_linearLayout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/root_linearLayout"
                 android:layout_margin="@dimen/_5sdp"
                 android:background="@drawable/list_item_layout"
                 android:orientation="horizontal">
@@ -86,46 +88,13 @@
 
             </LinearLayout>
 
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/list_item_layout"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|left"
-                    android:layout_weight="1"
-                    android:text="담금일자"
-                    android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold" />
-
-                <TextView
-                    android:id="@+id/tv_datePicker"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:background="@null"
-                    android:hint="날짜선택"
-                    android:textSize="@dimen/_10sdp" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="3" />
-
-
-            </LinearLayout>
 
             <LinearLayout
 
+                android:id="@+id/child_linearLayout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|left"
+                android:layout_below="@+id/child_linearLayout1"
                 android:layout_margin="@dimen/_5sdp"
                 android:background="@drawable/list_item_layout"
                 android:minWidth="0dp"
@@ -159,44 +128,11 @@
             </LinearLayout>
 
             <LinearLayout
-
+                android:id="@+id/child_linearLayout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/list_item_layout"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|left"
-                    android:text="알림시간"
-                    android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@color/colorPrimaryDark" />
-
-                <TimePicker
-                    android:id="@+id/timePicker"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-20dp"
-                    android:layout_marginBottom="-40dp"
-                    android:scaleY=".8"
-                    android:timePickerMode="spinner" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
+                android:layout_below="@+id/child_linearLayout2"
+                android:layout_margin="5dp"
                 android:background="@drawable/list_item_layout"
                 android:orientation="vertical">
 
@@ -219,14 +155,14 @@
                         android:layout_weight="1" />
 
                     <Button
-                        android:id="@+id/btn_datePicker"
-                        android:layout_width="150dp"
+                        android:id="@+id/btn_addAlarm"
+                        android:layout_width="100dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical|right"
-                        android:background="@drawable/list_item_round_button"
+                        android:background="@drawable/list_item_round_button_yellow"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:text="지정일 알림 사용"
+                        android:text="알림 추가"
                         android:textColor="@color/white"
                         android:textSize="13dp" />
                 </LinearLayout>
@@ -234,23 +170,193 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="2px"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginBottom="@dimen/_8sdp"
+                    android:layout_marginTop="@dimen/_8sdp"
                     android:background="@color/colorPrimaryDark" />
 
-                <TextView
-                    android:id="@+id/tv_datePicker2"
+                <TimePicker
+                    android:id="@+id/timePicker"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="지정일 없음"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/_10sdp" />
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-20dp"
+                    android:layout_marginBottom="-40dp"
+                    android:scaleY=".8"
+                    android:timePickerMode="spinner" />
 
             </LinearLayout>
-        </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/child_linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/child_linearLayout3"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/list_item_layout"
+                    android:orientation="vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|left"
+                        android:text="알림현황"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/recyclerView"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        tools:listitem="@layout/listitem_trd_list" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/child_linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/child_linearLayout4"
+                android:layout_marginStart="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/list_item_layout"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_marginBottom="5dp"
+                    android:text="알림주기"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true">
+
+                        <Button
+                            android:id="@+id/btn_Monday"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_toLeftOf="@+id/btn_Tuesday"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/btn_round_yellow"
+                            android:text="월"
+                            android:textColor="@color/white"
+                            android:textSize="13dp" />
+
+                        <Button
+                            android:id="@+id/btn_Tuesday"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toLeftOf="@+id/btn_Wednesday"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/btn_round_yellow"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:text="화"
+                            android:textColor="@color/white"
+                            android:textSize="13dp" />
+
+                        <Button
+                            android:id="@+id/btn_Wednesday"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toLeftOf="@+id/btn_Thursday"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/btn_round_yellow"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:text="수"
+                            android:textColor="@color/white"
+                            android:textSize="13dp" />
+
+                        <Button
+                            android:id="@+id/btn_Thursday"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:background="@drawable/btn_round_yellow"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:text="목"
+
+                            android:textColor="@color/white"
+                            android:textSize="13dp" />
+
+                        <Button
+                            android:id="@+id/btn_Friday"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toRightOf="@+id/btn_Thursday"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/btn_round_yellow"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:text="금"
+                            android:textColor="@color/white"
+                            android:textSize="13dp" />
+
+                        <Button
+                            android:id="@+id/btn_Saturday"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toRightOf="@+id/btn_Friday"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/btn_round_yellow"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:text="토"
+                            android:textColor="@color/white"
+                            android:textSize="13dp" />
+
+                        <Button
+                            android:id="@+id/btn_Sunday"
+                            android:layout_width="40dp"
+                            android:layout_height="40dp"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toRightOf="@+id/btn_Saturday"
+                            android:layout_centerVertical="true"
+                            android:background="@drawable/btn_round_yellow"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:text="일"
+                            android:textColor="@color/white"
+                            android:textSize="13dp" />
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </RelativeLayout>
 
     </ScrollView>
 
@@ -258,6 +364,7 @@
         android:id="@+id/bt_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:background="@color/list_item_Detail_saveBtn"
         android:text="저장"
         android:textColor="@color/white" />

@@ -9,14 +9,14 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="장독관리" />
+        app:title_text="PC관리" />
 
     <ScrollView
         android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/list_background"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:background="@color/list_background">
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -40,7 +40,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|left"
                     android:layout_weight="1"
-                    android:text="장독 명"
+                    android:text="명 칭"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
@@ -51,7 +51,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="4"
                     android:background="@null"
-                    android:hint="장독명을 입력하세요."
+                    android:hint="명칭을 입력하세요."
                     android:textSize="@dimen/_10sdp" />
 
             </LinearLayout>
@@ -100,17 +100,17 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|left"
                     android:layout_weight="1"
-                    android:text="담금일자"
+                    android:text="관리일자"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/tv_datePicker"
+                    android:id="@+id/tv_manageDay"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical"
                     android:background="@null"
-                    android:hint="날짜선택"
+                    android:hint="2020.02.13"
                     android:textSize="@dimen/_10sdp" />
 
                 <View
@@ -118,6 +118,182 @@
                     android:layout_height="match_parent"
                     android:layout_weight="3" />
 
+
+            </LinearLayout>
+
+            <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@drawable/list_item_layout"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|left"
+                        android:text="PC 하드웨어 정보 "
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/sp_hw"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:entries="@array/hw"
+                            android:textSize="13dp" />
+
+                        <EditText
+                            android:id="@+id/et_hw"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:background="@null"
+                            android:hint="상세정보 입력"
+                            android:textSize="13dp" />
+
+
+                        <Button
+                            android:id="@+id/btn_addItem_hw"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/ic_plus_round"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:textColor="#FFF"
+                            android:textSize="13dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@color/colorPrimaryDark" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_hw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/listitem_pcd_sw_list" />
+
+            </LinearLayout>
+
+            <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/_5sdp"
+                android:background="@drawable/list_item_layout"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|left"
+                        android:text="PC 소프트웨어 정보 "
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="horizontal">
+
+                        <Spinner
+                            android:id="@+id/sp_sw"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:entries="@array/sw"
+                            android:textSize="13dp" />
+
+                        <EditText
+                            android:id="@+id/et_sw"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="2"
+                            android:background="@null"
+                            android:hint="상세정보 입력"
+                            android:textSize="13dp" />
+
+
+                        <Button
+                            android:id="@+id/btn_addItem_sw"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:background="@drawable/ic_plus_round"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:textColor="#FFF"
+                            android:textSize="13dp" />
+
+                    </LinearLayout>
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@color/colorPrimaryDark" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_sw"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/listitem_pcd_sw_list" />
 
             </LinearLayout>
 
@@ -258,8 +434,10 @@
         android:id="@+id/bt_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:background="@color/list_item_Detail_saveBtn"
         android:text="저장"
         android:textColor="@color/white" />
+
 
 </LinearLayout>

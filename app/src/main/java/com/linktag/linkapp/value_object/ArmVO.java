@@ -7,9 +7,18 @@ public class ArmVO implements Serializable {
     public String ARM_01;
     public String ARM_02;
     public String ARM_03;
+    public int ARM_04;
     public String ARM_95;
     public String ARM_98;
 
+
+    public int getARM_04() {
+        return ARM_04;
+    }
+
+    public void setARM_04(int ARM_04) {
+        this.ARM_04 = ARM_04;
+    }
     public String getARM_95() {
         return ARM_95;
     }

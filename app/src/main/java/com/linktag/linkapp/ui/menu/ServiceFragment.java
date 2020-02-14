@@ -20,7 +20,6 @@ import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.main.JDMMain;
 import com.linktag.linkapp.value_object.CtdVO;
 
 import java.util.ArrayList;
