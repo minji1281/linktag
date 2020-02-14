@@ -5,7 +5,10 @@ import android.content.Intent;
 
 import com.linktag.linkapp.ui.jdm.JDMMain;
 import com.linktag.linkapp.ui.jdm.JDMMain;
+import com.linktag.linkapp.ui.main.Main;
+import com.linktag.linkapp.ui.pcm.PCMMain;
 import com.linktag.linkapp.ui.pot.PotList;
+import com.linktag.linkapp.ui.trp.TRPMain;
 
 public class ChangeActivityCls {
     private Context mContext;
@@ -27,6 +30,14 @@ public class ChangeActivityCls {
             switch(SVC_01){
                 case "JDM1":
                     intent = new Intent(mContext, JDMMain.class);
+                    chk = true;
+                    break;
+                case "PCM1":
+                    intent = new Intent(mContext, PCMMain.class);
+                    chk = true;
+                    break;
+                case "TRP1":
+                    intent = new Intent(mContext, TRPMain.class);
                     chk = true;
                     break;
                 case "POT1":
