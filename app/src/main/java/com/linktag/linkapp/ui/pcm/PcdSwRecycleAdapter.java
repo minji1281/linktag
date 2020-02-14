@@ -2,9 +2,6 @@ package com.linktag.linkapp.ui.pcm;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -13,12 +10,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
@@ -68,7 +61,7 @@ public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapte
     @Override
     public PcdSwRecycleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = mInflater.inflate(R.layout.listitem_pcd_sw_list, parent, false);
+        view = mInflater.inflate(R.layout.listitem_pcd_list, parent, false);
         PcdSwRecycleAdapter.ViewHolder viewHolder = new PcdSwRecycleAdapter.ViewHolder(view);
 
 

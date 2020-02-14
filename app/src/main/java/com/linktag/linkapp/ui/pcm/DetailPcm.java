@@ -36,6 +36,7 @@ import com.linktag.linkapp.value_object.PcdVO;
 import com.linktag.linkapp.value_object.PcmVO;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -76,6 +77,8 @@ public class DetailPcm extends BaseActivity implements Serializable {
     private LinearLayout linearLayout;
     private InputMethodManager imm;
 
+    private TextView tv_manageDay;
+    private Button btn_update;
     private Button bt_save;
     private Button btn_addItem_hw;
     private Button btn_addItem_sw;
@@ -236,7 +239,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
     }
 
-    public void requestPCM_CONTROL() {
+    public void requestPCM_CONTROL(String GUBUN) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(DetailPcm.this)) {
             BaseAlert.show(getString(R.string.common_network_error));
@@ -272,16 +275,19 @@ public class DetailPcm extends BaseActivity implements Serializable {
 //            cancelAlarm(mContext, pcmVO.getARM_04());
 //        }
 
+
+        SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
         Call<PCMModel> call = Http.pcm(HttpBaseService.TYPE.POST).PCM_CONTROL(
                 BaseConst.URL_HOST,
-                "UPDATE",
-                "1",
+                GUBUN,
+                mUser.Value.CTM_01,
                 pcmVO.PCM_01,
                 ed_name.getText().toString(),
                 ed_memo.getText().toString(),
+                format1.format(calendar.getTime()),
                 pcmVO.PCM_96,
-                "M191100001",
-                "M191100001",
+                mUser.Value.OCM_01,
+                mUser.Value.OCM_01,
                 pcmVO.ARM_03
         );
 
@@ -290,8 +296,13 @@ public class DetailPcm extends BaseActivity implements Serializable {
             @Override
             public void onResponse(Call<PCMModel> call, Response<PCMModel> response) {
 
-                onBackPressed();
-                Toast.makeText(getApplicationContext(), "[" + pcmVO.PCM_02 + "]" + "  해당 PC관리 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                if(GUBUN.equals("UPDATE")){
+                    onBackPressed();
+                    Toast.makeText(getApplicationContext(), "[" + pcmVO.PCM_02 + "]" + "  해당 PC관리 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    tv_manageDay.setText(format1.format(calendar.getTime()));
+                }
             }
 
             @Override
@@ -343,6 +354,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
         sp_hw = (Spinner) findViewById(R.id.sp_hw);
         et_hw = (EditText) findViewById(R.id.et_hw);
 
+
         map_sw.put("선택", "0");
         map_sw.put("운영체제", "1");
         map_sw.put("그래픽드라이버", "2");
@@ -369,6 +381,8 @@ public class DetailPcm extends BaseActivity implements Serializable {
         timePicker = (TimePicker) findViewById(R.id.timePicker);
         btn_addItem_hw = (Button) findViewById(R.id.btn_addItem_hw);
         btn_addItem_sw = (Button) findViewById(R.id.btn_addItem_sw);
+        tv_manageDay = (TextView) findViewById(R.id.tv_manageDay);
+        btn_update = (Button) findViewById(R.id.btn_update);
         bt_save = (Button) findViewById(R.id.bt_save);
         switch_alarm = (Switch) findViewById(R.id.switch_alarm);
 
@@ -383,6 +397,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
         minuteString = dayOfTime.substring(2);
 
 
+        tv_manageDay.setText(pcmVO.getPCM_04());
         tv_datePicker.setText(year + "년" + month + "월" + dayOfMonth + "일");
 
         ed_name.setText(pcmVO.getPCM_02());
@@ -531,10 +546,21 @@ public class DetailPcm extends BaseActivity implements Serializable {
             }
         });
 
+        btn_update.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
+                pcmVO.setPCM_04(format1.format(calendar.getTime()));
+                requestPCM_CONTROL("UPDATE_DATE");
+                Toast.makeText(mContext,"최근 관리일자 업데이트",Toast.LENGTH_LONG).show();
+            }
+        });
+
+
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requestPCM_CONTROL();
+                requestPCM_CONTROL("UPDATE");
             }
         });
 

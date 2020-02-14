@@ -9,6 +9,7 @@ public class PcmVO implements Serializable {
     public String PCM_01; // 코드 일련번호
     public String PCM_02; // 명칭
     public String PCM_03; // 메모
+    public String PCM_04; // 최근 관리일자
     public String PCM_96; // 알림 지정일자
     public String PCM_97; // 작성자 아이디
     public String PCM_98; // 최종수정자 아이디
@@ -64,6 +65,14 @@ public class PcmVO implements Serializable {
 
     public void setPCM_03(String PCM_03) {
         this.PCM_03 = PCM_03;
+    }
+
+    public String getPCM_04() {
+        return PCM_04;
+    }
+
+    public void setPCM_04(String PCM_04) {
+        this.PCM_04 = PCM_04;
     }
 
     public String getPCM_96() {

@@ -446,6 +446,7 @@ public class Http extends HttpBaseService {
                 @Field(value = "PCM_01") String PCM_01,
                 @Field(value = "PCM_02") String PCM_02,
                 @Field(value = "PCM_03") String PCM_03,
+                @Field(value = "PCM_04") String PCM_04,
                 @Field(value = "PCM_96") String PCM_96,
                 @Field(value = "PCM_97") String PCM_97,
                 @Field(value = "PCM_98") String PCM_98,

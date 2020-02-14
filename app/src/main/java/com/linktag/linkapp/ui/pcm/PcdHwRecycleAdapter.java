@@ -12,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
@@ -67,7 +66,7 @@ public class PcdHwRecycleAdapter extends RecyclerView.Adapter<PcdHwRecycleAdapte
     @Override
     public PcdHwRecycleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = mInflater.inflate(R.layout.listitem_pcd_sw_list, parent, false);
+        view = mInflater.inflate(R.layout.listitem_pcd_list, parent, false);
         PcdHwRecycleAdapter.ViewHolder viewHolder = new PcdHwRecycleAdapter.ViewHolder(view);
 
 
