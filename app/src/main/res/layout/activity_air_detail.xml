@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.air.AirDetail">
+
+    <com.linktag.base.base_header.BaseHeader
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        app:title_text="공기청정기 정보" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:fadingEdgeLength="0dp"
+        android:layout_below="@id/header"
+        android:layout_above="@id/layoutSave"
+        android:overScrollMode="never">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/colorListBack"
+            android:orientation="vertical">
+
+            <!-- 명칭 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/list_round_shape"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical|left"
+                    android:text="명칭"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etName"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:background="@color/transparent_color"
+                    android:gravity="center_vertical|left"
+                    android:hint="명칭을 입력하세요."
+                    android:inputType="text"
+                    android:maxLength="20"
+                    android:padding="0dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
+
+            <!-- 구매일자 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/list_round_shape"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical|left"
+                    android:text="구매일자"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3">
+
+                    <EditText
+                        android:id="@+id/etBuyDay"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/shape_main_commute_period"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:gravity="center_vertical|center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_small" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 최근필터교체 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/list_round_shape"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical|left"
+                    android:text="최근필터교체"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:orientation="horizontal">
+
+                    <EditText
+                        android:id="@+id/etFilterDay"
+                        android:layout_width="100dp"
+                        android:layout_height="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/shape_main_commute_period"
+                        android:clickable="true"
+                        android:editable="false"
+                        android:focusable="false"
+                        android:gravity="center_vertical|center"
+                        android:textColor="@color/black"
+                        android:textSize="@dimen/text_small" />
+
+                    <Button
+                        android:id="@+id/btnFilterDayUpdate"
+                        android:layout_width="80dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="10dp"
+                        android:background="@drawable/list_item_round_button"
+                        android:gravity="center_vertical|center"
+                        android:text="업데이트"
+                        android:textColor="@color/white"
+                        android:textSize="14dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!-- 교체 주기 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="144dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/list_round_shape"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
+                    android:text="교체 주기"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <View
+                    android:id="@+id/lineCycle"
+                    android:layout_width="match_parent"
+                    android:layout_height="4px"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/List2" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="90dp">
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:layout_centerHorizontal="true"
+                        />
+
+                    <NumberPicker
+                        android:id="@+id/npCycle"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:layout_centerHorizontal="true"
+                        />
+
+                    <NumberPicker
+                        android:id="@+id/npCycle2"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="2" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="5"
+                        android:layout_centerHorizontal="true"
+                        />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!-- 알림여부 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/list_round_shape"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical|left"
+                    android:text="알림여부"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+
+                <Switch
+                    android:id="@+id/swAlarm"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:paddingRight="10dp"
+                    android:gravity="center_vertical|right" />
+
+            </LinearLayout>
+
+            <!-- 알림시간 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="180dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="5dp"
+                android:background="@drawable/list_round_shape"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical|left"
+                    android:text="알림시간"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="4px"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:background="@color/List2" />
+
+                <TimePicker
+                    android:id="@+id/tpAlarmTime"
+                    android:layout_width="match_parent"
+                    android:layout_height="126dp"
+                    android:background="@color/transparent_color"
+                    android:layout_centerHorizontal="true"
+                    android:timePickerMode="spinner"
+                    />
+
+            </LinearLayout>
+
+            <!-- 메모 -->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_marginLeft="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginBottom="10dp"
+                android:background="@drawable/list_round_shape"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginTop="15dp"
+                    android:text="메모"
+                    android:textColor="@color/black"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/etMemo"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="3"
+                    android:layout_toRightOf="@id/tvLabelMemo"
+                    android:layout_marginTop="15dp"
+                    android:background="@color/transparent_color"
+                    android:gravity="left"
+                    android:hint="메모를 입력하세요."
+                    android:inputType="text"
+                    android:maxLength="500"
+                    android:padding="0dp"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/layoutSave"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/list_item_Detail_saveBtn"
+            android:gravity="center_vertical|center"
+            android:text="저장"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</RelativeLayout>
