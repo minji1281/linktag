@@ -44,6 +44,7 @@ public class ChangeActivityCls {
                     intent = new Intent(mContext, PotList.class);
                     chk = true;
                     break;
+
                 default:
                     break;
             }
