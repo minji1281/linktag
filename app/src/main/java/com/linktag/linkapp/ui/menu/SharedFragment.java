@@ -81,6 +81,7 @@ public class SharedFragment extends BaseFragment implements SharedAdapter.Shared
 
     private void goAddService(){
         Intent intent = new Intent(mContext, AddService.class);
+        intent.putExtra("contractType", "S");
         mContext.startActivity(intent);
     }
 
@@ -145,12 +146,11 @@ public class SharedFragment extends BaseFragment implements SharedAdapter.Shared
 
         // 누르면 해당 서비스로 이동하게 구현
         // mList.get(position)
-        String SVC_01 = mList.get(position).SVC_01;
-        String CTN_02 = mList.get(position).CTN_02;
 
-        ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, SVC_01, CTN_02);
+        ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, mList.get(position));
         changeActivityCls.changeService();
 
         mActivity.finish();
+
     }
 }

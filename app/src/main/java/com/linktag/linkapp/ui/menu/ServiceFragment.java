@@ -29,11 +29,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ServiceFragment extends BaseFragment implements ServiceAdapter.ServiceBtnClickListener {
-
     private View view;
     private GridView gridView;
     private TextView tvAddService;
-
 
     private ServiceAdapter mAdapter;
     private ArrayList<CtdVO> mList;
@@ -56,6 +54,11 @@ public class ServiceFragment extends BaseFragment implements ServiceAdapter.Serv
 
         initialize();
 
+
+        System.out.println("###############123123");
+        System.out.println(mActivity.getClass().getSimpleName());
+
+
         return view;
     }
 
@@ -64,6 +67,7 @@ public class ServiceFragment extends BaseFragment implements ServiceAdapter.Serv
         super.onResume();
 
         requestCTD_SELECT();
+
     }
 
     private void initLayout() {
@@ -81,6 +85,8 @@ public class ServiceFragment extends BaseFragment implements ServiceAdapter.Serv
 
     private void goAddService(){
         Intent intent = new Intent(mContext, AddService.class);
+        intent.putExtra("CTM_01", mUser.Value.CTM_01);
+        intent.putExtra("contractType", "P");
         mContext.startActivity(intent);
     }
 
@@ -145,12 +151,12 @@ public class ServiceFragment extends BaseFragment implements ServiceAdapter.Serv
 
         // 누르면 해당 서비스로 이동하게 구현
         // mList.get(position)
-        String SVC_01 = mList.get(position).SVC_01;
-        String CTN_02 = mList.get(position).CTN_02;
 
-        ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, SVC_01, CTN_02);
+        ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, mList.get(position));
         changeActivityCls.changeService();
 
         mActivity.finish();
+
+
     }
 }

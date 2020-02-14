@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F5F7"
+    android:orientation="vertical"
+    tools:context=".ui.main.Main">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageButton
+            android:id="@+id/ibChooseClose"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="10dp"
+            android:layout_marginEnd="10dp"
+            android:layout_marginBottom="10dp"
+            android:background="#00FFFFFF"
+            android:src="@drawable/btn_cancel_gray" />
+
+        <TextView
+            android:id="@+id/textView2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="신규 등록"
+            android:textSize="@dimen/text_big" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutChooseTab"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingTop="4dp"
+        android:paddingBottom="4dp">
+
+        <TextView
+            android:id="@+id/tvChooseService"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/main_home_selected"
+            android:gravity="center"
+            android:text="나의서비스"
+            android:textColor="@drawable/selector_main_tab_text"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tvChooseShared"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableTop="@drawable/selector_main_work"
+            android:gravity="center"
+            android:text="공유서비스"
+            android:textColor="@drawable/selector_main_tab_text"
+            android:textSize="@dimen/text_small" />
+
+    </LinearLayout>
+
+    <com.linktag.base.base_view_pager.BaseViewPager
+        android:id="@+id/viewPagerChoose"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1" />
+
+
+</LinearLayout>

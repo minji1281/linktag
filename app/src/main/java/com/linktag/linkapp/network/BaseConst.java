@@ -22,6 +22,7 @@ public class BaseConst {
     public static final String URL_LOGIN = "{host}/Mobile/M_LOGIN";
 
     public static final String OCM_CONTROL = "{host}/Mobile/OCM_CONTROL";
+    public static final String OCM_SELECT = "{host}/Mobile/OCM_SELECT";
 
     //대쉬보드
     public static final String URL_DSH_SELECT = "{host}/Mobile/DSH_SELECT";
@@ -39,6 +40,10 @@ public class BaseConst {
 
 //    public static final String URL_CMT_CONTROL = "{host}/Mobile/CMT_CONTROL";
 //    public static final String URL_CMTL_CONTROL = "{host}/Mobile/CMTL_CONTROL";
+
+    // 코드 스캔
+    public static final String CTDS_SELECT = "{host}/Mobile/CTDS_SELECT";
+    public static final String CTDS_CONTROL = "{host}/Mobile/CTDS_CONTROL";
 
     // 메뉴
     public static final String CTD_SELECT = "{host}/Mobile/CTD_SELECT";

@@ -2,58 +2,42 @@ package com.linktag.linkapp.ui.menu;
 
 import android.content.Context;
 import android.content.Intent;
+import android.widget.Toast;
 
-import com.linktag.linkapp.ui.jdm.JDMMain;
-import com.linktag.linkapp.ui.jdm.JDMMain;
-import com.linktag.linkapp.ui.main.Main;
-import com.linktag.linkapp.ui.pcm.PCMMain;
-import com.linktag.linkapp.ui.pot.PotList;
-import com.linktag.linkapp.ui.trp.TRPMain;
+import com.linktag.linkapp.value_object.CtdVO;
 
 public class ChangeActivityCls {
     private Context mContext;
-    private String SVC_01;
-    private String CTN_02;
+    private CtdVO ctdVO;
     Intent intent;
 
-    public ChangeActivityCls(Context mContext, String SVC_01, String CTN_02){
+
+    public ChangeActivityCls(Context mContext, CtdVO ctdVO){
         this.mContext = mContext;
-        this.SVC_01 = SVC_01;
-        this.CTN_02 = CTN_02;
+        this.ctdVO = ctdVO;
     }
 
     public void changeService(){
-        if(!SVC_01.equals("") && !SVC_01.equals(null))
+        if(!ctdVO.SVCL_04.equals("") && ctdVO.SVCL_04 != null)
         {
-            boolean chk = false;
+            String packageName = mContext.getPackageName();
 
-            switch(SVC_01){
-                case "JDM1":
-                    intent = new Intent(mContext, JDMMain.class);
-                    chk = true;
-                    break;
-                case "PCM1":
-                    intent = new Intent(mContext, PCMMain.class);
-                    chk = true;
-                    break;
-                case "TRP1":
-                    intent = new Intent(mContext, TRPMain.class);
-                    chk = true;
-                    break;
-                case "POT1":
-                    intent = new Intent(mContext, PotList.class);
-                    chk = true;
-                    break;
+            try{
+                Class cls = Class.forName(packageName + ctdVO.SVCL_04);
+                intent = new Intent(mContext, cls);
 
-                default:
-                    break;
-            }
-
-            if(chk){
-                intent.putExtra("SVC_01", SVC_01);
-                intent.putExtra("CTN_02", CTN_02);
+                intent.putExtra("CTM_01", ctdVO.CTD_01);
+                intent.putExtra("CTN_02", ctdVO.CTN_02);
+                intent.putExtra("SVCL_04", ctdVO.SVCL_04);
                 mContext.startActivity(intent);
+
+            } catch (Exception e){
+                e.printStackTrace();
             }
+
+        }
+        else {
+            Toast.makeText(mContext, "해당 서비스의 경로를 찾을 수 없습니다.\n관리자에게 문의 바랍니다.", Toast.LENGTH_LONG).show();
         }
 
     }

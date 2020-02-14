@@ -34,6 +34,10 @@ public class CtdVO implements Serializable {
     public String SVC_18;        //
     public String SVC_90;        //
 
+    public String SVCL_03;        //
+    public String SVCL_04;        //
+
+
     public boolean Validation;
     public String ErrorCode;
 }

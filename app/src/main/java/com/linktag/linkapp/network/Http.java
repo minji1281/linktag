@@ -3,6 +3,7 @@ package com.linktag.linkapp.network;
 import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.model.BRCModel;
 import com.linktag.linkapp.model.CMTModel;
+import com.linktag.linkapp.model.CTDS_Model;
 import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.model.NOCModel;
@@ -50,8 +51,6 @@ public class Http extends HttpBaseService {
                 @Field(value = "OCM_98") String OCM_98
         );
     }
-
-
 
     //--------------------------------------------------
     // 로그인
@@ -105,6 +104,17 @@ public class Http extends HttpBaseService {
                 @Field(value = "OCM_32") String OCM_32,
                 @Field(value = "OCM_51") String OCM_51,
                 @Field(value = "OCM_98") String OCM_98
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.OCM_SELECT)
+        Call<OCM_Model> OCM_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "OCM_01") String OCM_01,
+                @Field(value = "OCM_02") String OCM_02,
+                @Field(value = "OCM_21") String OCM_21,
+                @Field(value = "CTM_01") String CTM_01
         );
 
     }
@@ -251,10 +261,37 @@ public class Http extends HttpBaseService {
                 @Field(value = "NOC_03") String NOC_03,
                 @Field(value = "NOC_98") String NOC_98
         );
-        
-        
-        
-        
+    }
+
+    //--------------------------------------------------
+    // 코드 스캔
+    //--------------------------------------------------
+    public static ICTDS ctds(TYPE type) {
+        return (ICTDS) retrofit(ICTDS.class, type);
+    }
+
+    public interface ICTDS {
+        @FormUrlEncoded
+        @POST(BaseConst.CTDS_SELECT)
+        Call<CTDS_Model> CTDS_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "CTDS_01") String CTDS_01,
+                @Field(value = "CTDS_02") String CTDS_02,
+                @Field(value = "CTDS_03") String CTDS_03
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.CTDS_CONTROL)
+        Call<CTDS_Model> CTDS_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "CTDS_01") String CTDS_01,
+                @Field(value = "CTDS_02") String CTDS_02,
+                @Field(value = "CTDS_03") String CTDS_03,
+                @Field(value = "CTDS_04") String CTDS_04,
+                @Field(value = "CTDS_98") String CTDS_98
+        );
     }
 
     //--------------------------------------------------
@@ -279,7 +316,6 @@ public class Http extends HttpBaseService {
                 @Field(value = "SVC_08") String SVC_08,
                 @Field(value = "SVC_90") String SVC_90
         );
-
     }
 
     public static ICTD ctd(TYPE type) {
@@ -317,9 +353,6 @@ public class Http extends HttpBaseService {
                 @Field(value = "CTD_97") String CTD_97,
                 @Field(value = "CTD_98") String CTD_98
         );
-
-
-
     }
 
     // 사용자 알람

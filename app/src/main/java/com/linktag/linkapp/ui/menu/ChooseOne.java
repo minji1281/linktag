@@ -1,9 +1,13 @@
 package com.linktag.linkapp.ui.menu;
 
 import android.os.Bundle;
+
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.widget.ImageView;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.Window;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.linktag.base.base_activity.BaseActivity;
@@ -14,36 +18,26 @@ import com.linktag.linkapp.R;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Menu extends BaseActivity {
-    private final int TAB_PAGE_SERVICE = 0;
-    private final int TAB_PAGE_SHARED = 1;
-    private final int TAB_PAGE_MEMBER = 2;
-    private final int TAB_PAGE_SETTING = 3;
-
+public class ChooseOne extends BaseActivity {
+    private final int CHOOSE_PAGE_SERVICE = 0;
+    private final int CHOOSE_PAGE_SHARED = 1;
 
     private ServiceFragment fragService;
     private SharedFragment fragShared;
-    private MemberFragment fragMember;
-
-        /*
-    private SettingFragment fragSetting;
-*/
 
     private BaseViewPager viewPager;
     private ViewPagerAdapter mViewPagerAdapter;
     private List<Fragment> mListFragment = new ArrayList<>();
 
-
-    private ImageView ivClose;
-    private TextView tvMenuService;
-    private TextView tvMenuShared;
-    private TextView tvMenuMember;
-    private TextView tvMenuSetting;
+    private ImageButton ibChooseClose;
+    private TextView tvChooseService;
+    private TextView tvChooseShared;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_menu);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setContentView(R.layout.activity_chooseone);
 
         initLayout();
 
@@ -52,20 +46,19 @@ public class Menu extends BaseActivity {
 
     @Override
     protected void initLayout() {
+        ibChooseClose = findViewById(R.id.ibChooseClose);
+        ibChooseClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                closePop(v);
+            }
+        });
 
-        ivClose = findViewById(R.id.ivClose);
-        ivClose.setOnClickListener(v -> finish());
-        tvMenuService = findViewById(R.id.tvMenuService);
-        tvMenuService.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_SERVICE));
-        tvMenuShared = findViewById(R.id.tvMenuShared);
-        tvMenuShared.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_SHARED));
+        tvChooseService = findViewById(R.id.tvChooseService);
+        tvChooseService.setOnClickListener(v -> setCurrentViewPager(CHOOSE_PAGE_SERVICE));
+        tvChooseShared = findViewById(R.id.tvChooseShared);
+        tvChooseShared.setOnClickListener(v -> setCurrentViewPager(CHOOSE_PAGE_SHARED));
 
-        tvMenuMember = findViewById(R.id.tvMenuMember);
-        tvMenuMember.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_MEMBER));
-        /*
-        tvMenuSetting = findViewById(R.id.tvMenuSetting);
-        tvMenuSetting.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_SETTING));
-*/
         initViewPager();
     }
 
@@ -75,21 +68,16 @@ public class Menu extends BaseActivity {
     }
 
     private void initViewPager(){
-        viewPager = findViewById(R.id.viewPagerMenu);
+        viewPager = findViewById(R.id.viewPagerChoose);
 
         fragService = new ServiceFragment();
         fragShared = new SharedFragment();
-        fragMember = new MemberFragment();
 
         fragService.setOnLoadingDialog(callLoadingBar);
         fragShared.setOnLoadingDialog(callLoadingBar);
 
         mListFragment.add(fragService);
         mListFragment.add(fragShared);
-        mListFragment.add(fragMember);
-        /*
-        fragSetting = new SettingFragment();
-        */
 
         mViewPagerAdapter = new ViewPagerAdapter(this.getSupportFragmentManager(), mListFragment);
         viewPager.setAdapter(mViewPagerAdapter);
@@ -113,48 +101,46 @@ public class Menu extends BaseActivity {
 
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+    }
+
+    @Override
+    public boolean onTouchEvent(MotionEvent event){
+        // 바깥 레이어 클릭시 안닫히게
+        if(event.getAction() == MotionEvent.ACTION_OUTSIDE)
+            return false;
+        else
+            return true;
+    }
+
+
     private void setTag(){
-        tvMenuService.setSelected(false);
-        tvMenuShared.setSelected(false);
-        tvMenuMember.setSelected(false);
+        tvChooseService.setSelected(false);
+        tvChooseShared.setSelected(false);
 
-                /*
-        tvMenuSetting.setSelected(false);
-*/
         switch (viewPager.getCurrentItem()) {
-            case TAB_PAGE_SERVICE:
-                tvMenuService.setSelected(true);
+            case CHOOSE_PAGE_SERVICE:
+                tvChooseService.setSelected(true);
                 break;
-            case TAB_PAGE_SHARED:
-                tvMenuShared.setSelected(true);
+            case CHOOSE_PAGE_SHARED:
+                tvChooseShared.setSelected(true);
                 break;
-            case TAB_PAGE_MEMBER:
-                tvMenuMember.setSelected(true);
-                break;
-
-                                /*
-            case TAB_PAGE_SETTING:
-                tvMenuSetting.setSelected(true);
-                break;
-                */
-
         }
     }
 
-    /**
-     * ViewPager 이동시킨다.
-     *
-     * @param page
-     */
+
     private void setCurrentViewPager(int page) {
         viewPager.setCurrentItem(page);
     }
 
-
     @Override
     public void onBackPressed() {
-
         finish();
     }
 
+    public void closePop(View v){
+        finish();
+    }
 }
