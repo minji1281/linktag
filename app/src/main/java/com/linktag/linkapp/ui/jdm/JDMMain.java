@@ -38,7 +38,7 @@ public class JDMMain extends BaseActivity {
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<JdmVO> mList;
 
-    private String SVC_01;
+    private String CTM_01;
     private String CTN_02;
 
     public JDMMain() {
@@ -101,7 +101,7 @@ public class JDMMain extends BaseActivity {
         mAdapter = new JdmRecycleAdapter(mContext, mList);
         recyclerView.setAdapter(mAdapter);
 
-        SVC_01 = getIntent().getStringExtra("SVC_01");
+        CTM_01 = getIntent().getStringExtra("CTM_01");
         CTN_02 = getIntent().getStringExtra("CTN_02");
     }
 
