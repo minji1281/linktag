@@ -1,8 +1,11 @@
 package com.linktag.linkapp.network;
 
+import com.linktag.linkapp.model.AIRModel;
 import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.model.BRCModel;
 import com.linktag.linkapp.model.CMTModel;
+import com.linktag.linkapp.model.CODModel;
+import com.linktag.linkapp.model.COSModel;
 import com.linktag.linkapp.model.CTDS_Model;
 import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.model.JDMModel;
@@ -652,6 +655,126 @@ public class Http extends HttpBaseService {
 //
 //                @Field(value = "ARM_03") String ARM_03,
 //                @Part("POT_81_F") MultipartBody.Part POT_81_F
+//        );
+
+    }
+
+    //--------------------------------------------------
+    // 공기청정기 필터관리
+    //--------------------------------------------------
+    public static IAIR air(TYPE type) {
+        return (IAIR) retrofit(IAIR.class, type);
+    }
+
+    public interface IAIR {
+
+        @FormUrlEncoded
+        @POST(BaseConst.AIR_SELECT)
+        Call<AIRModel> AIR_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "AIR_ID") String AIR_ID,     // 컨테이너
+                @Field(value = "AIR_01") String AIR_01,     // 코드번호
+                @Field(value = "OCM_01") String OCM_01      // 사용자 아이디
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.AIR_CONTROL)
+        Call<AIRModel> AIR_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "AIR_ID") String AIR_ID,
+                @Field(value = "AIR_01") String AIR_01,
+                @Field(value = "AIR_02") String AIR_02,
+                @Field(value = "AIR_03") String AIR_03,
+
+                @Field(value = "AIR_04") String AIR_04,
+                @Field(value = "AIR_05") int AIR_05,
+                @Field(value = "AIR_06") String AIR_06,
+                @Field(value = "AIR_07") String AIR_07,
+                @Field(value = "AIR_96") String AIR_96,
+
+                @Field(value = "AIR_98") String AIR_98,
+                @Field(value = "ARM_03") String ARM_03
+        );
+
+    }
+
+    //--------------------------------------------------
+    // 화장품 유통기한 관리
+    //--------------------------------------------------
+    public static ICOS cos(TYPE type) {
+        return (ICOS) retrofit(ICOS.class, type);
+    }
+
+    public interface ICOS {
+
+        @FormUrlEncoded
+        @POST(BaseConst.COS_SELECT)
+        Call<COSModel> COS_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "COS_ID") String COS_ID,     // 컨테이너
+                @Field(value = "COS_01") String COS_01      // 코드번호
+        );
+
+//        @FormUrlEncoded
+//        @POST(BaseConst.COS_CONTROL)
+//        Call<AIRModel> COS_CONTROL(
+//                @Path(value = "host", encoded = true) String host,
+//                @Field(value = "GUBUN") String GUBUN,
+//                @Field(value = "AIR_ID") String AIR_ID,
+//                @Field(value = "AIR_01") String AIR_01,
+//                @Field(value = "AIR_02") String AIR_02,
+//                @Field(value = "AIR_03") String AIR_03,
+//
+//                @Field(value = "AIR_04") String AIR_04,
+//                @Field(value = "AIR_05") int AIR_05,
+//                @Field(value = "AIR_06") String AIR_06,
+//                @Field(value = "AIR_07") String AIR_07,
+//                @Field(value = "AIR_96") String AIR_96,
+//
+//                @Field(value = "AIR_98") String AIR_98,
+//                @Field(value = "ARM_03") String ARM_03
+//        );
+
+    }
+
+    public static ICOD cod(TYPE type) {
+        return (ICOD) retrofit(ICOD.class, type);
+    }
+
+    public interface ICOD {
+
+        @FormUrlEncoded
+        @POST(BaseConst.COD_SELECT)
+        Call<CODModel> COD_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "COD_ID") String COD_ID,     // 컨테이너
+                @Field(value = "COD_01") String COD_01,     // 일련번호
+                @Field(value = "COD_95") String COD_95,     // 화장대코드(COS_01)
+                @Field(value = "OCM_01") String OCM_01      // 사용자 아이디
+        );
+
+//        @FormUrlEncoded
+//        @POST(BaseConst.COS_CONTROL)
+//        Call<AIRModel> COS_CONTROL(
+//                @Path(value = "host", encoded = true) String host,
+//                @Field(value = "GUBUN") String GUBUN,
+//                @Field(value = "AIR_ID") String AIR_ID,
+//                @Field(value = "AIR_01") String AIR_01,
+//                @Field(value = "AIR_02") String AIR_02,
+//                @Field(value = "AIR_03") String AIR_03,
+//
+//                @Field(value = "AIR_04") String AIR_04,
+//                @Field(value = "AIR_05") int AIR_05,
+//                @Field(value = "AIR_06") String AIR_06,
+//                @Field(value = "AIR_07") String AIR_07,
+//                @Field(value = "AIR_96") String AIR_96,
+//
+//                @Field(value = "AIR_98") String AIR_98,
+//                @Field(value = "ARM_03") String ARM_03
 //        );
 
     }
