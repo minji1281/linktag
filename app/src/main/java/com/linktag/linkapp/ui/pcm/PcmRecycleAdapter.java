@@ -156,6 +156,7 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
                     pcmvo.setPCM_03(tv_memo.getText().toString());
                     pcmvo.setPCM_04(mList.get(position).PCM_04);
                     pcmvo.setPCM_96(mList.get(position).PCM_96);
+                    pcmvo.setPCM_97(mList.get(position).PCM_97);
                     pcmvo.setARM_03(mList.get(position).ARM_03);
                     pcmvo.setARM_04(mList.get(position).ARM_04);
 

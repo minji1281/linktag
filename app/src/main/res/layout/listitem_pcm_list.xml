@@ -9,7 +9,7 @@
         android:layout_marginStart="10dp"
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
-        android:background="@drawable/shape_base_border"
+        android:background="@drawable/shape_base_border_height_80"
         android:orientation="horizontal"
         android:padding="8dp">
 

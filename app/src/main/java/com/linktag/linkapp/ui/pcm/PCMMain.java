@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.linktag.base.base_activity.BaseActivity;
+import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
@@ -31,6 +32,8 @@ import retrofit2.Response;
 
 public class PCMMain extends BaseActivity {
 
+    private BaseHeader header;
+
     private View view;
     private SwipeRefreshLayout swipeRefresh;
 
@@ -40,6 +43,9 @@ public class PCMMain extends BaseActivity {
     private LinearLayoutManager linearLayoutManager;
 
     private ArrayList<PcmVO> mList;
+
+    private String CTM_01;
+    private String CTN_02;
 
 
     public PCMMain() {
@@ -67,6 +73,12 @@ public class PCMMain extends BaseActivity {
 
 
     protected void initLayout() {
+
+        CTM_01 = getIntent().getStringExtra("CTM_01");
+        CTN_02 = getIntent().getStringExtra("CTN_02");
+
+        header = findViewById(R.id.header);
+        header.btnHeaderLeft.setOnClickListener(v -> finish());
 
         view = findViewById(R.id.recyclerView);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -107,7 +119,7 @@ public class PCMMain extends BaseActivity {
         Call<PCMModel> call = Http.pcm(HttpBaseService.TYPE.POST).PCM_SELECT(
                 BaseConst.URL_HOST,
                 "LIST",
-                mUser.Value.CTM_01,
+                CTN_02,
                 "",
                 mUser.Value.OCM_01
         );

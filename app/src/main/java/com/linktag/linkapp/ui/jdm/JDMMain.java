@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.linktag.base.base_activity.BaseActivity;
+import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
@@ -28,6 +29,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class JDMMain extends BaseActivity {
+
+    private BaseHeader header;
 
     private View view;
     private SwipeRefreshLayout swipeRefresh;
@@ -52,12 +55,6 @@ public class JDMMain extends BaseActivity {
         initLayout();
         initialize();
 
-        if (getIntent().hasExtra("className")) {
-            Intent intent = getIntent();
-            Push_goActivity(intent);
-        }
-
-
 
     }
 
@@ -77,6 +74,10 @@ public class JDMMain extends BaseActivity {
 
 
     protected void initLayout() {
+
+
+        header = findViewById(R.id.header);
+        header.btnHeaderLeft.setOnClickListener(v -> finish());
 
         view = findViewById(R.id.recyclerView);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -121,7 +122,7 @@ public class JDMMain extends BaseActivity {
         Call<JDMModel> call = Http.jdm(HttpBaseService.TYPE.POST).JDM_SELECT(
                 BaseConst.URL_HOST,
                 "LIST",
-                mUser.Value.CTM_01,
+                CTN_02,
                 "",
                 mUser.Value.OCM_01
         );

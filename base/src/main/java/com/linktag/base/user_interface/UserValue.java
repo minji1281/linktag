@@ -34,4 +34,6 @@ public class UserValue {
     public Calendar ScanTime;   // 날씨 API호출용 시간 저장
     public String DSH_GB;
 
+
+
 }

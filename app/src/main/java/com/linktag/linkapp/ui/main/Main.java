@@ -38,7 +38,7 @@ public class Main extends BaseActivity {
     private final int TAB_PAGE_COMMENT = 1;
     private final int TAB_PAGE_APPLY = 2;
     private final int TAB_PAGE_SETTING = 3;
-    private final int TAB_PAGE_JDM = 4; //테스트
+    //private final int TAB_PAGE_JDM = 4; //테스트
 
     // Variable
     private CommuteFragment fragmentHome;
@@ -99,14 +99,14 @@ public class Main extends BaseActivity {
         tvMainSetting.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_SETTING));
 
         //테스트
-        tvMainTest = findViewById(R.id.tvMainTest);
-        tvMainTest.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, PCMMain.class);
-                mContext.startActivity(intent);
-            }
-        });
+//        tvMainTest = findViewById(R.id.tvMainTest);
+//        tvMainTest.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(mContext, PCMMain.class);
+//                mContext.startActivity(intent);
+//            }
+//        });
 
         initViewPager();
     }
@@ -237,12 +237,12 @@ public class Main extends BaseActivity {
                 header.btnHeaderText.setVisibility(View.GONE);
                 break;
 
-            case TAB_PAGE_JDM:
-                tvMainTest.setSelected(true);
-                header.tvHeaderTitle.setText("테스트관리");
-                header.btnHeaderRight1.setVisibility(View.GONE);
-                header.btnHeaderText.setVisibility(View.GONE);
-                break;
+//            case TAB_PAGE_JDM:
+//                tvMainTest.setSelected(true);
+//                header.tvHeaderTitle.setText("테스트관리");
+//                header.btnHeaderRight1.setVisibility(View.GONE);
+//                header.btnHeaderText.setVisibility(View.GONE);
+//                break;
         }
     }
 

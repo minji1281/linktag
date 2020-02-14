@@ -150,6 +150,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                     int position = getAdapterPosition();
 
                     JdmVO jdmvo = new JdmVO();
+                    jdmvo.setJDM_ID(mList.get(position).JDM_ID);
                     jdmvo.setJDM_01(mList.get(position).JDM_01);
                     jdmvo.setJDM_02(tv_name.getText().toString());
                     jdmvo.setJDM_03(tv_memo.getText().toString());

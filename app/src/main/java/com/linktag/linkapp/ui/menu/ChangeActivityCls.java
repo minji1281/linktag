@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.widget.Toast;
 
+import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.linkapp.value_object.CtdVO;
 
 public class ChangeActivityCls {
@@ -11,10 +12,12 @@ public class ChangeActivityCls {
     private CtdVO ctdVO;
     Intent intent;
 
+    private InterfaceUser mUser;
 
     public ChangeActivityCls(Context mContext, CtdVO ctdVO){
         this.mContext = mContext;
         this.ctdVO = ctdVO;
+        mUser = InterfaceUser.getInstance();
     }
 
     public void changeService(){
@@ -28,7 +31,6 @@ public class ChangeActivityCls {
 
                 intent.putExtra("CTM_01", ctdVO.CTD_01);
                 intent.putExtra("CTN_02", ctdVO.CTN_02);
-                intent.putExtra("SVCL_04", ctdVO.SVCL_04);
                 mContext.startActivity(intent);
 
             } catch (Exception e){

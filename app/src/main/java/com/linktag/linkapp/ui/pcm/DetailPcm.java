@@ -1,12 +1,16 @@
 package com.linktag.linkapp.ui.pcm;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -24,6 +28,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
+import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
@@ -46,6 +51,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailPcm extends BaseActivity implements Serializable {
+
+    private BaseHeader header;
+
 
     private RecyclerView recyclerView_hw;
     private RecyclerView recyclerView_sw;
@@ -280,7 +288,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
         Call<PCMModel> call = Http.pcm(HttpBaseService.TYPE.POST).PCM_CONTROL(
                 BaseConst.URL_HOST,
                 GUBUN,
-                mUser.Value.CTM_01,
+                pcmVO.PCM_ID,
                 pcmVO.PCM_01,
                 ed_name.getText().toString(),
                 ed_memo.getText().toString(),
@@ -338,6 +346,10 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
     @Override
     protected void initLayout() {
+
+
+        header = findViewById(R.id.header);
+        header.btnHeaderLeft.setOnClickListener(v -> finish());
 
         recyclerView_hw = findViewById(R.id.recyclerView_hw);
         recyclerView_sw = findViewById(R.id.recyclerView_sw);
@@ -453,7 +465,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
                 PcdVO pcdVO = new PcdVO();
                 pcdVO.GUBUN = "INSERT";
-                pcdVO.PCD_ID = mUser.Value.CTM_01;
+                pcdVO.PCD_ID = pcmVO.PCD_ID;
                 pcdVO.PCD_01 = pcmVO.PCM_01;
                 pcdVO.PCD_02 = "";
                 pcdVO.PCD_03 = "1";
@@ -476,7 +488,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
                 PcdVO pcdVO = new PcdVO();
                 pcdVO.GUBUN = "INSERT";
-                pcdVO.PCD_ID = "1";
+                pcdVO.PCD_ID = pcmVO.PCD_ID;
                 pcdVO.PCD_01 = pcmVO.PCM_01;
                 pcdVO.PCD_02 = "";
                 pcdVO.PCD_03 = "2";
@@ -564,6 +576,35 @@ public class DetailPcm extends BaseActivity implements Serializable {
             }
         });
 
+
+        if(pcmVO.PCM_97.equals(mUser.Value.OCM_01)){ //작성자만 삭제버튼 보임
+            header.btnHeaderRight1.setVisibility((View.VISIBLE));
+            header.btnHeaderRight1.setMaxWidth(50);
+            header.btnHeaderRight1.setMaxHeight(50);
+            header.btnHeaderRight1.setImageResource(R.drawable.btn_cancel); //delete는 왜 크기가 안맞는거야!!! 일단 대체아이콘으로..,,
+            header.btnHeaderRight1.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(mActivity)
+                            .setMessage("해당 정보를 삭제하시겠습니까?")
+                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                @RequiresApi(api = Build.VERSION_CODES.M)
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    requestPCM_CONTROL("DELETE");
+                                }
+                            })
+                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    return;
+                                }
+                            })
+                            .show();
+
+                }
+            });
+        }
 
         switch_alarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

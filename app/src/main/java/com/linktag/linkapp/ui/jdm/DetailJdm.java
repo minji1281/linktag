@@ -1,12 +1,16 @@
 package com.linktag.linkapp.ui.jdm;
 
 import android.app.AlarmManager;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -21,6 +25,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
+import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
@@ -40,6 +45,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailJdm  extends BaseActivity implements Serializable{
+
+    private BaseHeader header;
 
     private EditText ed_name;
     private EditText ed_memo;
@@ -75,7 +82,7 @@ public class DetailJdm  extends BaseActivity implements Serializable{
 
     }
 
-    public void requestJMD_CONTROL() {
+    public void requestJMD_CONTROL(String GUBUN) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(DetailJdm.this)) {
             BaseAlert.show(getString(R.string.common_network_error));
@@ -116,8 +123,8 @@ public class DetailJdm  extends BaseActivity implements Serializable{
 
         Call<JDMModel> call = Http.jdm(HttpBaseService.TYPE.POST).JDM_CONTROL(
                 BaseConst.URL_HOST,
-                "UPDATE",
-                "1",
+                GUBUN,
+                jdmVO.JDM_ID,
                 jdmVO.JDM_01,
                 ed_name.getText().toString(),
                 ed_memo.getText().toString(),
@@ -161,6 +168,9 @@ public class DetailJdm  extends BaseActivity implements Serializable{
 
     @Override
     protected void initLayout() {
+
+        header = findViewById(R.id.header);
+        header.btnHeaderLeft.setOnClickListener(v -> finish());
 
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
@@ -307,9 +317,38 @@ public class DetailJdm  extends BaseActivity implements Serializable{
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requestJMD_CONTROL();
+                requestJMD_CONTROL("UPDATE");
            }
         });
+
+        if(jdmVO.JDM_97.equals(mUser.Value.OCM_01)){ //작성자만 삭제버튼 보임
+            header.btnHeaderRight1.setVisibility((View.VISIBLE));
+            header.btnHeaderRight1.setMaxWidth(50);
+            header.btnHeaderRight1.setMaxHeight(50);
+            header.btnHeaderRight1.setImageResource(R.drawable.btn_cancel); //delete는 왜 크기가 안맞는거야!!! 일단 대체아이콘으로..,,
+            header.btnHeaderRight1.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v) {
+                    new AlertDialog.Builder(mActivity)
+                            .setMessage("해당 정보를 삭제하시겠습니까?")
+                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                @RequiresApi(api = Build.VERSION_CODES.M)
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    requestJMD_CONTROL("DELETE");
+                                }
+                            })
+                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    return;
+                                }
+                            })
+                            .show();
+
+                }
+            });
+        }
 
 
         switch_alarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
