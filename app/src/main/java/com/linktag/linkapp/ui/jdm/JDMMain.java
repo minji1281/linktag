@@ -38,6 +38,9 @@ public class JDMMain extends BaseActivity {
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<JdmVO> mList;
 
+    private String SVC_01;
+    private String CTN_02;
+
     public JDMMain() {
     }
 
@@ -97,6 +100,9 @@ public class JDMMain extends BaseActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new JdmRecycleAdapter(mContext, mList);
         recyclerView.setAdapter(mAdapter);
+
+        SVC_01 = getIntent().getStringExtra("SVC_01");
+        CTN_02 = getIntent().getStringExtra("CTN_02");
     }
 
 
@@ -115,9 +121,9 @@ public class JDMMain extends BaseActivity {
         Call<JDMModel> call = Http.jdm(HttpBaseService.TYPE.POST).JDM_SELECT(
                 BaseConst.URL_HOST,
                 "LIST",
-                "1",
+                CTN_02,
                 "",
-                "M191100001"
+                mUser.Value.OCM_01
         );
 
 

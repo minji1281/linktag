@@ -1,5 +1,6 @@
 package com.linktag.linkapp.value_object;
 
+//import java.io.File;
 import java.io.Serializable;
 
 public class PotVO implements Serializable {
@@ -21,5 +22,9 @@ public class PotVO implements Serializable {
     public String POT_03_T;       // 최근 물주기 시각(YYYY-MM-DD HH:mm)
     public String DDAY;       // 다음 알림시간까지 D-day
     public String ARM_03;       // 해당 사용자의 알림여부
+    public int ARM_04;       // 알림ID
+
+    public boolean Validation;
+//    public File POT_81_F;
 
 }

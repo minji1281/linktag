@@ -62,5 +62,15 @@
     <string name="dash_10">제목을 입력해주세요.</string>
     <string name="dash_11">내용을 입력해주세요.</string>
     <string name="dash_12">삭제</string>
+    <string name="dash_13">[공지사항]</string>
+    <string name="dash_14">[자유게시판]</string>
+    <string name="dash_15">[댓글]</string>
+    <string name="dash_16">등록</string>
+    <string name="dash_17">댓글을 남겨보세요.</string>
+    <string name="dash_18">[공지사항] 새로운 댓글이 있습니다.</string>
+    <string name="dash_19">[자유게시판] 새로운 댓글이 있습니다.</string>
+    <string name="dash_20">댓글을 확인해 주세요.</string>
+    <string name="dash_21">"[공지사항] : "</string>
+    <string name="dash_22">"[자유게시판] : "</string>
 
 </resources>

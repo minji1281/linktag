@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -17,6 +18,11 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.iid.FirebaseInstanceId;
+import com.google.firebase.iid.InstanceIdResult;
+import com.linktag.base.util.ClsDateTime;
 import com.linktag.linkapp.ui.sign_up.SignUp;
 import com.linktag.linkapp.model.LOGIN_Model;
 import com.linktag.linkapp.value_object.LoginVO;
@@ -48,6 +54,9 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import com.linktag.linkapp.model.TKNModel;
+import com.linktag.linkapp.value_object.TKN_VO;
+
 public class Login extends BaseActivity {
     //========================================
     // Layout
@@ -59,6 +68,7 @@ public class Login extends BaseActivity {
     private CheckBox chkAutoAccount;
     private CheckBox chkAutoLogin;
     private Button btnLogin;
+    String token;
 
     //========================================
     // Initialize
@@ -67,6 +77,26 @@ public class Login extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        FirebaseInstanceId.getInstance().getInstanceId()
+                .addOnCompleteListener(new OnCompleteListener<InstanceIdResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<InstanceIdResult> task) {
+                        if (!task.isSuccessful()) {
+                            Log.w("FCM Log", "getInstanceId failed", task.getException());
+                            return;
+                        }
+                        token = task.getResult().getToken();
+                        Log.d("FCM Log", "FCM 토큰: " + token);
+                        //   Toast.makeText(Login.this, token, Toast.LENGTH_SHORT).show();
+
+
+
+
+                    }
+                });
+
+
 
         initLayout();
 
@@ -138,7 +168,7 @@ public class Login extends BaseActivity {
         chkAutoLogin.setChecked(mSettings.Value.AutoLogin);
 
         btnLogin = findViewById(R.id.btnLogin);
-        btnLogin.setEnabled(false);
+        //btnLogin.setEnabled(false);
         btnLogin.setOnClickListener(v -> requestEMPVIEW());
         //btnLogin.setOnClickListener(v -> alertTest());
     }
@@ -239,12 +269,21 @@ public class Login extends BaseActivity {
         // 여기서 <SampleModel> 은 받을 데이터의 형태(Json format)
         Call<LOGIN_Model> call = Http.login(HttpBaseService.TYPE.POST).login(
                 BaseConst.URL_HOST,
-                "LOGIN_BUS",
+                "LOGIN",
                 strPassword,
                 strEmail,
-                "AUB1",     // BUS -> AUB1, SHOP -> AUS1
+                "",     // BUS -> AUB1, SHOP -> AUS1
                 ""
         );
+
+//        Call<LOGIN_Model> call = Http.login(HttpBaseService.TYPE.POST).login(
+//                BaseConst.URL_HOST,
+//                "LOGIN",
+//                strPassword,
+//                strEmail,
+//                "",     // BUS -> AUB1, SHOP -> AUS1
+//                ""
+//        );
 
         // Api 호출 후 response 받을 위치
         call.enqueue(new Callback<LOGIN_Model>() {
@@ -305,46 +344,26 @@ public class Login extends BaseActivity {
      */
     private void setSession(LoginVO loginVO) {
         mUser.Value.CTM_01 = loginVO.CTM_01;
+        mUser.Value.CTM_17 = loginVO.CTM_17;
+        mUser.Value.CTM_19 = loginVO.CTM_19;
+
         mUser.Value.OCP_ID = loginVO.OCP_ID;
-        mUser.Value.CTU_08 = loginVO.CTU_08;
-        mUser.Value.CTU_09 = loginVO.CTU_09;
+        mUser.Value.OCP_01 = loginVO.OCP_01;
 
         mUser.Value.OCM_01 = loginVO.OCM_01;
         mUser.Value.OCM_02 = loginVO.OCM_02;
         mUser.Value.OCM_03 = loginVO.OCM_03;
+        mUser.Value.OCM_03_CHK = loginVO.OCM_03_CHK;
         mUser.Value.OCM_21 = loginVO.OCM_21;
-        mUser.Value.OCM_25 = loginVO.OCM_25;
         mUser.Value.OCM_28 = loginVO.OCM_28;
         mUser.Value.OCM_29 = loginVO.OCM_29;
         mUser.Value.OCM_31 = loginVO.OCM_31;
         mUser.Value.OCM_32 = loginVO.OCM_32;
         mUser.Value.OCM_51 = loginVO.OCM_51;
-        mUser.Value.OCP_01 = loginVO.OCP_01;
-        mUser.Value.OCM_03_CHK = loginVO.OCM_03_CHK;
-        mUser.Value.OCP_ADD= loginVO.OCP_2102;
 
-
-
-
-      //  goStore();
+        requestTKN_SELECT();
         goMain();
-/*
 
-        if(mUser.Value.CTU_08.equals("")){
-            goStore();
-        } else {
-            if(mUser.Value.CTU_09.equals("")){
-                // alert
-            } else {
-                if(Integer.parseInt(ClsDateTime.getNow("yyyyMMdd")) > Integer.parseInt(mUser.Value.CTU_09)){
-                    // alert
-                } else {
-                    goMain();
-                }
-            }
-        }
-
- */
     }
 
     /**
@@ -389,7 +408,6 @@ public class Login extends BaseActivity {
 
 
         finish();
-
 
     }
 
@@ -450,5 +468,164 @@ public class Login extends BaseActivity {
             // result.getContents() : 바코드 값
             Log.d("Test", "Scan Type : " + result.getFormatName() + " / Data : " + result.getContents());
         }
+    }
+
+
+    private void requestTKN_SELECT(){
+        //인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        //openLoadingBar();
+
+        String GUBUN = "LIST";
+        String TKN_ID = mUser.Value.CTM_01;
+        String TKN_01 = "";
+        String TKN_02 = mUser.Value.OCM_01;
+        String TKN_03 = "";
+        String TKN_04 = token;
+        Call<TKNModel> call = Http.push(HttpBaseService.TYPE.POST).TKN_SELECT(
+                BaseConst.URL_HOST,
+                GUBUN,
+                TKN_ID,
+                TKN_01,
+                TKN_02,
+                TKN_03,
+                TKN_04
+        );
+
+
+        call.enqueue(new Callback<TKNModel>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<TKNModel> call, Response<TKNModel> response){
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+
+                        if(msg.what == 100){
+                            Response<TKNModel> response = (Response<TKNModel>) msg.obj;
+
+//                            TKNList = response.body().Data;
+//                            if(TKNList == null)
+//                                TKNList = new ArrayList<>();
+//
+//                            TKNAdapter.updateData(TKNList);
+//                            TKNAdapter.notifyDataSetChanged();
+                            if (response.body().Total==0) {
+
+                                requestTKN_CONTROL("INSERT", "0", token);
+                            }
+                            else{
+                                requestTKN_CONTROL("UPDATE", response.body().Data.get(0).TKN_01, token);
+                            }
+//
+//                            } else {
+//                                // ErrorMsg
+//                              //  requestTKN_CONTROL("UPDATE", response.body().Data.get(0).TKN_01, response.body().Data.get(0).TKN_04);   //무조건 첫 단말기만
+//                                requestTKN_CONTROL("UPDATE", response.body().Data.get(0).TKN_01, token);   // 바뀐 폰으로 알림 이동
+//                            }
+
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<TKNModel> call, Throwable t){
+                Log.d("TKN_SELECT", t.getMessage());
+                //closeLoadingBar();
+            }
+        });
+    }
+
+    private void requestTKN_CONTROL(String GUB,String tkn_01, String TOKEN){
+//        if(!validationCheck())
+//            return;
+
+        // 인터넷 연결 여부 확인
+        if (!ClsNetworkCheck.isConnectable(mContext)){
+            BaseAlert.show(getString(R.string.common_network_error));
+            return;
+        }
+        String strToday = ClsDateTime.getNow("yyyyMMdd");
+
+        openLoadingBar();
+
+        String GUBUN = GUB;
+        String TKN_ID = mUser.Value.CTM_01;
+        String TKN_01 = tkn_01;
+        String TKN_02 = mUser.Value.OCM_01;
+        String TKN_03 = "";
+        String TKN_04 = TOKEN;
+        String TKN_98 = mUser.Value.OCM_01;
+        Call<TKNModel> call = Http.push(HttpBaseService.TYPE.POST).TKN_CONTROL(
+                BaseConst.URL_HOST,
+                GUBUN,
+                TKN_ID,
+                TKN_01,
+                TKN_02,
+                TKN_03,
+                TKN_04,
+                TKN_98
+        );
+
+        call.enqueue(new Callback<TKNModel>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<TKNModel> call, Response<TKNModel> response){
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if (msg.what == 100){
+                            closeLoadingBar();
+
+                            Response<TKNModel> response = (Response<TKNModel>) msg.obj;
+
+                            callBack_TKN(GUB, response.body().Data.get(0));
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<TKNModel> call, Throwable t){
+                Log.d("Test", t.getMessage());
+                closeLoadingBar();
+            }
+        });
+
+    }
+
+    private void callBack_TKN(String GUB, TKN_VO data){
+
+//        switch(GUB){
+//            case "INSERT":
+//                finish();
+//                //setUserPwd();
+//                break;
+//            case "UPDATE":
+//                finish();
+//                //setUserPwd();
+//                break;
+//            case "DELETE":
+//                finish();
+//                //setUserPwd();
+//                break;
+//        }
+
+        return;
+
+
     }
 }

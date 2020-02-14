@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -11,12 +11,15 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
         app:title_text="화분 정보" />
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:fadingEdgeLength="0dp"
+        android:layout_below="@id/header"
+        android:layout_above="@id/layoutSave"
         android:overScrollMode="never">
 
         <LinearLayout
@@ -26,37 +29,37 @@
             android:orientation="vertical">
 
             <!-- 식물 사진 -->
-            <RelativeLayout
-                android:id="@+id/layoutPhoto"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="5dp"
-                android:background="@drawable/list_round_shape"
-                android:shape="rectangle">
+<!--            <RelativeLayout-->
+<!--                android:id="@+id/layoutPhoto"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="150dp"-->
+<!--                android:layout_marginLeft="10dp"-->
+<!--                android:layout_marginTop="10dp"-->
+<!--                android:layout_marginRight="10dp"-->
+<!--                android:layout_marginBottom="5dp"-->
+<!--                android:background="@drawable/list_round_shape"-->
+<!--                android:shape="rectangle">-->
 
-                <TextView
-                    android:id="@+id/tvLabelPhoto"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="15dp"
-                    android:text="이미지"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_small"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tvLabelPhoto"-->
+<!--                    android:layout_width="100dp"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_marginLeft="20dp"-->
+<!--                    android:layout_marginTop="15dp"-->
+<!--                    android:text="이미지"-->
+<!--                    android:textColor="@color/black"-->
+<!--                    android:textSize="@dimen/text_small"-->
+<!--                    android:textStyle="bold" />-->
 
-                <ImageView
-                    android:id="@+id/imgPhoto"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_toRightOf="@id/tvLabelPhoto"
-                    android:padding="10dp"
-                    app:srcCompat="@drawable/ic_menu_gallery" />
+<!--                <ImageView-->
+<!--                    android:id="@+id/imgPotPhoto"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="match_parent"-->
+<!--                    android:layout_toRightOf="@id/tvLabelPhoto"-->
+<!--                    android:padding="10dp"-->
+<!--                    app:srcCompat="@drawable/ic_menu_gallery" />-->
 
-            </RelativeLayout>
+<!--            </RelativeLayout>-->
 
             <!-- 명칭 -->
             <RelativeLayout
@@ -64,7 +67,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginLeft="10dp"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="5dp"
                 android:background="@drawable/list_round_shape"
@@ -81,14 +84,13 @@
                     android:textSize="@dimen/text_small"
                     android:textStyle="bold" />
 
-                <EditText
-                    android:id="@+id/etName"
+                <TextView
+                    android:id="@+id/tvName"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_toRightOf="@id/tvLabelName"
                     android:background="@color/transparent_color"
                     android:gravity="center_vertical|left"
-                    android:hint="명칭을 입력하세요."
                     android:inputType="text"
                     android:maxLength="20"
                     android:padding="0dp"
@@ -123,7 +125,7 @@
 
                 <TextView
                     android:id="@+id/tvPreWaterDay"
-                    android:layout_width="130dp"
+                    android:layout_width="150dp"
                     android:layout_height="match_parent"
                     android:layout_toRightOf="@id/tvLabelPreWaterDay"
                     android:background="@color/transparent_color"
@@ -139,12 +141,16 @@
                     android:layout_width="80dp"
                     android:layout_height="30dp"
                     android:layout_alignParentEnd="true"
-                    android:background="@color/detail_button_background"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@drawable/list_item_round_button"
                     android:gravity="center_vertical|center"
-                    android:layout_margin="10dp"
-                    android:textSize="14dp"
                     android:text="업데이트"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="14dp"
+                    android:textStyle="bold" />
 
             </RelativeLayout>
 
@@ -241,7 +247,7 @@
             <RelativeLayout
                 android:id="@+id/layoutAlarmTime"
                 android:layout_width="match_parent"
-                android:layout_height="130dp"
+                android:layout_height="180dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginRight="10dp"
@@ -326,4 +332,24 @@
 
     </ScrollView>
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/layoutSave"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/btnSave"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/list_item_Detail_saveBtn"
+            android:gravity="center_vertical|center"
+            android:text="저장"
+            android:textColor="@color/white"
+            android:textSize="14dp"
+            android:textStyle="bold" />
+
+    </LinearLayout>
+
+</RelativeLayout>

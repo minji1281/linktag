@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
         android:name="com.linktag.base.linkapp"
@@ -73,6 +74,10 @@
             android:name=".ui.board.BoardDetail"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
+        <!-- 팝업 Activity -->
+        <activity android:name=".ui.board.BoardPopup"
+            android:theme="@android:style/Theme.Dialog"
+            android:excludeFromRecents="true"/>
         <activity
             android:name=".ui.login.Login"
             android:screenOrientation="portrait"
@@ -90,6 +95,11 @@
             android:name=".ui.menu.Menu"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
+        <activity
+            android:name=".ui.menu.AddService"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser" />
+
 
         <!-- ================================== -->
 
@@ -135,11 +145,6 @@
             android:value="false" />
         <!--장독-->
         <activity
-            android:name=".ui.main.JDMMain"
-            android:screenOrientation="portrait"
-            android:theme="@style/TranslucentUser"
-            android:windowSoftInputMode="adjustPan" />
-        <activity
             android:name=".ui.jdm_class.DetailJdm"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
@@ -155,6 +160,27 @@
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser"
             android:excludeFromRecents="true"/>
+        <activity
+            android:name=".ui.pot.PotScan"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"
+            android:excludeFromRecents="true"/>
+        <activity
+            android:name=".ui.pot.PotNew"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"
+            android:excludeFromRecents="true"/>
+
+        <!-- 푸시알람 -->
+<!--        <receiver android:name=".ui.alarm.DeviceBootReceiver"-->
+<!--            android:enabled="false">-->
+<!--            <intent-filter>-->
+<!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
+<!--            </intent-filter>-->
+<!--        </receiver>-->
+
+<!--        <receiver android:name=".ui.alarm.AlarmReceiver" />-->
+
     </application>
 
 </manifest>

@@ -1,39 +1,39 @@
 package com.linktag.linkapp.ui.main;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
-import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
+import com.linktag.linkapp.ui.pot.PotDetail;
+import com.linktag.linkapp.ui.pot.PotList;
+import com.linktag.linkapp.ui.work_place_search.FindWorkPlace;
+import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_view_pager.BaseViewPager;
 import com.linktag.base.base_view_pager.ViewPagerAdapter;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.ui.alarm_service.AlarmHATT;
-import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
 import com.linktag.linkapp.ui.login.Login;
 import com.linktag.linkapp.ui.menu.Menu;
 import com.linktag.linkapp.ui.scanner.ScanBarcode;
 import com.linktag.linkapp.ui.settings_main.SettingFragment;
-import com.linktag.linkapp.ui.work_place_search.FindWorkPlace;
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
+import com.linktag.linkapp.value_object.PotVO;
+
 
 import java.io.File;
+
 import java.util.ArrayList;
-import java.util.Calendar;
+
 import java.util.List;
 
 
@@ -42,13 +42,14 @@ public class Main extends BaseActivity {
     private final int TAB_PAGE_COMMENT = 1;
     private final int TAB_PAGE_APPLY = 2;
     private final int TAB_PAGE_SETTING = 3;
+    private final int TAB_PAGE_JDM = 4; //장독테스트
 
     // Variable
     private CommuteFragment fragmentHome;
     private WorkFragment fragmentWork;
     private ApplyFragment fragmentApply;
     private SettingFragment fragmentSetting;
-
+    private JDMFragment fragmentJdm;
 
 
     private BaseViewPager viewPager;
@@ -76,6 +77,7 @@ public class Main extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main_home);
 
         initLayout();
@@ -83,7 +85,6 @@ public class Main extends BaseActivity {
         initialize();
 
         checkPwd();
-
     }
 
     @Override
@@ -98,21 +99,14 @@ public class Main extends BaseActivity {
         tvMainWork = findViewById(R.id.tvMainWork);
         tvMainWork.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_COMMENT));
         tvMainScan = findViewById(R.id.tvMainScan);
-      //  tvMainScan.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_APPLY));
+        //  tvMainScan.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_APPLY));
         tvMainScan.setOnClickListener(v -> goScan());
         tvMainSetting = findViewById(R.id.tvMainSetting);
         tvMainSetting.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_SETTING));
 
         //장독테스트
         tvMainJdm = findViewById(R.id.tvMainJdm);
-
-        tvMainJdm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(mContext, JDMMain.class);
-                startActivity(intent);
-            }
-        });
+        tvMainJdm.setOnClickListener(v -> goPot());
 
         initViewPager();
     }
@@ -166,6 +160,7 @@ public class Main extends BaseActivity {
         fragmentWork = new WorkFragment();
         fragmentApply = new ApplyFragment();
         fragmentSetting = new SettingFragment();
+        fragmentJdm = new JDMFragment();
 
         fragmentHome.setOnLoadingDialog(callLoadingBar);
         fragmentWork.setOnLoadingDialog(callLoadingBar);
@@ -176,6 +171,7 @@ public class Main extends BaseActivity {
         mListFragment.add(fragmentWork);
         mListFragment.add(fragmentApply);
         mListFragment.add(fragmentSetting);
+        mListFragment.add(fragmentJdm);
 
         mViewPagerAdapter = new ViewPagerAdapter(this.getSupportFragmentManager(), mListFragment);
         viewPager.setAdapter(mViewPagerAdapter);
@@ -241,6 +237,12 @@ public class Main extends BaseActivity {
                 header.btnHeaderText.setVisibility(View.GONE);
                 break;
 
+            case TAB_PAGE_JDM:
+                tvMainJdm.setSelected(true);
+                header.tvHeaderTitle.setText("장독관리");
+                header.btnHeaderRight1.setVisibility(View.GONE);
+                header.btnHeaderText.setVisibility(View.GONE);
+                break;
         }
     }
 
@@ -260,6 +262,12 @@ public class Main extends BaseActivity {
         integrator.setCaptureActivity(ScanBarcode.class);
         integrator.setOrientationLocked(false);
         integrator.initiateScan();
+    }
+
+    //테스트
+    private void goPot() {
+        Intent intent = new Intent(mContext, PotList.class);
+        mContext.startActivity(intent);
     }
 
     /**

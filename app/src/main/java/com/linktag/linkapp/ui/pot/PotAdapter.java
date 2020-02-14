@@ -13,15 +13,23 @@ import com.linktag.linkapp.value_object.PotVO;
 
 import java.util.ArrayList;
 
-public class PotAdapter extends BaseAdapter {
+public class PotAdapter extends BaseAdapter implements View.OnClickListener {
     private Context mContext;
     private ArrayList<PotVO> mList;
     private LayoutInflater mInflater;
 
-    public PotAdapter(Context context, ArrayList<PotVO> list){
+    private AlarmClickListener alarmClickListener;
+
+    public interface AlarmClickListener{
+        void onListAlarmClick(int position);
+    }
+
+    public PotAdapter(Context context, ArrayList<PotVO> list, AlarmClickListener alarmClickListener){ //, AlarmClickListener alarmClickListener
         this.mContext = context;
         this.mList = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
+        this.alarmClickListener = alarmClickListener;
     }
 
     @Override
@@ -84,8 +92,17 @@ public class PotAdapter extends BaseAdapter {
         else{ //N
             viewHolder.AlarmIcon.setImageResource(R.drawable.btn_noti_off_gray);
         }
+        viewHolder.AlarmIcon.setTag(position);
+        viewHolder.AlarmIcon.setOnClickListener(this);
 
         return convertView;
+    }
+
+    @Override
+    public void onClick(View v) {
+        if(this.alarmClickListener != null) {
+            this.alarmClickListener.onListAlarmClick((int) v.getTag());
+        }
     }
 
     public void updateData(ArrayList<PotVO> list){ mList = list;}

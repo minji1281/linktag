@@ -2,6 +2,7 @@ package com.linktag.linkapp.ui.board;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -24,6 +25,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
@@ -56,7 +58,7 @@ public class BoardDetail extends BaseActivity {
 
     public static final String WORK_STATE = "WORK_STATE";
 
-
+    public static Context mBoard1;
     //======================
     // Layout
     //======================
@@ -66,11 +68,15 @@ public class BoardDetail extends BaseActivity {
     private Button btnUpdate;
     private EditText etSubjecet;
     private EditText etContent;
+    private TextView replyCnt;
 
     String DSH_GB="";
     String DB_GB="";
+    String getDSH_01 = "";
     String getDSH_04 = "";
     String getDSH_05 = "";
+    String getDSH_09 = "";
+    String getDSH_97 = "";
 
     //======================
     // Initialize
@@ -86,8 +92,13 @@ public class BoardDetail extends BaseActivity {
         if(getIntent().getStringExtra("DSH_01").equals("")){ DB_GB = "INSERT";}
         else { DB_GB = "UPDATE";}
 
+        if(getIntent().getStringExtra("DSH_01").equals("")){ getDSH_01 = "";}else{getDSH_01 = getIntent().getStringExtra("DSH_01");}
         if(getIntent().getStringExtra("DSH_04").equals("")){ getDSH_04 = "";}else{getDSH_04 = getIntent().getStringExtra("DSH_04");}
         if(getIntent().getStringExtra("DSH_05").equals("")){ getDSH_05 = "";}else{getDSH_05 = getIntent().getStringExtra("DSH_05");}
+        if(getIntent().getStringExtra("DSH_09").equals("")){ getDSH_09 = "0";}else{getDSH_09 = getIntent().getStringExtra("DSH_09");}
+        if(getIntent().getStringExtra("DSH_97").equals("")){ getDSH_97 = "";}else{getDSH_97 = getIntent().getStringExtra("DSH_97");}
+
+        mBoard1 = this;
 
         initLayout();
 
@@ -103,7 +114,7 @@ public class BoardDetail extends BaseActivity {
         if(DSH_GB.equals("BRD")){ header.tvHeaderTitle.setText(R.string.dash_01);}
         else if(DSH_GB.equals("NOT")){ header.tvHeaderTitle.setText(R.string.dash_02);}
 
-        Toast.makeText(mContext,getIntent().getStringExtra("DSH_01"), Toast.LENGTH_SHORT).show();
+//        Toast.makeText(mContext,getIntent().getStringExtra("DSH_01"), Toast.LENGTH_SHORT).show();
 
         etSubjecet = findViewById(R.id.etSubjecet);
         etSubjecet.setText(getDSH_04);
@@ -111,9 +122,17 @@ public class BoardDetail extends BaseActivity {
         etContent = findViewById(R.id.etContent);
         etContent.setText(getDSH_05);
 
+        replyCnt = findViewById(R.id.replyCnt);
+        replyCnt.setText(getDSH_09);
+
         btnCancel = findViewById(R.id.btnCancel);
         if(DB_GB.equals("INSERT")){ btnCancel.setText(R.string.dash_05); btnCancel.setOnClickListener(v -> finish()); }
-        else if (DB_GB.equals("UPDATE")) { btnCancel.setText(R.string.dash_12); btnCancel.setOnClickListener(v -> requestBRD_CONTROL("DELETE"));}
+        else if (DB_GB.equals("UPDATE")) {
+            if(DSH_GB.equals("BRD")){
+                btnCancel.setText(R.string.dash_12); btnCancel.setOnClickListener(v -> requestBRD_CONTROL("DELETE"));}
+            else if (DSH_GB.equals("NOT")){
+                btnCancel.setText(R.string.dash_12); btnCancel.setOnClickListener(v -> requestNOT_CONTROL("DELETE"));}
+            }
 
 
         btnUpdate = findViewById(R.id.btnUpdate);
@@ -327,176 +346,12 @@ public class BoardDetail extends BaseActivity {
 
     @Override
     protected void initialize() {
-//        String mUserImage = "";
-//        String setPwd = getIntent().getExtras().getString("setPwd", "");
-//
-//        // 프로필 이미지 설정
-//        ClsImage.setUserPhoto(mContext, imgProfilePhoto, mUserImage, R.drawable.main_profile_no_image);
-//
-//        if(setPwd.equals("1")){
-//            setUserPwd();
-//            etOldPwd.requestFocus();
-//        }
     }
 
-//    private boolean validationCheck(String GUB){
-//        if(GUB.equals("PASS"))
-//        {
-//            if(!mUser.Value.OCM_03.equals(etOldPwd.getText().toString())){
-//                etOldPwd.requestFocus();
-//                Toast.makeText(mActivity, "현재 비밀번호가 맞지 않습니다.", Toast.LENGTH_SHORT).show();
-//                return false;
-//            }
-//            if(etNewPwd1.getText().toString().length() == 0){
-//                etNewPwd1.requestFocus();
-//                Toast.makeText(mActivity, "수정 할 비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
-//                return false;
-//            }
-//            if(!etNewPwd1.getText().toString().equals(etNewPwd2.getText().toString())){
-//                etNewPwd1.requestFocus();
-//                Toast.makeText(mActivity, "입력된 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
-//                return false;
-//            }
-//        } else if (GUB.equals("UPDATE")) {
-//
-//        }
-//
-//        return true;
-//    }
-//
-//
-//    private void requestOCM_CONTROL(String GUB){
-//        if(!validationCheck(GUB))
-//            return;
-//
-//        //인터넷 연결 여부 확인
-//        if(!ClsNetworkCheck.isConnectable(mContext)){
-//            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        openLoadingBar();
-//
-//        String GUBUN = GUB;
-//        String OCM_01 = mUser.Value.OCM_01;
-//        String OCM_02 = etUserName.getText().toString();
-//        String OCM_03 = etNewPwd1.getText().toString();
-//        String OCM_31 = etDep.getText().toString();
-//        String OCM_32 = etRank.getText().toString();
-//        String OCM_51 = etPhoneNumber.getText().toString();
-//        String OCM_98 = mUser.Value.OCM_01;
-//
-//        Call<OCM_Model> call = Http.ocm(HttpBaseService.TYPE.POST).OCM_CONTROL(
-//                BaseConst.URL_HOST,
-//                GUBUN,
-//                OCM_01,
-//                OCM_02,
-//                OCM_03,
-//                OCM_31,
-//                OCM_32,
-//                OCM_51,
-//                OCM_98
-//        );
-//
-//        call.enqueue(new Callback<OCM_Model>(){
-//            @SuppressLint("HandlerLeak")
-//            @Override
-//            public void onResponse(Call<OCM_Model> call, Response<OCM_Model> response){
-//                Message msg = new Message();
-//                msg.obj = response;
-//                msg.what = 100;
-//
-//                new Handler(){
-//                    @Override
-//                    public void handleMessage(Message msg){
-//                        if(msg.what == 100){
-//                            closeLoadingBar();
-//
-//                            Response<OCM_Model> response = (Response<OCM_Model>) msg.obj;
-//
-//                            callBack(GUB, response.body().Data.get(0));
-//                        }
-//                    }
-//                }.sendMessage(msg);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<OCM_Model> call, Throwable t){
-//                Log.d("OCM_CONTROL", t.getMessage());
-//                closeLoadingBar();
-//            }
-//        });
-//
-//    }
-//
-//    private void callBack(String GUB, OcmVO data){
-//        if(data.Validation){
-//            switch(GUB){
-//                case "PASS":
-//                    logout();
-//                    //setUserPwd();
-//                    break;
-//                case "UPDATE":
-//                 //   setUserData(data);
-//                    break;
-//            }
-//        }
-//
-//    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // 사진
-//        if (requestCode == REQUEST_CODE_CROP && resultCode == RESULT_OK) {
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriPhoto);
-//                imgProfilePhoto.setImageBitmap(bitmap);
-//                mBase64 = ClsImage.getBase64ImageString(bitmap);
-//                mUserImage = uriPhoto.getPath();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        } else if (requestCode == REQUEST_CODE_CROP_ALBUM && resultCode == RESULT_OK) {
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriAlbum);
-//                imgProfilePhoto.setImageURI(uriAlbum);
-//                mBase64 = ClsImage.getBase64ImageString(bitmap);
-//                mUserImage = uriAlbum.getPath();
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        } else {
-//            if (resultCode == RESULT_OK) {
-//                switch (requestCode) {
-//                    case REQUEST_CODE_ALBUM_PHOTO:
-//                        if (data.getData() != null) {
-//                            try {
-//                                uriPhoto = data.getData();
-//                                cropImage();
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                        break;
-//                    case REQUEST_CODE_PHOTO_TAKE_PHOTO:
-//                        if (!fileTakePhoto.exists()) {
-//                            return;
-//                        }
-//
-//                        cropImage();
-//                        break;
-//                    case REQUEST_CODE_CROP:
-//                        try {
-//                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriPhoto);
-//                            imgProfilePhoto.setImageBitmap(bitmap);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                        break;
-//                }
-//            }
-//        }
 
     }
 
@@ -514,5 +369,25 @@ public class BoardDetail extends BaseActivity {
         }, 500);
     }
 
+    //확인 버튼 클릭
+    public void goPopup(View v){
+        Intent intent = new Intent(this, BoardPopup.class);
+        intent.putExtra("DSH_GB", DSH_GB);
+        intent.putExtra("DSH_01", getDSH_01);
+        intent.putExtra("DSH_ID", mUser.Value.OCM_01);
+        intent.putExtra("DSH_97", getDSH_97);
+        intent.putExtra("DSH_04", getDSH_04);
+
+        startActivityForResult(intent, 1);
+    }
+
+
+    // 댓글 계산용
+    public void CalcCmt(String code){
+        int Cmt = 0;
+        if(replyCnt.getText().equals("")){Cmt = 0;}else{Cmt = Integer.parseInt(replyCnt.getText().toString());}
+
+        if(code.equals("-")){replyCnt.setText(String.valueOf( Cmt-1));}else{replyCnt.setText(String.valueOf( Cmt+1));}
+    }
 
 }

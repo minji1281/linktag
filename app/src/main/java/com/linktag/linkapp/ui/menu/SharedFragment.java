@@ -98,7 +98,7 @@ public class SharedFragment extends BaseFragment implements SharedAdapter.Shared
                 "LIST_SHARED",
                 "",
                 "",
-                "M191100001"
+                mUser.Value.OCM_01
         );
 
         call.enqueue(new Callback<CTD_Model>() {
@@ -141,9 +141,16 @@ public class SharedFragment extends BaseFragment implements SharedAdapter.Shared
 
     @Override
     public void onGridBtnClick(int position) {
-        mActivity.finish();
+        //mActivity.finish();
 
         // 누르면 해당 서비스로 이동하게 구현
         // mList.get(position)
+        String SVC_01 = mList.get(position).SVC_01;
+        String CTN_02 = mList.get(position).CTN_02;
+
+        ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, SVC_01, CTN_02);
+        changeActivityCls.changeService();
+
+        mActivity.finish();
     }
 }

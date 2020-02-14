@@ -8,6 +8,7 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,17 +30,14 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class PotList extends BaseActivity {
+public class PotList extends BaseActivity implements PotAdapter.AlarmClickListener {
     //======================
     // Layout
     //======================
     private BaseHeader header;
-    //private Spinner spinnerCity;
-    //private Spinner spinnerStreet;
-    //private EditText etSearch;
     private ListView listView;
-    //private ImageView btnSearch;
     private TextView emptyText;
+    private ImageView imgNew;
 
     //======================
     // Variable
@@ -54,6 +52,7 @@ public class PotList extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_pot_list);
 
         initLayout();
@@ -66,21 +65,9 @@ public class PotList extends BaseActivity {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setVisibility((View.GONE));
 
-        //spinnerCity = findViewById(R.id.spinnerCity);
-        //spinnerStreet = findViewById(R.id.spinnerStreet);
-//        etSearch = findViewById(R.id.etSearch);
-//        etSearch.setOnKeyListener(new View.OnKeyListener(){
-//            @Override
-//            public boolean onKey(View v, int keyCode, KeyEvent event) {
-//                if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
-//                    requestPOT_SELECT();
-//                    return true;
-//                }
-//                return false;
-//            }
-//        });
-//        btnSearch = findViewById(R.id.btnSearch);
-//        btnSearch.setOnClickListener(v -> requestPOT_SELECT());
+        //신규등록 test
+        imgNew = findViewById(R.id.imgNew);
+        imgNew.setOnClickListener(v -> goPotNew());
 
         listView = findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -95,6 +82,9 @@ public class PotList extends BaseActivity {
                 intent.putExtra("ARM_03", mList.get(position).ARM_03);
                 intent.putExtra("POT_96", mList.get(position).POT_96);
                 intent.putExtra("POT_06", mList.get(position).POT_06);
+                intent.putExtra("POT_01", mList.get(position).POT_01);
+                intent.putExtra("POT_97", mList.get(position).POT_97);
+                intent.putExtra("ARM_04", mList.get(position).ARM_04);
                 mContext.startActivity(intent);
             }
         });
@@ -105,15 +95,17 @@ public class PotList extends BaseActivity {
     @Override
     protected void initialize() {
         mList = new ArrayList<>();
-        mAdapter = new PotAdapter(mContext, mList);
+        mAdapter = new PotAdapter(mContext, mList, this); //, this
         listView.setAdapter(mAdapter);
 
-        requestPOT_SELECT();
+        //requestPOT_SELECT();
     }
 
     @Override
     protected void onResume(){
         super.onResume();
+
+        requestPOT_SELECT();
     }
 
     private void requestPOT_SELECT(){
@@ -128,7 +120,7 @@ public class PotList extends BaseActivity {
         String GUBUN = "LIST";
         String POT_ID = "1"; //컨테이너
         String POT_01 = " ";
-        String OCM_01 = "M191100001"; //mUser.Value.OCM_01
+        String OCM_01 = mUser.Value.OCM_01; //사용자 아이디
 
         Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_SELECT(
                 BaseConst.URL_HOST,
@@ -173,6 +165,134 @@ public class PotList extends BaseActivity {
                 closeLoadingBar();
             }
         });
+    }
+
+    //알람 주석처리
+//    private void requestPOT_CONTROL(String GUB, PotVO pot) {
+//        // 인터넷 연결 여부 확인
+//        if (!ClsNetworkCheck.isConnectable(mContext)){
+//            BaseAlert.show(mContext.getString(R.string.common_network_error));
+//            return;
+//        }
+//
+//        String GUBUN = GUB;
+//        String POT_ID = pot.POT_ID; //컨테이너
+//        String POT_01 = pot.POT_01; //코드번호
+//        String POT_02 = "";
+//        int POT_04 = 0;
+//
+//        String POT_05 = "";
+//        String POT_06 = "";
+//        String POT_81 = "";
+//        String POT_96 = "";
+//        String POT_98 = mUser.Value.OCM_01; //사용자 아이디
+//
+//        String ARM_03 = pot.ARM_03; //알림여부
+//
+//        Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_CONTROL(
+//                BaseConst.URL_HOST,
+//                GUBUN,
+//                POT_ID,
+//                POT_01,
+//                POT_02,
+//                POT_04,
+//
+//                POT_05,
+//                POT_06,
+//                POT_81,
+//                POT_96,
+//                POT_98,
+//
+//                ARM_03
+//        );
+//
+//        call.enqueue(new Callback<POT_Model>(){
+//            @SuppressLint("HandlerLeak")
+//            @Override
+//            public void onResponse(Call<POT_Model> call, Response<POT_Model> response){
+//                Message msg = new Message();
+//                msg.obj = response;
+//                msg.what = 100;
+//
+//                new Handler(){
+//                    @Override
+//                    public void handleMessage(Message msg){
+//                        if (msg.what == 100){
+//
+//                            Response<POT_Model> response = (Response<POT_Model>) msg.obj;
+//
+//                            if(response.body().Data.get(0).Validation){
+//                                AlarmMain alarmMain = new AlarmMain();
+//                                int ID = response.body().Data.get(0).ARM_04;
+//
+//                                if(ARM_03.equals("Y")){
+//                                    String alarmTitle = "물주기 - " + response.body().Data.get(0).POT_02;
+//                                    String alarmText = "식물에게 물을 주세요~";
+//                                    String className = ".ui.pot.PotScan";
+//
+//                                    Intent intent = new Intent();
+//                                    intent.putExtra("POT_81", response.body().Data.get(0).POT_81);
+//                                    intent.putExtra("POT_02", response.body().Data.get(0).POT_02);
+//                                    intent.putExtra("POT_03_T", response.body().Data.get(0).POT_03_T);
+//                                    intent.putExtra("POT_04", response.body().Data.get(0).POT_04);
+//                                    intent.putExtra("POT_05", response.body().Data.get(0).POT_05);
+//                                    intent.putExtra("ARM_03", response.body().Data.get(0).ARM_03);
+//                                    intent.putExtra("POT_96", response.body().Data.get(0).POT_96);
+//                                    intent.putExtra("POT_06", response.body().Data.get(0).POT_06);
+//                                    intent.putExtra("POT_01", response.body().Data.get(0).POT_01);
+//                                    intent.putExtra("POT_97", response.body().Data.get(0).POT_97);
+//                                    intent.putExtra("className", className);
+//
+//                                    intent.putExtra("ID", ID);
+//                                    intent.putExtra("alarmTitle", alarmTitle);
+//                                    intent.putExtra("alarmText", alarmText);
+//
+//                                    alarmMain.setAlarm(getApplicationContext(), intent); //푸시알람 설정
+//                                }
+//                                else{
+//                                    alarmMain.deleteAlarm(getApplicationContext(), pot.ARM_04); //푸시알람 해제
+//                                }
+//
+//                                onResume();
+//                            } else {
+//                                Toast.makeText(mContext, R.string.login_err, Toast.LENGTH_LONG).show();
+//                            }
+//
+//                        }
+//                    }
+//                }.sendMessage(msg);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<POT_Model> call, Throwable t){
+//                Log.d("Test", t.getMessage());
+//
+//            }
+//        });
+//
+//    }
+
+    @Override
+    public void onListAlarmClick(int position) {
+        PotVO data = mList.get(position);
+
+        if(data.ARM_03.equals("Y")){
+            data.ARM_03 = "N";
+        }
+        else{ //N
+            data.ARM_03 = "Y";
+        }
+
+        Toast.makeText(mContext, "준비중 입니다.", Toast.LENGTH_LONG).show();
+
+//        requestPOT_CONTROL("ALARM_UPDATE", data);
+    }
+
+    //신규등록 test
+    private void goPotNew(){
+//        Toast.makeText(mContext, "신규등록", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(mContext, PotNew.class);
+        mContext.startActivity(intent);
     }
 
 }
