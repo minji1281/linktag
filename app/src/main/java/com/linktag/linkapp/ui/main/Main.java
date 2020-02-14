@@ -1,9 +1,12 @@
 package com.linktag.linkapp.ui.main;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -20,6 +23,8 @@ import com.linktag.base.base_view_pager.BaseViewPager;
 import com.linktag.base.base_view_pager.ViewPagerAdapter;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.ui.alarm_service.AlarmHATT;
+import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
 import com.linktag.linkapp.ui.login.Login;
 import com.linktag.linkapp.ui.menu.Menu;
 import com.linktag.linkapp.ui.scanner.ScanBarcode;
@@ -28,6 +33,7 @@ import com.linktag.linkapp.ui.work_place_search.FindWorkPlace;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 
@@ -77,6 +83,7 @@ public class Main extends BaseActivity {
         initialize();
 
         checkPwd();
+
     }
 
     @Override

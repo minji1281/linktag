@@ -1,11 +1,10 @@
 package com.linktag.linkapp.network;
 
+import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.model.CFB_Model;
-import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.model.POT_Model;
-import com.linktag.linkapp.model.SVC_Model;
 import com.linktag.linkapp.model.WTH_Model;
 import com.linktag.linkapp.model.RUTC_Model;
 import com.linktag.linkapp.model.RTSC_Model;
@@ -233,49 +232,30 @@ public class Http extends HttpBaseService {
     }
 
     //--------------------------------------------------
-    // 메뉴
+    // 사용자 알람
     //--------------------------------------------------
-    public static ISVC svc(TYPE type) {
-        return (ISVC) retrofit(ISVC.class, type);
+
+    public static IARM arm(TYPE type) {
+        return (IARM) retrofit(IARM.class, type);
     }
 
-    public interface ISVC {
+    public interface IARM {
 
         @FormUrlEncoded
-        @POST(BaseConst.SVC_SELECT)
-        Call<SVC_Model> SVC_SELECT(
+        @POST(BaseConst.URL_ARM_CONTROL)
+        Call<ARMModel> ARM_CONTROL(
                 @Path(value = "host", encoded = true) String host,
                 @Field(value = "GUBUN") String GUBUN,
-                @Field(value = "SVC_01") String SVC_01,
-                @Field(value = "SVC_02") String SVC_02,
-                @Field(value = "SVC_03") String SVC_03,
-                @Field(value = "SVC_06") String SVC_06,
-                @Field(value = "SVC_07") String SVC_07,
-                @Field(value = "SVC_08") String SVC_08,
-                @Field(value = "SVC_90") String SVC_90
-        );
-
-    }
-
-    public static ICTD ctd(TYPE type) {
-        return (ICTD) retrofit(ICTD.class, type);
-    }
-
-    public interface ICTD {
-
-        @FormUrlEncoded
-        @POST(BaseConst.CTD_SELECT)
-        Call<CTD_Model> CTD_SELECT(
-                @Path(value = "host", encoded = true) String host,
-                @Field(value = "GUBUN") String GUBUN,
-                @Field(value = "CTD_01") String CTD_01,
-                @Field(value = "CTD_02") String CTD_02,
-                @Field(value = "OCM_01") String OCM_01
+                @Field(value = "ARM_ID") String ARM_ID,
+                @Field(value = "ARM_01") String ARM_01,
+                @Field(value = "ARM_02") String ARM_02,
+                @Field(value = "ARM_03") String ARM_03,
+                @Field(value = "ARM_95") String ARM_95,
+                @Field(value = "ARM_98") String ARM_98
 
         );
 
     }
-
     //--------------------------------------------------
     // 장독
     //--------------------------------------------------

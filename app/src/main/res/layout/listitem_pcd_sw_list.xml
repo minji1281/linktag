@@ -1,0 +1,48 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="10dp"
+        android:background="@drawable/shape_base_border_height_none"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+            <Spinner
+                android:id="@+id/sp_hw"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:layout_weight="1"
+                android:entries="@array/hw" />
+
+            <EditText
+                android:id="@+id/tv_hw"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:textSize="13dp"
+                android:layout_weight="2"
+                android:background="@null"
+                android:text="상제정보 입력"/>
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_gravity="center_vertical"
+                android:background="@drawable/ic_plus_round" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
