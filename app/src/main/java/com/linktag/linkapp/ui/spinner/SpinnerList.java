@@ -1,6 +1,6 @@
-package com.linktag.linkapp.ui.cos;
+package com.linktag.linkapp.ui.spinner;
 
-public class CosList {
+public class SpinnerList {
     private String code;
     private String name;
 
@@ -9,7 +9,7 @@ public class CosList {
      * @param code (코드)
      * @param name (이름)
      */
-    public CosList(String code, String name){
+    public SpinnerList(String code, String name){
         this.code = code;
         this.name = name;
     }

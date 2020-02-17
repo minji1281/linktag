@@ -25,6 +25,7 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.cos.CodAdapter;
 //import com.linktag.linkapp.ui.air.CodDetail;
+import com.linktag.linkapp.ui.spinner.SpinnerList;
 import com.linktag.linkapp.value_object.COD_VO;
 
 import java.sql.Array;
@@ -55,7 +56,7 @@ public class CodList extends BaseActivity implements CodAdapter.AlarmClickListen
     //======================
     // Initialize
     //======================
-    ArrayList<CosList> cosList = new ArrayList<>();
+    ArrayList<SpinnerList> cosList = new ArrayList<>();
     @BindView(R.id.spHeaderRight)
     Spinner spCos;
 
@@ -75,7 +76,6 @@ public class CodList extends BaseActivity implements CodAdapter.AlarmClickListen
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setVisibility((View.GONE));
 
-//        header.spHeaderRight.setVisibility((View.VISIBLE));
         header.spHeaderRight.setVisibility(View.VISIBLE);
         CosInfo cosinfo = new CosInfo(cosList, mActivity);
         cosinfo.execute();
