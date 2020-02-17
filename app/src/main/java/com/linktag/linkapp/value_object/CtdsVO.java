@@ -18,6 +18,9 @@ public class CtdsVO implements Serializable {
     public String SVC_01;        //
     public String CTN_02;
 
+    public String SVCL_04;
+    public String SVCL_05;
+
     public boolean Validation;
     public String ErrorCode;
 }

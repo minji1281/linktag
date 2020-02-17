@@ -36,6 +36,8 @@ public class ServiceFragment extends BaseFragment implements ServiceAdapter.Serv
     private ServiceAdapter mAdapter;
     private ArrayList<CtdVO> mList;
 
+    private String activity_name;
+
     public ServiceFragment() {
         // Required empty public constructor
     }
@@ -54,11 +56,6 @@ public class ServiceFragment extends BaseFragment implements ServiceAdapter.Serv
 
         initialize();
 
-
-        System.out.println("###############123123");
-        System.out.println(mActivity.getClass().getSimpleName());
-
-
         return view;
     }
 
@@ -74,6 +71,13 @@ public class ServiceFragment extends BaseFragment implements ServiceAdapter.Serv
         gridView = view.findViewById(R.id.gridView);
         tvAddService = view.findViewById(R.id.tvAddService);
         tvAddService.setOnClickListener(v -> goAddService());
+
+        activity_name = mActivity.getClass().getSimpleName();
+
+        if(activity_name.equals("ChooseOne")){
+            tvAddService.setVisibility(View.GONE);
+        }
+
     }
 
     protected void initialize(){
@@ -152,11 +156,26 @@ public class ServiceFragment extends BaseFragment implements ServiceAdapter.Serv
         // 누르면 해당 서비스로 이동하게 구현
         // mList.get(position)
 
-        ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, mList.get(position));
-        changeActivityCls.changeService();
+        if(activity_name.equals("ChooseOne")){
+            // 해당 서비스 NEW 이동
+            String scanCode;
 
-        mActivity.finish();
+            Bundle bundle = getArguments();
 
+            if(bundle != null){
+                scanCode = bundle.getString("scanCode");
 
+                ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, mList.get(position));
+                changeActivityCls.changeServiceWithScan(scanCode);
+
+                mActivity.finish();
+            }
+        } else {
+            ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, mList.get(position));
+            changeActivityCls.changeService();
+
+            mActivity.finish();
+        }
     }
+
 }

@@ -33,6 +33,7 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.login.Login;
+import com.linktag.linkapp.ui.menu.ChangeActivityCls;
 import com.linktag.linkapp.ui.menu.ChooseOne;
 import com.linktag.linkapp.ui.menu.Menu;
 import com.linktag.linkapp.ui.pcm.PCMMain;
@@ -40,6 +41,7 @@ import com.linktag.linkapp.ui.pot.PotList;
 import com.linktag.linkapp.ui.scanner.ScanBarcode;
 import com.linktag.linkapp.ui.settings_main.SettingFragment;
 import com.linktag.linkapp.ui.work_place_search.FindWorkPlace;
+import com.linktag.linkapp.value_object.CtdVO;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -325,7 +327,7 @@ public class Main extends BaseActivity {
                     boolean chk = false;
 
                     String str = result.getContents();
-                    String code = "";
+                    String scanCode = "";
 
                     try {
                         String[] split = str.split("\\?");
@@ -341,7 +343,7 @@ public class Main extends BaseActivity {
 
                             if(t.length() == 2 && u.length() == 10 && dec.length() == 15){
                                 chk = true;
-                                code = t + u + dec;
+                                scanCode = t + u + dec;
                             }
                         } else {
                             chk = false;
@@ -352,11 +354,8 @@ public class Main extends BaseActivity {
                     }
 
                     if(chk){
-                        System.out.println("truetrue####################qrqrqrqrqrqr");
-                        System.out.println(code);
-
                         // QR일련번호 SELECT -> 등록안된거면 서비스 선택
-                        requestCTDS_SELECT(code);
+                        requestCTDS_SELECT(scanCode);
 
                     } else {
                         Toast.makeText(this, "유효하지 않은 코드 입니다.", Toast.LENGTH_LONG).show();
@@ -369,7 +368,7 @@ public class Main extends BaseActivity {
         }
     }
 
-    public void requestCTDS_SELECT(String CTDS_03) {
+    public void requestCTDS_SELECT(String scanCode) {
         // 인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             BaseAlert.show(getString(R.string.common_network_error));
@@ -383,7 +382,7 @@ public class Main extends BaseActivity {
                 "DETAIL",
                 "",
                 "",
-                CTDS_03
+                scanCode
         );
 
         call.enqueue(new Callback<CTDS_Model>() {
@@ -402,7 +401,7 @@ public class Main extends BaseActivity {
 
                             Response<CTDS_Model> response = (Response<CTDS_Model>) msg.obj;
 
-                            callBack(response.body());
+                            callBack(response.body(), scanCode);
 
                         }
                     }
@@ -416,15 +415,26 @@ public class Main extends BaseActivity {
             }
         });
     }
-    private void callBack(CTDS_Model model){
+    private void callBack(CTDS_Model model, String scanCode){
         if(model.Total == 0){
+            // New
             // 등록 페이지 이동
             Intent intent = new Intent(this, ChooseOne.class);
+            intent.putExtra("scanCode", scanCode);
             startActivityForResult(intent, 2);
 
         } else {
+            // Detail
             // Detail 조회 페이지 이동
+            CtdVO ctdVO = new CtdVO();
 
+            ctdVO.CTD_01 = model.Data.get(0).CTDS_01;
+            ctdVO.CTN_02 = model.Data.get(0).CTN_02;
+            ctdVO.SVCL_04 = model.Data.get(0).SVCL_04;
+            ctdVO.SVCL_05 = model.Data.get(0).SVCL_05;
+
+            ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, ctdVO);
+            changeActivityCls.changeServiceWithScan(scanCode);
         }
 
     }

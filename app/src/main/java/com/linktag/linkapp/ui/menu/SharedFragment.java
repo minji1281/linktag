@@ -38,6 +38,8 @@ public class SharedFragment extends BaseFragment implements SharedAdapter.Shared
     private SharedAdapter mAdapter;
     private ArrayList<CtdVO> mList;
 
+    private String activity_name;
+
     public SharedFragment() {
         // Required empty public constructor
     }
@@ -70,6 +72,12 @@ public class SharedFragment extends BaseFragment implements SharedAdapter.Shared
         gridView = view.findViewById(R.id.gridView);
         tvAddShared = view.findViewById(R.id.tvAddShared);
         tvAddShared.setOnClickListener(v -> goAddService());
+
+        activity_name = mActivity.getClass().getSimpleName();
+
+        if(activity_name.equals("ChooseOne")){
+            tvAddShared.setVisibility(View.GONE);
+        }
     }
 
     protected void initialize(){
@@ -147,10 +155,26 @@ public class SharedFragment extends BaseFragment implements SharedAdapter.Shared
         // 누르면 해당 서비스로 이동하게 구현
         // mList.get(position)
 
-        ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, mList.get(position));
-        changeActivityCls.changeService();
+        if(activity_name.equals("ChooseOne")){
+            // 해당 서비스 NEW 이동
+            String scanCode;
 
-        mActivity.finish();
+            Bundle bundle = getArguments();
 
+            if(bundle != null){
+                scanCode = bundle.getString("scanCode");
+
+                ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, mList.get(position));
+                changeActivityCls.changeServiceWithScan(scanCode);
+
+                mActivity.finish();
+            }
+        } else {
+            ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, mList.get(position));
+            changeActivityCls.changeService();
+
+            mActivity.finish();
+        }
     }
+
 }

@@ -7,12 +7,13 @@ import android.support.v4.view.ViewPager;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
-import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.linktag.base.base_activity.BaseActivity;
+import com.linktag.base.base_fragment.BaseFragment;
 import com.linktag.base.base_view_pager.BaseViewPager;
 import com.linktag.base.base_view_pager.ViewPagerAdapter;
+import com.linktag.base.util.BaseLoadingBar;
 import com.linktag.linkapp.R;
 
 import java.util.ArrayList;
@@ -31,6 +32,8 @@ public class ChooseOne extends BaseActivity {
 
     private TextView tvChooseService;
     private TextView tvChooseShared;
+
+    private String scanCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -89,6 +92,13 @@ public class ChooseOne extends BaseActivity {
 
             }
         });
+
+        scanCode = getIntent().getStringExtra("scanCode");
+        Bundle bundle = new Bundle(1);
+        bundle.putString("scanCode", scanCode);
+
+        fragShared.setArguments(bundle);
+        fragService.setArguments(bundle);
 
     }
 
