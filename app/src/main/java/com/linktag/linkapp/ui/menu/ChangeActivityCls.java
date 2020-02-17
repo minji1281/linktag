@@ -59,15 +59,17 @@ public class ChangeActivityCls {
                 Intent intent = new Intent(mContext, clsList);
                 intent.putExtra("CTM_01", ctdVO.CTD_01);
                 intent.putExtra("CTN_02", ctdVO.CTN_02);
-                mContext.startActivity(intent);
-
-                // Detail 액티비티 실행
-                Class clsDetail = Class.forName(packageName + ctdVO.SVCL_05);
-                intent.setClass(mContext, clsDetail);
                 intent.putExtra("scanCode", scanCode);
 
                 mContext.startActivity(intent);
 
+                /*
+                // Detail 액티비티 실행
+                Class clsDetail = Class.forName(packageName + ctdVO.SVCL_05);
+                intent.setClass(mContext, clsDetail);
+
+                mContext.startActivity(intent);
+*/
             } catch (Exception e){
                 e.printStackTrace();
             }
