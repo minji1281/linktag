@@ -184,6 +184,18 @@
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser"
             android:windowSoftInputMode="adjustPan" />
+
+        <!--냉장고-->
+        <activity
+            android:name=".ui.rfm.RFMMain"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
+            android:name=".ui.rfm.DetailRfd"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"
+            android:windowSoftInputMode="adjustPan" />
         <!-- 물주기 -->
         <activity
             android:name=".ui.pot.PotList"

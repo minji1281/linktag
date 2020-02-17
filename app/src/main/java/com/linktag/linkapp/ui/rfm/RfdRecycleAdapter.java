@@ -1,4 +1,4 @@
-package com.linktag.linkapp.ui.jdm;
+package com.linktag.linkapp.ui.rfm;
 
 import android.annotation.SuppressLint;
 import android.app.AlarmManager;
@@ -27,7 +27,7 @@ import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm_service.AlarmHATT;
 import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
 import com.linktag.linkapp.value_object.ArmVO;
-import com.linktag.linkapp.value_object.JdmVO;
+import com.linktag.linkapp.value_object.RfdVO;
 
 import java.util.ArrayList;
 
@@ -35,15 +35,15 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.ViewHolder> {
+public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.ViewHolder> {
 
     private Context mContext;
-    private ArrayList<JdmVO> mList;
+    private ArrayList<RfdVO> mList;
     private LayoutInflater mInflater;
     private View view;
     private InterfaceUser mUser;
 
-    JdmRecycleAdapter(Context context, ArrayList<JdmVO> list) {
+    RfdRecycleAdapter(Context context, ArrayList<RfdVO> list) {
         mContext = context;
         mList = list;
         mUser = InterfaceUser.getInstance();
@@ -51,10 +51,10 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
     @NonNull
     @Override
-    public JdmRecycleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+    public RfdRecycleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
         mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        view = mInflater.inflate(R.layout.listitem_jdm_list, parent, false);
-        JdmRecycleAdapter.ViewHolder viewHolder = new JdmRecycleAdapter.ViewHolder(view);
+        view = mInflater.inflate(R.layout.listitem_rfd_list, parent, false);
+        RfdRecycleAdapter.ViewHolder viewHolder = new RfdRecycleAdapter.ViewHolder(view);
 
 
         return viewHolder;
@@ -62,12 +62,12 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        String Format = mList.get(position).JDM_96;
+        String Format = mList.get(position).RFD_96;
         String dateFormat = Format.substring(2, 4) + "." + Format.substring(4, 6) + "." + Format.substring(6, 8);
         String timeFormat = Format.substring(8, 10) + ":" + Format.substring(10);
 
-        viewHolder.tv_name.setText(mList.get(position).JDM_02);
-        viewHolder.tv_memo.setText(mList.get(position).JDM_03);
+        viewHolder.tv_name.setText(mList.get(position).RFD_03);
+        viewHolder.tv_memo.setText(mList.get(position).RFD_04);
         viewHolder.tv_date.setText(dateFormat);
         viewHolder.tv_time.setText(timeFormat);
 
@@ -83,21 +83,21 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
                 ArmVO armVO = new ArmVO();
 
-                armVO.setARM_ID(mList.get(position).JDM_ID);
-                armVO.setARM_01(mList.get(position).JDM_01);
+                armVO.setARM_ID(mList.get(position).RFD_ID);
+                armVO.setARM_01(mList.get(position).RFD_01);
                 armVO.setARM_02(mUser.Value.OCM_01);
                 armVO.setARM_03(mList.get(position).ARM_03);
-                armVO.setARM_95("");
+                armVO.setARM_95(mList.get(position).RFD_02);
                 armVO.setARM_98(mUser.Value.OCM_01);
 
                 requestARM_CONTROL(armVO, position);
 
                 if (mList.get(position).ARM_03.equals("Y")) {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-                    Toast.makeText(mContext, "[" + mList.get(position).JDM_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "[" + mList.get(position).RFD_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
                 } else {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + mList.get(position).JDM_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "[" + mList.get(position).RFD_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
 
 
                 }
@@ -149,19 +149,19 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                 public void onClick(View view) {
                     int position = getAdapterPosition();
 
-                    JdmVO jdmvo = new JdmVO();
-                    jdmvo.setJDM_ID(mList.get(position).JDM_ID);
-                    jdmvo.setJDM_01(mList.get(position).JDM_01);
-                    jdmvo.setJDM_02(tv_name.getText().toString());
-                    jdmvo.setJDM_03(tv_memo.getText().toString());
-                    jdmvo.setJDM_04(mList.get(position).JDM_04);
-                    jdmvo.setJDM_96(mList.get(position).JDM_96);
-                    jdmvo.setJDM_97(mList.get(position).JDM_97);
-                    jdmvo.setARM_03(mList.get(position).ARM_03);
-                    jdmvo.setARM_04(mList.get(position).ARM_04);
+                    RfdVO rfdvo = new RfdVO();
+                    rfdvo.setRFD_ID(mList.get(position).RFD_ID);
+                    rfdvo.setRFD_01(mList.get(position).RFD_01);
+                    rfdvo.setRFD_03(tv_name.getText().toString());
+                    rfdvo.setRFD_04(tv_memo.getText().toString());
+                    rfdvo.setRFD_05(mList.get(position).RFD_05);
+                    rfdvo.setRFD_06(mList.get(position).RFD_06);
+                    rfdvo.setRFD_96(mList.get(position).RFD_96);
+                    rfdvo.setARM_03(mList.get(position).ARM_03);
+                    rfdvo.setARM_04(mList.get(position).ARM_04);
 
-                    Intent intent = new Intent(mContext, DetailJdm.class);
-                    intent.putExtra("JdmVO", jdmvo);
+                    Intent intent = new Intent(mContext, DetailRfd.class);
+                    intent.putExtra("RfdVO", rfdvo);
                     mContext.startActivity(intent);
                 }
             });
@@ -169,7 +169,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         }
     }
 
-    public void updateData(ArrayList<JdmVO> list) {
+    public void updateData(ArrayList<RfdVO> list) {
         mList = list;
     }
 
@@ -216,36 +216,36 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                             if (mList.get(position).ARM_03.equals("Y")) {
                                 mList.get(position).setARM_03("N");
 
-                                cancelAlarm(mContext, mList.get(position).ARM_04);
+                               // cancelAlarm(mContext, mList.get(position).ARM_04);
 
                             } else {
                                 mList.get(position).setARM_03("Y");
 
-                                Intent intent = new Intent(mContext, Alarm_Receiver.class);
-                                intent.putExtra("notify_id", responseData.get(0).ARM_04);
-                                intent.putExtra("calDateTime", mList.get(position).JDM_96);
-                                intent.putExtra("contentTitle", "장독관리" + mList.get(position).JDM_02);
-                                intent.putExtra("contentText", mList.get(position).JDM_03);
-                                intent.putExtra("className", ".ui.intro.Intro");
-                                intent.putExtra("gotoActivity", ".ui.jdm.JDMMain");
-                                intent.putExtra("gotoLogin", ".ui.login.Login");
-                                intent.putExtra("gotoMain", ".ui.main.Main");
-
-
-                                JdmVO jdmvo = new JdmVO();
-                                jdmvo.setJDM_01( mList.get(position).getJDM_01());
-                                jdmvo.setJDM_02( mList.get(position).getJDM_02());
-                                jdmvo.setJDM_03( mList.get(position).getJDM_03());
-                                jdmvo.setJDM_04( mList.get(position).getJDM_04());
-                                jdmvo.setJDM_96( mList.get(position).getJDM_96());
-                                jdmvo.setARM_03( mList.get(position).getARM_03());
-
-                                intent.putExtra("mList",mList);
-
-                                intent.putExtra("JdmVO", jdmvo);
-
-
-                                new AlarmHATT(mContext).Alarm(intent);
+//                                Intent intent = new Intent(mContext, Alarm_Receiver.class);
+//                                intent.putExtra("notify_id", responseData.get(0).ARM_04);
+//                                intent.putExtra("calDateTime", mList.get(position).RFD_96);
+//                                intent.putExtra("contentTitle", "장독관리" + mList.get(position).RFD_02);
+//                                intent.putExtra("contentText", mList.get(position).RFD_03);
+//                                intent.putExtra("className", ".ui.intro.Intro");
+//                                intent.putExtra("gotoActivity", ".ui.rfd.RFDMain");
+//                                intent.putExtra("gotoLogin", ".ui.login.Login");
+//                                intent.putExtra("gotoMain", ".ui.main.Main");
+//
+//
+//                                RfdVO rfdvo = new RfdVO();
+//                                rfdvo.setRFD_01( mList.get(position).getRFD_01());
+//                                rfdvo.setRFD_02( mList.get(position).getRFD_02());
+//                                rfdvo.setRFD_03( mList.get(position).getRFD_03());
+//                                rfdvo.setRFD_04( mList.get(position).getRFD_04());
+//                                rfdvo.setRFD_96( mList.get(position).getRFD_96());
+//                                rfdvo.setARM_03( mList.get(position).getARM_03());
+//
+//                                intent.putExtra("mList",mList);
+//
+//                                intent.putExtra("RfdVO", rfdvo);
+//
+//
+//                                new AlarmHATT(mContext).Alarm(intent);
 
                             }
 

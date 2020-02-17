@@ -69,6 +69,12 @@ public class BaseConst {
     public static final String URL_PCD_SELECT = "{host}/Mobile/PCD_SELECT";
     public static final String URL_PCD_CONTROL = "{host}/Mobile/PCD_CONTROL";
 
+    //냉장고
+    public static final String URL_RFM_SELECT = "{host}/Mobile/RFM_SELECT";
+    public static final String URL_RFM_CONTROL = "{host}/Mobile/RFM_CONTROL";
+    public static final String URL_RFD_SELECT = "{host}/Mobile/RFD_SELECT";
+    public static final String URL_RFD_CONTROL = "{host}/Mobile/RFD_CONTROL";
+
     //물주기
     public static final String POT_SELECT = "{host}/Mobile/POT_SELECT";
     public static final String POT_CONTROL = "{host}/Mobile/POT_CONTROL";

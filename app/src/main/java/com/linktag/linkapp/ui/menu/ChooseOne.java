@@ -29,7 +29,6 @@ public class ChooseOne extends BaseActivity {
     private ViewPagerAdapter mViewPagerAdapter;
     private List<Fragment> mListFragment = new ArrayList<>();
 
-    private ImageButton ibChooseClose;
     private TextView tvChooseService;
     private TextView tvChooseShared;
 
@@ -46,14 +45,6 @@ public class ChooseOne extends BaseActivity {
 
     @Override
     protected void initLayout() {
-        ibChooseClose = findViewById(R.id.ibChooseClose);
-        ibChooseClose.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                closePop(v);
-            }
-        });
-
         tvChooseService = findViewById(R.id.tvChooseService);
         tvChooseService.setOnClickListener(v -> setCurrentViewPager(CHOOSE_PAGE_SERVICE));
         tvChooseShared = findViewById(R.id.tvChooseShared);
