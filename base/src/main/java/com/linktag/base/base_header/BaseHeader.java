@@ -15,6 +15,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,8 @@ public class BaseHeader extends LinearLayout {
     public Button btnHeaderText;
     // 왼쪽 텍스트 버튼
     public Button btnHeaderLeftText;
+    // 오른쪽 스피너
+    public Spinner spHeaderRight;
 
     /*************************** Variable ***************************/
     // Context
@@ -103,6 +106,9 @@ public class BaseHeader extends LinearLayout {
 
         // 오른쪽 텍스트 버튼
         btnHeaderText.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_text_visibility, View.GONE));
+
+        // 오른쪽 스피너 visibility 설정
+        spHeaderRight.setVisibility(typedArray.getInt(R.styleable.BaseHeader_sp_visibility, View.GONE));
 
         // 텍스트 버튼 text 설정
         String strText = typedArray.getString(R.styleable.BaseHeader_btn_text_text);
@@ -172,6 +178,8 @@ public class BaseHeader extends LinearLayout {
 
         btnHeaderText = (Button) v.findViewById(R.id.btnHeaderText);
         btnHeaderLeftText = (Button) v.findViewById(R.id.btnHeaderLeftText);
+
+        spHeaderRight = (Spinner) v.findViewById(R.id.spHeaderRight);
 
         addView(v);
     }

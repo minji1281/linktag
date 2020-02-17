@@ -64,6 +64,17 @@
             android:orientation="horizontal"
             android:paddingEnd="16dp">
 
+            <Spinner
+                android:id="@+id/spHeaderRight"
+                android:layout_width="120dp"
+                android:layout_height="35dp"
+                android:background="@drawable/spinner_background"
+                android:popupBackground="@color/colorAccent"
+                android:layout_gravity="center_vertical"
+                android:padding="0dp"
+                android:visibility="gone"
+                tools:visibility="visible"/>
+
             <ImageButton
                 android:id="@+id/btnHeaderRight2"
                 android:layout_width="wrap_content"

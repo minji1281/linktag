@@ -46,6 +46,7 @@
         <attr name="btn_right2_src" format="reference" />
         <attr name="btn_right3_src" format="reference" />
         <attr name="btn_left1_src" format="reference" />
+        <attr name="sp_visibility" format="reference" />
     </declare-styleable>
 
 </resources>

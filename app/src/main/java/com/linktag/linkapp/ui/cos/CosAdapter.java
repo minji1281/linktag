@@ -16,7 +16,7 @@ import com.linktag.linkapp.value_object.COD_VO;
 
 import java.util.ArrayList;
 
-public class CodAdapter extends BaseAdapter implements View.OnClickListener {
+public class CosAdapter extends BaseAdapter implements View.OnClickListener {
     private Context mContext;
     private ArrayList<COD_VO> mList;
     private LayoutInflater mInflater;
@@ -27,7 +27,7 @@ public class CodAdapter extends BaseAdapter implements View.OnClickListener {
         void onListAlarmClick(int position);
     }
 
-    public CodAdapter(Context context, ArrayList<COD_VO> list, AlarmClickListener alarmClickListener){
+    public CosAdapter(Context context, ArrayList<COD_VO> list, AlarmClickListener alarmClickListener){
         this.mContext = context;
         this.mList = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -84,14 +84,13 @@ public class CodAdapter extends BaseAdapter implements View.OnClickListener {
             viewHolder.imgAlarmIcon.setImageResource(R.drawable.btn_noti_off_gray); //서버 올리기전 테스트용도
             viewHolder.imgAlarmIcon.setTag(position);
             viewHolder.imgAlarmIcon.setOnClickListener(this);
-            viewHolder.layoutCod.setBackgroundResource(R.drawable.shape_base_border);
-            viewHolder.tvCodName.setTextColor(ContextCompat.getColor(mContext.getApplicationContext(), R.color.List1));
-            viewHolder.tvCosName.setTextColor(ContextCompat.getColor(mContext.getApplicationContext(), R.color.List2));
-            viewHolder.tvAlarmDay.setTextColor(ContextCompat.getColor(mContext.getApplicationContext(), R.color.List3));
+//            viewHolder.layoutCod.setBackgroundResource(R.drawable.shape_base_border);
+//            viewHolder.tvCodName.setTextColor(ContextCompat.getColor(mContext.getApplicationContext(), R.color.List1));
+//            viewHolder.tvCosName.setTextColor(ContextCompat.getColor(mContext.getApplicationContext(), R.color.List2));
+//            viewHolder.tvAlarmDay.setTextColor(ContextCompat.getColor(mContext.getApplicationContext(), R.color.List3));
         }
         else{
-            viewHolder.imgCodIcon.setImageDrawable(null);
-            viewHolder.layoutCod.setBackgroundResource(R.drawable.shape_base_border_back_gray);
+//            viewHolder.layoutCod.setBackgroundResource(R.drawable.shape_base_border_back_gray);
             viewHolder.tvCodName.setTextColor(Color.GRAY);
             viewHolder.tvCosName.setTextColor(Color.GRAY);
             viewHolder.tvAlarmDay.setTextColor(Color.GRAY);

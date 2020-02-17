@@ -8,8 +8,10 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,8 +27,10 @@ import com.linktag.linkapp.ui.cos.CodAdapter;
 //import com.linktag.linkapp.ui.air.CodDetail;
 import com.linktag.linkapp.value_object.COD_VO;
 
+import java.sql.Array;
 import java.util.ArrayList;
 
+import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -51,6 +55,10 @@ public class CodList extends BaseActivity implements CodAdapter.AlarmClickListen
     //======================
     // Initialize
     //======================
+    ArrayList<CosList> cosList = new ArrayList<>();
+    @BindView(R.id.spHeaderRight)
+    Spinner spCos;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -66,6 +74,21 @@ public class CodList extends BaseActivity implements CodAdapter.AlarmClickListen
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setVisibility((View.GONE));
+
+//        header.spHeaderRight.setVisibility((View.VISIBLE));
+        header.spHeaderRight.setVisibility(View.VISIBLE);
+        CosInfo cosinfo = new CosInfo(cosList, mActivity);
+        cosinfo.execute();
+        header.spHeaderRight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                requestCOD_SELECT(cosList.get(position).getCode());
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         //신규등록 test
         imgNew = findViewById(R.id.imgNew);
@@ -98,10 +121,10 @@ public class CodList extends BaseActivity implements CodAdapter.AlarmClickListen
     protected void onResume(){
         super.onResume();
 
-        requestCOD_SELECT();
+//        requestCOD_SELECT("");
     }
 
-    private void requestCOD_SELECT(){
+    private void requestCOD_SELECT(String COD_95){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
@@ -112,8 +135,7 @@ public class CodList extends BaseActivity implements CodAdapter.AlarmClickListen
 
         String GUBUN = "LIST";
         String COD_ID = "1"; //컨테이너
-        String COD_01 = ""; //코드번호
-        String COD_95 = ""; //화장품코드 수정해야돼!!!
+        String COD_01 = ""; //일련번호
         String OCM_01 = mUser.Value.OCM_01; //사용자 아이디
 
         Call<CODModel> call = Http.cod(HttpBaseService.TYPE.POST).COD_SELECT(
