@@ -156,6 +156,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                     jdmvo.setJDM_03(tv_memo.getText().toString());
                     jdmvo.setJDM_04(mList.get(position).JDM_04);
                     jdmvo.setJDM_96(mList.get(position).JDM_96);
+                    jdmvo.setJDM_97(mList.get(position).JDM_97);
                     jdmvo.setARM_03(mList.get(position).ARM_03);
                     jdmvo.setARM_04(mList.get(position).ARM_04);
 

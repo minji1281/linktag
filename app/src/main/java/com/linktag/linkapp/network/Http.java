@@ -14,6 +14,8 @@ import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.model.PCDModel;
 import com.linktag.linkapp.model.PCMModel;
 import com.linktag.linkapp.model.POT_Model;
+import com.linktag.linkapp.model.RFDModel;
+import com.linktag.linkapp.model.RFMModel;
 import com.linktag.linkapp.model.SVC_Model;
 import com.linktag.linkapp.model.LOGIN_Model;
 import com.linktag.linkapp.model.DSHModel;
@@ -597,6 +599,82 @@ public class Http extends HttpBaseService {
         );
 
     }
+
+
+    //--------------------------------------------------
+    // 냉장고
+    //--------------------------------------------------
+    public static IRFM rfm(TYPE type) {
+        return (IRFM) retrofit(IRFM.class, type);
+    }
+
+    public interface IRFM {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_RFM_SELECT)
+        Call<RFMModel> RFM_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "RFM_ID") String RFM_ID,
+                @Field(value = "RFM_01") String RFM_01,
+                @Field(value = "OCM_01") String OCM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_RFM_CONTROL)
+        Call<RFMModel> RFM_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "RFM_ID") String RFM_ID,
+                @Field(value = "RFM_01") String RFM_01,
+                @Field(value = "RFM_02") String RFM_02,
+                @Field(value = "RFM_03") String RFM_03,
+                @Field(value = "RFM_04") String RFM_04,
+                @Field(value = "RFM_96") String RFM_96,
+                @Field(value = "RFM_97") String RFM_97,
+                @Field(value = "RFM_98") String RFM_98,
+                @Field(value = "ARM_03") String ARM_03
+
+        );
+
+    }
+
+    public static IRFD rfd(TYPE type) {
+        return (IRFD) retrofit(IRFD.class, type);
+    }
+
+    public interface IRFD {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_RFD_SELECT)
+        Call<RFDModel> RFD_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "RFD_ID") String RFD_ID,
+                @Field(value = "RFD_01") String RFD_01,
+                @Field(value = "OCM_01") String OCM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_RFD_CONTROL)
+        Call<RFDModel> RFD_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "RFD_ID") String RFD_ID,
+                @Field(value = "RFD_01") String RFD_01,
+                @Field(value = "RFD_02") String RFD_02,
+                @Field(value = "RFD_03") String RFD_03,
+                @Field(value = "RFD_04") String RFD_04,
+                @Field(value = "RFD_05") String RFD_05,
+                @Field(value = "RFD_06") String RFD_06,
+                @Field(value = "RFD_96") String RFD_96,
+                @Field(value = "RFD_98") String RFD_98,
+                @Field(value = "ARM_03") String ARM_03
+
+        );
+
+    }
+
     //--------------------------------------------------
     // 물주기
     //--------------------------------------------------
