@@ -24,13 +24,13 @@ public class CTDS_CONTROL {
     private InterfaceUser mUser;
 
     private String CTM_01;
-    private String CTN_02;
+    private String CTD_02;
     private String scanCode;
 
-    public CTDS_CONTROL(Context mContext, String CTM_01, String CTN_02, String scanCode){
+    public CTDS_CONTROL(Context mContext, String CTM_01, String CTD_02, String scanCode){
         this.mContext = mContext;
         this.CTM_01 = CTM_01;
-        this.CTN_02 = CTN_02;
+        this.CTD_02 = CTD_02;
         this.scanCode = scanCode;
         mUser = InterfaceUser.getInstance();
     }
@@ -48,7 +48,7 @@ public class CTDS_CONTROL {
                 BaseConst.URL_HOST,
                 "INSERT",
                 CTM_01,
-                CTN_02,
+                CTD_02,
                 scanCode,
                 "",
                 mUser.Value.OCM_01

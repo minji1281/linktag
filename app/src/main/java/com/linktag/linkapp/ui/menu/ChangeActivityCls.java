@@ -10,7 +10,6 @@ import com.linktag.linkapp.value_object.CtdVO;
 public class ChangeActivityCls {
     private Context mContext;
     private CtdVO ctdVO;
-    private String codeID;
 
     private InterfaceUser mUser;
 
@@ -32,6 +31,7 @@ public class ChangeActivityCls {
                 Intent intent = new Intent(mContext, cls);
 
                 intent.putExtra("CTM_01", ctdVO.CTD_01);
+                intent.putExtra("CTD_02", ctdVO.CTD_02);
                 intent.putExtra("CTN_02", ctdVO.CTN_02);
                 mContext.startActivity(intent);
 
@@ -58,6 +58,7 @@ public class ChangeActivityCls {
 
                 Intent intent = new Intent(mContext, clsList);
                 intent.putExtra("CTM_01", ctdVO.CTD_01);
+                intent.putExtra("CTD_02", ctdVO.CTD_02);
                 intent.putExtra("CTN_02", ctdVO.CTN_02);
                 intent.putExtra("scanCode", scanCode);
 
