@@ -104,6 +104,16 @@
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
+                <LinearLayout
+                    android:id="@+id/datePicker"
+                    android:orientation="horizontal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/ic_calendar"/>
                 <TextView
                     android:id="@+id/tv_datePicker"
                     android:layout_width="wrap_content"
@@ -112,7 +122,7 @@
                     android:background="@null"
                     android:hint="날짜선택"
                     android:textSize="@dimen/_10sdp" />
-
+                </LinearLayout>
                 <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"

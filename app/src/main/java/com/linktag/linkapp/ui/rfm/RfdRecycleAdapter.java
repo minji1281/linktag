@@ -152,6 +152,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
                     RfdVO rfdvo = new RfdVO();
                     rfdvo.setRFD_ID(mList.get(position).RFD_ID);
                     rfdvo.setRFD_01(mList.get(position).RFD_01);
+                    rfdvo.setRFD_02(mList.get(position).RFD_02);
                     rfdvo.setRFD_03(tv_name.getText().toString());
                     rfdvo.setRFD_04(tv_memo.getText().toString());
                     rfdvo.setRFD_05(mList.get(position).RFD_05);

@@ -51,9 +51,11 @@ public class DetailRfd extends BaseActivity {
     private EditText ed_memo;
     private TextView tv_datePicker;
     private TextView tv_datePicker2;
+    private TextView tv_datePicker3;
     private Button btn_datePicker;
     private DatePickerDialog.OnDateSetListener callbackMethod;
     private DatePickerDialog.OnDateSetListener callbackMethod2;
+    private DatePickerDialog.OnDateSetListener callbackMethod3;
     private TimePicker timePicker;
     private Switch switch_alarm;
 
@@ -98,8 +100,8 @@ public class DetailRfd extends BaseActivity {
                 rfdVO.RFD_02,
                 ed_name.getText().toString(),
                 ed_memo.getText().toString(),
-                rfdVO.RFD_04,
                 rfdVO.RFD_05,
+                rfdVO.RFD_06,
                 rfdVO.RFD_96,
                 mUser.Value.OCM_01,
                 rfdVO.ARM_03
@@ -111,7 +113,7 @@ public class DetailRfd extends BaseActivity {
             public void onResponse(Call<RFDModel> call, Response<RFDModel> response) {
 
                 onBackPressed();
-                Toast.makeText(getApplicationContext(), "[" + rfdVO.RFD_02 + "]" + "  해당 장독정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "[" + rfdVO.RFD_03 + "]" + "  해당 식품정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -150,6 +152,7 @@ public class DetailRfd extends BaseActivity {
         ed_memo = (EditText) findViewById(R.id.ed_memo);
         tv_datePicker = (TextView) findViewById(R.id.tv_datePicker);
         tv_datePicker2 = (TextView) findViewById(R.id.tv_datePicker2);
+        tv_datePicker3 = (TextView) findViewById(R.id.tv_datePicker3);
         btn_datePicker = (Button) findViewById(R.id.btn_datePicker);
         timePicker = (TimePicker) findViewById(R.id.timePicker);
         bt_save = (Button) findViewById(R.id.bt_save);
@@ -158,30 +161,41 @@ public class DetailRfd extends BaseActivity {
         rfdVO = (RfdVO) getIntent().getSerializableExtra("RfdVO");
 
 
-        String year = rfdVO.getRFD_04().substring(0, 4);
-        String month = rfdVO.getRFD_04().substring(4, 6);
-        String dayOfMonth = rfdVO.getRFD_04().substring(6, 8);
-
-
+        String year = rfdVO.getRFD_05().substring(0, 4);
+        String month = rfdVO.getRFD_05().substring(4, 6);
+        String dayOfMonth = rfdVO.getRFD_05().substring(6, 8);
         tv_datePicker.setText(year + "년" + month + "월" + dayOfMonth + "일");
 
-        year = rfdVO.getRFD_96().substring(0, 4);
-        month = rfdVO.getRFD_96().substring(4, 6);
-        dayOfMonth = rfdVO.getRFD_96().substring(6, 8);
-        String dayOfTime = rfdVO.getRFD_96().substring(8);
-
-        hourOfDayString = dayOfTime.substring(0, 2);
-        minuteString = dayOfTime.substring(2);
-
-
+        year = rfdVO.getRFD_06().substring(0, 4);
+        month = rfdVO.getRFD_06().substring(4, 6);
+        dayOfMonth = rfdVO.getRFD_06().substring(6, 8);
         tv_datePicker2.setText(year + "년" + month + "월" + dayOfMonth + "일");
 
-        ed_name.setText(rfdVO.getRFD_02());
+
+        if(rfdVO.getRFD_96().equals("")){
+            tv_datePicker3.setText("유통기한 마감 당일");
+            timePicker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
+            timePicker.setCurrentMinute(calendar.get(Calendar.MINUTE));
+        }else{
+            year = rfdVO.getRFD_96().substring(0, 4);
+            month = rfdVO.getRFD_96().substring(4, 6);
+            dayOfMonth = rfdVO.getRFD_96().substring(6, 8);
+            String dayOfTime = rfdVO.getRFD_96().substring(8);
+            tv_datePicker3.setText(year + "년" + month + "월" + dayOfMonth + "일");
+
+
+            hourOfDayString = dayOfTime.substring(0, 2);
+            minuteString = dayOfTime.substring(2);
+            timePicker.setCurrentHour(Integer.valueOf(dayOfTime.substring(0, 2)));
+            timePicker.setCurrentMinute(Integer.valueOf(dayOfTime.substring(2)));
+        }
+
+        ed_name.setText(rfdVO.getRFD_03());
 
         //명칭은 읽기전용으로 일단은...
         ed_name.setEnabled(false);
 
-        ed_memo.setText(rfdVO.getRFD_03());
+        ed_memo.setText(rfdVO.getRFD_04());
 
         if (rfdVO.ARM_03.equals("Y")) {
             switch_alarm.setChecked(true);
@@ -190,9 +204,6 @@ public class DetailRfd extends BaseActivity {
             switch_alarm.setChecked(false);
         }
 
-
-        timePicker.setCurrentHour(Integer.valueOf(dayOfTime.substring(0, 2)));
-        timePicker.setCurrentMinute(Integer.valueOf(dayOfTime.substring(2)));
     }
 
     @Override
@@ -212,12 +223,32 @@ public class DetailRfd extends BaseActivity {
                 } else {
                     dayOfMonthString = String.valueOf(dayOfMonth);
                 }
-                rfdVO.setRFD_04(String.valueOf(year) + monthString + dayOfMonth);
+                rfdVO.setRFD_05(String.valueOf(year) + monthString + dayOfMonth);
                 tv_datePicker.setText(year + "년" + monthString + "월" + dayOfMonthString + "일");
             }
         };
 
         callbackMethod2 = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+                String monthString = "";
+                String dayOfMonthString = "";
+                if (month < 10) {
+                    monthString = "0" + String.valueOf(month + 1);
+                } else {
+                    monthString = String.valueOf(month + 1);
+                }
+                if (dayOfMonth < 10) {
+                    dayOfMonthString = "0" + String.valueOf(dayOfMonth);
+                } else {
+                    dayOfMonthString = String.valueOf(dayOfMonth);
+                }
+                rfdVO.setRFD_06(String.valueOf(year) + monthString + dayOfMonth);
+                tv_datePicker2.setText(year + "년" + monthString + "월" + dayOfMonthString + "일");
+            }
+        };
+
+        callbackMethod3 = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
@@ -233,7 +264,7 @@ public class DetailRfd extends BaseActivity {
                 } else {
                     dayOfMonthString = String.valueOf(dayOfMonth);
                 }
-                tv_datePicker2.setText(year + "년" + monthString + "월" + dayOfMonthString + "일");
+                tv_datePicker3.setText(year + "년" + monthString + "월" + dayOfMonthString + "일");
                 rfdVO.setRFD_96(year + monthString + dayOfMonthString + hourOfDayString + minuteString);
             }
         };
@@ -247,7 +278,7 @@ public class DetailRfd extends BaseActivity {
             }
         });
 
-        btn_datePicker.setOnClickListener(new View.OnClickListener() {
+        tv_datePicker2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog dialog = new DatePickerDialog(DetailRfd.this, callbackMethod2, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
@@ -255,10 +286,19 @@ public class DetailRfd extends BaseActivity {
             }
         });
 
+
+        btn_datePicker.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                DatePickerDialog dialog = new DatePickerDialog(DetailRfd.this, callbackMethod3, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+                dialog.show();
+            }
+        });
+
         timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
             @Override
             public void onTimeChanged(TimePicker timePicker, int hourOfDay, int minute) {
-                String date = tv_datePicker2.getText().toString().replace("년", "").replace("월", "").replace("일", "");
+                String date = tv_datePicker3.getText().toString().replace("년", "").replace("월", "").replace("일", "");
                 if (hourOfDay < 10) {
                     hourOfDayString = "0" + String.valueOf(hourOfDay);
                 } else {

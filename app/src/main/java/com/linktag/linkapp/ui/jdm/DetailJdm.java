@@ -35,6 +35,7 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm_service.AlarmHATT;
 import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
+import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.JdmVO;
 
 import java.io.Serializable;
@@ -44,12 +45,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailJdm  extends BaseActivity implements Serializable{
+public class DetailJdm extends BaseActivity implements Serializable {
 
     private BaseHeader header;
 
     private EditText ed_name;
     private EditText ed_memo;
+    private LinearLayout datePicker;
     private TextView tv_datePicker;
     private TextView tv_datePicker2;
     private Button btn_datePicker;
@@ -69,7 +71,10 @@ public class DetailJdm  extends BaseActivity implements Serializable{
 
 
     private String hourOfDayString;
-    private String minuteString ;
+    private String minuteString;
+
+    private String CTM_01;
+    private String CTD_02;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -79,6 +84,11 @@ public class DetailJdm  extends BaseActivity implements Serializable{
         initLayout();
 
         initialize();
+
+        if (getIntent().hasExtra("scanCode")) {
+            CTM_01=  getIntent().getStringExtra("CTM_01");
+            CTD_02 = getIntent().getStringExtra("CTD_02");
+        }
 
     }
 
@@ -94,32 +104,32 @@ public class DetailJdm  extends BaseActivity implements Serializable{
         //String strToday = ClsDateTime.getNow("yyyyMMdd");
 
 
-        if (jdmVO.ARM_03.equals("Y")) {
-
-            Intent intent = new Intent(mContext, Alarm_Receiver.class);
-            intent.putExtra("notify_id",jdmVO.getARM_04());
-            intent.putExtra("calDateTime",jdmVO.getJDM_96());
-            intent.putExtra("contentTitle","장독관리" + jdmVO.getJDM_02());
-            intent.putExtra("contentText",jdmVO.getJDM_03());
-            intent.putExtra("className", ".ui.intro.Intro");
-            intent.putExtra("gotoActivity", ".ui.jdm.JDMMain");
-
-
-            JdmVO jdmvo = new JdmVO();
-            jdmvo.setJDM_01(jdmVO.getJDM_01());
-            jdmvo.setJDM_02(jdmVO.getJDM_02());
-            jdmvo.setJDM_03(jdmVO.getJDM_03());
-            jdmvo.setJDM_04(jdmVO.getJDM_04());
-            jdmvo.setJDM_96(jdmVO.getJDM_96());
-            jdmvo.setARM_03(jdmVO.getARM_03());
-
-            intent.putExtra("JdmVO", jdmvo);
-
-            new AlarmHATT(mContext).Alarm(intent);
-        }
-        else{
-            cancelAlarm(mContext, jdmVO.getARM_04());
-        }
+//        if (jdmVO.ARM_03.equals("Y")) {
+//
+//            Intent intent = new Intent(mContext, Alarm_Receiver.class);
+//            intent.putExtra("notify_id",jdmVO.getARM_04());
+//            intent.putExtra("calDateTime",jdmVO.getJDM_96());
+//            intent.putExtra("contentTitle","장독관리" + jdmVO.getJDM_02());
+//            intent.putExtra("contentText",jdmVO.getJDM_03());
+//            intent.putExtra("className", ".ui.intro.Intro");
+//            intent.putExtra("gotoActivity", ".ui.jdm.JDMMain");
+//
+//
+//            JdmVO jdmvo = new JdmVO();
+//            jdmvo.setJDM_01(jdmVO.getJDM_01());
+//            jdmvo.setJDM_02(jdmVO.getJDM_02());
+//            jdmvo.setJDM_03(jdmVO.getJDM_03());
+//            jdmvo.setJDM_04(jdmVO.getJDM_04());
+//            jdmvo.setJDM_96(jdmVO.getJDM_96());
+//            jdmvo.setARM_03(jdmVO.getARM_03());
+//
+//            intent.putExtra("JdmVO", jdmvo);
+//
+//            new AlarmHATT(mContext).Alarm(intent);
+//        }
+//        else{
+//            cancelAlarm(mContext, jdmVO.getARM_04());
+//        }
 
         Call<JDMModel> call = Http.jdm(HttpBaseService.TYPE.POST).JDM_CONTROL(
                 BaseConst.URL_HOST,
@@ -140,8 +150,12 @@ public class DetailJdm  extends BaseActivity implements Serializable{
             @Override
             public void onResponse(Call<JDMModel> call, Response<JDMModel> response) {
 
+                if(GUBUN.equals("INSERT")){
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02,jdmVO.JDM_01);
+                    ctds_control.requestCTDS_CONTROL();
+                }
                 onBackPressed();
-                Toast.makeText(getApplicationContext(), "[" + jdmVO.JDM_02 + "]" + "  해당 장독정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 장독정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -176,6 +190,8 @@ public class DetailJdm  extends BaseActivity implements Serializable{
 
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
+        datePicker = (LinearLayout) findViewById(R.id.datePicker);
+
         ed_name = (EditText) findViewById(R.id.ed_name);
         ed_memo = (EditText) findViewById(R.id.ed_memo);
         tv_datePicker = (TextView) findViewById(R.id.tv_datePicker);
@@ -188,29 +204,43 @@ public class DetailJdm  extends BaseActivity implements Serializable{
         jdmVO = (JdmVO) getIntent().getSerializableExtra("JdmVO");
 
 
-        String year = jdmVO.getJDM_04().substring(0, 4);
-        String month = jdmVO.getJDM_04().substring(4, 6);
-        String dayOfMonth = jdmVO.getJDM_04().substring(6, 8);
+        if (jdmVO.getJDM_04().equals("")) {
+            tv_datePicker.setText("날짜선택");
+        }else{
+            String year = jdmVO.getJDM_04().substring(0, 4);
+            String month = jdmVO.getJDM_04().substring(4, 6);
+            String dayOfMonth = jdmVO.getJDM_04().substring(6, 8);
+            tv_datePicker.setText(year + "년" + month + "월" + dayOfMonth + "일");
+        }
 
 
-        tv_datePicker.setText(year + "년" + month + "월" + dayOfMonth + "일");
-
-        year = jdmVO.getJDM_96().substring(0, 4);
-        month = jdmVO.getJDM_96().substring(4, 6);
-        dayOfMonth = jdmVO.getJDM_96().substring(6, 8);
-        String dayOfTime = jdmVO.getJDM_96().substring(8);
-
-        hourOfDayString = dayOfTime.substring(0,2);
-        minuteString = dayOfTime.substring(2);
+        if (jdmVO.getJDM_96().equals("")) {
+            tv_datePicker2.setText("미지정");
+            hourOfDayString = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+            minuteString = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+            timePicker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
+            timePicker.setCurrentMinute(calendar.get(Calendar.MINUTE));
 
 
+        } else {
+            String year = jdmVO.getJDM_96().substring(0, 4);
+            String month = jdmVO.getJDM_96().substring(4, 6);
+            String dayOfMonth = jdmVO.getJDM_96().substring(6, 8);
+            String dayOfTime = jdmVO.getJDM_96().substring(8);
+            tv_datePicker2.setText(year + "년" + month + "월" + dayOfMonth + "일");
 
-        tv_datePicker2.setText(year + "년" + month + "월" + dayOfMonth + "일");
+
+            hourOfDayString = dayOfTime.substring(0, 2);
+            minuteString = dayOfTime.substring(2);
+            timePicker.setCurrentHour(Integer.valueOf(dayOfTime.substring(0, 2)));
+            timePicker.setCurrentMinute(Integer.valueOf(dayOfTime.substring(2)));
+        }
+
 
         ed_name.setText(jdmVO.getJDM_02());
 
         //명칭은 읽기전용으로 일단은...
-        ed_name.setEnabled(false);
+        //ed_name.setEnabled(false);
 
         ed_memo.setText(jdmVO.getJDM_03());
 
@@ -222,8 +252,6 @@ public class DetailJdm  extends BaseActivity implements Serializable{
         }
 
 
-        timePicker.setCurrentHour(Integer.valueOf(dayOfTime.substring(0, 2)));
-        timePicker.setCurrentMinute(Integer.valueOf(dayOfTime.substring(2)));
     }
 
     @Override
@@ -265,12 +293,12 @@ public class DetailJdm  extends BaseActivity implements Serializable{
                     dayOfMonthString = String.valueOf(dayOfMonth);
                 }
                 tv_datePicker2.setText(year + "년" + monthString + "월" + dayOfMonthString + "일");
-                jdmVO.setJDM_96(year+monthString+dayOfMonthString + hourOfDayString + minuteString);
+                jdmVO.setJDM_96(year + monthString + dayOfMonthString + hourOfDayString + minuteString);
             }
         };
 
 
-        tv_datePicker.setOnClickListener(new View.OnClickListener() {
+        datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog dialog = new DatePickerDialog(DetailJdm.this, callbackMethod, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
@@ -317,16 +345,20 @@ public class DetailJdm  extends BaseActivity implements Serializable{
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requestJMD_CONTROL("UPDATE");
-           }
+                if (getIntent().hasExtra("scanCode")) {
+                    requestJMD_CONTROL("INSERT");
+                } else {
+                    requestJMD_CONTROL("UPDATE");
+                }
+            }
         });
 
-        if(jdmVO.JDM_97.equals(mUser.Value.OCM_01)){ //작성자만 삭제버튼 보임
+        if (jdmVO.JDM_97.equals(mUser.Value.OCM_01)) { //작성자만 삭제버튼 보임
             header.btnHeaderRight1.setVisibility((View.VISIBLE));
             header.btnHeaderRight1.setMaxWidth(50);
             header.btnHeaderRight1.setMaxHeight(50);
             header.btnHeaderRight1.setImageResource(R.drawable.btn_cancel); //delete는 왜 크기가 안맞는거야!!! 일단 대체아이콘으로..,,
-            header.btnHeaderRight1.setOnClickListener(new View.OnClickListener(){
+            header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new AlertDialog.Builder(mActivity)
@@ -355,6 +387,11 @@ public class DetailJdm  extends BaseActivity implements Serializable{
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
+                    if (jdmVO.getJDM_96().equals("")) {
+                        Toast.makeText(mContext, "알람 지정일을 선택하셔야 활성화 가능합니다.", Toast.LENGTH_LONG).show();
+                        switch_alarm.setChecked(false);
+                        return;
+                    }
                     jdmVO.setARM_03("Y");
                 } else {
                     switch_alarm.setChecked(false);

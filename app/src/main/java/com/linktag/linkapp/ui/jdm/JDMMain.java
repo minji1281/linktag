@@ -55,22 +55,28 @@ public class JDMMain extends BaseActivity {
         initLayout();
         initialize();
 
-
+        if (getIntent().hasExtra("scanCode")) {
+            String scancode = getIntent().getExtras().getString("scanCode");
+            requestJMD_SELECT(scancode);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        requestJMD_SELECT();
+        requestJMD_SELECT("");
 
 
     }
 
-    private void Push_goActivity(Intent intent) {
-        intent.setClassName(mContext, getPackageName() + ".ui.jdm.DetailJdm");
-        mContext.startActivity(intent);
-    }
+//    private void Push_goActivity(Intent intent) {
+//        String scancode = getIntent().getExtras().getString("scancode");
+//
+//        intent.setClassName(mContext, getPackageName() + ".ui.jdm.DetailJdm");
+//
+//        mContext.startActivity(intent);
+//    }
 
 
     protected void initLayout() {
@@ -88,7 +94,7 @@ public class JDMMain extends BaseActivity {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                requestJMD_SELECT();
+                requestJMD_SELECT("");
                 swipeRefresh.setRefreshing(false);
             }
         });
@@ -107,14 +113,14 @@ public class JDMMain extends BaseActivity {
     }
 
 
-    public void requestJMD_SELECT() {
+    public void requestJMD_SELECT(String scancod) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }
 
-        openLoadingBar();
+        //openLoadingBar();
 
         //String strToday = ClsDateTime.getNow("yyyyMMdd");
 
@@ -123,7 +129,7 @@ public class JDMMain extends BaseActivity {
                 BaseConst.URL_HOST,
                 "LIST",
                 CTN_02,
-                "",
+                scancod,
                 mUser.Value.OCM_01
         );
 
@@ -143,14 +149,41 @@ public class JDMMain extends BaseActivity {
                             closeLoadingBar();
 
                             Response<JDMModel> response = (Response<JDMModel>) msg.obj;
-
                             mList = response.body().Data;
-                            if (mList == null)
-                                mList = new ArrayList<>();
 
-                            mAdapter.updateData(mList);
-                            mAdapter.notifyDataSetChanged();
-                            swipeRefresh.setRefreshing(false);
+                            if (scancod.equals("")) {
+                                if (mList == null) mList = new ArrayList<>();
+
+                                mAdapter.updateData(mList);
+                                mAdapter.notifyDataSetChanged();
+                                swipeRefresh.setRefreshing(false);
+
+                            } else {
+                                if (mList.size() == 0) {
+                                    JdmVO jdmvo = new JdmVO();
+                                    jdmvo.setJDM_ID(CTN_02);
+                                    jdmvo.setJDM_01(scancod);
+                                    jdmvo.setJDM_02("");
+                                    jdmvo.setJDM_03("");
+                                    jdmvo.setJDM_04("");
+                                    jdmvo.setJDM_96("");
+                                    jdmvo.setJDM_97(mUser.Value.OCM_01);
+                                    jdmvo.setARM_03("N");
+                                    jdmvo.setARM_04(0);
+                                    Intent intent = new Intent(mContext, DetailJdm.class);
+                                    intent.putExtra("JdmVO", jdmvo);
+                                    intent.putExtra("scanCode", scancod);
+                                    intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
+                                    intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
+                                    mContext.startActivity(intent);
+                                } else {
+                                    JdmVO jdmvo = mList.get(0);
+                                    Intent intent = new Intent(mContext, DetailJdm.class);
+                                    intent.putExtra("JdmVO", jdmvo);
+
+                                    mContext.startActivity(intent);
+                                }
+                            }
 
                         }
                     }
