@@ -14,10 +14,10 @@
 
             </shape>
         </item>
-<!--        <item android:right="5dp">-->
-<!--            <bitmap-->
-<!--                android:gravity="center_vertical|right"-->
-<!--                android:src="@drawable/btn_back_white" /> 아이콘 추가하면됨!!! 지금은 마땅한게없어서 주석처리-->
-<!--        </item>-->
+        <item android:right="5dp">
+            <bitmap
+                android:gravity="center_vertical|right"
+                android:src="@android:drawable/ic_menu_more" />
+        </item>
     </layer-list></item>
 </selector>

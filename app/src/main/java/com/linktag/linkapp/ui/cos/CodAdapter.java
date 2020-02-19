@@ -74,14 +74,14 @@ public class CodAdapter extends BaseAdapter implements View.OnClickListener {
 
         if(mList.get(position).COD_07.equals("")){
             //Image
-            viewHolder.imgCodIcon.setImageResource(R.drawable.ic_launcher);
-//        if(mList.get(position).ARM_03.equals("Y")){
-//            viewHolder.imgAlarmIcon.setImageResource(R.drawable.main_noti_selected);
-//        }
-//        else{ //N
-//            viewHolder.imgAlarmIcon.setImageResource(R.drawable.btn_noti_off_gray);
-//        }
-            viewHolder.imgAlarmIcon.setImageResource(R.drawable.btn_noti_off_gray); //서버 올리기전 테스트용도
+            viewHolder.imgCodIcon.setImageResource(R.drawable.ic_cod);
+            if(mList.get(position).ARM_03.equals("Y")){
+                viewHolder.imgAlarmIcon.setImageResource(R.drawable.main_noti_selected);
+            }
+            else{ //N
+                viewHolder.imgAlarmIcon.setImageResource(R.drawable.btn_noti_off_gray);
+            }
+
             viewHolder.imgAlarmIcon.setTag(position);
             viewHolder.imgAlarmIcon.setOnClickListener(this);
             viewHolder.layoutCod.setBackgroundResource(R.drawable.shape_base_border);
@@ -91,11 +91,11 @@ public class CodAdapter extends BaseAdapter implements View.OnClickListener {
         }
         else{
             viewHolder.imgCodIcon.setImageDrawable(null);
+            viewHolder.imgAlarmIcon.setImageDrawable(null);
             viewHolder.layoutCod.setBackgroundResource(R.drawable.shape_base_border_back_gray);
             viewHolder.tvCodName.setTextColor(Color.GRAY);
             viewHolder.tvCosName.setTextColor(Color.GRAY);
             viewHolder.tvAlarmDay.setTextColor(Color.GRAY);
-//            viewHolder.imgAlarmIcon.setVisibility(View.GONE);
         }
 
         //Text

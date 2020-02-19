@@ -28,19 +28,27 @@ public class CosInfo extends AsyncTask<Void, Void, Void> {
 
     private Activity mActivity;
     private Spinner spCos;
+    private String spName;
+    private String gubun;
+    private String ID;
+    private String value;
 
     private ArrayList<SpinnerList> cosList;
 
-    public CosInfo(ArrayList<SpinnerList> cosList, Activity mActivity){
+    public CosInfo(ArrayList<SpinnerList> cosList, Activity mActivity, String spName, String gubun, String ID, String value){
         this.mActivity = mActivity;
         this.cosList = cosList;
+        this.spName = spName;
+        this.gubun = gubun;
+        this.ID = ID;
+        this.value = value;
     }
 
     @Override
     protected void onPreExecute(){
         super.onPreExecute();
         mUser = InterfaceUser.getInstance();
-        spCos = mActivity.findViewById(mActivity.getResources().getIdentifier("spHeaderRight", "id", mActivity.getPackageName()));
+        spCos = mActivity.findViewById(mActivity.getResources().getIdentifier(spName, "id", mActivity.getPackageName()));
     }
 
     @Override
@@ -58,8 +66,8 @@ public class CosInfo extends AsyncTask<Void, Void, Void> {
     private void requestCOS_SELECT(){
         Call<COSModel> call = Http.cos(HttpBaseService.TYPE.POST).COS_SELECT(
                 BaseConst.URL_HOST,
-                "LIST",
-                "1", //컨테이너 수정해야돼!!!
+                gubun,
+                ID,
                 ""
         );
 
@@ -77,7 +85,9 @@ public class CosInfo extends AsyncTask<Void, Void, Void> {
                         if(msg.what == 100){
                             Response<COSModel> response = (Response<COSModel>) msg.obj;
                             String[] ar = new String[response.body().Total];
+                            String[] ar2 = new String[response.body().Total];
                             ArrayAdapter<String> adapter;
+                            ArrayAdapter<String> adapter2;
                             cosList.clear();
 
                             if(response.body().Total > 0){
@@ -85,12 +95,18 @@ public class CosInfo extends AsyncTask<Void, Void, Void> {
                                     cosList.add(new SpinnerList(response.body().Data.get(i).COS_01, response.body().Data.get(i).COS_02));
 
                                     ar[i] = response.body().Data.get(i).COS_02;
+                                    ar2[i] = response.body().Data.get(i).COS_01;
                                 }
                             }
 
                             adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_item2, ar);
+                            adapter2 = new ArrayAdapter<>(mActivity, R.layout.spinner_item2, ar2);
                             adapter.setDropDownViewResource(R.layout.spinner_item2);
                             spCos.setAdapter(adapter);
+                            int i = adapter2.getPosition(value);
+                            if(i != -1){
+                                spCos.setSelection(i);
+                            }
 
                         }
                     }

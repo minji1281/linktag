@@ -796,25 +796,18 @@ public class Http extends HttpBaseService {
                 @Field(value = "COS_01") String COS_01      // 코드번호
         );
 
-//        @FormUrlEncoded
-//        @POST(BaseConst.COS_CONTROL)
-//        Call<AIRModel> COS_CONTROL(
-//                @Path(value = "host", encoded = true) String host,
-//                @Field(value = "GUBUN") String GUBUN,
-//                @Field(value = "AIR_ID") String AIR_ID,
-//                @Field(value = "AIR_01") String AIR_01,
-//                @Field(value = "AIR_02") String AIR_02,
-//                @Field(value = "AIR_03") String AIR_03,
-//
-//                @Field(value = "AIR_04") String AIR_04,
-//                @Field(value = "AIR_05") int AIR_05,
-//                @Field(value = "AIR_06") String AIR_06,
-//                @Field(value = "AIR_07") String AIR_07,
-//                @Field(value = "AIR_96") String AIR_96,
-//
-//                @Field(value = "AIR_98") String AIR_98,
-//                @Field(value = "ARM_03") String ARM_03
-//        );
+        @FormUrlEncoded
+        @POST(BaseConst.COS_CONTROL)
+        Call<COSModel> COS_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "COS_ID") String COS_ID,
+                @Field(value = "COS_01") String COS_01,
+                @Field(value = "COS_02") String COS_02,
+                @Field(value = "COS_03") String COS_03,
+
+                @Field(value = "COS_98") String COS_98
+        );
 
     }
 
@@ -835,25 +828,27 @@ public class Http extends HttpBaseService {
                 @Field(value = "OCM_01") String OCM_01      // 사용자 아이디
         );
 
-//        @FormUrlEncoded
-//        @POST(BaseConst.COS_CONTROL)
-//        Call<AIRModel> COS_CONTROL(
-//                @Path(value = "host", encoded = true) String host,
-//                @Field(value = "GUBUN") String GUBUN,
-//                @Field(value = "AIR_ID") String AIR_ID,
-//                @Field(value = "AIR_01") String AIR_01,
-//                @Field(value = "AIR_02") String AIR_02,
-//                @Field(value = "AIR_03") String AIR_03,
-//
-//                @Field(value = "AIR_04") String AIR_04,
-//                @Field(value = "AIR_05") int AIR_05,
-//                @Field(value = "AIR_06") String AIR_06,
-//                @Field(value = "AIR_07") String AIR_07,
-//                @Field(value = "AIR_96") String AIR_96,
-//
-//                @Field(value = "AIR_98") String AIR_98,
-//                @Field(value = "ARM_03") String ARM_03
-//        );
+        @FormUrlEncoded
+        @POST(BaseConst.COD_CONTROL)
+        Call<CODModel> COD_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "COD_ID") String COD_ID,
+                @Field(value = "COD_01") String COD_01,
+                @Field(value = "COD_02") String COD_02,
+                @Field(value = "COD_03") String COD_03,
+
+                @Field(value = "COD_04") double COD_04,
+                @Field(value = "COD_05") String COD_05,
+                @Field(value = "COD_06") String COD_06,
+                @Field(value = "COD_07") String COD_07,
+                @Field(value = "COD_08") String COD_08,
+
+                @Field(value = "COD_95") String COD_95,
+                @Field(value = "COD_96") String COD_96,
+                @Field(value = "COD_98") String COD_98,
+                @Field(value = "ARM_03") String ARM_03
+        );
 
     }
 

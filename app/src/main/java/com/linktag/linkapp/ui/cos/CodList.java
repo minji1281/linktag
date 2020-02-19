@@ -8,7 +8,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Spinner;
@@ -23,12 +22,9 @@ import com.linktag.linkapp.model.CODModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.cos.CodAdapter;
-//import com.linktag.linkapp.ui.air.CodDetail;
 import com.linktag.linkapp.ui.spinner.SpinnerList;
 import com.linktag.linkapp.value_object.COD_VO;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 import butterknife.BindView;
@@ -59,6 +55,7 @@ public class CodList extends BaseActivity implements CodAdapter.AlarmClickListen
     ArrayList<SpinnerList> cosList = new ArrayList<>();
     @BindView(R.id.spHeaderRight)
     Spinner spCos;
+    private String COD_95;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -66,23 +63,30 @@ public class CodList extends BaseActivity implements CodAdapter.AlarmClickListen
 
         setContentView(R.layout.activity_cod_list);
 
-        initLayout();
-
-        initialize();
+//        initLayout();
+//
+//        initialize();
     }
 
     @Override
     protected void initLayout() {
         header = findViewById(R.id.header);
-        header.btnHeaderLeft.setVisibility((View.GONE));
+        header.btnHeaderLeft.setVisibility(View.GONE);
+        header.btnHeaderLeftText.setVisibility(View.VISIBLE);
+        header.btnHeaderLeftText.setText("화장품 목록");
+        header.btnHeaderLeftText.setOnClickListener(null);
+        header.btnHeaderRight1.setVisibility(View.VISIBLE);
+        header.btnHeaderRight1.setImageResource(android.R.drawable.ic_menu_add);
+        header.btnHeaderRight1.setOnClickListener(v -> goCosNew());
 
         header.spHeaderRight.setVisibility(View.VISIBLE);
-        CosInfo cosinfo = new CosInfo(cosList, mActivity);
+        CosInfo cosinfo = new CosInfo(cosList, mActivity, "spHeaderRight", "LIST", getIntent().getStringExtra("CTN_02"), "");
         cosinfo.execute();
         header.spHeaderRight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                requestCOD_SELECT(cosList.get(position).getCode());
+                COD_95 = cosList.get(position).getCode();
+                requestCOD_SELECT(COD_95);
             }
 
             @Override
@@ -95,15 +99,16 @@ public class CodList extends BaseActivity implements CodAdapter.AlarmClickListen
         imgNew.setOnClickListener(v -> goCodNew());
 
         listView = findViewById(R.id.listView);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Intent intent = new Intent(mContext, CodDetail.class);
-//                COD_VO AIR = mList.get(position);
-//                intent.putExtra("COD", COD);
-//                mContext.startActivity(intent);
-//            }
-//        });
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Intent intent = new Intent(mContext, CodDetail.class);
+                COD_VO COD = mList.get(position);
+                intent.putExtra("COD", COD);
+                intent.putExtra("CTN_02", getIntent().getStringExtra("CTN_02"));
+                mContext.startActivity(intent);
+            }
+        });
         emptyText = findViewById(R.id.empty);
         listView.setEmptyView(emptyText);
     }
@@ -121,7 +126,10 @@ public class CodList extends BaseActivity implements CodAdapter.AlarmClickListen
     protected void onResume(){
         super.onResume();
 
-//        requestCOD_SELECT("");
+        requestCOD_SELECT(COD_95);
+        initLayout();
+
+        initialize();
     }
 
     private void requestCOD_SELECT(String COD_95){
@@ -134,7 +142,7 @@ public class CodList extends BaseActivity implements CodAdapter.AlarmClickListen
         openLoadingBar();
 
         String GUBUN = "LIST";
-        String COD_ID = "1"; //컨테이너
+        String COD_ID = getIntent().getStringExtra("CTN_02"); //컨테이너
         String COD_01 = ""; //일련번호
         String OCM_01 = mUser.Value.OCM_01; //사용자 아이디
 
@@ -198,11 +206,17 @@ public class CodList extends BaseActivity implements CodAdapter.AlarmClickListen
         Toast.makeText(mContext, "준비중 입니다.", Toast.LENGTH_LONG).show();
     }
 
-    //신규등록 test
     private void goCodNew(){
-        Toast.makeText(mContext, "신규등록", Toast.LENGTH_LONG).show();
-//        Intent intent = new Intent(mContext, CodDetail.class);
-//        mContext.startActivity(intent);
+        Intent intent = new Intent(mContext, CodDetail.class);
+        intent.putExtra("CTN_02", getIntent().getStringExtra("CTN_02"));
+        mContext.startActivity(intent);
+    }
+
+    //신규등록 test
+    private void goCosNew(){
+        Intent intent = new Intent(mContext, CosDetail.class);
+        intent.putExtra("CTN_02", getIntent().getStringExtra("CTN_02"));
+        mContext.startActivity(intent);
     }
 
 }
