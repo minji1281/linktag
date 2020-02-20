@@ -62,14 +62,18 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        String Format = mList.get(position).JDM_96;
-        String dateFormat = Format.substring(2, 4) + "." + Format.substring(4, 6) + "." + Format.substring(6, 8);
-        String timeFormat = Format.substring(8, 10) + ":" + Format.substring(10);
-
+        if (mList.get(position).JDM_96.equals("")) {
+            viewHolder.tv_date.setText("알림 미지정");
+            viewHolder.tv_time.setText("");
+        } else {
+            String Format = mList.get(position).JDM_96;
+            String dateFormat = Format.substring(2, 4) + "." + Format.substring(4, 6) + "." + Format.substring(6, 8);
+            String timeFormat = Format.substring(8, 10) + ":" + Format.substring(10);
+            viewHolder.tv_date.setText(dateFormat);
+            viewHolder.tv_time.setText(timeFormat);
+        }
         viewHolder.tv_name.setText(mList.get(position).JDM_02);
         viewHolder.tv_memo.setText(mList.get(position).JDM_03);
-        viewHolder.tv_date.setText(dateFormat);
-        viewHolder.tv_time.setText(timeFormat);
 
         if (mList.get(position).ARM_03.equals("Y")) {
             viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
@@ -81,6 +85,17 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
             @Override
             public void onClick(View view) {
 
+                if (mList.get(position).ARM_03.equals("Y")) {
+                    viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
+                    Toast.makeText(mContext, "[" + mList.get(position).JDM_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
+                } else if(mList.get(position).ARM_03.equals("N") && !mList.get(position).JDM_96.equals("")) {
+                    viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
+                    Toast.makeText(mContext, "[" + mList.get(position).JDM_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(mContext, "알림일자를 지정하세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 ArmVO armVO = new ArmVO();
 
                 armVO.setARM_ID(mList.get(position).JDM_ID);
@@ -92,15 +107,6 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
                 requestARM_CONTROL(armVO, position);
 
-                if (mList.get(position).ARM_03.equals("Y")) {
-                    viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-                    Toast.makeText(mContext, "[" + mList.get(position).JDM_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
-                } else {
-                    viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + mList.get(position).JDM_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
-
-
-                }
             }
         });
 
@@ -221,31 +227,31 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                             } else {
                                 mList.get(position).setARM_03("Y");
 
-                                Intent intent = new Intent(mContext, Alarm_Receiver.class);
-                                intent.putExtra("notify_id", responseData.get(0).ARM_04);
-                                intent.putExtra("calDateTime", mList.get(position).JDM_96);
-                                intent.putExtra("contentTitle", "장독관리" + mList.get(position).JDM_02);
-                                intent.putExtra("contentText", mList.get(position).JDM_03);
-                                intent.putExtra("className", ".ui.intro.Intro");
-                                intent.putExtra("gotoActivity", ".ui.jdm.JDMMain");
-                                intent.putExtra("gotoLogin", ".ui.login.Login");
-                                intent.putExtra("gotoMain", ".ui.main.Main");
-
-
-                                JdmVO jdmvo = new JdmVO();
-                                jdmvo.setJDM_01( mList.get(position).getJDM_01());
-                                jdmvo.setJDM_02( mList.get(position).getJDM_02());
-                                jdmvo.setJDM_03( mList.get(position).getJDM_03());
-                                jdmvo.setJDM_04( mList.get(position).getJDM_04());
-                                jdmvo.setJDM_96( mList.get(position).getJDM_96());
-                                jdmvo.setARM_03( mList.get(position).getARM_03());
-
-                                intent.putExtra("mList",mList);
-
-                                intent.putExtra("JdmVO", jdmvo);
-
-
-                                new AlarmHATT(mContext).Alarm(intent);
+//                                Intent intent = new Intent(mContext, Alarm_Receiver.class);
+//                                intent.putExtra("notify_id", responseData.get(0).ARM_04);
+//                                intent.putExtra("calDateTime", mList.get(position).JDM_96);
+//                                intent.putExtra("contentTitle", "장독관리" + mList.get(position).JDM_02);
+//                                intent.putExtra("contentText", mList.get(position).JDM_03);
+//                                intent.putExtra("className", ".ui.intro.Intro");
+//                                intent.putExtra("gotoActivity", ".ui.jdm.JDMMain");
+//                                intent.putExtra("gotoLogin", ".ui.login.Login");
+//                                intent.putExtra("gotoMain", ".ui.main.Main");
+//
+//
+//                                JdmVO jdmvo = new JdmVO();
+//                                jdmvo.setJDM_01( mList.get(position).getJDM_01());
+//                                jdmvo.setJDM_02( mList.get(position).getJDM_02());
+//                                jdmvo.setJDM_03( mList.get(position).getJDM_03());
+//                                jdmvo.setJDM_04( mList.get(position).getJDM_04());
+//                                jdmvo.setJDM_96( mList.get(position).getJDM_96());
+//                                jdmvo.setARM_03( mList.get(position).getARM_03());
+//
+//                                intent.putExtra("mList",mList);
+//
+//                                intent.putExtra("JdmVO", jdmvo);
+//
+//
+//                                new AlarmHATT(mContext).Alarm(intent);
 
                             }
 

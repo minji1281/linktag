@@ -37,6 +37,7 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
+import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
 
@@ -83,6 +84,10 @@ public class DetailTrp extends BaseActivity implements Serializable {
     private String hourOfDayString;
     private String minuteString;
 
+    private String CTM_01;
+    private String CTD_02;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +98,10 @@ public class DetailTrp extends BaseActivity implements Serializable {
 
         initialize();
 
+        if (getIntent().hasExtra("scanCode")) {
+            CTM_01 = getIntent().getStringExtra("CTM_01");
+            CTD_02 = getIntent().getStringExtra("CTD_02");
+        }
     }
 
     public void requestTRP_CONTROL(String GUBUN) {
@@ -147,8 +156,14 @@ public class DetailTrp extends BaseActivity implements Serializable {
             @Override
             public void onResponse(Call<TRPModel> call, Response<TRPModel> response) {
 
+                if (GUBUN.equals("INSERT")) {
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02, trpVO.TRP_01);
+                    ctds_control.requestCTDS_CONTROL();
+                }
+                if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
+                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 복약정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                }
                 onBackPressed();
-                Toast.makeText(getApplicationContext(), "[" + trpVO.TRP_02 + "]" + "  해당 복약정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -222,11 +237,17 @@ public class DetailTrp extends BaseActivity implements Serializable {
         String[] array_pattern;
         array_pattern = trpVO.TRP_04.split("");
 
-        for (int i = 0; i < mBtnArray.length; i++) {
-            if (array_pattern[i+1].equals("Y")) {
+        if (trpVO.TRP_04.equals("")) {
+            for (int i = 0; i < mBtnArray.length; i++) {
                 mBtnArray[i].setBackgroundResource(R.drawable.btn_round_yellow);
-            } else {
-                mBtnArray[i].setBackgroundResource(R.drawable.btn_round_gray);
+            }
+        } else {
+            for (int i = 0; i < mBtnArray.length; i++) {
+                if (array_pattern[i + 1].equals("Y")) {
+                    mBtnArray[i].setBackgroundResource(R.drawable.btn_round_yellow);
+                } else {
+                    mBtnArray[i].setBackgroundResource(R.drawable.btn_round_gray);
+                }
             }
         }
 
@@ -281,12 +302,12 @@ public class DetailTrp extends BaseActivity implements Serializable {
         });
 
 
-        if(trpVO.TRP_97.equals(mUser.Value.OCM_01)){ //작성자만 삭제버튼 보임
+        if (trpVO.TRP_97.equals(mUser.Value.OCM_01)) { //작성자만 삭제버튼 보임
             header.btnHeaderRight1.setVisibility((View.VISIBLE));
             header.btnHeaderRight1.setMaxWidth(50);
             header.btnHeaderRight1.setMaxHeight(50);
             header.btnHeaderRight1.setImageResource(R.drawable.btn_cancel); //delete는 왜 크기가 안맞는거야!!! 일단 대체아이콘으로..,,
-            header.btnHeaderRight1.setOnClickListener(new View.OnClickListener(){
+            header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new AlertDialog.Builder(mActivity)
@@ -336,6 +357,11 @@ public class DetailTrp extends BaseActivity implements Serializable {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
+//                    if (trpVO.getTRP_96().equals("")) {
+//                        Toast.makeText(mContext, "알람 지정일을 선택하셔야 활성화 가능합니다.", Toast.LENGTH_LONG).show();
+//                        switch_alarm.setChecked(false);
+//                        return;
+//                    }
                     trpVO.setARM_03("Y");
                 } else {
                     switch_alarm.setChecked(false);

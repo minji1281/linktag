@@ -62,14 +62,20 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        String Format = mList.get(position).PCM_96;
-        String dateFormat = Format.substring(2, 4) + "." + Format.substring(4, 6) + "." + Format.substring(6, 8);
-        String timeFormat = Format.substring(8, 10) + ":" + Format.substring(10);
+
+        if (mList.get(position).PCM_96.equals("")) {
+            viewHolder.tv_date.setText("알림 미지정");
+            viewHolder.tv_time.setText("");
+        } else {
+            String Format = mList.get(position).PCM_96;
+            String dateFormat = Format.substring(2, 4) + "." + Format.substring(4, 6) + "." + Format.substring(6, 8);
+            String timeFormat = Format.substring(8, 10) + ":" + Format.substring(10);
+            viewHolder.tv_date.setText(dateFormat);
+            viewHolder.tv_time.setText(timeFormat);
+        }
 
         viewHolder.tv_name.setText(mList.get(position).PCM_02);
         viewHolder.tv_memo.setText(mList.get(position).PCM_03);
-        viewHolder.tv_date.setText(dateFormat);
-        viewHolder.tv_time.setText(timeFormat);
 
         if (mList.get(position).ARM_03.equals("Y")) {
             viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
@@ -81,6 +87,17 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
             @Override
             public void onClick(View view) {
 
+                if (mList.get(position).ARM_03.equals("Y")) {
+                    viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
+                    Toast.makeText(mContext, "[" + mList.get(position).PCM_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
+                } else if(mList.get(position).ARM_03.equals("N") && !mList.get(position).PCM_96.equals("")) {
+                    viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
+                    Toast.makeText(mContext, "[" + mList.get(position).PCM_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Toast.makeText(mContext, "알림일자를 지정하세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 ArmVO armVO = new ArmVO();
 
                 armVO.setARM_ID(mList.get(position).PCM_ID);
@@ -92,15 +109,8 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
 
                 requestARM_CONTROL(armVO, position);
 
-                if (mList.get(position).ARM_03.equals("Y")) {
-                    viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-                    Toast.makeText(mContext, "[" + mList.get(position).PCM_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
-                } else {
-                    viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + mList.get(position).PCM_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
 
 
-                }
             }
         });
 

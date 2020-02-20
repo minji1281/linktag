@@ -16,6 +16,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
@@ -37,6 +38,7 @@ import com.linktag.linkapp.model.PCMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.PcdVO;
 import com.linktag.linkapp.value_object.PcmVO;
 
@@ -98,6 +100,9 @@ public class DetailPcm extends BaseActivity implements Serializable {
     private String hourOfDayString;
     private String minuteString;
 
+    private String CTM_01;
+    private String CTD_02;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -107,6 +112,11 @@ public class DetailPcm extends BaseActivity implements Serializable {
         initLayout();
 
         initialize();
+
+        if (getIntent().hasExtra("scanCode")) {
+            CTM_01 = getIntent().getStringExtra("CTM_01");
+            CTD_02 = getIntent().getStringExtra("CTD_02");
+        }
 
     }
 
@@ -225,13 +235,17 @@ public class DetailPcm extends BaseActivity implements Serializable {
                                     mList_HW = new ArrayList<>();
                                 mHwAdapter.updateData(mList_HW);
                                 mHwAdapter.notifyDataSetChanged();
+                                et_hw.setText("");
+
                             } else if (GUBUN.equals("SW")) {
                                 mList_SW = response.body().Data;
                                 if (mList_SW == null)
                                     mList_SW = new ArrayList<>();
                                 mSwAdapter.updateData(mList_SW);
                                 mSwAdapter.notifyDataSetChanged();
+                                et_sw.setText("");
                             }
+
 
                         }
                     }
@@ -304,13 +318,16 @@ public class DetailPcm extends BaseActivity implements Serializable {
             @Override
             public void onResponse(Call<PCMModel> call, Response<PCMModel> response) {
 
-                if(GUBUN.equals("UPDATE")){
-                    onBackPressed();
-                    Toast.makeText(getApplicationContext(), "[" + pcmVO.PCM_02 + "]" + "  해당 PC관리 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
-                }
-                else{
+
+                if (GUBUN.equals("INSERT")) {
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02, pcmVO.PCM_01);
+                    ctds_control.requestCTDS_CONTROL();
                     tv_manageDay.setText(format1.format(calendar.getTime()));
                 }
+                if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
+                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 PC관리 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                }
+                onBackPressed();
             }
 
             @Override
@@ -360,7 +377,19 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
         ed_name = (EditText) findViewById(R.id.ed_name);
         ed_memo = (EditText) findViewById(R.id.ed_memo);
+
+        sp_hw = (Spinner) findViewById(R.id.sp_hw);
         sp_sw = (Spinner) findViewById(R.id.sp_sw);
+
+        String[] str = getResources().getStringArray(R.array.hw);
+        final ArrayAdapter<String> adapter_hw = new ArrayAdapter<String>(mContext,R.layout.spinner_item, str);
+        sp_hw.setAdapter(adapter_hw);
+
+        str = getResources().getStringArray(R.array.sw);
+        final ArrayAdapter<String> adapter_sw = new ArrayAdapter<String>(mContext,R.layout.spinner_item, str);
+        sp_sw.setAdapter(adapter_sw);
+
+
         et_sw = (EditText) findViewById(R.id.et_sw);
 
         sp_hw = (Spinner) findViewById(R.id.sp_hw);
@@ -400,22 +429,42 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
         pcmVO = (PcmVO) getIntent().getSerializableExtra("PcmVO");
 
-        String year = pcmVO.getPCM_96().substring(0, 4);
-        String month = pcmVO.getPCM_96().substring(4, 6);
-        String dayOfMonth = pcmVO.getPCM_96().substring(6, 8);
-        String dayOfTime = pcmVO.getPCM_96().substring(8);
 
-        hourOfDayString = dayOfTime.substring(0, 2);
-        minuteString = dayOfTime.substring(2);
+        if (pcmVO.getPCM_04().equals("")) {
+            tv_manageDay.setText("-");
+        } else {
+            String year = pcmVO.getPCM_04().substring(0, 4);
+            String month = pcmVO.getPCM_04().substring(4, 6);
+            String dayOfMonth = pcmVO.getPCM_04().substring(6, 8);
+            tv_manageDay.setText(year + "년" + month + "월" + dayOfMonth + "일");
+        }
+
+        if (pcmVO.getPCM_96().equals("")) {
+            tv_datePicker.setText("미지정");
+            hourOfDayString = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+            minuteString = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+            timePicker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
+            timePicker.setCurrentMinute(calendar.get(Calendar.MINUTE));
+
+        } else {
+            String year = pcmVO.getPCM_96().substring(0, 4);
+            String month = pcmVO.getPCM_96().substring(4, 6);
+            String dayOfMonth = pcmVO.getPCM_96().substring(6, 8);
+            String dayOfTime = pcmVO.getPCM_96().substring(8);
+            tv_datePicker.setText(year + "년" + month + "월" + dayOfMonth + "일");
+
+            hourOfDayString = dayOfTime.substring(0, 2);
+            minuteString = dayOfTime.substring(2);
+            timePicker.setCurrentHour(Integer.valueOf(dayOfTime.substring(0, 2)));
+            timePicker.setCurrentMinute(Integer.valueOf(dayOfTime.substring(2)));
+        }
 
 
-        tv_manageDay.setText(pcmVO.getPCM_04());
-        tv_datePicker.setText(year + "년" + month + "월" + dayOfMonth + "일");
 
         ed_name.setText(pcmVO.getPCM_02());
 
         //명칭은 읽기전용으로 일단은...
-        ed_name.setEnabled(false);
+        //ed_name.setEnabled(false);
 
         ed_memo.setText(pcmVO.getPCM_03());
 
@@ -425,10 +474,6 @@ public class DetailPcm extends BaseActivity implements Serializable {
         } else {
             switch_alarm.setChecked(false);
         }
-
-
-        timePicker.setCurrentHour(Integer.valueOf(dayOfTime.substring(0, 2)));
-        timePicker.setCurrentMinute(Integer.valueOf(dayOfTime.substring(2)));
 
         requestPCD_SELECT("LIST_HW");
         requestPCD_SELECT("LIST_SW");
@@ -465,7 +510,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
                 PcdVO pcdVO = new PcdVO();
                 pcdVO.GUBUN = "INSERT";
-                pcdVO.PCD_ID = pcmVO.PCD_ID;
+                pcdVO.PCD_ID = pcmVO.PCM_ID;
                 pcdVO.PCD_01 = pcmVO.PCM_01;
                 pcdVO.PCD_02 = "";
                 pcdVO.PCD_03 = "1";
@@ -488,13 +533,13 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
                 PcdVO pcdVO = new PcdVO();
                 pcdVO.GUBUN = "INSERT";
-                pcdVO.PCD_ID = pcmVO.PCD_ID;
+                pcdVO.PCD_ID = pcmVO.PCM_ID;
                 pcdVO.PCD_01 = pcmVO.PCM_01;
                 pcdVO.PCD_02 = "";
                 pcdVO.PCD_03 = "2";
                 pcdVO.PCD_04 = map_sw.get(sp_sw.getSelectedItem());
                 pcdVO.PCD_05 = et_sw.getText().toString();
-                pcdVO.PCD_98 = "M191100001";
+                pcdVO.PCD_98 = mUser.Value.OCM_01;
                 requestPCD_CONTROL(pcdVO, "SW");
             }
         });
@@ -544,7 +589,9 @@ public class DetailPcm extends BaseActivity implements Serializable {
                 } else {
                     minuteString = String.valueOf(minute);
                 }
-                pcmVO.setPCM_96(date + hourOfDayString + minuteString);
+                if (!pcmVO.PCM_96.equals("")) {
+                    pcmVO.setPCM_96(date + hourOfDayString + minuteString);
+                }
 
             }
         });
@@ -565,6 +612,10 @@ public class DetailPcm extends BaseActivity implements Serializable {
                 pcmVO.setPCM_04(format1.format(calendar.getTime()));
                 requestPCM_CONTROL("UPDATE_DATE");
                 Toast.makeText(mContext,"최근 관리일자 업데이트",Toast.LENGTH_LONG).show();
+                String year = pcmVO.getPCM_04().substring(0, 4);
+                String month = pcmVO.getPCM_04().substring(4, 6);
+                String dayOfMonth = pcmVO.getPCM_04().substring(6, 8);
+                tv_manageDay.setText(year + "년" + month + "월" + dayOfMonth + "일");
             }
         });
 
@@ -572,7 +623,11 @@ public class DetailPcm extends BaseActivity implements Serializable {
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requestPCM_CONTROL("UPDATE");
+                if (getIntent().hasExtra("scanCode")) {
+                    requestPCM_CONTROL("INSERT");
+                } else {
+                    requestPCM_CONTROL("UPDATE");
+                }
             }
         });
 
@@ -610,6 +665,13 @@ public class DetailPcm extends BaseActivity implements Serializable {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
+                    if (pcmVO.getPCM_96().equals("")) {
+                        Toast.makeText(mContext, "알람 지정일을 선택하셔야 활성화 가능합니다.", Toast.LENGTH_LONG).show();
+                        switch_alarm.setChecked(false);
+                        return;
+                    }
+                    String date = tv_datePicker.getText().toString().replace("년", "").replace("월", "").replace("일", "");
+                    pcmVO.setPCM_96(date + hourOfDayString + minuteString);
                     pcmVO.setARM_03("Y");
                 } else {
                     switch_alarm.setChecked(false);

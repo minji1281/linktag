@@ -113,8 +113,6 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
                 } else {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
                     Toast.makeText(mContext, "[" + mList.get(position).TRP_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
-
-
                 }
             }
         });

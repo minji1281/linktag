@@ -22,6 +22,8 @@ import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.jdm.DetailJdm;
+import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
 
@@ -60,14 +62,17 @@ public class TRPMain extends BaseActivity {
         initLayout();
         initialize();
 
-
+        if (getIntent().hasExtra("scanCode")) {
+            String scancode = getIntent().getExtras().getString("scanCode");
+            requestTRP_SELECT(scancode);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        requestTRP_SELECT();
+        requestTRP_SELECT("");
 
 
     }
@@ -93,7 +98,7 @@ public class TRPMain extends BaseActivity {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                requestTRP_SELECT();
+                requestTRP_SELECT("");
                 swipeRefresh.setRefreshing(false);
             }
         });
@@ -109,14 +114,14 @@ public class TRPMain extends BaseActivity {
     }
 
 
-    public void requestTRP_SELECT() {
+    public void requestTRP_SELECT(String scancode) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }
 
-        openLoadingBar();
+        //openLoadingBar();
 
         //String strToday = ClsDateTime.getNow("yyyyMMdd");
 
@@ -125,7 +130,7 @@ public class TRPMain extends BaseActivity {
                 BaseConst.URL_HOST,
                 "TRP_LIST",
                 CTN_02,
-                "",
+                scancode,
                 mUser.Value.OCM_01
         );
 
@@ -147,12 +152,39 @@ public class TRPMain extends BaseActivity {
                             Response<TRPModel> response = (Response<TRPModel>) msg.obj;
 
                             mList = response.body().Data;
-                            if (mList == null)
-                                mList = new ArrayList<>();
+                            if (scancode.equals("")) {
+                                if (mList == null) mList = new ArrayList<>();
 
-                            mAdapter.updateData(mList);
-                            mAdapter.notifyDataSetChanged();
-                            swipeRefresh.setRefreshing(false);
+                                mAdapter.updateData(mList);
+                                mAdapter.notifyDataSetChanged();
+                                swipeRefresh.setRefreshing(false);
+
+                            } else {
+                                if (mList.size() == 0) {
+
+                                    TrpVO trpvo = new TrpVO();
+                                    trpvo.setTRP_ID(CTN_02);
+                                    trpvo.setTRP_01(scancode);
+                                    trpvo.setTRP_02("");
+                                    trpvo.setTRP_03("");
+                                    trpvo.setTRP_04("");
+                                    trpvo.setTRP_97(mUser.Value.OCM_01);
+                                    trpvo.setARM_03("N");
+                                    trpvo.setARM_04(0);
+                                    Intent intent = new Intent(mContext, DetailTrp.class);
+                                    intent.putExtra("TrpVO", trpvo);
+                                    intent.putExtra("scanCode", scancode);
+                                    intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
+                                    intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
+                                    mContext.startActivity(intent);
+                                } else {
+                                    TrpVO trpvo = mList.get(0);
+                                    Intent intent = new Intent(mContext, DetailTrp.class);
+                                    intent.putExtra("TrpVO", trpvo);
+                                    mContext.startActivity(intent);
+                                }
+                            }
+
 
                         }
                     }

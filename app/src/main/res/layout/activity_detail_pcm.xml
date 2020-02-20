@@ -70,7 +70,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|left"
                     android:layout_weight="1"
-                    android:text="메모"
+                    android:text="메 모"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
@@ -176,7 +176,7 @@
                             android:id="@+id/sp_hw"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
+                            android:layout_weight="2"
                             android:entries="@array/hw"
                             android:textSize="8dp" />
 
@@ -184,7 +184,7 @@
                             android:id="@+id/et_hw"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:layout_weight="3"
                             android:background="@null"
                             android:hint="상세정보 입력"
                             android:textSize="13dp" />
@@ -260,19 +260,24 @@
                         android:layout_height="match_parent"
                         android:orientation="horizontal">
 
+<!--                        <Spinner-->
+<!--                            android:id="@+id/sp_sw"-->
+<!--                            android:layout_width="0dp"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:entries="@array/sw"-->
+<!--                            android:textSize="13dp" />-->
                         <Spinner
                             android:id="@+id/sp_sw"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="1"
-                            android:entries="@array/sw"
+                            android:layout_weight="2"
                             android:textSize="13dp" />
-
                         <EditText
                             android:id="@+id/et_sw"
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_weight="2"
+                            android:layout_weight="3"
                             android:background="@null"
                             android:hint="상세정보 입력"
                             android:textSize="13dp" />
@@ -441,8 +446,7 @@
     <Button
         android:id="@+id/bt_save"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom"
+        android:layout_height="40dp"
         android:background="@color/list_item_Detail_saveBtn"
         android:text="저장"
         android:textColor="@color/white" />

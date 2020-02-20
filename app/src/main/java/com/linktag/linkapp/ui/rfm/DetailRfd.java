@@ -34,7 +34,10 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
+import com.linktag.linkapp.ui.jdm.DetailJdm;
+import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.RfdVO;
+import com.linktag.linkapp.value_object.RfmVO;
 
 import java.io.Serializable;
 import java.util.Calendar;
@@ -49,6 +52,8 @@ public class DetailRfd extends BaseActivity {
 
     private EditText ed_name;
     private EditText ed_memo;
+    private LinearLayout datePicker;
+    private LinearLayout datePicker2;
     private TextView tv_datePicker;
     private TextView tv_datePicker2;
     private TextView tv_datePicker3;
@@ -72,6 +77,8 @@ public class DetailRfd extends BaseActivity {
     private String hourOfDayString;
     private String minuteString;
 
+    private String GUBUN;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -81,6 +88,7 @@ public class DetailRfd extends BaseActivity {
         initLayout();
 
         initialize();
+
 
     }
 
@@ -112,8 +120,11 @@ public class DetailRfd extends BaseActivity {
             @Override
             public void onResponse(Call<RFDModel> call, Response<RFDModel> response) {
 
+                if(GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")){
+                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    RFMMain.RFM_01 = rfdVO.RFD_01;
+                }
                 onBackPressed();
-                Toast.makeText(getApplicationContext(), "[" + rfdVO.RFD_03 + "]" + "  해당 식품정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -148,6 +159,9 @@ public class DetailRfd extends BaseActivity {
 
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
+        datePicker = (LinearLayout) findViewById(R.id.datePicker);
+        datePicker2 = (LinearLayout) findViewById(R.id.datePicker2);
+
         ed_name = (EditText) findViewById(R.id.ed_name);
         ed_memo = (EditText) findViewById(R.id.ed_memo);
         tv_datePicker = (TextView) findViewById(R.id.tv_datePicker);
@@ -160,26 +174,35 @@ public class DetailRfd extends BaseActivity {
 
         rfdVO = (RfdVO) getIntent().getSerializableExtra("RfdVO");
 
+        if (rfdVO.getRFD_05().equals("")) {
+            tv_datePicker.setText("날짜선택");
+        } else {
+            String year = rfdVO.getRFD_05().substring(0, 4);
+            String month = rfdVO.getRFD_05().substring(4, 6);
+            String dayOfMonth = rfdVO.getRFD_05().substring(6, 8);
+            tv_datePicker.setText(year + "년" + month + "월" + dayOfMonth + "일");
+        }
 
-        String year = rfdVO.getRFD_05().substring(0, 4);
-        String month = rfdVO.getRFD_05().substring(4, 6);
-        String dayOfMonth = rfdVO.getRFD_05().substring(6, 8);
-        tv_datePicker.setText(year + "년" + month + "월" + dayOfMonth + "일");
+        if (rfdVO.getRFD_06().equals("")) {
+            tv_datePicker2.setText("날짜선택");
+        } else {
+            String year = rfdVO.getRFD_06().substring(0, 4);
+            String month = rfdVO.getRFD_06().substring(4, 6);
+            String dayOfMonth = rfdVO.getRFD_06().substring(6, 8);
+            tv_datePicker2.setText(year + "년" + month + "월" + dayOfMonth + "일");
+        }
 
-        year = rfdVO.getRFD_06().substring(0, 4);
-        month = rfdVO.getRFD_06().substring(4, 6);
-        dayOfMonth = rfdVO.getRFD_06().substring(6, 8);
-        tv_datePicker2.setText(year + "년" + month + "월" + dayOfMonth + "일");
 
-
-        if(rfdVO.getRFD_96().equals("")){
+        if (rfdVO.getRFD_96().equals("")) {
             tv_datePicker3.setText("유통기한 마감 당일");
+            hourOfDayString = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
+            minuteString = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
             timePicker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
             timePicker.setCurrentMinute(calendar.get(Calendar.MINUTE));
-        }else{
-            year = rfdVO.getRFD_96().substring(0, 4);
-            month = rfdVO.getRFD_96().substring(4, 6);
-            dayOfMonth = rfdVO.getRFD_96().substring(6, 8);
+        } else {
+            String year = rfdVO.getRFD_96().substring(0, 4);
+            String month = rfdVO.getRFD_96().substring(4, 6);
+            String dayOfMonth = rfdVO.getRFD_96().substring(6, 8);
             String dayOfTime = rfdVO.getRFD_96().substring(8);
             tv_datePicker3.setText(year + "년" + month + "월" + dayOfMonth + "일");
 
@@ -193,7 +216,7 @@ public class DetailRfd extends BaseActivity {
         ed_name.setText(rfdVO.getRFD_03());
 
         //명칭은 읽기전용으로 일단은...
-        ed_name.setEnabled(false);
+        //ed_name.setEnabled(false);
 
         ed_memo.setText(rfdVO.getRFD_04());
 
@@ -245,6 +268,8 @@ public class DetailRfd extends BaseActivity {
                 }
                 rfdVO.setRFD_06(String.valueOf(year) + monthString + dayOfMonth);
                 tv_datePicker2.setText(year + "년" + monthString + "월" + dayOfMonthString + "일");
+                tv_datePicker3.setText(year + "년" + monthString + "월" + dayOfMonthString + "일");
+                rfdVO.setRFD_96(year + monthString + dayOfMonthString + hourOfDayString + minuteString);
             }
         };
 
@@ -270,7 +295,7 @@ public class DetailRfd extends BaseActivity {
         };
 
 
-        tv_datePicker.setOnClickListener(new View.OnClickListener() {
+        datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog dialog = new DatePickerDialog(DetailRfd.this, callbackMethod, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
@@ -278,7 +303,7 @@ public class DetailRfd extends BaseActivity {
             }
         });
 
-        tv_datePicker2.setOnClickListener(new View.OnClickListener() {
+        datePicker2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 DatePickerDialog dialog = new DatePickerDialog(DetailRfd.this, callbackMethod2, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
@@ -309,8 +334,9 @@ public class DetailRfd extends BaseActivity {
                 } else {
                     minuteString = String.valueOf(minute);
                 }
-                rfdVO.setRFD_96(date + hourOfDayString + minuteString);
-
+                if (!rfdVO.RFD_96.equals("")) {
+                    rfdVO.setRFD_96(date + hourOfDayString + minuteString);
+                }
             }
         });
 
@@ -326,7 +352,12 @@ public class DetailRfd extends BaseActivity {
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                requestRFD_CONTROL("UPDATE");
+                if (getIntent().hasExtra("GUBUN")) {
+                    requestRFD_CONTROL("INSERT");
+                }else{
+                    requestRFD_CONTROL("UPDATE");
+                }
+
             }
         });
 
@@ -362,6 +393,13 @@ public class DetailRfd extends BaseActivity {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
                 if (isChecked) {
+                    if (rfdVO.getRFD_96().equals("")) {
+                        Toast.makeText(mContext, "마감일 또는 알람 지정일을 선택하셔야 활성화 가능합니다.", Toast.LENGTH_LONG).show();
+                        switch_alarm.setChecked(false);
+                        return;
+                    }
+                    String date = tv_datePicker2.getText().toString().replace("년", "").replace("월", "").replace("일", "");
+                    rfdVO.setRFD_96(date + hourOfDayString + minuteString);
                     rfdVO.setARM_03("Y");
                 } else {
                     switch_alarm.setChecked(false);

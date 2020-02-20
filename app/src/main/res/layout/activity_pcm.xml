@@ -15,18 +15,16 @@
         app:title_text="PC관리"
         />
 
-    <com.linktag.base.base_view_pager.BaseViewPager
-        android:id="@+id/viewPagerMain"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
-
+<!--    <com.linktag.base.base_view_pager.BaseViewPager-->
+<!--        android:id="@+id/viewPagerMain"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="0dp"-->
+<!--        android:layout_weight="1" />-->
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
         tools:context=".ui.jdm.JDMMain">
 
         <android.support.v7.widget.RecyclerView

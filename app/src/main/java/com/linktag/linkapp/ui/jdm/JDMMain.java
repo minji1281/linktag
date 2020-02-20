@@ -113,7 +113,7 @@ public class JDMMain extends BaseActivity {
     }
 
 
-    public void requestJMD_SELECT(String scancod) {
+    public void requestJMD_SELECT(String scancode) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(getString(R.string.common_network_error));
@@ -129,7 +129,7 @@ public class JDMMain extends BaseActivity {
                 BaseConst.URL_HOST,
                 "LIST",
                 CTN_02,
-                scancod,
+                scancode,
                 mUser.Value.OCM_01
         );
 
@@ -151,7 +151,7 @@ public class JDMMain extends BaseActivity {
                             Response<JDMModel> response = (Response<JDMModel>) msg.obj;
                             mList = response.body().Data;
 
-                            if (scancod.equals("")) {
+                            if (scancode.equals("")) {
                                 if (mList == null) mList = new ArrayList<>();
 
                                 mAdapter.updateData(mList);
@@ -162,7 +162,7 @@ public class JDMMain extends BaseActivity {
                                 if (mList.size() == 0) {
                                     JdmVO jdmvo = new JdmVO();
                                     jdmvo.setJDM_ID(CTN_02);
-                                    jdmvo.setJDM_01(scancod);
+                                    jdmvo.setJDM_01(scancode);
                                     jdmvo.setJDM_02("");
                                     jdmvo.setJDM_03("");
                                     jdmvo.setJDM_04("");
@@ -172,7 +172,7 @@ public class JDMMain extends BaseActivity {
                                     jdmvo.setARM_04(0);
                                     Intent intent = new Intent(mContext, DetailJdm.class);
                                     intent.putExtra("JdmVO", jdmvo);
-                                    intent.putExtra("scanCode", scancod);
+                                    intent.putExtra("scanCode", scancode);
                                     intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
                                     intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
                                     mContext.startActivity(intent);

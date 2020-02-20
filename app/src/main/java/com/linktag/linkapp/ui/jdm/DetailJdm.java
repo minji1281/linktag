@@ -1,5 +1,7 @@
 package com.linktag.linkapp.ui.jdm;
 
+import android.animation.TypeEvaluator;
+import android.animation.ValueAnimator;
 import android.app.AlarmManager;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -39,6 +41,7 @@ import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.JdmVO;
 
 import java.io.Serializable;
+import java.text.DecimalFormat;
 import java.util.Calendar;
 
 import retrofit2.Call;
@@ -65,6 +68,8 @@ public class DetailJdm extends BaseActivity implements Serializable {
 
     private Button bt_save;
 
+    private TextView tv_D_day;
+
     private JdmVO jdmVO;
 
     private Calendar calendar = Calendar.getInstance();
@@ -75,6 +80,7 @@ public class DetailJdm extends BaseActivity implements Serializable {
 
     private String CTM_01;
     private String CTD_02;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -86,7 +92,7 @@ public class DetailJdm extends BaseActivity implements Serializable {
         initialize();
 
         if (getIntent().hasExtra("scanCode")) {
-            CTM_01=  getIntent().getStringExtra("CTM_01");
+            CTM_01 = getIntent().getStringExtra("CTM_01");
             CTD_02 = getIntent().getStringExtra("CTD_02");
         }
 
@@ -150,12 +156,14 @@ public class DetailJdm extends BaseActivity implements Serializable {
             @Override
             public void onResponse(Call<JDMModel> call, Response<JDMModel> response) {
 
-                if(GUBUN.equals("INSERT")){
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02,jdmVO.JDM_01);
+                if (GUBUN.equals("INSERT")) {
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02, jdmVO.JDM_01);
                     ctds_control.requestCTDS_CONTROL();
                 }
+                if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
+                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 장독정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                }
                 onBackPressed();
-                Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 장독정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -201,16 +209,24 @@ public class DetailJdm extends BaseActivity implements Serializable {
         bt_save = (Button) findViewById(R.id.bt_save);
         switch_alarm = (Switch) findViewById(R.id.switch_alarm);
 
+        tv_D_day = (TextView) findViewById(R.id.tv_D_day);
+
         jdmVO = (JdmVO) getIntent().getSerializableExtra("JdmVO");
 
 
         if (jdmVO.getJDM_04().equals("")) {
             tv_datePicker.setText("날짜선택");
-        }else{
+        } else {
             String year = jdmVO.getJDM_04().substring(0, 4);
             String month = jdmVO.getJDM_04().substring(4, 6);
             String dayOfMonth = jdmVO.getJDM_04().substring(6, 8);
             tv_datePicker.setText(year + "년" + month + "월" + dayOfMonth + "일");
+
+            Calendar dCalendar = Calendar.getInstance();
+            dCalendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(dayOfMonth));
+
+            int count = (int) ((calendar.getTimeInMillis() - dCalendar.getTimeInMillis()) / (24 * 60 * 60 * 1000));
+            startCountAnimation(count);
         }
 
 
@@ -328,7 +344,9 @@ public class DetailJdm extends BaseActivity implements Serializable {
                 } else {
                     minuteString = String.valueOf(minute);
                 }
-                jdmVO.setJDM_96(date + hourOfDayString + minuteString);
+                if (!jdmVO.JDM_96.equals("")) {
+                    jdmVO.setJDM_96(date + hourOfDayString + minuteString);
+                }
 
             }
         });
@@ -345,6 +363,7 @@ public class DetailJdm extends BaseActivity implements Serializable {
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 if (getIntent().hasExtra("scanCode")) {
                     requestJMD_CONTROL("INSERT");
                 } else {
@@ -392,6 +411,8 @@ public class DetailJdm extends BaseActivity implements Serializable {
                         switch_alarm.setChecked(false);
                         return;
                     }
+                    String date = tv_datePicker2.getText().toString().replace("년", "").replace("월", "").replace("일", "");
+                    jdmVO.setJDM_96(date + hourOfDayString + minuteString);
                     jdmVO.setARM_03("Y");
                 } else {
                     switch_alarm.setChecked(false);
@@ -399,6 +420,22 @@ public class DetailJdm extends BaseActivity implements Serializable {
                 }
             }
         });
+
     }
+
+    private void startCountAnimation(int count) {
+
+        ValueAnimator animator = ValueAnimator.ofInt(0, count); //0 is min number, 600 is max number
+        animator.setDuration(3000); //Duration is in milliseconds
+        animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
+            public void onAnimationUpdate(ValueAnimator animation) {
+
+                tv_D_day.setText("D + " + animation.getAnimatedValue().toString());
+            }
+        });
+
+        animator.start();
+    }
+
 
 }

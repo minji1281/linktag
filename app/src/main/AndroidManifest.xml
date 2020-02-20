@@ -192,6 +192,11 @@
             android:theme="@style/TranslucentUser"
             android:windowSoftInputMode="adjustPan" />
         <activity
+            android:name=".ui.rfm.DetailRfm"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"
+            android:windowSoftInputMode="adjustPan" />
+        <activity
             android:name=".ui.rfm.DetailRfd"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser"

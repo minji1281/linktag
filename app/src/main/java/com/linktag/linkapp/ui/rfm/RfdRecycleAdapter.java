@@ -29,6 +29,7 @@ import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
 import com.linktag.linkapp.value_object.ArmVO;
 import com.linktag.linkapp.value_object.RfdVO;
 
+import java.text.Format;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -62,14 +63,19 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        String Format = mList.get(position).RFD_96;
-        String dateFormat = Format.substring(2, 4) + "." + Format.substring(4, 6) + "." + Format.substring(6, 8);
-        String timeFormat = Format.substring(8, 10) + ":" + Format.substring(10);
+        if (mList.get(position).RFD_96.equals("")) {
+            viewHolder.tv_date.setText("알림 미지정");
+            viewHolder.tv_time.setText("");
+        } else {
+            String Format = mList.get(position).RFD_96;
+            String dateFormat = Format.substring(2, 4) + "." + Format.substring(4, 6) + "." + Format.substring(6, 8);
+            String timeFormat = Format.substring(8, 10) + ":" + Format.substring(10);
+            viewHolder.tv_date.setText(dateFormat);
+            viewHolder.tv_time.setText(timeFormat);
+        }
 
         viewHolder.tv_name.setText(mList.get(position).RFD_03);
         viewHolder.tv_memo.setText(mList.get(position).RFD_04);
-        viewHolder.tv_date.setText(dateFormat);
-        viewHolder.tv_time.setText(timeFormat);
 
         if (mList.get(position).ARM_03.equals("Y")) {
             viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
@@ -81,26 +87,30 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
             @Override
             public void onClick(View view) {
 
-                ArmVO armVO = new ArmVO();
 
-                armVO.setARM_ID(mList.get(position).RFD_ID);
-                armVO.setARM_01(mList.get(position).RFD_01);
-                armVO.setARM_02(mUser.Value.OCM_01);
-                armVO.setARM_03(mList.get(position).ARM_03);
-                armVO.setARM_95(mList.get(position).RFD_02);
-                armVO.setARM_98(mUser.Value.OCM_01);
-
-                requestARM_CONTROL(armVO, position);
 
                 if (mList.get(position).ARM_03.equals("Y")) {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-                    Toast.makeText(mContext, "[" + mList.get(position).RFD_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
-                } else {
+                    Toast.makeText(mContext, "[" + mList.get(position).RFD_03 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
+                } else if(mList.get(position).ARM_03.equals("N") && !mList.get(position).RFD_96.equals("")) {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + mList.get(position).RFD_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
-
-
+                    Toast.makeText(mContext, "[" + mList.get(position).RFD_03 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
                 }
+                else{
+                    Toast.makeText(mContext, "알림일자를 지정하세요.", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                ArmVO armVO = new ArmVO();
+
+                armVO.setARM_ID(mList.get(position).RFD_ID);
+                armVO.setARM_01(mList.get(position).RFD_02);
+                armVO.setARM_02(mUser.Value.OCM_01);
+                armVO.setARM_03(mList.get(position).ARM_03);
+                armVO.setARM_95(mList.get(position).RFD_01);
+                armVO.setARM_98(mUser.Value.OCM_01);
+
+                requestARM_CONTROL(armVO, position);
             }
         });
 
@@ -217,7 +227,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
                             if (mList.get(position).ARM_03.equals("Y")) {
                                 mList.get(position).setARM_03("N");
 
-                               // cancelAlarm(mContext, mList.get(position).ARM_04);
+                                // cancelAlarm(mContext, mList.get(position).ARM_04);
 
                             } else {
                                 mList.get(position).setARM_03("Y");

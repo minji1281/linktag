@@ -1,6 +1,7 @@
 package com.linktag.linkapp.ui.pcm;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,7 +21,9 @@ import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.jdm.DetailJdm;
 import com.linktag.linkapp.ui.trp.TrpRecycleAdapter;
+import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.PcmVO;
 import com.linktag.linkapp.value_object.TrpVO;
 
@@ -59,14 +62,17 @@ public class PCMMain extends BaseActivity {
         initLayout();
         initialize();
 
-
+        if (getIntent().hasExtra("scanCode")) {
+            String scancode = getIntent().getExtras().getString("scanCode");
+            requestPCM_SELECT(scancode);
+        }
     }
 
     @Override
     public void onResume() {
         super.onResume();
 
-        requestPCM_SELECT();
+        requestPCM_SELECT("");
 
 
     }
@@ -88,7 +94,7 @@ public class PCMMain extends BaseActivity {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                requestPCM_SELECT();
+                requestPCM_SELECT("");
                 swipeRefresh.setRefreshing(false);
             }
         });
@@ -104,14 +110,14 @@ public class PCMMain extends BaseActivity {
     }
 
 
-    public void requestPCM_SELECT() {
+    public void requestPCM_SELECT(String scancode) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }
 
-        openLoadingBar();
+        //openLoadingBar();
 
         //String strToday = ClsDateTime.getNow("yyyyMMdd");
 
@@ -120,7 +126,7 @@ public class PCMMain extends BaseActivity {
                 BaseConst.URL_HOST,
                 "LIST",
                 CTN_02,
-                "",
+                scancode,
                 mUser.Value.OCM_01
         );
 
@@ -142,13 +148,41 @@ public class PCMMain extends BaseActivity {
                             Response<PCMModel> response = (Response<PCMModel>) msg.obj;
 
                             mList = response.body().Data;
-                            if (mList == null)
-                                mList = new ArrayList<>();
+                            if (scancode.equals("")) {
+                                if (mList == null) mList = new ArrayList<>();
 
-                            mAdapter.updateData(mList);
-                            mAdapter.notifyDataSetChanged();
-                            swipeRefresh.setRefreshing(false);
+                                mAdapter.updateData(mList);
+                                mAdapter.notifyDataSetChanged();
+                                swipeRefresh.setRefreshing(false);
 
+                            } else {
+                                if (mList.size() == 0) {
+
+                                    PcmVO pcmvo = new PcmVO();
+                                    pcmvo.setPCM_ID(CTN_02);
+                                    pcmvo.setPCM_01(scancode);
+                                    pcmvo.setPCM_02("");
+                                    pcmvo.setPCM_03("");
+                                    pcmvo.setPCM_04("");
+                                    pcmvo.setPCM_96("");
+                                    pcmvo.setPCM_97(mUser.Value.OCM_01);
+                                    pcmvo.setARM_03("N");
+                                    pcmvo.setARM_04(0);
+
+                                    Intent intent = new Intent(mContext, DetailPcm.class);
+                                    intent.putExtra("PcmVO", pcmvo);
+                                    intent.putExtra("scanCode", scancode);
+                                    intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
+                                    intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
+                                    mContext.startActivity(intent);
+                                } else {
+                                    PcmVO pcmvo = mList.get(0);
+                                    Intent intent = new Intent(mContext, DetailPcm.class);
+                                    intent.putExtra("PcmVO", pcmvo);
+
+                                    mContext.startActivity(intent);
+                                }
+                            }
                         }
                     }
                 }.sendMessage(msg);
