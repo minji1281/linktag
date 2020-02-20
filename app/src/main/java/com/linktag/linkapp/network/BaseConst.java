@@ -90,4 +90,10 @@ public class BaseConst {
     public static final String COD_SELECT = "{host}/Mobile/COD_SELECT";
     public static final String COD_CONTROL = "{host}/Mobile/COD_CONTROL";
 
+    //차량 소모품 점검/교체 내역
+    public static final String CAR_SELECT = "{host}/Mobile/CAR_SELECT";
+    public static final String CAR_CONTROL = "{host}/Mobile/CAR_CONTROL";
+    public static final String CAD_SELECT = "{host}/Mobile/CAD_SELECT";
+    public static final String CAD_CONTROL = "{host}/Mobile/CAD_CONTROL";
+
 }

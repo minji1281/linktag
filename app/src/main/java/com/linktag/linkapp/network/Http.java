@@ -3,6 +3,8 @@ package com.linktag.linkapp.network;
 import com.linktag.linkapp.model.AIRModel;
 import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.model.BRCModel;
+import com.linktag.linkapp.model.CADModel;
+import com.linktag.linkapp.model.CARModel;
 import com.linktag.linkapp.model.CMTModel;
 import com.linktag.linkapp.model.CODModel;
 import com.linktag.linkapp.model.COSModel;
@@ -848,6 +850,81 @@ public class Http extends HttpBaseService {
                 @Field(value = "COD_96") String COD_96,
                 @Field(value = "COD_98") String COD_98,
                 @Field(value = "ARM_03") String ARM_03
+        );
+
+    }
+
+    //--------------------------------------------------
+    // 차량 소모품 점검/교체 내역
+    //--------------------------------------------------
+    public static ICAR car(TYPE type) {
+        return (ICAR) retrofit(ICAR.class, type);
+    }
+
+    public interface ICAR {
+
+        @FormUrlEncoded
+        @POST(BaseConst.CAR_SELECT)
+        Call<CARModel> CAR_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "CAR_ID") String CAR_ID,     // 컨테이너
+                @Field(value = "CAR_01") String CAR_01      // 코드번호
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.CAR_CONTROL)
+        Call<CARModel> CAR_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "CAR_ID") String CAR_ID,
+                @Field(value = "CAR_01") String CAR_01,
+                @Field(value = "CAR_02") String CAR_02,
+                @Field(value = "CAR_03") String CAR_03,
+
+                @Field(value = "CAR_04") String CAR_04,
+                @Field(value = "CAR_05") String CAR_05,
+                @Field(value = "CAR_06") String CAR_06,
+                @Field(value = "CAR_07") String CAR_07,
+                @Field(value = "CAR_98") String CAR_98
+        );
+
+    }
+
+    public static ICAD cad(TYPE type) {
+        return (ICAD) retrofit(ICAD.class, type);
+    }
+
+    public interface ICAD {
+
+        @FormUrlEncoded
+        @POST(BaseConst.CAD_SELECT)
+        Call<CADModel> CAD_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "CAD_ID") String CAD_ID,     // 컨테이너
+                @Field(value = "CAD_01") String CAD_01,     // 차량코드
+                @Field(value = "CAD_02") String CAD_02      // 일련번호
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.CAD_CONTROL)
+        Call<CADModel> CAD_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "CAD_ID") String CAD_ID,
+                @Field(value = "CAD_01") String CAD_01,
+                @Field(value = "CAD_02") String CAD_02,
+                @Field(value = "CAD_03") String CAD_03,
+
+                @Field(value = "CAD_04") String CAD_04,
+                @Field(value = "CAD_05") String CAD_05,
+                @Field(value = "CAD_06") String CAD_06,
+                @Field(value = "CAD_07") double CAD_07,
+                @Field(value = "CAD_08") int CAD_08,
+
+                @Field(value = "CAD_09") String CAD_95,
+                @Field(value = "CAD_98") String CAD_98
         );
 
     }

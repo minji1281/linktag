@@ -247,6 +247,23 @@
             android:theme="@style/TranslucentUser"
             android:excludeFromRecents="true"/>
 
+        <!-- 차량소모품 교체점검내역 -->
+        <activity
+            android:name=".ui.car.CadList"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"
+            android:excludeFromRecents="true"/>
+        <activity
+            android:name=".ui.car.CarDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"
+            android:excludeFromRecents="true"/>
+        <activity
+            android:name=".ui.car.CadDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser"
+            android:excludeFromRecents="true"/>
+
         <!-- 푸시알람 -->
         <!--        <receiver android:name=".ui.alarm.DeviceBootReceiver"-->
         <!--            android:enabled="false">-->
