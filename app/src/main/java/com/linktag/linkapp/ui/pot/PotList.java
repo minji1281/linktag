@@ -16,6 +16,7 @@ import android.widget.Toast;
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
+import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.network.BaseConst;
@@ -200,60 +201,61 @@ public class PotList extends BaseActivity implements PotAdapter.AlarmClickListen
         });
     }
 
-    //알람 주석처리
-//    private void requestPOT_CONTROL(String GUB, PotVO pot) {
-//        // 인터넷 연결 여부 확인
-//        if (!ClsNetworkCheck.isConnectable(mContext)){
-//            BaseAlert.show(mContext.getString(R.string.common_network_error));
-//            return;
-//        }
-//
-//        String GUBUN = GUB;
-//        String POT_ID = pot.POT_ID; //컨테이너
-//        String POT_01 = pot.POT_01; //코드번호
-//        String POT_02 = "";
-//        int POT_04 = 0;
-//
-//        String POT_05 = "";
-//        String POT_06 = "";
-//        String POT_81 = "";
-//        String POT_96 = "";
-//        String POT_98 = mUser.Value.OCM_01; //사용자 아이디
-//
-//        String ARM_03 = pot.ARM_03; //알림여부
-//
-//        Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_CONTROL(
-//                BaseConst.URL_HOST,
-//                GUBUN,
-//                POT_ID,
-//                POT_01,
-//                POT_02,
-//                POT_04,
-//
-//                POT_05,
-//                POT_06,
-//                POT_81,
-//                POT_96,
-//                POT_98,
-//
-//                ARM_03
-//        );
-//
-//        call.enqueue(new Callback<POT_Model>(){
-//            @SuppressLint("HandlerLeak")
-//            @Override
-//            public void onResponse(Call<POT_Model> call, Response<POT_Model> response){
-//                Message msg = new Message();
-//                msg.obj = response;
-//                msg.what = 100;
-//
-//                new Handler(){
-//                    @Override
-//                    public void handleMessage(Message msg){
-//                        if (msg.what == 100){
-//
-//                            Response<POT_Model> response = (Response<POT_Model>) msg.obj;
-//
+    private void requestPOT_CONTROL(String GUB, PotVO pot) {
+        // 인터넷 연결 여부 확인
+        if (!ClsNetworkCheck.isConnectable(mContext)){
+            BaseAlert.show(mContext.getString(R.string.common_network_error));
+            return;
+        }
+
+        String GUBUN = GUB;
+        String POT_ID = pot.POT_ID; //컨테이너
+        String POT_01 = pot.POT_01; //코드번호
+        String POT_02 = "";
+        int POT_04 = 0;
+
+        String POT_05 = "";
+        String POT_06 = "";
+        String POT_81 = "";
+        String POT_96 = "";
+        String POT_98 = mUser.Value.OCM_01; //사용자 아이디
+
+        String ARM_03 = pot.ARM_03; //알림여부
+
+        Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_CONTROL(
+                BaseConst.URL_HOST,
+                GUBUN,
+                POT_ID,
+                POT_01,
+                POT_02,
+                POT_04,
+
+                POT_05,
+                POT_06,
+                POT_81,
+                POT_96,
+                POT_98,
+
+                ARM_03
+        );
+
+        call.enqueue(new Callback<POT_Model>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<POT_Model> call, Response<POT_Model> response){
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if (msg.what == 100){
+
+                            Response<POT_Model> response = (Response<POT_Model>) msg.obj;
+
+                            onResume();
+
 //                            if(response.body().Data.get(0).Validation){
 //                                AlarmMain alarmMain = new AlarmMain();
 //                                int ID = response.body().Data.get(0).ARM_04;
@@ -286,24 +288,24 @@ public class PotList extends BaseActivity implements PotAdapter.AlarmClickListen
 //                                    alarmMain.deleteAlarm(getApplicationContext(), pot.ARM_04); //푸시알람 해제
 //                                }
 //
-//                                onResume();
+//
 //                            } else {
 //                                Toast.makeText(mContext, R.string.login_err, Toast.LENGTH_LONG).show();
 //                            }
-//
-//                        }
-//                    }
-//                }.sendMessage(msg);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<POT_Model> call, Throwable t){
-//                Log.d("Test", t.getMessage());
-//
-//            }
-//        });
-//
-//    }
+
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<POT_Model> call, Throwable t){
+                Log.d("Test", t.getMessage());
+
+            }
+        });
+
+    }
 
     @Override
     public void onListAlarmClick(int position) {
@@ -316,9 +318,9 @@ public class PotList extends BaseActivity implements PotAdapter.AlarmClickListen
             data.ARM_03 = "Y";
         }
 
-        Toast.makeText(mContext, "준비중 입니다.", Toast.LENGTH_LONG).show();
+//        Toast.makeText(mContext, "준비중 입니다.", Toast.LENGTH_LONG).show();
 
-//        requestPOT_CONTROL("ALARM_UPDATE", data);
+        requestPOT_CONTROL("ALARM_UPDATE", data);
     }
 
     private void goPotNew(){

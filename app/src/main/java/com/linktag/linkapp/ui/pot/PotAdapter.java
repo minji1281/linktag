@@ -85,7 +85,7 @@ public class PotAdapter extends BaseAdapter implements View.OnClickListener {
         viewHolder.tvAlarmDay.setText(mList.get(position).POT_96.substring(2, 4) + "." + mList.get(position).POT_96.substring(4, 6) + "." + mList.get(position).POT_96.substring(6, 8) + " " + mList.get(position).POT_96.substring(8, 10) + ":" + mList.get(position).POT_96.substring(10, 12));
 
         //Image
-        viewHolder.PotIcon.setImageResource(R.drawable.ic_launcher);
+        viewHolder.PotIcon.setImageResource(R.drawable.ic_pot);
         if(mList.get(position).ARM_03.equals("Y")){
             viewHolder.AlarmIcon.setImageResource(R.drawable.main_noti_selected);
         }

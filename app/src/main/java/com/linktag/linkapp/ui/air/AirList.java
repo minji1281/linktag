@@ -189,18 +189,89 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
         });
     }
 
+    private void requestAIR_CONTROL(String GUBUN, AIR_VO AIR) {
+
+        //인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        openLoadingBar();
+
+        String AIR_ID = CTN_02; //컨테이너
+        String AIR_01 = AIR.AIR_01; //코드번호
+        String AIR_02 = "";
+        String AIR_03 = "";
+        String AIR_04 = "";
+        int AIR_05 = 0;
+        String AIR_06 = "";
+        String AIR_07 = "";
+        String AIR_96 = "";
+        String AIR_98 = mUser.Value.OCM_01; //사용자코드
+        String ARM_03 = AIR.ARM_03;
+
+        Call<AIRModel> call = Http.air(HttpBaseService.TYPE.POST).AIR_CONTROL(
+                BaseConst.URL_HOST,
+                GUBUN,
+                AIR_ID,
+                AIR_01,
+                AIR_02,
+                AIR_03,
+
+                AIR_04,
+                AIR_05,
+                AIR_06,
+                AIR_07,
+                AIR_96,
+
+                AIR_98,
+                ARM_03
+        );
+
+        call.enqueue(new Callback<AIRModel>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<AIRModel> call, Response<AIRModel> response){
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+                            closeLoadingBar();
+
+                            Response<AIRModel> response = (Response<AIRModel>) msg.obj;
+
+                            onResume();
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<AIRModel> call, Throwable t){
+                Log.d("AIR_CONTROL", t.getMessage());
+                closeLoadingBar();
+            }
+        });
+
+    }
+
     @Override
     public void onListAlarmClick(int position) {
-//        AIR_VO data = mList.get(position);
-//
-//        if(data.ARM_03.equals("Y")){
-//            data.ARM_03 = "N";
-//        }
-//        else{ //N
-//            data.ARM_03 = "Y";
-//        }
+        AIR_VO data = mList.get(position);
 
-        Toast.makeText(mContext, "준비중 입니다.", Toast.LENGTH_LONG).show();
+        if(data.ARM_03.equals("Y")){
+            data.ARM_03 = "N";
+        }
+        else{ //N
+            data.ARM_03 = "Y";
+        }
+
+        requestAIR_CONTROL("ALARM_UPDATE", data);
     }
 
     private void goAirNew(){

@@ -299,6 +299,8 @@ public class AirDetail extends BaseActivity {
         String AIR_98 = mUser.Value.OCM_01; //사용자코드
         if(swAlarm.isChecked()){ //알림여부
             ARM_03 = "Y";
+        }else{
+            ARM_03 = "N";
         }
 
         Call<AIRModel> call = Http.air(HttpBaseService.TYPE.POST).AIR_CONTROL(
@@ -363,12 +365,12 @@ public class AirDetail extends BaseActivity {
     private void callBack(String GUB, AIR_VO data){
         if(data.Validation){
             switch(GUB){
-                case "INSERT":
-                    finish();
-                    break;
-                case "UPDATE":
-                    finish();
-                    break;
+//                case "INSERT":
+//                    finish();
+//                    break;
+//                case "UPDATE":
+//                    finish();
+//                    break;
                 case "CHANGE":
                     setUserData(data);
                     break;

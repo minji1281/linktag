@@ -323,6 +323,9 @@ public class CodDetail extends BaseActivity {
         if(swAlarm.isChecked()){ //알림여부
             ARM_03 = "Y";
         }
+        else{
+            ARM_03 = "N";
+        }
 
         Call<CODModel> call = Http.cod(HttpBaseService.TYPE.POST).COD_CONTROL(
                 BaseConst.URL_HOST,

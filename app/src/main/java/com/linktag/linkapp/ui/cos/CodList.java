@@ -245,18 +245,90 @@ public class CodList extends BaseActivity implements CodAdapter.AlarmClickListen
         });
     }
 
+    private void requestCOD_CONTROL(String GUB, COD_VO COD) {
+        // 인터넷 연결 여부 확인
+        if (!ClsNetworkCheck.isConnectable(mContext)){
+            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        String GUBUN = GUB;
+        String COD_ID = COD.COD_ID; //컨테이너
+        String COD_01 = COD.COD_01; //코드번호
+        String COD_02 = "";
+        String COD_03 = "";
+        double COD_04 = 0;
+        String COD_05 = "";
+        String COD_06 = "";
+        String COD_07 = "";
+        String COD_08 = "";
+        String COD_96 = "";
+        String COD_98 = mUser.Value.OCM_01; //최종수정자
+        String ARM_03 = COD.ARM_03;
+
+        Call<CODModel> call = Http.cod(HttpBaseService.TYPE.POST).COD_CONTROL(
+                BaseConst.URL_HOST,
+                GUBUN,
+                COD_ID,
+                COD_01,
+                COD_02,
+                COD_03,
+
+                COD_04,
+                COD_05,
+                COD_06,
+                COD_07,
+                COD_08,
+
+                COD.COD_95,
+                COD_96,
+                COD_98,
+                ARM_03
+        );
+
+        call.enqueue(new Callback<CODModel>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<CODModel> call, Response<CODModel> response){
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if (msg.what == 100){
+
+                            Response<CODModel> response = (Response<CODModel>) msg.obj;
+
+                            onResume();
+
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<CODModel> call, Throwable t){
+                Log.d("Test", t.getMessage());
+
+            }
+        });
+
+    }
+
     @Override
     public void onListAlarmClick(int position) {
-//        COD_VO data = mList.get(position);
-//
-//        if(data.ARM_03.equals("Y")){
-//            data.ARM_03 = "N";
-//        }
-//        else{ //N
-//            data.ARM_03 = "Y";
-//        }
+        COD_VO data = mList.get(position);
 
-        Toast.makeText(mContext, "준비중 입니다.", Toast.LENGTH_LONG).show();
+        if(data.ARM_03.equals("Y")){
+            data.ARM_03 = "N";
+        }
+        else{ //N
+            data.ARM_03 = "Y";
+        }
+
+        requestCOD_CONTROL("ALARM_UPDATE", data);
     }
 
     private void goCodNew(){

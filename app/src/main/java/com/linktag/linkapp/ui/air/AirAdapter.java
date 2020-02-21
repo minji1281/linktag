@@ -73,7 +73,7 @@ public class AirAdapter extends BaseAdapter implements View.OnClickListener {
         viewHolder.tvAlarmDay.setText(mList.get(position).AIR_96.substring(2, 4) + "." + mList.get(position).AIR_96.substring(4, 6) + "." + mList.get(position).AIR_96.substring(6, 8) + "\n" + mList.get(position).AIR_96.substring(8, 10) + ":" + mList.get(position).AIR_96.substring(10, 12));
 
         //Image
-        viewHolder.imgAirIcon.setImageResource(R.drawable.ic_launcher);
+        viewHolder.imgAirIcon.setImageResource(R.drawable.ic_air);
         if(mList.get(position).ARM_03.equals("Y")){
             viewHolder.imgAlarmIcon.setImageResource(R.drawable.main_noti_selected);
         }
