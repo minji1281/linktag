@@ -38,6 +38,7 @@ public class BaseHeader extends LinearLayout {
     public LinearLayout layoutHeader;
     // 텍스트 타이틀(기본)
     public TextView tvHeaderTitle;
+    public TextView tvHeaderTitle2;
     // 왼쪽 버튼 (Back)
     public ImageButton btnHeaderLeft;
     // 오른쪽1 버튼
@@ -45,7 +46,7 @@ public class BaseHeader extends LinearLayout {
     // 오른쪽2 버튼
     public ImageButton btnHeaderRight2;
     // 오른쪽3 버튼
-    public ImageButton btnHeaderRight3;
+    //public ImageButton btnHeaderRight3;
     // 텍스트 버튼
     public Button btnHeaderText;
     // 왼쪽 텍스트 버튼
@@ -91,6 +92,11 @@ public class BaseHeader extends LinearLayout {
 
         // 타이틀 text 설정
         tvHeaderTitle.setText(typedArray.getString(R.styleable.BaseHeader_title_text));
+        tvHeaderTitle.setVisibility(typedArray.getInt(R.styleable.BaseHeader_title_text_visibility, View.VISIBLE));
+
+        // 타이틀 text2 설정
+        tvHeaderTitle2.setText(typedArray.getString(R.styleable.BaseHeader_title_text2));
+        tvHeaderTitle2.setVisibility(typedArray.getInt(R.styleable.BaseHeader_title_text2_visibility, View.GONE));
 
         // 왼쪽 버튼 visibility 설정
         btnHeaderLeft.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_left_visibility, View.VISIBLE));
@@ -102,7 +108,7 @@ public class BaseHeader extends LinearLayout {
         btnHeaderRight2.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_right2_visibility, View.GONE));
 
         // 오른쪽3 버튼 visibility 설정
-        btnHeaderRight3.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_right3_visibility, View.GONE));
+        //btnHeaderRight3.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_right3_visibility, View.GONE));
 
         // 오른쪽 텍스트 버튼
         btnHeaderText.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_text_visibility, View.GONE));
@@ -137,12 +143,14 @@ public class BaseHeader extends LinearLayout {
         int nBtnRight2Src = typedArray.getResourceId(R.styleable.BaseHeader_btn_right2_src, -1);
         if (nBtnRight2Src != -1)
             btnHeaderRight2.setImageResource(nBtnRight2Src);
-
+/*
         // 이미지 설정
         int nBtnRight3Src = typedArray.getResourceId(R.styleable.BaseHeader_btn_right3_src, -1);
         if (nBtnRight3Src != -1)
             btnHeaderRight3.setImageResource(nBtnRight3Src);
 
+
+ */
         for (int i = 0; i < attrs.getAttributeCount(); i++) {
             String attributeName = attrs.getAttributeName(i);
 
@@ -170,11 +178,12 @@ public class BaseHeader extends LinearLayout {
 
         layoutHeader = (LinearLayout) v.findViewById(R.id.layoutHeader);
         tvHeaderTitle = (TextView) v.findViewById(R.id.tvHeaderTitle);
+        tvHeaderTitle2 = (TextView) v.findViewById(R.id.tvHeaderTitle2);
 
         btnHeaderLeft = (ImageButton) v.findViewById(R.id.btnHeaderLeft);
         btnHeaderRight1 = (ImageButton) v.findViewById(R.id.btnHeaderRight1);
         btnHeaderRight2 = (ImageButton) v.findViewById(R.id.btnHeaderRight2);
-        btnHeaderRight3 = (ImageButton) v.findViewById(R.id.btnHeaderRight3);
+        //btnHeaderRight3 = (ImageButton) v.findViewById(R.id.btnHeaderRight3);
 
         btnHeaderText = (Button) v.findViewById(R.id.btnHeaderText);
         btnHeaderLeftText = (Button) v.findViewById(R.id.btnHeaderLeftText);
@@ -196,7 +205,7 @@ public class BaseHeader extends LinearLayout {
 
         setHeaderRightButton2();
 
-        setHeaderRightButton3();
+        //setHeaderRightButton3();
 
         setHeaderText();
 
@@ -262,7 +271,7 @@ public class BaseHeader extends LinearLayout {
             }
         });
     }
-
+/*
     private void setHeaderRightButton3() {
         // 버튼 이벤트
         btnHeaderRight3.setOnClickListener(new OnClickListener() {
@@ -276,7 +285,7 @@ public class BaseHeader extends LinearLayout {
             }
         });
     }
-
+*/
     private void setHeaderLeftButton() {
         // 이미지 변경
         if (m_strLeftBtnSrc.split("/").length == 2 && m_strLeftBtnSrc.substring(0, 1).equals("@")) {

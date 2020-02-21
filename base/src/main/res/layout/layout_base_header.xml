@@ -5,12 +5,12 @@
     android:id="@+id/layoutHeader"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/colorAccent"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp">
+        android:layout_height="56dp"
+        android:background="@color/white">
 
         <!--왼쪽-->
         <LinearLayout
@@ -31,32 +31,56 @@
                 android:id="@+id/btnHeaderLeftText"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/selector_btn_background"
+                android:background="@color/transparent_color"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
                 android:text="@string/common_cancel"
-                android:textColor="@color/white"
+                android:textColor="@color/black"
                 android:textSize="@dimen/text_normal"
                 android:visibility="gone"
                 tools:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvHeaderTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="Title"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold"
+                    android:visibility="visible"
+                    tools:visibility="visible" />
+
+                <TextView
+                    android:id="@+id/tvHeaderTitle2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:text="Title2"
+                    android:textColor="@color/colorTextGray"
+                    android:textSize="@dimen/text_smaller"
+                    android:textStyle="bold"
+                    android:visibility="gone"
+                    tools:visibility="visible" />
+
+            </LinearLayout>
         </LinearLayout>
 
         <!--가운데 타이틀-->
-        <TextView
-            android:id="@+id/tvHeaderTitle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:layout_marginStart="50dp"
-            android:layout_marginEnd="50dp"
-            android:text="Title"
-            android:textColor="@color/white"
-            android:textSize="@dimen/text_normal"
-            android:textStyle="bold" />
 
         <!--오른쪽-->
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -68,12 +92,12 @@
                 android:id="@+id/spHeaderRight"
                 android:layout_width="120dp"
                 android:layout_height="35dp"
-                android:background="@drawable/spinner_background"
-                android:popupBackground="@color/colorAccent"
                 android:layout_gravity="center_vertical"
+                android:background="@drawable/spinner_background"
                 android:padding="0dp"
+                android:popupBackground="@color/colorAccent"
                 android:visibility="gone"
-                tools:visibility="visible"/>
+                tools:visibility="gone" />
 
             <ImageButton
                 android:id="@+id/btnHeaderRight2"
@@ -82,7 +106,7 @@
                 android:background="@color/transparent_color"
                 android:contentDescription="@null"
                 android:padding="10dp"
-                android:src="@drawable/btn_noti_white"
+                android:src="@drawable/btn_noti_off_gray"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -93,18 +117,7 @@
                 android:background="@color/transparent_color"
                 android:contentDescription="@null"
                 android:padding="10dp"
-                android:src="@drawable/btn_setting_white"
-                android:visibility="gone"
-                tools:visibility="visible" />
-
-            <ImageButton
-                android:id="@+id/btnHeaderRight3"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:background="@color/transparent_color"
-                android:contentDescription="@null"
-                android:padding="10dp"
-                android:src="@drawable/btn_nav_white"
+                android:src="@drawable/btn_setting_gray"
                 android:visibility="gone"
                 tools:visibility="visible" />
 
@@ -112,12 +125,13 @@
                 android:id="@+id/btnHeaderText"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:background="@drawable/selector_btn_background"
+                android:background="@color/transparent_color"
                 android:minWidth="0dp"
                 android:minHeight="0dp"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:textColor="@color/white"
+                android:text="@string/common_save"
+                android:textColor="@color/black"
                 android:textSize="@dimen/text_normal"
                 android:visibility="gone"
                 tools:visibility="visible" />

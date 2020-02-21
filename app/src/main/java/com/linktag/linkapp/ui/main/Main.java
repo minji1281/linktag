@@ -20,7 +20,7 @@ import android.widget.Toast;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.linktag.base.base_activity.BaseActivity;
-import com.linktag.base.base_header.BaseHeader;
+import com.linktag.base.base_footer.BaseFooter;
 import com.linktag.base.base_view_pager.BaseViewPager;
 import com.linktag.base.base_view_pager.ViewPagerAdapter;
 import com.linktag.base.network.ClsNetworkCheck;
@@ -36,10 +36,8 @@ import com.linktag.linkapp.ui.login.Login;
 import com.linktag.linkapp.ui.menu.ChangeActivityCls;
 import com.linktag.linkapp.ui.menu.ChooseOne;
 import com.linktag.linkapp.ui.menu.Menu;
-import com.linktag.linkapp.ui.pcm.PCMMain;
-import com.linktag.linkapp.ui.pot.PotList;
 import com.linktag.linkapp.ui.scanner.ScanBarcode;
-import com.linktag.linkapp.ui.settings_main.SettingFragment;
+import com.linktag.linkapp.ui.settings_main.SettingMain;
 import com.linktag.linkapp.ui.work_place_search.FindWorkPlace;
 import com.linktag.linkapp.value_object.CtdVO;
 
@@ -55,27 +53,21 @@ import retrofit2.Response;
 public class Main extends BaseActivity {
     private final int TAB_PAGE_HOME = 0;
     private final int TAB_PAGE_COMMENT = 1;
-    private final int TAB_PAGE_APPLY = 2;
-    private final int TAB_PAGE_SETTING = 3;
-    //private final int TAB_PAGE_JDM = 4; //테스트
 
     // Variable
     private CommuteFragment fragmentHome;
     private WorkFragment fragmentWork;
-    private ApplyFragment fragmentApply;
-    private SettingFragment fragmentSetting;
 
     private BaseViewPager viewPager;
     private ViewPagerAdapter mViewPagerAdapter;
     private List<Fragment> mListFragment = new ArrayList<>();
 
     // Layout
-    private BaseHeader header;
+    //private BaseHeader header;
     private TextView tvMainHome;
     private TextView tvMainWork;
-    private TextView tvMainScan;
-    private TextView tvMainSetting;
-    private  TextView tvMainTest;  // 테스트
+
+    private BaseFooter footer;
 
     private BroadcastReceiver mBroadcastLogout = new BroadcastReceiver() {
         @Override
@@ -97,35 +89,24 @@ public class Main extends BaseActivity {
 
         initialize();
 
-        checkPwd();
+        //checkPwd();
     }
 
     @Override
     protected void initLayout() {
-        header = findViewById(R.id.header);
-        header.btnHeaderRight3.setOnClickListener(v -> goMenu());
+        footer = findViewById(R.id.footer);
+        footer.btnFooterHome.setSelected(true);
+        footer.btnFooterMember.setVisibility(View.GONE);
+        footer.btnFooterSetting.setVisibility(View.VISIBLE);
 
-        //header.btnHeaderRight1.setOnClickListener(v -> goScan());
+        footer.btnFooterScan.setOnClickListener(v -> goScan());
+        footer.btnFooterMenu.setOnClickListener(v -> goMenu());
+        footer.btnFooterSetting.setOnClickListener(v -> goSettingMain());
 
         tvMainHome = findViewById(R.id.tvMainHome);
         tvMainHome.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_HOME));
         tvMainWork = findViewById(R.id.tvMainWork);
         tvMainWork.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_COMMENT));
-        tvMainScan = findViewById(R.id.tvMainScan);
-        //  tvMainScan.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_APPLY));
-        tvMainScan.setOnClickListener(v -> goScan());
-        tvMainSetting = findViewById(R.id.tvMainSetting);
-        tvMainSetting.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_SETTING));
-
-        //테스트
-//        tvMainTest = findViewById(R.id.tvMainTest);
-//        tvMainTest.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(mContext, PCMMain.class);
-//                mContext.startActivity(intent);
-//            }
-//        });
 
         initViewPager();
     }
@@ -177,20 +158,12 @@ public class Main extends BaseActivity {
 
         fragmentHome = new CommuteFragment();
         fragmentWork = new WorkFragment();
-        fragmentApply = new ApplyFragment();
-        fragmentSetting = new SettingFragment();
-        //fragmentJdm = new JDMFragment();
 
         fragmentHome.setOnLoadingDialog(callLoadingBar);
         fragmentWork.setOnLoadingDialog(callLoadingBar);
-        fragmentApply.setOnLoadingDialog(callLoadingBar);
-        fragmentSetting.setOnLoadingDialog(callLoadingBar);
 
         mListFragment.add(fragmentHome);
         mListFragment.add(fragmentWork);
-        mListFragment.add(fragmentApply);
-        mListFragment.add(fragmentSetting);
-        //mListFragment.add(fragmentJdm);
 
         mViewPagerAdapter = new ViewPagerAdapter(this.getSupportFragmentManager(), mListFragment);
         viewPager.setAdapter(mViewPagerAdapter);
@@ -219,49 +192,14 @@ public class Main extends BaseActivity {
     private void setTag() {
         tvMainHome.setSelected(false);
         tvMainWork.setSelected(false);
-        tvMainScan.setSelected(false);
-        tvMainSetting.setSelected(false);
 
         switch (viewPager.getCurrentItem()) {
             case TAB_PAGE_HOME:
                 tvMainHome.setSelected(true);
-                header.tvHeaderTitle.setText(R.string.home_01);
-                header.btnHeaderRight1.setVisibility(View.GONE);
-                header.btnHeaderRight3.setVisibility(View.VISIBLE);
-                header.btnHeaderText.setVisibility(View.GONE);
                 break;
             case TAB_PAGE_COMMENT:
                 tvMainWork.setSelected(true);
-                header.tvHeaderTitle.setText(R.string.home_02);
-                header.btnHeaderRight1.setVisibility(View.GONE);
-                header.btnHeaderRight3.setVisibility(View.VISIBLE);
-                header.btnHeaderText.setVisibility(View.GONE);
-
-//                if(fragmentWork != null && fragmentWork.getContext() != null)
-//                    fragmentWork.requestCMT_SELECT();
                 break;
-            case TAB_PAGE_APPLY:
-                tvMainScan.setSelected(true);
-                header.tvHeaderTitle.setText(R.string.home_03);
-                header.btnHeaderRight1.setVisibility(View.GONE);
-                header.btnHeaderRight3.setVisibility(View.VISIBLE);
-                header.btnHeaderText.setText("신청");
-                header.btnHeaderText.setVisibility(View.GONE);
-                break;
-            case TAB_PAGE_SETTING:
-                tvMainSetting.setSelected(true);
-                header.tvHeaderTitle.setText(R.string.home_04);
-                header.btnHeaderRight1.setVisibility(View.GONE);
-                header.btnHeaderRight3.setVisibility(View.VISIBLE);
-                header.btnHeaderText.setVisibility(View.GONE);
-                break;
-
-//            case TAB_PAGE_JDM:
-//                tvMainTest.setSelected(true);
-//                header.tvHeaderTitle.setText("테스트관리");
-//                header.btnHeaderRight1.setVisibility(View.GONE);
-//                header.btnHeaderText.setVisibility(View.GONE);
-//                break;
         }
     }
 
@@ -283,17 +221,19 @@ public class Main extends BaseActivity {
         integrator.initiateScan();
     }
 
-    //테스트
-    private void goPot() {
-        Intent intent = new Intent(mContext, PotList.class);
-        mContext.startActivity(intent);
-    }
-
     /**
      * 메뉴 화면 이동
      */
     private void goMenu(){
         Intent intent = new Intent(mContext, Menu.class);
+        mContext.startActivity(intent);
+    }
+
+    /**
+     * 세팅 화면 이동
+     */
+    private void goSettingMain(){
+        Intent intent = new Intent(mContext, SettingMain.class);
         mContext.startActivity(intent);
     }
 

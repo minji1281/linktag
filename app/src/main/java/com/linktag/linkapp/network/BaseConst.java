@@ -50,6 +50,9 @@ public class BaseConst {
     public static final String CTD_CONTROL = "{host}/Mobile/CTD_CONTROL";
     public static final String SVC_SELECT = "{host}/Mobile/SVC_SELECT";
 
+    public static final String CTU_SELECT = "{host}/Mobile/CTU_SELECT";
+    public static final String CTU_CONTROL = "{host}/Mobile/CTU_CONTROL";
+
     //알람
     public static final String URL_ARM_CONTROL = "{host}/Mobile/ARM_CONTROL";
 

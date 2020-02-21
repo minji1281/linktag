@@ -10,7 +10,6 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.linktag.base.base_activity.BaseActivity;
-import com.linktag.base.base_fragment.BaseFragment;
 import com.linktag.base.base_view_pager.BaseViewPager;
 import com.linktag.base.base_view_pager.ViewPagerAdapter;
 import com.linktag.base.util.BaseLoadingBar;
@@ -67,8 +66,8 @@ public class ChooseOne extends BaseActivity {
         fragService = new ServiceFragment();
         fragShared = new SharedFragment();
 
-        fragService.setOnLoadingDialog(callLoadingBar);
-        fragShared.setOnLoadingDialog(callLoadingBar);
+        //fragService.setOnLoadingDialog(callLoadingBar);
+        //fragShared.setOnLoadingDialog(callLoadingBar);
 
         mListFragment.add(fragService);
         mListFragment.add(fragShared);

@@ -95,9 +95,10 @@ public class AddService extends BaseActivity {
 
         header.tvHeaderTitle.setText(contractType.equals("P") ? "서비스 추가" : "공유 서비스 추가");
 
-        String CTM_01s = getIntent().getStringExtra("CTM_01");
-
-        CTM_01 = CTM_01s == null || CTM_01s.equals("") ? mUser.Value.CTM_01 : CTM_01s;
+        if(getIntent().hasExtra("CTM_01"))
+            CTM_01 = getIntent().getStringExtra("CTM_01");
+        else
+            CTM_01 = mUser.Value.CTM_01;
 
         mList = new ArrayList<>();
         mAdapter = new AddServiceAdapter(mContext, mList);

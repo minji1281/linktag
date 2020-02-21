@@ -4,96 +4,56 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F5F7"
     android:orientation="vertical"
     tools:context=".ui.main.Main">
 
-    <LinearLayout
+    <com.linktag.base.base_header.BaseHeader
+        android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#12C7E0"
-        android:orientation="horizontal">
-
-        <ImageView
-            android:id="@+id/ivClose"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="10dp"
-            android:layout_weight="1"
-            android:src="@drawable/btn_cancel_white" />
-
-        <TextView
-            android:id="@+id/textView"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_marginEnd="10dp"
-            android:layout_weight="9"
-            android:gravity="right|center_vertical"
-            android:text="관리자님 안녕하세요."
-            android:textSize="@dimen/text_big" />
-    </LinearLayout>
+        app:title_text="카테고리" />
 
     <LinearLayout
         android:id="@+id/layoutMenuTab"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
+        android:layout_height="40dp"
+        android:background="#F2F5F7"
         android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="horizontal"
+        android:paddingLeft="6dp"
         android:paddingTop="4dp"
-        android:paddingBottom="4dp">
+        android:paddingEnd="6dp">
 
         <TextView
             android:id="@+id/tvMenuService"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/main_home_selected"
             android:gravity="center"
-            android:text="서비스"
+            android:text="나의 서비스"
             android:textColor="@drawable/selector_main_tab_text"
             android:textSize="@dimen/text_small" />
 
         <TextView
             android:id="@+id/tvMenuShared"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_weight="1"
-            android:drawableTop="@drawable/selector_main_work"
             android:gravity="center"
-            android:text="공유"
+            android:text="공유 서비스"
             android:textColor="@drawable/selector_main_tab_text"
             android:textSize="@dimen/text_small" />
 
-        <TextView
-            android:id="@+id/tvMenuMember"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/selector_main_apply"
-            android:gravity="center"
-            android:text="멤버"
-            android:textColor="@drawable/selector_main_tab_text"
-            android:textSize="@dimen/text_small" />
-
-        <TextView
-            android:id="@+id/tvMenuSetting"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/selector_main_setting"
-            android:gravity="center"
-            android:text="설정"
-            android:textColor="@drawable/selector_main_tab_text"
-            android:textSize="@dimen/text_small" />
     </LinearLayout>
 
     <com.linktag.base.base_view_pager.BaseViewPager
         android:id="@+id/viewPagerMenu"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_weight="1">
+
+    </com.linktag.base.base_view_pager.BaseViewPager>
 
 
 </LinearLayout>

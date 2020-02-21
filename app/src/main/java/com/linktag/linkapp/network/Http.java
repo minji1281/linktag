@@ -10,6 +10,7 @@ import com.linktag.linkapp.model.CODModel;
 import com.linktag.linkapp.model.COSModel;
 import com.linktag.linkapp.model.CTDS_Model;
 import com.linktag.linkapp.model.CTD_Model;
+import com.linktag.linkapp.model.CTU_Model;
 import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.model.NOCModel;
 import com.linktag.linkapp.model.OCM_Model;
@@ -359,6 +360,46 @@ public class Http extends HttpBaseService {
                 @Field(value = "CTD_10") String CTD_10,
                 @Field(value = "CTD_97") String CTD_97,
                 @Field(value = "CTD_98") String CTD_98
+        );
+    }
+
+    public static ICTU ctu(TYPE type) { return (ICTU) retrofit(ICTU.class, type); }
+
+    public interface ICTU {
+
+        @FormUrlEncoded
+        @POST(BaseConst.CTU_SELECT)
+        Call<CTU_Model> CTU_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "CTU_01") String CTU_01,
+                @Field(value = "CTU_02") String CTU_02,
+                @Field(value = "CTU_03") String CTU_03
+
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.CTU_CONTROL)
+        Call<CTU_Model> CTU_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "CTU_01") String CTU_01,
+                @Field(value = "CTU_02") String CTU_02,
+                @Field(value = "CTU_03") String CTU_03,
+                @Field(value = "CTU_04") String CTU_04,
+                @Field(value = "CTU_05") String CTU_05,
+
+                @Field(value = "CTU_07") String CTU_07,
+                @Field(value = "CTU_08") String CTU_08,
+                @Field(value = "CTU_09") String CTU_09,
+
+                @Field(value = "CTU_10") double CTU_10,
+                @Field(value = "CTU_11") double CTU_11,
+                @Field(value = "CTU_12") double CTU_12,
+                @Field(value = "CTU_13") double CTU_13,
+
+                @Field(value = "CTU_97") String CTU_97,
+                @Field(value = "CTU_98") String CTU_98
         );
     }
 

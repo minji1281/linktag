@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f0f0f0"
-    tools:context="com.linktag.linkapp.ui.settings_main.SettingFragment">
+    tools:context="com.linktag.linkapp.ui.settings_main.SettingMain">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -12,6 +12,13 @@
         android:orientation="vertical">
 
         <!--프로필-->
+
+        <com.linktag.base.base_header.BaseHeader
+            android:id="@+id/header"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title_text="설정" />
+
         <LinearLayout
             android:id="@+id/layoutUserInfo"
             android:layout_width="match_parent"
@@ -47,19 +54,21 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                tools:text="01012345678"
                 android:textColor="#797979"
-                android:textSize="@dimen/text_normal" />
+                android:textSize="@dimen/text_normal"
+                android:visibility="gone"
+                tools:text="01012345678" />
+
             <TextView
                 android:id="@+id/tvInout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="8dp"
-                tools:text="진성훈"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_bigger"
-                android:visibility="gone"/>
+                android:visibility="gone"
+                tools:text="진성훈" />
         </LinearLayout>
 
         <!--설정-->
@@ -84,7 +93,7 @@
             <LinearLayout style="@style/common_horizontal_line" />
 
             <Button
-                android:id="@+id/btnPwd"
+                android:id="@+id/btnPreferences"
                 android:layout_width="match_parent"
                 android:layout_height="48dp"
                 android:background="@color/white"
@@ -92,24 +101,11 @@
                 android:gravity="start|center_vertical"
                 android:paddingStart="16dp"
                 android:paddingEnd="16dp"
-                android:text="비밀번호 변경"
+                android:text="환경설정"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_normal" />
 
             <LinearLayout style="@style/common_horizontal_line" />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@color/white"
-                android:drawableEnd="@drawable/btn_next_gray"
-                android:gravity="start|center_vertical"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
-                android:text="프로필 설정"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_normal"
-                android:visibility="invisible" />
 
             <Button
                 android:id="@+id/btnGoHomepage"

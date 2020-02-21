@@ -9,9 +9,16 @@ import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
@@ -19,10 +26,14 @@ import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.CTD_Model;
+import com.linktag.linkapp.model.CTU_Model;
+import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.model.SVC_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.value_object.CtuVO;
+import com.linktag.linkapp.value_object.OcmVO;
 import com.linktag.linkapp.value_object.SvcVO;
 
 import java.util.ArrayList;
@@ -32,23 +43,40 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MemberInvite extends BaseActivity {
+    private int STATE = 0;
+    private int STATE_NONE = 0;
+    private int STATE_EMAIL = 1;
+    private int STATE_SHARED = 2;
     //===================================
     // Layout
     //===================================
     private BaseHeader header;
-    private EditText etSearch;
-    private GridView gridView;
-    private ImageView btnSearch;
 
-    //===================================
-    // Variable
-    //===================================
-    private AddServiceAdapter mAdapter;
-    private ArrayList<SvcVO> mList;
+    private LinearLayout selectTypeEmail;
+    private LinearLayout selectTypeShared;
 
-    private String GUBUN;
+    private LinearLayout laySelectType;
+    private LinearLayout layEmail;
+    private LinearLayout layShared;
+
+    private Spinner spinnerShared;
+
+    private ArrayList<ClsShared> sharedList;
+    private String[] ar;
+
     private String CTM_01;
-    private String contractType;
+    private String SVC_02;
+
+    private EditText etSearch1;
+    private EditText etSearch2;
+
+    private TextView tvShared;
+    private ImageView btnSearch;
+    private ListView listview;
+    private ArrayList<OcmVO> mList;
+    private MemberAdapter mAdapter;
+    private TextView emptyText;
+
 
     //===================================
     // Initialize
@@ -57,7 +85,7 @@ public class MemberInvite extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_service);
+        setContentView(R.layout.fragment_member_invite);
 
         initLayout();
 
@@ -68,151 +96,104 @@ public class MemberInvite extends BaseActivity {
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
-        btnSearch = findViewById(R.id.btnSearch);
-        btnSearch.setOnClickListener(v -> requestSVC_SELECT());
-        etSearch = findViewById(R.id.etSearch);
-        etSearch.setOnKeyListener(new View.OnKeyListener(){
+
+        spinnerShared = findViewById(R.id.spinnerShared);
+
+        laySelectType = findViewById(R.id.laySelectType);
+        layEmail = findViewById(R.id.layEmail);
+        layShared = findViewById(R.id.layShared);
+
+        selectTypeEmail = findViewById(R.id.selectTypeEmail);
+        selectTypeEmail.setOnClickListener(v -> changeState(STATE_EMAIL));
+        selectTypeShared = findViewById(R.id.selectTypeShared);
+        selectTypeShared.setOnClickListener(v -> changeState(STATE_SHARED));
+
+        etSearch1 = findViewById(R.id.etSearch1);
+
+        etSearch2 = findViewById(R.id.etSearch2);
+        etSearch2.setOnKeyListener(new View.OnKeyListener(){
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
                 if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
-                    requestSVC_SELECT();
-                    etSearch.requestFocus();
+                    requestOCM_SELECT();
                     return true;
                 }
                 return false;
             }
         });
+        btnSearch = findViewById(R.id.btnSearch);
+        btnSearch.setOnClickListener(v -> requestOCM_SELECT());
 
-        gridView = findViewById(R.id.gridView);
-        gridView.setOnItemClickListener((parent, view, position, id) -> onSelect(position));
+        listview = findViewById(R.id.listview);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                requestCTU_CONTROL(mList.get(position));
+            }
+        });
+
+        tvShared = findViewById(R.id.tvShared);
+
+        emptyText = findViewById(R.id.empty);
+        listview.setEmptyView(emptyText);
     }
 
     @Override
     protected void initialize() {
-        contractType = getIntent().getStringExtra("contractType");
-
-        header.tvHeaderTitle.setText(contractType.equals("P") ? "서비스 추가" : "공유 서비스 추가");
-
-        String CTM_01s = getIntent().getStringExtra("CTM_01");
-
-        CTM_01 = CTM_01s == null || CTM_01s.equals("") ? mUser.Value.CTM_01 : CTM_01s;
-
         mList = new ArrayList<>();
-        mAdapter = new AddServiceAdapter(mContext, mList);
-        gridView.setAdapter(mAdapter);
+        mAdapter = new MemberAdapter(mContext, mList);
+        listview.setAdapter(mAdapter);
+
+        if(getIntent().hasExtra("CTM_01") && getIntent().hasExtra("SVC_02")){
+            CTM_01 = getIntent().getStringExtra("CTM_01");
+            SVC_02 = getIntent().getStringExtra("SVC_02");
+        } else {
+
+        }
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-
-        requestSVC_SELECT();
     }
 
-    private void onSelect(int position) {
-        if(mList.get(position).SVC_CHK.equals("N")){
-            AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-            builder.setMessage(mList.get(position).SVC_03 + " 을/를 추가하시겠습니까?");
-            builder.setCancelable(true);
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                    GUBUN = contractType.equals("P") ? "INSERT" : "INSERT_SHARED";
-                    requestCTD_CONTROL(mList.get(position).SVC_02);
-                }
-            });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int id) {
-                }
-            });
-            builder.create().show();
+
+    private void changeState(int state){
+        STATE = state;
+
+        if(state == STATE_NONE){
+            laySelectType.setVisibility(View.VISIBLE);
+            layEmail.setVisibility(View.GONE);
+            layShared.setVisibility(View.GONE);
+
+        } else if(state == STATE_EMAIL) {
+            laySelectType.setVisibility(View.GONE);
+            layEmail.setVisibility(View.VISIBLE);
+            layShared.setVisibility(View.GONE);
+
+        } else if(state == STATE_SHARED) {
+            requestCTD_SELECT();
+
+            laySelectType.setVisibility(View.GONE);
+            layEmail.setVisibility(View.GONE);
+            layShared.setVisibility(View.VISIBLE);
+
         }
 
     }
 
-    public void requestSVC_SELECT() {
+    public void requestCTD_SELECT() {
         // 인터넷 연결 여부 확인
-        if(!ClsNetworkCheck.isConnectable(mContext)){
+        if(!ClsNetworkCheck.isConnectable(mContext )){
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }
 
         //openLoadingBar();
 
-        String GUB = contractType.equals("P") ? "LIST_SERVICE" : "LIST";
-        String SVC_03 = etSearch.getText().toString();
-
-        Call<SVC_Model> call = Http.svc(HttpBaseService.TYPE.POST).SVC_SELECT(
+        Call<CTD_Model> call = Http.ctd(HttpBaseService.TYPE.POST).CTD_SELECT(
                 BaseConst.URL_HOST,
-                GUB,
-                "",
-                CTM_01,
-                SVC_03,
-                "",
-                "",
-                "",
-                "Y"
-        );
-
-        call.enqueue(new Callback<SVC_Model>() {
-            @SuppressLint("HandlerLeak")
-            @Override
-            public void onResponse(Call<SVC_Model> call, Response<SVC_Model> response) {
-                Message msg = new Message();
-                msg.obj = response;
-                msg.what = 100;
-
-                new Handler(){
-                    @Override
-                    public void handleMessage(Message msg){
-                        if(msg.what == 100){
-                            //closeLoadingBar();
-
-                            Response<SVC_Model> response = (Response<SVC_Model>) msg.obj;
-
-                            mList = response.body().Data;
-                            if(mList == null)
-                                mList = new ArrayList<>();
-
-                            mAdapter.updateData(mList);
-                            mAdapter.notifyDataSetChanged();
-                        }
-                    }
-                }.sendMessage(msg);
-            }
-
-            @Override
-            public void onFailure(Call<SVC_Model> call, Throwable t) {
-                Log.d("Test", t.getMessage());
-                //closeLoadingBar();
-
-            }
-        });
-
-    }
-
-    public void requestCTD_CONTROL(String SVC_02) {
-        // 인터넷 연결 여부 확인
-        if(!ClsNetworkCheck.isConnectable(mContext)){
-            BaseAlert.show(getString(R.string.common_network_error));
-            return;
-        }
-
-        //openLoadingBar();
-
-        Call<CTD_Model> call = Http.ctd(HttpBaseService.TYPE.POST).CTD_CONTROL(
-                BaseConst.URL_HOST,
-                GUBUN,
-                CTM_01,
-                SVC_02,
-                "1",
-                "1",
-                "3",
-                0,
-                mUser.Value.OCM_01,
-                "",
-                "",
+                "LIST_SHARED",
                 "",
                 "",
                 mUser.Value.OCM_01
@@ -232,12 +213,9 @@ public class MemberInvite extends BaseActivity {
                         if(msg.what == 100){
                             //closeLoadingBar();
 
-                            //Response<CTD_Model> response = (Response<CTD_Model>) msg.obj;
+                            Response<CTD_Model> response = (Response<CTD_Model>) msg.obj;
 
-                            if(contractType.equals("P"))
-                                requestSVC_SELECT();
-                            else
-                                mActivity.finish();
+                            setSpinner(response.body());
                         }
                     }
                 }.sendMessage(msg);
@@ -252,4 +230,154 @@ public class MemberInvite extends BaseActivity {
         });
 
     }
+
+    private void setSpinner(CTD_Model model){
+        sharedList.clear();
+
+        ar = new String[model.Total + 1];
+        ar[0] = "공유 선택";
+
+        sharedList.add(new ClsShared("공유 선택", "", ""));
+
+        if(model.Total != 0){
+            if(model.Total > 0){
+                for (int i=1; i<model.Total + 1; i++){
+                    sharedList.add(new ClsShared(model.Data.get(i - 1).CTD_02_NM, model.Data.get(i - 1).CTD_01, model.Data.get(i - 1).CTD_02));
+
+                    ar[i] = model.Data.get(i - 1).CTD_02_NM + "[" +  model.Data.get(i - 1).CTM_17 + "]";
+                }
+            }
+        }
+
+        ArrayAdapter<String> adapter;
+        adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_item, ar);
+
+        spinnerShared.setAdapter(adapter);
+
+        spinnerShared.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                requestOCM_SELECT();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+    }
+
+    private void requestOCM_SELECT(){
+        int position = spinnerShared.getSelectedItemPosition();
+        String CTM_01s = sharedList.get(position).getContract();
+        String OCM_02 = etSearch2.getText().toString();
+
+        // 인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            BaseAlert.show(getString(R.string.common_network_error));
+            return;
+        }
+
+        //openLoadingBar();
+
+        Call<OCM_Model> call = Http.ocm(HttpBaseService.TYPE.POST).OCM_SELECT(
+                BaseConst.URL_HOST,
+                "LIST_INVITE",
+                mUser.Value.OCM_01,
+                OCM_02,
+                "",
+                CTM_01s
+        );
+
+        call.enqueue(new Callback<OCM_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<OCM_Model> call, Response<OCM_Model> response) {
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+
+                            Response<OCM_Model> response = (Response<OCM_Model>) msg.obj;
+
+                            mList = response.body().Data;
+                            if(mList == null)
+                                mList = new ArrayList<>();
+
+                            mAdapter.updateData(mList);
+                            mAdapter.notifyDataSetChanged();
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<OCM_Model> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+
+            }
+        });
+    }
+
+    private void requestCTU_CONTROL(OcmVO ocmVO){
+        int position = spinnerShared.getSelectedItemPosition();
+        if(position == 0){
+            Toast.makeText(mContext, "사용자를 추가 할 공유를 선택해 주세요.", Toast.LENGTH_LONG).show();
+            return;
+        }
+
+        // 인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            BaseAlert.show(getString(R.string.common_network_error));
+            return;
+        }
+
+        //openLoadingBar();
+
+        Call<CTU_Model> call = Http.ctu(HttpBaseService.TYPE.POST).CTU_CONTROL(
+                BaseConst.URL_HOST,
+                "INSERT",
+                CTM_01,
+                SVC_02,
+                ocmVO.OCM_01,
+                "N",
+                "1",
+
+                "", "", "", 0, 0, 0, 0,
+                "",
+                mUser.Value.OCM_01
+        );
+
+        call.enqueue(new Callback<CTU_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<CTU_Model> call, Response<CTU_Model> response) {
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+
+                            Response<CTU_Model> response = (Response<CTU_Model>) msg.obj;
+
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<CTU_Model> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+
+            }
+        });
+    }
+
 }

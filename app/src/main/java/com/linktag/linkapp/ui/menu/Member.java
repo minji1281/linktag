@@ -9,7 +9,6 @@ import android.os.Message;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
-import android.text.style.RelativeSizeSpan;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -19,11 +18,12 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_fragment.BaseFragment;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
@@ -41,63 +41,49 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class MemberFragment extends BaseFragment {
+public class Member extends BaseActivity {
+    //===================================
+    // Layout
+    //===================================
+    //private TextView tvTitleMem;
+    private LinearLayout layInvite;
+    private Spinner spinnerShared;
 
-    private View view;
-
-    private TextView tvInvite;
-    private ImageView ivInvite;
-
-    private TextView tvTitleMem;
     private EditText etSearch;
     private ImageView btnSearch;
-    private Spinner spinnerShared;
+
     private ListView listview;
     private TextView emptyText;
 
+    //===================================
+    // Variable
+    //===================================
     private ArrayList<ClsShared> sharedList;
+    private String[] ar;
 
     private ArrayList<OcmVO> mList;
     private MemberAdapter mAdapter;
-    private String[] ar;
-
-    public MemberFragment() {
-        // Required empty public constructor
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        view =  inflater.inflate(R.layout.fragment_member, container, false);
+        setContentView(R.layout.activity_member);
 
         initLayout();
 
         initialize();
 
-        return view;
-    }
-
-    @Override
-    public void onResume(){
-        super.onResume();
-
         requestCTD_SELECT();
     }
 
-    private void initLayout() {
-        tvInvite = view.findViewById(R.id.tvInvite);
-        ivInvite = view.findViewById(R.id.ivInvite);
-        tvInvite.setOnClickListener(v -> goInvite());
-        ivInvite.setOnClickListener(v -> goInvite());
+    @Override
+    protected void initLayout() {
+        layInvite = findViewById(R.id.layInvite);
+        layInvite.setOnClickListener(v -> goInvite());
 
-        tvTitleMem = view.findViewById(R.id.tvTitleMem);
+        //tvTitleMem = view.findViewById(R.id.tvTitleMem);
 
-        etSearch = view.findViewById(R.id.etSearch);
+        etSearch = findViewById(R.id.etSearch);
         etSearch.setOnKeyListener(new View.OnKeyListener(){
             @Override
             public boolean onKey(View v, int keyCode, KeyEvent event) {
@@ -108,12 +94,12 @@ public class MemberFragment extends BaseFragment {
                 return false;
             }
         });
-        btnSearch = view.findViewById(R.id.btnSearch);
+        btnSearch = findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(v -> requestOCM_SELECT());
 
-        spinnerShared = view.findViewById(R.id.spinnerShared);
+        spinnerShared = findViewById(R.id.spinnerShared);
 
-        listview = view.findViewById(R.id.listview);
+        listview = findViewById(R.id.listview);
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -121,10 +107,11 @@ public class MemberFragment extends BaseFragment {
             }
         });
 
-        emptyText = view.findViewById(R.id.empty);
+        emptyText = findViewById(R.id.empty);
         listview.setEmptyView(emptyText);
     }
 
+    @Override
     protected void initialize(){
         sharedList = new ArrayList<>();
 
@@ -132,6 +119,11 @@ public class MemberFragment extends BaseFragment {
         mAdapter = new MemberAdapter(mContext, mList);
         listview.setAdapter(mAdapter);
 
+    }
+
+    @Override
+    protected void onResume(){
+        super.onResume();
     }
 
     public void requestCTD_SELECT() {
@@ -184,7 +176,9 @@ public class MemberFragment extends BaseFragment {
     }
 
     private void goInvite(){
-        Intent intent = new Intent(mContext, AddService.class);
+        Intent intent = new Intent(mContext, MemberInvite.class);
+        intent.putExtra("CTM_01", "");
+        intent.putExtra("SVC_02", "");
         mContext.startActivity(intent);
     }
 
@@ -196,13 +190,11 @@ public class MemberFragment extends BaseFragment {
 
         sharedList.add(new ClsShared("공유 선택", "", ""));
 
-        if(model.Total != 0){
-            if(model.Total > 0){
-                for (int i=1; i<model.Total + 1; i++){
-                    sharedList.add(new ClsShared(model.Data.get(i - 1).CTD_02_NM, model.Data.get(i - 1).CTD_01, model.Data.get(i - 1).CTD_02));
+        if(model.Total > 0){
+            for (int i=1; i<model.Total + 1; i++){
+                sharedList.add(new ClsShared(model.Data.get(i - 1).CTD_02_NM, model.Data.get(i - 1).CTD_01, model.Data.get(i - 1).CTD_02));
 
-                    ar[i] = model.Data.get(i - 1).CTD_02_NM + "[" +  model.Data.get(i - 1).CTM_17 + "]";
-                }
+                ar[i] = model.Data.get(i - 1).CTD_02_NM + "[" +  model.Data.get(i - 1).CTM_17 + "]";
             }
         }
 
@@ -278,7 +270,7 @@ public class MemberFragment extends BaseFragment {
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();
 
-                            setTitleMem(position);
+                            //setTitleMem(position);
                         }
                     }
                 }.sendMessage(msg);
@@ -292,7 +284,7 @@ public class MemberFragment extends BaseFragment {
             }
         });
     }
-
+/*
     private void setTitleMem(int position){
         String str = "멤버";
 
@@ -309,5 +301,7 @@ public class MemberFragment extends BaseFragment {
         else
             tvTitleMem.setText(str);
     }
+
+ */
 
 }

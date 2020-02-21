@@ -1,6 +1,10 @@
 package com.linktag.linkapp.ui.menu;
 
-public class ClsShared {
+import java.io.Serializable;
+
+public class ClsShared implements Serializable {
+    private static final long serialVersionUID = 8984271695698923665L;
+
     private String name;
     private String contract;
     private String service;

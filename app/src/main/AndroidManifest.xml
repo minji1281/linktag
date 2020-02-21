@@ -88,6 +88,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
         <activity
+            android:name=".ui.settings_main.SettingMain"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser" />
+        <activity
             android:name=".ui.sign_up.SignUp"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
@@ -102,8 +106,12 @@
             android:theme="@style/TranslucentUser" />
         <activity
             android:name=".ui.menu.ChooseOne"
-            android:theme="@android:style/Theme.Holo.Dialog"
+            android:theme="@android:style/Theme.Dialog"
             android:excludeFromRecents="true"/>
+        <activity
+            android:name=".ui.menu.MemberInvite"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser" />
 
 
         <!-- ================================== -->

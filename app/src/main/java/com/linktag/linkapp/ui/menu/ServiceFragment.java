@@ -13,6 +13,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.linktag.base.base_fragment.BaseFragment;
+import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
@@ -29,9 +30,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class ServiceFragment extends BaseFragment implements ServiceAdapter.ServiceBtnClickListener {
+    private BaseHeader header;
     private View view;
     private GridView gridView;
-    private TextView tvAddService;
 
     private ServiceAdapter mAdapter;
     private ArrayList<CtdVO> mList;
@@ -64,18 +65,18 @@ public class ServiceFragment extends BaseFragment implements ServiceAdapter.Serv
         super.onResume();
 
         requestCTD_SELECT();
-
     }
 
     private void initLayout() {
+        header = mActivity.findViewById(R.id.header);
+
+
         gridView = view.findViewById(R.id.gridView);
-        tvAddService = view.findViewById(R.id.tvAddService);
-        tvAddService.setOnClickListener(v -> goAddService());
 
         activity_name = mActivity.getClass().getSimpleName();
 
         if(activity_name.equals("ChooseOne")){
-            tvAddService.setVisibility(View.GONE);
+            header.btnHeaderText.setVisibility(View.GONE);
         }
 
     }
@@ -87,7 +88,7 @@ public class ServiceFragment extends BaseFragment implements ServiceAdapter.Serv
         gridView.setAdapter(mAdapter);
     }
 
-    private void goAddService(){
+    public void goAddService(){
         Intent intent = new Intent(mContext, AddService.class);
         intent.putExtra("CTM_01", mUser.Value.CTM_01);
         intent.putExtra("contractType", "P");

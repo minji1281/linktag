@@ -13,6 +13,7 @@ import android.widget.GridView;
 import android.widget.TextView;
 
 import com.linktag.base.base_fragment.BaseFragment;
+import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
@@ -29,11 +30,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SharedFragment extends BaseFragment implements SharedAdapter.SharedBtnClickListener {
-
+    private BaseHeader header;
     private View view;
     private GridView gridView;
-    private TextView tvAddShared;
-
 
     private SharedAdapter mAdapter;
     private ArrayList<CtdVO> mList;
@@ -69,14 +68,15 @@ public class SharedFragment extends BaseFragment implements SharedAdapter.Shared
     }
 
     private void initLayout() {
+        header = mActivity.findViewById(R.id.header);
+        header.btnHeaderText.setOnClickListener(v -> goAddShared());
+
         gridView = view.findViewById(R.id.gridView);
-        tvAddShared = view.findViewById(R.id.tvAddShared);
-        tvAddShared.setOnClickListener(v -> goAddService());
 
         activity_name = mActivity.getClass().getSimpleName();
 
         if(activity_name.equals("ChooseOne")){
-            tvAddShared.setVisibility(View.GONE);
+            header.btnHeaderText.setVisibility(View.GONE);
         }
     }
 
@@ -87,7 +87,7 @@ public class SharedFragment extends BaseFragment implements SharedAdapter.Shared
         gridView.setAdapter(mAdapter);
     }
 
-    private void goAddService(){
+    public void goAddShared(){
         Intent intent = new Intent(mContext, AddService.class);
         intent.putExtra("contractType", "S");
         mContext.startActivity(intent);

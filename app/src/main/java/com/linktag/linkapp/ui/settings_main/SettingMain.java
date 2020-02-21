@@ -11,72 +11,71 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_fragment.BaseFragment;
+import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.settings.SettingsKey;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.ui.settings_profile.ProfileMain;
 
-public class SettingFragment extends BaseFragment {
+public class SettingMain extends BaseActivity {
     //===========================
     // Layout
     //===========================
-    private View view;
+
+    private BaseHeader header;
+
     private Button btnProfile;
-    private Button btnPwd;
+    private Button btnPreferences;
     private Button btnLogout;
     private Button btnGoHomepage;
 
     private TextView tvUserName;
     private TextView tvUserPhone;
 
-    //===========================
-    // Initialize
-    //===========================
-    public SettingFragment() {
-        // Required empty public constructor
-    }
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-    }
 
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-
-        view = inflater.inflate(R.layout.fragment_setting, container, false);
+        setContentView(R.layout.fragment_setting);
 
         initLayout();
 
-        return view;
+        initialize();
     }
 
     /**
      * 레이아웃 초기화
      */
-    private void initLayout() {
-        tvUserName = view.findViewById(R.id.tvUserName);
+    @Override
+    protected void initLayout() {
+        header = findViewById(R.id.header);
+        header.btnHeaderLeft.setOnClickListener(v -> finish());
+
+        tvUserName = findViewById(R.id.tvUserName);
         tvUserName.setText(mUser.Value.OCM_02);
 
-        tvUserPhone = view.findViewById(R.id.tvUserPhone);
+        tvUserPhone = findViewById(R.id.tvUserPhone);
         tvUserPhone.setText(mUser.Value.OCM_51);
 
-        btnProfile = view.findViewById(R.id.btnProfile);
+        btnProfile = findViewById(R.id.btnProfile);
         btnProfile.setOnClickListener(v -> goProfileMain(""));
 
-        btnPwd = view.findViewById(R.id.btnPwd);
-        btnPwd.setOnClickListener(v -> goProfileMain("1"));
+        btnPreferences = findViewById(R.id.btnPreferences);
+        btnPreferences.setOnClickListener(v -> goPreference());
 
-        btnLogout = view.findViewById(R.id.btnLogout);
+        btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> logout());
 
-        btnGoHomepage = view.findViewById(R.id.btnGoHomepage);
+        btnGoHomepage = findViewById(R.id.btnGoHomepage);
         btnGoHomepage.setOnClickListener(v -> goHomepage());
-
     }
 
+    @Override
+    protected void initialize() {
+
+    }
     /**
      * 홈페이지로 이동
      */
@@ -92,6 +91,14 @@ public class SettingFragment extends BaseFragment {
         Intent intent = new Intent(mContext, ProfileMain.class);
         intent.putExtra("setPwd", gub);
         mContext.startActivity(intent);
+    }
+
+    /**
+     * 환경설정
+     */
+    private void goPreference() {
+        //Intent intent = new Intent(mContext, ProfileMain.class);
+        //mContext.startActivity(intent);
     }
 
     /**
