@@ -111,9 +111,12 @@ public class PotDetail extends BaseActivity {
     //======================
     // Initialize
     //======================
-
     public String ARM_03 = "N";
     public int ARM_04 = 0;
+    private String CTM_01;
+    private String CTD_02;
+    private String CTN_02;
+    private String POT_01;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -124,6 +127,11 @@ public class PotDetail extends BaseActivity {
         initLayout();
 
         initialize();
+
+        CTM_01 = getIntent().getStringExtra("CTM_01");
+        CTD_02 = getIntent().getStringExtra("CTD_02");
+        CTN_02 = getIntent().getStringExtra("CTN_02");
+        POT_01 = getIntent().getStringExtra("POT_01");
     }
 
     @Override
@@ -266,8 +274,7 @@ public class PotDetail extends BaseActivity {
         openLoadingBar();
 
         String GUBUN = GUB;
-        String POT_ID = "1"; //컨테이너 수정해야돼!!!
-        String POT_01 = getIntent().getExtras().getString("POT_01"); //코드번호
+        String POT_ID = CTN_02; //컨테이너 수정해야돼!!!
         String POT_02 = getIntent().getExtras().getString("POT_02"); //명칭
         int POT_04 = npCycle.getValue(); //주기
         String POT_05 = "M";
@@ -318,7 +325,7 @@ public class PotDetail extends BaseActivity {
 
                             Response<POT_Model> response = (Response<POT_Model>) msg.obj;
 
-                            if(GUB.equals("DELETE")){
+                            if(GUB.equals("WATER")){
                                 callBack(GUB, new PotVO());
                             }
                             else{
@@ -352,7 +359,7 @@ public class PotDetail extends BaseActivity {
 //
 //                                    alarmMain.setAlarm(getApplicationContext(), intent); //새로운 푸시알람 설정
 //                                    }
-                                callBack(GUB, response.body().Data.get(0));
+                                finish();
                             }
                         }
                     }
@@ -463,14 +470,8 @@ public class PotDetail extends BaseActivity {
     private void callBack(String GUB, PotVO data){
         if(data.Validation){
             switch(GUB){
-                case "UPDATE":
-                    finish();
-                    break;
                 case "WATER":
                     setUserData(data);
-                    break;
-                case "DELETE":
-                    finish();
                     break;
             }
         }

@@ -4,11 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.DialogInterface;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -17,8 +15,6 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
@@ -26,19 +22,15 @@ import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.CADModel;
-import com.linktag.linkapp.model.CODModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.spinner.SpinnerList;
 import com.linktag.linkapp.value_object.CAD_VO;
-import com.linktag.linkapp.value_object.COD_VO;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-import butterknife.BindView;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -211,8 +203,10 @@ public class CadDetail extends BaseActivity {
     }
 
     private void getDetail() {
-        etDay.setText(sDateFormat(CAD.CAD_03));
-        CAD_03_Calendar.set(Integer.parseInt(CAD.CAD_03.substring(0,4)), Integer.parseInt(CAD.CAD_03.substring(4,6))-1, Integer.parseInt(CAD.CAD_03.substring(6,8)));
+        if(!CAD.CAD_03.equals("")){
+            etDay.setText(sDateFormat(CAD.CAD_03));
+            CAD_03_Calendar.set(Integer.parseInt(CAD.CAD_03.substring(0,4)), Integer.parseInt(CAD.CAD_03.substring(4,6))-1, Integer.parseInt(CAD.CAD_03.substring(6,8)));
+        }
         etName.setText(CAD.CAD_05);
         etPrice.setText(String.valueOf(Math.round(CAD.CAD_07)));
         etKm.setText(String.valueOf(Math.round(CAD.CAD_08)));

@@ -38,18 +38,20 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
     private BaseHeader header;
     private ListView listView;
     private TextView emptyText;
-    private ImageView imgNew;
 
     //======================
     // Variable
     //======================
     private AirAdapter mAdapter;
     private ArrayList<AIR_VO> mList;
-
+    private ArrayList<AIR_VO> mList2;
+    private String CTN_02;
+    private String scancode;
 
     //======================
     // Initialize
     //======================
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -59,16 +61,19 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
         initLayout();
 
         initialize();
+
+        CTN_02 = getIntent().getStringExtra("CTN_02");
+
+        if (getIntent().hasExtra("scanCode")) {
+            scancode = getIntent().getExtras().getString("scanCode");
+            requestAIR_SELECT("DETAIL", scancode);
+        }
     }
 
     @Override
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setVisibility((View.GONE));
-
-        //신규등록 test
-        imgNew = findViewById(R.id.imgNew);
-        imgNew.setOnClickListener(v -> goAirNew());
 
         listView = findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -77,6 +82,9 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
                 Intent intent = new Intent(mContext, AirDetail.class);
                 AIR_VO AIR = mList.get(position);
                 intent.putExtra("AIR", AIR);
+                intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
+                intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
+                intent.putExtra("CTN_02", CTN_02);
                 mContext.startActivity(intent);
             }
         });
@@ -97,21 +105,19 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
     protected void onResume(){
         super.onResume();
 
-        requestAIR_SELECT();
+        requestAIR_SELECT("LIST", "");
     }
 
-    private void requestAIR_SELECT(){
+    private void requestAIR_SELECT(String GUBUN, String AIR_01){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        openLoadingBar();
+//        openLoadingBar();
 
-        String GUBUN = "LIST";
-        String AIR_ID = "1"; //컨테이너
-        String AIR_01 = "";
+        String AIR_ID = CTN_02; //컨테이너
         String OCM_01 = mUser.Value.OCM_01; //사용자 아이디
 
         Call<AIRModel> call = Http.air(HttpBaseService.TYPE.POST).AIR_SELECT(
@@ -134,17 +140,41 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
                     @Override
                     public void handleMessage(Message msg){
                         if(msg.what == 100){
-                            closeLoadingBar();
+//                            closeLoadingBar();
 
                             Response<AIRModel> response = (Response<AIRModel>) msg.obj;
 
-                            mList = response.body().Data;
 
-                            if(mList == null)
-                                mList = new ArrayList<>();
 
-                            mAdapter.updateData(mList);
-                            mAdapter.notifyDataSetChanged();
+                            if(GUBUN.equals("LIST")){
+                                mList = response.body().Data;
+                                if(mList == null)
+                                    mList = new ArrayList<>();
+
+                                mAdapter.updateData(mList);
+                                mAdapter.notifyDataSetChanged();
+                            }
+                            else{ //DETAIL (스캔찍을때)
+                                mList2 = response.body().Data;
+                                if(mList2 == null)
+                                    mList2 = new ArrayList<>();
+
+                                if(mList2.size() == 0){ //등록된 정보가 없는경우
+                                    goAirNew();
+                                }
+                                else{ //등록된 정보가 있는경우
+                                    AIR_VO AIR = mList2.get(0);
+                                    Intent intent = new Intent(mContext, AirDetail.class);
+                                    intent.putExtra("AIR", AIR);
+                                    intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
+                                    intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
+                                    intent.putExtra("CTN_02", CTN_02);
+
+                                    mContext.startActivity(intent);
+                                }
+                            }
+
+
 
                         }
                     }
@@ -173,10 +203,12 @@ public class AirList extends BaseActivity implements AirAdapter.AlarmClickListen
         Toast.makeText(mContext, "준비중 입니다.", Toast.LENGTH_LONG).show();
     }
 
-    //신규등록 test
     private void goAirNew(){
-//        Toast.makeText(mContext, "신규등록", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(mContext, AirDetail.class);
+        intent.putExtra("scancode", scancode);
+        intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
+        intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
+        intent.putExtra("CTN_02", CTN_02);
         mContext.startActivity(intent);
     }
 

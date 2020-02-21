@@ -22,6 +22,7 @@ import com.linktag.linkapp.model.CARModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CAR_VO;
 
 import java.text.SimpleDateFormat;
@@ -60,6 +61,10 @@ public class CarDetail extends BaseActivity {
     private EditText etFocusDay;
     private CAR_VO CAR;
     private String gubun;
+    private String CAR_01;
+    private String CTM_01;
+    private String CTD_02;
+
 
     Calendar CAR_05_Calendar = Calendar.getInstance(); //구매일자
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
@@ -79,6 +84,12 @@ public class CarDetail extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_car_detail);
+
+        if (getIntent().hasExtra("CAR_01")) {
+            CAR_01 = getIntent().getStringExtra("CAR_01");
+            CTM_01 = getIntent().getStringExtra("CTM_01");
+            CTD_02 = getIntent().getStringExtra("CTD_02");
+        }
 
         if(getIntent().hasExtra("CAR")){
             CAR = (CAR_VO) getIntent().getSerializableExtra("CAR");
@@ -188,7 +199,6 @@ public class CarDetail extends BaseActivity {
 
         String GUBUN = GUB;
         String CAR_ID = getIntent().getStringExtra("CTN_02"); //컨테이너
-        String CAR_01 = ""; //코드번호
         if(gubun.equals("UPDATE")){
             CAR_01 = CAR.CAR_01;
         }
@@ -222,6 +232,12 @@ public class CarDetail extends BaseActivity {
                 Message msg = new Message();
                 msg.obj = response;
                 msg.what = 100;
+
+                if (gubun.equals("INSERT")) {
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02, CAR_01);
+                    ctds_control.requestCTDS_CONTROL();
+                    CadList.CAD_01 = CAR_01;
+                }
 
                 new Handler(){
                     @Override

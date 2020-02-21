@@ -1,8 +1,6 @@
 package com.linktag.linkapp.ui.car;
 
 import android.content.Context;
-import android.graphics.Color;
-import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -73,7 +71,9 @@ public class CadAdapter extends BaseAdapter {
         viewHolder.tvCadName.setText("[" + CAD_04_T + "]" + mList.get(position).CAD_05);
         viewHolder.tvCadKm.setText(NumberFormat.getInstance().format(mList.get(position).CAD_08) + "km");
         viewHolder.tvCadMoney.setText(NumberFormat.getInstance().format(mList.get(position).CAD_07) + "원");
-        viewHolder.tvCadDay.setText(mList.get(position).CAD_03.substring(2, 4) + "." + mList.get(position).CAD_03.substring(4, 6) + "." + mList.get(position).CAD_03.substring(6, 8));
+        if(!mList.get(position).CAD_03.equals("")){
+            viewHolder.tvCadDay.setText(mList.get(position).CAD_03.substring(2, 4) + "." + mList.get(position).CAD_03.substring(4, 6) + "." + mList.get(position).CAD_03.substring(6, 8));
+        }
 
         return convertView;
     }

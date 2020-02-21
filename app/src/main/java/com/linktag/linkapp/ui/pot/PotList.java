@@ -37,18 +37,21 @@ public class PotList extends BaseActivity implements PotAdapter.AlarmClickListen
     private BaseHeader header;
     private ListView listView;
     private TextView emptyText;
-    private ImageView imgNew;
 
     //======================
     // Variable
     //======================
     private PotAdapter mAdapter;
     private ArrayList<PotVO> mList;
-
+    private String scancode = "";
+    private String CTM_01;
+    private String CTD_02;
+    private String CTN_02;
 
     //======================
     // Initialize
     //======================
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -58,16 +61,20 @@ public class PotList extends BaseActivity implements PotAdapter.AlarmClickListen
         initLayout();
 
         initialize();
+
+        CTM_01 = getIntent().getStringExtra("CTM_01");
+        CTD_02 = getIntent().getStringExtra("CTD_02");
+        CTN_02 = getIntent().getStringExtra("CTN_02");
+        if (getIntent().hasExtra("scanCode")) {
+            scancode = getIntent().getExtras().getString("scanCode");
+            requestPOT_SELECT("DETAIL", scancode);
+        }
     }
 
     @Override
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setVisibility((View.GONE));
-
-        //신규등록 test
-        imgNew = findViewById(R.id.imgNew);
-        imgNew.setOnClickListener(v -> goPotNew());
 
         listView = findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -85,6 +92,9 @@ public class PotList extends BaseActivity implements PotAdapter.AlarmClickListen
                 intent.putExtra("POT_01", mList.get(position).POT_01);
                 intent.putExtra("POT_97", mList.get(position).POT_97);
                 intent.putExtra("ARM_04", mList.get(position).ARM_04);
+                intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
+                intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
+                intent.putExtra("CTN_02", CTN_02);
                 mContext.startActivity(intent);
             }
         });
@@ -105,21 +115,19 @@ public class PotList extends BaseActivity implements PotAdapter.AlarmClickListen
     protected void onResume(){
         super.onResume();
 
-        requestPOT_SELECT();
+        requestPOT_SELECT("LIST", "");
     }
 
-    private void requestPOT_SELECT(){
+    private void requestPOT_SELECT(String GUBUN, String POT_01){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-        openLoadingBar();
+//        openLoadingBar();
 
-        String GUBUN = "LIST";
-        String POT_ID = "1"; //컨테이너
-        String POT_01 = " ";
+        String POT_ID = CTN_02; //컨테이너
         String OCM_01 = mUser.Value.OCM_01; //사용자 아이디
 
         Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_SELECT(
@@ -142,17 +150,42 @@ public class PotList extends BaseActivity implements PotAdapter.AlarmClickListen
                     @Override
                     public void handleMessage(Message msg){
                         if(msg.what == 100){
-                            closeLoadingBar();
+//                            closeLoadingBar();
 
                             Response<POT_Model> response = (Response<POT_Model>) msg.obj;
 
                             mList = response.body().Data;
 
-                            if(mList == null)
-                                mList = new ArrayList<>();
+                            if(GUBUN.equals("LIST")){
+                                if(mList == null)
+                                    mList = new ArrayList<>();
 
-                            mAdapter.updateData(mList);
-                            mAdapter.notifyDataSetChanged();
+                                mAdapter.updateData(mList);
+                                mAdapter.notifyDataSetChanged();
+                            }
+                            else{ //DETAIL (스캔했을때)
+                                if(mList.size() == 0){ //등록된 정보가 없을때
+                                    goPotNew();
+                                }
+                                else{ //등록된 정보가 있을때
+                                    Intent intent = new Intent(mContext, PotDetail.class);
+                                    intent.putExtra("POT_81", mList.get(0).POT_81);
+                                    intent.putExtra("POT_02", mList.get(0).POT_02);
+                                    intent.putExtra("POT_03_T", mList.get(0).POT_03_T);
+                                    intent.putExtra("POT_04", mList.get(0).POT_04);
+                                    intent.putExtra("POT_05", mList.get(0).POT_05);
+                                    intent.putExtra("ARM_03", mList.get(0).ARM_03);
+                                    intent.putExtra("POT_96", mList.get(0).POT_96);
+                                    intent.putExtra("POT_06", mList.get(0).POT_06);
+                                    intent.putExtra("POT_01", mList.get(0).POT_01);
+                                    intent.putExtra("POT_97", mList.get(0).POT_97);
+                                    intent.putExtra("ARM_04", mList.get(0).ARM_04);
+                                    intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
+                                    intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
+                                    intent.putExtra("CTN_02", CTN_02);
+                                    mContext.startActivity(intent);
+                                }
+                            }
 
                         }
                     }
@@ -288,10 +321,12 @@ public class PotList extends BaseActivity implements PotAdapter.AlarmClickListen
 //        requestPOT_CONTROL("ALARM_UPDATE", data);
     }
 
-    //신규등록 test
     private void goPotNew(){
-//        Toast.makeText(mContext, "신규등록", Toast.LENGTH_LONG).show();
         Intent intent = new Intent(mContext, PotNew.class);
+        intent.putExtra("POT_01", scancode);
+        intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
+        intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
+        intent.putExtra("CTN_02", CTN_02);
         mContext.startActivity(intent);
     }
 

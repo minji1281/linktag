@@ -24,6 +24,7 @@ import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.PotVO;
 
 import retrofit2.Call;
@@ -61,6 +62,10 @@ public class PotNew extends BaseActivity {
     // Initialize
     //======================
     private String ARM_03 = "N";
+    private String CTM_01;
+    private String CTD_02;
+    private String CTN_02;
+    private String POT_01;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -71,6 +76,11 @@ public class PotNew extends BaseActivity {
         initLayout();
 
         initialize();
+
+        CTM_01 = getIntent().getStringExtra("CTM_01");
+        CTD_02 = getIntent().getStringExtra("CTD_02");
+        CTN_02 = getIntent().getStringExtra("CTN_02");
+        POT_01 = getIntent().getStringExtra("POT_01");
     }
 
     @Override
@@ -123,8 +133,7 @@ public class PotNew extends BaseActivity {
         openLoadingBar();
 
         String GUBUN = GUB;
-        String POT_ID = "1"; //컨테이너 수정해야돼!!!
-        String POT_01 = ""; //코드번호
+        String POT_ID = CTN_02; //컨테이너
         String POT_02 = etName.getText().toString(); //명칭
         int POT_04 = npCycle.getValue(); //주기
         String POT_05 = "M";
@@ -164,6 +173,9 @@ public class PotNew extends BaseActivity {
                 msg.obj = response;
                 msg.what = 100;
 
+                CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02, POT_01);
+                ctds_control.requestCTDS_CONTROL();
+
                 new Handler(){
                     @Override
                     public void handleMessage(Message msg){
@@ -172,7 +184,7 @@ public class PotNew extends BaseActivity {
 
                             Response<POT_Model> response = (Response<POT_Model>) msg.obj;
 
-                            callBack(GUB, response.body().Data.get(0));
+                            finish();
                         }
                     }
                 }.sendMessage(msg);
@@ -184,17 +196,6 @@ public class PotNew extends BaseActivity {
                 closeLoadingBar();
             }
         });
-
-    }
-
-    private void callBack(String GUB, PotVO data){
-        if(data.Validation){
-            switch(GUB){
-                case "INSERT":
-                    finish();
-                    break;
-            }
-        }
 
     }
 

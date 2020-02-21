@@ -22,6 +22,7 @@ import com.linktag.linkapp.model.COSModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.COS_VO;
 
 import retrofit2.Call;
@@ -52,11 +53,20 @@ public class CosDetail extends BaseActivity {
     //======================
     private COS_VO COS;
     private String gubun;
+    private String COS_01;
+    private String CTM_01;
+    private String CTD_02;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_cos_detail);
+
+        if (getIntent().hasExtra("COS_01")) {
+            COS_01 = getIntent().getStringExtra("COS_01");
+            CTM_01 = getIntent().getStringExtra("CTM_01");
+            CTD_02 = getIntent().getStringExtra("CTD_02");
+        }
 
         if(getIntent().hasExtra("COS")){
             COS = (COS_VO) getIntent().getSerializableExtra("COS");
@@ -149,7 +159,6 @@ public class CosDetail extends BaseActivity {
 
         String GUBUN = GUB;
         String COS_ID = getIntent().getStringExtra("CTN_02"); //컨테이너
-        String COS_01 = ""; //코드번호
         if(gubun.equals("UPDATE")){
             COS_01 = COS.COS_01;
         }
@@ -175,6 +184,12 @@ public class CosDetail extends BaseActivity {
                 Message msg = new Message();
                 msg.obj = response;
                 msg.what = 100;
+
+                if (gubun.equals("INSERT")) {
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02, COS_01);
+                    ctds_control.requestCTDS_CONTROL();
+                    CodList.COD_95 = COS_01;
+                }
 
                 new Handler(){
                     @Override

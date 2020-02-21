@@ -28,6 +28,7 @@ import com.linktag.linkapp.model.AIRModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.AIR_VO;
 
 import java.text.SimpleDateFormat;
@@ -73,7 +74,10 @@ public class AirDetail extends BaseActivity {
     private String ARM_03 = "N";
     private EditText etFocusDay;
     private AIR_VO AIR;
-    private String gubun;
+    private String g;
+    private String CTM_01;
+    private String CTD_02;
+    private String CTN_02;
 
     Calendar AIR_03_Calendar = Calendar.getInstance();
     Calendar AIR_04_Calendar = Calendar.getInstance();
@@ -108,12 +112,17 @@ public class AirDetail extends BaseActivity {
 
         if(getIntent().hasExtra("AIR")){
             AIR = (AIR_VO) getIntent().getSerializableExtra("AIR");
-            gubun = "UPDATE";
+            g = "UPDATE";
         }
         else{
             AIR = new AIR_VO();
-            gubun = "INSERT";
+            AIR.AIR_01 = getIntent().getStringExtra("scancode");
+            g = "INSERT";
         }
+
+        CTM_01 = getIntent().getStringExtra("CTM_01");
+        CTD_02 = getIntent().getStringExtra("CTD_02");
+        CTN_02 = getIntent().getStringExtra("CTN_02");
 
         initLayout();
 
@@ -125,7 +134,7 @@ public class AirDetail extends BaseActivity {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
-        if(gubun.equals("UPDATE")){
+        if(g.equals("UPDATE")){
             if(AIR.AIR_97.equals(mUser.Value.OCM_01)){ //작성자만 삭제버튼 보임
                 header.btnHeaderRight1.setVisibility((View.VISIBLE));
                 header.btnHeaderRight1.setMaxWidth(50);
@@ -192,7 +201,7 @@ public class AirDetail extends BaseActivity {
             @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v){
-                requestAIR_CONTROL(gubun);
+                requestAIR_CONTROL(g);
             }
         });
         btnFilterDayUpdate = (Button) findViewById(R.id.btnFilterDayUpdate);
@@ -218,7 +227,7 @@ public class AirDetail extends BaseActivity {
                         .show();
             }
         });
-        if(gubun.equals("INSERT")){
+        if(g.equals("INSERT")){
             btnFilterDayUpdate.setVisibility((View.GONE));
         }
 
@@ -227,7 +236,7 @@ public class AirDetail extends BaseActivity {
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void initialize() {
-        if(gubun.equals("UPDATE")){
+        if(g.equals("UPDATE")){
             getDetail();
         }
         else{
@@ -265,7 +274,7 @@ public class AirDetail extends BaseActivity {
     }
 
     @RequiresApi(api = Build.VERSION_CODES.M)
-    private void requestAIR_CONTROL(String GUB) {
+    private void requestAIR_CONTROL(String GUBUN) {
 
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
@@ -275,15 +284,11 @@ public class AirDetail extends BaseActivity {
 
         openLoadingBar();
 
-        String GUBUN = GUB;
-        String AIR_ID = "1"; //컨테이너 수정해야돼!!!
-        String AIR_01 = ""; //코드번호
-        if(gubun.equals("UPDATE")){
-            AIR_01 = AIR.AIR_01;
-        }
+        String AIR_ID = CTN_02; //컨테이너
+        String AIR_01 = AIR.AIR_01; //코드번호
         String AIR_02 = etName.getText().toString(); //명칭
-        String AIR_03 = etBuyDay.getText().toString().replace("-", "");
-        String AIR_04 = etFilterDay.getText().toString().replace("-", "");
+        String AIR_03 = etBuyDay.getText().toString().replace("-", ""); //구매일자
+        String AIR_04 = etFilterDay.getText().toString().replace("-", ""); //최근 필터 교체일자
         int AIR_05 = npCycle.getValue(); //주기
         String AIR_06 = "M";
         if(npCycle2.getValue() == 0){ //주기구분
@@ -322,6 +327,11 @@ public class AirDetail extends BaseActivity {
                 msg.obj = response;
                 msg.what = 100;
 
+                if(GUBUN.equals("INSERT")){
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02, AIR.AIR_01);
+                    ctds_control.requestCTDS_CONTROL();
+                }
+
                 new Handler(){
                     @Override
                     public void handleMessage(Message msg){
@@ -330,11 +340,11 @@ public class AirDetail extends BaseActivity {
 
                             Response<AIRModel> response = (Response<AIRModel>) msg.obj;
 
-                            if(GUB.equals("DELETE")){
-                                finish();
+                            if(GUBUN.equals("CHANGE")){
+                                callBack(GUBUN, response.body().Data.get(0));
                             }
                             else{
-                                callBack(GUB, response.body().Data.get(0));
+                                finish();
                             }
                         }
                     }

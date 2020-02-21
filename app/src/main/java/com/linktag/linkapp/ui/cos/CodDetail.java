@@ -131,6 +131,7 @@ public class CodDetail extends BaseActivity {
         }
         else{
             COD = new COD_VO();
+            COD.COD_95 = getIntent().getStringExtra("COD_95");
             gubun = "INSERT";
         }
 
@@ -358,6 +359,9 @@ public class CodDetail extends BaseActivity {
                             closeLoadingBar();
 
                             Response<CODModel> response = (Response<CODModel>) msg.obj;
+                            if(GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")){
+                                CodList.COD_95 = COD_95;
+                            }
 
                             finish();
                         }
