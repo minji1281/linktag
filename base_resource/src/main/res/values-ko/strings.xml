@@ -72,5 +72,13 @@
     <string name="dash_20">댓글을 확인해 주세요.</string>
     <string name="dash_21">"[공지사항] : "</string>
     <string name="dash_22">"[자유게시판] : "</string>
+    <string name="sign_up_3">NAME</string>
+    <string name="sign_up_4">NAME</string>
+    <string name="sign_up_5">E-MAIL</string>
+    <string name="sign_up_6">아이디(이메일)</string>
+    <string name="sign_up_7">PASSWORD</string>
+    <string name="sign_up_8">PASSWORD CHECK</string>
+    <string name="sign_up_9">PHONE NUMBER</string>
+    <string name="sign_up_10">SIGN UP</string>
 
 </resources>
