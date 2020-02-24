@@ -66,7 +66,7 @@ public class BaseFooter extends LinearLayout {
         btnFooterMember.setVisibility(typedArray.getInt(R.styleable.BaseFooter_btn_member_visibility, View.VISIBLE));
 
         // 세팅 버튼 visibility 설정
-        //btnFooterSetting.setVisibility(typedArray.getInt(R.styleable.BaseFooter_btn_setting_visibility, View.GONE));
+        btnFooterSetting.setVisibility(typedArray.getInt(R.styleable.BaseFooter_btn_setting_visibility, View.GONE));
 
         int nBtnHome = typedArray.getResourceId(R.styleable.BaseFooter_btn_home_src, -1);
         if (nBtnHome != -1)
@@ -120,7 +120,7 @@ public class BaseFooter extends LinearLayout {
 
         setFooterMemberButton();
 
-        //setFooterSettingButton();
+        setFooterSettingButton();
     }
 
 

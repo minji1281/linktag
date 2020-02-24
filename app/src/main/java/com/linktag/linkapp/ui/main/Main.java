@@ -35,6 +35,7 @@ import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.login.Login;
 import com.linktag.linkapp.ui.menu.ChangeActivityCls;
 import com.linktag.linkapp.ui.menu.ChooseOne;
+import com.linktag.linkapp.ui.menu.Member;
 import com.linktag.linkapp.ui.menu.Menu;
 import com.linktag.linkapp.ui.scanner.ScanBarcode;
 import com.linktag.linkapp.ui.settings_main.SettingMain;
@@ -52,11 +53,11 @@ import retrofit2.Response;
 
 public class Main extends BaseActivity {
     private final int TAB_PAGE_HOME = 0;
-    private final int TAB_PAGE_COMMENT = 1;
+    private final int TAB_PAGE_BOARD = 1;
 
     // Variable
-    private CommuteFragment fragmentHome;
-    private WorkFragment fragmentWork;
+    private HomeFragment fragmentHome;
+    private BoardFragment fragmentBoard;
 
     private BaseViewPager viewPager;
     private ViewPagerAdapter mViewPagerAdapter;
@@ -64,8 +65,6 @@ public class Main extends BaseActivity {
 
     // Layout
     //private BaseHeader header;
-    private TextView tvMainHome;
-    private TextView tvMainWork;
 
     private BaseFooter footer;
 
@@ -96,17 +95,17 @@ public class Main extends BaseActivity {
     protected void initLayout() {
         footer = findViewById(R.id.footer);
         footer.btnFooterHome.setSelected(true);
-        footer.btnFooterMember.setVisibility(View.GONE);
-        footer.btnFooterSetting.setVisibility(View.VISIBLE);
+        footer.btnFooterMember.setVisibility(View.VISIBLE);
+        footer.btnFooterSetting.setVisibility(View.GONE);
+
+        footer.btnFooterMember.setOnClickListener(v -> goMember());
 
         footer.btnFooterScan.setOnClickListener(v -> goScan());
         footer.btnFooterMenu.setOnClickListener(v -> goMenu());
         footer.btnFooterSetting.setOnClickListener(v -> goSettingMain());
 
-        tvMainHome = findViewById(R.id.tvMainHome);
-        tvMainHome.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_HOME));
-        tvMainWork = findViewById(R.id.tvMainWork);
-        tvMainWork.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_COMMENT));
+        footer.btnFooterHome.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_HOME));
+        footer.btnFooterBoard.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_BOARD));
 
         initViewPager();
     }
@@ -156,14 +155,14 @@ public class Main extends BaseActivity {
     private void initViewPager() {
         viewPager = findViewById(R.id.viewPagerMain);
 
-        fragmentHome = new CommuteFragment();
-        fragmentWork = new WorkFragment();
+        fragmentHome = new HomeFragment();
+        fragmentBoard = new BoardFragment();
 
         fragmentHome.setOnLoadingDialog(callLoadingBar);
-        fragmentWork.setOnLoadingDialog(callLoadingBar);
+        fragmentBoard.setOnLoadingDialog(callLoadingBar);
 
         mListFragment.add(fragmentHome);
-        mListFragment.add(fragmentWork);
+        mListFragment.add(fragmentBoard);
 
         mViewPagerAdapter = new ViewPagerAdapter(this.getSupportFragmentManager(), mListFragment);
         viewPager.setAdapter(mViewPagerAdapter);
@@ -190,15 +189,15 @@ public class Main extends BaseActivity {
      * 화면 탭 설정
      */
     private void setTag() {
-        tvMainHome.setSelected(false);
-        tvMainWork.setSelected(false);
+        footer.btnFooterHome.setSelected(false);
+        footer.btnFooterBoard.setSelected(false);
 
         switch (viewPager.getCurrentItem()) {
             case TAB_PAGE_HOME:
-                tvMainHome.setSelected(true);
+                footer.btnFooterHome.setSelected(true);
                 break;
-            case TAB_PAGE_COMMENT:
-                tvMainWork.setSelected(true);
+            case TAB_PAGE_BOARD:
+                footer.btnFooterBoard.setSelected(true);
                 break;
         }
     }
@@ -234,6 +233,11 @@ public class Main extends BaseActivity {
      */
     private void goSettingMain(){
         Intent intent = new Intent(mContext, SettingMain.class);
+        mContext.startActivity(intent);
+    }
+
+    private void goMember(){
+        Intent intent = new Intent(mContext, Member.class);
         mContext.startActivity(intent);
     }
 
