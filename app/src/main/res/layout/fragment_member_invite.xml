@@ -166,7 +166,7 @@
                     android:background="@drawable/shape_base_border">
 
                     <Spinner
-                        android:id="@+id/spinnerShared2"
+                        android:id="@+id/spinnerShared"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
                 </FrameLayout>

@@ -3,9 +3,11 @@ package com.linktag.linkapp.ui.menu;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -128,7 +130,30 @@ public class MemberInvite extends BaseActivity {
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                requestCTU_CONTROL(mList.get(position));
+                int spinnerPosition = spinnerShared.getSelectedItemPosition();
+                if(spinnerPosition == 0){
+                    Toast.makeText(mContext, "사용자를 추가 할 공유를 선택해 주세요.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+                else {
+                    new AlertDialog.Builder(mActivity)
+                            .setMessage("해당 유저를 등록 하시겠습니까?")
+                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                @RequiresApi(api = Build.VERSION_CODES.M)
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    //requestCTU_CONTROL(mList.get(position));
+
+                                }
+                            })
+                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    return;
+                                }
+                            })
+                            .show();
+                }
             }
         });
 
@@ -140,6 +165,8 @@ public class MemberInvite extends BaseActivity {
 
     @Override
     protected void initialize() {
+        sharedList = new ArrayList<>();
+
         mList = new ArrayList<>();
         mAdapter = new MemberAdapter(mContext, mList);
         listview.setAdapter(mAdapter);
@@ -324,11 +351,7 @@ public class MemberInvite extends BaseActivity {
     }
 
     private void requestCTU_CONTROL(OcmVO ocmVO){
-        int position = spinnerShared.getSelectedItemPosition();
-        if(position == 0){
-            Toast.makeText(mContext, "사용자를 추가 할 공유를 선택해 주세요.", Toast.LENGTH_LONG).show();
-            return;
-        }
+
 
         // 인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
@@ -340,7 +363,7 @@ public class MemberInvite extends BaseActivity {
 
         Call<CTU_Model> call = Http.ctu(HttpBaseService.TYPE.POST).CTU_CONTROL(
                 BaseConst.URL_HOST,
-                "INSERT",
+                "INSERT_SHARED",
                 CTM_01,
                 SVC_02,
                 ocmVO.OCM_01,

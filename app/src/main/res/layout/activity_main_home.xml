@@ -15,52 +15,6 @@
     <!--        app:btn_right1_src="@drawable/main_scan"-->
     <!--        app:btn_left_visibility="gone"/>-->
 
-    <LinearLayout
-        android:id="@+id/layoutTabMenu"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:baselineAligned="false"
-        android:gravity="center_vertical"
-        android:orientation="horizontal"
-        android:paddingTop="4dp"
-        android:paddingBottom="4dp">
-
-        <TextView
-            android:id="@+id/tvMainHome"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/selector_main_home"
-            android:gravity="center"
-            android:text="@string/home_01"
-            android:textColor="@drawable/selector_main_tab_text"
-            android:textSize="@dimen/text_small" />
-
-        <TextView
-            android:id="@+id/tvMainWork"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableTop="@drawable/selector_main_work"
-            android:gravity="center"
-            android:text="@string/home_02"
-            android:textColor="@drawable/selector_main_tab_text"
-            android:textSize="@dimen/text_small" />
-
-
-        <!--        <TextView-->
-        <!--            android:id="@+id/tvMainTest"-->
-        <!--            android:layout_width="0dp"-->
-        <!--            android:layout_height="wrap_content"-->
-        <!--            android:layout_weight="1"-->
-        <!--            android:drawableTop="@drawable/selector_main_setting"-->
-        <!--            android:gravity="center"-->
-        <!--            android:text="테스트"-->
-        <!--            android:textColor="@drawable/selector_main_tab_text"-->
-        <!--            android:textSize="@dimen/text_small" />-->
-    </LinearLayout>
-
     <com.linktag.base.base_view_pager.BaseViewPager
         android:id="@+id/viewPagerMain"
         android:layout_width="match_parent"
