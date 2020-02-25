@@ -166,6 +166,8 @@ public class JDMMain extends BaseActivity {
                                     jdmvo.setJDM_02("");
                                     jdmvo.setJDM_03("");
                                     jdmvo.setJDM_04("");
+                                    jdmvo.setJDM_05("");
+                                    jdmvo.setJDM_06("");
                                     jdmvo.setJDM_96("");
                                     jdmvo.setJDM_97(mUser.Value.OCM_01);
                                     jdmvo.setARM_03("N");

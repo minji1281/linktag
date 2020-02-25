@@ -225,6 +225,14 @@ public class DetailTrp extends BaseActivity implements Serializable {
         mBtnArray[6] = (Button) findViewById(R.id.btn_Sunday);
 
 
+//        mBtnArray[0] = (Button) findViewById(R.id.btn_Sunday);
+//        mBtnArray[1] = (Button) findViewById(R.id.btn_Monday);
+//        mBtnArray[2] = (Button) findViewById(R.id.btn_Tuesday);
+//        mBtnArray[4] = (Button) findViewById(R.id.btn_Wednesday);
+//        mBtnArray[5] = (Button) findViewById(R.id.btn_Thursday);
+//        mBtnArray[6] = (Button) findViewById(R.id.btn_Friday);
+//        mBtnArray[7] = (Button) findViewById(R.id.btn_Saturday);
+
         trpVO = (TrpVO) getIntent().getSerializableExtra("TrpVO");
 
         if (trpVO.ARM_03.equals("Y")) {

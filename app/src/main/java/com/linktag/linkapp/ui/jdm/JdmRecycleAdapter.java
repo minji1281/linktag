@@ -30,6 +30,7 @@ import com.linktag.linkapp.value_object.ArmVO;
 import com.linktag.linkapp.value_object.JdmVO;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -42,6 +43,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
     private LayoutInflater mInflater;
     private View view;
     private InterfaceUser mUser;
+    private Calendar calendar = Calendar.getInstance();
 
     JdmRecycleAdapter(Context context, ArrayList<JdmVO> list) {
         mContext = context;
@@ -62,15 +64,20 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        if (mList.get(position).JDM_96.equals("")) {
-            viewHolder.tv_date.setText("알림 미지정");
-            viewHolder.tv_time.setText("");
+
+
+        if (mList.get(position).JDM_04.equals("")) {
+            viewHolder.tv_D_day.setText("D+ 0");
         } else {
-            String Format = mList.get(position).JDM_96;
-            String dateFormat = Format.substring(2, 4) + "." + Format.substring(4, 6) + "." + Format.substring(6, 8);
-            String timeFormat = Format.substring(8, 10) + ":" + Format.substring(10);
-            viewHolder.tv_date.setText(dateFormat);
-            viewHolder.tv_time.setText(timeFormat);
+            String year = mList.get(position).JDM_04.substring(0, 4);
+            String month = mList.get(position).JDM_04.substring(4, 6);
+            String dayOfMonth = mList.get(position).JDM_04.substring(6, 8);
+            Calendar dCalendar = Calendar.getInstance();
+            dCalendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(dayOfMonth));
+
+            int count = (int) ((calendar.getTimeInMillis() - dCalendar.getTimeInMillis()) / (24 * 60 * 60 * 1000));
+            viewHolder.tv_D_day.setText("D+" + String.valueOf(count));
+
         }
         viewHolder.tv_name.setText(mList.get(position).JDM_02);
         viewHolder.tv_memo.setText(mList.get(position).JDM_03);
@@ -88,14 +95,11 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                 if (mList.get(position).ARM_03.equals("Y")) {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
                     Toast.makeText(mContext, "[" + mList.get(position).JDM_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
-                } else if(mList.get(position).ARM_03.equals("N") && !mList.get(position).JDM_96.equals("")) {
+                } else if (mList.get(position).ARM_03.equals("N")) {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
                     Toast.makeText(mContext, "[" + mList.get(position).JDM_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
                 }
-                else{
-                    Toast.makeText(mContext, "알림일자를 지정하세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
+
                 ArmVO armVO = new ArmVO();
 
                 armVO.setARM_ID(mList.get(position).JDM_ID);
@@ -135,9 +139,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         ImageView imageview;
         TextView tv_name;
         TextView tv_memo;
-        TextView tv_date;
-        TextView tv_time;
-        Boolean bool;
+        TextView tv_D_day;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -145,9 +147,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
             imageview = itemView.findViewById(R.id.imageView);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_memo = itemView.findViewById(R.id.tv_memo);
-            tv_date = itemView.findViewById(R.id.tv_date);
-            tv_time = itemView.findViewById(R.id.tv_time);
-            bool = false;
+            tv_D_day = itemView.findViewById(R.id.tv_D_day);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -161,6 +161,8 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                     jdmvo.setJDM_02(tv_name.getText().toString());
                     jdmvo.setJDM_03(tv_memo.getText().toString());
                     jdmvo.setJDM_04(mList.get(position).JDM_04);
+                    jdmvo.setJDM_05(mList.get(position).JDM_05);
+                    jdmvo.setJDM_06(mList.get(position).JDM_06);
                     jdmvo.setJDM_96(mList.get(position).JDM_96);
                     jdmvo.setJDM_97(mList.get(position).JDM_97);
                     jdmvo.setARM_03(mList.get(position).ARM_03);
@@ -226,32 +228,6 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
                             } else {
                                 mList.get(position).setARM_03("Y");
-
-//                                Intent intent = new Intent(mContext, Alarm_Receiver.class);
-//                                intent.putExtra("notify_id", responseData.get(0).ARM_04);
-//                                intent.putExtra("calDateTime", mList.get(position).JDM_96);
-//                                intent.putExtra("contentTitle", "장독관리" + mList.get(position).JDM_02);
-//                                intent.putExtra("contentText", mList.get(position).JDM_03);
-//                                intent.putExtra("className", ".ui.intro.Intro");
-//                                intent.putExtra("gotoActivity", ".ui.jdm.JDMMain");
-//                                intent.putExtra("gotoLogin", ".ui.login.Login");
-//                                intent.putExtra("gotoMain", ".ui.main.Main");
-//
-//
-//                                JdmVO jdmvo = new JdmVO();
-//                                jdmvo.setJDM_01( mList.get(position).getJDM_01());
-//                                jdmvo.setJDM_02( mList.get(position).getJDM_02());
-//                                jdmvo.setJDM_03( mList.get(position).getJDM_03());
-//                                jdmvo.setJDM_04( mList.get(position).getJDM_04());
-//                                jdmvo.setJDM_96( mList.get(position).getJDM_96());
-//                                jdmvo.setARM_03( mList.get(position).getARM_03());
-//
-//                                intent.putExtra("mList",mList);
-//
-//                                intent.putExtra("JdmVO", jdmvo);
-//
-//
-//                                new AlarmHATT(mContext).Alarm(intent);
 
                             }
 
