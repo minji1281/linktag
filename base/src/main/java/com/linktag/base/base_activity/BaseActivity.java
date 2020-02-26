@@ -2,6 +2,7 @@ package com.linktag.base.base_activity;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -10,7 +11,6 @@ import com.linktag.base.base_fragment.BaseFragment;
 import com.linktag.base.settings.InterfaceSettings;
 import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.base.util.BaseLoadingBar;
-import com.linktag.base.util.ClsUtil;
 
 public abstract class BaseActivity extends FragmentActivity {
     public static Context BaseContext;
@@ -87,4 +87,58 @@ public abstract class BaseActivity extends FragmentActivity {
             closeLoadingBar();
         }
     };
+
+
+//    protected void goHome(){
+//        try{
+//            Class clsList = Class.forName("com.linktag.linkapp.ui.main.Main");
+//            Intent intent = new Intent(mContext, clsList);
+//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//            mContext.startActivity(intent);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//    /**
+//     * 메뉴 화면 이동
+//     */
+//    protected void goMenu(){
+//        try{
+//            Class clsList = Class.forName("com.linktag.linkapp.ui.menu.Menu");
+//            Intent intent = new Intent(mContext, clsList);
+//
+//            mContext.startActivity(intent);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    /**
+//     * 세팅 화면 이동
+//     */
+//    protected void goSettingMain(){
+//        try{
+//            Class clsList = Class.forName("com.linktag.linkapp.ui.settings_main.SettingMain");
+//            Intent intent = new Intent(mContext, clsList);
+//
+//            mContext.startActivity(intent);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+//
+//    /**
+//     * 멤버 화면 이동
+//     */
+//    protected void goMember(){
+//        try{
+//            Class clsList = Class.forName("com.linktag.linkapp.ui.menu.Member");
+//            Intent intent = new Intent(mContext, clsList);
+////            intent.putExtra("CTM_01", CTM_01);
+//            mContext.startActivity(intent);
+//        } catch (Exception e){
+//            e.printStackTrace();
+//        }
+//    }
+
 }

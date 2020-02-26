@@ -6,10 +6,20 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <Button
-        android:id="@+id/btnService"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
+    <ImageView
+        android:id="@+id/ivService"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
         android:layout_gravity="center|center_vertical"
-        android:text="Button" />
+        android:layout_marginBottom="15dp"
+        android:scaleType="fitCenter"
+        android:src="@drawable/main_profile_no_image" />
+
+    <TextView
+        android:id="@+id/tvService"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="TextView"
+        android:textSize="@dimen/text_normal" />
 </LinearLayout>

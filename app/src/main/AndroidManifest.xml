@@ -14,8 +14,6 @@
     <uses-permission android:name="android.permission.DOWNLOAD_WITHOUT_NOTIFICATION" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
 
     <application
@@ -62,10 +60,7 @@
             android:name=".ui.permission_info.PermissionInfo"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
-        <!--        <activity-->
-        <!--            android:name=".ui.bus.BusSelectMain"-->
-        <!--            android:screenOrientation="portrait"-->
-        <!--            android:theme="@style/TranslucentUser"/>-->
+
         <activity
             android:name=".ui.board.BoardMain"
             android:screenOrientation="portrait"
@@ -105,13 +100,17 @@
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
         <activity
+            android:name=".ui.menu.AddShared"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser" />
+        <activity
             android:name=".ui.menu.ChooseOne"
             android:theme="@android:style/Theme.Dialog"
-            android:excludeFromRecents="true"/>
+            android:excludeFromRecents="true" />
         <activity
             android:name=".ui.menu.Member"
             android:screenOrientation="portrait"
-            android:theme="@style/TranslucentUser" />
+            android:theme="@style/TranslucentUser"/>
         <activity
             android:name=".ui.menu.MemberInvite"
             android:screenOrientation="portrait"
@@ -152,9 +151,6 @@
         <!-- meta -->
         <!-- ================================== -->
         <meta-data
-            android:name="com.naver.maps.map.CLIENT_ID"
-            android:value="rpxfpac5od" />
-        <meta-data
             android:name="firebase_messaging_auto_init_enabled"
             android:value="false" />
         <meta-data
@@ -165,7 +161,7 @@
             android:name=".ui.trp.TRPMain"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
-            android:theme="@style/TranslucentUser" />
+            android:theme="@style/TranslucentUser"/>
 
         <activity
             android:name=".ui.trp.DetailTrp"

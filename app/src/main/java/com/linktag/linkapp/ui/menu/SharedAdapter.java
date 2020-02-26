@@ -1,35 +1,31 @@
 package com.linktag.linkapp.ui.menu;
 
 import android.content.Context;
+import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.value_object.CtdVO;
 
 import java.util.ArrayList;
 
-public class SharedAdapter extends BaseAdapter implements View.OnClickListener {
+public class SharedAdapter extends BaseAdapter{
     private Context mContext;
     private ArrayList<CtdVO> mList;
     private LayoutInflater mInflater;
 
-    private SharedBtnClickListener sharedBtnClickListener;
-
-    public interface SharedBtnClickListener{
-        void onGridBtnClick(int position);
-    }
-
-    public SharedAdapter(Context context, ArrayList<CtdVO> list, SharedBtnClickListener sharedBtnClickListener){
+    public SharedAdapter(Context context, ArrayList<CtdVO> list){
         this.mContext = context;
         this.mList = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        this.sharedBtnClickListener = sharedBtnClickListener;
     }
 
     @Override
@@ -46,12 +42,20 @@ public class SharedAdapter extends BaseAdapter implements View.OnClickListener {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
+        String imageUrl;
 
         if(convertView == null){
             convertView = mInflater.inflate(R.layout.griditem_shared, parent, false);
 
             viewHolder = new ViewHolder();
-            viewHolder.btnShared = convertView.findViewById(R.id.btnShared);
+
+            viewHolder.layShared = convertView.findViewById(R.id.layShared);
+
+            viewHolder.ivService = convertView.findViewById(R.id.ivService);
+            if (Build.VERSION.SDK_INT >= 21) {
+                viewHolder.ivService.setClipToOutline(true);
+            }
+
             viewHolder.tvShared = convertView.findViewById(R.id.tvShared);
 
             convertView.setTag(viewHolder);
@@ -59,27 +63,23 @@ public class SharedAdapter extends BaseAdapter implements View.OnClickListener {
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        viewHolder.btnShared.setText(mList.get(position).CTD_02_NM);
-        viewHolder.btnShared.setTag(position);
-        viewHolder.btnShared.setOnClickListener(this);
+        imageUrl = "http://app.linktag.io/files/admin/svc/" + mList.get(position).CTD_02 + "/" + mList.get(position).SVC_16;
+
+        Glide.with(mContext).load(imageUrl)
+                .placeholder(R.drawable.main_profile_no_image)
+                .error(R.drawable.main_profile_no_image)
+                .into(viewHolder.ivService);
+
         viewHolder.tvShared.setText(mList.get(position).CTM_17);
-        viewHolder.tvShared.setTag(position);
-        viewHolder.tvShared.setOnClickListener(this);
 
         return convertView;
     }
 
     public void updateData(ArrayList<CtdVO> list){ mList = list;}
 
-    @Override
-    public void onClick(View v) {
-        if(v.getId() == R.id.btnShared || v.getId() == R.id.tvShared){
-            this.sharedBtnClickListener.onGridBtnClick((int) v.getTag());
-        }
-    }
-
     static class ViewHolder{
-        Button btnShared;
+        LinearLayout layShared;
+        ImageView ivService;
         TextView tvShared;
     }
 }

@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.linktag.base.base_activity.BaseActivity;
+import com.linktag.base.base_footer.BaseFooter;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
@@ -23,6 +24,8 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.jdm.DetailJdm;
+import com.linktag.linkapp.ui.menu.Member;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
@@ -34,8 +37,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class TRPMain extends BaseActivity {
-
     private BaseHeader header;
+    private BaseFooter footer;
 
     private View view;
     private SwipeRefreshLayout swipeRefresh;
@@ -47,9 +50,8 @@ public class TRPMain extends BaseActivity {
 
     private ArrayList<TrpVO> mList;
 
-
-    private String CTM_01;
-    private String CTN_02;
+    // 요거
+    private CtdVO intentVO;
 
     public TRPMain() {
     }
@@ -73,21 +75,21 @@ public class TRPMain extends BaseActivity {
         super.onResume();
 
         requestTRP_SELECT("");
-
-
     }
 
 
     protected void initLayout() {
-
-        CTM_01 = getIntent().getStringExtra("CTM_01");
-        CTN_02 = getIntent().getStringExtra("CTN_02");
-
+        // 요거
+        intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
 
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
+        // 요거
+        initLayoutByContractType();
 
+//        CTM_01 = getIntent().getStringExtra("CTM_01");
+//        CTN_02 = getIntent().getStringExtra("CTN_02");
 
         view = findViewById(R.id.recyclerView);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -104,6 +106,32 @@ public class TRPMain extends BaseActivity {
         });
     }
 
+    // 요거
+    private void initLayoutByContractType(){
+        footer = findViewById(R.id.footer);
+
+        if(intentVO.CTM_19.equals("P")){
+            // privateService
+            footer.btnFooterSetting.setVisibility(View.VISIBLE);
+            footer.btnFooterMember.setVisibility(View.GONE);
+        } else {
+            // sharedService
+            header.tvHeaderTitle2.setVisibility(View.VISIBLE);
+            header.tvHeaderTitle2.setText(intentVO.CTM_17);
+
+            footer.btnFooterSetting.setVisibility(View.GONE);
+            footer.btnFooterMember.setVisibility(View.VISIBLE);
+
+            footer.btnFooterMember.setOnClickListener(v -> goMember());
+        }
+    }
+
+    // 요거
+    private void goMember(){
+        Intent intent = new Intent(mContext, Member.class);
+        intent.putExtra("intentVO", intentVO);
+        mContext.startActivity(intent);
+    }
 
     protected void initialize() {
         mList = new ArrayList<>();
@@ -129,7 +157,7 @@ public class TRPMain extends BaseActivity {
         Call<TRPModel> call = Http.trp(HttpBaseService.TYPE.POST).TRP_SELECT(
                 BaseConst.URL_HOST,
                 "TRP_LIST",
-                CTN_02,
+                intentVO.CTN_02,
                 scancode,
                 mUser.Value.OCM_01
         );
@@ -163,7 +191,7 @@ public class TRPMain extends BaseActivity {
                                 if (mList.size() == 0) {
 
                                     TrpVO trpvo = new TrpVO();
-                                    trpvo.setTRP_ID(CTN_02);
+                                    trpvo.setTRP_ID(intentVO.CTN_02);
                                     trpvo.setTRP_01(scancode);
                                     trpvo.setTRP_02("");
                                     trpvo.setTRP_03("");
@@ -174,8 +202,9 @@ public class TRPMain extends BaseActivity {
                                     Intent intent = new Intent(mContext, DetailTrp.class);
                                     intent.putExtra("TrpVO", trpvo);
                                     intent.putExtra("scanCode", scancode);
-                                    intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
-                                    intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
+                                    intent.putExtra("intentVO", intentVO);  // 요래 넘깁시다
+//                                    intent.putExtra("CTM_01", intentVO.CTM_01);
+//                                    intent.putExtra("CTD_02", intentVO.CTD_02);
                                     mContext.startActivity(intent);
                                 } else {
                                     TrpVO trpvo = mList.get(0);

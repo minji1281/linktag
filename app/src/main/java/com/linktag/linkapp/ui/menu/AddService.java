@@ -50,7 +50,7 @@ public class AddService extends BaseActivity {
 
     private String GUBUN;
     private String CTM_01;
-    private String contractType;
+    //private String contractType;
 
     //===================================
     // Initialize
@@ -91,9 +91,9 @@ public class AddService extends BaseActivity {
 
     @Override
     protected void initialize() {
-        contractType = getIntent().getStringExtra("contractType");
+        //contractType = getIntent().getStringExtra("contractType");
 
-        header.tvHeaderTitle.setText(contractType.equals("P") ? "서비스 추가" : "공유 서비스 추가");
+        //header.tvHeaderTitle.setText(contractType.equals("P") ? "서비스 추가" : "공유 서비스 추가");
 
         if(getIntent().hasExtra("CTM_01"))
             CTM_01 = getIntent().getStringExtra("CTM_01");
@@ -120,7 +120,8 @@ public class AddService extends BaseActivity {
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
-                    GUBUN = contractType.equals("P") ? "INSERT" : "INSERT_SHARED";
+                    //GUBUN = contractType.equals("P") ? "INSERT" : "INSERT_SHARED";
+                    GUBUN = "INSERT";
                     requestCTD_CONTROL(mList.get(position).SVC_02);
                 }
             });
@@ -143,7 +144,8 @@ public class AddService extends BaseActivity {
 
         //openLoadingBar();
 
-        String GUB = contractType.equals("P") ? "LIST_SERVICE" : "LIST";
+        //String GUB = contractType.equals("P") ? "LIST_SERVICE" : "LIST";
+        String GUB = "LIST_SERVICE";
         String SVC_03 = etSearch.getText().toString();
 
         Call<SVC_Model> call = Http.svc(HttpBaseService.TYPE.POST).SVC_SELECT(
@@ -237,10 +239,12 @@ public class AddService extends BaseActivity {
 
                             //Response<CTD_Model> response = (Response<CTD_Model>) msg.obj;
 
-                            if(contractType.equals("P"))
-                                requestSVC_SELECT();
-                            else
-                                mActivity.finish();
+//                            if(contractType.equals("P"))
+//                                requestSVC_SELECT();
+//                            else
+//                                mActivity.finish();
+
+                            requestSVC_SELECT();
                         }
                     }
                 }.sendMessage(msg);

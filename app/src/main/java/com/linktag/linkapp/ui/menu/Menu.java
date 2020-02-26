@@ -49,8 +49,6 @@ public class Menu extends BaseActivity {
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> closePop(v));
-        header.btnHeaderText.setVisibility(View.VISIBLE);
-        header.btnHeaderText.setText("추가");
 
         tvMenuService = findViewById(R.id.tvMenuService);
         tvMenuService.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_SERVICE));
@@ -108,13 +106,11 @@ public class Menu extends BaseActivity {
                 tvMenuService.setSelected(true);
                 tvMenuService.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 tvMenuShared.setBackgroundColor(Color.parseColor("#F2F5F7"));
-                header.btnHeaderText.setOnClickListener(v -> fragService.goAddService());
                 break;
             case TAB_PAGE_SHARED:
                 tvMenuShared.setSelected(true);
                 tvMenuShared.setBackgroundColor(Color.parseColor("#FFFFFF"));
                 tvMenuService.setBackgroundColor(Color.parseColor("#F2F5F7"));
-                header.btnHeaderText.setOnClickListener(v -> fragShared.goAddShared());
                 break;
         }
     }
@@ -131,13 +127,10 @@ public class Menu extends BaseActivity {
 
     @Override
     public void onBackPressed() {
-
         finish();
     }
 
     private void closePop(View view){
-        mActivity.finish();
-        //this.overridePendingTransition(com.linktag.base.R.anim.start_exit, com.linktag.base.R.anim.start_enter);
+        finish();
     }
-
 }

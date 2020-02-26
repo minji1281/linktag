@@ -1,6 +1,7 @@
 package com.linktag.linkapp.ui.menu;
 
 import android.content.Context;
+import android.os.Build;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -9,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.value_object.SvcVO;
 
@@ -43,6 +45,7 @@ public class AddServiceAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
+        String imageUrl;
 
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.griditem_add_service, parent, false);
@@ -50,6 +53,11 @@ public class AddServiceAdapter extends BaseAdapter {
             viewHolder = new ViewHolder();
 
             viewHolder.ivServiceIcon = convertView.findViewById(R.id.ivServiceIcon);
+            if (Build.VERSION.SDK_INT >= 21) {
+                viewHolder.ivServiceIcon.setClipToOutline(true);
+            }
+            viewHolder.ivServiceIcon = convertView.findViewById(R.id.ivServiceIcon);
+
             viewHolder.tvServiceNM = convertView.findViewById(R.id.tvServiceNM);
             viewHolder.ivUseCHK = convertView.findViewById(R.id.ivUseCHK);
 
@@ -57,6 +65,13 @@ public class AddServiceAdapter extends BaseAdapter {
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
+
+        imageUrl = "http://app.linktag.io/files/admin/svc/" + mList.get(position).SVC_02 + "/" + mList.get(position).SVC_16;
+
+        Glide.with(mContext).load(imageUrl)
+                .placeholder(R.drawable.main_profile_no_image)
+                .error(R.drawable.main_profile_no_image)
+                .into(viewHolder.ivServiceIcon);
 
         viewHolder.tvServiceNM.setText(mList.get(position).SVC_03);
 

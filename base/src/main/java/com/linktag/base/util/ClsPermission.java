@@ -16,8 +16,7 @@ public class ClsPermission {
     public static int REQUEST_CODE = 4332;
     public static String[] ALL_PERMISSION = {
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.CAMERA,
-            Manifest.permission.ACCESS_FINE_LOCATION
+            Manifest.permission.CAMERA
     };
 
     /**

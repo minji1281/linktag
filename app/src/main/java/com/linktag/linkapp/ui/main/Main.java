@@ -35,10 +35,7 @@ import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.login.Login;
 import com.linktag.linkapp.ui.menu.ChangeActivityCls;
 import com.linktag.linkapp.ui.menu.ChooseOne;
-import com.linktag.linkapp.ui.menu.Member;
-import com.linktag.linkapp.ui.menu.Menu;
 import com.linktag.linkapp.ui.scanner.ScanBarcode;
-import com.linktag.linkapp.ui.settings_main.SettingMain;
 import com.linktag.linkapp.ui.work_place_search.FindWorkPlace;
 import com.linktag.linkapp.value_object.CtdVO;
 
@@ -95,14 +92,15 @@ public class Main extends BaseActivity {
     protected void initLayout() {
         footer = findViewById(R.id.footer);
         footer.btnFooterHome.setSelected(true);
-        footer.btnFooterMember.setVisibility(View.VISIBLE);
-        footer.btnFooterSetting.setVisibility(View.GONE);
 
-        footer.btnFooterMember.setOnClickListener(v -> goMember());
+        footer.btnFooterMember.setVisibility(View.GONE);
+        footer.btnFooterSetting.setVisibility(View.VISIBLE);
+
+        //footer.btnFooterMember.setOnClickListener(v -> goMember());
 
         footer.btnFooterScan.setOnClickListener(v -> goScan());
-        footer.btnFooterMenu.setOnClickListener(v -> goMenu());
-        footer.btnFooterSetting.setOnClickListener(v -> goSettingMain());
+        //footer.btnFooterMenu.setOnClickListener(v -> goMenu());
+        //footer.btnFooterSetting.setOnClickListener(v -> goSettingMain());
 
         footer.btnFooterHome.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_HOME));
         footer.btnFooterBoard.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_BOARD));
@@ -221,27 +219,6 @@ public class Main extends BaseActivity {
     }
 
     /**
-     * 메뉴 화면 이동
-     */
-    private void goMenu(){
-        Intent intent = new Intent(mContext, Menu.class);
-        mContext.startActivity(intent);
-    }
-
-    /**
-     * 세팅 화면 이동
-     */
-    private void goSettingMain(){
-        Intent intent = new Intent(mContext, SettingMain.class);
-        mContext.startActivity(intent);
-    }
-
-    private void goMember(){
-        Intent intent = new Intent(mContext, Member.class);
-        mContext.startActivity(intent);
-    }
-
-    /**
      * ViewPager 이동시킨다.
      *
      * @param page
@@ -307,7 +284,6 @@ public class Main extends BaseActivity {
 
                 }
                 break;
-
 
         }
     }

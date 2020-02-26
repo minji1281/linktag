@@ -9,7 +9,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.linktag.base.base_fragment.BaseFragment;
@@ -29,10 +31,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class SharedFragment extends BaseFragment implements SharedAdapter.SharedBtnClickListener {
+public class SharedFragment extends BaseFragment {
     private BaseHeader header;
     private View view;
     private GridView gridView;
+    private LinearLayout layAdd;
 
     private SharedAdapter mAdapter;
     private ArrayList<CtdVO> mList;
@@ -69,9 +72,17 @@ public class SharedFragment extends BaseFragment implements SharedAdapter.Shared
 
     private void initLayout() {
         header = mActivity.findViewById(R.id.header);
-        header.btnHeaderText.setOnClickListener(v -> goAddShared());
+
+        layAdd = view.findViewById(R.id.layAdd);
+        layAdd.setOnClickListener(v -> goAdd());
 
         gridView = view.findViewById(R.id.gridView);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                onGridClick(position);
+            }
+        });
 
         activity_name = mActivity.getClass().getSimpleName();
 
@@ -83,13 +94,13 @@ public class SharedFragment extends BaseFragment implements SharedAdapter.Shared
     protected void initialize(){
         mList = new ArrayList<>();
 
-        mAdapter = new SharedAdapter(mContext, mList, this);
+        mAdapter = new SharedAdapter(mContext, mList);
         gridView.setAdapter(mAdapter);
     }
 
-    public void goAddShared(){
-        Intent intent = new Intent(mContext, AddService.class);
-        intent.putExtra("contractType", "S");
+    public void goAdd(){
+        Intent intent = new Intent(mContext, AddShared.class);
+        //intent.putExtra("contractType", "S");
         mContext.startActivity(intent);
     }
 
@@ -148,10 +159,7 @@ public class SharedFragment extends BaseFragment implements SharedAdapter.Shared
 
     }
 
-    @Override
-    public void onGridBtnClick(int position) {
-        //mActivity.finish();
-
+    private void onGridClick(int position) {
         // 누르면 해당 서비스로 이동하게 구현
         // mList.get(position)
 
@@ -173,7 +181,7 @@ public class SharedFragment extends BaseFragment implements SharedAdapter.Shared
             ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, mList.get(position));
             changeActivityCls.changeService();
 
-            mActivity.finish();
+            //mActivity.finish();
         }
     }
 

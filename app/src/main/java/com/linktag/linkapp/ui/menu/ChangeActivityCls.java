@@ -30,9 +30,12 @@ public class ChangeActivityCls {
                 Class cls = Class.forName(packageName + ctdVO.SVCL_04);
                 Intent intent = new Intent(mContext, cls);
 
-                intent.putExtra("CTM_01", ctdVO.CTD_01);
-                intent.putExtra("CTD_02", ctdVO.CTD_02);
-                intent.putExtra("CTN_02", ctdVO.CTN_02);
+                intent.putExtra("intentVO", ctdVO);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                intent.putExtra("CTM_01", ctdVO.CTD_01);
+//                intent.putExtra("CTD_02", ctdVO.CTD_02);
+//                intent.putExtra("CTN_02", ctdVO.CTN_02);
+//                intent.putExtra("CTM_19", ctdVO.CTM_19);
                 mContext.startActivity(intent);
 
             } catch (Exception e){
@@ -57,10 +60,14 @@ public class ChangeActivityCls {
                 Class clsList = Class.forName(packageName + ctdVO.SVCL_04);
 
                 Intent intent = new Intent(mContext, clsList);
-                intent.putExtra("CTM_01", ctdVO.CTD_01);
-                intent.putExtra("CTD_02", ctdVO.CTD_02);
-                intent.putExtra("CTN_02", ctdVO.CTN_02);
+
                 intent.putExtra("scanCode", scanCode);
+                intent.putExtra("intentVO", ctdVO);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+//                intent.putExtra("CTM_01", ctdVO.CTD_01);
+//                intent.putExtra("CTD_02", ctdVO.CTD_02);
+//                intent.putExtra("CTN_02", ctdVO.CTN_02);
+//                intent.putExtra("CTM_19", ctdVO.CTM_19);
 
                 mContext.startActivity(intent);
 

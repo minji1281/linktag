@@ -132,6 +132,14 @@ public class BaseFooter extends LinearLayout {
                 if (mClickHome != null) {
                     mClickHome.onClick(v);
                 } else {
+                    try{
+                        Class clsList = Class.forName("com.linktag.linkapp.ui.main.Main");
+                        Intent intent = new Intent(mContext, clsList);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        mContext.startActivity(intent);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                     //Toast.makeText(mContext, "Click Right2 Button", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -174,6 +182,14 @@ public class BaseFooter extends LinearLayout {
                 if (mClickMenu != null) {
                     mClickMenu.onClick(v);
                 } else {
+                    try{
+                        Class clsList = Class.forName("com.linktag.linkapp.ui.menu.Menu");
+                        Intent intent = new Intent(mContext, clsList);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        mContext.startActivity(intent);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                     //Toast.makeText(mContext, "Click Right2 Button", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -188,6 +204,7 @@ public class BaseFooter extends LinearLayout {
                 if (mClickMember != null) {
                     mClickMember.onClick(v);
                 } else {
+
                     //Toast.makeText(mContext, "Click Right2 Button", Toast.LENGTH_SHORT).show();
                 }
             }
@@ -202,6 +219,14 @@ public class BaseFooter extends LinearLayout {
                 if (mClickSetting != null) {
                     mClickSetting.onClick(v);
                 } else {
+                    try{
+                        Class clsList = Class.forName("com.linktag.linkapp.ui.settings_main.SettingMain");
+                        Intent intent = new Intent(mContext, clsList);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+                        mContext.startActivity(intent);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                     //Toast.makeText(mContext, "Click Right2 Button", Toast.LENGTH_SHORT).show();
                 }
             }

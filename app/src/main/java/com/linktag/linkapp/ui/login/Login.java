@@ -404,9 +404,6 @@ public class Login extends BaseActivity {
         // nowDate 변수에 값을 저장한다.
         String formatDate = sdfNow.format(date);
 
-        mUser.Value.RUTC_ST = formatDate;
-
-
         finish();
 
     }

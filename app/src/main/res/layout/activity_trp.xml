@@ -5,38 +5,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#F2F5F7"
-    android:orientation="vertical"
-    tools:context=".ui.main.Main">
+    android:orientation="vertical">
 
     <com.linktag.base.base_header.BaseHeader
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="복약관리"
-        />
+        app:title_text="복약관리">
 
-    <com.linktag.base.base_view_pager.BaseViewPager
-        android:id="@+id/viewPagerMain"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+    </com.linktag.base.base_header.BaseHeader>
 
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipeRefresh"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="60dp"
+        android:layout_height="0dp"
+        android:layout_weight="1"
         tools:context=".ui.jdm.JDMMain">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:background="@color/list_background"
             tools:listitem="@layout/listitem_trp_list" />
 
     </android.support.v4.widget.SwipeRefreshLayout>
+
+    <com.linktag.base.base_footer.BaseFooter
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
 </LinearLayout>
 
 

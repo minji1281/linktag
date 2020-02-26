@@ -34,6 +34,7 @@ import com.linktag.linkapp.model.SVC_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.CtuVO;
 import com.linktag.linkapp.value_object.OcmVO;
 import com.linktag.linkapp.value_object.SvcVO;
@@ -66,9 +67,6 @@ public class MemberInvite extends BaseActivity {
     private ArrayList<ClsShared> sharedList;
     private String[] ar;
 
-    private String CTM_01;
-    private String SVC_02;
-
     private EditText etSearch1;
     private EditText etSearch2;
 
@@ -83,6 +81,7 @@ public class MemberInvite extends BaseActivity {
     //===================================
     // Initialize
     //===================================
+    private CtdVO intentVO;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -142,7 +141,7 @@ public class MemberInvite extends BaseActivity {
                                 @RequiresApi(api = Build.VERSION_CODES.M)
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    //requestCTU_CONTROL(mList.get(position));
+                                    requestCTU_CONTROL(mList.get(position));
 
                                 }
                             })
@@ -165,18 +164,14 @@ public class MemberInvite extends BaseActivity {
 
     @Override
     protected void initialize() {
+        intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
+        tvShared.setText(intentVO.CTM_17);
+
         sharedList = new ArrayList<>();
 
         mList = new ArrayList<>();
         mAdapter = new MemberAdapter(mContext, mList);
         listview.setAdapter(mAdapter);
-
-        if(getIntent().hasExtra("CTM_01") && getIntent().hasExtra("SVC_02")){
-            CTM_01 = getIntent().getStringExtra("CTM_01");
-            SVC_02 = getIntent().getStringExtra("SVC_02");
-        } else {
-
-        }
     }
 
     @Override
@@ -292,6 +287,7 @@ public class MemberInvite extends BaseActivity {
 
             }
         });
+
     }
 
     private void requestOCM_SELECT(){
@@ -351,8 +347,6 @@ public class MemberInvite extends BaseActivity {
     }
 
     private void requestCTU_CONTROL(OcmVO ocmVO){
-
-
         // 인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             BaseAlert.show(getString(R.string.common_network_error));
@@ -364,8 +358,8 @@ public class MemberInvite extends BaseActivity {
         Call<CTU_Model> call = Http.ctu(HttpBaseService.TYPE.POST).CTU_CONTROL(
                 BaseConst.URL_HOST,
                 "INSERT_SHARED",
-                CTM_01,
-                SVC_02,
+                intentVO.CTM_01,
+                intentVO.CTD_02,
                 ocmVO.OCM_01,
                 "N",
                 "1",
@@ -387,8 +381,9 @@ public class MemberInvite extends BaseActivity {
                     @Override
                     public void handleMessage(Message msg){
                         if(msg.what == 100){
-
                             Response<CTU_Model> response = (Response<CTU_Model>) msg.obj;
+
+                            callBack(response.body().Data.get(0));
 
                         }
                     }
@@ -401,6 +396,14 @@ public class MemberInvite extends BaseActivity {
 
             }
         });
+    }
+
+    private void callBack(CtuVO ctuVO){
+        if(ctuVO.Validation){
+            Toast.makeText(mContext, "등록 되었습니다.", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(mContext, "이미 등록 된 사용자 입니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
 }

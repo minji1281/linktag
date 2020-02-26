@@ -25,6 +25,7 @@ import android.widget.TextView;
 
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_fragment.BaseFragment;
+import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
@@ -33,6 +34,7 @@ import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.OcmVO;
 
 import java.util.ArrayList;
@@ -45,6 +47,8 @@ public class Member extends BaseActivity {
     //===================================
     // Layout
     //===================================
+    private BaseHeader header;
+
     //private TextView tvTitleMem;
     private LinearLayout layInvite;
     private Spinner spinnerShared;
@@ -64,6 +68,8 @@ public class Member extends BaseActivity {
     private ArrayList<OcmVO> mList;
     private MemberAdapter mAdapter;
 
+    private CtdVO intentVO;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -78,6 +84,9 @@ public class Member extends BaseActivity {
 
     @Override
     protected void initLayout() {
+        header = findViewById(R.id.header);
+        header.btnHeaderLeft.setOnClickListener(v -> finish());
+
         layInvite = findViewById(R.id.layInvite);
         layInvite.setOnClickListener(v -> goInvite());
 
@@ -113,12 +122,14 @@ public class Member extends BaseActivity {
 
     @Override
     protected void initialize(){
+        intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
+
         sharedList = new ArrayList<>();
+
 
         mList = new ArrayList<>();
         mAdapter = new MemberAdapter(mContext, mList);
         listview.setAdapter(mAdapter);
-
     }
 
     @Override
@@ -177,12 +188,13 @@ public class Member extends BaseActivity {
 
     private void goInvite(){
         Intent intent = new Intent(mContext, MemberInvite.class);
-        intent.putExtra("CTM_01", "");
-        intent.putExtra("SVC_02", "");
+        intent.putExtra("intentVO", intentVO);
         mContext.startActivity(intent);
     }
 
     private void setSpinner(CTD_Model model){
+        int sPoisition = 0;
+
         sharedList.clear();
 
         ar = new String[model.Total + 1];
@@ -195,6 +207,10 @@ public class Member extends BaseActivity {
                 sharedList.add(new ClsShared(model.Data.get(i - 1).CTD_02_NM, model.Data.get(i - 1).CTD_01, model.Data.get(i - 1).CTD_02));
 
                 ar[i] = model.Data.get(i - 1).CTD_02_NM + "[" +  model.Data.get(i - 1).CTM_17 + "]";
+
+                if(model.Data.get(i - 1).CTD_01.equals(intentVO.CTD_01) && model.Data.get(i - 1).CTD_02.equals(intentVO.CTD_02)){
+                    sPoisition = i;
+                }
             }
         }
 
@@ -207,8 +223,6 @@ public class Member extends BaseActivity {
         spinnerShared.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                //System.out.println("######### : " + sharedList.get(position).getContract());
-//                if(position != 0)
                     requestOCM_SELECT();
             }
 
@@ -217,6 +231,8 @@ public class Member extends BaseActivity {
 
             }
         });
+
+        spinnerShared.setSelection(sPoisition);
 
     }
 
@@ -284,24 +300,5 @@ public class Member extends BaseActivity {
             }
         });
     }
-/*
-    private void setTitleMem(int position){
-        String str = "멤버";
-
-        if(position != 0){
-            //str += " - " + sharedList.get(position).getName();
-            str += " - " + ar[position];
-
-            SpannableString sb = new SpannableString(str);
-            sb.setSpan(new ForegroundColorSpan(Color.BLUE), 5, sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            //sb.setSpan(new RelativeSizeSpan(0.8f), 5, sb.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-            tvTitleMem.setText(sb);
-
-        }
-        else
-            tvTitleMem.setText(str);
-    }
-
- */
 
 }

@@ -30,8 +30,6 @@ public class OcmVO implements Serializable {
     public String OCM_53;       // 전화번호
     public String OCM_54;       // 전화번호
 
-    public String RUTC_ST;      // 노선번호
-
     public String OCP_01;
 
     public boolean Validation;
