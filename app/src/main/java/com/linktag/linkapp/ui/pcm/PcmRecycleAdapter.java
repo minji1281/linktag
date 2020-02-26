@@ -200,6 +200,11 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
                 armVO.ARM_01,
                 armVO.ARM_02,
                 armVO.ARM_03,
+                armVO.ARM_90,
+                armVO.ARM_91,
+                armVO.ARM_92,
+                armVO.ARM_93,
+                armVO.ARM_94,
                 armVO.ARM_95,
                 armVO.ARM_98
         );

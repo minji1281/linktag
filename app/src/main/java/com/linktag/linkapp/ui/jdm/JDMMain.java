@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -70,13 +71,6 @@ public class JDMMain extends BaseActivity {
 
     }
 
-//    private void Push_goActivity(Intent intent) {
-//        String scancode = getIntent().getExtras().getString("scancode");
-//
-//        intent.setClassName(mContext, getPackageName() + ".ui.jdm.DetailJdm");
-//
-//        mContext.startActivity(intent);
-//    }
 
 
     protected void initLayout() {
@@ -103,6 +97,8 @@ public class JDMMain extends BaseActivity {
 
     protected void initialize() {
         mList = new ArrayList<>();
+//        linearLayoutManager = new GridLayoutManager(mContext,2);
+//        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new JdmRecycleAdapter(mContext, mList);

@@ -421,6 +421,11 @@ public class Http extends HttpBaseService {
                 @Field(value = "ARM_01") String ARM_01,
                 @Field(value = "ARM_02") String ARM_02,
                 @Field(value = "ARM_03") String ARM_03,
+                @Field(value = "ARM_90") String ARM_90,
+                @Field(value = "ARM_91") String ARM_91,
+                @Field(value = "ARM_92") String ARM_92,
+                @Field(value = "ARM_93") String ARM_93,
+                @Field(value = "ARM_94") String ARM_94,
                 @Field(value = "ARM_95") String ARM_95,
                 @Field(value = "ARM_98") String ARM_98
 

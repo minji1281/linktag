@@ -51,6 +51,7 @@ public class DetailJdm extends BaseActivity implements Serializable {
     private EditText ed_memo;
 
     private ImageView imageView;
+    private ImageView imageView2;
     private ImageView imageView_check;
     private LinearLayout datePicker;
     private LinearLayout datePicker2;
@@ -58,6 +59,7 @@ public class DetailJdm extends BaseActivity implements Serializable {
     private DatePickerDialog.OnDateSetListener callbackMethod;
     private DatePickerDialog.OnDateSetListener callbackMethod2;
 
+    private String callBackTime ="";
     private LinearLayout linearLayout;
     private InputMethodManager imm;
 
@@ -123,11 +125,11 @@ public class DetailJdm extends BaseActivity implements Serializable {
 
         if (GUBUN.equals("UPDATE_NEXT")) {
             nextDay.set(Calendar.YEAR, Integer.parseInt(jdmVO.JDM_96.substring(0, 4)));
-            nextDay.set(Calendar.MONTH, Integer.parseInt(jdmVO.JDM_96.substring(4, 6))-1);
+            nextDay.set(Calendar.MONTH, Integer.parseInt(jdmVO.JDM_96.substring(4, 6)) - 1);
             nextDay.set(Calendar.DATE, Integer.parseInt(jdmVO.JDM_96.substring(6, 8)));
 
             boolean date = true;
-            while (date){
+            while (date) {
                 switch (map_day.get(sp_recycleDay.getSelectedItem())) {
                     case "0":
                         nextDay.add(Calendar.DATE, 3);
@@ -145,13 +147,13 @@ public class DetailJdm extends BaseActivity implements Serializable {
                         nextDay.add(Calendar.DATE, 30);
                         break;
                 }
-                if(Integer.parseInt(formatDate.format(nextDay.getTime())) > Integer.parseInt(formatDate.format(calendar.getTime()))){
+                if (Integer.parseInt(formatDate.format(nextDay.getTime())) > Integer.parseInt(formatDate.format(calendar.getTime()))) {
                     date = false;
                 }
             }
 
 
-            jdmVO.setJDM_96(formatDate.format(nextDay.getTime()) + "1100");
+            //jdmVO.setJDM_96(formatDate.format(nextDay.getTime()) + "1100");
 
         }
 
@@ -218,6 +220,7 @@ public class DetailJdm extends BaseActivity implements Serializable {
         ed_name = findViewById(R.id.ed_name);
         ed_memo = findViewById(R.id.ed_memo);
         imageView = findViewById(R.id.imageView);
+        imageView2 = findViewById(R.id.imageView2);
         imageView_check = findViewById(R.id.imageView_check);
         tv_datePicker = findViewById(R.id.tv_datePicker);
         bt_save = findViewById(R.id.bt_save);
@@ -250,13 +253,14 @@ public class DetailJdm extends BaseActivity implements Serializable {
         if (jdmVO.getJDM_96().equals("")) {
             calendar.add(Calendar.DATE, 3);
             tv_nextDate.setText(format.format(calendar.getTime()));
-            jdmVO.setJDM_96(formatDate.format(calendar.getTime()) + "1100");
+            jdmVO.setJDM_96(formatDate.format(calendar.getTime()) + calendar.get(Calendar.HOUR_OF_DAY) + calendar.get(Calendar.MINUTE));
 
         } else {
             tv_nextDate.setText(jdmVO.JDM_96.substring(0, 4) + "." + jdmVO.JDM_96.substring(4, 6) + "." + jdmVO.JDM_96.substring(6, 8));
 
         }
 
+        callBackTime = jdmVO.JDM_96.substring(8,12);
 
         if (jdmVO.ARM_03.equals("Y")) {
             imageView.setImageResource(R.drawable.alarm_state_on);
@@ -264,7 +268,7 @@ public class DetailJdm extends BaseActivity implements Serializable {
             imageView.setImageResource(R.drawable.alarm_state_off);
         }
 
-        if (Integer.parseInt(jdmVO.JDM_96.substring(0, 8)) <  Integer.parseInt(formatDate.format(calendar.getTime()))) {
+        if (Integer.parseInt(jdmVO.JDM_96.substring(0, 8)) < Integer.parseInt(formatDate.format(calendar.getTime()))) {
             imageView_check.setImageResource(R.drawable.ic_check_off);
         } else {
             imageView_check.setImageResource(R.drawable.ic_check_on);
@@ -295,6 +299,20 @@ public class DetailJdm extends BaseActivity implements Serializable {
 
     @Override
     protected void initialize() {
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (jdmVO.ARM_03.equals("Y")) {
+                    imageView.setImageResource(R.drawable.alarm_state_off);
+                    jdmVO.setARM_03("N");
+                } else if (jdmVO.ARM_03.equals("N")) {
+                    imageView.setImageResource(R.drawable.alarm_state_on);
+                    jdmVO.setARM_03("Y");
+                }
+            }
+        });
+
         callbackMethod = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
@@ -310,7 +328,7 @@ public class DetailJdm extends BaseActivity implements Serializable {
                 } else {
                     dayOfMonthString = String.valueOf(dayOfMonth);
                 }
-                jdmVO.setJDM_04(String.valueOf(year) + monthString + dayOfMonth);
+//                jdmVO.setJDM_04(String.valueOf(year) + monthString + dayOfMonthString);
                 tv_datePicker.setText(year + "." + monthString + "." + dayOfMonthString);
             }
         };
@@ -340,7 +358,7 @@ public class DetailJdm extends BaseActivity implements Serializable {
                 } else {
                     dayOfMonthString = String.valueOf(dayOfMonth);
                 }
-                jdmVO.setJDM_96(String.valueOf(year) + monthString + dayOfMonth+"1100");
+                jdmVO.setJDM_96(String.valueOf(year) + monthString + dayOfMonthString+jdmVO.JDM_96.substring(8,12));
                 tv_nextDate.setText(year + "." + monthString + "." + dayOfMonthString);
             }
         };
@@ -352,7 +370,6 @@ public class DetailJdm extends BaseActivity implements Serializable {
                 dialog.show();
             }
         });
-
 
 
         linearLayout.setOnClickListener(new View.OnClickListener() {
@@ -369,6 +386,7 @@ public class DetailJdm extends BaseActivity implements Serializable {
 
                 jdmVO.setJDM_05(map_size.get(sp_size.getSelectedItem()));
                 jdmVO.setJDM_06(map_day.get(sp_recycleDay.getSelectedItem()));
+                jdmVO.setJDM_04(tv_datePicker.getText().toString().replace(".", ""));
                 if (getIntent().hasExtra("scanCode")) {
                     requestJMD_CONTROL("INSERT");
                 } else {
@@ -377,14 +395,53 @@ public class DetailJdm extends BaseActivity implements Serializable {
             }
         });
 
+
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 커스텀 다이얼로그를 생성한다. 사용자가 만든 클래스이다.
+                AlarmDialog alarmDialog = new AlarmDialog(mContext, callBackTime);
+
+                alarmDialog.setDialogListener(new AlarmDialog.CustomDialogListener() {
+                    @Override
+                    public void onPositiveClicked(String time) {
+                        jdmVO.setJDM_96(jdmVO.getJDM_96().substring(0, 8) + time);
+                        callBackTime =time;
+                    }
+
+                    @Override
+                    public void onNegativeClicked() {
+
+                    }
+                });
+                alarmDialog.show();
+            }
+        });
+
         imageView_check.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if( Integer.parseInt(jdmVO.JDM_96.substring(0,8)) < Integer.parseInt(formatDate.format(calendar.getTime()))){
+                if (Integer.parseInt(jdmVO.JDM_96.substring(0, 8)) < Integer.parseInt(formatDate.format(calendar.getTime()))) {
                     requestJMD_CONTROL("UPDATE_NEXT");
-                }else{
-                    Toast.makeText(mContext,"이미 체크하셨습니다.",Toast.LENGTH_LONG).show();
+                } else {
+
+                    new AlertDialog.Builder(mActivity)
+                            .setMessage("이전 청소이력이 있습니다. 청소확인 처리하시겠습니까?")
+                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                @RequiresApi(api = Build.VERSION_CODES.M)
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    requestJMD_CONTROL("UPDATE_NEXT");
+                                }
+                            })
+                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    return;
+                                }
+                            })
+                            .show();
                     return;
                 }
             }
@@ -424,7 +481,7 @@ public class DetailJdm extends BaseActivity implements Serializable {
     private void startCountAnimation(int count) {
 
         ValueAnimator animator = ValueAnimator.ofInt(0, count); //0 is min number, 600 is max number
-        animator.setDuration(3000); //Duration is in milliseconds
+        animator.setDuration(500); //Duration is in milliseconds
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
 

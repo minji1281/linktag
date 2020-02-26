@@ -10,71 +10,142 @@
         android:layout_marginTop="10dp"
         android:layout_marginEnd="10dp"
         android:background="@drawable/shape_base_border"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/tv_name"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ellipsize="end"
+                android:text="김치"
+                android:textColor="#34495E"
+                android:textSize="20dp"
+                android:textStyle="bold" />
+
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="35dp"
+                android:layout_height="35dp"
+                android:background="@drawable/alarm_state_on" />
+        </LinearLayout>
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
-            <LinearLayout
-                android:id="@+id/parentLayout"
+            <TextView
+                android:id="@+id/tv_memo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:layout_marginStart="15dp"
+                android:ellipsize="end"
+                android:text="메모메모메모"
+                android:textColor="#34495E"
+                android:layout_toLeftOf="@+id/tv_label"
                 android:layout_alignParentLeft="true"
+                android:layout_centerVertical="true"
+                android:textSize="13dp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/tv_label"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/tv_D_day"
-                android:layout_centerInParent="true"
-                android:layout_weight="1"
-                android:orientation="vertical">
-
-                <TextView
-                    android:id="@+id/tv_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:text="김치"
-                    android:textColor="@color/black"
-                    android:textSize="15dp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="10dp" />
-
-                <TextView
-                    android:id="@+id/tv_memo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:ellipsize="end"
-                    android:singleLine="true"
-                    android:text="박가네 김장김치"
-                    android:textSize="12dp" />
-            </LinearLayout>
+                android:text="현재까지"
+                android:textColor="#34495E"
+                android:textStyle="bold" />
 
             <TextView
                 android:id="@+id/tv_D_day"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical"
-                android:layout_toLeftOf="@+id/imageView"
-                android:layout_centerInParent="true"
-                android:text="D+ 35"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="5dp"
+                android:layout_toLeftOf="@+id/tv_label2"
+                android:text="35"
+                android:textColor="#34495E"
                 android:textSize="25dp"
                 android:textStyle="bold" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="45dp"
-                android:layout_height="45dp"
-                android:layout_gravity="center_vertical"
+            <TextView
+                android:id="@+id/tv_label2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerInParent="true"
-                android:layout_marginStart="15dp"
-                android:background="@drawable/alarm_state_on" />
+                android:layout_centerVertical="true"
+                android:text="일 숙성"
+                android:textColor="#34495E"
+                android:textStyle="bold" />
+            <!--            <TextView-->
+            <!--                android:layout_width="wrap_content"-->
+            <!--                android:layout_height="wrap_content"-->
+            <!--                android:layout_toRightOf="@+id/tv_D_day"-->
+            <!--                android:layout_centerVertical="true"-->
+            <!--                android:text="+"/>-->
+
 
         </RelativeLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_name"
+            android:orientation="vertical">
+<!--            <LinearLayout-->
+<!--                android:orientation="horizontal"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content">-->
+<!--                <TextView-->
+<!--                    android:layout_width="0dp"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_weight="2"-->
+<!--                    android:textAlignment="textEnd"-->
+<!--                    android:text="2020.03.01" />-->
+<!--                <View-->
+<!--                    android:layout_width="30dp"-->
+<!--                    android:layout_height="1dp" />-->
+<!--            </LinearLayout>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+                <ProgressBar
+                    android:id="@+id/progressBar"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="0dp"
+                    android:layout_height="10dp"
+                    android:layout_gravity="center"
+                    android:layout_weight="2"
+                    android:progress="25"
+                    android:progressBackgroundTint="#898F99"
+                    android:progressTint="#FAB834" />
+                <TextView
+                    android:id="@+id/tv_nextDay"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:textAlignment="center"
+                    android:layout_gravity="center_vertical"
+                    android:text="2020.03.01" />
+                <ImageView
+                    android:id="@+id/imageView_check"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:background="@drawable/ic_check_on" />
+            </LinearLayout>
+        </LinearLayout>
+
 
     </LinearLayout>
 
