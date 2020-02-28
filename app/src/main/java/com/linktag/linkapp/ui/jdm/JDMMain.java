@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.linktag.base.base_activity.BaseActivity;
+import com.linktag.base.base_footer.BaseFooter;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
@@ -21,6 +22,8 @@ import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.menu.Member;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.JdmVO;
 
 import java.util.ArrayList;
@@ -32,6 +35,7 @@ import retrofit2.Response;
 public class JDMMain extends BaseActivity {
 
     private BaseHeader header;
+    private BaseFooter footer;
 
     private View view;
     private SwipeRefreshLayout swipeRefresh;
@@ -42,8 +46,7 @@ public class JDMMain extends BaseActivity {
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<JdmVO> mList;
 
-    private String CTM_01;
-    private String CTN_02;
+    private CtdVO intentVO;
 
     public JDMMain() {
     }
@@ -75,9 +78,12 @@ public class JDMMain extends BaseActivity {
 
     protected void initLayout() {
 
+        intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
 
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
+
+        initLayoutByContractType();
 
         view = findViewById(R.id.recyclerView);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -104,10 +110,33 @@ public class JDMMain extends BaseActivity {
         mAdapter = new JdmRecycleAdapter(mContext, mList);
         recyclerView.setAdapter(mAdapter);
 
-        CTM_01 = getIntent().getStringExtra("CTM_01");
-        CTN_02 = getIntent().getStringExtra("CTN_02");
     }
 
+
+    private void initLayoutByContractType(){
+        footer = findViewById(R.id.footer);
+
+        if(intentVO.CTM_19.equals("P")){
+            // privateService
+            footer.btnFooterSetting.setVisibility(View.VISIBLE);
+            footer.btnFooterMember.setVisibility(View.GONE);
+        } else {
+            // sharedService
+            header.tvHeaderTitle2.setVisibility(View.VISIBLE);
+            header.tvHeaderTitle2.setText(intentVO.CTM_17);
+
+            footer.btnFooterSetting.setVisibility(View.GONE);
+            footer.btnFooterMember.setVisibility(View.VISIBLE);
+
+            footer.btnFooterMember.setOnClickListener(v -> goMember());
+        }
+    }
+
+    private void goMember(){
+        Intent intent = new Intent(mContext, Member.class);
+        intent.putExtra("intentVO", intentVO);
+        mContext.startActivity(intent);
+    }
 
     public void requestJMD_SELECT(String scancode) {
         // 인터넷 연결 여부 확인
@@ -124,7 +153,7 @@ public class JDMMain extends BaseActivity {
         Call<JDMModel> call = Http.jdm(HttpBaseService.TYPE.POST).JDM_SELECT(
                 BaseConst.URL_HOST,
                 "LIST",
-                CTN_02,
+                intentVO.CTN_02,
                 scancode,
                 mUser.Value.OCM_01
         );
@@ -157,13 +186,15 @@ public class JDMMain extends BaseActivity {
                             } else {
                                 if (mList.size() == 0) {
                                     JdmVO jdmvo = new JdmVO();
-                                    jdmvo.setJDM_ID(CTN_02);
+                                    jdmvo.setJDM_ID(intentVO.CTN_02);
                                     jdmvo.setJDM_01(scancode);
                                     jdmvo.setJDM_02("");
                                     jdmvo.setJDM_03("");
                                     jdmvo.setJDM_04("");
                                     jdmvo.setJDM_05("");
                                     jdmvo.setJDM_06("");
+                                    jdmvo.setJDM_07("");
+                                    jdmvo.setJDM_08("");
                                     jdmvo.setJDM_96("");
                                     jdmvo.setJDM_97(mUser.Value.OCM_01);
                                     jdmvo.setARM_03("N");

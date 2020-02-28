@@ -15,6 +15,8 @@ public class JdmVO implements Serializable  {
     public String JDM_04; // 담금 일자
     public String JDM_05;    // 장독크기
     public String JDM_06;    // 청소주기일
+    public String JDM_07;    // 청소주기일 단위
+    public String JDM_08;    // 최근 청소일
     public String JDM_96; // 알림 지정일자
     public String JDM_97; // 작성자 아이디
     public String JDM_98; // 최종수정자 아이디
@@ -178,6 +180,22 @@ public class JdmVO implements Serializable  {
 
     public void setJDM_06(String JDM_06) {
         this.JDM_06 = JDM_06;
+    }
+
+    public String getJDM_07() {
+        return JDM_07;
+    }
+
+    public void setJDM_07(String JDM_07) {
+        this.JDM_07 = JDM_07;
+    }
+
+    public String getJDM_08() {
+        return JDM_08;
+    }
+
+    public void setJDM_08(String JDM_08) {
+        this.JDM_08 = JDM_08;
     }
 
     public String getJDM_96() {

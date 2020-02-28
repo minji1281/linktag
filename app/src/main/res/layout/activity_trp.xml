@@ -33,9 +33,9 @@
     </android.support.v4.widget.SwipeRefreshLayout>
 
     <com.linktag.base.base_footer.BaseFooter
-        android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+    android:id="@+id/footer"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" />
 
 </LinearLayout>
 

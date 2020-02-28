@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 
 import com.linktag.base.base_activity.BaseActivity;
+import com.linktag.base.base_footer.BaseFooter;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
@@ -22,7 +23,9 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.jdm.DetailJdm;
+import com.linktag.linkapp.ui.menu.Member;
 import com.linktag.linkapp.ui.trp.TrpRecycleAdapter;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.PcmVO;
 import com.linktag.linkapp.value_object.TrpVO;
@@ -36,6 +39,7 @@ import retrofit2.Response;
 public class PCMMain extends BaseActivity {
 
     private BaseHeader header;
+    private BaseFooter footer;
 
     private View view;
     private SwipeRefreshLayout swipeRefresh;
@@ -47,8 +51,7 @@ public class PCMMain extends BaseActivity {
 
     private ArrayList<PcmVO> mList;
 
-    private String CTM_01;
-    private String CTN_02;
+    private CtdVO intentVO;
 
 
     public PCMMain() {
@@ -80,11 +83,12 @@ public class PCMMain extends BaseActivity {
 
     protected void initLayout() {
 
-        CTM_01 = getIntent().getStringExtra("CTM_01");
-        CTN_02 = getIntent().getStringExtra("CTN_02");
+        intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
 
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
+
+        initLayoutByContractType();
 
         view = findViewById(R.id.recyclerView);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -110,6 +114,32 @@ public class PCMMain extends BaseActivity {
     }
 
 
+    private void initLayoutByContractType(){
+        footer = findViewById(R.id.footer);
+
+        if(intentVO.CTM_19.equals("P")){
+            // privateService
+            footer.btnFooterSetting.setVisibility(View.VISIBLE);
+            footer.btnFooterMember.setVisibility(View.GONE);
+        } else {
+            // sharedService
+            header.tvHeaderTitle2.setVisibility(View.VISIBLE);
+            header.tvHeaderTitle2.setText(intentVO.CTM_17);
+
+            footer.btnFooterSetting.setVisibility(View.GONE);
+            footer.btnFooterMember.setVisibility(View.VISIBLE);
+
+            footer.btnFooterMember.setOnClickListener(v -> goMember());
+        }
+    }
+
+    private void goMember(){
+        Intent intent = new Intent(mContext, Member.class);
+        intent.putExtra("intentVO", intentVO);
+        mContext.startActivity(intent);
+    }
+
+
     public void requestPCM_SELECT(String scancode) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
@@ -125,7 +155,7 @@ public class PCMMain extends BaseActivity {
         Call<PCMModel> call = Http.pcm(HttpBaseService.TYPE.POST).PCM_SELECT(
                 BaseConst.URL_HOST,
                 "LIST",
-                CTN_02,
+                intentVO.CTN_02,
                 scancode,
                 mUser.Value.OCM_01
         );
@@ -159,7 +189,7 @@ public class PCMMain extends BaseActivity {
                                 if (mList.size() == 0) {
 
                                     PcmVO pcmvo = new PcmVO();
-                                    pcmvo.setPCM_ID(CTN_02);
+                                    pcmvo.setPCM_ID(intentVO.CTN_02);
                                     pcmvo.setPCM_01(scancode);
                                     pcmvo.setPCM_02("");
                                     pcmvo.setPCM_03("");

@@ -4,15 +4,10 @@ import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.TimePicker;
-import android.widget.Toast;
 
 import com.linktag.linkapp.R;
-
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
 
 public class AlarmDialog extends Dialog {
 
@@ -47,7 +42,7 @@ public class AlarmDialog extends Dialog {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.alarm_dialog);
+        setContentView(R.layout.dialog_alarm);
 
 
         final Button okButton = findViewById(R.id.okButton);
