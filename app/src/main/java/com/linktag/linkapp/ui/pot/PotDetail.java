@@ -3,22 +3,11 @@ package com.linktag.linkapp.ui.pot;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.TimePickerDialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Color;
-import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
-import android.provider.MediaStore;
-import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
-import android.support.v4.content.FileProvider;
 import android.text.Spannable;
 import android.text.SpannableStringBuilder;
 import android.text.style.ForegroundColorSpan;
@@ -31,15 +20,12 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.RelativeLayout;
-import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
-import com.linktag.base.util.ClsDateTime;
-import com.linktag.base.util.ClsImage;
 import com.linktag.linkapp.R;
 
 import com.linktag.base.network.ClsNetworkCheck;
@@ -47,23 +33,12 @@ import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.PotVO;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.Calendar;
-import java.util.Locale;
-import java.util.concurrent.TimeUnit;
 
-import okhttp3.MediaType;
-import okhttp3.MultipartBody;
-import okhttp3.RequestBody;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -89,6 +64,7 @@ public class PotDetail extends BaseActivity {
     private TextView tvCycle;
     private TextView tvPreWaterDay;
     private TextView tvNextWaterDay;
+    private TextView lbWater;
 
     private Button btnSave;
 
@@ -99,11 +75,7 @@ public class PotDetail extends BaseActivity {
     //======================
     // Initialize
     //======================
-    public String ARM_03 = "N";
-    public int ARM_04 = 0;
-    private String CTM_01;
-    private String CTD_02;
-    private String CTN_02;
+    private CtdVO intentVO;
     private PotVO POT;
     private String GUBUN;
 
@@ -116,6 +88,8 @@ public class PotDetail extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pot_detail);
 
+        intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
+
         if(getIntent().hasExtra("POT")){
             POT = (PotVO) getIntent().getSerializableExtra("POT");
             GUBUN = "UPDATE";
@@ -126,10 +100,6 @@ public class PotDetail extends BaseActivity {
             GUBUN = "INSERT";
         }
 
-        CTM_01 = getIntent().getStringExtra("CTM_01");
-        CTD_02 = getIntent().getStringExtra("CTD_02");
-        CTN_02 = getIntent().getStringExtra("CTN_02");
-
         initLayout();
 
         initialize();
@@ -139,34 +109,6 @@ public class PotDetail extends BaseActivity {
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
-
-        if(POT.POT_97.equals(mUser.Value.OCM_01)){ //작성자만 삭제버튼 보임
-            header.btnHeaderRight1.setVisibility((View.VISIBLE));
-            header.btnHeaderRight1.setMaxWidth(50);
-            header.btnHeaderRight1.setMaxHeight(50);
-            header.btnHeaderRight1.setImageResource(R.drawable.btn_cancel); //delete는 왜 크기가 안맞는거야!!! 일단 대체아이콘으로..,,
-            header.btnHeaderRight1.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v) {
-                    new AlertDialog.Builder(mActivity)
-                            .setMessage("해당 화분을 삭제하시겠습니까?")
-                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    requestPOT_CONTROL("DELETE");
-                                }
-                            })
-                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    return;
-                                }
-                            })
-                            .show();
-
-                }
-            });
-        }
 
         etName = (EditText) findViewById(R.id.etName);
         etMemo = (EditText) findViewById(R.id.etMemo);
@@ -217,6 +159,7 @@ public class PotDetail extends BaseActivity {
             }
         });
         imgWater = (ImageView) findViewById(R.id.imgWater);
+        lbWater = (TextView) findViewById(R.id.lbWater);
 
         tvDDAY = (TextView) findViewById(R.id.tvDDAY);
         tvCycle = (TextView) findViewById(R.id.tvCycle);
@@ -233,15 +176,54 @@ public class PotDetail extends BaseActivity {
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                requestPOT_CONTROL("UPDATE");
+                requestPOT_CONTROL(GUBUN);
             }
         });
+
+        if(GUBUN.equals("UPDATE")){
+            if(POT.POT_97.equals(mUser.Value.OCM_01)){ //작성자만 삭제버튼 보임
+                header.btnHeaderRight1.setVisibility((View.VISIBLE));
+//                header.btnHeaderRight1.setMaxWidth(50);
+//                header.btnHeaderRight1.setMaxHeight(50);
+                header.btnHeaderRight1.setImageResource(R.drawable.btn_cancel); //delete는 왜 크기가 안맞는거야!!! 일단 대체아이콘으로..,,
+                header.btnHeaderRight1.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View v) {
+                        new AlertDialog.Builder(mActivity)
+                                .setMessage("해당 화분을 삭제하시겠습니까?")
+                                .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        requestPOT_CONTROL("DELETE");
+                                    }
+                                })
+                                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        return;
+                                    }
+                                })
+                                .show();
+
+                    }
+                });
+            }
+        }
+        else{ //INSERT
+            tvDDAY.setVisibility(View.GONE);
+            imgWater.setVisibility(View.GONE);
+            lbWater.setVisibility(View.GONE);
+            getNewData();
+        }
 
     }
 
     @Override
     protected void initialize() {
-        getDetail();
+        if(GUBUN.equals("UPDATE")){
+            getDetail();
+        }
+
     }
 
     private void getDetail() {
@@ -264,7 +246,6 @@ public class PotDetail extends BaseActivity {
 
         tvPreWaterDay.setText(POT.POT_03_T.substring(0, 10).replace("-", "."));
         POT_03_Calendar.set(Integer.parseInt(POT.POT_03_T.substring(0,4)), Integer.parseInt(POT.POT_03_T.substring(5,7)) - 1, Integer.parseInt(POT.POT_03_T.substring(8,10)));
-//        tvNextWaterDay.setText(POT.POT_96.substring(0, 4) + "." + POT.POT_96.substring(4, 6) + "." + POT.POT_96.substring(6, 8));
         POT_96_Calendar.set(Integer.parseInt(POT.POT_96.substring(0,4)), Integer.parseInt(POT.POT_96.substring(4,6)) - 1, Integer.parseInt(POT.POT_96.substring(6,8)));
 
         if(POT.ARM_03.equals("Y")){
@@ -276,7 +257,20 @@ public class PotDetail extends BaseActivity {
 
         changeCycleText();
         updateImgWater();
+    }
 
+    private void getNewData(){
+        //초기값
+        POT.ARM_03 = "N";
+        POT.POT_05 = "";
+        POT.POT_96 = "000000001200";
+
+        imgAlarm.setImageResource(R.drawable.alarm_state_off);
+
+        tvPreWaterDay.setText("오늘일자로 설정됩니다.");
+        tvPreWaterDay.setTextSize(14);
+
+        changeCycleText();
     }
 
     private void requestPOT_CONTROL(String GUB) {
@@ -289,8 +283,7 @@ public class PotDetail extends BaseActivity {
 
         openLoadingBar();
 
-        String GUBUN = GUB;
-        String POT_ID = CTN_02; //컨테이너
+        String POT_ID = intentVO.CTN_02; //컨테이너
         String POT_01 = POT.POT_01; //코드번호
         String POT_02 = etName.getText().toString(); //명칭
         int POT_04 = POT.POT_04; //주기
@@ -303,7 +296,7 @@ public class PotDetail extends BaseActivity {
 
         Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_CONTROL(
                 BaseConst.URL_HOST,
-                GUBUN,
+                GUB,
                 POT_ID,
                 POT_01,
                 POT_02,
@@ -325,6 +318,11 @@ public class PotDetail extends BaseActivity {
                 Message msg = new Message();
                 msg.obj = response;
                 msg.what = 100;
+
+                if(GUB.equals("INSERT")){
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, POT.POT_01);
+                    ctds_control.requestCTDS_CONTROL();
+                }
 
                 new Handler(){
                     @Override
@@ -480,15 +478,21 @@ public class PotDetail extends BaseActivity {
             Cycle = String.valueOf(POT.POT_04) + " 일";
             spanEndNum = 2;
         }
-        else{ //M
+        else if(POT.POT_05.equals("M")){
             Cycle = String.valueOf(POT.POT_04) + " 개월";
             spanEndNum = 3;
+        }
+        else{
+            Cycle = "선택";
         }
 
         SpannableStringBuilder ssb = new SpannableStringBuilder(Cycle);
         ssb.setSpan(new ForegroundColorSpan(Color.parseColor("#3498db")), 0, Cycle.length() - spanEndNum, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         tvCycle.setText(ssb);
-        tvNextWaterDay.setText(POT.POT_96.substring(0,4)+"."+POT.POT_96.substring(4,6)+"."+POT.POT_96.substring(6,8));
+
+        if(!POT.POT_05.equals("")){
+            tvNextWaterDay.setText(POT.POT_96.substring(0,4)+"."+POT.POT_96.substring(4,6)+"."+POT.POT_96.substring(6,8));
+        }
 
         updateImgWater();
     }
@@ -528,7 +532,6 @@ public class PotDetail extends BaseActivity {
 
     private void updateDDAY(){
         long day = (POT_96_Calendar.getTimeInMillis() - TODAY.getTimeInMillis()) / (24*60*60*1000);
-//        int day = (int)(Math.floor(TimeUnit.HOURS.convert(DayDiff, TimeUnit.MILLISECONDS) / 24f));
 
         String DDAY = "";
         if(day > 0){

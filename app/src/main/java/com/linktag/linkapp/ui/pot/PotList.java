@@ -8,7 +8,6 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -16,6 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
+import com.linktag.base.base_footer.BaseFooter;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.linkapp.R;
@@ -23,6 +23,8 @@ import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.menu.Member;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.PotVO;
 
 import java.util.ArrayList;
@@ -37,6 +39,7 @@ public class PotList extends BaseActivity {
     // Layout
     //======================
     private BaseHeader header;
+    private BaseFooter footer;
     private GridView gridView;
     private TextView emptyText;
     private EditText etName;
@@ -48,9 +51,7 @@ public class PotList extends BaseActivity {
     private PotAdapter mAdapter;
     private ArrayList<PotVO> mList;
     private String scancode = "";
-    private String CTM_01;
-    private String CTD_02;
-    private String CTN_02;
+    private CtdVO intentVO;
 
     //======================
     // Initialize
@@ -62,9 +63,7 @@ public class PotList extends BaseActivity {
 
         setContentView(R.layout.activity_pot_list);
 
-        CTM_01 = getIntent().getStringExtra("CTM_01");
-        CTD_02 = getIntent().getStringExtra("CTD_02");
-        CTN_02 = getIntent().getStringExtra("CTN_02");
+        intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
         if (getIntent().hasExtra("scanCode")) {
             scancode = getIntent().getExtras().getString("scanCode");
             requestPOT_SELECT("DETAIL", scancode);
@@ -78,7 +77,10 @@ public class PotList extends BaseActivity {
     @Override
     protected void initLayout() {
         header = findViewById(R.id.header);
-        header.btnHeaderLeft.setVisibility((View.GONE));
+        header.btnHeaderLeft.setOnClickListener(v -> finish());
+
+        // 요거
+        initLayoutByContractType();
 
         gridView = (GridView) findViewById(R.id.gridView);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -88,9 +90,7 @@ public class PotList extends BaseActivity {
 
                 Intent intent = new Intent(mContext, PotDetail.class);
                 intent.putExtra("POT", POT);
-                intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
-                intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
-                intent.putExtra("CTN_02", CTN_02);
+                intent.putExtra("intentVO", intentVO);
 
                 mContext.startActivity(intent);
             }
@@ -127,8 +127,11 @@ public class PotList extends BaseActivity {
 
 //        openLoadingBar();
 
-        String POT_ID = CTN_02; //컨테이너
-        String POT_02 = etName.getText().toString();
+        String POT_ID = intentVO.CTN_02; //컨테이너
+        String POT_02 = "";
+        if(GUBUN.equals("LIST")){
+            POT_02 = etName.getText().toString();
+        }
         String OCM_01 = mUser.Value.OCM_01; //사용자 아이디
 
         Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_SELECT(
@@ -167,16 +170,14 @@ public class PotList extends BaseActivity {
                             }
                             else{ //DETAIL (스캔했을때)
                                 if(mList.size() == 0){ //등록된 정보가 없을때
-//                                    goPotNew();
+                                    goPotNew();
                                 }
                                 else{ //등록된 정보가 있을때
                                     PotVO POT = mList.get(0);
 
                                     Intent intent = new Intent(mContext, PotDetail.class);
                                     intent.putExtra("POT", POT);
-                                    intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
-                                    intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
-                                    intent.putExtra("CTN_02", CTN_02);
+                                    intent.putExtra("intentVO", intentVO);
 
                                     mContext.startActivity(intent);
                                 }
@@ -195,13 +196,39 @@ public class PotList extends BaseActivity {
         });
     }
 
-//    private void goPotNew(){
-//        Intent intent = new Intent(mContext, PotNew.class);
-//        intent.putExtra("POT_01", scancode);
-//        intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
-//        intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
-//        intent.putExtra("CTN_02", CTN_02);
-//        mContext.startActivity(intent);
-//    }
+    private void goPotNew(){
+        Intent intent = new Intent(mContext, PotDetail.class);
+        intent.putExtra("scancode", scancode); //scancode
+        intent.putExtra("intentVO", intentVO);
+
+        mContext.startActivity(intent);
+    }
+
+    // 요거
+    private void initLayoutByContractType(){
+        footer = findViewById(R.id.footer);
+
+        if(intentVO.CTM_19.equals("P")){
+            // privateService
+            footer.btnFooterSetting.setVisibility(View.VISIBLE);
+            footer.btnFooterMember.setVisibility(View.GONE);
+        } else {
+            // sharedService
+            header.tvHeaderTitle2.setVisibility(View.VISIBLE);
+            header.tvHeaderTitle2.setText(intentVO.CTM_17);
+
+            footer.btnFooterSetting.setVisibility(View.GONE);
+            footer.btnFooterMember.setVisibility(View.VISIBLE);
+
+            footer.btnFooterMember.setOnClickListener(v -> goMember());
+        }
+    }
+
+    // 요거
+    private void goMember(){
+        Intent intent = new Intent(mContext, Member.class);
+        intent.putExtra("intentVO", intentVO);
+        mContext.startActivity(intent);
+    }
 
 }
