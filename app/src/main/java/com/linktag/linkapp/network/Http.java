@@ -738,6 +738,7 @@ public class Http extends HttpBaseService {
                 @Field(value = "GUBUN") String GUBUN,
                 @Field(value = "POT_ID") String POT_ID,     // 컨테이너
                 @Field(value = "POT_01") String POT_01,     // 코드번호
+                @Field(value = "POT_02") String POT_02,     // 명칭
                 @Field(value = "OCM_01") String OCM_01      // 사용자 아이디
         );
 

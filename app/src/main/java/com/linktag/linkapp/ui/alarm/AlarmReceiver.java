@@ -1,7 +1,6 @@
 package com.linktag.linkapp.ui.alarm;
 
 
-import android.app.TaskStackBuilder;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -15,11 +14,6 @@ import android.os.PowerManager;
 import android.support.v4.app.NotificationCompat;
 
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.ui.intro.Intro;
-import com.linktag.linkapp.ui.main.Main;
-import com.linktag.linkapp.ui.pot.PotList;
-import com.linktag.linkapp.ui.pot.PotScan;
-import com.linktag.linkapp.value_object.PotVO;
 
 public class AlarmReceiver extends BroadcastReceiver {
 

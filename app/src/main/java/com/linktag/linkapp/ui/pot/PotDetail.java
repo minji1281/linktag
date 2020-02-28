@@ -2,11 +2,13 @@ package com.linktag.linkapp.ui.pot;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,12 +19,18 @@ import android.provider.MediaStore;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.FileProvider;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
+import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -49,7 +57,9 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.MediaType;
 import okhttp3.MultipartBody;
@@ -62,51 +72,29 @@ public class PotDetail extends BaseActivity {
     //======================
     // Final
     //======================
-    private final int TAKE_PHOTO = 0;
-    private final int ALBUM = 1;
-    private final int DELETE_PHOTO = 2;
-
-    // 사진첨부
-    private final int REQUEST_CODE_ALBUM_PHOTO = 204;
-    // 사진첨부 사진 촬영
-    private final int REQUEST_CODE_PHOTO_TAKE_PHOTO = 205;
-    private final int REQUEST_CODE_CROP = 206;
-    private final int REQUEST_CODE_CROP_ALBUM = 207;
-    // 사진 타입
-    private final int MEDIA_TYPE_IMAGE = 1;
-    // 동영상 타입
-    private final int MEDIA_TYPE_VIDEO = 2;
 
     //======================
     // Layout
     //======================
     private BaseHeader header;
 
-//    private ImageView imgPotPhoto;
-
-    private TextView tvName;
-    private TextView tvPreWaterDay;
+    private EditText etName;
     private EditText etMemo;
 
-    private NumberPicker npCycle;
-    private NumberPicker npCycle2;
+    private ImageView imgAlarm;
+    private ImageView imgTime;
+    private ImageView imgWater;
 
-    private Switch swAlarm;
+    private TextView tvDDAY;
+    private TextView tvCycle;
+    private TextView tvPreWaterDay;
+    private TextView tvNextWaterDay;
 
-    private TimePicker tpAlarmTime;
-
-    private Button btnWaterUpdate;
     private Button btnSave;
 
     //======================
     // Variable
     //======================
-//    private File fileTakePhoto;
-//    private Uri uriPhoto;
-//    private Uri uriAlbum;
-//    private String mBase64 = "";
-//    private String mUserImage = "";
-//    private String fpath = "";
 
     //======================
     // Initialize
@@ -116,22 +104,35 @@ public class PotDetail extends BaseActivity {
     private String CTM_01;
     private String CTD_02;
     private String CTN_02;
-    private String POT_01;
+    private PotVO POT;
+    private String GUBUN;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+    Calendar POT_03_Calendar = Calendar.getInstance();
+    Calendar POT_96_Calendar = Calendar.getInstance();
+    Calendar TODAY = Calendar.getInstance();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_pot_detail);
 
-        initLayout();
-
-        initialize();
+        if(getIntent().hasExtra("POT")){
+            POT = (PotVO) getIntent().getSerializableExtra("POT");
+            GUBUN = "UPDATE";
+        }
+        else{
+            POT = new PotVO();
+            POT.POT_01 = getIntent().getStringExtra("scancode");
+            GUBUN = "INSERT";
+        }
 
         CTM_01 = getIntent().getStringExtra("CTM_01");
         CTD_02 = getIntent().getStringExtra("CTD_02");
         CTN_02 = getIntent().getStringExtra("CTN_02");
-        POT_01 = getIntent().getStringExtra("POT_01");
+
+        initLayout();
+
+        initialize();
     }
 
     @Override
@@ -139,7 +140,7 @@ public class PotDetail extends BaseActivity {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
-        if(getIntent().getExtras().getString("POT_97").equals(mUser.Value.OCM_01)){ //작성자만 삭제버튼 보임
+        if(POT.POT_97.equals(mUser.Value.OCM_01)){ //작성자만 삭제버튼 보임
             header.btnHeaderRight1.setVisibility((View.VISIBLE));
             header.btnHeaderRight1.setMaxWidth(50);
             header.btnHeaderRight1.setMaxHeight(50);
@@ -150,7 +151,6 @@ public class PotDetail extends BaseActivity {
                     new AlertDialog.Builder(mActivity)
                             .setMessage("해당 화분을 삭제하시겠습니까?")
                             .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                                @RequiresApi(api = Build.VERSION_CODES.M)
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     requestPOT_CONTROL("DELETE");
@@ -168,101 +168,117 @@ public class PotDetail extends BaseActivity {
             });
         }
 
-//        imgPotPhoto = (ImageView) findViewById(R.id.imgPotPhoto);
-//        imgPotPhoto.setOnClickListener(v -> setPotPhoto());
-
-        tvName = (TextView) findViewById(R.id.tvName);
-        tvPreWaterDay = (TextView) findViewById(R.id.tvPreWaterDay);
+        etName = (EditText) findViewById(R.id.etName);
         etMemo = (EditText) findViewById(R.id.etMemo);
 
-        npCycle = (NumberPicker) findViewById(R.id.npCycle);
-        npCycle.setMinValue(0);
-        npCycle.setMaxValue(60);
-        npCycle2 = (NumberPicker) findViewById(R.id.npCycle2);
-        npCycle2.setMinValue(0);
-        npCycle2.setMaxValue(1);
-        npCycle2.setDisplayedValues(new String[] {"일", "개월"});
-
-        swAlarm = (Switch) findViewById(R.id.swAlarm);
-
-        tpAlarmTime = (TimePicker) findViewById(R.id.tpAlarmTime);
-
-        btnWaterUpdate = (Button) findViewById(R.id.btnWaterUpdate);
-        btnWaterUpdate.setOnClickListener(new View.OnClickListener(){
+        imgAlarm = (ImageView) findViewById(R.id.imgAlarm);
+        imgAlarm.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                new AlertDialog.Builder(mActivity)
-                        .setMessage("물주기를 업데이트 하시겠습니까?")
-                        .setPositiveButton("예", new DialogInterface.OnClickListener(){
-                            @RequiresApi(api = Build.VERSION_CODES.M)
-                            @Override
-                            public  void onClick(DialogInterface dialog, int which){
-                                requestPOT_CONTROL("WATER");
-                            }
-                        })
-                        .setNegativeButton("아니오", new DialogInterface.OnClickListener(){
-                            @Override
-                            public  void onClick(DialogInterface dialog, int which){
-                                return;
-                            }
-                        })
-                        .setCancelable(false)
-                        .show();
+                if(POT.ARM_03.equals("Y")){
+                    POT.ARM_03 = "N";
+                    imgAlarm.setImageResource(R.drawable.alarm_state_off);
+                }
+                else{
+                    POT.ARM_03 = "Y";
+                    imgAlarm.setImageResource(R.drawable.alarm_state_on);
+                }
             }
         });
+        imgTime = (ImageView) findViewById(R.id.imgTime);
+        imgTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                TimePickerDialog dialog = new TimePickerDialog(mActivity, new TimePickerDialog.OnTimeSetListener() {
+                    @Override
+                    public void onTimeSet(TimePicker timePicker, int hour, int min) {
+                        String tmp = "";
+                        if(hour<10){
+                            tmp = "0" + String.valueOf(hour);
+                        }
+                        else{
+                            tmp = String.valueOf(hour);
+                        }
+
+                        if(min<10){
+                            tmp += "0" + String.valueOf(min);
+                        }
+                        else{
+                            tmp += String.valueOf(min);
+                        }
+
+                        POT.POT_96 = POT.POT_96.substring(0, 8) + tmp;
+                    }
+                }, Integer.valueOf(POT.POT_96.substring(8,10)), Integer.valueOf(POT.POT_96.substring(10,12)), false);
+
+                dialog.show();
+
+            }
+        });
+        imgWater = (ImageView) findViewById(R.id.imgWater);
+
+        tvDDAY = (TextView) findViewById(R.id.tvDDAY);
+        tvCycle = (TextView) findViewById(R.id.tvCycle);
+        tvCycle.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                CycleDialog();
+            }
+        });
+        tvPreWaterDay = (TextView) findViewById(R.id.tvPreWaterDay);
+        tvNextWaterDay = (TextView) findViewById(R.id.tvNextWaterDay);
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener(){
-            @RequiresApi(api = Build.VERSION_CODES.M)
             @Override
             public void onClick(View v){
-//                try {
-                    requestPOT_CONTROL("UPDATE");
-//                } catch (IOException e) {
-//                    e.printStackTrace();
-//                }
+                requestPOT_CONTROL("UPDATE");
             }
         });
 
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void initialize() {
         getDetail();
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void getDetail() {
         /* 최초 로딩시 intent 가져옴 */
-//        ClsImage.setUserPhoto(mContext, imgPotPhoto, mUserImage, R.drawable.ic_menu_gallery); //오아시스껀데 안되는거같은뎁..,,
-//        setImage(getIntent().getExtras().getString("POT_81"));
 
-        tvName.setText(getIntent().getExtras().getString("POT_02"));
-        tvPreWaterDay.setText(getIntent().getExtras().getString("POT_03_T"));
-        etMemo.setText(getIntent().getExtras().getString("POT_06"));
+        etName.setText(POT.POT_02);
+        etMemo.setText(POT.POT_06);
 
-        npCycle.setValue(getIntent().getExtras().getInt("POT_04"));
-        if(getIntent().getExtras().getString("POT_05").equals("D")){
-            npCycle2.setValue(0); //일
+        String DDAY = "";
+        if(Integer.parseInt(POT.DDAY) > 0){
+            DDAY = "D-" + POT.DDAY;
         }
-        else{ //M
-            npCycle2.setValue(1); //개월
+        else if(Integer.parseInt(POT.DDAY) == 0){
+            DDAY = "D-Day";
+        }
+        else{
+            DDAY = "D+" + (Integer.parseInt(POT.DDAY) * -1);
+        }
+        tvDDAY.setText(DDAY);
+
+        tvPreWaterDay.setText(POT.POT_03_T.substring(0, 10).replace("-", "."));
+        POT_03_Calendar.set(Integer.parseInt(POT.POT_03_T.substring(0,4)), Integer.parseInt(POT.POT_03_T.substring(5,7)) - 1, Integer.parseInt(POT.POT_03_T.substring(8,10)));
+//        tvNextWaterDay.setText(POT.POT_96.substring(0, 4) + "." + POT.POT_96.substring(4, 6) + "." + POT.POT_96.substring(6, 8));
+        POT_96_Calendar.set(Integer.parseInt(POT.POT_96.substring(0,4)), Integer.parseInt(POT.POT_96.substring(4,6)) - 1, Integer.parseInt(POT.POT_96.substring(6,8)));
+
+        if(POT.ARM_03.equals("Y")){
+            imgAlarm.setImageResource(R.drawable.alarm_state_on);
+        }
+        else{
+            imgAlarm.setImageResource(R.drawable.alarm_state_off);
         }
 
-        Boolean alarm = false;
-        if(getIntent().getExtras().getString("ARM_03").equals("Y")){
-            alarm = true;
-        }
-        swAlarm.setChecked(alarm);
+        changeCycleText();
+        updateImgWater();
 
-        tpAlarmTime.setHour(Integer.parseInt(getIntent().getExtras().getString("POT_96").substring(8, 10)));
-        tpAlarmTime.setMinute(Integer.parseInt(getIntent().getExtras().getString("POT_96").substring(10)));
-
-        ARM_04 = getIntent().getExtras().getInt("ARM_04");
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
     private void requestPOT_CONTROL(String GUB) {
 
         //인터넷 연결 여부 확인
@@ -274,23 +290,16 @@ public class PotDetail extends BaseActivity {
         openLoadingBar();
 
         String GUBUN = GUB;
-        String POT_ID = CTN_02; //컨테이너 수정해야돼!!!
-        String POT_02 = getIntent().getExtras().getString("POT_02"); //명칭
-        int POT_04 = npCycle.getValue(); //주기
-        String POT_05 = "M";
-        if(npCycle2.getValue() == 0){ //주기구분
-            POT_05 = "D"; //일
-        }
+        String POT_ID = CTN_02; //컨테이너
+        String POT_01 = POT.POT_01; //코드번호
+        String POT_02 = etName.getText().toString(); //명칭
+        int POT_04 = POT.POT_04; //주기
+        String POT_05 = POT.POT_05; //주기구분
         String POT_06 = etMemo.getText().toString(); //메모
-        String POT_81 = getIntent().getExtras().getString("POT_81"); //이미지
-        String POT_96 = (tpAlarmTime.getHour()<10 ? "0" + String.valueOf(tpAlarmTime.getHour()) : String.valueOf(tpAlarmTime.getHour())) + (tpAlarmTime.getMinute()<10 ? "0" + String.valueOf(tpAlarmTime.getMinute()) : String.valueOf(tpAlarmTime.getMinute())); //알림시간
+        String POT_81 = ""; //이미지 (사용안함) 수정해야돼!!!
+        String POT_96 = POT.POT_96; //알림시간
         String POT_98 = mUser.Value.OCM_01; //사용자코드
-        if(swAlarm.isChecked()){ //알림여부
-            ARM_03 = "Y";
-        }
-        else{
-            ARM_03 = "N";
-        }
+        String ARM_03 = POT.ARM_03; //알림여부
 
         Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_CONTROL(
                 BaseConst.URL_HOST,
@@ -326,39 +335,9 @@ public class PotDetail extends BaseActivity {
                             Response<POT_Model> response = (Response<POT_Model>) msg.obj;
 
                             if(GUB.equals("WATER")){
-                                callBack(GUB, new PotVO());
+                                callBack(GUB, response.body().Data.get(0));
                             }
                             else{
-                                //알람 주석처리
-//                                AlarmMain alarmMain = new AlarmMain();
-//                                int ID = response.body().Data.get(0).ARM_04;
-//                                alarmMain.deleteAlarm(getApplicationContext(), ARM_04); //기존 푸시알람 해제
-//                                ARM_04 = ID;
-//
-//                                if(ARM_03.equals("Y")){
-//                                    String alarmTitle = "물주기 - " + response.body().Data.get(0).POT_02;
-//                                    String alarmText = "식물에게 물을 주세요~";
-//                                    String className = ".ui.pot.PotScan";
-//
-//                                    Intent intent = new Intent();
-//                                    intent.putExtra("POT_81", response.body().Data.get(0).POT_81);
-//                                    intent.putExtra("POT_02", response.body().Data.get(0).POT_02);
-//                                    intent.putExtra("POT_03_T", response.body().Data.get(0).POT_03_T);
-//                                    intent.putExtra("POT_04", response.body().Data.get(0).POT_04);
-//                                    intent.putExtra("POT_05", response.body().Data.get(0).POT_05);
-//                                    intent.putExtra("ARM_03", response.body().Data.get(0).ARM_03);
-//                                    intent.putExtra("POT_96", response.body().Data.get(0).POT_96);
-//                                    intent.putExtra("POT_06", response.body().Data.get(0).POT_06);
-//                                    intent.putExtra("POT_01", response.body().Data.get(0).POT_01);
-//                                    intent.putExtra("POT_97", response.body().Data.get(0).POT_97);
-//                                    intent.putExtra("className", className);
-//
-//                                    intent.putExtra("ID", ID);
-//                                    intent.putExtra("alarmTitle", alarmTitle);
-//                                    intent.putExtra("alarmText", alarmText);
-//
-//                                    alarmMain.setAlarm(getApplicationContext(), intent); //새로운 푸시알람 설정
-//                                    }
                                 finish();
                             }
                         }
@@ -375,344 +354,230 @@ public class PotDetail extends BaseActivity {
 
     }
 
-    //이미지 테스트용...
-//    @RequiresApi(api = Build.VERSION_CODES.M)
-//    private void requestPOT_CONTROL2(String GUB) throws IOException {
-//
-//        //인터넷 연결 여부 확인
-//        if(!ClsNetworkCheck.isConnectable(mContext)){
-//            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
-//            return;
-//        }
-//
-//        openLoadingBar();
-//
-//        String GUBUN = GUB;
-//        String POT_ID = "1"; //컨테이너 수정해야돼!!!
-//        String POT_01 = getIntent().getExtras().getString("POT_01"); //코드번호
-//        String POT_02 = getIntent().getExtras().getString("POT_02"); //명칭
-//        int POT_04 = npCycle.getValue(); //주기
-//        String POT_05 = "M";
-//        if(npCycle2.getValue() == 0){ //주기구분
-//            POT_05 = "D"; //일
-//        }
-//        String POT_06 = etMemo.getText().toString(); //메모
-//        String POT_81 = getIntent().getExtras().getString("POT_81"); //이미지
-//        String POT_96 = (tpAlarmTime.getHour()<10 ? "0" + String.valueOf(tpAlarmTime.getHour()) : String.valueOf(tpAlarmTime.getHour())) + (tpAlarmTime.getMinute()<10 ? "0" + String.valueOf(tpAlarmTime.getMinute()) : String.valueOf(tpAlarmTime.getMinute())); //알림시간
-//        String POT_98 = mUser.Value.OCM_01; //사용자코드
-//        if(swAlarm.isChecked()){ //알림여부
-//            ARM_03 = "Y";
-//        }
-//        else{
-//            ARM_03 = "N";
-//        }
-//
-//        File file = new File(fpath);
-////        File file = fileTakePhoto;
-//
-////        RequestBody POT_81_F = RequestBody.create(MediaType.parse("image/jpeg"), file);
-//        MultipartBody POT_81_F = MultipartBody.Part.createFormData("POT_81_F", file.getPath(), RequestBody.create(MediaType.parse("image/jpeg"), file));
-//
-//        Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_CONTROL(
-//                BaseConst.URL_HOST,
-//                GUBUN,
-//                POT_ID,
-//                POT_01,
-//                POT_02,
-//                POT_04,
-//
-//                POT_05,
-//                POT_06,
-//                POT_81,
-//                POT_96,
-//                POT_98,
-//
-//                ARM_03
-////                POT_81_F
-//        );
-//
-//        call.enqueue(new Callback<POT_Model>(){
-//            @SuppressLint("HandlerLeak")
-//            @Override
-//            public void onResponse(Call<POT_Model> call, Response<POT_Model> response){
-//                Message msg = new Message();
-//                msg.obj = response;
-//                msg.what = 100;
-//
-//                new Handler(){
-//                    @Override
-//                    public void handleMessage(Message msg){
-//                        if(msg.what == 100){
-//                            closeLoadingBar();
-//
-//                            Response<POT_Model> response = (Response<POT_Model>) msg.obj;
-//
-//                            if(GUB.equals("DELETE")){
-//                                callBack(GUB, new PotVO());
-//                            }
-//                            else{
-//                                callBack(GUB, response.body().Data.get(0));
-//                            }
-//                        }
-//                    }
-//                }.sendMessage(msg);
-//            }
-//
-//            @Override
-//            public void onFailure(Call<POT_Model> call, Throwable t){
-//                Log.d("POT_CONTROL", t.getMessage());
-//                closeLoadingBar();
-//            }
-//        });
-//
-//    }
-
     private void callBack(String GUB, PotVO data){
         if(data.Validation){
             switch(GUB){
                 case "WATER":
-                    setUserData(data);
+                    POT.POT_03_T = data.POT_03_T;
+                    updatePOT_03();
                     break;
             }
         }
 
     }
 
-    private void setUserData(PotVO potVO) {
-        tvPreWaterDay.setText(potVO.POT_03_T);
+    private void CycleDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_pot_cycle, null);
+        builder.setView(view);
+
+        TextView tvCycleMenu = (TextView) view.findViewById(R.id.tvCycleMenu);
+        TextView tvFixDayMenu = (TextView) view.findViewById(R.id.tvFixDayMenu);
+
+        RelativeLayout rlayout1 = (RelativeLayout) view.findViewById(R.id.rlayout1);
+        RelativeLayout rlayout2 = (RelativeLayout) view.findViewById(R.id.rlayout2);
+
+        Button btnCycleSave = (Button) view.findViewById(R.id.btnCycleSave);
+        Button btnCycleCancel = (Button) view.findViewById(R.id.btnCycleCancel);
+
+        DatePicker dpFixDay = (DatePicker) view.findViewById(R.id.dpFixDay);
+        dpFixDay.updateDate(POT_96_Calendar.get(Calendar.YEAR), POT_96_Calendar.get(Calendar.MONTH), POT_96_Calendar.get(Calendar.DATE));
+
+        NumberPicker npCycle = (NumberPicker) view.findViewById(R.id.npCycle);
+        npCycle.setMinValue(0);
+        npCycle.setMaxValue(60);
+        npCycle.setValue(POT.POT_04);
+
+        NumberPicker npCycle2 = (NumberPicker) view.findViewById(R.id.npCycle2);
+        npCycle2.setMinValue(0);
+        npCycle2.setMaxValue(1);
+        npCycle2.setDisplayedValues(new String[] {"일", "개월"});
+        if(POT.POT_05.equals("D")){
+            npCycle2.setValue(0); //일
+        }
+        else if (POT.POT_05.equals("M")){
+            npCycle2.setValue(1); //개월
+        }
+
+        AlertDialog dialog = builder.create();
+
+        tvCycleMenu.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                rlayout1.setVisibility(View.VISIBLE);
+                rlayout2.setVisibility(View.GONE);
+
+                tvCycleMenu.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                tvFixDayMenu.setBackgroundColor(Color.parseColor("#F2F5F7"));
+            }
+        });
+        tvFixDayMenu.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                rlayout1.setVisibility(View.GONE);
+                rlayout2.setVisibility(View.VISIBLE);
+
+                tvCycleMenu.setBackgroundColor(Color.parseColor("#F2F5F7"));
+                tvFixDayMenu.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+        });
+
+        if(POT.POT_05.equals("F")){
+            tvFixDayMenu.performClick();
+        }
+        else{
+            tvCycleMenu.performClick();
+        }
+
+        btnCycleSave.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(rlayout1.getVisibility() == View.VISIBLE){ // tvCycleMenu click
+                    POT.POT_04 = npCycle.getValue();
+                    if(npCycle2.getValue() == 0){
+                        POT.POT_05 = "D";
+                    }
+                    else{ // 1
+                        POT.POT_05 = "M";
+                    }
+
+                    updatePOT_96();
+                }
+                else{ // tvFixDayMenu click
+                    POT.POT_05 = "F";
+
+                    int year = dpFixDay.getYear();
+                    int month = dpFixDay.getMonth() + 1;
+                    int day = dpFixDay.getDayOfMonth();
+
+                    POT_96_Calendar.set(year, month - 1, day);
+
+                    POT.POT_96 = String.valueOf(year) + (month<10 ? "0" + String.valueOf(month) : String.valueOf(month)) + (day<10 ? "0" + String.valueOf(day) : String.valueOf(day)) + POT.POT_96.substring(8);
+
+                    updateDDAY();
+                }
+
+                changeCycleText();
+
+                dialog.dismiss();
+            }
+        });
+        btnCycleCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
-//    private void setPotPhoto() {
-//        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-//
-//        final String str[] = {
-//                "사진 찍기",
-//                "사진 선택",
-//                "사진 삭제"
-//        };
-//
-//        builder.setTitle("화분 사진 변경").setNegativeButton(R.string.common_cancel, null)
-//                .setItems(str, (dialog, which) -> {
-//                    switch (which) {
-//                        // 사직 찍기
-//                        case TAKE_PHOTO:
-//                            clickSendPhotoTakePhoto();
-//                            break;
-//                        // 사진 선택
-//                        case ALBUM:
-//                            clickSendPhotoAlbumPhoto();
-//                            break;
-//                        // 사직 삭제
-//                        case DELETE_PHOTO:
-////                            ClsImage.setUserPhoto(mContext, imgPotPhoto, "", R.drawable.main_profile_no_image);
-//                            setImage(getIntent().getExtras().getString("POT_81"));
-//                            mBase64 = "";
-//                            mUserImage = "";
-//                            break;
-//                    }
-//                }).setCancelable(false).create();
-//
-//        builder.show();
-//    }
+    private void changeCycleText(){
+        String Cycle = "";
+        int spanEndNum = 0;
 
-    /**
-     * 사진첨부 찍어서 보내기
-     */
-//    protected void clickSendPhotoTakePhoto() {
-//        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-//
-//        fileTakePhoto = getOutputMediaFile(MEDIA_TYPE_IMAGE);
-//        uriPhoto = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".fileprovider", fileTakePhoto);
-//
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriPhoto);
-//        startActivityForResult(intent, REQUEST_CODE_PHOTO_TAKE_PHOTO);
-//    }
+        if(POT.POT_05.equals("F")){
+            Cycle = "지정일";
+        }
+        else if(POT.POT_05.equals("D")){
+            Cycle = String.valueOf(POT.POT_04) + " 일";
+            spanEndNum = 2;
+        }
+        else{ //M
+            Cycle = String.valueOf(POT.POT_04) + " 개월";
+            spanEndNum = 3;
+        }
 
-    /**
-     * 사진첨부 앨범에서 사진 보내기
-     */
-//    protected void clickSendPhotoAlbumPhoto() {
-//        Intent intent = new Intent(Intent.ACTION_PICK);
-//        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-//        intent.setType("image/*");
-//        startActivityForResult(intent, REQUEST_CODE_ALBUM_PHOTO);
-//
-//        fileTakePhoto = getOutputMediaFile(MEDIA_TYPE_IMAGE);
-//    }
+        SpannableStringBuilder ssb = new SpannableStringBuilder(Cycle);
+        ssb.setSpan(new ForegroundColorSpan(Color.parseColor("#3498db")), 0, Cycle.length() - spanEndNum, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tvCycle.setText(ssb);
+        tvNextWaterDay.setText(POT.POT_96.substring(0,4)+"."+POT.POT_96.substring(4,6)+"."+POT.POT_96.substring(6,8));
 
-//    @SuppressLint("SimpleDateFormat")
-//    private File getOutputMediaFile(int type) {
-//        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "LinkApp");
-//
-//        if (!mediaStorageDir.exists()) {
-//            if (!mediaStorageDir.mkdirs()) {
-//                Log.d("Test", "failed to create directory");
-//                return null;
-//            }
-//        }
-//
-//        // Create a media file name
-//        String timeStamp = ClsDateTime.getNow("yyyyMMddHHmmss", Locale.US);
-//        File mediaFile;
-//
-//        if (type == MEDIA_TYPE_IMAGE) {
-//            mediaFile = new File(
-//                    mediaStorageDir.getPath() + File.separator + "_IMG_" + timeStamp + ".jpg");
-//        } else if (type == MEDIA_TYPE_VIDEO) {
-//            mediaFile = new File(
-//                    mediaStorageDir.getPath() + File.separator + "_VID_" + timeStamp + ".mp4");
-//        } else {
-//            return null;
-//        }
-//
-//        return mediaFile;
-//    }
+        updateImgWater();
+    }
 
-    /**
-     * 크롭하기
-     */
-//    private void cropImage() {
-//        Intent intent = new Intent("com.android.camera.action.CROP");
-//        intent.setDataAndType(uriPhoto, "image/*");
-//        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-//        intent.putExtra("outputX", 300);
-//        intent.putExtra("outputY", 300);
-//        intent.putExtra("aspectX", 1);
-//        intent.putExtra("aspectY", 1);
-//        intent.putExtra("scale", true);
-//        intent.putExtra("return-data", false);
-//        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriPhoto);
-//        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
-//
-//        this.grantUriPermission("com.android.camera", uriPhoto,
-//                Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
-//
-//        mActivity.startActivityForResult(intent, REQUEST_CODE_CROP);
-//    }
+    private void updatePOT_96(){
+        int POT_04 = POT.POT_04;
+        String POT_05 = POT.POT_05;
 
-//    @Override
-//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-//        super.onActivityResult(requestCode, resultCode, data);
-//        // 사진
-//        if (requestCode == REQUEST_CODE_CROP && resultCode == RESULT_OK) {
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriPhoto);
-//                imgPotPhoto.setImageBitmap(bitmap);
-//                mBase64 = ClsImage.getBase64ImageString(bitmap);
-//                mUserImage = uriPhoto.getPath();
-////                SaveBitmapToFileCache(bitmap, )
-//                fpath = saveBitmapToJpeg(mContext, bitmap, "potImage");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        } else if (requestCode == REQUEST_CODE_CROP_ALBUM && resultCode == RESULT_OK) {
-//            try {
-//                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriAlbum);
-//                imgPotPhoto.setImageURI(uriAlbum);
-//                mBase64 = ClsImage.getBase64ImageString(bitmap);
-//                mUserImage = uriAlbum.getPath();
-////                ByteArrayOutputStream bos = new ByteArrayOutputStream();
-////                file = bitmap.compress(Bitmap.CompressFormat.JPEG, 100, bos);
-////                fpath = mUserImage + ;
-//                fpath = saveBitmapToJpeg(mContext, bitmap, "potImage");
-//            } catch (Exception e) {
-//                e.printStackTrace();
-//            }
-//        } else {
-//            if (resultCode == RESULT_OK) {
-//                switch (requestCode) {
-//                    case REQUEST_CODE_ALBUM_PHOTO:
-//                        if (data.getData() != null) {
-//                            try {
-//                                uriPhoto = data.getData();
-////                                fpath
-//                                cropImage();
-//                            } catch (Exception e) {
-//                                e.printStackTrace();
-//                            }
-//                        }
-//                        break;
-//                    case REQUEST_CODE_PHOTO_TAKE_PHOTO:
-//                        if (!fileTakePhoto.exists()) {
-//                            return;
-//                        }
-//
-//                        cropImage();
-//                        break;
-//                    case REQUEST_CODE_CROP:
-//                        try {
-//                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriPhoto);
-//                            imgPotPhoto.setImageBitmap(bitmap);
-//                        } catch (Exception e) {
-//                            e.printStackTrace();
-//                        }
-//                        break;
-//                }
-//            }
-//        }
-//
-//    }
+        if(!POT_05.equals("F")){
+            POT_96_Calendar.setTimeInMillis(POT_03_Calendar.getTimeInMillis());
+            if(POT_05.equals("D")){
+                POT_96_Calendar.add(Calendar.DATE, POT_04);
+            }
+            else{
+                POT_96_Calendar.add(Calendar.MONTH, POT_04);
+            }
 
-//    private void setImage(String string_url){
-//        Thread mThread = new Thread(){
-//            @Override
-//            public void run(){
-//                try{
-//                    URL url = new URL("http://app.linktag.io" + string_url);
-//
-//                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-//                    conn.setDoInput(true);
-//                    conn.connect();
-//
-//                    InputStream is = conn.getInputStream();
-//                    bitmap = BitmapFactory.decodeStream(is);
-//                } catch (MalformedURLException e){
-//                    e.printStackTrace();
-//                } catch(IOException e){
-//                    e.printStackTrace();
-//                }
-//            }
-//        };
-//        if(string_url.equals("")){ //저장된 이미지가 없다.
-//            imgPotPhoto.setImageResource(R.drawable.ic_menu_gallery);
-//        }
-//        else{ //저장된 이미지가 있다!
-//            mThread.start();
-//            try{
-//                mThread.join();
-//                imgPotPhoto.setImageBitmap(bitmap);
-//            } catch (InterruptedException e){
-//                e.printStackTrace();
-//            }
-//        }
-//    }
+            int year = POT_96_Calendar.get(Calendar.YEAR);
+            int month = POT_96_Calendar.get(Calendar.MONTH) + 1;
+            int day = POT_96_Calendar.get(Calendar.DATE);
 
-//    public static String saveBitmapToJpeg(Context context, Bitmap bitmap, String name){
-//
-//        File storage = context.getCacheDir(); // 이 부분이 임시파일 저장 경로
-//
-//        String fileName = name + ".jpg";  // 파일이름은 마음대로!
-//
-//        File tempFile = new File(storage,fileName);
-//
-//        try{
-//            tempFile.createNewFile();  // 파일을 생성해주고
-//
-//            FileOutputStream out = new FileOutputStream(tempFile);
-//
-//            bitmap.compress(Bitmap.CompressFormat.JPEG, 90 , out);  // 넘거 받은 bitmap을 jpeg(손실압축)으로 저장해줌
-//
-//            out.close(); // 마무리로 닫아줍니다.
-//
-//        } catch (FileNotFoundException e) {
-//            e.printStackTrace();
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-//
-//        return tempFile.getAbsolutePath();   // 임시파일 저장경로를 리턴해주면 끝!
-//    }
+            POT.POT_96 = String.valueOf(year) + (month<10 ? "0" + String.valueOf(month) : String.valueOf(month)) + (day<10 ? "0" + String.valueOf(day) : String.valueOf(day)) + POT.POT_96.substring(8);
 
+            updateDDAY();
+        }
+
+        updateImgWater();
+
+    }
+
+    private void updatePOT_03(){
+        tvPreWaterDay.setText(POT.POT_03_T.substring(0, 10).replace("-", "."));
+        POT_03_Calendar.set(Integer.parseInt(POT.POT_03_T.substring(0,4)), Integer.parseInt(POT.POT_03_T.substring(5,7)) - 1, Integer.parseInt(POT.POT_03_T.substring(8,10)));
+
+        updatePOT_96();
+    }
+
+    private void updateDDAY(){
+        long day = (POT_96_Calendar.getTimeInMillis() - TODAY.getTimeInMillis()) / (24*60*60*1000);
+//        int day = (int)(Math.floor(TimeUnit.HOURS.convert(DayDiff, TimeUnit.MILLISECONDS) / 24f));
+
+        String DDAY = "";
+        if(day > 0){
+            DDAY = "D-" + day;
+        }
+        else if(day == 0){
+            DDAY = "D-Day";
+        }
+        else{
+            DDAY = "D+" + (day * -1);
+        }
+        tvDDAY.setText(DDAY);
+    }
+
+    private void updateImgWater(){
+        if(POT_96_Calendar.compareTo(Calendar.getInstance()) == 1){
+            imgWater.setImageResource(R.drawable.ic_check_on);
+
+            imgWater.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    new AlertDialog.Builder(mActivity)
+                            .setMessage("예정일자 전입니다.\n물주기완료 하시겠습니까?")
+                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    requestPOT_CONTROL("WATER");
+                                }
+                            })
+                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    return;
+                                }
+                            })
+                            .show();
+                }
+            });
+        }
+        else{
+            imgWater.setImageResource(R.drawable.ic_check_off);
+
+            imgWater.setOnClickListener(new View.OnClickListener(){
+                @Override
+                public void onClick(View v){
+                    requestPOT_CONTROL("WATER");
+                }
+            });
+        }
+    }
 
 }

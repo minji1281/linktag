@@ -1,35 +1,47 @@
 package com.linktag.linkapp.ui.pot;
 
+import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.os.Handler;
+import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.linktag.base.network.ClsNetworkCheck;
+import com.linktag.base.user_interface.InterfaceUser;
+import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.model.POT_Model;
+import com.linktag.linkapp.network.BaseConst;
+import com.linktag.linkapp.network.Http;
+import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.value_object.PotVO;
 
 import java.util.ArrayList;
 
-public class PotAdapter extends BaseAdapter implements View.OnClickListener {
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class PotAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<PotVO> mList;
     private LayoutInflater mInflater;
+    private InterfaceUser mUser;
 
-    private AlarmClickListener alarmClickListener;
-
-    public interface AlarmClickListener{
-        void onListAlarmClick(int position);
-    }
-
-    public PotAdapter(Context context, ArrayList<PotVO> list, AlarmClickListener alarmClickListener){ //, AlarmClickListener alarmClickListener
+    public PotAdapter(Context context, ArrayList<PotVO> list){
         this.mContext = context;
         this.mList = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-        this.alarmClickListener = alarmClickListener;
+        this.mUser = InterfaceUser.getInstance();
     }
 
     @Override
@@ -52,13 +64,13 @@ public class PotAdapter extends BaseAdapter implements View.OnClickListener {
         ViewHolder viewHolder;
 
         if(convertView == null){
-            convertView = mInflater.inflate(R.layout.listitem_find_pot, parent, false);
+            convertView = mInflater.inflate(R.layout.griditem_find_pot, parent, false);
 
             viewHolder = new ViewHolder();
-            viewHolder.tvPotName = convertView.findViewById(R.id.tvPotName);
-            viewHolder.tvPreWaterDay = convertView.findViewById(R.id.tvPreWaterDay);
-            viewHolder.tvDday = convertView.findViewById(R.id.tvDday);
-            viewHolder.tvAlarmDay = convertView.findViewById(R.id.tvAlarmDay);
+            viewHolder.tvName = convertView.findViewById(R.id.tvName);
+            viewHolder.tvDDAY = convertView.findViewById(R.id.tvDDAY);
+
+            viewHolder.btnWater = (Button) convertView.findViewById(R.id.btnWater);
 
             viewHolder.PotIcon = (ImageView) convertView.findViewById(R.id.PotIcon);
             viewHolder.AlarmIcon = (ImageView) convertView.findViewById(R.id.AlarmIcon);
@@ -69,8 +81,7 @@ public class PotAdapter extends BaseAdapter implements View.OnClickListener {
         }
 
         //Text
-        viewHolder.tvPotName.setText(mList.get(position).POT_02);
-        viewHolder.tvPreWaterDay.setText(mList.get(position).POT_03_T);
+        viewHolder.tvName.setText(mList.get(position).POT_02);
         String DDAY = "";
         if(Integer.parseInt(mList.get(position).DDAY) > 0) {
             DDAY = "D-" + mList.get(position).DDAY;
@@ -81,37 +92,153 @@ public class PotAdapter extends BaseAdapter implements View.OnClickListener {
         else{
             DDAY = "D+" + (Integer.parseInt(mList.get(position).DDAY) * -1);
         }
-        viewHolder.tvDday.setText(DDAY);
-        viewHolder.tvAlarmDay.setText(mList.get(position).POT_96.substring(2, 4) + "." + mList.get(position).POT_96.substring(4, 6) + "." + mList.get(position).POT_96.substring(6, 8) + " " + mList.get(position).POT_96.substring(8, 10) + ":" + mList.get(position).POT_96.substring(10, 12));
+        viewHolder.tvDDAY.setText(DDAY);
 
         //Image
-        viewHolder.PotIcon.setImageResource(R.drawable.ic_pot);
+        if(mList.get(position).POT_05.equals("F")){
+            viewHolder.PotIcon.setImageResource(R.drawable.ic_pot2_test);
+        }
+        else{
+            if(Integer.parseInt(mList.get(position).DDAY) <= 0){
+                viewHolder.PotIcon.setImageResource(R.drawable.ic_pot1_test);
+            }
+            else{
+                viewHolder.PotIcon.setImageResource(R.drawable.ic_pot3_test);
+            }
+        }
+
         if(mList.get(position).ARM_03.equals("Y")){
-            viewHolder.AlarmIcon.setImageResource(R.drawable.main_noti_selected);
+            viewHolder.AlarmIcon.setImageResource(R.drawable.alarm_state_on);
         }
         else{ //N
-            viewHolder.AlarmIcon.setImageResource(R.drawable.btn_noti_off_gray);
+            viewHolder.AlarmIcon.setImageResource(R.drawable.alarm_state_off);
         }
-        viewHolder.AlarmIcon.setTag(position);
-        viewHolder.AlarmIcon.setOnClickListener(this);
+        viewHolder.AlarmIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                PotVO data = mList.get(position);
+                requestPOT_CONTROL("ALARM_UPDATE", data, position);
+            }
+        });
+
+        //button
+        viewHolder.btnWater.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new AlertDialog.Builder(mContext)
+                        .setMessage("해당 화분의 물주기 정보를 업데이트 하시겠습니까?")
+                        .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                PotVO data = mList.get(position);
+                                requestPOT_CONTROL("WATER", data, position);
+                            }
+                        })
+                        .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        })
+                        .show();
+            }
+        });
+
+        viewHolder.AlarmIcon.setFocusable(false);
+        viewHolder.btnWater.setFocusable(false);
 
         return convertView;
     }
 
-    @Override
-    public void onClick(View v) {
-        if(this.alarmClickListener != null) {
-            this.alarmClickListener.onListAlarmClick((int) v.getTag());
-        }
-    }
-
     public void updateData(ArrayList<PotVO> list){ mList = list;}
 
+    private void requestPOT_CONTROL(String GUB, PotVO pot, int position) {
+        // 인터넷 연결 여부 확인
+        if (!ClsNetworkCheck.isConnectable(mContext)){
+            BaseAlert.show(mContext.getString(R.string.common_network_error));
+            return;
+        }
+
+        String GUBUN = GUB;
+        String POT_ID = pot.POT_ID; //컨테이너
+        String POT_01 = pot.POT_01; //코드번호
+        String POT_02 = pot.POT_02;
+        int POT_04 = 0;
+
+        String POT_05 = "";
+        String POT_06 = "";
+        String POT_81 = "";
+        String POT_96 = "";
+        String POT_98 = mUser.Value.OCM_01; //사용자 아이디
+
+        String ARM_03 = pot.ARM_03; //알림여부
+
+        Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_CONTROL(
+                BaseConst.URL_HOST,
+                GUBUN,
+                POT_ID,
+                POT_01,
+                POT_02,
+                POT_04,
+
+                POT_05,
+                POT_06,
+                POT_81,
+                POT_96,
+                POT_98,
+
+                ARM_03
+        );
+
+        call.enqueue(new Callback<POT_Model>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<POT_Model> call, Response<POT_Model> response){
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if (msg.what == 100){
+
+                            Response<POT_Model> response = (Response<POT_Model>) msg.obj;
+
+                            ArrayList<PotVO> responseData = response.body().Data;
+
+                            if(GUB.equals("WATER")){
+
+                                mList.get(position).DDAY = responseData.get(0).DDAY;
+                                mList.get(position).POT_03_T = responseData.get(0).POT_03_T;
+                                mList.get(position).POT_96 = responseData.get(0).POT_96;
+                            }
+                            else{ //ALARM_UPDATE
+                                mList.get(position).ARM_03 = responseData.get(0).ARM_03;
+                            }
+
+                            updateData(mList);
+                            notifyDataSetChanged();
+
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<POT_Model> call, Throwable t){
+                Log.d("Test", t.getMessage());
+
+            }
+        });
+
+    }
+
     static class ViewHolder{
-        TextView tvPotName;
-        TextView tvPreWaterDay;
-        TextView tvDday;
-        TextView tvAlarmDay;
+        TextView tvName;
+        TextView tvDDAY;
+
+        Button btnWater;
 
         ImageView PotIcon;
         ImageView AlarmIcon;

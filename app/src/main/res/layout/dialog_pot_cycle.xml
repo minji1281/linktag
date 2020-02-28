@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/layoutCycleTop"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="#F2F5F7"
+        android:baselineAligned="false"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:paddingLeft="6dp"
+        android:paddingTop="4dp"
+        android:paddingEnd="6dp">
+
+        <TextView
+            android:id="@+id/tvCycleMenu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="주기"
+            android:textColor="@drawable/selector_main_tab_text"
+            android:textSize="@dimen/text_small" />
+
+        <TextView
+            android:id="@+id/tvFixDayMenu"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:text="지정일"
+            android:textColor="@drawable/selector_main_tab_text"
+            android:textSize="@dimen/text_small" />
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/layoutCycle"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="5dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
+        android:shape="rectangle">
+
+        <RelativeLayout
+            android:id="@+id/rlayout1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <NumberPicker
+                android:id="@+id/npCycle"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_toLeftOf="@id/emptyCycle" />
+
+            <View
+                android:id="@+id/emptyCycle"
+                android:layout_width="20dp"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                />
+
+            <NumberPicker
+                android:id="@+id/npCycle2"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@id/emptyCycle" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/rlayout2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone">
+
+            <DatePicker
+                android:id="@+id/dpFixDay"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:datePickerMode="spinner"
+                android:calendarViewShown="false" />
+
+        </RelativeLayout>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="center"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnCycleCancel"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/shape_border_gray"
+            android:textColor="@color/List2"
+            android:text="취소"/>
+
+        <View
+            android:layout_width="1dp"
+            android:layout_height="match_parent"
+            android:background="#d7d7d7" />
+
+        <Button
+            android:id="@+id/btnCycleSave"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:background="@drawable/shape_border_gray"
+            android:textColor="#3498db"
+            android:text="확인"/>
+
+    </LinearLayout>
+
+</LinearLayout>
