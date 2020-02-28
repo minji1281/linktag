@@ -260,6 +260,8 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                 jdmVO.JDM_04,
                 jdmVO.JDM_05,
                 jdmVO.JDM_06,
+                jdmVO.JDM_07,
+                jdmVO.JDM_08,
                 formatDate.format(nextDay.getTime())+jdmVO.JDM_96.substring(8,12),
                 mUser.Value.OCM_01,
                 mUser.Value.OCM_01,
@@ -340,6 +342,8 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                     jdmvo.setJDM_04(mList.get(position).JDM_04);
                     jdmvo.setJDM_05(mList.get(position).JDM_05);
                     jdmvo.setJDM_06(mList.get(position).JDM_06);
+                    jdmvo.setJDM_07(mList.get(position).JDM_07);
+                    jdmvo.setJDM_08(mList.get(position).JDM_08);
                     jdmvo.setJDM_96(mList.get(position).JDM_96);
                     jdmvo.setJDM_97(mList.get(position).JDM_97);
                     jdmvo.setARM_03(mList.get(position).ARM_03);

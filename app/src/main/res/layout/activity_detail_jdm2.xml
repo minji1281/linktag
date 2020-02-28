@@ -88,13 +88,6 @@
 
             </RelativeLayout>
 
-<!--            <View-->
-<!--                android:layout_marginTop="30dp"-->
-<!--                android:layout_width="250dp"-->
-<!--                android:layout_height="3dp"-->
-<!--                android:layout_gravity="center"-->
-<!--                android:background="#34495E"/>-->
-
             <RelativeLayout
                 android:layout_marginTop="20dp"
                 android:layout_width="match_parent"
@@ -267,18 +260,19 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_marginLeft="10dp"
-                            android:text="청소주기" />
-
-                        <Spinner
-                            android:id="@+id/sp_recycleDay"
-                            android:layout_width="150dp"
-                            android:layout_height="35dp"
+                            android:text="청소주기"/>
+                        <TextView
+                            android:id="@+id/tv_recycleDay"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
                             android:layout_below="@+id/tv_label6"
                             android:layout_centerHorizontal="true"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginBottom="5dp"
-                            android:textSize="30dp" />
-
+                            android:layout_marginTop="12dp"
+                            android:layout_marginBottom="10dp"
+                            android:textColor="#34495E"
+                            android:textSize="20dp"
+                            android:textStyle="bold"
+                            android:text="1일"/>
 
                     </RelativeLayout>
 
@@ -302,33 +296,19 @@
                             android:layout_marginLeft="10dp"
                             android:text="다음 청소일" />
 
-
-                        <LinearLayout
-                            android:id="@+id/datePicker2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_label7"
-                            android:layout_marginTop="10dp">
-
-                            <ImageView
-                                android:id="@+id/img_calendar2"
-                                android:layout_width="40dp"
-                                android:layout_height="40dp"
-                                android:layout_below="@+id/tv_label4"
-                                android:background="@drawable/ic_calendar" />
-
                             <TextView
                                 android:id="@+id/tv_nextDate"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_vertical"
+                                android:layout_below="@+id/tv_label7"
+                                android:layout_centerHorizontal="true"
+                                android:layout_marginTop="15dp"
+                                android:layout_marginBottom="10dp"
                                 android:text="20. 03. 07"
                                 android:textColor="#34495E"
                                 android:textSize="20dp"
                                 android:textStyle="bold" />
-
-                        </LinearLayout>
-
                     </RelativeLayout>
 
                 </LinearLayout>

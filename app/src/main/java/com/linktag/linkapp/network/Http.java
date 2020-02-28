@@ -464,6 +464,8 @@ public class Http extends HttpBaseService {
                 @Field(value = "JDM_04") String JDM_04,
                 @Field(value = "JDM_05") String JDM_05,
                 @Field(value = "JDM_06") String JDM_06,
+                @Field(value = "JDM_07") String JDM_07,
+                @Field(value = "JDM_08") String JDM_08,
                 @Field(value = "JDM_96") String JDM_96,
                 @Field(value = "JDM_97") String JDM_97,
                 @Field(value = "JDM_98") String JDM_98,

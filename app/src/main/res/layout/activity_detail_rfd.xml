@@ -3,305 +3,307 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FFF"
     android:orientation="vertical">
 
     <com.linktag.base.base_header.BaseHeader
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="냉장고 식품 관리" />
+        app:title_text="냉장고 식품관리" />
 
-    <ScrollView
-        android:id="@+id/scrollView"
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/list_background"
         android:layout_weight="1">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:background="@color/list_background"
+            android:layout_margin="30dp"
             android:orientation="vertical">
 
-            <LinearLayout
-
+            <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/list_item_layout"
-                android:orientation="horizontal">
+                android:layout_height="wrap_content">
 
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|left"
-                    android:layout_weight="1"
-                    android:text="명 칭"
-                    android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold" />
-
+                <ImageView
+                    android:id="@+id/ic_title"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_title"/>
                 <EditText
-                    android:id="@+id/ed_name"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="4"
+                    android:id="@id/ed_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toLeftOf="@+id/imageView"
+                    android:layout_toRightOf="@+id/ic_title"
+                    android:layout_centerVertical="true"
                     android:background="@null"
-                    android:hint="명칭을 입력하세요."
-                    android:textSize="@dimen/_10sdp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/list_item_layout"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|left"
-                    android:layout_weight="1"
-                    android:text="메 모"
-                    android:textSize="@dimen/_10sdp"
+                    android:textColor="#34495E"
                     android:textStyle="bold" />
+
+
+
+                <ImageView
+                    android:id="@+id/imageView"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_toLeftOf="@+id/imageView2"
+                    android:background="@drawable/alarm_state_on" />
+                <ImageView
+                    android:id="@+id/imageView2"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/ic_time" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <ImageView
+                    android:id="@+id/ic_memo"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/ic_memo"/>
 
                 <EditText
                     android:id="@+id/ed_memo"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="4"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginLeft="5dp"
+                    android:layout_toRightOf="@+id/ic_memo"
                     android:background="@null"
-                    android:hint="메모를 입력하세요."
-                    android:textSize="@dimen/_10sdp" />
+                    android:hint="메모 입력란입니다." />
 
-            </LinearLayout>
+            </RelativeLayout>
 
-            <LinearLayout
-
+            <RelativeLayout
+                android:layout_marginTop="60dp"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/list_item_layout"
-                android:orientation="horizontal">
-
+                android:layout_height="wrap_content">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|left"
-                    android:layout_weight="2"
-                    android:text="유통기한"
-                    android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-
-                <LinearLayout
-                    android:id="@+id/datePicker"
-                    android:orientation="horizontal"
+                    android:id="@+id/tv_label1"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/ic_calendar"/>
-                    <TextView
-                        android:id="@+id/tv_datePicker"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:background="@null"
-                        android:hint="날짜선택"
-                        android:textSize="@dimen/_10sdp" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:textAlignment="center"
-                    android:layout_weight="1"
-                    android:text="~"/>
+                    android:text="남은 마감일" />
 
                 <LinearLayout
-                    android:id="@+id/datePicker2"
-                    android:orientation="horizontal"
+                    android:id="@+id/root_linearLayout"
+                    android:orientation="vertical"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent">
-                    <ImageView
-                        android:layout_width="20dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center_vertical"
-                        android:background="@drawable/ic_calendar"/>
+                    android:layout_height="wrap_content">
                     <TextView
-                        android:id="@+id/tv_datePicker2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_gravity="center_vertical"
-                        android:background="@null"
-                        android:hint="날짜선택"
-                        android:textSize="@dimen/_10sdp" />
-                </LinearLayout>
-
-
-                <View
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical|left"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/list_item_layout"
-                android:minWidth="0dp"
-                android:minHeight="0dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical|left"
-                    android:layout_weight="4"
-                    android:text="알림여부"
-                    android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold" />
-
-                <Switch
-                    android:id="@+id/switch_alarm"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="1"
-                    android:checked="true"
-                    android:minWidth="0dp"
-                    android:minHeight="0dp"
-                    android:textOff="알림Off"
-                    android:textOn="알림On"
-                    android:thumb="@drawable/switch_thumb"
-                    android:track="@drawable/switch_track_selector" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/list_item_layout"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|left"
-                    android:text="알림시간"
-                    android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold" />
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@color/colorPrimaryDark" />
-
-                <TimePicker
-                    android:id="@+id/timePicker"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="-20dp"
-                    android:layout_marginBottom="-40dp"
-                    android:scaleY=".8"
-                    android:timePickerMode="spinner" />
-
-
-            </LinearLayout>
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/list_item_layout"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="horizontal">
-
-                    <TextView
+                        android:id="@+id/tv_D_day"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|left"
-                        android:text="알림주기"
-                        android:textSize="@dimen/_10sdp"
+                        android:minWidth="100dp"
+                        android:layout_below="@+id/tv_label1"
+                        android:textAlignment="center"
+                        android:text="0"
+                        android:textColor="#34495E"
+                        android:textSize="80dp"
                         android:textStyle="bold" />
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="15px"
+                        android:layout_below="@+id/tv_D_day"
+                        android:background="#F44336" />
+                </LinearLayout>
+
+                <TextView
+                    android:id="@+id/tv_label3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/root_linearLayout"
+                    android:layout_toRightOf="@+id/root_linearLayout"
+                    android:text="-"
+                    android:textColor="#34495E"
+                    android:textSize="25dp"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toRightOf="@+id/root_linearLayout"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:text="Day"
+                    android:textColor="#34495E"
+                    android:textSize="30dp"
+                    android:textStyle="bold" />
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="60dp"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+                        <TextView
+                            android:id="@+id/tv_label5"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="10dp"
+                            android:text="유통기한 마감" />
+
+                        <LinearLayout
+                            android:id="@+id/datePicker"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_below="@+id/tv_label5"
+                            android:layout_marginTop="10dp">
+
+                            <ImageView
+                                android:id="@+id/img_calendar"
+                                android:layout_width="40dp"
+                                android:layout_height="40dp"
+                                android:layout_below="@+id/tv_label4"
+                                android:background="@drawable/ic_calendar" />
+
+                            <TextView
+                                android:id="@+id/tv_datePicker"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:text="20. 03. 07"
+                                android:textColor="#34495E"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
 
                     <View
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
+                        android:layout_width="wrap_content"
+                        android:layout_height="1dp"
+                        android:layout_margin="10dp"
+                        android:background="#DFDCDC" />
 
-                    <Button
-                        android:id="@+id/btn_datePicker"
-                        android:layout_width="150dp"
-                        android:layout_height="30dp"
-                        android:layout_gravity="center_vertical|right"
-                        android:background="@drawable/list_item_round_button_yellow"
-                        android:minWidth="0dp"
-                        android:minHeight="0dp"
-                        android:text="지정일 알림 사용"
-                        android:textColor="@color/white"
-                        android:textSize="13dp" />
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+                        <TextView
+                            android:id="@+id/tv_label4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentLeft="true"
+                            android:layout_marginLeft="10dp"
+                            android:text="보관위치" />
+
+                        <Spinner
+                            android:id="@+id/sp_pos"
+                            android:layout_width="150dp"
+                            android:layout_height="35dp"
+                            android:layout_below="@+id/tv_label4"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="30dp" />
+
+                    </RelativeLayout>
+
                 </LinearLayout>
 
                 <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:layout_marginTop="@dimen/_4sdp"
-                    android:layout_marginBottom="@dimen/_8sdp"
-                    android:background="@color/colorPrimaryDark" />
-
-                <TextView
-                    android:id="@+id/tv_datePicker3"
-                    android:layout_width="match_parent"
+                    android:layout_width="1dp"
                     android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
+                    android:layout_margin="10dp"
+                    android:background="#DFDCDC" />
+
+                <LinearLayout
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:text="유통기한 마감 당일알림"
-                    android:textAlignment="center"
-                    android:textSize="@dimen/_10sdp" />
+                    android:orientation="vertical"
+                    android:padding="10dp">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_horizontal">
+
+
+                        <Spinner
+                            android:id="@+id/sp_rfm"
+                            android:layout_width="180dp"
+                            android:layout_height="35dp"
+                            android:layout_centerHorizontal="true"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="30dp" />
+
+                        <LinearLayout
+                            android:id="@+id/rfm_move"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="10dp"
+                            android:layout_centerHorizontal="true"
+                            android:orientation="horizontal"
+                            android:layout_below="@+id/sp_rfm">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="보내기"
+                                android:textColor="#34495E"
+                                android:layout_gravity="center_vertical"
+                                android:textSize="20dp"
+                                android:textStyle="bold" />
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_vertical"
+                                android:background="@drawable/ic_move"/>
+
+                        </LinearLayout>
+
+
+                    </RelativeLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
+
         </LinearLayout>
 
-    </ScrollView>
+    </LinearLayout>
 
     <Button
         android:id="@+id/bt_save"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_gravity="bottom"
+        android:layout_height="50dp"
         android:background="@color/list_item_Detail_saveBtn"
         android:text="저장"
         android:textColor="@color/white" />

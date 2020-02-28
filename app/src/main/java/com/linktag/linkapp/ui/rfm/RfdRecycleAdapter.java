@@ -5,6 +5,8 @@ import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.PorterDuff;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
@@ -13,7 +15,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -30,7 +34,10 @@ import com.linktag.linkapp.value_object.ArmVO;
 import com.linktag.linkapp.value_object.RfdVO;
 
 import java.text.Format;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -43,6 +50,8 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
     private LayoutInflater mInflater;
     private View view;
     private InterfaceUser mUser;
+
+    private Calendar calendar = Calendar.getInstance();
 
     RfdRecycleAdapter(Context context, ArrayList<RfdVO> list) {
         mContext = context;
@@ -63,19 +72,92 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        if (mList.get(position).RFD_96.equals("")) {
-            viewHolder.tv_date.setText("알림 미지정");
-            viewHolder.tv_time.setText("");
-        } else {
-            String Format = mList.get(position).RFD_96;
-            String dateFormat = Format.substring(2, 4) + "." + Format.substring(4, 6) + "." + Format.substring(6, 8);
-            String timeFormat = Format.substring(8, 10) + ":" + Format.substring(10);
-            viewHolder.tv_date.setText(dateFormat);
-            viewHolder.tv_time.setText(timeFormat);
-        }
 
         viewHolder.tv_name.setText(mList.get(position).RFD_03);
         viewHolder.tv_memo.setText(mList.get(position).RFD_04);
+        viewHolder.tv_D_day.setText(mList.get(position).RFD_96.substring(0, 4) + "." + mList.get(position).RFD_96.substring(4, 6) + "." + mList.get(position).RFD_96.substring(6, 8));
+
+        calendar.clear(Calendar.HOUR);
+        calendar.clear(Calendar.MINUTE);
+        calendar.clear(Calendar.SECOND);
+        calendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
+
+        Calendar dCalendar = Calendar.getInstance();
+        dCalendar.set(Calendar.YEAR, Integer.parseInt(mList.get(position).RFD_96.substring(0, 4)));
+        dCalendar.set(Calendar.MONTH, Integer.parseInt(mList.get(position).RFD_96.substring(4, 6)) - 1);
+        dCalendar.set(Calendar.DATE, Integer.parseInt(mList.get(position).RFD_96.substring(6, 8)));
+
+        dCalendar.clear(Calendar.HOUR);
+        dCalendar.clear(Calendar.MINUTE);
+        dCalendar.clear(Calendar.SECOND);
+        dCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
+
+        Calendar sCalendar = Calendar.getInstance();
+        sCalendar.set(Calendar.YEAR, Integer.parseInt(mList.get(position).RFD_05.substring(0, 4)));
+        sCalendar.set(Calendar.MONTH, Integer.parseInt(mList.get(position).RFD_05.substring(4, 6)) - 1);
+        sCalendar.set(Calendar.DATE, Integer.parseInt(mList.get(position).RFD_05.substring(6, 8)));
+
+        sCalendar.clear(Calendar.HOUR);
+        sCalendar.clear(Calendar.MINUTE);
+        sCalendar.clear(Calendar.SECOND);
+        sCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
+
+
+        long dDayDiff = calendar.getTimeInMillis() - sCalendar.getTimeInMillis();
+        int dcount = (int)(Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
+
+
+        long dDayDiff2 = dCalendar.getTimeInMillis() - sCalendar.getTimeInMillis();
+        int totalProgress = (int)(Math.floor(TimeUnit.HOURS.convert(dDayDiff2, TimeUnit.MILLISECONDS) / 24f));
+
+
+        long dDayDiff3 = dCalendar.getTimeInMillis() - calendar.getTimeInMillis();
+        int count = (int)(Math.floor(TimeUnit.HOURS.convert(dDayDiff3, TimeUnit.MILLISECONDS) / 24f));
+
+//        int dcount = (int) ((calendar.getTimeInMillis() - sCalendar.getTimeInMillis()) / 86400000);
+//        int totalProgress = (int) ((dCalendar.getTimeInMillis() - sCalendar.getTimeInMillis()) / 86400000);
+//
+//        int count = (int) ((dCalendar.getTimeInMillis() - calendar.getTimeInMillis()) /  86400000);
+
+
+        if(count >=15){
+            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_green_8dp);
+            viewHolder.btn_label.setText("15일이상 남음");
+        }
+        else if(count < 15 &&  count >=7){
+            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_blue_8dp);
+            viewHolder.btn_label.setText("7일이하 남음");
+        }
+        else if(count == 0){
+            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_yellow_8dp);
+            viewHolder.btn_label.setText("오늘까지");
+        }
+        else if(count < 0){
+            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_red_8dp);
+            viewHolder.btn_label.setText("유통기한 마감");
+        }
+        else {
+            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_yellow_8dp);
+            viewHolder.btn_label.setText( count+"일 남음");
+        }
+
+        if (count == 0) {
+         //   viewHolder.tv_Deadline.setText("오늘까지 마감");
+            viewHolder.progressBar.getProgressDrawable().setColorFilter(null);
+            viewHolder.progressBar.setMax(1);
+            viewHolder.progressBar.setProgress(1);
+
+        } else if (count < 0) {
+            //viewHolder.tv_Deadline.setText("유통기한 지남");
+            viewHolder.progressBar.setMax(1);
+            viewHolder.progressBar.setProgress(1);
+            viewHolder.progressBar.getProgressDrawable().setColorFilter(0xFFE97D6C, PorterDuff.Mode.SRC_IN);
+        } else {
+           // viewHolder.tv_Deadline.setText(String.valueOf(count) + "일 남음");
+            viewHolder.progressBar.setMax(totalProgress);
+            viewHolder.progressBar.setProgress(dcount);
+            viewHolder.progressBar.getProgressDrawable().setColorFilter(null);
+        }
 
         if (mList.get(position).ARM_03.equals("Y")) {
             viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
@@ -88,15 +170,13 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
             public void onClick(View view) {
 
 
-
                 if (mList.get(position).ARM_03.equals("Y")) {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
                     Toast.makeText(mContext, "[" + mList.get(position).RFD_03 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
-                } else if(mList.get(position).ARM_03.equals("N") && !mList.get(position).RFD_96.equals("")) {
+                } else if (mList.get(position).ARM_03.equals("N")) {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
                     Toast.makeText(mContext, "[" + mList.get(position).RFD_03 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
-                }
-                else{
+                } else {
                     Toast.makeText(mContext, "알림일자를 지정하세요.", Toast.LENGTH_SHORT).show();
                     return;
                 }
@@ -108,6 +188,11 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
                 armVO.setARM_02(mUser.Value.OCM_01);
                 armVO.setARM_03(mList.get(position).ARM_03);
                 armVO.setARM_95(mList.get(position).RFD_01);
+                armVO.setARM_90(mList.get(position).RFD_03);
+                armVO.setARM_91(mList.get(position).RFD_04);
+                armVO.setARM_92(mList.get(position).RFD_96);
+                armVO.setARM_93("");
+                armVO.setARM_94("N");
                 armVO.setARM_98(mUser.Value.OCM_01);
 
                 requestARM_CONTROL(armVO, position);
@@ -116,18 +201,6 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
 
     }
 
-    public void cancelAlarm(Context context, int alarmId) {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, Alarm_Receiver.class);
-        intent.putExtra("notify_id", alarmId);
-        intent.putExtra("ContentTitle", "");
-        intent.putExtra("contentText", "");
-
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.cancel(pendingIntent);
-        pendingIntent.cancel();
-    }
 
     @Override
     public int getItemCount() {
@@ -139,20 +212,21 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
         ImageView imageview;
         TextView tv_name;
         TextView tv_memo;
-        TextView tv_date;
-        TextView tv_time;
-        Boolean bool;
+        TextView tv_D_day;
+        TextView tv_Deadline;
+        ProgressBar progressBar;
+        Button btn_label;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            progressBar = itemView.findViewById(R.id.progressBar);
             imageview = itemView.findViewById(R.id.imageView);
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_memo = itemView.findViewById(R.id.tv_memo);
-            tv_date = itemView.findViewById(R.id.tv_date);
-            tv_time = itemView.findViewById(R.id.tv_time);
-            bool = false;
-
+            tv_D_day = itemView.findViewById(R.id.tv_D_day);
+            //tv_Deadline = itemView.findViewById(R.id.tv_Deadline);
+            btn_label =itemView.findViewById(R.id.btn_label);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -214,61 +288,14 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
             @SuppressLint("HandlerLeak")
             @Override
             public void onResponse(Call<ARMModel> call, Response<ARMModel> response) {
-                Message msg = new Message();
-                msg.obj = response;
-                msg.what = 100;
 
-                new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-                        if (msg.what == 100) {
+                if (mList.get(position).ARM_03.equals("Y")) {
+                    mList.get(position).setARM_03("N");
 
-                            Response<ARMModel> response = (Response<ARMModel>) msg.obj;
+                } else {
+                    mList.get(position).setARM_03("Y");
 
-                            ArrayList<ArmVO> responseData = response.body().Data;
-
-                            mList.get(position).setARM_04(responseData.get(0).ARM_04);
-
-                            if (mList.get(position).ARM_03.equals("Y")) {
-                                mList.get(position).setARM_03("N");
-
-                                // cancelAlarm(mContext, mList.get(position).ARM_04);
-
-                            } else {
-                                mList.get(position).setARM_03("Y");
-
-//                                Intent intent = new Intent(mContext, Alarm_Receiver.class);
-//                                intent.putExtra("notify_id", responseData.get(0).ARM_04);
-//                                intent.putExtra("calDateTime", mList.get(position).RFD_96);
-//                                intent.putExtra("contentTitle", "장독관리" + mList.get(position).RFD_02);
-//                                intent.putExtra("contentText", mList.get(position).RFD_03);
-//                                intent.putExtra("className", ".ui.intro.Intro");
-//                                intent.putExtra("gotoActivity", ".ui.rfd.RFDMain");
-//                                intent.putExtra("gotoLogin", ".ui.login.Login");
-//                                intent.putExtra("gotoMain", ".ui.main.Main");
-//
-//
-//                                RfdVO rfdvo = new RfdVO();
-//                                rfdvo.setRFD_01( mList.get(position).getRFD_01());
-//                                rfdvo.setRFD_02( mList.get(position).getRFD_02());
-//                                rfdvo.setRFD_03( mList.get(position).getRFD_03());
-//                                rfdvo.setRFD_04( mList.get(position).getRFD_04());
-//                                rfdvo.setRFD_96( mList.get(position).getRFD_96());
-//                                rfdvo.setARM_03( mList.get(position).getARM_03());
-//
-//                                intent.putExtra("mList",mList);
-//
-//                                intent.putExtra("RfdVO", rfdvo);
-//
-//
-//                                new AlarmHATT(mContext).Alarm(intent);
-
-                            }
-
-                        }
-
-                    }
-                }.sendMessage(msg);
+                }
             }
 
             public void onFailure(Call<ARMModel> call, Throwable t) {

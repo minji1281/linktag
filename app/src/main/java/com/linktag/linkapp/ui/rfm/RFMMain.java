@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.linktag.base.base_activity.BaseActivity;
+import com.linktag.base.base_footer.BaseFooter;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
@@ -25,12 +26,16 @@ import com.linktag.linkapp.model.RFMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.menu.Member;
 import com.linktag.linkapp.ui.spinner.SpinnerList;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.RfdVO;
 import com.linktag.linkapp.value_object.RfmVO;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -39,6 +44,7 @@ import retrofit2.Response;
 public class RFMMain extends BaseActivity {
 
     private BaseHeader header;
+    private BaseFooter footer;
 
     private View view;
     private SwipeRefreshLayout swipeRefresh;
@@ -50,8 +56,7 @@ public class RFMMain extends BaseActivity {
     private ArrayList<RfdVO> mList;
     private ArrayList<RfmVO> mRfmList;
 
-    private String CTM_01;
-    private String CTN_02;
+    private CtdVO intentVO;
 
     private Spinner headerSpinner;
     private ArrayList<SpinnerList> mSpinnerList;
@@ -65,6 +70,10 @@ public class RFMMain extends BaseActivity {
 
     private String[] str;
     private String[] index;
+
+
+    private Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
 
     public RFMMain() {
     }
@@ -97,12 +106,16 @@ public class RFMMain extends BaseActivity {
 
     protected void initLayout() {
 
-        mSpinnerList = new ArrayList<>();
+        intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
+
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
-        headerSpinner = findViewById(R.id.spHeaderRight);
-        header.spHeaderRight.setVisibility(View.VISIBLE);
+        initLayoutByContractType();
+
+        mSpinnerList = new ArrayList<>();
+
+        headerSpinner = findViewById(R.id.headerSpinner);
 
         view = findViewById(R.id.recyclerView);
         recyclerView = view.findViewById(R.id.recyclerView);
@@ -118,7 +131,7 @@ public class RFMMain extends BaseActivity {
             }
         });
 
-        header.spHeaderRight.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+        headerSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -148,23 +161,18 @@ public class RFMMain extends BaseActivity {
         mAdapter = new RfdRecycleAdapter(mContext, mList);
         recyclerView.setAdapter(mAdapter);
 
-        CTM_01 = getIntent().getStringExtra("CTM_01");
-        CTN_02 = getIntent().getStringExtra("CTN_02");
-
-        //requestRFM_SELECT();
-
-
         imgNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+
                 RfdVO rfdvo = new RfdVO();
-                rfdvo.setRFD_ID(CTN_02);
+                rfdvo.setRFD_ID(intentVO.CTN_02);
                 rfdvo.setRFD_01(RFM_01);
                 rfdvo.setRFD_02("");
                 rfdvo.setRFD_03("");
                 rfdvo.setRFD_04("");
-                rfdvo.setRFD_05("");
+                rfdvo.setRFD_05(formatDate.format(calendar.getTime()) + calendar.get(Calendar.HOUR_OF_DAY) + calendar.get(Calendar.MINUTE));
                 rfdvo.setRFD_06("");
                 rfdvo.setRFD_96("");
                 rfdvo.setARM_03("N");
@@ -177,8 +185,32 @@ public class RFMMain extends BaseActivity {
                 mContext.startActivity(intent);
             }
         });
+    }
 
 
+    private void initLayoutByContractType(){
+        footer = findViewById(R.id.footer);
+
+        if(intentVO.CTM_19.equals("P")){
+            // privateService
+            footer.btnFooterSetting.setVisibility(View.VISIBLE);
+            footer.btnFooterMember.setVisibility(View.GONE);
+        } else {
+            // sharedService
+            header.tvHeaderTitle2.setVisibility(View.VISIBLE);
+            header.tvHeaderTitle2.setText(intentVO.CTM_17);
+
+            footer.btnFooterSetting.setVisibility(View.GONE);
+            footer.btnFooterMember.setVisibility(View.VISIBLE);
+
+            footer.btnFooterMember.setOnClickListener(v -> goMember());
+        }
+    }
+
+    private void goMember(){
+        Intent intent = new Intent(mContext, Member.class);
+        intent.putExtra("intentVO", intentVO);
+        mContext.startActivity(intent);
     }
 
 
@@ -193,7 +225,7 @@ public class RFMMain extends BaseActivity {
         Call<RFMModel> call = Http.rfm(HttpBaseService.TYPE.POST).RFM_SELECT(
                 BaseConst.URL_HOST,
                 "LIST",
-                CTN_02,
+                intentVO.CTN_02,
                 "",
                 mUser.Value.OCM_01
         );
@@ -268,7 +300,7 @@ public class RFMMain extends BaseActivity {
         Call<RFMModel> call = Http.rfm(HttpBaseService.TYPE.POST).RFM_SELECT(
                 BaseConst.URL_HOST,
                 GUBUN,
-                CTN_02,
+                intentVO.CTN_02,
                 scancode,
                 mUser.Value.OCM_01
         );
@@ -340,7 +372,7 @@ public class RFMMain extends BaseActivity {
         Call<RFDModel> call = Http.rfd(HttpBaseService.TYPE.POST).RFD_SELECT(
                 BaseConst.URL_HOST,
                 "LIST",
-                CTN_02,
+                intentVO.CTN_02,
                 RFM_01,
                 mUser.Value.OCM_01
         );
