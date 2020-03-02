@@ -55,6 +55,7 @@ public class BaseConst {
 
     //알람
     public static final String URL_ARM_CONTROL = "{host}/Mobile/ARM_CONTROL";
+    public static final String ARM_SELECT = "{host}/Mobile/ARM_SELECT";
 
     //장독
     public static final String URL_JDM_SELECT = "{host}/Mobile/JDM_SELECT";
