@@ -36,4 +36,10 @@
         <item name="android:paddingBottom">16dp</item>
         <item name="android:minHeight">60dp</item>
     </style>
+
+    <style name="CalendarWidgetHeader">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:textColor">@color/black</item>
+    </style>
 </resources>

@@ -51,10 +51,12 @@ import retrofit2.Response;
 public class Main extends BaseActivity {
     private final int TAB_PAGE_HOME = 0;
     private final int TAB_PAGE_BOARD = 1;
+    private final int TAB_PAGE_CALENDAL = 2;
 
     // Variable
     private HomeFragment fragmentHome;
     private BoardFragment fragmentBoard;
+    private CalendarFragment fragmentCalendar;
 
     private BaseViewPager viewPager;
     private ViewPagerAdapter mViewPagerAdapter;
@@ -103,7 +105,8 @@ public class Main extends BaseActivity {
         //footer.btnFooterSetting.setOnClickListener(v -> goSettingMain());
 
         footer.btnFooterHome.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_HOME));
-        footer.btnFooterBoard.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_BOARD));
+       // footer.btnFooterBoard.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_BOARD));
+        footer.btnFooterBoard.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_CALENDAL));
 
         initViewPager();
     }
@@ -154,13 +157,16 @@ public class Main extends BaseActivity {
         viewPager = findViewById(R.id.viewPagerMain);
 
         fragmentHome = new HomeFragment();
-        fragmentBoard = new BoardFragment();
+      //  fragmentBoard = new BoardFragment();
+        fragmentCalendar = new CalendarFragment();
 
         fragmentHome.setOnLoadingDialog(callLoadingBar);
-        fragmentBoard.setOnLoadingDialog(callLoadingBar);
+       // fragmentBoard.setOnLoadingDialog(callLoadingBar);
+        fragmentCalendar.setOnLoadingDialog(callLoadingBar);
 
         mListFragment.add(fragmentHome);
-        mListFragment.add(fragmentBoard);
+      //  mListFragment.add(fragmentBoard);
+        mListFragment.add(fragmentCalendar);
 
         mViewPagerAdapter = new ViewPagerAdapter(this.getSupportFragmentManager(), mListFragment);
         viewPager.setAdapter(mViewPagerAdapter);
@@ -194,7 +200,10 @@ public class Main extends BaseActivity {
             case TAB_PAGE_HOME:
                 footer.btnFooterHome.setSelected(true);
                 break;
-            case TAB_PAGE_BOARD:
+//            case TAB_PAGE_BOARD:
+//                footer.btnFooterBoard.setSelected(true);
+//                break;
+            case TAB_PAGE_CALENDAL:
                 footer.btnFooterBoard.setSelected(true);
                 break;
         }
@@ -352,7 +361,7 @@ public class Main extends BaseActivity {
             ctdVO.CTN_02 = model.Data.get(0).CTN_02;
             ctdVO.SVCL_04 = model.Data.get(0).SVCL_04;
             ctdVO.SVCL_05 = model.Data.get(0).SVCL_05;
-
+            mUser.Value.CTN_02 = model.Data.get(0).CTN_02;
             ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, ctdVO);
             changeActivityCls.changeServiceWithScan(scanCode);
         }

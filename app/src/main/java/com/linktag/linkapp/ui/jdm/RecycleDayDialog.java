@@ -16,7 +16,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
-import androidx.annotation.RequiresApi;
 
 import com.linktag.linkapp.R;
 
@@ -57,7 +56,7 @@ public class RecycleDayDialog extends Dialog {
         this.customDialogListener = customDialogListener;
     }
 
-    @RequiresApi(api = Build.VERSION_CODES.O)
+
     @SuppressLint("WrongViewCast")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
