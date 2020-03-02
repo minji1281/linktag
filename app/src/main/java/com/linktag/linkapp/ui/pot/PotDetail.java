@@ -33,6 +33,7 @@ import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.jdm.AlarmDialog;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.PotVO;
@@ -127,12 +128,13 @@ public class PotDetail extends BaseActivity {
                 }
             }
         });
+
         imgTime = (ImageView) findViewById(R.id.imgTime);
         imgTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
-                TimePickerDialog dialog = new TimePickerDialog(mActivity, new TimePickerDialog.OnTimeSetListener() {
+                TimePickerDialog dialog = new TimePickerDialog(mActivity, AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
                     @Override
                     public void onTimeSet(TimePicker timePicker, int hour, int min) {
                         String tmp = "";
@@ -176,7 +178,9 @@ public class PotDetail extends BaseActivity {
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                requestPOT_CONTROL(GUBUN);
+                if(validationCheck()){
+                    requestPOT_CONTROL(GUBUN);
+                }
             }
         });
 
@@ -581,6 +585,19 @@ public class PotDetail extends BaseActivity {
                 }
             });
         }
+    }
+
+    public boolean validationCheck(){
+        boolean check = true;
+        if(etName.getText().toString().equals("")){
+            check = false;
+            Toast.makeText(mActivity, "명칭을 입력해주세요.", Toast.LENGTH_SHORT).show();
+        }
+        else if(POT.POT_05.equals("")){
+            check = false;
+            Toast.makeText(mActivity, "주기/지정일을 선택하세요.", Toast.LENGTH_SHORT).show();
+        }
+        return check;
     }
 
 }
