@@ -14,7 +14,6 @@ import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.zxing.integration.android.IntentIntegrator;
@@ -114,6 +113,16 @@ public class Main extends BaseActivity {
     protected void initialize() {
         registerReceiver();
         setTag();
+
+
+        if(getIntent().hasExtra("startFragment")){
+            String g = getIntent().getStringExtra("startFragment");
+
+            if(g.equals("home"))
+                setCurrentViewPager(TAB_PAGE_HOME);
+            else if(g.equals("calendar"))
+                setCurrentViewPager(TAB_PAGE_CALENDAR);
+        }
 
     }
 

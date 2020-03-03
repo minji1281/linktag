@@ -141,7 +141,9 @@ public class BaseFooter extends LinearLayout {
                     try{
                         Class clsList = Class.forName("com.linktag.linkapp.ui.main.Main");
                         Intent intent = new Intent(mContext, clsList);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.putExtra("startFragment", "home");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
                         mContext.startActivity(intent);
                     } catch (Exception e){
                         e.printStackTrace();
@@ -160,6 +162,16 @@ public class BaseFooter extends LinearLayout {
                 if (mClickCalendar != null) {
                     mClickCalendar.onClick(v);
                 } else {
+                    try{
+                        Class clsList = Class.forName("com.linktag.linkapp.ui.main.Main");
+                        Intent intent = new Intent(mContext, clsList);
+                        intent.putExtra("startFragment", "calendar");
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+                        mContext.startActivity(intent);
+                    } catch (Exception e){
+                        e.printStackTrace();
+                    }
                     //Toast.makeText(mContext, "Click Right2 Button", Toast.LENGTH_SHORT).show();
                 }
             }
