@@ -1,5 +1,6 @@
 package com.linktag.linkapp.ui.menu;
 
+import android.graphics.Color;
 import android.os.Bundle;
 
 import android.support.v4.app.Fragment;
@@ -10,9 +11,9 @@ import android.view.Window;
 import android.widget.TextView;
 
 import com.linktag.base.base_activity.BaseActivity;
+import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.base_view_pager.BaseViewPager;
 import com.linktag.base.base_view_pager.ViewPagerAdapter;
-import com.linktag.base.util.BaseLoadingBar;
 import com.linktag.linkapp.R;
 
 import java.util.ArrayList;
@@ -21,6 +22,8 @@ import java.util.List;
 public class ChooseOne extends BaseActivity {
     private final int CHOOSE_PAGE_SERVICE = 0;
     private final int CHOOSE_PAGE_SHARED = 1;
+
+    private BaseHeader header;
 
     private ServiceFragment fragService;
     private SharedFragment fragShared;
@@ -47,6 +50,11 @@ public class ChooseOne extends BaseActivity {
 
     @Override
     protected void initLayout() {
+        header = findViewById(R.id.header);
+        header.btnHeaderLeft.setOnClickListener(v -> closePop(v));
+        header.layoutHeader.setBackgroundColor(Color.parseColor("#F2F5F7"));
+        header.headerSpacer.setVisibility(View.INVISIBLE);
+
         tvChooseService = findViewById(R.id.tvChooseService);
         tvChooseService.setOnClickListener(v -> setCurrentViewPager(CHOOSE_PAGE_SERVICE));
         tvChooseShared = findViewById(R.id.tvChooseShared);
@@ -66,8 +74,8 @@ public class ChooseOne extends BaseActivity {
         fragService = new ServiceFragment();
         fragShared = new SharedFragment();
 
-        //fragService.setOnLoadingDialog(callLoadingBar);
-        //fragShared.setOnLoadingDialog(callLoadingBar);
+//        fragService.setOnLoadingDialog(callLoadingBar);
+//        fragShared.setOnLoadingDialog(callLoadingBar);
 
         mListFragment.add(fragService);
         mListFragment.add(fragShared);
@@ -123,9 +131,13 @@ public class ChooseOne extends BaseActivity {
         switch (viewPager.getCurrentItem()) {
             case CHOOSE_PAGE_SERVICE:
                 tvChooseService.setSelected(true);
+                tvChooseService.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                tvChooseShared.setBackgroundColor(Color.parseColor("#F2F5F7"));
                 break;
             case CHOOSE_PAGE_SHARED:
                 tvChooseShared.setSelected(true);
+                tvChooseShared.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                tvChooseService.setBackgroundColor(Color.parseColor("#F2F5F7"));
                 break;
         }
     }

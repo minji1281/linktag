@@ -3,11 +3,14 @@ package com.linktag.base.base_footer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.media.Image;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 //import com.linktag.linkapp.ui.menu.Menu;
 
@@ -17,19 +20,19 @@ public class BaseFooter extends LinearLayout {
     /*************************** Control ***************************/
     private LinearLayout layoutFooter;
 
-    public ImageButton btnFooterHome;
-    public ImageButton btnFooterBoard;
+    public TextView btnFooterHome;
+    public TextView btnFooterCalendar;
     public ImageButton btnFooterScan;
-    public ImageButton btnFooterMenu;
-    public ImageButton btnFooterMember;
-    public ImageButton btnFooterSetting;
+    public TextView btnFooterMenu;
+    public TextView btnFooterMember;
+    public TextView btnFooterSetting;
 
     /*************************** Variable ***************************/
     // Context
     private Context mContext;
 
     private OnClick mClickHome;
-    private OnClick mClickBoard;
+    private OnClick mClickCalendar;
     private OnClick mClickScan;
     private OnClick mClickMenu;
     private OnClick mClickMember;
@@ -57,7 +60,7 @@ public class BaseFooter extends LinearLayout {
         // 홈 버튼 visibility 설정
         btnFooterHome.setVisibility(typedArray.getInt(R.styleable.BaseFooter_btn_home_visibility, View.VISIBLE));
         // 보드 버튼 visibility 설정
-        btnFooterBoard.setVisibility(typedArray.getInt(R.styleable.BaseFooter_btn_board_visibility, View.VISIBLE));
+        btnFooterCalendar.setVisibility(typedArray.getInt(R.styleable.BaseFooter_btn_calendar_visibility, View.VISIBLE));
         // 스캔 버튼 visibility 설정
         btnFooterScan.setVisibility(typedArray.getInt(R.styleable.BaseFooter_btn_scan_visibility, View.VISIBLE));
         // 메뉴 버튼 visibility 설정
@@ -68,9 +71,10 @@ public class BaseFooter extends LinearLayout {
         // 세팅 버튼 visibility 설정
         btnFooterSetting.setVisibility(typedArray.getInt(R.styleable.BaseFooter_btn_setting_visibility, View.GONE));
 
+        /*
         int nBtnHome = typedArray.getResourceId(R.styleable.BaseFooter_btn_home_src, -1);
         if (nBtnHome != -1)
-            btnFooterHome.setImageResource(nBtnHome);
+            btnFooterHome. setImageResource(nBtnHome);
         int nBtnBoard = typedArray.getResourceId(R.styleable.BaseFooter_btn_board_src, -1);
         if (nBtnBoard != -1)
             btnFooterBoard.setImageResource(nBtnBoard);
@@ -87,6 +91,8 @@ public class BaseFooter extends LinearLayout {
         if (nBtnSetting != -1)
             btnFooterSetting.setImageResource(nBtnSetting);
 
+
+         */
         initAttr();
     }
 
@@ -99,12 +105,12 @@ public class BaseFooter extends LinearLayout {
 
         layoutFooter = (LinearLayout) v.findViewById(R.id.layoutFooter);
 
-        btnFooterHome = (ImageButton) v.findViewById(R.id.btnFooterHome);
-        btnFooterBoard = (ImageButton) v.findViewById(R.id.btnFooterBoard);
+        btnFooterHome = (TextView) v.findViewById(R.id.btnFooterHome);
+        btnFooterCalendar = (TextView) v.findViewById(R.id.btnFooterCalendar);
         btnFooterScan = (ImageButton) v.findViewById(R.id.btnFooterScan);
-        btnFooterMenu = (ImageButton) v.findViewById(R.id.btnFooterMenu);
-        btnFooterMember = (ImageButton) v.findViewById(R.id.btnFooterMember);
-        btnFooterSetting = (ImageButton) v.findViewById(R.id.btnFooterSetting);
+        btnFooterMenu = (TextView) v.findViewById(R.id.btnFooterMenu);
+        btnFooterMember = (TextView) v.findViewById(R.id.btnFooterMember);
+        btnFooterSetting = (TextView) v.findViewById(R.id.btnFooterSetting);
 
         addView(v);
     }
@@ -112,7 +118,7 @@ public class BaseFooter extends LinearLayout {
     private void initAttr() {
         setFooterHomeButton();
 
-        setFooterBoardButton();
+        setFooterCalendarButton();
 
         setFooterScanButton();
 
@@ -146,13 +152,13 @@ public class BaseFooter extends LinearLayout {
         });
     }
 
-    private void setFooterBoardButton(){
+    private void setFooterCalendarButton(){
         // 버튼 이벤트
-        btnFooterBoard.setOnClickListener(new OnClickListener() {
+        btnFooterCalendar.setOnClickListener(new OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (mClickBoard != null) {
-                    mClickBoard.onClick(v);
+                if (mClickCalendar != null) {
+                    mClickCalendar.onClick(v);
                 } else {
                     //Toast.makeText(mContext, "Click Right2 Button", Toast.LENGTH_SHORT).show();
                 }
@@ -243,9 +249,9 @@ public class BaseFooter extends LinearLayout {
             mClickHome.onClick(view);
         }
     }
-    public void SetCallbackBtnBoard(View view) {
-        if (mClickBoard!= null) {
-            mClickBoard.onClick(view);
+    public void SetCallbackBtnCalendar(View view) {
+        if (mClickCalendar!= null) {
+            mClickCalendar.onClick(view);
         }
     }
     public void SetCallbackBtnScan(View view) {
@@ -272,8 +278,8 @@ public class BaseFooter extends LinearLayout {
     public void SetOnClickHome(OnClick callback) {
         mClickHome = callback;
     }
-    public void SetOnClickBoard(OnClick callback) {
-        mClickBoard = callback;
+    public void SetOnClickCalendar(OnClick callback) {
+        mClickCalendar = callback;
     }
     public void SetOnClickScan(OnClick callback) {
         mClickScan = callback;

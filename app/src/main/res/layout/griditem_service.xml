@@ -6,14 +6,53 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <ImageView
-        android:id="@+id/ivService"
+    <FrameLayout
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_gravity="center|center_vertical"
-        android:layout_marginBottom="15dp"
-        android:scaleType="fitCenter"
-        android:src="@drawable/main_profile_no_image" />
+        android:layout_marginBottom="5dp">
+
+        <ImageView
+            android:id="@+id/ivService"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            android:layout_gravity="center|center_vertical"
+            android:scaleType="fitCenter"
+            android:src="@drawable/main_profile_no_image" />
+
+        <LinearLayout
+            android:id="@+id/layDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/side_icon_delete" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layType"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:gravity="center|center_vertical"
+            android:orientation="horizontal"
+            android:visibility="gone">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:scaleType="fitCenter"
+                android:src="@drawable/side_icon_shared" />
+        </LinearLayout>
+
+    </FrameLayout>
 
     <TextView
         android:id="@+id/tvService"
@@ -21,5 +60,5 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="TextView"
-        android:textSize="@dimen/text_normal" />
+        android:textSize="@dimen/text_small" />
 </LinearLayout>

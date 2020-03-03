@@ -52,12 +52,22 @@
             <enum name="invisible" value="0x00000004" />
             <enum name="gone" value="0x00000008" />
         </attr>
+
+        <attr name="spacer_visibility" format="enum">
+            <enum name="visible" value="0x00000000" />
+            <enum name="invisible" value="0x00000004" />
+            <enum name="gone" value="0x00000008" />
+        </attr>
+
         <attr name="btn_left_src" format="reference" />
         <attr name="btn_right1_src" format="reference" />
         <attr name="btn_right2_src" format="reference" />
         <attr name="btn_right3_src" format="reference" />
         <attr name="btn_left1_src" format="reference" />
         <attr name="sp_visibility" format="reference" />
+
+        <attr name="spacer" format="reference" />
+
     </declare-styleable>
 
     <declare-styleable name="BaseFooter">
@@ -66,7 +76,7 @@
             <enum name="invisible" value="0x00000004" />
             <enum name="gone" value="0x00000008" />
         </attr>
-        <attr name="btn_board_visibility" format="enum">
+        <attr name="btn_calendar_visibility" format="enum">
             <enum name="visible" value="0x00000000" />
             <enum name="invisible" value="0x00000004" />
             <enum name="gone" value="0x00000008" />
@@ -93,7 +103,7 @@
         </attr>
 
         <attr name="btn_home_src" format="reference" />
-        <attr name="btn_board_src" format="reference" />
+        <attr name="btn_calendar_src" format="reference" />
         <attr name="btn_scan_src" format="reference" />
         <attr name="btn_menu_src" format="reference" />
         <attr name="btn_member_src" format="reference" />

@@ -5,12 +5,12 @@
     android:id="@+id/layoutHeader"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="56dp"
-        android:background="@color/white">
+        android:layout_height="56dp">
 
         <!--왼쪽-->
         <LinearLayout
@@ -42,39 +42,41 @@
                 android:visibility="gone"
                 tools:visibility="visible" />
 
-            <LinearLayout
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"
+            android:gravity="center|center_vertical"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/tvHeaderTitle"
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="vertical">
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Title"
+                android:textColor="@color/black"
+                android:textSize="@dimen/text_normal"
+                android:textStyle="bold"
+                android:visibility="visible"
+                tools:visibility="visible" />
 
-                <TextView
-                    android:id="@+id/tvHeaderTitle"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="Title"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_normal"
-                    android:textStyle="bold"
-                    android:visibility="visible"
-                    tools:visibility="visible" />
+            <TextView
+                android:id="@+id/tvHeaderTitle2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="Title2"
+                android:textColor="@color/colorTextGray"
+                android:textSize="@dimen/text_smaller"
+                android:textStyle="bold"
+                android:visibility="gone"
+                tools:visibility="visible" />
 
-                <TextView
-                    android:id="@+id/tvHeaderTitle2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_centerVertical="true"
-                    android:text="Title2"
-                    android:textColor="@color/colorTextGray"
-                    android:textSize="@dimen/text_smaller"
-                    android:textStyle="bold"
-                    android:visibility="gone"
-                    tools:visibility="visible" />
-
-            </LinearLayout>
         </LinearLayout>
 
         <!--가운데 타이틀-->
@@ -138,6 +140,8 @@
         </LinearLayout>
     </RelativeLayout>
 
-    <LinearLayout style="@style/common_horizontal_line" />
+    <TextView
+        android:id="@+id/headerSpacer"
+        style="@style/common_horizontal_line" />
 
 </LinearLayout>

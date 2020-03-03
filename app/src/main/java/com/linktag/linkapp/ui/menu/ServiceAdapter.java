@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +21,8 @@ public class ServiceAdapter extends BaseAdapter{
     private Context mContext;
     private ArrayList<CtdVO> mList;
     private LayoutInflater mInflater;
+
+    private boolean deleteChk = false;
 
     public ServiceAdapter(Context context, ArrayList<CtdVO> list){
         this.mContext = context;
@@ -53,6 +56,7 @@ public class ServiceAdapter extends BaseAdapter{
                 viewHolder.ivService.setClipToOutline(true);
             }
             viewHolder.tvService = convertView.findViewById(R.id.tvService);
+            viewHolder.layDelete = convertView.findViewById(R.id.layDelete);
 
             convertView.setTag(viewHolder);
         } else {
@@ -68,13 +72,23 @@ public class ServiceAdapter extends BaseAdapter{
 
         viewHolder.tvService.setText(mList.get(position).CTD_02_NM);
 
+        if(deleteChk)
+            viewHolder.layDelete.setVisibility(View.VISIBLE);
+        else
+            viewHolder.layDelete.setVisibility(View.GONE);
+
         return convertView;
     }
 
     public void updateData(ArrayList<CtdVO> list){ mList = list;}
 
+    public void setDelete(boolean chk){
+        deleteChk = chk;
+    }
+
     static class ViewHolder{
         ImageView ivService;
         TextView tvService;
+        LinearLayout layDelete;
     }
 }

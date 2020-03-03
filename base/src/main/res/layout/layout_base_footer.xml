@@ -11,81 +11,96 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="54dp"
+        android:layout_height="60dp"
         android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingTop="3dp"
+        android:paddingTop="6dp"
         android:paddingBottom="3dp">
 
-        <ImageButton
+        <TextView
             android:id="@+id/btnFooterHome"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/transparent_color"
-            android:contentDescription="@null"
-            android:src="@drawable/selector_footer_home"
+            android:drawableTop="@drawable/selector_footer_home"
+            android:gravity="center"
+            android:text="@string/home_01"
+            android:textColor="@drawable/selector_footer_textcolor"
+            android:textSize="@dimen/text_small"
             android:visibility="visible"
             tools:visibility="visible" />
 
-        <ImageButton
-            android:id="@+id/btnFooterBoard"
+        <TextView
+            android:id="@+id/btnFooterCalendar"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/transparent_color"
-            android:contentDescription="@null"
-            android:src="@drawable/selector_footer_board"
+            android:drawableTop="@drawable/selector_footer_board"
+            android:gravity="center"
+            android:text="@string/home_02"
+            android:textColor="@drawable/selector_footer_textcolor"
+            android:textSize="@dimen/text_small"
             android:visibility="visible"
             tools:visibility="visible" />
+
 
         <ImageButton
             android:id="@+id/btnFooterScan"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:background="@color/transparent_color"
             android:contentDescription="@null"
-            android:paddingTop="3dp"
             android:paddingBottom="3dp"
             android:scaleType="fitCenter"
             android:src="@drawable/footer_scan"
-            android:visibility="visible"
-            tools:visibility="visible" />
+            android:visibility="visible" />
 
-        <ImageButton
+        <TextView
             android:id="@+id/btnFooterMenu"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/transparent_color"
-            android:contentDescription="@null"
-            android:src="@drawable/selector_footer_menu"
+            android:drawableTop="@drawable/selector_footer_menu"
+            android:gravity="center"
+            android:text="@string/home_04"
+            android:textColor="@drawable/selector_footer_textcolor"
+            android:textSize="@dimen/text_small"
             android:visibility="visible"
             tools:visibility="visible" />
 
-        <ImageButton
+        <TextView
             android:id="@+id/btnFooterMember"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/transparent_color"
-            android:contentDescription="@null"
-            android:src="@drawable/selector_footer_member"
+            android:drawableTop="@drawable/selector_footer_member"
+            android:gravity="center"
+            android:text="@string/home_05"
+            android:textColor="@drawable/selector_footer_textcolor"
+            android:textSize="@dimen/text_small"
             android:visibility="visible"
             tools:visibility="visible" />
 
-        <ImageButton
+
+        <TextView
             android:id="@+id/btnFooterSetting"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="@color/transparent_color"
-            android:contentDescription="@null"
-            android:src="@drawable/selector_footer_setting"
+            android:drawableTop="@drawable/selector_footer_setting"
+            android:gravity="center"
+            android:text="@string/home_06"
+            android:textColor="@drawable/selector_footer_textcolor"
+            android:textSize="@dimen/text_small"
             android:visibility="gone"
             tools:visibility="visible" />
+
 
     </LinearLayout>
 

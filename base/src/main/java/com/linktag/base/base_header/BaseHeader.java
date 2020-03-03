@@ -54,6 +54,8 @@ public class BaseHeader extends LinearLayout {
     // 오른쪽 스피너
     public Spinner spHeaderRight;
 
+    public TextView headerSpacer;
+
     /*************************** Variable ***************************/
     // Context
     private Context mContext;
@@ -115,6 +117,8 @@ public class BaseHeader extends LinearLayout {
 
         // 오른쪽 스피너 visibility 설정
         spHeaderRight.setVisibility(typedArray.getInt(R.styleable.BaseHeader_sp_visibility, View.GONE));
+
+        headerSpacer.setVisibility(typedArray.getInt(R.styleable.BaseHeader_spacer_visibility , View.VISIBLE));
 
         // 텍스트 버튼 text 설정
         String strText = typedArray.getString(R.styleable.BaseHeader_btn_text_text);
@@ -189,6 +193,8 @@ public class BaseHeader extends LinearLayout {
         btnHeaderLeftText = (Button) v.findViewById(R.id.btnHeaderLeftText);
 
         spHeaderRight = (Spinner) v.findViewById(R.id.spHeaderRight);
+
+        headerSpacer = (TextView) v.findViewById(R.id.headerSpacer);
 
         addView(v);
     }

@@ -9,42 +9,48 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="5dp"
         android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="horizontal"
+        android:padding="12dp">
+
+        <ImageView
+            android:id="@+id/ivShared"
+            android:layout_width="55dp"
+            android:layout_height="55dp"
+            android:layout_gravity="center_vertical"
+            android:scaleType="fitCenter"
+            android:src="@drawable/back_test" />
 
         <LinearLayout
-            android:id="@+id/layShared"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="@dimen/_100sdp"
-            android:alpha="0.6"
-            android:background="@drawable/back_test"
-            android:gravity="end"
-            android:orientation="horizontal">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:orientation="vertical">
 
-            <FrameLayout
-                android:layout_width="40dp"
-                android:layout_height="40dp"
-                android:background="#FFFFFF">
+            <TextView
+                android:id="@+id/tvSharedNM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="@dimen/text_normal" />
 
-                <ImageView
-                    android:id="@+id/ivService"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="4dp"
-                    android:layout_marginBottom="4dp"
-                    android:scaleType="fitCenter"
-                    app:srcCompat="@drawable/alarm_state_on" />
-            </FrameLayout>
+            <TextView
+                android:id="@+id/tvServiceNM"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="TextView"
+                android:textSize="@dimen/small_text" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/tvShared"
-            android:layout_width="@dimen/_100sdp"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:paddingStart="5dp"
-            android:text="아아ㅏㅏㅏ"
-            android:textSize="@dimen/text_small" />
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/headerSpacer"
+        style="@style/common_horizontal_line"
+        android:layout_marginStart="10dp"
+        android:layout_marginEnd="10dp" />
 
 </LinearLayout>

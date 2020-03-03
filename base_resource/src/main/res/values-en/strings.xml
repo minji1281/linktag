@@ -37,9 +37,11 @@
     <!-- 홈 -->
 
     <string name="home_01">HOME</string>
-    <string name="home_02">COMMENT</string>
+    <string name="home_02">CALENDAR</string>
     <string name="home_03">SCAN</string>
-    <string name="home_04">SETTING</string>
+    <string name="home_04">CATEGORY</string>
+    <string name="home_05">MEMBER</string>
+    <string name="home_06">SETTING</string>
 
     <!-- 대쉬보드 -->
     <string name="dash_01">NOTICE</string>

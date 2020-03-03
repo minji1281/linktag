@@ -15,6 +15,12 @@
     <!--        app:btn_right1_src="@drawable/main_scan"-->
     <!--        app:btn_left_visibility="gone"/>-->
 
+    <com.linktag.base.base_header.BaseHeader
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:btn_left_visibility="invisible" />
+
     <com.linktag.base.base_view_pager.BaseViewPager
         android:id="@+id/viewPagerMain"
         android:layout_width="match_parent"

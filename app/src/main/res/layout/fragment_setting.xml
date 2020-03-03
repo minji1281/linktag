@@ -23,6 +23,7 @@
             android:id="@+id/layoutUserInfo"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="20dp"
             android:gravity="center_vertical"
             android:orientation="vertical"
             android:padding="24dp">
@@ -84,8 +85,8 @@
                 android:background="@color/white"
                 android:drawableEnd="@drawable/btn_next_gray"
                 android:gravity="start|center_vertical"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:text="프로필 설정"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_normal" />
@@ -99,8 +100,8 @@
                 android:background="@color/white"
                 android:drawableEnd="@drawable/btn_next_gray"
                 android:gravity="start|center_vertical"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:text="환경설정"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_normal" />
@@ -114,8 +115,8 @@
                 android:background="@color/white"
                 android:drawableEnd="@drawable/btn_next_gray"
                 android:gravity="start|center_vertical"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:text="홈페이지 바로가기"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_normal" />
@@ -129,8 +130,8 @@
                 android:background="@color/white"
                 android:drawableEnd="@drawable/btn_next_gray"
                 android:gravity="start|center_vertical"
-                android:paddingStart="16dp"
-                android:paddingEnd="16dp"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
                 android:text="로그아웃"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_normal" />

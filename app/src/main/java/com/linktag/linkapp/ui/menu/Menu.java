@@ -31,7 +31,6 @@ public class Menu extends BaseActivity {
     private ViewPagerAdapter mViewPagerAdapter;
     private List<Fragment> mListFragment = new ArrayList<>();
 
-
     private TextView tvMenuService;
     private TextView tvMenuShared;
 
@@ -49,6 +48,8 @@ public class Menu extends BaseActivity {
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> closePop(v));
+        header.layoutHeader.setBackgroundColor(Color.parseColor("#F2F5F7"));
+        header.headerSpacer.setVisibility(View.INVISIBLE);
 
         tvMenuService = findViewById(R.id.tvMenuService);
         tvMenuService.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_SERVICE));
@@ -130,7 +131,7 @@ public class Menu extends BaseActivity {
         finish();
     }
 
-    private void closePop(View view){
+    private void closePop(View v){
         finish();
     }
 }

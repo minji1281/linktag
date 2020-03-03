@@ -44,8 +44,6 @@
         android:layout_height="match_parent"
         android:layout_margin="15dp"
         android:gravity="center"
-        android:horizontalSpacing="20dp"
-        android:numColumns="2"
-        android:verticalSpacing="25dp" />
+        android:numColumns="1" />
 
 </LinearLayout>

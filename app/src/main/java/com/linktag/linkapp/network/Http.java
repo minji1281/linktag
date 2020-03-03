@@ -404,6 +404,22 @@ public class Http extends HttpBaseService {
         );
     }
 
+    public static IBMK bmk(TYPE type) { return (IBMK) retrofit(IBMK.class, type); }
+
+    public interface IBMK {
+        @FormUrlEncoded
+        @POST(BaseConst.BMK_CONTROL)
+        Call<CTD_Model> BMK_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "BMK_01") String BMK_01,
+                @Field(value = "BMK_02") String BMK_02,
+                @Field(value = "BMK_03") String BMK_03,
+
+                @Field(value = "BMK_98") String BMK_98
+        );
+    }
+
     // 사용자 알람
     //--------------------------------------------------
 

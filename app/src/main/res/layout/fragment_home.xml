@@ -1,13 +1,164 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/swipeRefresh"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context="com.linktag.linkapp.ui.main.HomeFragment">
-    <ListView
-        android:id="@+id/listView"
+    android:layout_height="wrap_content"
+    android:background="#FAFAFA"
+    android:fillViewport="true">
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        tools:listitem="@layout/listitem_work_record"/>
-</android.support.v4.widget.SwipeRefreshLayout>
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="25dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="15dp"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
+                    android:text="즐겨찾기"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/btnBmkAdd"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/BmkSpacer"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="추가"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/btnBmkCancel"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="취소"
+                    android:textSize="@dimen/text_small"
+                    android:visibility="gone" />
+
+                <TextView
+                    android:id="@+id/BmkSpacer"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/btnBmkDelete"
+                    android:gravity="center"
+                    android:text="|" />
+
+                <TextView
+                    android:id="@+id/btnBmkDelete"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="삭제"
+                    android:textSize="@dimen/text_small" />
+
+            </RelativeLayout>
+
+            <com.linktag.base.util.ExpandableHeightGridView
+                android:id="@+id/gridBMK"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="15dp"
+                android:layout_marginTop="15dp"
+                android:layout_marginEnd="15dp"
+                android:layout_marginBottom="15dp"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:isScrollContainer="false"
+                android:numColumns="4"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="20dp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="15dp"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="25dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="25dp"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:text="공지"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView4"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/btn_next_gray"
+                    android:visibility="gone" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:paddingStart="25dp"
+                android:paddingTop="15dp"
+                android:paddingEnd="25dp"
+                android:paddingBottom="15dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="알림"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <ImageView
+                    android:id="@+id/imageView5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:src="@drawable/btn_next_gray"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>

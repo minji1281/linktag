@@ -21,6 +21,7 @@ import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_footer.BaseFooter;
+import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.base_view_pager.BaseViewPager;
 import com.linktag.base.base_view_pager.ViewPagerAdapter;
 import com.linktag.base.network.ClsNetworkCheck;
@@ -50,12 +51,10 @@ import retrofit2.Response;
 
 public class Main extends BaseActivity {
     private final int TAB_PAGE_HOME = 0;
-    private final int TAB_PAGE_BOARD = 1;
-    private final int TAB_PAGE_CALENDAL = 2;
+    private final int TAB_PAGE_CALENDAR = 1;
 
     // Variable
     private HomeFragment fragmentHome;
-    private BoardFragment fragmentBoard;
     private CalendarFragment fragmentCalendar;
 
     private BaseViewPager viewPager;
@@ -63,8 +62,7 @@ public class Main extends BaseActivity {
     private List<Fragment> mListFragment = new ArrayList<>();
 
     // Layout
-    //private BaseHeader header;
-
+    private BaseHeader header;
     private BaseFooter footer;
 
     private BroadcastReceiver mBroadcastLogout = new BroadcastReceiver() {
@@ -92,6 +90,8 @@ public class Main extends BaseActivity {
 
     @Override
     protected void initLayout() {
+        header = findViewById(R.id.header);
+
         footer = findViewById(R.id.footer);
         footer.btnFooterHome.setSelected(true);
 
@@ -105,8 +105,7 @@ public class Main extends BaseActivity {
         //footer.btnFooterSetting.setOnClickListener(v -> goSettingMain());
 
         footer.btnFooterHome.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_HOME));
-       // footer.btnFooterBoard.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_BOARD));
-        footer.btnFooterBoard.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_CALENDAL));
+        footer.btnFooterCalendar.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_CALENDAR));
 
         initViewPager();
     }
@@ -157,15 +156,12 @@ public class Main extends BaseActivity {
         viewPager = findViewById(R.id.viewPagerMain);
 
         fragmentHome = new HomeFragment();
-      //  fragmentBoard = new BoardFragment();
         fragmentCalendar = new CalendarFragment();
 
         fragmentHome.setOnLoadingDialog(callLoadingBar);
-       // fragmentBoard.setOnLoadingDialog(callLoadingBar);
         fragmentCalendar.setOnLoadingDialog(callLoadingBar);
 
         mListFragment.add(fragmentHome);
-      //  mListFragment.add(fragmentBoard);
         mListFragment.add(fragmentCalendar);
 
         mViewPagerAdapter = new ViewPagerAdapter(this.getSupportFragmentManager(), mListFragment);
@@ -194,17 +190,16 @@ public class Main extends BaseActivity {
      */
     private void setTag() {
         footer.btnFooterHome.setSelected(false);
-        footer.btnFooterBoard.setSelected(false);
+        footer.btnFooterCalendar.setSelected(false);
 
         switch (viewPager.getCurrentItem()) {
             case TAB_PAGE_HOME:
                 footer.btnFooterHome.setSelected(true);
+                header.tvHeaderTitle.setText(R.string.home_01);
                 break;
-//            case TAB_PAGE_BOARD:
-//                footer.btnFooterBoard.setSelected(true);
-//                break;
-            case TAB_PAGE_CALENDAL:
-                footer.btnFooterBoard.setSelected(true);
+            case TAB_PAGE_CALENDAR:
+                footer.btnFooterCalendar.setSelected(true);
+                header.tvHeaderTitle.setText(R.string.home_02);
                 break;
         }
     }
