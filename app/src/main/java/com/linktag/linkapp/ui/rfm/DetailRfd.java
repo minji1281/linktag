@@ -19,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -34,6 +35,7 @@ import com.linktag.linkapp.model.RFMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.alarm.AlarmDialog;
 import com.linktag.linkapp.value_object.RfdVO;
 
 import java.text.SimpleDateFormat;
@@ -51,10 +53,12 @@ public class DetailRfd extends BaseActivity {
 
     private EditText ed_name;
     private EditText ed_memo;
+    private ImageView imageView;
+    private ImageView imageView2;
     private LinearLayout datePicker;
     private TextView tv_datePicker;
     private DatePickerDialog.OnDateSetListener callbackMethod;
-
+    private String callBackTime = "";
     private LinearLayout linearLayout;
     private InputMethodManager imm;
 
@@ -153,6 +157,8 @@ public class DetailRfd extends BaseActivity {
 
         ed_name = (EditText) findViewById(R.id.ed_name);
         ed_memo = (EditText) findViewById(R.id.ed_memo);
+        imageView = findViewById(R.id.imageView);
+        imageView2 = findViewById(R.id.imageView2);
         tv_datePicker = (TextView) findViewById(R.id.tv_datePicker);
         bt_save = (Button) findViewById(R.id.bt_save);
         tv_D_day = findViewById(R.id.tv_D_day);
@@ -166,6 +172,7 @@ public class DetailRfd extends BaseActivity {
 
 
         rfdVO = (RfdVO) getIntent().getSerializableExtra("RfdVO");
+
 
         if (rfdVO.getRFD_96().equals("")) {
             calendar.add(Calendar.DATE, 14);
@@ -200,6 +207,16 @@ public class DetailRfd extends BaseActivity {
 
         }
 
+        callBackTime = rfdVO.RFD_96.substring(8, 12);
+
+        if (rfdVO.ARM_03.equals("Y")) {
+            imageView.setImageResource(R.drawable.alarm_state_on);
+        } else {
+            imageView.setImageResource(R.drawable.alarm_state_off);
+        }
+
+
+
         if (rfdVO.RFD_06.equals("")) {
             sp_pos.setSelection(0);
         } else {
@@ -219,6 +236,43 @@ public class DetailRfd extends BaseActivity {
 
     @Override
     protected void initialize() {
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (rfdVO.ARM_03.equals("Y")) {
+                    imageView.setImageResource(R.drawable.alarm_state_off);
+                    rfdVO.setARM_03("N");
+                } else if (rfdVO.ARM_03.equals("N")) {
+                    imageView.setImageResource(R.drawable.alarm_state_on);
+                    rfdVO.setARM_03("Y");
+                }
+            }
+        });
+
+        imageView2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // 커스텀 다이얼로그를 생성한다. 사용자가 만든 클래스이다.
+                AlarmDialog alarmDialog = new AlarmDialog(mContext, callBackTime);
+
+                alarmDialog.setDialogListener(new AlarmDialog.CustomDialogListener() {
+                    @Override
+                    public void onPositiveClicked(String time) {
+                        rfdVO.setRFD_96(rfdVO.getRFD_96().substring(0, 8) + time);
+                        callBackTime = time;
+                    }
+
+                    @Override
+                    public void onNegativeClicked() {
+
+                    }
+                });
+                alarmDialog.show();
+            }
+        });
+
+
         callbackMethod = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {

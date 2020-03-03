@@ -123,16 +123,16 @@
                         android:background="#F44336" />
                 </LinearLayout>
 
-                <TextView
-                    android:id="@+id/tv_label3"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/root_linearLayout"
-                    android:layout_toRightOf="@+id/root_linearLayout"
-                    android:text="-"
-                    android:textColor="#34495E"
-                    android:textSize="25dp"
-                    android:textStyle="bold" />
+<!--                <TextView-->
+<!--                    android:id="@+id/tv_label3"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_alignTop="@+id/root_linearLayout"-->
+<!--                    android:layout_toRightOf="@+id/root_linearLayout"-->
+<!--                    android:text="-"-->
+<!--                    android:textColor="#34495E"-->
+<!--                    android:textSize="25dp"-->
+<!--                    android:textStyle="bold" />-->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"

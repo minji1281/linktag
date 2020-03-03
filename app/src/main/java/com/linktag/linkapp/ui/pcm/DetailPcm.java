@@ -77,17 +77,11 @@ public class DetailPcm extends BaseActivity implements Serializable {
     private HashMap<String, String> map_hw = new HashMap<String, String>();
     private HashMap<String, String> map_sw = new HashMap<String, String>();
 
-
-    private TextView tv_datePicker;
-    private Button btn_datePicker;
-    private DatePickerDialog.OnDateSetListener callbackMethod;
-    private TimePicker timePicker;
-    private Switch switch_alarm;
-
     private LinearLayout linearLayout;
     private InputMethodManager imm;
 
     private TextView tv_manageDay;
+
     private Button btn_update;
     private Button bt_save;
     private Button btn_addItem_hw;
@@ -95,10 +89,6 @@ public class DetailPcm extends BaseActivity implements Serializable {
     private PcmVO pcmVO;
 
     private Calendar calendar = Calendar.getInstance();
-
-
-    private String hourOfDayString;
-    private String minuteString;
 
     private String CTM_01;
     private String CTD_02;
@@ -268,36 +258,6 @@ public class DetailPcm extends BaseActivity implements Serializable {
             return;
         }
 
-        //openLoadingBar();
-
-
-//        if (pcmVO.ARM_03.equals("Y")) {
-//
-//            Intent intent = new Intent(mContext, Alarm_Receiver.class);
-//            intent.putExtra("notify_id",pcmVO.getARM_04());
-//            intent.putExtra("calDateTime",pcmVO.getPCM_96());
-//            intent.putExtra("contentTitle","장독관리" + pcmVO.getPCM_02());
-//            intent.putExtra("contentText",pcmVO.getPCM_03());
-//            intent.putExtra("className", ".ui.intro.Intro");
-//            intent.putExtra("gotoActivity", ".ui.pcm.PCMMain");
-//
-//
-//            PcmVO pcmvo = new PcmVO();
-//            pcmvo.setPCM_01(pcmVO.getPCM_01());
-//            pcmvo.setPCM_02(pcmVO.getPCM_02());
-//            pcmvo.setPCM_03(pcmVO.getPCM_03());
-//            pcmvo.setPCM_96(pcmVO.getPCM_96());
-//            pcmvo.setARM_03(pcmVO.getARM_03());
-//
-//            intent.putExtra("PcmVO", pcmvo);
-//
-//            new AlarmHATT(mContext).Alarm(intent);
-//        }
-//        else{
-//            cancelAlarm(mContext, pcmVO.getARM_04());
-//        }
-
-
         SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
         Call<PCMModel> call = Http.pcm(HttpBaseService.TYPE.POST).PCM_CONTROL(
                 BaseConst.URL_HOST,
@@ -340,17 +300,6 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
     }
 
-//    public void cancelAlarm(Context context, int alarmId) {
-//        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-//        Intent intent = new Intent(context, Alarm_Receiver.class);
-//        intent.putExtra("notify_id", alarmId);
-//        intent.putExtra("ContentTitle", "");
-//        intent.putExtra("contentText", "");
-//
-//        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-//        alarmManager.cancel(pendingIntent);
-//        pendingIntent.cancel();
-//    }
 
     public void onResume() {
         super.onResume();
@@ -382,11 +331,11 @@ public class DetailPcm extends BaseActivity implements Serializable {
         sp_sw = (Spinner) findViewById(R.id.sp_sw);
 
         String[] str = getResources().getStringArray(R.array.hw);
-        final ArrayAdapter<String> adapter_hw = new ArrayAdapter<String>(mContext,R.layout.spinner_item, str);
+        final ArrayAdapter<String> adapter_hw = new ArrayAdapter<String>(mContext, R.layout.spinner_item, str);
         sp_hw.setAdapter(adapter_hw);
 
         str = getResources().getStringArray(R.array.sw);
-        final ArrayAdapter<String> adapter_sw = new ArrayAdapter<String>(mContext,R.layout.spinner_item, str);
+        final ArrayAdapter<String> adapter_sw = new ArrayAdapter<String>(mContext, R.layout.spinner_item, str);
         sp_sw.setAdapter(adapter_sw);
 
 
@@ -416,16 +365,11 @@ public class DetailPcm extends BaseActivity implements Serializable {
         map_hw.put("케이스", "9");
 
 
-
-        tv_datePicker = (TextView) findViewById(R.id.tv_datePicker2);
-        btn_datePicker = (Button) findViewById(R.id.btn_datePicker);
-        timePicker = (TimePicker) findViewById(R.id.timePicker);
         btn_addItem_hw = (Button) findViewById(R.id.btn_addItem_hw);
         btn_addItem_sw = (Button) findViewById(R.id.btn_addItem_sw);
         tv_manageDay = (TextView) findViewById(R.id.tv_manageDay);
         btn_update = (Button) findViewById(R.id.btn_update);
         bt_save = (Button) findViewById(R.id.bt_save);
-        switch_alarm = (Switch) findViewById(R.id.switch_alarm);
 
         pcmVO = (PcmVO) getIntent().getSerializableExtra("PcmVO");
 
@@ -439,41 +383,10 @@ public class DetailPcm extends BaseActivity implements Serializable {
             tv_manageDay.setText(year + "년" + month + "월" + dayOfMonth + "일");
         }
 
-        if (pcmVO.getPCM_96().equals("")) {
-            tv_datePicker.setText("미지정");
-            hourOfDayString = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
-            minuteString = String.valueOf(calendar.get(Calendar.HOUR_OF_DAY));
-            timePicker.setCurrentHour(calendar.get(Calendar.HOUR_OF_DAY));
-            timePicker.setCurrentMinute(calendar.get(Calendar.MINUTE));
-
-        } else {
-            String year = pcmVO.getPCM_96().substring(0, 4);
-            String month = pcmVO.getPCM_96().substring(4, 6);
-            String dayOfMonth = pcmVO.getPCM_96().substring(6, 8);
-            String dayOfTime = pcmVO.getPCM_96().substring(8);
-            tv_datePicker.setText(year + "년" + month + "월" + dayOfMonth + "일");
-
-            hourOfDayString = dayOfTime.substring(0, 2);
-            minuteString = dayOfTime.substring(2);
-            timePicker.setCurrentHour(Integer.valueOf(dayOfTime.substring(0, 2)));
-            timePicker.setCurrentMinute(Integer.valueOf(dayOfTime.substring(2)));
-        }
-
-
 
         ed_name.setText(pcmVO.getPCM_02());
-
-        //명칭은 읽기전용으로 일단은...
-        //ed_name.setEnabled(false);
-
         ed_memo.setText(pcmVO.getPCM_03());
 
-        if (pcmVO.ARM_03.equals("Y")) {
-            switch_alarm.setChecked(true);
-
-        } else {
-            switch_alarm.setChecked(false);
-        }
 
         requestPCD_SELECT("LIST_HW");
         requestPCD_SELECT("LIST_SW");
@@ -545,58 +458,6 @@ public class DetailPcm extends BaseActivity implements Serializable {
         });
 
 
-        callbackMethod = new DatePickerDialog.OnDateSetListener() {
-            @Override
-            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
-                String monthString = "";
-                String dayOfMonthString = "";
-                if (month < 10) {
-                    monthString = "0" + String.valueOf(month + 1);
-                } else {
-                    monthString = String.valueOf(month + 1);
-                }
-                if (dayOfMonth < 10) {
-                    dayOfMonthString = "0" + String.valueOf(dayOfMonth);
-                } else {
-                    dayOfMonthString = String.valueOf(dayOfMonth);
-                }
-                tv_datePicker.setText(year + "년" + monthString + "월" + dayOfMonthString + "일");
-                pcmVO.setPCM_96(year + monthString + dayOfMonthString + hourOfDayString + minuteString);
-            }
-        };
-
-
-        btn_datePicker.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                DatePickerDialog dialog = new DatePickerDialog(DetailPcm.this, callbackMethod, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
-                dialog.show();
-            }
-        });
-
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-            @Override
-            public void onTimeChanged(TimePicker timePicker, int hourOfDay, int minute) {
-                String date = tv_datePicker.getText().toString().replace("년", "").replace("월", "").replace("일", "");
-                if (hourOfDay < 10) {
-                    hourOfDayString = "0" + String.valueOf(hourOfDay);
-                } else {
-                    hourOfDayString = String.valueOf(hourOfDay);
-                }
-                if (minute < 10) {
-                    minuteString = "0" + String.valueOf(minute);
-                } else {
-                    minuteString = String.valueOf(minute);
-                }
-                if (!pcmVO.PCM_96.equals("")) {
-                    pcmVO.setPCM_96(date + hourOfDayString + minuteString);
-                }
-
-            }
-        });
-
-
         linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -611,7 +472,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
                 SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
                 pcmVO.setPCM_04(format1.format(calendar.getTime()));
                 requestPCM_CONTROL("UPDATE_DATE");
-                Toast.makeText(mContext,"최근 관리일자 업데이트",Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, "최근 관리일자 업데이트", Toast.LENGTH_LONG).show();
                 String year = pcmVO.getPCM_04().substring(0, 4);
                 String month = pcmVO.getPCM_04().substring(4, 6);
                 String dayOfMonth = pcmVO.getPCM_04().substring(6, 8);
@@ -632,12 +493,12 @@ public class DetailPcm extends BaseActivity implements Serializable {
         });
 
 
-        if(pcmVO.PCM_97.equals(mUser.Value.OCM_01)){ //작성자만 삭제버튼 보임
+        if (pcmVO.PCM_97.equals(mUser.Value.OCM_01)) { //작성자만 삭제버튼 보임
             header.btnHeaderRight1.setVisibility((View.VISIBLE));
             header.btnHeaderRight1.setMaxWidth(50);
             header.btnHeaderRight1.setMaxHeight(50);
             header.btnHeaderRight1.setImageResource(R.drawable.btn_cancel); //delete는 왜 크기가 안맞는거야!!! 일단 대체아이콘으로..,,
-            header.btnHeaderRight1.setOnClickListener(new View.OnClickListener(){
+            header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     new AlertDialog.Builder(mActivity)
@@ -660,25 +521,6 @@ public class DetailPcm extends BaseActivity implements Serializable {
                 }
             });
         }
-
-        switch_alarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-                    if (pcmVO.getPCM_96().equals("")) {
-                        Toast.makeText(mContext, "알람 지정일을 선택하셔야 활성화 가능합니다.", Toast.LENGTH_LONG).show();
-                        switch_alarm.setChecked(false);
-                        return;
-                    }
-                    String date = tv_datePicker.getText().toString().replace("년", "").replace("월", "").replace("일", "");
-                    pcmVO.setPCM_96(date + hourOfDayString + minuteString);
-                    pcmVO.setARM_03("Y");
-                } else {
-                    switch_alarm.setChecked(false);
-                    pcmVO.setARM_03("N");
-                }
-            }
-        });
     }
 
 }

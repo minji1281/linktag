@@ -184,13 +184,13 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
         if(pattern.equals("YYYYYYY")) {result_Weeks ="매일"; return result_Weeks;}
         else{
             for (int i = 0; i < array_pattern.length; i++) {
-                if (array_pattern[i].equals("Y") && i == 1) { result_Weeks += "월 "; }
-                else if (array_pattern[i].equals("Y") && i == 2){ result_Weeks += "화 ";}
-                else if (array_pattern[i].equals("Y") && i == 3){ result_Weeks += "수 ";}
-                else if (array_pattern[i].equals("Y") && i == 4){ result_Weeks += "목 ";}
-                else if (array_pattern[i].equals("Y") && i == 5){ result_Weeks += "금 ";}
-                else if (array_pattern[i].equals("Y") && i == 6){ result_Weeks += "토 ";}
-                else if (array_pattern[i].equals("Y") && i == 7){ result_Weeks += "일 ";}
+                if (array_pattern[i].equals("Y") && i == 1) { result_Weeks += "일 "; }
+                else if (array_pattern[i].equals("Y") && i == 2){ result_Weeks += "월 ";}
+                else if (array_pattern[i].equals("Y") && i == 3){ result_Weeks += "화 ";}
+                else if (array_pattern[i].equals("Y") && i == 4){ result_Weeks += "수 ";}
+                else if (array_pattern[i].equals("Y") && i == 5){ result_Weeks += "목 ";}
+                else if (array_pattern[i].equals("Y") && i == 6){ result_Weeks += "금 ";}
+                else if (array_pattern[i].equals("Y") && i == 7){ result_Weeks += "토 ";}
             }
         }
         return result_Weeks;

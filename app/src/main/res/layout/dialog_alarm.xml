@@ -5,11 +5,12 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="#34495E"
+        android:orientation="horizontal"
         android:padding="15dp">
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -20,6 +21,7 @@
             android:textStyle="bold" />
 
     </LinearLayout>
+
     <LinearLayout
         android:orientation="vertical"
         android:layout_width="match_parent"
@@ -42,6 +44,22 @@
         android:orientation="horizontal">
 
         <Button
+            android:id="@+id/cancelButton"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:background="#ffffff"
+            android:gravity="center"
+            android:text="취소"
+            android:textColor="#000000"
+            android:textSize="16dp" />
+
+<!--        <View-->
+<!--            android:layout_width="1dp"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:background="#000000" />-->
+
+        <Button
             android:id="@+id/okButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
@@ -52,21 +70,6 @@
             android:textColor="#000000"
             android:textSize="16dp" />
 
-<!--        <View-->
-<!--            android:layout_width="1dp"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:background="#000000" />-->
-
-        <Button
-            android:id="@+id/cancelButton"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:layout_weight="1"
-            android:background="#ffffff"
-            android:gravity="center"
-            android:text="취소"
-            android:textColor="#000000"
-            android:textSize="16dp" />
     </LinearLayout>
 
     <View

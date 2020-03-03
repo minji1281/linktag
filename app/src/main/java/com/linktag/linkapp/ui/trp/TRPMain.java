@@ -88,15 +88,12 @@ public class TRPMain extends BaseActivity {
         // 요거
         initLayoutByContractType();
 
-//        CTM_01 = getIntent().getStringExtra("CTM_01");
-//        CTN_02 = getIntent().getStringExtra("CTN_02");
-
         view = findViewById(R.id.recyclerView);
         recyclerView = view.findViewById(R.id.recyclerView);
 
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
-//        swipeRefresh.setOnRefreshListener(() -> requestJMD_SELECT());
+
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {

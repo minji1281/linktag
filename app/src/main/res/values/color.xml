@@ -15,4 +15,6 @@
     <color name="list_background">#EFF6FB</color>
     <color name="list_item_Detail_saveBtn">#324759</color>
     <color name="list_item_DateSelectedBtn">#F2BB13</color>
+
+    <color name="colorBase">#3b4d61</color>
 </resources>

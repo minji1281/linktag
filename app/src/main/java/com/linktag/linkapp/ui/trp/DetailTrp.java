@@ -21,6 +21,7 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Switch;
 import android.widget.TimePicker;
@@ -63,9 +64,8 @@ public class DetailTrp extends BaseActivity implements Serializable {
     private EditText ed_name;
     private EditText ed_memo;
     private TimePicker timePicker;
-    private Switch switch_alarm;
 
-    private RelativeLayout relativeLayout;
+    private LinearLayout linearLayout;
     private InputMethodManager imm;
 
     // 여러개의 버튼을 배열로 처리하기 위해 버튼에 대해 배열 선언을 함
@@ -81,9 +81,6 @@ public class DetailTrp extends BaseActivity implements Serializable {
 
     private String alarmTime;
 
-    private String hourOfDayString;
-    private String minuteString;
-
     private String CTM_01;
     private String CTD_02;
 
@@ -91,7 +88,7 @@ public class DetailTrp extends BaseActivity implements Serializable {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_trp);
+        setContentView(R.layout.activity_detail_trp2);
 
 
         initLayout();
@@ -110,33 +107,6 @@ public class DetailTrp extends BaseActivity implements Serializable {
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }
-
-        //openLoadingBar();
-
-//        if (trpVO.ARM_03.equals("Y")) {
-//
-//            Intent intent = new Intent(mContext, Alarm_Receiver.class);
-//            intent.putExtra("notify_id",trpVO.getARM_04());
-//            intent.putExtra("contentTitle","복약관리" + trpVO.getTRP_02());
-//            intent.putExtra("contentText",trpVO.getTRP_03());
-//            intent.putExtra("className", ".ui.intro.Intro");
-//            intent.putExtra("gotoActivity", ".ui.jdm.TRPMain");
-//
-//
-//            TrpVO trpvo = new TrpVO();
-//            trpvo.setTRP_01(trpVO.getTRP_01());
-//            trpvo.setTRP_02(trpVO.getTRP_02());
-//            trpvo.setTRP_03(trpVO.getTRP_03());
-//            trpvo.setTRP_04(trpVO.getTRP_04());
-//            trpvo.setARM_03(trpVO.getARM_03());
-//
-//            intent.putExtra("JdmVO", trpvo);
-//
-//            new AlarmHATT(mContext).Alarm(intent);
-//        }
-//        else{
-//            cancelAlarm(mContext, trpVO.getARM_04());
-//        }
 
         Call<TRPModel> call = Http.trp(HttpBaseService.TYPE.POST).TRP_CONTROL(
                 BaseConst.URL_HOST,
@@ -176,17 +146,6 @@ public class DetailTrp extends BaseActivity implements Serializable {
 
     }
 
-    public void cancelAlarm(Context context, int alarmId) {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, Alarm_Receiver.class);
-        intent.putExtra("notify_id", alarmId);
-        intent.putExtra("ContentTitle", "");
-        intent.putExtra("contentText", "");
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.cancel(pendingIntent);
-        pendingIntent.cancel();
-    }
 
     public void onResume() {
         super.onResume();
@@ -206,41 +165,25 @@ public class DetailTrp extends BaseActivity implements Serializable {
 
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
-        relativeLayout = (RelativeLayout) findViewById(R.id.relativeLayout);
+        linearLayout = findViewById(R.id.linearLayout);
 
         ed_name = (EditText) findViewById(R.id.ed_name);
         ed_memo = (EditText) findViewById(R.id.ed_memo);
         timePicker = (TimePicker) findViewById(R.id.timePicker);
         bt_save = (Button) findViewById(R.id.bt_save);
-        switch_alarm = (Switch) findViewById(R.id.switch_alarm);
-
         btn_addAlarm = (Button) findViewById(R.id.btn_addAlarm);
 
-        mBtnArray[0] = (Button) findViewById(R.id.btn_Monday);
-        mBtnArray[1] = (Button) findViewById(R.id.btn_Tuesday);
-        mBtnArray[2] = (Button) findViewById(R.id.btn_Wednesday);
-        mBtnArray[3] = (Button) findViewById(R.id.btn_Thursday);
-        mBtnArray[4] = (Button) findViewById(R.id.btn_Friday);
-        mBtnArray[5] = (Button) findViewById(R.id.btn_Saturday);
-        mBtnArray[6] = (Button) findViewById(R.id.btn_Sunday);
 
 
-//        mBtnArray[0] = (Button) findViewById(R.id.btn_Sunday);
-//        mBtnArray[1] = (Button) findViewById(R.id.btn_Monday);
-//        mBtnArray[2] = (Button) findViewById(R.id.btn_Tuesday);
-//        mBtnArray[4] = (Button) findViewById(R.id.btn_Wednesday);
-//        mBtnArray[5] = (Button) findViewById(R.id.btn_Thursday);
-//        mBtnArray[6] = (Button) findViewById(R.id.btn_Friday);
-//        mBtnArray[7] = (Button) findViewById(R.id.btn_Saturday);
+        mBtnArray[0] = (Button) findViewById(R.id.btn_Sunday);
+        mBtnArray[1] = (Button) findViewById(R.id.btn_Monday);
+        mBtnArray[2] = (Button) findViewById(R.id.btn_Tuesday);
+        mBtnArray[3] = (Button) findViewById(R.id.btn_Wednesday);
+        mBtnArray[4] = (Button) findViewById(R.id.btn_Thursday);
+        mBtnArray[5] = (Button) findViewById(R.id.btn_Friday);
+        mBtnArray[6] = (Button) findViewById(R.id.btn_Saturday);
 
         trpVO = (TrpVO) getIntent().getSerializableExtra("TrpVO");
-
-        if (trpVO.ARM_03.equals("Y")) {
-            switch_alarm.setChecked(true);
-
-        } else {
-            switch_alarm.setChecked(false);
-        }
 
         String[] array_pattern;
         array_pattern = trpVO.TRP_04.split("");
@@ -261,10 +204,6 @@ public class DetailTrp extends BaseActivity implements Serializable {
 
 
         ed_name.setText(trpVO.getTRP_02());
-
-        //명칭은 읽기전용으로 일단은...
-        ed_name.setEnabled(false);
-
         ed_memo.setText(trpVO.getTRP_03());
 
 
@@ -339,11 +278,11 @@ public class DetailTrp extends BaseActivity implements Serializable {
             });
         }
 
-        relativeLayout.setOnClickListener(new View.OnClickListener() {
+        linearLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                imm.hideSoftInputFromWindow(relativeLayout.getWindowToken(), 0);
+                imm.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
             }
         });
 
@@ -361,22 +300,6 @@ public class DetailTrp extends BaseActivity implements Serializable {
             }
         });
 
-        switch_alarm.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(CompoundButton compoundButton, boolean isChecked) {
-                if (isChecked) {
-//                    if (trpVO.getTRP_96().equals("")) {
-//                        Toast.makeText(mContext, "알람 지정일을 선택하셔야 활성화 가능합니다.", Toast.LENGTH_LONG).show();
-//                        switch_alarm.setChecked(false);
-//                        return;
-//                    }
-                    trpVO.setARM_03("Y");
-                } else {
-                    switch_alarm.setChecked(false);
-                    trpVO.setARM_03("N");
-                }
-            }
-        });
 
 
         // 버튼들에 대한 클릭리스너 등록 및 각 버튼이 클릭되었을 때
@@ -391,7 +314,7 @@ public class DetailTrp extends BaseActivity implements Serializable {
                     array_pattern = trpVO.TRP_04.split("");
 
                     switch (v.getId()) {
-                        case R.id.btn_Monday:
+                        case R.id.btn_Sunday:
                             if (array_pattern[1].equals("Y")) {
                                 mBtnArray[0].setBackgroundResource(R.drawable.btn_round_gray);
                                 array_pattern[1] = "N";
@@ -400,7 +323,7 @@ public class DetailTrp extends BaseActivity implements Serializable {
                                 array_pattern[1] = "Y";
                             }
                             break;
-                        case R.id.btn_Tuesday:
+                        case R.id.btn_Monday:
                             if (array_pattern[2].equals("Y")) {
                                 mBtnArray[1].setBackgroundResource(R.drawable.btn_round_gray);
                                 array_pattern[2] = "N";
@@ -409,7 +332,7 @@ public class DetailTrp extends BaseActivity implements Serializable {
                                 array_pattern[2] = "Y";
                             }
                             break;
-                        case R.id.btn_Wednesday:
+                        case R.id.btn_Tuesday:
                             if (array_pattern[3].equals("Y")) {
                                 mBtnArray[2].setBackgroundResource(R.drawable.btn_round_gray);
                                 array_pattern[3] = "N";
@@ -418,7 +341,7 @@ public class DetailTrp extends BaseActivity implements Serializable {
                                 array_pattern[3] = "Y";
                             }
                             break;
-                        case R.id.btn_Thursday:
+                        case R.id.btn_Wednesday:
                             if (array_pattern[4].equals("Y")) {
                                 mBtnArray[3].setBackgroundResource(R.drawable.btn_round_gray);
                                 array_pattern[4] = "N";
@@ -427,7 +350,7 @@ public class DetailTrp extends BaseActivity implements Serializable {
                                 array_pattern[4] = "Y";
                             }
                             break;
-                        case R.id.btn_Friday:
+                        case R.id.btn_Thursday:
                             if (array_pattern[5].equals("Y")) {
                                 mBtnArray[4].setBackgroundResource(R.drawable.btn_round_gray);
                                 array_pattern[5] = "N";
@@ -436,7 +359,7 @@ public class DetailTrp extends BaseActivity implements Serializable {
                                 array_pattern[5] = "Y";
                             }
                             break;
-                        case R.id.btn_Saturday:
+                        case R.id.btn_Friday:
                             if (array_pattern[6].equals("Y")) {
                                 mBtnArray[5].setBackgroundResource(R.drawable.btn_round_gray);
                                 array_pattern[6] = "N";
@@ -445,7 +368,7 @@ public class DetailTrp extends BaseActivity implements Serializable {
                                 array_pattern[6] = "Y";
                             }
                             break;
-                        case R.id.btn_Sunday:
+                        case R.id.btn_Saturday:
                             if (array_pattern[7].equals("Y")) {
                                 mBtnArray[6].setBackgroundResource(R.drawable.btn_round_gray);
                                 array_pattern[7] = "N";
@@ -472,10 +395,6 @@ public class DetailTrp extends BaseActivity implements Serializable {
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }
-
-        //openLoadingBar();
-
-        //String strToday = ClsDateTime.getNow("yyyyMMdd");
 
 
         Call<TRDModel> call = Http.trd(HttpBaseService.TYPE.POST).TRD_SELECT(
