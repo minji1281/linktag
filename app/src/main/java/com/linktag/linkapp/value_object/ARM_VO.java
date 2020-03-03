@@ -19,6 +19,9 @@ public class ARM_VO implements Serializable {
     public String ARM_98;       // 최종작성자
 
     public String CTM_19;       // 푸시년월시분
+    public String ARM_0101;       // 푸시년월시분
+
+    public String SVCL_04;
 
 
     public boolean Validation;

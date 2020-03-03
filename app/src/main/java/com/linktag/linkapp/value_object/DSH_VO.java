@@ -9,6 +9,7 @@ public class DSH_VO implements Serializable {
     public String DSH_01;
     public String DSH_GB;
     public String DSH_04;
+    public String DSH_05;
     public String DSH_06;
     public String DSH_09;
     public String DSH_97;

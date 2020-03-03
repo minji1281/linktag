@@ -82,5 +82,8 @@
     <string name="sign_up_8">PASSWORD CHECK</string>
     <string name="sign_up_9">PHONE NUMBER</string>
     <string name="sign_up_10">SIGN UP</string>
+    <string name="dash_23">Notice</string>
+    <string name="dash_24">Alarm</string>
+    <string name="dash_25">Favorites</string>
 
 </resources>
