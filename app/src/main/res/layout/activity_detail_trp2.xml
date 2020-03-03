@@ -126,7 +126,7 @@
                         android:text="총 복용 일 수" />
 
                     <Spinner
-                        android:id="@+id/sp_size"
+                        android:id="@+id/sp_day"
                         android:layout_width="150dp"
                         android:layout_height="35dp"
                         android:layout_below="@+id/tv_label5"

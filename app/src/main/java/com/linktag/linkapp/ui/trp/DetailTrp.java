@@ -18,11 +18,14 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TimePicker;
 import android.widget.Toast;
@@ -61,9 +64,12 @@ public class DetailTrp extends BaseActivity implements Serializable {
     private TrdRecycleAdapter mAdapter;
 
 
+    private ImageView imageView;
     private EditText ed_name;
     private EditText ed_memo;
     private TimePicker timePicker;
+
+    private Spinner sp_day;
 
     private LinearLayout linearLayout;
     private InputMethodManager imm;
@@ -167,6 +173,8 @@ public class DetailTrp extends BaseActivity implements Serializable {
 
         linearLayout = findViewById(R.id.linearLayout);
 
+        sp_day = findViewById(R.id.sp_day);
+        imageView = findViewById(R.id.imageView);
         ed_name = (EditText) findViewById(R.id.ed_name);
         ed_memo = (EditText) findViewById(R.id.ed_memo);
         timePicker = (TimePicker) findViewById(R.id.timePicker);
@@ -203,6 +211,12 @@ public class DetailTrp extends BaseActivity implements Serializable {
         }
 
 
+        if (trpVO.ARM_03.equals("Y")) {
+            imageView.setImageResource(R.drawable.alarm_state_on);
+        } else {
+            imageView.setImageResource(R.drawable.alarm_state_off);
+        }
+
         ed_name.setText(trpVO.getTRP_02());
         ed_memo.setText(trpVO.getTRP_03());
 
@@ -221,6 +235,26 @@ public class DetailTrp extends BaseActivity implements Serializable {
         mAdapter.setmAdapter(mAdapter);
 
         recyclerView.setAdapter(mAdapter);
+
+
+        String[] str = getResources().getStringArray(R.array.trp);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item3, str);
+        sp_day.setAdapter(adapter);
+
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (trpVO.ARM_03.equals("Y")) {
+                    imageView.setImageResource(R.drawable.alarm_state_off);
+                    trpVO.setARM_03("N");
+                } else if (trpVO.ARM_03.equals("N")) {
+                    imageView.setImageResource(R.drawable.alarm_state_on);
+                    trpVO.setARM_03("Y");
+                }
+            }
+        });
 
 
         SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
