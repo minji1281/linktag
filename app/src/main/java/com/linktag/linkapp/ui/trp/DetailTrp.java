@@ -523,7 +523,7 @@ public class DetailTrp extends BaseActivity implements Serializable {
                         }
                     }
                 }.sendMessage(msg);
-
+                Toast.makeText(mContext,"추가되었습니다.",Toast.LENGTH_SHORT).show();
             }
 
             @Override
