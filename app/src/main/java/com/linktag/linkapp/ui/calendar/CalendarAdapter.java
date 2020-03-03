@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.linkapp.R;
@@ -72,6 +73,7 @@ public class CalendarAdapter extends BaseAdapter {
         }
 
      //   viewHolder.tvUserName.setText(mList.get(position).DSH_01);
+
         if (mList.get(position).CTM_19.equals("P")){
             viewHolder.tv_calenType.setImageResource(R.drawable.solo);
         }else{
