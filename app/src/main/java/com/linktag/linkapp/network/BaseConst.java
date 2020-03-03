@@ -87,9 +87,9 @@ public class BaseConst {
     public static final String POT_CONTROL = "{host}/Mobile/POT_CONTROL";
 //    public static final String POT_CONTROL2 = "{host}/Mobile/POT_CONTROL";
 
-    //공기청정기 필터관리
-    public static final String AIR_SELECT = "{host}/Mobile/AIR_SELECT";
-    public static final String AIR_CONTROL = "{host}/Mobile/AIR_CONTROL";
+    //필터관리
+    public static final String FRM_SELECT = "{host}/Mobile/FRM_SELECT";
+    public static final String FRM_CONTROL = "{host}/Mobile/FRM_CONTROL";
 
     //화장품 유통기한 관리
     public static final String COS_SELECT = "{host}/Mobile/COS_SELECT";

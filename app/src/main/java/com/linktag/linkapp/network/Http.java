@@ -1,6 +1,5 @@
 package com.linktag.linkapp.network;
 
-import com.linktag.linkapp.model.AIRModel;
 import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.model.BRCModel;
 import com.linktag.linkapp.model.CADModel;
@@ -11,6 +10,7 @@ import com.linktag.linkapp.model.COSModel;
 import com.linktag.linkapp.model.CTDS_Model;
 import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.model.CTU_Model;
+import com.linktag.linkapp.model.FRMModel;
 import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.model.NOCModel;
 import com.linktag.linkapp.model.OCM_Model;
@@ -825,41 +825,41 @@ public class Http extends HttpBaseService {
     }
 
     //--------------------------------------------------
-    // 공기청정기 필터관리
+    // 필터관리
     //--------------------------------------------------
-    public static IAIR air(TYPE type) {
-        return (IAIR) retrofit(IAIR.class, type);
+    public static IFRM frm(TYPE type) {
+        return (IFRM) retrofit(IFRM.class, type);
     }
 
-    public interface IAIR {
+    public interface IFRM {
 
         @FormUrlEncoded
-        @POST(BaseConst.AIR_SELECT)
-        Call<AIRModel> AIR_SELECT(
+        @POST(BaseConst.FRM_SELECT)
+        Call<FRMModel> FRM_SELECT(
                 @Path(value = "host", encoded = true) String host,
                 @Field(value = "GUBUN") String GUBUN,
-                @Field(value = "AIR_ID") String AIR_ID,     // 컨테이너
-                @Field(value = "AIR_01") String AIR_01,     // 코드번호
+                @Field(value = "FRM_ID") String FRM_ID,     // 컨테이너
+                @Field(value = "FRM_01") String FRM_01,     // 코드번호
+                @Field(value = "FRM_02") String FRM_02,     // 명칭
                 @Field(value = "OCM_01") String OCM_01      // 사용자 아이디
         );
 
         @FormUrlEncoded
-        @POST(BaseConst.AIR_CONTROL)
-        Call<AIRModel> AIR_CONTROL(
+        @POST(BaseConst.FRM_CONTROL)
+        Call<FRMModel> FRM_CONTROL(
                 @Path(value = "host", encoded = true) String host,
                 @Field(value = "GUBUN") String GUBUN,
-                @Field(value = "AIR_ID") String AIR_ID,
-                @Field(value = "AIR_01") String AIR_01,
-                @Field(value = "AIR_02") String AIR_02,
-                @Field(value = "AIR_03") String AIR_03,
+                @Field(value = "FRM_ID") String FRM_ID,
+                @Field(value = "FRM_01") String FRM_01,
+                @Field(value = "FRM_02") String FRM_02,
+                @Field(value = "FRM_03") String FRM_03,
 
-                @Field(value = "AIR_04") String AIR_04,
-                @Field(value = "AIR_05") int AIR_05,
-                @Field(value = "AIR_06") String AIR_06,
-                @Field(value = "AIR_07") String AIR_07,
-                @Field(value = "AIR_96") String AIR_96,
+                @Field(value = "FRM_04") int FRM_04,
+                @Field(value = "FRM_05") String FRM_05,
+                @Field(value = "FRM_06") String FRM_06,
+                @Field(value = "FRM_96") String FRM_96,
+                @Field(value = "FRM_98") String FRM_98,
 
-                @Field(value = "AIR_98") String AIR_98,
                 @Field(value = "ARM_03") String ARM_03
         );
 

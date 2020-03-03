@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:background="@color/List4"
+    tools:context=".ui.frm.FrmList">
+
+    <com.linktag.base.base_header.BaseHeader
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_text="필터 목록" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"
+            android:paddingTop="25dp"
+            android:paddingBottom="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgSearch"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_search_icon"
+                android:padding="3dp"
+                android:src="@drawable/work_search" />
+
+            <EditText
+                android:id="@+id/etName"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="명칭을 입력하세요."
+                android:textSize="14dp"
+                android:singleLine="true"
+                android:maxLength="20"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:background="@drawable/shape_search_edit" />
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            tools:listitem="@layout/listitem_find_frm"></ListView>
+
+        <TextView
+            android:id="@+id/empty"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dp"
+            android:gravity="center|center_vertical"
+            android:text="조회된 정보가 없습니다."
+            android:textSize="@dimen/text_normal" />
+
+    </LinearLayout>
+
+    <com.linktag.base.base_footer.BaseFooter
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

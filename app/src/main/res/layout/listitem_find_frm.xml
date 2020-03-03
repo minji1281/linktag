@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginBottom="8dp"
+        android:elevation="5dp"
+        android:background="@drawable/list_round_shape"
+        android:orientation="horizontal"
+        android:padding="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:paddingRight="10dp"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvFrmName"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:ellipsize="end"
+                    android:singleLine="true"
+                    android:textColor="@color/List1"
+                    android:textStyle="bold"
+                    android:textSize="16dp"
+                    tools:text="공기청정기-1" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp">
+
+                    <TextView
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:ellipsize="end"
+                        android:gravity="center_vertical|left"
+                        android:singleLine="true"
+                        android:textColor="@color/List2"
+                        android:textSize="13dp"
+                        android:text="필터교체" />
+
+                    <TextView
+                        android:id="@+id/tvNextDay"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|right"
+                        android:singleLine="true"
+                        android:paddingRight="3dp"
+                        android:textColor="@color/List2"
+                        android:textSize="13dp"
+                        tools:text="2020-03-30" />
+
+                </LinearLayout>
+
+                <ProgressBar
+                    android:id="@+id/pbFilter"
+                    style="@android:style/Widget.ProgressBar.Horizontal"
+                    android:layout_width="match_parent"
+                    android:layout_height="11dp"
+                    android:progress="50"
+                    android:progressDrawable="@drawable/progressbar_listitem" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:paddingLeft="15dp"
+                android:orientation="vertical">
+
+                <ImageView
+                    android:id="@+id/imgAlarmIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.2"
+                    android:layout_gravity="center_vertical|right"
+                    android:layout_marginBottom="5dp"
+                    tools:srcCompat="@drawable/alarm_state_on" />
+
+                <Button
+                    android:id="@+id/btnFilterChange"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/btn_round_blue2"
+                    android:textColor="@color/white"
+                    android:textStyle="bold"
+                    android:text="필터교체" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+</RelativeLayout>
