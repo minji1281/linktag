@@ -1,0 +1,378 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FFF"
+    android:orientation="vertical">
+
+    <com.linktag.base.base_header.BaseHeader
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_text="복약관리" />
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="30dp"
+            android:layout_marginRight="30dp"
+            android:layout_marginLeft="30dp"
+            android:layout_marginBottom="0dp"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_title"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Title."
+                        android:textColor="#34495E"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@id/ed_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/tv_title"
+                        android:background="@null"
+                        android:textColor="#34495E"
+                        android:textStyle="bold" />
+
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_marginStart="15dp"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/alarm_state_on" />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <TextView
+                        android:id="@+id/tv_memo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:text="Memo."
+                        android:textColor="#34495E"
+                        android:textSize="20dp"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@+id/ed_memo"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:layout_marginLeft="10dp"
+                        android:layout_toRightOf="@+id/tv_memo"
+                        android:background="@null"
+                        android:hint="메모 입력란입니다." />
+
+                </RelativeLayout>
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_marginTop="20dp"
+                android:layout_weight="0.5">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal">
+
+                    <TextView
+                        android:id="@+id/tv_label5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_marginLeft="10dp"
+                        android:text="총 복용 일 수" />
+
+                    <Spinner
+                        android:id="@+id/sp_day"
+                        android:layout_width="150dp"
+                        android:layout_height="35dp"
+                        android:layout_below="@+id/tv_label5"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp"
+                        android:textSize="30dp" />
+
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/child_linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:layout_below="@+id/child_linearLayout2"
+                android:layout_margin="5dp"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|left"
+                        android:text="알림주기"
+                        android:textSize="@dimen/_10sdp"
+                        android:textStyle="bold" />
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <Button
+                        android:id="@+id/btn_addAlarm"
+                        android:layout_width="100dp"
+                        android:layout_height="30dp"
+                        android:layout_gravity="center_vertical|right"
+                        android:background="@drawable/list_item_round_button_base"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:text="알림 추가"
+                        android:textStyle="bold"
+                        android:textColor="@color/white"
+                        android:textSize="13dp" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="2px"
+                    android:layout_marginTop="@dimen/_8sdp"
+                    android:background="@color/colorPrimaryDark" />
+
+                <TimePicker
+                    android:id="@+id/timePicker"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="-20dp"
+                    android:layout_marginBottom="-40dp"
+                    android:scaleY=".8"
+                    android:timePickerMode="spinner" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:background="@drawable/list_item_layout"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
+                    android:text="알림현황"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    tools:listitem="@layout/listitem_trd_list" />
+
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:id="@+id/child_linearLayout5"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:layout_below="@+id/child_linearLayout4"
+                android:layout_marginStart="5dp"
+                android:layout_marginEnd="5dp"
+                android:background="@drawable/list_item_layout"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
+                    android:layout_marginBottom="5dp"
+                    android:text="알림주기"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true">
+
+                        <Button
+                            android:id="@+id/btn_Sunday"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toLeftOf="@+id/btn_Monday"
+                            android:background="@drawable/btn_round_yellow"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:text="일"
+                            android:textColor="@color/white"
+                            android:textSize="18dp" />
+
+                        <Button
+                            android:id="@+id/btn_Monday"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_centerVertical="true"
+                            android:layout_toLeftOf="@+id/btn_Tuesday"
+                            android:background="@drawable/btn_round_yellow"
+                            android:text="월"
+                            android:textColor="@color/white"
+                            android:textSize="18dp" />
+
+                        <Button
+                            android:id="@+id/btn_Tuesday"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toLeftOf="@+id/btn_Wednesday"
+                            android:background="@drawable/btn_round_yellow"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:text="화"
+                            android:textColor="@color/white"
+                            android:textSize="18dp" />
+
+                        <Button
+                            android:id="@+id/btn_Wednesday"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_centerInParent="true"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:background="@drawable/btn_round_yellow"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:text="수"
+                            android:textColor="@color/white"
+                            android:textSize="18dp" />
+
+                        <Button
+                            android:id="@+id/btn_Thursday"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toRightOf="@+id/btn_Wednesday"
+                            android:background="@drawable/btn_round_yellow"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:text="목"
+
+                            android:textColor="@color/white"
+                            android:textSize="18dp" />
+
+                        <Button
+                            android:id="@+id/btn_Friday"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toRightOf="@+id/btn_Thursday"
+                            android:background="@drawable/btn_round_yellow"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:text="금"
+                            android:textColor="@color/white"
+                            android:textSize="18dp" />
+
+                        <Button
+                            android:id="@+id/btn_Saturday"
+                            android:layout_width="35dp"
+                            android:layout_height="35dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginStart="5dp"
+                            android:layout_marginEnd="5dp"
+                            android:layout_toRightOf="@+id/btn_Friday"
+                            android:background="@drawable/btn_round_yellow"
+                            android:minWidth="0dp"
+                            android:minHeight="0dp"
+                            android:text="토"
+                            android:textColor="@color/white"
+                            android:textSize="18dp" />
+
+
+                    </RelativeLayout>
+
+                </RelativeLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <Button
+        android:id="@+id/bt_save"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="@color/list_item_Detail_saveBtn"
+        android:text="저장"
+        android:textColor="@color/white" />
+
+</LinearLayout>

@@ -29,6 +29,7 @@ import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
 import com.linktag.linkapp.value_object.ArmVO;
 import com.linktag.linkapp.value_object.PcmVO;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import retrofit2.Call;
@@ -42,6 +43,7 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
     private LayoutInflater mInflater;
     private View view;
     private InterfaceUser mUser;
+    SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
 
     PcmRecycleAdapter(Context context, ArrayList<PcmVO> list) {
         mContext = context;
@@ -63,56 +65,46 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        if (mList.get(position).PCM_96.equals("")) {
-            viewHolder.tv_date.setText("알림 미지정");
-            viewHolder.tv_time.setText("");
-        } else {
-            String Format = mList.get(position).PCM_96;
-            String dateFormat = Format.substring(2, 4) + "." + Format.substring(4, 6) + "." + Format.substring(6, 8);
-            String timeFormat = Format.substring(8, 10) + ":" + Format.substring(10);
-            viewHolder.tv_date.setText(dateFormat);
-            viewHolder.tv_time.setText(timeFormat);
-        }
-
         viewHolder.tv_name.setText(mList.get(position).PCM_02);
         viewHolder.tv_memo.setText(mList.get(position).PCM_03);
+        viewHolder.tv_date.setText(mList.get(position).PCM_04.substring(0,4)+"."+mList.get(position).PCM_04.substring(4,6)+"."+mList.get(position).PCM_04.substring(6,8));
 
-        if (mList.get(position).ARM_03.equals("Y")) {
-            viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-        } else if (mList.get(position).ARM_03.equals("N")) {
-            viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-        }
+//        if (mList.get(position).ARM_03.equals("Y")) {
+//            viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
+//        } else if (mList.get(position).ARM_03.equals("N")) {
+//            viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
+//        }
 
-        viewHolder.imageview.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                if (mList.get(position).ARM_03.equals("Y")) {
-                    viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-                    Toast.makeText(mContext, "[" + mList.get(position).PCM_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
-                } else if(mList.get(position).ARM_03.equals("N") && !mList.get(position).PCM_96.equals("")) {
-                    viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + mList.get(position).PCM_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Toast.makeText(mContext, "알림일자를 지정하세요.", Toast.LENGTH_SHORT).show();
-                    return;
-                }
-                ArmVO armVO = new ArmVO();
-
-                armVO.setARM_ID(mList.get(position).PCM_ID);
-                armVO.setARM_01(mList.get(position).PCM_01);
-                armVO.setARM_02(mUser.Value.OCM_01);
-                armVO.setARM_03(mList.get(position).ARM_03);
-                armVO.setARM_95("");
-                armVO.setARM_98(mUser.Value.OCM_01);
-
-                requestARM_CONTROL(armVO, position);
-
-
-
-            }
-        });
+//        viewHolder.imageview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                if (mList.get(position).ARM_03.equals("Y")) {
+//                viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
+//                Toast.makeText(mContext, "[" + mList.get(position).PCM_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
+//            } else if(mList.get(position).ARM_03.equals("N") && !mList.get(position).PCM_96.equals("")) {
+//                viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
+//                Toast.makeText(mContext, "[" + mList.get(position).PCM_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
+//            }
+//                else{
+//                Toast.makeText(mContext, "알림일자를 지정하세요.", Toast.LENGTH_SHORT).show();
+//                return;
+//            }
+//            ArmVO armVO = new ArmVO();
+//
+//                armVO.setARM_ID(mList.get(position).PCM_ID);
+//                armVO.setARM_01(mList.get(position).PCM_01);
+//                armVO.setARM_02(mUser.Value.OCM_01);
+//                armVO.setARM_03(mList.get(position).ARM_03);
+//                armVO.setARM_95("");
+//                armVO.setARM_98(mUser.Value.OCM_01);
+//
+//            requestARM_CONTROL(armVO, position);
+//
+//
+//
+//        }
+//        });
 
     }
 
@@ -140,8 +132,6 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
         TextView tv_name;
         TextView tv_memo;
         TextView tv_date;
-        TextView tv_time;
-        Boolean bool;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -150,8 +140,6 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_memo = itemView.findViewById(R.id.tv_memo);
             tv_date = itemView.findViewById(R.id.tv_date);
-            tv_time = itemView.findViewById(R.id.tv_time);
-            bool = false;
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

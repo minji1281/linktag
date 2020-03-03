@@ -3,6 +3,7 @@ package com.linktag.linkapp.ui.spinner;
 public class SpinnerList {
     private String code;
     private String name;
+    private String memo;
 
     /**
      *
@@ -14,6 +15,12 @@ public class SpinnerList {
         this.name = name;
     }
 
+    public SpinnerList(String code, String name, String memo){
+        this.code = code;
+        this.name = name;
+        this.memo = memo;
+    }
+
     public String getCode(){
         return code;
     }
@@ -21,4 +28,7 @@ public class SpinnerList {
         return name;
     }
 
+    public String getMemo() {
+        return memo;
+    }
 }

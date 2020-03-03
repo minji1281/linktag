@@ -18,6 +18,7 @@ import android.widget.Button;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Switch;
 import android.widget.TextView;
@@ -33,6 +34,7 @@ import com.linktag.linkapp.model.RFMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.alarm.AlarmDialog;
 import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.JdmVO;
@@ -136,7 +138,6 @@ public class DetailRfm extends BaseActivity {
 
         ed_name = (EditText) findViewById(R.id.ed_name);
         ed_memo = (EditText) findViewById(R.id.ed_memo);
-
         bt_save = (Button) findViewById(R.id.bt_save);
 
         rfmVO = (RfmVO) getIntent().getSerializableExtra("RfmVO");
@@ -163,6 +164,7 @@ public class DetailRfm extends BaseActivity {
             }
         });
 
+
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -178,7 +180,7 @@ public class DetailRfm extends BaseActivity {
         header.btnHeaderRight1.setVisibility((View.VISIBLE));
         header.btnHeaderRight1.setMaxWidth(50);
         header.btnHeaderRight1.setMaxHeight(50);
-        header.btnHeaderRight1.setImageResource(R.drawable.btn_cancel); //delete는 왜 크기가 안맞는거야!!! 일단 대체아이콘으로..,,
+        header.btnHeaderRight1.setImageResource(R.drawable.delete); //delete는 왜 크기가 안맞는거야!!! 일단 대체아이콘으로..,,
         header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

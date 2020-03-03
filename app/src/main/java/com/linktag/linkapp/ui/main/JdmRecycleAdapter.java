@@ -78,7 +78,6 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_memo = itemView.findViewById(R.id.tv_memo);
             tv_date = itemView.findViewById(R.id.tv_date);
-            tv_time = itemView.findViewById(R.id.tv_time);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override

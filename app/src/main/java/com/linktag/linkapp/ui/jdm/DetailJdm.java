@@ -32,6 +32,7 @@ import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.alarm.AlarmDialog;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.JdmVO;
 
@@ -45,7 +46,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailJdm extends BaseActivity implements Serializable {
+public class DetailJdm extends BaseActivity {
 
     private BaseHeader header;
 

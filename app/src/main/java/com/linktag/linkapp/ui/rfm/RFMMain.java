@@ -10,10 +10,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_footer.BaseFooter;
@@ -26,6 +29,7 @@ import com.linktag.linkapp.model.RFMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.ui.menu.Member;
 import com.linktag.linkapp.ui.spinner.SpinnerList;
 import com.linktag.linkapp.value_object.CtdVO;
@@ -62,8 +66,11 @@ public class RFMMain extends BaseActivity {
     private ArrayList<SpinnerList> mSpinnerList;
 
     private ImageView imgNew;
+    private ImageView img_edit;
 
     public static String RFM_01 = "";
+    public String RFM_02 = "";
+    public String RFM_03 = "";
 
     private int pos = -1;
 
@@ -121,6 +128,7 @@ public class RFMMain extends BaseActivity {
         recyclerView = view.findViewById(R.id.recyclerView);
 
         imgNew = findViewById(R.id.imgNew);
+        img_edit = findViewById(R.id.img_edit);
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
 //        swipeRefresh.setOnRefreshListener(() -> requestJMD_SELECT());
@@ -139,11 +147,15 @@ public class RFMMain extends BaseActivity {
                     headerSpinner.setSelection(pos);
                     requestRFD_SELECT(mSpinnerList.get(pos).getCode());
                     RFM_01 = mSpinnerList.get(pos).getCode();
+                    RFM_02 = mSpinnerList.get(pos).getName();
+                    RFM_03 = mSpinnerList.get(pos).getMemo();
                     pos = -1;
                 } else {
                     headerSpinner.setSelection(position);
                     requestRFD_SELECT(mSpinnerList.get(position).getCode());
                     RFM_01 = mSpinnerList.get(position).getCode();
+                    RFM_02 = mSpinnerList.get(position).getName();
+                    RFM_03 = mSpinnerList.get(position).getMemo();
                 }
             }
 
@@ -185,13 +197,43 @@ public class RFMMain extends BaseActivity {
                 mContext.startActivity(intent);
             }
         });
+
+        img_edit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int position = 0;
+                if (pos == -1) {
+                    position = 0;
+                } else {
+                    position = pos;
+                }
+                RfmEditDialog rfmEditDialog = new RfmEditDialog(mContext, RFM_02, RFM_03);
+
+                rfmEditDialog.setDialogListener(new RfmEditDialog.CustomDialogListener() {
+                    @Override
+                    public void onPositiveClicked(String name, String memo) {
+
+                        requestRFM_CONTROL("UPDATE", name, memo);
+                    }
+
+                    @Override
+                    public void onNegativeClicked() {
+
+                    }
+                });
+
+                rfmEditDialog.show();
+            }
+        });
+
     }
 
 
-    private void initLayoutByContractType(){
+    private void initLayoutByContractType() {
         footer = findViewById(R.id.footer);
 
-        if(intentVO.CTM_19.equals("P")){
+        if (intentVO.CTM_19.equals("P")) {
             // privateService
             footer.btnFooterSetting.setVisibility(View.VISIBLE);
             footer.btnFooterMember.setVisibility(View.GONE);
@@ -207,7 +249,7 @@ public class RFMMain extends BaseActivity {
         }
     }
 
-    private void goMember(){
+    private void goMember() {
         Intent intent = new Intent(mContext, Member.class);
         intent.putExtra("intentVO", intentVO);
         mContext.startActivity(intent);
@@ -253,7 +295,7 @@ public class RFMMain extends BaseActivity {
                             mSpinnerList.clear();
                             if (response.body().Total > 0) {
                                 for (int i = 0; i < response.body().Total; i++) {
-                                    mSpinnerList.add(new SpinnerList(response.body().Data.get(i).RFM_01, response.body().Data.get(i).RFM_02));
+                                    mSpinnerList.add(new SpinnerList(response.body().Data.get(i).RFM_01, response.body().Data.get(i).RFM_02, response.body().Data.get(i).RFM_03));
 
                                     index[i] = response.body().Data.get(i).RFM_01;
                                     str[i] = response.body().Data.get(i).RFM_02;
@@ -338,8 +380,7 @@ public class RFMMain extends BaseActivity {
                                 intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
                                 intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
                                 mContext.startActivity(intent);
-                            }
-                            else{
+                            } else {
                                 RFM_01 = mRfmList.get(0).RFM_01;
                             }
 //                            else {
@@ -361,6 +402,45 @@ public class RFMMain extends BaseActivity {
         });
 
     }
+
+    public void requestRFM_CONTROL(String GUBUN, String name, String memo) {
+        // 인터넷 연결 여부 확인
+        if (!ClsNetworkCheck.isConnectable(mContext)) {
+            BaseAlert.show(getString(R.string.common_network_error));
+            return;
+        }
+
+
+        Call<RFMModel> call = Http.rfm(HttpBaseService.TYPE.POST).RFM_CONTROL(
+                BaseConst.URL_HOST,
+                GUBUN,
+                intentVO.CTN_02,
+                RFM_01,
+                name,
+                memo,
+                mUser.Value.OCM_01,
+                mUser.Value.OCM_01
+        );
+
+
+        call.enqueue(new Callback<RFMModel>() {
+            @Override
+            public void onResponse(Call<RFMModel> call, Response<RFMModel> response) {
+
+                requestRFM_SELECT();
+                Toast.makeText(getApplicationContext(), "[" + name + "]" + "냉장고정보가 수정되었습니다.", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void onFailure(Call<RFMModel> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+                closeLoadingBar();
+
+            }
+        });
+
+    }
+
 
     public void requestRFD_SELECT(String RFM_01) {
         // 인터넷 연결 여부 확인
