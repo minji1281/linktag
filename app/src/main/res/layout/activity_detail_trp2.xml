@@ -24,20 +24,22 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginLeft="30dp"
-            android:layout_marginTop="30dp"
-            android:layout_marginRight="30dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginTop="15dp"
+            android:layout_marginEnd="15dp"
             android:layout_marginBottom="10dp"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="0dp"
+                android:layout_weight="0.2">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical">
 
                     <TextView
                         android:id="@+id/tv_title"
@@ -45,17 +47,19 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="Title."
-                        android:textColor="#34495E"
-                        android:textSize="20dp"
+                        android:textSize="@dimen/_10sdp"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@id/ed_name"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@+id/tv_title"
+                        android:layout_toLeftOf="@+id/imageView"
+                        android:textSize="15dp"
+                        android:singleLine="true"
                         android:background="@null"
                         android:textColor="#34495E"
                         android:textStyle="bold" />
@@ -74,12 +78,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="0.2"
                 android:layout_marginTop="10dp">
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical">
 
                     <TextView
                         android:id="@+id/tv_memo"
@@ -87,8 +93,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="Memo."
-                        android:textColor="#34495E"
-                        android:textSize="20dp"
+                        android:textSize="@dimen/_10sdp"
                         android:textStyle="bold" />
 
                     <EditText
@@ -98,6 +103,8 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@+id/tv_memo"
+                        android:textSize="15dp"
+                        android:singleLine="true"
                         android:background="@null"
                         android:hint="메모 입력란입니다." />
 
@@ -109,12 +116,20 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1">
+                android:layout_marginTop="20dp"
+                android:layout_weight="0.7">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
+                    android:text="Detail Set"
+                    android:textSize="@dimen/_10sdp"
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_marginTop="20dp"
                     android:layout_weight="1"
                     android:orientation="horizontal">
 
@@ -128,7 +143,8 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal">
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/list_item_layout">
 
                             <TextView
                                 android:id="@+id/tv_label5"
@@ -136,7 +152,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginLeft="10dp"
-                                android:text="일 복약 횟수" />
+                                android:text="일 복약 횟수"
+                                android:textSize="@dimen/_10sdp"
+                                android:textStyle="bold" />
 
                             <Spinner
                                 android:id="@+id/sp_count"
@@ -164,7 +182,8 @@
                         <RelativeLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal">
+                            android:layout_gravity="center_horizontal"
+                            android:background="@drawable/list_item_layout">
 
                             <TextView
                                 android:id="@+id/tv_label6"
@@ -172,7 +191,9 @@
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginLeft="10dp"
-                                android:text="식 전/후" />
+                                android:text="식 전/후"
+                                android:textSize="@dimen/_10sdp"
+                                android:textStyle="bold" />
 
                             <Spinner
                                 android:id="@+id/sp_timing"
@@ -201,7 +222,8 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal">
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/list_item_layout">
 
                         <TextView
                             android:id="@+id/tv_label4"
@@ -209,7 +231,9 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_marginLeft="10dp"
-                            android:text="대상자" />
+                            android:text="대상자"
+                            android:textSize="@dimen/_10sdp"
+                            android:textStyle="bold" />
 
 
                         <LinearLayout
@@ -224,11 +248,12 @@
                                 android:id="@+id/ed_target"
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
+                                android:layout_marginBottom="10dp"
                                 android:background="@null"
                                 android:scrollbars="vertical"
                                 android:text="홍길동"
                                 android:textColor="#34495E"
-                                android:textSize="20dp"
+                                android:textSize="15dp"
                                 android:textStyle="bold" />
 
                         </LinearLayout>
@@ -240,7 +265,9 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="160dp"
+                android:layout_height="0dp"
+                android:layout_weight="0.5"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -253,7 +280,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|left"
-                        android:text="알림현황"
+                        android:text="Alarm List"
                         android:textSize="@dimen/_10sdp"
                         android:textStyle="bold" />
 
@@ -264,7 +291,7 @@
 
                     <Button
                         android:id="@+id/btn_addAlarm"
-                        android:layout_width="100dp"
+                        android:layout_width="80dp"
                         android:layout_height="30dp"
                         android:layout_gravity="center_vertical|right"
                         android:background="@drawable/list_item_round_button_base"
@@ -280,6 +307,10 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:padding="10dp"
+                    android:background="@drawable/list_item_layout"
                     tools:listitem="@layout/listitem_trd_list" />
 
             </LinearLayout>
@@ -288,14 +319,14 @@
                 android:id="@+id/tabItem2"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|left"
-                    android:text="알림주기"
+                    android:text="Alarm cycle"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
@@ -310,7 +341,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_toLeftOf="@+id/btn_Monday"
                         android:background="@drawable/btn_round_yellow"
                         android:minWidth="0dp"
@@ -324,7 +355,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_toLeftOf="@+id/btn_Tuesday"
                         android:background="@drawable/btn_round_yellow"
                         android:text="월"
@@ -336,7 +367,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_toLeftOf="@+id/btn_Wednesday"
                         android:background="@drawable/btn_round_yellow"
                         android:minWidth="0dp"
@@ -351,7 +382,7 @@
                         android:layout_height="35dp"
                         android:layout_centerInParent="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="10dp"
                         android:background="@drawable/btn_round_yellow"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
@@ -364,7 +395,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_toRightOf="@+id/btn_Wednesday"
                         android:background="@drawable/btn_round_yellow"
                         android:minWidth="0dp"
@@ -379,7 +410,7 @@
                         android:layout_width="35dp"
                         android:layout_height="35dp"
                         android:layout_centerVertical="true"
-                        android:layout_marginEnd="15dp"
+                        android:layout_marginEnd="10dp"
                         android:layout_toRightOf="@+id/btn_Thursday"
                         android:background="@drawable/btn_round_yellow"
                         android:minWidth="0dp"
