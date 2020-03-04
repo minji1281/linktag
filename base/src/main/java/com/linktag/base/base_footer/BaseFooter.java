@@ -20,12 +20,18 @@ public class BaseFooter extends LinearLayout {
     /*************************** Control ***************************/
     private LinearLayout layoutFooter;
 
-    public TextView btnFooterHome;
-    public TextView btnFooterCalendar;
+    public LinearLayout btnFooterHome;
+    public LinearLayout btnFooterCalendar;
+    public LinearLayout btnFooterMenu;
+    public LinearLayout btnFooterMember;
+    public LinearLayout btnFooterSetting;
+
+    public TextView tvFooterHome;
+    public TextView tvFooterCalendar;
     public ImageButton btnFooterScan;
-    public TextView btnFooterMenu;
-    public TextView btnFooterMember;
-    public TextView btnFooterSetting;
+    public TextView tvFooterMenu;
+    public TextView tvFooterMember;
+    public TextView tvFooterSetting;
 
     /*************************** Variable ***************************/
     // Context
@@ -105,12 +111,12 @@ public class BaseFooter extends LinearLayout {
 
         layoutFooter = (LinearLayout) v.findViewById(R.id.layoutFooter);
 
-        btnFooterHome = (TextView) v.findViewById(R.id.btnFooterHome);
-        btnFooterCalendar = (TextView) v.findViewById(R.id.btnFooterCalendar);
+        btnFooterHome = (LinearLayout) v.findViewById(R.id.btnFooterHome);
+        btnFooterCalendar = (LinearLayout) v.findViewById(R.id.btnFooterCalendar);
         btnFooterScan = (ImageButton) v.findViewById(R.id.btnFooterScan);
-        btnFooterMenu = (TextView) v.findViewById(R.id.btnFooterMenu);
-        btnFooterMember = (TextView) v.findViewById(R.id.btnFooterMember);
-        btnFooterSetting = (TextView) v.findViewById(R.id.btnFooterSetting);
+        btnFooterMenu = (LinearLayout) v.findViewById(R.id.btnFooterMenu);
+        btnFooterMember = (LinearLayout) v.findViewById(R.id.btnFooterMember);
+        btnFooterSetting = (LinearLayout) v.findViewById(R.id.btnFooterSetting);
 
         addView(v);
     }

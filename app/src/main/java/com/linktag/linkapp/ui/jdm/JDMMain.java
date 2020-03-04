@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 
+import com.google.zxing.integration.android.IntentIntegrator;
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_footer.BaseFooter;
 import com.linktag.base.base_header.BaseHeader;
@@ -115,6 +116,8 @@ public class JDMMain extends BaseActivity {
 
     private void initLayoutByContractType(){
         footer = findViewById(R.id.footer);
+
+        footer.btnFooterScan.setOnClickListener(v -> goScan());
 
         if(intentVO.CTM_19.equals("P")){
             // privateService
@@ -227,5 +230,11 @@ public class JDMMain extends BaseActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void scanResult(String str){
+        System.out.println("@@@@@@@@@@@@@@@@@@@@");
+        System.out.println(str);
     }
 }

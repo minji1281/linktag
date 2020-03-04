@@ -158,8 +158,8 @@ public class Login extends BaseActivity {
         tvSignUp = findViewById(R.id.tvSignUp);
         tvSignUp.setOnClickListener(v -> goSignUp());
 
-        tvFindIdPassword = findViewById(R.id.tvFindIdPassword);
-        tvFindIdPassword.setOnClickListener(v -> goScan());
+//        tvFindIdPassword = findViewById(R.id.tvFindIdPassword);
+//        tvFindIdPassword.setOnClickListener(v -> goScan());
 
         chkAutoAccount = findViewById(R.id.chkAutoAccount);
         chkAutoAccount.setChecked(mSettings.Value.AutoID);
@@ -413,15 +413,15 @@ public class Login extends BaseActivity {
     // Methods
     //========================
 
-    /**
-     * 스캔화면으로 이동한다.
-     */
-    private void goScan() {
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setCaptureActivity(ScanBarcode.class);
-        integrator.setOrientationLocked(false);
-        integrator.initiateScan();
-    }
+//    /**
+//     * 스캔화면으로 이동한다.
+//     */
+//    private void goScan() {
+//        IntentIntegrator integrator = new IntentIntegrator(this);
+//        integrator.setCaptureActivity(ScanBarcode.class);
+//        integrator.setOrientationLocked(false);
+//        integrator.initiateScan();
+//    }
 
     /**
      * 회원가입 화면으로 이동한다.
@@ -454,18 +454,18 @@ public class Login extends BaseActivity {
     }
 
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (requestCode == IntentIntegrator.REQUEST_CODE) {
-            // QR 코드/ 바코드를 스캔한 결과
-            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-            // result.getFormatName() : 바코드 종류
-            // result.getContents() : 바코드 값
-            Log.d("Test", "Scan Type : " + result.getFormatName() + " / Data : " + result.getContents());
-        }
-    }
+//    @Override
+//    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+//        super.onActivityResult(requestCode, resultCode, data);
+//
+//        if (requestCode == IntentIntegrator.REQUEST_CODE) {
+//            // QR 코드/ 바코드를 스캔한 결과
+//            IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+//            // result.getFormatName() : 바코드 종류
+//            // result.getContents() : 바코드 값
+//            Log.d("Test", "Scan Type : " + result.getFormatName() + " / Data : " + result.getContents());
+//        }
+//    }
 
 
     private void requestTKN_SELECT(){

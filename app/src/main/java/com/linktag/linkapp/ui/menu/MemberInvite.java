@@ -218,7 +218,8 @@ public class MemberInvite extends BaseActivity {
                 "LIST_SHARED",
                 "",
                 "",
-                mUser.Value.OCM_01
+                mUser.Value.OCM_01,
+                ""
         );
 
         call.enqueue(new Callback<CTD_Model>() {

@@ -224,12 +224,12 @@ public class Main extends BaseActivity {
     /**
      * 바코드를 스캔한다.
      */
-    private void goScan() {
-        IntentIntegrator integrator = new IntentIntegrator(this);
-        integrator.setCaptureActivity(ScanBarcode.class);
-        integrator.setOrientationLocked(false);
-        integrator.initiateScan();
-    }
+//    private void goScan() {
+//        IntentIntegrator integrator = new IntentIntegrator(this);
+//        integrator.setCaptureActivity(ScanBarcode.class);
+//        integrator.setOrientationLocked(false);
+//        integrator.initiateScan();
+//    }
 
     /**
      * ViewPager 이동시킨다.
@@ -348,6 +348,7 @@ public class Main extends BaseActivity {
             }
         });
     }
+
     private void callBack(CTDS_Model model, String scanCode){
         if(model.Total == 0){
             // New

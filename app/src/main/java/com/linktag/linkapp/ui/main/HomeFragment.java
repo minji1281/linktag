@@ -184,7 +184,8 @@ public class HomeFragment extends BaseFragment {
                 "LIST_BOOKMARK",
                 "",
                 "",
-                mUser.Value.OCM_01
+                mUser.Value.OCM_01,
+                ""
         );
 
         call.enqueue(new Callback<CTD_Model>() {

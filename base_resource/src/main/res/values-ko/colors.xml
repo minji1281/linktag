@@ -26,5 +26,7 @@
     <color name="colorDefaultButtonDisable">#E2E6EE</color>
     <color name="colorDefaultButtonPress">#5098C7</color>
 
+    <color name="colorFooterText">#41B1AC</color>
+
     <color name="colorTextGray">#9dc8c8</color>
 </resources>

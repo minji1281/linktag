@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
+import com.google.zxing.integration.android.IntentIntegrator;
+import com.google.zxing.integration.android.IntentResult;
 import com.linktag.base.R;
 import com.linktag.base.base_fragment.BaseFragment;
 import com.linktag.base.settings.InterfaceSettings;
 import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.base.util.BaseLoadingBar;
+import com.linktag.base.util.ScanCode;
 
 public abstract class BaseActivity extends FragmentActivity {
     public static Context BaseContext;
@@ -35,8 +38,6 @@ public abstract class BaseActivity extends FragmentActivity {
     @Override
     protected void onResume() {
         super.onResume();
-
-
         /*
 
         if (mUser == null || mUser.Value == null || mUser.Value.EMP_ID == null || mUser.Value.EMP_ID.isEmpty()) {
@@ -44,13 +45,44 @@ public abstract class BaseActivity extends FragmentActivity {
                 ClsUtil.forceRestartAppforActivity(mActivity);
         }
         */
-
     }
 
     @Override
     public void finish() {
         super.finish();
         this.overridePendingTransition(R.anim.end_enter, R.anim.end_exit);
+    }
+
+
+    /**
+     * 바코드를 스캔한다.
+     */
+    public void goScan() {
+        IntentIntegrator integrator = new IntentIntegrator(this);
+        integrator.setCaptureActivity(ScanCode.class);
+        integrator.setOrientationLocked(false);
+        integrator.initiateScan();
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case IntentIntegrator.REQUEST_CODE:
+                IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
+
+                if (result.getFormatName() != null){
+                    String str = result.getContents();
+                    scanResult(str);
+                }
+
+
+        }
+    }
+
+    protected void scanResult(String str){
     }
 
     /**
@@ -87,58 +119,5 @@ public abstract class BaseActivity extends FragmentActivity {
             closeLoadingBar();
         }
     };
-
-
-//    protected void goHome(){
-//        try{
-//            Class clsList = Class.forName("com.linktag.linkapp.ui.main.Main");
-//            Intent intent = new Intent(mContext, clsList);
-//            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-//            mContext.startActivity(intent);
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-//    /**
-//     * 메뉴 화면 이동
-//     */
-//    protected void goMenu(){
-//        try{
-//            Class clsList = Class.forName("com.linktag.linkapp.ui.menu.Menu");
-//            Intent intent = new Intent(mContext, clsList);
-//
-//            mContext.startActivity(intent);
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    /**
-//     * 세팅 화면 이동
-//     */
-//    protected void goSettingMain(){
-//        try{
-//            Class clsList = Class.forName("com.linktag.linkapp.ui.settings_main.SettingMain");
-//            Intent intent = new Intent(mContext, clsList);
-//
-//            mContext.startActivity(intent);
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
-//
-//    /**
-//     * 멤버 화면 이동
-//     */
-//    protected void goMember(){
-//        try{
-//            Class clsList = Class.forName("com.linktag.linkapp.ui.menu.Member");
-//            Intent intent = new Intent(mContext, clsList);
-////            intent.putExtra("CTM_01", CTM_01);
-//            mContext.startActivity(intent);
-//        } catch (Exception e){
-//            e.printStackTrace();
-//        }
-//    }
 
 }

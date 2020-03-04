@@ -340,7 +340,8 @@ public class Http extends HttpBaseService {
                 @Field(value = "GUBUN") String GUBUN,
                 @Field(value = "CTD_01") String CTD_01,
                 @Field(value = "CTD_02") String CTD_02,
-                @Field(value = "OCM_01") String OCM_01
+                @Field(value = "OCM_01") String OCM_01,
+                @Field(value = "CTDS_03") String CTDS_03
 
         );
 

@@ -98,8 +98,6 @@ public class BoardFragment extends BaseFragment {
 
 
     public void requestDSH_SELECT() {
-
-        System.out.println("$$$$$$$$$$$$$$$됐다 됐다 잘 됐다.");
         // 인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             BaseAlert.show(getString(R.string.common_network_error));

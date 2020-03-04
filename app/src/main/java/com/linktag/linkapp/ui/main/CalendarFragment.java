@@ -223,7 +223,7 @@ public class CalendarFragment extends BaseFragment {
                 e.printStackTrace();
             }
 
-            System.out.println("##############222222222 "+ Arrays.toString(Time_Result)); // 이렇게 하면 [1.0, 1.1, 1.2] 이 출력됩니다.
+//            System.out.println("##############222222222 "+ Arrays.toString(Time_Result)); // 이렇게 하면 [1.0, 1.1, 1.2] 이 출력됩니다.
 
             Calendar calendar = Calendar.getInstance();
             ArrayList<CalendarDay> dates = new ArrayList<>();
@@ -241,15 +241,15 @@ public class CalendarFragment extends BaseFragment {
                     int dayy = Integer.parseInt(time[2]);
                     //System.out.println("##############33333333333 "+ day); // 이렇게 하면 [1.0, 1.1, 1.2] 이 출력됩니다.
 
-                    System.out.println("year :"+year+" m :"+month+" d :"+dayy);
+//                    System.out.println("year :"+year+" m :"+month+" d :"+dayy);
                     CalendarDay day = CalendarDay.from(year, month-1, dayy);  // 기본 오늘 날짜를 하나 가져가서
 
                     dates.add(day);
                     calendar.set(year,month-1,dayy);
 
-                    System.out.println("##############444444444 "+ calendar); // 이렇게 하면 [1.0, 1.1, 1.2] 이 출력됩니다.
+//                    System.out.println("##############444444444 "+ calendar); // 이렇게 하면 [1.0, 1.1, 1.2] 이 출력됩니다.
                 }
-            System.out.println("##############5555555555 "+ dates); // 이렇게 하면 [1.0, 1.1, 1.2] 이 출력됩니다.
+//            System.out.println("##############5555555555 "+ dates); // 이렇게 하면 [1.0, 1.1, 1.2] 이 출력됩니다.
             return dates;
         }
 
@@ -267,7 +267,6 @@ public class CalendarFragment extends BaseFragment {
 
 
     public void requestARM_SELECT(String getDate) {
-        System.out.println("$$$$$$$$$$$$$$$됐다 됐다 잘 됐다.");
         // 인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             BaseAlert.show(getString(R.string.common_network_error));
@@ -332,7 +331,7 @@ public class CalendarFragment extends BaseFragment {
 //
                             //     new ApiSimulator(ar).executeOnExecutor(Executors.newSingleThreadExecutor());
 
-                            System.out.println("##############1111111111 "+ Arrays.toString(DateArray)); // 이렇게 하면 [1.0, 1.1, 1.2] 이 출력됩니다.
+//                            System.out.println("##############1111111111 "+ Arrays.toString(DateArray)); // 이렇게 하면 [1.0, 1.1, 1.2] 이 출력됩니다.
                             new ApiSimulator(DateArray).executeOnExecutor(Executors.newSingleThreadExecutor());
 
                             mAdapter.updateData(mList);
