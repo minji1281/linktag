@@ -1,0 +1,40 @@
+<resources>
+    <!-- =======================    Space    ================================ -->
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="nav_header_vertical_spacing">8dp</dimen>
+    <dimen name="nav_header_height">176dp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="space_8dp">8dp</dimen>
+    <dimen name="space_12dp">12dp</dimen>
+    <!-- =======================    Space    ================================ -->
+
+
+
+    <!-- =======================    Text     ================================ -->
+    <dimen name="text_label">10sp</dimen>
+    <dimen name="text_caption">12sp</dimen>
+    <dimen name="text_body">14sp</dimen>
+    <dimen name="text_subheading">16sp</dimen>
+    <dimen name="text_title">20sp</dimen>
+
+    <dimen name="text_smaller">12dp</dimen>
+    <dimen name="text_small">14dp</dimen>
+    <dimen name="text_normal">16dp</dimen>
+    <dimen name="text_big">20dp</dimen>
+    <dimen name="text_bigger">24dp</dimen>
+    <dimen name="text_biggest">30dp</dimen>
+
+    <!-- =======================    Text    ================================ -->
+
+
+    <!-- =======================    Button    ================================ -->
+    <dimen name="button_height">48dp</dimen>
+    <dimen name="button_small_height">30dp</dimen>
+    <dimen name="button_xsmall_height">26dp</dimen>
+
+    <!-- =======================    Button    ================================ -->
+
+
+</resources>
