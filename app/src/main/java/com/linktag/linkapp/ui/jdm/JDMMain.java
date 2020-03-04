@@ -24,6 +24,7 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.menu.Member;
+import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.JdmVO;
 
@@ -116,7 +117,6 @@ public class JDMMain extends BaseActivity {
 
     private void initLayoutByContractType(){
         footer = findViewById(R.id.footer);
-
         footer.btnFooterScan.setOnClickListener(v -> goScan());
 
         if(intentVO.CTM_19.equals("P")){
@@ -234,7 +234,7 @@ public class JDMMain extends BaseActivity {
 
     @Override
     protected void scanResult(String str){
-        System.out.println("@@@@@@@@@@@@@@@@@@@@");
-        System.out.println(str);
+        ScanResult scanResult = new ScanResult(mContext, str, null);
+        scanResult.run();
     }
 }

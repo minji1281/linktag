@@ -31,7 +31,7 @@ public class ChangeActivityCls {
                 Intent intent = new Intent(mContext, cls);
 
                 intent.putExtra("intentVO", ctdVO);
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 //                intent.putExtra("CTM_01", ctdVO.CTD_01);
 //                intent.putExtra("CTD_02", ctdVO.CTD_02);
 //                intent.putExtra("CTN_02", ctdVO.CTN_02);
@@ -63,7 +63,7 @@ public class ChangeActivityCls {
 
                 intent.putExtra("scanCode", scanCode);
                 intent.putExtra("intentVO", ctdVO);
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 //                intent.putExtra("CTM_01", ctdVO.CTD_01);
 //                intent.putExtra("CTD_02", ctdVO.CTD_02);
 //                intent.putExtra("CTN_02", ctdVO.CTN_02);

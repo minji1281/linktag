@@ -36,6 +36,7 @@ import com.linktag.linkapp.ui.login.Login;
 import com.linktag.linkapp.ui.menu.ChangeActivityCls;
 import com.linktag.linkapp.ui.menu.ChooseOne;
 import com.linktag.linkapp.ui.scanner.ScanBarcode;
+import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.ui.work_place_search.FindWorkPlace;
 import com.linktag.linkapp.value_object.CtdVO;
 
@@ -243,134 +244,11 @@ public class Main extends BaseActivity {
     //================================
     // Event
     //================================
+
     @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        switch (requestCode) {
-            case FindWorkPlace.REQUEST_CODE:
-                if (fragmentHome != null)
-                    fragmentHome.onActivityResult(requestCode, resultCode, data);
-                break;
-            case IntentIntegrator.REQUEST_CODE:
-                // QR 코드/ 바코드를 스캔한 결과
-                IntentResult result = IntentIntegrator.parseActivityResult(requestCode, resultCode, data);
-
-                if (result.getFormatName() != null)
-                {
-                    boolean chk = false;
-
-                    String str = result.getContents();
-                    String scanCode = "";
-
-                    try {
-                        String[] split = str.split("\\?");
-                        if(split[0].equals("http://www.linktag.io/scan")){
-                            Uri uri = Uri.parse(str);
-
-                            String t = uri.getQueryParameter("t");
-                            String u = uri.getQueryParameter("u");
-                            String s = uri.getQueryParameter("s");
-
-                            ClsAES aes = new ClsAES();
-                            String dec = aes.Decrypt(aes.Base64Decoding(s));
-
-                            if(t.length() == 2 && u.length() == 10 && dec.length() == 15){
-                                chk = true;
-                                scanCode = t + u + dec;
-                            }
-                        } else {
-                            chk = false;
-                        }
-                    } catch (Exception e) {
-                        chk = false;
-                        //Toast.makeText(this, "유효하지 않은 코드 입니다.: " + result.getContents(), Toast.LENGTH_LONG).show();
-                    }
-
-                    if(chk){
-                        // QR일련번호 SELECT -> 등록안된거면 서비스 선택
-                        requestCTDS_SELECT(scanCode);
-
-                    } else {
-                        Toast.makeText(this, "유효하지 않은 코드 입니다.", Toast.LENGTH_LONG).show();
-                    }
-
-                }
-                break;
-
-        }
-    }
-
-    public void requestCTDS_SELECT(String scanCode) {
-        // 인터넷 연결 여부 확인
-        if(!ClsNetworkCheck.isConnectable(mContext)){
-            BaseAlert.show(getString(R.string.common_network_error));
-            return;
-        }
-
-        //openLoadingBar();
-
-        Call<CTDS_Model> call = Http.ctds(HttpBaseService.TYPE.POST).CTDS_SELECT(
-                BaseConst.URL_HOST,
-                "DETAIL",
-                "",
-                "",
-                scanCode
-        );
-
-        call.enqueue(new Callback<CTDS_Model>() {
-            @SuppressLint("HandlerLeak")
-            @Override
-            public void onResponse(Call<CTDS_Model> call, Response<CTDS_Model> response) {
-                Message msg = new Message();
-                msg.obj = response;
-                msg.what = 100;
-
-                new Handler(){
-                    @Override
-                    public void handleMessage(Message msg){
-                        if(msg.what == 100){
-                            closeLoadingBar();
-
-                            Response<CTDS_Model> response = (Response<CTDS_Model>) msg.obj;
-
-                            callBack(response.body(), scanCode);
-
-                        }
-                    }
-                }.sendMessage(msg);
-            }
-
-            @Override
-            public void onFailure(Call<CTDS_Model> call, Throwable t) {
-                Log.d("Test", t.getMessage());
-                //closeLoadingBar();
-            }
-        });
-    }
-
-    private void callBack(CTDS_Model model, String scanCode){
-        if(model.Total == 0){
-            // New
-            // 등록 페이지 이동
-            Intent intent = new Intent(this, ChooseOne.class);
-            intent.putExtra("scanCode", scanCode);
-            startActivityForResult(intent, 2);
-
-        } else {
-            // Detail
-            // Detail 조회 페이지 이동
-            CtdVO ctdVO = new CtdVO();
-
-            ctdVO.CTD_01 = model.Data.get(0).CTDS_01;
-            ctdVO.CTN_02 = model.Data.get(0).CTN_02;
-            ctdVO.SVCL_04 = model.Data.get(0).SVCL_04;
-            ctdVO.SVCL_05 = model.Data.get(0).SVCL_05;
-            mUser.Value.CTN_02 = model.Data.get(0).CTN_02;
-            ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, ctdVO);
-            changeActivityCls.changeServiceWithScan(scanCode);
-        }
-
+    protected void scanResult(String str){
+        ScanResult scanResult = new ScanResult(mContext, str, null);
+        scanResult.run();
     }
 
     public void clearAppCache(File dir){

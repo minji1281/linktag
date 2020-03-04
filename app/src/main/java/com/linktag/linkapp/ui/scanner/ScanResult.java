@@ -17,6 +17,7 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.menu.ChangeActivityCls;
 import com.linktag.linkapp.ui.menu.ChooseOne;
+import com.linktag.linkapp.value_object.CtdVO;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -29,15 +30,16 @@ public class ScanResult {
     private boolean validation = false;
     private String str;
 
-    public ScanResult(Context mContext, String resultStr){
+    private CtdVO intentVO;
+
+    public ScanResult(Context mContext, String resultStr, CtdVO intentVO){
         this.mContext = mContext;
         this.str = resultStr;
+        this.intentVO = intentVO;
         mUser = InterfaceUser.getInstance();
-
-        run();
     }
 
-    private void run(){
+    public void run(){
         String scanCode = "";
 
         try{
@@ -109,22 +111,37 @@ public class ScanResult {
     }
 
     private void callBack(CTD_Model model, String scanCode){
+
+        System.out.println("###############");
+        System.out.println(scanCode);
         if(model.Data.get(0).Validation){
+
             if (model.Data.get(0).ErrorCode.equals("002")) {
                 Toast.makeText(mContext, " 사용중인 코드 입니다.", Toast.LENGTH_LONG).show();
             } else {
                 // Detail
                 // Detail 조회 페이지 이동
-            ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, model.Data.get(0));
-            changeActivityCls.changeServiceWithScan(scanCode);
+                ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, model.Data.get(0));
+                changeActivityCls.changeServiceWithScan(scanCode);
             }
         } else {
             // New
             // 선택 페이지 이동
+
+            /*
+            if(intentVO == null){
+
+            } else {
+
+            }
+
+
+             */
             Intent intent = new Intent(mContext, ChooseOne.class);
             intent.putExtra("scanCode", scanCode);
             mContext.startActivity(intent);
         }
+
     }
 
 }

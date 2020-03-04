@@ -25,6 +25,7 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.jdm.DetailJdm;
 import com.linktag.linkapp.ui.menu.Member;
+import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.TrdVO;
@@ -79,13 +80,11 @@ public class TRPMain extends BaseActivity {
 
 
     protected void initLayout() {
-        // 요거
         intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
 
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
-        // 요거
         initLayoutByContractType();
 
         view = findViewById(R.id.recyclerView);
@@ -106,6 +105,7 @@ public class TRPMain extends BaseActivity {
     // 요거
     private void initLayoutByContractType(){
         footer = findViewById(R.id.footer);
+        footer.btnFooterScan.setOnClickListener(v -> goScan());
 
         if(intentVO.CTM_19.equals("P")){
             // privateService
@@ -225,6 +225,12 @@ public class TRPMain extends BaseActivity {
             }
         });
 
+    }
+
+    @Override
+    protected void scanResult(String str){
+        ScanResult scanResult = new ScanResult(mContext, str, null);
+        scanResult.run();
     }
 
 }
