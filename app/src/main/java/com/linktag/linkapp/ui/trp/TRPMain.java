@@ -193,6 +193,9 @@ public class TRPMain extends BaseActivity {
                                     trpvo.setTRP_02("");
                                     trpvo.setTRP_03("");
                                     trpvo.setTRP_04("");
+                                    trpvo.setTRP_05("");
+                                    trpvo.setTRP_06("");
+                                    trpvo.setTRP_07("");
                                     trpvo.setTRP_97(mUser.Value.OCM_01);
                                     trpvo.setARM_03("N");
                                     trpvo.setARM_04(0);
@@ -200,8 +203,6 @@ public class TRPMain extends BaseActivity {
                                     intent.putExtra("TrpVO", trpvo);
                                     intent.putExtra("scanCode", scancode);
                                     intent.putExtra("intentVO", intentVO);  // 요래 넘깁시다
-//                                    intent.putExtra("CTM_01", intentVO.CTM_01);
-//                                    intent.putExtra("CTD_02", intentVO.CTD_02);
                                     mContext.startActivity(intent);
                                 } else {
                                     TrpVO trpvo = mList.get(0);

@@ -1,12 +1,9 @@
 package com.linktag.linkapp.ui.trp;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,14 +17,10 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.Switch;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
@@ -40,7 +33,6 @@ import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
@@ -49,6 +41,7 @@ import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -67,9 +60,15 @@ public class DetailTrp extends BaseActivity implements Serializable {
     private ImageView imageView;
     private EditText ed_name;
     private EditText ed_memo;
-    private TimePicker timePicker;
+    private Spinner sp_count;
+    private Spinner sp_timing;
+    private EditText ed_target;
 
-    private Spinner sp_day;
+    private HashMap<String, String> map_count = new HashMap<String, String>();
+    private HashMap<String, String> map_timing = new HashMap<String, String>();
+
+    SimpleDateFormat format = new SimpleDateFormat("yyyyMMdd");
+    SimpleDateFormat formatTime = new SimpleDateFormat("HHmm");
 
     private LinearLayout linearLayout;
     private InputMethodManager imm;
@@ -79,6 +78,8 @@ public class DetailTrp extends BaseActivity implements Serializable {
 
     private Button bt_save;
     private Button btn_addAlarm;
+
+    private String callBackTime = "";
 
     private TrpVO trpVO;
 
@@ -122,6 +123,9 @@ public class DetailTrp extends BaseActivity implements Serializable {
                 ed_name.getText().toString(),
                 ed_memo.getText().toString(),
                 trpVO.TRP_04,
+                trpVO.TRP_05,
+                trpVO.TRP_06,
+                ed_target.getText().toString(),
                 mUser.Value.OCM_01,
                 mUser.Value.OCM_01,
                 trpVO.ARM_03
@@ -173,14 +177,15 @@ public class DetailTrp extends BaseActivity implements Serializable {
 
         linearLayout = findViewById(R.id.linearLayout);
 
-        sp_day = findViewById(R.id.sp_day);
         imageView = findViewById(R.id.imageView);
         ed_name = (EditText) findViewById(R.id.ed_name);
         ed_memo = (EditText) findViewById(R.id.ed_memo);
-        timePicker = (TimePicker) findViewById(R.id.timePicker);
+
+        sp_count = findViewById(R.id.sp_count);
+        sp_timing = findViewById(R.id.sp_timing);
+        ed_target = findViewById(R.id.ed_target);
         bt_save = (Button) findViewById(R.id.bt_save);
         btn_addAlarm = (Button) findViewById(R.id.btn_addAlarm);
-
 
 
         mBtnArray[0] = (Button) findViewById(R.id.btn_Sunday);
@@ -221,6 +226,41 @@ public class DetailTrp extends BaseActivity implements Serializable {
         ed_memo.setText(trpVO.getTRP_03());
 
 
+        map_count.put("1회", "0");
+        map_count.put("2회", "1");
+        map_count.put("3회", "2");
+        map_count.put("4회", "4");
+        map_count.put("5회", "5");
+
+        map_timing.put("식전 30분", "0");
+        map_timing.put("식후 30분", "1");
+        map_timing.put("상관없음", "2");
+
+
+        String[] str = getResources().getStringArray(R.array.trp);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item4, str);
+        sp_count.setAdapter(adapter);
+
+        String[] str2 = getResources().getStringArray(R.array.trp2);
+        final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(mContext, R.layout.spinner_item4, str2);
+        sp_timing.setAdapter(adapter2);
+
+
+        if (trpVO.TRP_05.equals("")) {
+            sp_count.setSelection(0);
+        } else {
+            sp_count.setSelection(Integer.parseInt(trpVO.TRP_05));
+        }
+
+        if (trpVO.TRP_06.equals("")) {
+            sp_timing.setSelection(0);
+        } else {
+            sp_timing.setSelection(Integer.parseInt(trpVO.TRP_06));
+        }
+
+
+        ed_target.setText(trpVO.getTRP_07());
+        callBackTime = formatTime.format(calendar.getTime());
         requestTRD_SELECT();
     }
 
@@ -237,12 +277,6 @@ public class DetailTrp extends BaseActivity implements Serializable {
         recyclerView.setAdapter(mAdapter);
 
 
-        String[] str = getResources().getStringArray(R.array.trp);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item3, str);
-        sp_day.setAdapter(adapter);
-
-
-
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -257,30 +291,52 @@ public class DetailTrp extends BaseActivity implements Serializable {
         });
 
 
-        SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
-        alarmTime = format1.format(calendar.getTime());
-        SimpleDateFormat format2 = new SimpleDateFormat("HHmm");
-        alarmTime += format2.format(calendar.getTime());
-
-        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+        btn_addAlarm.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onTimeChanged(TimePicker timePicker, int hourOfDay, int minute) {
+            public void onClick(View v) {
+                // 커스텀 다이얼로그를 생성한다. 사용자가 만든 클래스이다.
+                AlarmDialog alarmDialog = new AlarmDialog(mContext, callBackTime);
 
-                alarmTime = alarmTime.substring(0, 8);
+                alarmDialog.setDialogListener(new AlarmDialog.CustomDialogListener() {
+                    @Override
+                    public void onPositiveClicked(String time) {
+                        callBackTime = time;
+                        alarmTime = format.format(calendar.getTime()) + time;
 
-                if (hourOfDay < 10) {
-                    alarmTime += "0" + String.valueOf(hourOfDay);
-                } else {
-                    alarmTime += String.valueOf(hourOfDay);
-                }
-                if (minute < 10) {
-                    alarmTime += "0" + String.valueOf(minute);
-                } else {
-                    alarmTime += String.valueOf(minute);
-                }
+                        requestTRD_CONTROL();
+//                        trdVO.setT_96(jdmVO.getJDM_96().substring(0, 8) + time);
+//                        callBackTime = time;
+                    }
 
+                    @Override
+                    public void onNegativeClicked() {
+
+                    }
+                });
+                alarmDialog.show();
             }
         });
+
+
+//        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
+//            @Override
+//            public void onTimeChanged(TimePicker timePicker, int hourOfDay, int minute) {
+//
+//                alarmTime = alarmTime.substring(0, 8);
+//
+//                if (hourOfDay < 10) {
+//                    alarmTime += "0" + String.valueOf(hourOfDay);
+//                } else {
+//                    alarmTime += String.valueOf(hourOfDay);
+//                }
+//                if (minute < 10) {
+//                    alarmTime += "0" + String.valueOf(minute);
+//                } else {
+//                    alarmTime += String.valueOf(minute);
+//                }
+//
+//            }
+//        });
 
 
         if (trpVO.TRP_97.equals(mUser.Value.OCM_01)) { //작성자만 삭제버튼 보임
@@ -323,17 +379,19 @@ public class DetailTrp extends BaseActivity implements Serializable {
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                trpVO.setTRP_05(map_count.get(sp_count.getSelectedItem()));
+                trpVO.setTRP_06(map_timing.get(sp_timing.getSelectedItem()));
+
                 requestTRP_CONTROL("UPDATE");
             }
         });
 
-        btn_addAlarm.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                requestTRD_CONTROL();
-            }
-        });
-
+//        btn_addAlarm.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                requestTRD_CONTROL();
+//            }
+//        });
 
 
         // 버튼들에 대한 클릭리스너 등록 및 각 버튼이 클릭되었을 때
@@ -523,7 +581,7 @@ public class DetailTrp extends BaseActivity implements Serializable {
                         }
                     }
                 }.sendMessage(msg);
-                Toast.makeText(mContext,"추가되었습니다.",Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, "추가되었습니다.", Toast.LENGTH_SHORT).show();
             }
 
             @Override

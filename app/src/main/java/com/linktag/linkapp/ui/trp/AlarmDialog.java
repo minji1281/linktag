@@ -1,4 +1,4 @@
-package com.linktag.linkapp.ui.alarm;
+package com.linktag.linkapp.ui.trp;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -74,9 +74,7 @@ public class AlarmDialog extends Dialog {
         okButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                // 커스텀 다이얼로그를 종료한다.
                 customDialogListener.onPositiveClicked(alarmTime);
-                dismiss();
             }
         });
         cancelButton.setOnClickListener(new View.OnClickListener() {

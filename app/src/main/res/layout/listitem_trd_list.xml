@@ -14,10 +14,10 @@
             android:orientation="horizontal">
 
             <ImageView
-                android:layout_width="35dp"
-                android:layout_height="35dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_trp" />
+                android:background="@drawable/ic_time" />
 
 
             <LinearLayout

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="trp2">
+        <item>식전 30분</item>
+        <item>식후 30분</item>
+        <item>상관없음</item>
+    </string-array>
+</resources>

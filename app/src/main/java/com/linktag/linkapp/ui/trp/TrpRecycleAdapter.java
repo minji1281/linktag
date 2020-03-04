@@ -248,6 +248,9 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
                     trpvo.setTRP_02(tv_name.getText().toString());
                     trpvo.setTRP_03(tv_memo.getText().toString());
                     trpvo.setTRP_04(mList.get(position).TRP_04);
+                    trpvo.setTRP_05(mList.get(position).TRP_05);
+                    trpvo.setTRP_06(mList.get(position).TRP_06);
+                    trpvo.setTRP_07(mList.get(position).TRP_07);
                     trpvo.setTRP_97(mList.get(position).TRP_97);
                     trpvo.setARM_03(mList.get(position).ARM_03);
                     trpvo.setARM_04(mList.get(position).ARM_04);
