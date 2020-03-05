@@ -9,12 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_fragment.BaseFragment;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.settings.SettingsKey;
+import com.linktag.base.util.ClsDateTime;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.ui.settings_profile.ProfileMain;
@@ -26,13 +29,19 @@ public class SettingMain extends BaseActivity {
 
     private BaseHeader header;
 
-    private Button btnProfile;
-    private Button btnPreferences;
-    private Button btnLogout;
-    private Button btnGoHomepage;
+    private RelativeLayout layProfile;
 
     private TextView tvUserName;
-    private TextView tvUserPhone;
+    private TextView tvUserEmail;
+    private TextView tvUserSignDate;
+
+    private TextView btnNotice;
+    private TextView btnGuide;
+    private TextView btnHelp;
+    private TextView btnPreferences;
+    private TextView btnLogout;
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -53,43 +62,62 @@ public class SettingMain extends BaseActivity {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
+        layProfile = findViewById(R.id.layProfile);
+        layProfile.setOnClickListener(v -> goProfileMain());
+
         tvUserName = findViewById(R.id.tvUserName);
         tvUserName.setText(mUser.Value.OCM_02);
+        tvUserEmail = findViewById(R.id.tvUserEmail);
+        tvUserEmail.setText(mUser.Value.OCM_21);
+        tvUserSignDate = findViewById(R.id.tvUserSignDate);
+        tvUserSignDate.setText(ClsDateTime.ConvertDateFormat("yyyyMMdd", "yyyy. MM. dd", mUser.Value.OCM_28) + " 가입");
 
-        tvUserPhone = findViewById(R.id.tvUserPhone);
-        tvUserPhone.setText(mUser.Value.OCM_51);
+        btnNotice = findViewById(R.id.btnNotice);
+        btnNotice.setOnClickListener(v -> goNotice());
 
-        btnProfile = findViewById(R.id.btnProfile);
-        btnProfile.setOnClickListener(v -> goProfileMain(""));
+        btnGuide = findViewById(R.id.btnGuide);
+        btnGuide.setOnClickListener(v -> goHomepage("guide"));
+
+        btnHelp = findViewById(R.id.btnHelp);
+        btnHelp.setOnClickListener(v -> goHomepage("help"));
 
         btnPreferences = findViewById(R.id.btnPreferences);
         btnPreferences.setOnClickListener(v -> goPreference());
 
         btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> logout());
-
-        btnGoHomepage = findViewById(R.id.btnGoHomepage);
-        btnGoHomepage.setOnClickListener(v -> goHomepage());
     }
 
     @Override
     protected void initialize() {
 
     }
+
+    private void goNotice(){
+
+    }
+
     /**
      * 홈페이지로 이동
      */
-    private void goHomepage() {
-        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://linktag.io"));
-        mContext.startActivity(intent);
+    private void goHomepage(String gub) {
+        if(gub.equals("guide")){
+            // 서비스 소개
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://linktag.io/Home/Service"));
+            mContext.startActivity(intent);
+        } else if (gub.equals("help")){
+            // 고객센터
+            Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://linktag.io/Home/Custom"));
+            mContext.startActivity(intent);
+        }
     }
 
     /**
      * 프로필 메인
      */
-    private void goProfileMain(String gub) {
+    private void goProfileMain() {
         Intent intent = new Intent(mContext, ProfileMain.class);
-        intent.putExtra("setPwd", gub);
+        //intent.putExtra("setPwd", gub);
         mContext.startActivity(intent);
     }
 

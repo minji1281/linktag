@@ -52,6 +52,10 @@ public class HomeFragment extends BaseFragment {
     private TextView tvNotice;
     private SwipeRefreshLayout swipeRefresh;
 
+    private TextView tvHomeName;
+    private TextView tvHomeEmail;
+    private TextView tvHomeDate;
+
     private ExpandableHeightGridView gridBMK;
     private TextView btnBmkAdd;
     private TextView btnBmkDelete;
@@ -113,6 +117,10 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
+        tvHomeName = view.findViewById(R.id.tvHomeName);
+        tvHomeEmail = view.findViewById(R.id.tvHomeEmail);
+        tvHomeDate = view.findViewById(R.id.tvHomeDate);
+
         btnBmkAdd = view.findViewById(R.id.btnBmkAdd);
         //btnBmkAdd.setOnClickListener(v -> go);
         btnBmkDelete = view.findViewById(R.id.btnBmkDelete);
@@ -159,6 +167,10 @@ public class HomeFragment extends BaseFragment {
     }
 
     protected void initialize(){
+        tvHomeName.setText(mUser.Value.OCM_02);
+        tvHomeEmail.setText(mUser.Value.OCM_21);
+        tvHomeDate.setText(ClsDateTime.getNow("yyyy. MM. dd"));
+
         mList = new ArrayList<>();
         mList2 = new ArrayList<>();
 

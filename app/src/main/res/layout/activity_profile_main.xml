@@ -13,16 +13,22 @@
         android:layout_height="wrap_content"
         app:title_text="프로필 설정" />
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fadingEdgeLength="0dp"
-        android:overScrollMode="never">
+        android:background="#FAFAFA"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:layout_marginBottom="15dp"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp">
 
             <!-- 프로필 사진 -->
 
@@ -54,91 +60,105 @@
             </LinearLayout>
 
 
-            <!-- 이름 -->
-            <RelativeLayout
-                android:id="@+id/layoutChangeEmail"
+            <!-- 이메일 -->
+            <LinearLayout
+                android:id="@+id/layoutEmail"
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/white">
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
                     android:text="이메일"
-                    android:textColor="@color/black"
                     android:textSize="@dimen/text_small" />
 
-                <RelativeLayout
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true">
+                <TextView
+                    android:id="@+id/tvChangeEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent_color"
+                    android:gravity="center_vertical"
+                    android:hint="이메일"
+                    android:inputType="textEmailAddress"
+                    android:maxLength="50"
+                    android:padding="0dp"
+                    android:singleLine="true"
+                    android:text="pengsu@ebs.co.kr"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvChangeEmail"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_alignParentStart="true"
-                        android:background="@color/transparent_color"
-                        android:gravity="center_vertical"
-                        android:hint="이메일"
-                        android:inputType="textEmailAddress"
-                        android:maxLength="50"
-                        android:padding="0dp"
-                        android:singleLine="true"
-                        android:text="test@gmail.com"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/text_small"
-                        android:textStyle="bold" />
-                </RelativeLayout>
+            </LinearLayout>
 
-                <LinearLayout
-                    style="@style/common_horizontal_line"
-                    android:layout_alignParentBottom="true" />
-            </RelativeLayout>
+            <!-- 가입일 -->
+
+            <LinearLayout
+                style="@style/common_horizontal_line"
+                android:visibility="gone" />
+
+            <LinearLayout
+                android:id="@+id/layoutSignDate"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="가입일"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/tvSignDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/transparent_color"
+                    android:gravity="center_vertical"
+                    android:hint="가입일"
+                    android:maxLength="50"
+                    android:padding="0dp"
+                    android:singleLine="true"
+                    android:text="2000. 01. 01"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/common_horizontal_line"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
                 android:orientation="vertical">
 
 
                 <RelativeLayout
                     android:layout_width="match_parent"
-                    android:layout_height="50dp"
-                    android:background="@color/white">
+                    android:layout_height="60dp">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginStart="20dp"
                         android:text="비밀번호"
-                        android:textColor="@color/black"
                         android:textSize="@dimen/text_small" />
 
-                    <LinearLayout
-                        android:layout_width="200dp"
-                        android:layout_height="match_parent"
+                    <Button
+                        android:id="@+id/btnChangePwd"
+                        style="@style/common_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:gravity="right|center_vertical"
-                        android:orientation="vertical">
-
-
-                        <Button
-                            android:id="@+id/btnChangePwd"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_marginEnd="20dp"
-                            android:text="수정"
-                            android:textSize="@dimen/text_smaller" />
-                    </LinearLayout>
+                        android:text="수정"
+                        android:textSize="@dimen/text_smaller" />
 
                 </RelativeLayout>
 
@@ -146,13 +166,12 @@
                     android:id="@+id/layoutChangePwd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical">
+                    android:orientation="vertical"
+                    android:visibility="gone">
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@color/white"
+                        android:layout_height="60dp"
                         android:gravity="center_vertical">
 
 
@@ -160,8 +179,6 @@
                             android:id="@+id/etOldPwd"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="20dp"
                             android:ems="20"
                             android:hint="기존 비밀번호를 입력해 주세요"
                             android:inputType="textPassword"
@@ -170,8 +187,7 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@color/white"
+                        android:layout_height="60dp"
                         android:gravity="center_vertical">
 
 
@@ -179,8 +195,6 @@
                             android:id="@+id/etNewPwd1"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="20dp"
                             android:ems="20"
                             android:hint="새 비밀번호를 입력해주세요."
                             android:inputType="textPassword"
@@ -190,7 +204,6 @@
                     <RelativeLayout
                         android:layout_width="match_parent"
                         android:layout_height="50dp"
-                        android:background="@color/white"
                         android:gravity="center_vertical">
 
 
@@ -198,8 +211,6 @@
                             android:id="@+id/etNewPwd2"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="20dp"
                             android:ems="20"
                             android:hint="새 비밀번호를 한번 더 확인해주세요."
                             android:inputType="textPassword"
@@ -208,8 +219,7 @@
 
                     <RelativeLayout
                         android:layout_width="match_parent"
-                        android:layout_height="50dp"
-                        android:background="@color/white"
+                        android:layout_height="60dp"
                         android:gravity="center_vertical">
 
 
@@ -217,8 +227,6 @@
                             android:id="@+id/btnSubmitPwd"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginEnd="20dp"
                             android:background="@android:color/holo_red_light"
                             android:text="확인"
                             android:textColor="@android:color/white"
@@ -227,153 +235,90 @@
                 </LinearLayout>
 
 
-                <LinearLayout
-                    style="@style/common_horizontal_line"
-                    android:layout_alignParentBottom="true" />
             </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/layoutName"
+            <LinearLayout
+                style="@style/common_horizontal_line"
+                android:visibility="gone" />
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutChange"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:orientation="vertical"
+            android:paddingStart="20dp"
+            android:paddingTop="10dp"
+            android:paddingEnd="20dp"
+            android:paddingBottom="10dp">
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@color/white">
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
                     android:text="이름"
-                    android:textColor="@color/black"
                     android:textSize="@dimen/text_small" />
 
                 <EditText
                     android:id="@+id/etUserName"
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/transparent_color"
                     android:gravity="center_vertical"
                     android:hint="이름"
                     android:maxLength="30"
                     android:singleLine="true"
-                    android:text="이순신"
+                    android:text="펭수"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_small"
                     android:textStyle="bold" />
 
-                <LinearLayout
-                    style="@style/common_horizontal_line"
-                    android:layout_alignParentBottom="true" />
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/layoutChangePhone"
+
+            <LinearLayout style="@style/common_horizontal_line" />
+
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:background="@color/white">
+                android:gravity="center_vertical"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
                     android:text="휴대전화 번호"
-                    android:textColor="@color/black"
                     android:textSize="@dimen/text_small" />
 
                 <EditText
                     android:id="@+id/etPhoneNumber"
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:background="@color/transparent_color"
                     android:gravity="center_vertical"
+                    android:inputType="phone"
                     android:maxLength="13"
                     android:text="010-1234-5678"
                     android:textColor="@color/black"
                     android:textSize="@dimen/text_small"
                     android:textStyle="bold" />
 
-                <LinearLayout
-                    style="@style/common_horizontal_line"
-                    android:layout_alignParentBottom="true" />
-            </RelativeLayout>
+            </LinearLayout>
 
-            <RelativeLayout
-                android:id="@+id/layoutChangeDep"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/white">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:text="부서"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_small" />
-
-                <EditText
-                    android:id="@+id/etDep"
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:background="@color/transparent_color"
-                    android:gravity="center_vertical"
-                    android:text="개발"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_small"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    style="@style/common_horizontal_line"
-                    android:layout_alignParentBottom="true" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layoutChangeRank"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:background="@color/white">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentStart="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginStart="20dp"
-                    android:text="직급"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_small" />
-
-                <EditText
-                    android:id="@+id/etRank"
-                    android:layout_width="200dp"
-                    android:layout_height="match_parent"
-                    android:layout_alignParentEnd="true"
-                    android:layout_centerVertical="true"
-                    android:background="@color/transparent_color"
-                    android:gravity="center_vertical"
-                    android:text="사원"
-                    android:textColor="@color/black"
-                    android:textSize="@dimen/text_small"
-                    android:textStyle="bold" />
-
-                <LinearLayout
-                    style="@style/common_horizontal_line"
-                    android:layout_alignParentBottom="true" />
-            </RelativeLayout>
-
+            <LinearLayout style="@style/common_horizontal_line" />
 
 
         </LinearLayout>
-    </ScrollView>
+
+    </LinearLayout>
+
+
 </LinearLayout>
