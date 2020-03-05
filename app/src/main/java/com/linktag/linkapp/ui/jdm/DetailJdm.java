@@ -35,6 +35,7 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm.AlarmDialog;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.JdmVO;
 
 import java.io.Serializable;
@@ -73,8 +74,8 @@ public class DetailJdm extends BaseActivity {
     private Spinner sp_size;
     private TextView tv_recycleDay;
 
+    private CtdVO intentVO;
     private JdmVO jdmVO;
-
     private Calendar calendar = Calendar.getInstance();
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
@@ -83,8 +84,6 @@ public class DetailJdm extends BaseActivity {
 
     private HashMap<String, String> map_size = new HashMap<String, String>();
 
-    private String CTM_01;
-    private String CTD_02;
 
     private String recycleDayVal1;
     private String recycleDayVal2;
@@ -107,8 +106,7 @@ public class DetailJdm extends BaseActivity {
         initialize();
 
         if (getIntent().hasExtra("scanCode")) {
-            CTM_01 = getIntent().getStringExtra("CTM_01");
-            CTD_02 = getIntent().getStringExtra("CTD_02");
+            intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
         }
 
     }
@@ -167,7 +165,7 @@ public class DetailJdm extends BaseActivity {
             public void onResponse(Call<JDMModel> call, Response<JDMModel> response) {
 
                 if (GUBUN.equals("INSERT")) {
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02, jdmVO.JDM_01);
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, jdmVO.JDM_01);
                     ctds_control.requestCTDS_CONTROL();
                     onBackPressed();
                 }

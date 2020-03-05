@@ -192,13 +192,12 @@ public class TRPMain extends BaseActivity {
                                     trpvo.setTRP_01(scancode);
                                     trpvo.setTRP_02("");
                                     trpvo.setTRP_03("");
-                                    trpvo.setTRP_04("");
+                                    trpvo.setTRP_04("YYYYYYY");
                                     trpvo.setTRP_05("");
                                     trpvo.setTRP_06("");
                                     trpvo.setTRP_07("");
                                     trpvo.setTRP_97(mUser.Value.OCM_01);
                                     trpvo.setARM_03("N");
-                                    trpvo.setARM_04(0);
                                     Intent intent = new Intent(mContext, DetailTrp.class);
                                     intent.putExtra("TrpVO", trpvo);
                                     intent.putExtra("scanCode", scancode);

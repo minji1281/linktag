@@ -24,10 +24,12 @@ import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.model.TRDModel;
+import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
+import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.ArmVO;
 import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
@@ -45,8 +47,6 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
     private LayoutInflater mInflater;
     private View view;
     private InterfaceUser mUser;
-
-
 
 
     TrpRecycleAdapter(Context context, ArrayList<TrpVO> list) {
@@ -85,7 +85,6 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
         viewHolder.recyclerView_TRD.setAdapter(viewHolder.mAdapter_trd);
 
 
-
         if (mList.get(position).ARM_03.equals("Y")) {
             viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
         } else if (mList.get(position).ARM_03.equals("N")) {
@@ -96,24 +95,35 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
             @Override
             public void onClick(View view) {
 
-                ArmVO armVO = new ArmVO();
-
-                armVO.setARM_ID(mList.get(position).TRP_ID);
-                armVO.setARM_01(mList.get(position).TRP_01);
-                armVO.setARM_02(mUser.Value.OCM_01);
-                armVO.setARM_03(mList.get(position).ARM_03);
-                armVO.setARM_95("");
-                armVO.setARM_98(mUser.Value.OCM_01);
-
-                requestARM_CONTROL(armVO, position);
+                if (viewHolder.mList_trd.size() ==0){
+                    Toast.makeText(mContext,"지정된 알림이 없습니다.",Toast.LENGTH_LONG).show();
+                    return;
+                }
 
                 if (mList.get(position).ARM_03.equals("Y")) {
+                    mList.get(position).setARM_03("N");
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
                     Toast.makeText(mContext, "[" + mList.get(position).TRP_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
                 } else {
+                    mList.get(position).setARM_03("Y");
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
                     Toast.makeText(mContext, "[" + mList.get(position).TRP_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
                 }
+
+                TrpVO trpvo = new TrpVO();
+                trpvo.setTRP_ID(mList.get(position).TRP_ID);
+                trpvo.setTRP_01(mList.get(position).TRP_01);
+                trpvo.setTRP_02(mList.get(position).TRP_02);
+                trpvo.setTRP_03(mList.get(position).TRP_03);
+                trpvo.setTRP_04(mList.get(position).TRP_04);
+                trpvo.setTRP_05(mList.get(position).TRP_05);
+                trpvo.setTRP_06(mList.get(position).TRP_06);
+                trpvo.setTRP_07(mList.get(position).TRP_07);
+                trpvo.setTRP_97(mList.get(position).TRP_97);
+                trpvo.setARM_03(mList.get(position).ARM_03);
+
+                requestTRP_CONTROL(trpvo, position);
+
             }
         });
 
@@ -159,6 +169,14 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
                             if (viewHolder.mList_trd == null)
                                 viewHolder.mList_trd = new ArrayList<>();
 
+                            if (viewHolder.mList_trd.size() ==0){
+                                viewHolder.tv_alarmNone.setVisibility(View.VISIBLE);
+                                viewHolder.recyclerView_TRD.setVisibility(View.GONE);
+                            }
+                            else{
+                                viewHolder.tv_alarmNone.setVisibility(View.GONE);
+                                viewHolder.recyclerView_TRD.setVisibility(View.VISIBLE);
+                            }
                             viewHolder.mAdapter_trd.updateData(viewHolder.mList_trd);
                             viewHolder.mAdapter_trd.notifyDataSetChanged();
 
@@ -181,33 +199,31 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
         String[] array_pattern;
         String result_Weeks = "";
         array_pattern = pattern.split("");
-        if(pattern.equals("YYYYYYY")) {result_Weeks ="매일"; return result_Weeks;}
-        else{
+        if (pattern.equals("YYYYYYY")) {
+            result_Weeks = "매일";
+            return result_Weeks;
+        } else {
             for (int i = 0; i < array_pattern.length; i++) {
-                if (array_pattern[i].equals("Y") && i == 1) { result_Weeks += "일 "; }
-                else if (array_pattern[i].equals("Y") && i == 2){ result_Weeks += "월 ";}
-                else if (array_pattern[i].equals("Y") && i == 3){ result_Weeks += "화 ";}
-                else if (array_pattern[i].equals("Y") && i == 4){ result_Weeks += "수 ";}
-                else if (array_pattern[i].equals("Y") && i == 5){ result_Weeks += "목 ";}
-                else if (array_pattern[i].equals("Y") && i == 6){ result_Weeks += "금 ";}
-                else if (array_pattern[i].equals("Y") && i == 7){ result_Weeks += "토 ";}
+                if (array_pattern[i].equals("Y") && i == 1) {
+                    result_Weeks += "일 ";
+                } else if (array_pattern[i].equals("Y") && i == 2) {
+                    result_Weeks += "월 ";
+                } else if (array_pattern[i].equals("Y") && i == 3) {
+                    result_Weeks += "화 ";
+                } else if (array_pattern[i].equals("Y") && i == 4) {
+                    result_Weeks += "수 ";
+                } else if (array_pattern[i].equals("Y") && i == 5) {
+                    result_Weeks += "목 ";
+                } else if (array_pattern[i].equals("Y") && i == 6) {
+                    result_Weeks += "금 ";
+                } else if (array_pattern[i].equals("Y") && i == 7) {
+                    result_Weeks += "토 ";
+                }
             }
         }
         return result_Weeks;
     }
 
-    public void cancelAlarm(Context context, int alarmId) {
-        AlarmManager alarmManager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
-        Intent intent = new Intent(context, Alarm_Receiver.class);
-        intent.putExtra("notify_id", alarmId);
-        intent.putExtra("ContentTitle", "");
-        intent.putExtra("contentText", "");
-
-
-        PendingIntent pendingIntent = PendingIntent.getBroadcast(context, alarmId, intent, PendingIntent.FLAG_UPDATE_CURRENT);
-        alarmManager.cancel(pendingIntent);
-        pendingIntent.cancel();
-    }
 
     @Override
     public int getItemCount() {
@@ -227,6 +243,8 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
 
         RecyclerView recyclerView_TRD;
 
+        TextView tv_alarmNone;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -234,8 +252,10 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_memo = itemView.findViewById(R.id.tv_memo);
             tv_week = itemView.findViewById(R.id.tv_week);
+
             recyclerView_TRD = itemView.findViewById(R.id.recyclerView_TRD);
 
+            tv_alarmNone = itemView.findViewById(R.id.tv_alarmNone);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -253,7 +273,6 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
                     trpvo.setTRP_07(mList.get(position).TRP_07);
                     trpvo.setTRP_97(mList.get(position).TRP_97);
                     trpvo.setARM_03(mList.get(position).ARM_03);
-                    trpvo.setARM_04(mList.get(position).ARM_04);
 
                     Intent intent = new Intent(mContext, DetailTrp.class);
                     intent.putExtra("TrpVO", trpvo);
@@ -269,98 +288,43 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
     }
 
 
-
-    public void requestARM_CONTROL(ArmVO armVO, int position) {
-
+    public void requestTRP_CONTROL(TrpVO trpVO, int position) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
-            //BaseAlert.show(getString(R.string.common_network_error));
+            BaseAlert.show(mContext.getString(R.string.common_network_error));
             return;
         }
 
-
-        Call<ARMModel> call = Http.arm(HttpBaseService.TYPE.POST).ARM_CONTROL(
+        Call<TRPModel> call = Http.trp(HttpBaseService.TYPE.POST).TRP_CONTROL(
                 BaseConst.URL_HOST,
                 "UPDATE_2",
-                armVO.ARM_ID,
-                armVO.ARM_01,
-                armVO.ARM_02,
-                armVO.ARM_03,
-                armVO.ARM_90,
-                armVO.ARM_91,
-                armVO.ARM_92,
-                armVO.ARM_93,
-                armVO.ARM_94,
-                armVO.ARM_95,
-                armVO.ARM_98
+                trpVO.TRP_ID,
+                trpVO.TRP_01,
+                trpVO.TRP_02,
+                trpVO.TRP_03,
+                trpVO.TRP_04,
+                trpVO.TRP_05,
+                trpVO.TRP_06,
+                trpVO.TRP_07,
+                mUser.Value.OCM_01,
+                mUser.Value.OCM_01,
+                trpVO.ARM_03
         );
 
-        call.enqueue(new Callback<ARMModel>() {
-            @SuppressLint("HandlerLeak")
+
+        call.enqueue(new Callback<TRPModel>() {
             @Override
-            public void onResponse(Call<ARMModel> call, Response<ARMModel> response) {
-                Message msg = new Message();
-                msg.obj = response;
-                msg.what = 100;
+            public void onResponse(Call<TRPModel> call, Response<TRPModel> response) {
 
-                new Handler() {
-                    @Override
-                    public void handleMessage(Message msg) {
-                        if (msg.what == 100) {
-
-                            Response<ARMModel> response = (Response<ARMModel>) msg.obj;
-
-                            ArrayList<ArmVO> responseData = response.body().Data;
-
-                            mList.get(position).setARM_04(responseData.get(0).ARM_04);
-
-                            if (mList.get(position).ARM_03.equals("Y")) {
-                                mList.get(position).setARM_03("N");
-
-                                //cancelAlarm(mContext, mList.get(position).ARM_04);
-
-                            } else {
-                                mList.get(position).setARM_03("Y");
-
-//                                Intent intent = new Intent(mContext, Alarm_Receiver.class);
-//                                intent.putExtra("notify_id", responseData.get(0).ARM_04);
-//                                intent.putExtra("calDateTime", mList.get(position).JDM_96);
-//                                intent.putExtra("contentTitle", "장독관리" + mList.get(position).JDM_02);
-//                                intent.putExtra("contentText", mList.get(position).JDM_03);
-//                                intent.putExtra("className", ".ui.intro.Intro");
-//                                intent.putExtra("gotoActivity", ".ui.main.JDMMain");
-//                                intent.putExtra("gotoLogin", ".ui.login.Login");
-//                                intent.putExtra("gotoMain", ".ui.main.Main");
-//
-//
-//                                JdmVO jdmvo = new JdmVO();
-//                                jdmvo.setJDM_01(mList.get(position).getJDM_01());
-//                                jdmvo.setJDM_02(mList.get(position).getJDM_02());
-//                                jdmvo.setJDM_03(mList.get(position).getJDM_03());
-//                                jdmvo.setJDM_04(mList.get(position).getJDM_04());
-//                                jdmvo.setJDM_96(mList.get(position).getJDM_96());
-//                                jdmvo.setARM_03(mList.get(position).getARM_03());
-//
-//                                intent.putExtra("mList", mList);
-//
-//                                intent.putExtra("JdmVO", jdmvo);
-//
-//
-//                                new AlarmHATT(mContext).Alarm(intent);
-
-                            }
-
-                        }
-
-                    }
-                }.sendMessage(msg);
             }
 
-            public void onFailure(Call<ARMModel> call, Throwable t) {
+            @Override
+            public void onFailure(Call<TRPModel> call, Throwable t) {
                 Log.d("Test", t.getMessage());
 
             }
         });
+
     }
 
 }

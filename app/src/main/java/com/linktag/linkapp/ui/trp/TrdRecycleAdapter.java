@@ -14,19 +14,28 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.linktag.base.network.ClsNetworkCheck;
+import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.TRDModel;
+import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.value_object.TrdVO;
+import com.linktag.linkapp.value_object.TrpVO;
 
 import java.util.ArrayList;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
+
+import static com.linktag.linkapp.ui.trp.DetailTrp.tv_alarmLabel;
+import static com.linktag.linkapp.ui.trp.DetailTrp.recyclerView;
+import static com.linktag.linkapp.ui.trp.DetailTrp.alarmState;
+import static com.linktag.linkapp.ui.trp.DetailTrp.imageView;
+import static com.linktag.linkapp.ui.trp.DetailTrp.trpVO;
 
 public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.ViewHolder> {
 
@@ -35,10 +44,12 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
     private LayoutInflater mInflater;
     private View view;
     private TrdRecycleAdapter mAdapter;
+    private InterfaceUser mUser;
 
     TrdRecycleAdapter(Context context, ArrayList<TrdVO> list) {
         mContext = context;
         mList = list;
+        mUser = InterfaceUser.getInstance();
     }
 
     public void setmAdapter(TrdRecycleAdapter mAdapter) {
@@ -104,6 +115,11 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
                 trdVO.TRD_01,
                 trdVO.TRD_02,
                 "",
+                "",
+
+                "",
+                "",
+                "",
                 ""
         );
 
@@ -128,6 +144,22 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
                             if (mList == null)
                                 mList = new ArrayList<>();
 
+                            if(mList.size()==0){
+                                tv_alarmLabel.setVisibility(View.VISIBLE);
+                                recyclerView.setVisibility(View.GONE);
+                                alarmState = false;
+
+                                imageView.setImageResource(R.drawable.alarm_state_off);
+                                requestTRP_CONTROL(trdVO);
+                                trpVO.setTRP_08("N");
+
+                            }
+                            else{
+                                recyclerView.setVisibility(View.VISIBLE);
+                                tv_alarmLabel.setVisibility(View.GONE);
+                                alarmState = true;
+                            }
+
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();
 
@@ -140,6 +172,48 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
             @Override
             public void onFailure(Call<TRDModel> call, Throwable t) {
                 Log.d("Test", t.getMessage());
+            }
+        });
+
+    }
+
+
+
+    public void requestTRP_CONTROL(TrdVO trdVO) {
+        // 인터넷 연결 여부 확인
+        if (!ClsNetworkCheck.isConnectable(mContext)) {
+            BaseAlert.show(mContext.getString(R.string.common_network_error));
+            return;
+        }
+
+        Call<TRPModel> call = Http.trp(HttpBaseService.TYPE.POST).TRP_CONTROL(
+                BaseConst.URL_HOST,
+                "UPDATE_2",
+                trdVO.TRD_ID,
+                trdVO.TRD_01,
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                "",
+                mUser.Value.OCM_01
+
+        );
+
+
+        call.enqueue(new Callback<TRPModel>() {
+            @Override
+            public void onResponse(Call<TRPModel> call, Response<TRPModel> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<TRPModel> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+
             }
         });
 

@@ -28,7 +28,9 @@ import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.JdmVO;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -49,6 +51,9 @@ public class JDMMain extends BaseActivity {
     private ArrayList<JdmVO> mList;
 
     private CtdVO intentVO;
+
+    private Calendar calendar = Calendar.getInstance();
+    SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
 
     public JDMMain() {
     }
@@ -197,7 +202,7 @@ public class JDMMain extends BaseActivity {
                                     jdmvo.setJDM_05("");
                                     jdmvo.setJDM_06("");
                                     jdmvo.setJDM_07("");
-                                    jdmvo.setJDM_08("");
+                                    jdmvo.setJDM_08(formatDate.format(calendar.getTime()));
                                     jdmvo.setJDM_96("");
                                     jdmvo.setJDM_97(mUser.Value.OCM_01);
                                     jdmvo.setARM_03("N");
@@ -205,8 +210,7 @@ public class JDMMain extends BaseActivity {
                                     Intent intent = new Intent(mContext, DetailJdm.class);
                                     intent.putExtra("JdmVO", jdmvo);
                                     intent.putExtra("scanCode", scancode);
-                                    intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
-                                    intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
+                                    intent.putExtra("intentVO", intentVO);
                                     mContext.startActivity(intent);
                                 } else {
                                     JdmVO jdmvo = mList.get(0);

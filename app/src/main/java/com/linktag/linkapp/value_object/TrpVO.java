@@ -9,10 +9,11 @@ public class TrpVO implements Serializable {
     public String TRP_01; // 코드 일련번호
     public String TRP_02; // 명칭
     public String TRP_03; // 메모
-    public String TRP_04; // 복용빈도
+    public String TRP_04; // 요일
     public String TRP_05; // 복약 일 횟수
     public String TRP_06; // 식전후 구분
     public String TRP_07; // 대상자
+    public String TRP_08; // 대상자
     public String TRP_97; // 작성자 아이디
     public String TRP_98; // 최종수정자 아이디
 
@@ -96,6 +97,14 @@ public class TrpVO implements Serializable {
 
     public void setTRP_07(String TRP_07) {
         this.TRP_07 = TRP_07;
+    }
+
+    public String getTRP_08() {
+        return TRP_08;
+    }
+
+    public void setTRP_08(String TRP_08) {
+        this.TRP_08 = TRP_08;
     }
 
     public String getTRP_97() {

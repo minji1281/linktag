@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
@@ -34,10 +35,10 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
 
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -47,22 +48,25 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailTrp extends BaseActivity implements Serializable {
+public class DetailTrp extends BaseActivity{
 
     private BaseHeader header;
 
-    private RecyclerView recyclerView;
+    public static RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private ArrayList<TrdVO> mList;
     private TrdRecycleAdapter mAdapter;
 
 
-    private ImageView imageView;
+    public static ImageView imageView;
     private EditText ed_name;
     private EditText ed_memo;
     private Spinner sp_count;
     private Spinner sp_timing;
     private EditText ed_target;
+
+    public static TextView tv_alarmLabel;
+    public static boolean alarmState = false;
 
     private HashMap<String, String> map_count = new HashMap<String, String>();
     private HashMap<String, String> map_timing = new HashMap<String, String>();
@@ -81,15 +85,14 @@ public class DetailTrp extends BaseActivity implements Serializable {
 
     private String callBackTime = "";
 
-    private TrpVO trpVO;
+    public static TrpVO trpVO;
 
     private Calendar calendar = Calendar.getInstance();
 
 
     private String alarmTime;
 
-    private String CTM_01;
-    private String CTD_02;
+    private CtdVO intentVO;
 
 
     @Override
@@ -103,8 +106,7 @@ public class DetailTrp extends BaseActivity implements Serializable {
         initialize();
 
         if (getIntent().hasExtra("scanCode")) {
-            CTM_01 = getIntent().getStringExtra("CTM_01");
-            CTD_02 = getIntent().getStringExtra("CTD_02");
+            intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
         }
     }
 
@@ -129,7 +131,7 @@ public class DetailTrp extends BaseActivity implements Serializable {
                 mUser.Value.OCM_01,
                 mUser.Value.OCM_01,
                 trpVO.ARM_03
-        );
+                );
 
 
         call.enqueue(new Callback<TRPModel>() {
@@ -137,7 +139,7 @@ public class DetailTrp extends BaseActivity implements Serializable {
             public void onResponse(Call<TRPModel> call, Response<TRPModel> response) {
 
                 if (GUBUN.equals("INSERT")) {
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02, trpVO.TRP_01);
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, trpVO.TRP_01);
                     ctds_control.requestCTDS_CONTROL();
                 }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
@@ -181,6 +183,8 @@ public class DetailTrp extends BaseActivity implements Serializable {
         ed_name = (EditText) findViewById(R.id.ed_name);
         ed_memo = (EditText) findViewById(R.id.ed_memo);
 
+        tv_alarmLabel = findViewById(R.id.tv_alarmLabel);
+
         sp_count = findViewById(R.id.sp_count);
         sp_timing = findViewById(R.id.sp_timing);
         ed_target = findViewById(R.id.ed_target);
@@ -218,8 +222,10 @@ public class DetailTrp extends BaseActivity implements Serializable {
 
         if (trpVO.ARM_03.equals("Y")) {
             imageView.setImageResource(R.drawable.alarm_state_on);
+            alarmState = true;
         } else {
             imageView.setImageResource(R.drawable.alarm_state_off);
+            alarmState = false;
         }
 
         ed_name.setText(trpVO.getTRP_02());
@@ -229,8 +235,8 @@ public class DetailTrp extends BaseActivity implements Serializable {
         map_count.put("1회", "0");
         map_count.put("2회", "1");
         map_count.put("3회", "2");
-        map_count.put("4회", "4");
-        map_count.put("5회", "5");
+        map_count.put("4회", "3");
+        map_count.put("5회", "4");
 
         map_timing.put("식전 30분", "0");
         map_timing.put("식후 30분", "1");
@@ -261,7 +267,6 @@ public class DetailTrp extends BaseActivity implements Serializable {
 
         ed_target.setText(trpVO.getTRP_07());
         callBackTime = formatTime.format(calendar.getTime());
-        requestTRD_SELECT();
     }
 
 
@@ -276,10 +281,15 @@ public class DetailTrp extends BaseActivity implements Serializable {
 
         recyclerView.setAdapter(mAdapter);
 
-
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if (!alarmState) {
+                    Toast.makeText(mContext, "지정된 알림이 없습니다.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 if (trpVO.ARM_03.equals("Y")) {
                     imageView.setImageResource(R.drawable.alarm_state_off);
                     trpVO.setARM_03("N");
@@ -304,8 +314,6 @@ public class DetailTrp extends BaseActivity implements Serializable {
                         alarmTime = format.format(calendar.getTime()) + time;
 
                         requestTRD_CONTROL();
-//                        trdVO.setT_96(jdmVO.getJDM_96().substring(0, 8) + time);
-//                        callBackTime = time;
                     }
 
                     @Override
@@ -316,27 +324,6 @@ public class DetailTrp extends BaseActivity implements Serializable {
                 alarmDialog.show();
             }
         });
-
-
-//        timePicker.setOnTimeChangedListener(new TimePicker.OnTimeChangedListener() {
-//            @Override
-//            public void onTimeChanged(TimePicker timePicker, int hourOfDay, int minute) {
-//
-//                alarmTime = alarmTime.substring(0, 8);
-//
-//                if (hourOfDay < 10) {
-//                    alarmTime += "0" + String.valueOf(hourOfDay);
-//                } else {
-//                    alarmTime += String.valueOf(hourOfDay);
-//                }
-//                if (minute < 10) {
-//                    alarmTime += "0" + String.valueOf(minute);
-//                } else {
-//                    alarmTime += String.valueOf(minute);
-//                }
-//
-//            }
-//        });
 
 
         if (trpVO.TRP_97.equals(mUser.Value.OCM_01)) { //작성자만 삭제버튼 보임
@@ -382,16 +369,13 @@ public class DetailTrp extends BaseActivity implements Serializable {
                 trpVO.setTRP_05(map_count.get(sp_count.getSelectedItem()));
                 trpVO.setTRP_06(map_timing.get(sp_timing.getSelectedItem()));
 
-                requestTRP_CONTROL("UPDATE");
+                if (getIntent().hasExtra("scanCode")) {
+                    requestTRP_CONTROL("INSERT");
+                } else {
+                    requestTRP_CONTROL("UPDATE");
+                }
             }
         });
-
-//        btn_addAlarm.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                requestTRD_CONTROL();
-//            }
-//        });
 
 
         // 버튼들에 대한 클릭리스너 등록 및 각 버튼이 클릭되었을 때
@@ -518,9 +502,28 @@ public class DetailTrp extends BaseActivity implements Serializable {
                             if (mList == null)
                                 mList = new ArrayList<>();
 
+                            if (mList.size() == 0) {
+                                tv_alarmLabel.setVisibility(View.VISIBLE);
+                                recyclerView.setVisibility(View.GONE);
+                                alarmState = false;
+
+                                imageView.setImageResource(R.drawable.alarm_state_off);
+                                trpVO.setARM_03("N");
+
+                            } else {
+                                recyclerView.setVisibility(View.VISIBLE);
+                                tv_alarmLabel.setVisibility(View.GONE);
+                                alarmState = true;
+                            }
+
+                            if (mList.size() == 0 && getIntent().hasExtra("scanCode")) {
+                                alarmTime = format.format(calendar.getTime()) + formatTime.format(calendar.getTime());
+                                requestTRD_CONTROL();
+                            }
+
+
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();
-
                         }
                     }
                 }.sendMessage(msg);
@@ -551,7 +554,11 @@ public class DetailTrp extends BaseActivity implements Serializable {
                 trpVO.TRP_01,
                 "",
                 alarmTime,
-                mUser.Value.OCM_01
+                mUser.Value.OCM_01,
+                ed_name.getText().toString(),
+                ed_memo.getText().toString(),
+                trpVO.TRP_04,
+                trpVO.ARM_03
         );
 
 
@@ -575,13 +582,27 @@ public class DetailTrp extends BaseActivity implements Serializable {
                             if (mList == null)
                                 mList = new ArrayList<>();
 
+                            if (mList.size() == 0) {
+                                tv_alarmLabel.setVisibility(View.VISIBLE);
+                                recyclerView.setVisibility(View.GONE);
+                                alarmState = false;
+                                imageView.setImageResource(R.drawable.alarm_state_off);
+                                trpVO.setARM_03("N");
+                            } else {
+                                recyclerView.setVisibility(View.VISIBLE);
+                                tv_alarmLabel.setVisibility(View.GONE);
+                                alarmState = true;
+                            }
+
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();
 
                         }
                     }
                 }.sendMessage(msg);
-                Toast.makeText(mContext, "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                if (!getIntent().hasExtra("scanCode")) {
+                    Toast.makeText(mContext, "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override

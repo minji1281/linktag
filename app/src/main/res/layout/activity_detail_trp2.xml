@@ -59,6 +59,7 @@
                         android:layout_toRightOf="@+id/tv_title"
                         android:layout_toLeftOf="@+id/imageView"
                         android:textSize="15dp"
+                        android:hint="명칭 입력란입니다."
                         android:singleLine="true"
                         android:background="@null"
                         android:textColor="#34495E"
@@ -116,7 +117,7 @@
                 android:orientation="vertical"
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="20dp"
+                android:layout_marginTop="10dp"
                 android:layout_weight="0.7">
 
                 <TextView
@@ -303,6 +304,18 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
+                <TextView
+                    android:id="@+id/tv_alarmLabel"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:textAlignment="center"
+                    android:gravity="center_vertical"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:text="알림 설정 없음"
+                    android:background="@drawable/list_item_layout"
+                    android:visibility="gone"
+                    />
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"

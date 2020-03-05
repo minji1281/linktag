@@ -687,7 +687,12 @@ public class Http extends HttpBaseService {
                 @Field(value = "TRD_01") String TRD_01,
                 @Field(value = "TRD_02") String TRD_02,
                 @Field(value = "TRD_96") String TRD_96,
-                @Field(value = "TRD_98") String TRD_98
+                @Field(value = "TRD_98") String TRD_98,
+
+                @Field(value = "TRP_02") String TRP_02,
+                @Field(value = "TRP_03") String TRP_03,
+                @Field(value = "TRP_04") String TRP_04,
+                @Field(value = "ARM_03") String ARM_03
         );
 
     }
