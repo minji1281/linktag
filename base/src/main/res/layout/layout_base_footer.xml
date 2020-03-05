@@ -33,7 +33,7 @@
                 android:contentDescription="@null"
                 android:paddingBottom="3dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/footer_home_selected" />
+                android:src="@drawable/selector_footer_home" />
 
             <TextView
                 android:id="@+id/tvFooterHome"
@@ -61,7 +61,7 @@
                 android:contentDescription="@null"
                 android:paddingBottom="3dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/footer_calendar_selected" />
+                android:src="@drawable/selector_footer_calendar" />
 
             <TextView
                 android:id="@+id/tvFooterCalendar"
@@ -116,7 +116,7 @@
                 android:contentDescription="@null"
                 android:paddingBottom="3dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/footer_menu_selected" />
+                android:src="@drawable/selector_footer_menu" />
 
             <TextView
                 android:id="@+id/tvFooterMenu"
@@ -201,7 +201,7 @@
                 android:contentDescription="@null"
                 android:paddingBottom="3dp"
                 android:scaleType="fitCenter"
-                android:src="@drawable/footer_setting_selected" />
+                android:src="@drawable/selector_footer_setting" />
 
             <TextView
                 android:id="@+id/tvFooterSetting"

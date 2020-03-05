@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#FAFAFA"
     tools:context="com.linktag.linkapp.ui.settings_main.SettingMain">
 
     <LinearLayout
@@ -17,126 +18,183 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title_text="설정" />
+            app:title_text="설정" >
 
-        <LinearLayout
-            android:id="@+id/layoutUserInfo"
+        </com.linktag.base.base_header.BaseHeader>
+
+        <RelativeLayout
+            android:id="@+id/layProfile"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:gravity="center_vertical"
-            android:orientation="vertical"
-            android:padding="24dp">
+            android:layout_height="match_parent"
+            android:layout_marginBottom="15dp"
+            android:background="@color/white"
+            android:padding="15dp">
 
-            <!-- 프로필 사진 -->
             <ImageView
-                android:id="@+id/imgUserPhoto"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
-                android:layout_gravity="center_horizontal"
+                android:id="@+id/imgPhoto"
+                android:layout_width="65dp"
+                android:layout_height="65dp"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:layout_marginStart="10dp"
+                android:layout_marginEnd="20dp"
                 android:adjustViewBounds="true"
-                android:background="@drawable/shape_round"
+                android:scaleType="fitCenter"
                 android:src="@drawable/main_profile_no_image" />
 
-            <!-- 프로필 이름 -->
-            <TextView
-                android:id="@+id/tvUserName"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_bigger"
-                tools:text="이도" />
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@id/imgPhoto"
+                android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/tvUserPhone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:textColor="#797979"
-                android:textSize="@dimen/text_normal"
-                android:visibility="gone"
-                tools:text="01012345678" />
+                <TextView
+                    android:id="@+id/tvUserName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="펭수"
+                    android:textColor="@color/colorBase"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
 
-            <TextView
-                android:id="@+id/tvInout"
+                <TextView
+                    android:id="@+id/tvUserEmail"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="3dp"
+                    android:text="pengsu@ebs.co.kr"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/tvUserSignDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="2020. 03. 05 가입"
+                    android:textSize="@dimen/text_small" />
+
+            </LinearLayout>
+
+            <ImageView
+                android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="8dp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_bigger"
-                android:visibility="gone"
-                tools:text="진성훈" />
-        </LinearLayout>
+                android:layout_height="match_parent"
+                android:layout_alignParentEnd="true"
+                android:layout_centerVertical="true"
+                android:src="@drawable/btn_next_gray" />
+
+        </RelativeLayout>
 
         <!--설정-->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@color/white"
+            android:orientation="horizontal"
+            android:padding="15dp">
 
-            <Button
-                android:id="@+id/btnProfile"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@color/white"
-                android:drawableEnd="@drawable/btn_next_gray"
-                android:gravity="start|center_vertical"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:text="프로필 설정"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_normal" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
-            <LinearLayout style="@style/common_horizontal_line" />
+                <TextView
+                    android:id="@+id/btnNotice"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:drawableTop="@drawable/icon_notice"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="공지"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_small" />
 
-            <Button
-                android:id="@+id/btnPreferences"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@color/white"
-                android:drawableEnd="@drawable/btn_next_gray"
-                android:gravity="start|center_vertical"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:text="환경설정"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_normal" />
+                <TextView
+                    android:id="@+id/btnLogout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/icon_logout"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="로그아웃"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
 
-            <LinearLayout style="@style/common_horizontal_line" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|top"
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
-            <Button
-                android:id="@+id/btnGoHomepage"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@color/white"
-                android:drawableEnd="@drawable/btn_next_gray"
-                android:gravity="start|center_vertical"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:text="홈페이지 바로가기"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_normal" />
+                <TextView
+                    android:id="@+id/btnGuide"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:drawableTop="@drawable/icon_guide"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="가이드"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_small" />
 
-            <LinearLayout style="@style/common_horizontal_line" />
+            </LinearLayout>
 
-            <Button
-                android:id="@+id/btnLogout"
-                android:layout_width="match_parent"
-                android:layout_height="48dp"
-                android:background="@color/white"
-                android:drawableEnd="@drawable/btn_next_gray"
-                android:gravity="start|center_vertical"
-                android:paddingStart="15dp"
-                android:paddingEnd="15dp"
-                android:text="로그아웃"
-                android:textColor="@color/black"
-                android:textSize="@dimen/text_normal" />
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|top"
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
 
-            <LinearLayout style="@style/common_horizontal_line" />
+                <TextView
+                    android:id="@+id/btnHelp"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:drawableTop="@drawable/icon_help"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="고객센터"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_small" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:gravity="center|top"
+                android:orientation="vertical"
+                android:paddingStart="10dp"
+                android:paddingEnd="10dp">
+
+                <TextView
+                    android:id="@+id/btnPreferences"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:drawableTop="@drawable/icon_setting"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="기능설정"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_small" />
+
+            </LinearLayout>
         </LinearLayout>
+
     </LinearLayout>
 </ScrollView>

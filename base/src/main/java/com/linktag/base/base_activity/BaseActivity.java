@@ -78,7 +78,7 @@ public abstract class BaseActivity extends FragmentActivity {
                     scanResult(str);
                 }
 
-
+                break;
         }
     }
 

@@ -28,6 +28,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.vision.text.Line;
 import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
@@ -73,20 +74,21 @@ public class ProfileMain extends BaseActivity {
     // Layout
     //======================
     private BaseHeader header;
+
     private ImageView imgProfilePhoto;
     private Button btnChangePhoto;
     private EditText etUserName;
     private EditText etPhoneNumber;
-    private EditText etDep;
-    private EditText etRank;
 
     private LinearLayout layoutPhoto;
+
+    private LinearLayout layoutEmail;
+    private LinearLayout layoutSignDate;
+
     private LinearLayout layoutChangePwd;
-    private RelativeLayout layoutChangePhone;
-    private RelativeLayout layoutName;
-    private RelativeLayout layoutChangeEmail;
-    private RelativeLayout layoutChangeDep;
-    private RelativeLayout layoutChangeRank;
+
+
+    private LinearLayout layoutChange;
 
     private EditText etOldPwd;
     private EditText etNewPwd1;
@@ -140,22 +142,13 @@ public class ProfileMain extends BaseActivity {
         else
             etPhoneNumber.setText(PhoneNumberUtils.formatNumber(mUser.Value.OCM_51, Locale.getDefault().getCountry()));
 
-        etDep = findViewById(R.id.etDep);
-        etDep.setText(mUser.Value.OCM_31);
-
-        etRank = findViewById(R.id.etRank);
-        etRank.setText(mUser.Value.OCM_32);
-
         layoutPhoto = findViewById(R.id.layoutPhoto);
+        layoutEmail = findViewById(R.id.layoutEmail);
+        layoutSignDate = findViewById(R.id.layoutSignDate);
 
         layoutChangePwd = findViewById(R.id.layoutChangePwd);
-        layoutChangePwd.setVisibility(View.GONE);
 
-        layoutChangePhone = findViewById(R.id.layoutChangePhone);
-        layoutName = findViewById(R.id.layoutName);
-        layoutChangeEmail = findViewById(R.id.layoutChangeEmail);
-        layoutChangeDep = findViewById(R.id.layoutChangeDep);
-        layoutChangeRank = findViewById(R.id.layoutChangeRank);
+        layoutChange = findViewById(R.id.layoutChange);
 
         etOldPwd = findViewById(R.id.etOldPwd);
         etNewPwd1 = findViewById(R.id.etNewPwd1);
@@ -204,12 +197,12 @@ public class ProfileMain extends BaseActivity {
     private void setUserPwd() {
         if(btnChangePwd.getText().equals("수정")) {
             layoutPhoto.setVisibility(View.GONE);
-            layoutChangePhone.setVisibility(View.GONE);
-            layoutName.setVisibility(View.GONE);
-            layoutChangeEmail.setVisibility(View.GONE);
+            layoutEmail.setVisibility(View.GONE);
+            layoutSignDate.setVisibility(View.GONE);
+            layoutChange.setVisibility(View.GONE);
+
             layoutChangePwd.setVisibility(View.VISIBLE);
-            layoutChangeDep.setVisibility(View.GONE);
-            layoutChangeRank.setVisibility(View.GONE);
+
             header.btnHeaderText.setVisibility(View.GONE);
             etOldPwd.setText("");
             etNewPwd1.setText("");
@@ -219,12 +212,12 @@ public class ProfileMain extends BaseActivity {
 
         } else {
             layoutPhoto.setVisibility(View.VISIBLE);
-            layoutChangePhone.setVisibility(View.VISIBLE);
-            layoutName.setVisibility(View.VISIBLE);
-            layoutChangeEmail.setVisibility(View.VISIBLE);
+            layoutEmail.setVisibility(View.VISIBLE);
+            layoutSignDate.setVisibility(View.VISIBLE);
+            layoutChange.setVisibility(View.VISIBLE);
+
             layoutChangePwd.setVisibility(View.GONE);
-            layoutChangeDep.setVisibility(View.VISIBLE);
-            layoutChangeRank.setVisibility(View.VISIBLE);
+
             header.btnHeaderText.setVisibility(View.VISIBLE);
             etOldPwd.setText("");
             etNewPwd1.setText("");
@@ -268,15 +261,9 @@ public class ProfileMain extends BaseActivity {
     @Override
     protected void initialize() {
         String mUserImage = "";
-        String setPwd = getIntent().getExtras().getString("setPwd", "");
 
         // 프로필 이미지 설정
         ClsImage.setUserPhoto(mContext, imgProfilePhoto, mUserImage, R.drawable.main_profile_no_image);
-
-        if(setPwd.equals("1")){
-            setUserPwd();
-            etOldPwd.requestFocus();
-        }
     }
 
     private boolean validationCheck(String GUB){
@@ -321,9 +308,8 @@ public class ProfileMain extends BaseActivity {
         String OCM_01 = mUser.Value.OCM_01;
         String OCM_02 = etUserName.getText().toString();
         String OCM_03 = etNewPwd1.getText().toString();
-        String OCM_31 = etDep.getText().toString();
-        String OCM_32 = etRank.getText().toString();
         String OCM_51 = etPhoneNumber.getText().toString();
+        String OCM_52 = "";
         String OCM_98 = mUser.Value.OCM_01;
 
         Call<OCM_Model> call = Http.ocm(HttpBaseService.TYPE.POST).OCM_CONTROL(
@@ -332,9 +318,8 @@ public class ProfileMain extends BaseActivity {
                 OCM_01,
                 OCM_02,
                 OCM_03,
-                OCM_31,
-                OCM_32,
                 OCM_51,
+                OCM_52,
                 OCM_98
         );
 
@@ -386,8 +371,6 @@ public class ProfileMain extends BaseActivity {
 
     private void setUserData(OcmVO ocmVO) {
         mUser.Value.OCM_02 = ocmVO.OCM_02;
-        mUser.Value.OCM_31 = ocmVO.OCM_31;
-        mUser.Value.OCM_32 = ocmVO.OCM_32;
         mUser.Value.OCM_51 = ocmVO.OCM_51;
     }
 
@@ -417,7 +400,7 @@ public class ProfileMain extends BaseActivity {
 
     @SuppressLint("SimpleDateFormat")
     private File getOutputMediaFile(int type) {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "auas");
+        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "linktag");
 
         if (!mediaStorageDir.exists()) {
             if (!mediaStorageDir.mkdirs()) {
