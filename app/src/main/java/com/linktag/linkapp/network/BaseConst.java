@@ -91,7 +91,7 @@ public class BaseConst {
     public static final String FRM_SELECT = "{host}/Mobile/FRM_SELECT";
     public static final String FRM_CONTROL = "{host}/Mobile/FRM_CONTROL";
 
-    //화장품 유통기한 관리
+    //화장품 유효기간 관리
     public static final String COS_SELECT = "{host}/Mobile/COS_SELECT";
     public static final String COS_CONTROL = "{host}/Mobile/COS_CONTROL";
     public static final String COD_SELECT = "{host}/Mobile/COD_SELECT";

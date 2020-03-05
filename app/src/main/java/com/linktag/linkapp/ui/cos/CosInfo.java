@@ -28,20 +28,22 @@ public class CosInfo extends AsyncTask<Void, Void, Void> {
 
     private Activity mActivity;
     private Spinner spCos;
-    private String spName;
-    private String gubun;
-    private String ID;
-    private String value;
+    private String spName; //spinner명
+    private String gubun; //sp구분값
+    private String ID; //컨테이너
+    private String value; //spinner선택값
+    private String gubun2; //List,Detail구분(L,D)
 
     private ArrayList<SpinnerList> cosList;
 
-    public CosInfo(ArrayList<SpinnerList> cosList, Activity mActivity, String spName, String gubun, String ID, String value){
+    public CosInfo(ArrayList<SpinnerList> cosList, Activity mActivity, String spName, String gubun, String ID, String value, String gubun2){
         this.mActivity = mActivity;
         this.cosList = cosList;
         this.spName = spName;
         this.gubun = gubun;
         this.ID = ID;
         this.value = value;
+        this.gubun2 = gubun2;
     }
 
     @Override
@@ -92,16 +94,25 @@ public class CosInfo extends AsyncTask<Void, Void, Void> {
 
                             if(response.body().Total > 0){
                                 for(int i = 0; i < response.body().Total; i++){
-                                    cosList.add(new SpinnerList(response.body().Data.get(i).COS_01, response.body().Data.get(i).COS_02));
+                                    cosList.add(new SpinnerList(response.body().Data.get(i).COS_01, response.body().Data.get(i).COS_02, response.body().Data.get(i).COS_03));
 
                                     ar[i] = response.body().Data.get(i).COS_02;
                                     ar2[i] = response.body().Data.get(i).COS_01;
                                 }
                             }
 
-                            adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_item2, ar);
-                            adapter2 = new ArrayAdapter<>(mActivity, R.layout.spinner_item2, ar2);
-                            adapter.setDropDownViewResource(R.layout.spinner_item2);
+
+                            if(gubun2.equals("L")){
+                                adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_item5, ar);
+                                adapter2 = new ArrayAdapter<>(mActivity, R.layout.spinner_item5, ar2);
+                                adapter.setDropDownViewResource(R.layout.spinner_item5);
+                            }
+                            else{ //D
+                                adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_item2, ar);
+                                adapter2 = new ArrayAdapter<>(mActivity, R.layout.spinner_item2, ar2);
+                                adapter.setDropDownViewResource(R.layout.spinner_item2);
+                            }
+
                             spCos.setAdapter(adapter);
                             int i = adapter2.getPosition(value);
                             if(i != -1){

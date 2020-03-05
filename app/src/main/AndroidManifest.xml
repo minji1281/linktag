@@ -235,7 +235,7 @@
             android:theme="@style/TranslucentUser"
             android:excludeFromRecents="true"/>
 
-        <!-- 화장품 유통기한 관리 -->
+        <!-- 화장품 유효기간 관리 -->
         <activity
             android:name=".ui.cos.CodList"
             android:screenOrientation="portrait"
@@ -243,11 +243,6 @@
             android:excludeFromRecents="true"/>
         <activity
             android:name=".ui.cos.CodDetail"
-            android:screenOrientation="portrait"
-            android:theme="@style/TranslucentUser"
-            android:excludeFromRecents="true"/>
-        <activity
-            android:name=".ui.cos.CosDetail"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser"
             android:excludeFromRecents="true"/>

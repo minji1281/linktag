@@ -10,7 +10,7 @@ public class COD_VO implements Serializable {
     public String COD_02;       // 명칭
     public String COD_03;       // 브랜드명
     public double COD_04;       // 가격
-    public String COD_05;       // 개봉일자
+    public String COD_05;       // 사용일자
     public String COD_06;       // 유통기한일자
     public String COD_07;       // 사용종료일자
     public String COD_08;       // 메모

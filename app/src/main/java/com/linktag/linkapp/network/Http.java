@@ -870,7 +870,7 @@ public class Http extends HttpBaseService {
     }
 
     //--------------------------------------------------
-    // 화장품 유통기한 관리
+    // 화장품 유효기간 관리
     //--------------------------------------------------
     public static ICOS cos(TYPE type) {
         return (ICOS) retrofit(ICOS.class, type);
