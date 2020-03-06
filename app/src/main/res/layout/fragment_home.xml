@@ -241,6 +241,20 @@
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
+
+
+                <TextView
+                    android:id="@+id/btnSql"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:paddingStart="20dp"
+                    android:paddingEnd="20dp"
+                    android:text="테스트용"
+                    android:visibility="gone"
+                    android:textSize="@dimen/text_small" />
+
                 <ImageView
                     android:id="@+id/imageView5"
                     android:layout_width="wrap_content"

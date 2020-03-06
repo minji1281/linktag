@@ -263,6 +263,13 @@
             android:theme="@style/TranslucentUser"
             android:excludeFromRecents="true"/>
 
+        <!-- sqllite용 -->
+        <activity
+            android:name=".ui.sqllite.SqlMain"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser" />
+
         <!-- 푸시알람 -->
         <!--        <receiver android:name=".ui.alarm.DeviceBootReceiver"-->
         <!--            android:enabled="false">-->

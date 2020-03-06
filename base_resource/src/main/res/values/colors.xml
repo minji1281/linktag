@@ -23,8 +23,10 @@
     <color name="colorDefaultBackground">#ffffff</color>
 
     <color name="colorDefaultButton">#62b7ee</color>
+    <color name="colorLoginButton">#8eaefc</color>
     <color name="colorDefaultButtonDisable">#E2E6EE</color>
     <color name="colorDefaultButtonPress">#5098C7</color>
+    <color name="colorLoginButtonPress">#709AFD</color>
 
     <color name="colorDefault">#62b7ee</color>
     <color name="colorTextGray">#9dc8c8</color>

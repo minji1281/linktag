@@ -180,5 +180,7 @@
     <orderEntry type="library" name="Gradle: com.github.PhilJay:MPAndroidChart:v3.1.0@aar" level="project" />
     <orderEntry type="module" module-name="base" />
     <orderEntry type="module" module-name="base_resource" />
+    <orderEntry type="module" module-name="base" />
+    <orderEntry type="module" module-name="base_resource" />
   </component>
 </module>

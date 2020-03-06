@@ -82,7 +82,7 @@
 
     <!-- 로그인 설명 -->
     <string name="title_name">클라우드 플랫폼</string>
-    <string name="login_hint1">이메일주소 입력</string>
+    <string name="login_hint1">이메일</string>
     <string name="login_hint2">비밀번호 입력</string>
     <string name="login_hint3">아이디저장</string>
     <string name="login_hint4">자동로그인</string>

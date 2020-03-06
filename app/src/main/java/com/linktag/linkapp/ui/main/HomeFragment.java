@@ -32,6 +32,7 @@ import com.linktag.linkapp.ui.board.BoardMain;
 import com.linktag.linkapp.ui.calendar.AlarmListAdapter;
 import com.linktag.linkapp.ui.menu.ChangeActivityCls;
 import com.linktag.linkapp.ui.menu.ServiceAdapter;
+import com.linktag.linkapp.ui.sqllite.SqlMain;
 import com.linktag.linkapp.value_object.ARM_VO;
 import com.linktag.linkapp.value_object.CtdVO;
 
@@ -63,6 +64,7 @@ public class HomeFragment extends BaseFragment {
     private TextView BmkSpacer;
     private TextView btnNotNew;
     private TextView btnNotList;
+    private TextView btnSql;
 
     private ServiceAdapter mAdapter;
     private ArrayList<CtdVO> mList;
@@ -159,6 +161,22 @@ public class HomeFragment extends BaseFragment {
                 intent.putExtra("DSH_09", "0");
                 intent.putExtra("DSH_97","");
                 intent.putExtra("DSH_GB", "NOT");
+
+                mContext.startActivity(intent);
+            }
+        });
+
+        btnSql = view.findViewById(R.id.btnSql);
+        btnSql.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SqlMain.class);
+//                intent.putExtra("DSH_01", "");
+//                intent.putExtra("DSH_04", "");
+//                intent.putExtra("DSH_05", "");
+//                intent.putExtra("DSH_09", "0");
+//                intent.putExtra("DSH_97","");
+//                intent.putExtra("DSH_GB", "NOT");
 
                 mContext.startActivity(intent);
             }
