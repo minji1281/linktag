@@ -111,8 +111,8 @@ public class BoardDetail extends BaseActivity {
         header.btnHeaderLeft.setOnClickListener(v -> finish());
     //    header.btnHeaderText.setOnClickListener(v -> requestOCM_CONTROL("UPDATE"));
 
-        if(DSH_GB.equals("BRD")){ header.tvHeaderTitle.setText(R.string.dash_01);}
-        else if(DSH_GB.equals("NOT")){ header.tvHeaderTitle.setText(R.string.dash_02);}
+        if(DSH_GB.equals("BRD")){ header.tvHeaderTitle.setText(R.string.dash_02);}
+        else if(DSH_GB.equals("NOT")){ header.tvHeaderTitle.setText(R.string.dash_01);}
 
 //        Toast.makeText(mContext,getIntent().getStringExtra("DSH_01"), Toast.LENGTH_SHORT).show();
 

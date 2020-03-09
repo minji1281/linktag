@@ -83,8 +83,8 @@ public class WorkStateAdapter extends BaseAdapter {
 //                .error(R.drawable.main_profile_no_image)
 //                .into(viewHolder.imgUserPhoto);
 
-        if(mList.get(position).CMT_GB.equals("BRD") ){viewHolder.tvUserName.setText(R.string.dash_01); viewHolder.hidd_gubun.setText("BRD");}
-        else if(mList.get(position).CMT_GB.equals("NOT") ){viewHolder.tvUserName.setText(R.string.dash_02); viewHolder.hidd_gubun.setText("NOT"); }
+        if(mList.get(position).CMT_GB.equals("BRD") ){viewHolder.tvUserName.setText(R.string.dash_02); viewHolder.hidd_gubun.setText("BRD");}
+        else if(mList.get(position).CMT_GB.equals("NOT") ){viewHolder.tvUserName.setText(R.string.dash_01); viewHolder.hidd_gubun.setText("NOT"); }
      //   viewHolder.tvUserName.setText(mList.get(position).DSH_01);
 
         if(mList.get(position).CMT_03.equals("") ){viewHolder.tvWorkType.setText("");}

@@ -201,7 +201,7 @@
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
                     android:text="추가"
-                   android:textSize="@dimen/text_small" />
+                    android:textSize="@dimen/text_small" />
 
             </RelativeLayout>
 
@@ -270,6 +270,7 @@
                 android:id="@+id/swipeRefresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:visibility="gone"
                 tools:context="com.linktag.linkapp.ui.main.HomeFragment">
                 <ListView
                     android:id="@+id/listView"
@@ -277,6 +278,22 @@
                     android:layout_height="wrap_content"
                     tools:listitem="@layout/listitem_work_record"/>
             </android.support.v4.widget.SwipeRefreshLayout>
+
+            <com.linktag.base.util.ExpandableHeightGridView
+                android:id="@+id/gridARM"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_marginEnd="10dp"
+                android:layout_marginBottom="10dp"
+                android:gravity="center"
+                android:horizontalSpacing="10dp"
+                android:isScrollContainer="false"
+                android:numColumns="1"
+                android:stretchMode="columnWidth"
+                android:verticalSpacing="20dp"
+                tools:listitem="@layout/listitem_work_record"/>
         </LinearLayout>
     </LinearLayout>
 </ScrollView>
