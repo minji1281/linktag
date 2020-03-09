@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.PorterDuff;
 import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
@@ -36,6 +37,7 @@ import com.linktag.linkapp.value_object.JdmVO;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -75,45 +77,48 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
         Calendar sCalendar = Calendar.getInstance();
-        sCalendar.set(Calendar.YEAR, Integer.parseInt(mList.get(position).JDM_96.substring(0, 4)));
-        sCalendar.set(Calendar.MONTH, Integer.parseInt(mList.get(position).JDM_96.substring(4, 6)) - 1);
-        sCalendar.set(Calendar.DATE, Integer.parseInt(mList.get(position).JDM_96.substring(6, 8)));
-
-        switch (mList.get(position).JDM_06) {
-            case "0":
-                sCalendar.add(Calendar.DATE, -3);
-                break;
-            case "1":
-                sCalendar.add(Calendar.DATE, -5);
-                break;
-            case "2":
-                sCalendar.add(Calendar.DATE, -7);
-                break;
-            case "3":
-                sCalendar.add(Calendar.DATE, -15);
-                break;
-            case "4":
-                sCalendar.add(Calendar.DATE, -30);
-                break;
+        if(!mList.get(position).JDM_08.equals("")){
+            sCalendar.set(Calendar.YEAR, Integer.parseInt(mList.get(position).JDM_08.substring(0, 4)));
+            sCalendar.set(Calendar.MONTH, Integer.parseInt(mList.get(position).JDM_08.substring(4, 6)) - 1);
+            sCalendar.set(Calendar.DATE, Integer.parseInt(mList.get(position).JDM_08.substring(6, 8)));
         }
+
+        sCalendar.clear(Calendar.HOUR);
+        sCalendar.clear(Calendar.MINUTE);
+        sCalendar.clear(Calendar.SECOND);
+        sCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
+
 
         Calendar dCalendar = Calendar.getInstance();
         dCalendar.set(Integer.parseInt(mList.get(position).JDM_96.substring(0, 4)),
                 Integer.parseInt(mList.get(position).JDM_96.substring(4, 6)) - 1,
                 Integer.parseInt(mList.get(position).JDM_96.substring(6, 8)));
-
-        int dcount = (int) ((calendar.getTimeInMillis() - sCalendar.getTimeInMillis()) / (24 * 60 * 60 * 1000));
-
-        if (dcount < 0) dcount = 0;
-
-        int totalProgress = (int) ((dCalendar.getTimeInMillis() - sCalendar.getTimeInMillis()) / (24 * 60 * 60 * 1000));
+        dCalendar.clear(Calendar.HOUR);
+        dCalendar.clear(Calendar.MINUTE);
+        dCalendar.clear(Calendar.SECOND);
+        dCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
 
 
-        viewHolder.progressBar.setMax(totalProgress);
-        viewHolder.progressBar.setProgress(dcount+1);
-//        if (totalProgress <= dcount ) {
-//            viewHolder.progressBar.getProgressDrawable().setColorFilter(0xFFE97D6C, PorterDuff.Mode.SRC_IN);
-//        }
+        long dDayDiff = calendar.getTimeInMillis() - sCalendar.getTimeInMillis();
+        int dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
+
+        long dDayDiff2 = dCalendar.getTimeInMillis() - sCalendar.getTimeInMillis();
+        int totalProgress = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff2, TimeUnit.MILLISECONDS) / 24f));
+
+
+        if (dcount == totalProgress) {
+            viewHolder.progressBar.getProgressDrawable().setColorFilter(null);
+            viewHolder.progressBar.setMax(1);
+            viewHolder.progressBar.setProgress(1);
+
+        } else if (totalProgress <= dcount) {
+            viewHolder.progressBar.setMax(1);
+            viewHolder.progressBar.setProgress(1);
+            viewHolder.progressBar.getProgressDrawable().setColorFilter(0xFFE97D6C, PorterDuff.Mode.SRC_IN);
+        } else {
+            viewHolder.progressBar.setMax(totalProgress);
+            viewHolder.progressBar.setProgress(dcount);
+        }
 
         if (mList.get(position).JDM_04.equals("")) {
             viewHolder.tv_D_day.setText("0");
@@ -130,9 +135,9 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         }
         viewHolder.tv_name.setText(mList.get(position).JDM_02);
         viewHolder.tv_memo.setText(mList.get(position).JDM_03);
-        viewHolder.tv_nextDay.setText(mList.get(position).JDM_96.substring(0,4)+"."+mList.get(position).JDM_96.substring(4,6)+"."+mList.get(position).JDM_96.substring(6,8));
+        viewHolder.tv_nextDay.setText(mList.get(position).JDM_96.substring(0, 4) + "." + mList.get(position).JDM_96.substring(4, 6) + "." + mList.get(position).JDM_96.substring(6, 8));
 
-        if (Integer.parseInt(mList.get(position).JDM_96.substring(0, 8)) <= Integer.parseInt(formatDate.format(calendar.getTime()))) {
+        if (mList.get(position).JDM_08.equals("") ||  Integer.parseInt(mList.get(position).JDM_96.substring(0, 8)) <= Integer.parseInt(formatDate.format(calendar.getTime()))) {
             viewHolder.imageView_check.setImageResource(R.drawable.ic_check_off);
         } else {
             viewHolder.imageView_check.setImageResource(R.drawable.ic_check_on
@@ -257,7 +262,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                 jdmVO.JDM_06,
                 jdmVO.JDM_07,
                 jdmVO.JDM_08,
-                formatDate.format(nextDay.getTime())+jdmVO.JDM_96.substring(8,12),
+                formatDate.format(nextDay.getTime()) + jdmVO.JDM_96.substring(8, 12),
                 mUser.Value.OCM_01,
                 mUser.Value.OCM_01,
                 jdmVO.ARM_03

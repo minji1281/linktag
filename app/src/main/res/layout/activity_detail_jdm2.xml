@@ -31,6 +31,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
+                android:gravity="center_vertical"
                 android:layout_weight="0.2">
 
                 <RelativeLayout
@@ -43,7 +44,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="Title."
-                        android:textSize="20dp"
+                        android:textSize="@dimen/text_big"
                         android:textColor="#34495E"
                         android:textStyle="bold"/>
 
@@ -54,6 +55,9 @@
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="10dp"
                         android:layout_toRightOf="@+id/tv_title"
+                        android:layout_toLeftOf="@+id/imageView"
+                        android:hint="명칭 입력란입니다."
+                        android:singleLine="true"
                         android:background="@null"
                         android:textColor="#34495E"
                         android:textStyle="bold" />
@@ -81,6 +85,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="0.2"
+                android:gravity="center_vertical"
                 android:layout_marginTop="10dp">
 
                 <RelativeLayout
@@ -93,7 +98,7 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:text="Memo."
-                        android:textSize="20dp"
+                        android:textSize="@dimen/text_big"
                         android:textColor="#34495E"
                         android:textStyle="bold"/>
 
@@ -103,6 +108,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="10dp"
                         android:layout_centerVertical="true"
+                        android:singleLine="true"
                         android:layout_toRightOf="@+id/tv_memo"
                         android:background="@null"
                         android:hint="메모 입력란입니다." />
@@ -142,7 +148,7 @@
                             android:text="0"
                             android:textAlignment="center"
                             android:textColor="#34495E"
-                            android:textSize="80dp"
+                            android:textSize="70dp"
                             android:textStyle="bold" />
 
                         <View
@@ -203,6 +209,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_marginLeft="10dp"
+                            android:textSize="@dimen/text_small"
                             android:text="장독크기" />
 
                         <Spinner
@@ -236,6 +243,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_marginLeft="10dp"
+                            android:textSize="@dimen/text_small"
                             android:text="담금일자" />
 
 
@@ -323,6 +331,7 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentLeft="true"
                             android:layout_marginLeft="10dp"
+                            android:textSize="@dimen/text_small"
                             android:text="다음 청소일" />
 
                         <TextView
@@ -347,11 +356,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="vertical"
-                android:padding="10dp">
+                android:layout_weight="0.5"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical">
 
                 <RelativeLayout
+                    android:id="@+id/check_area"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
 
@@ -367,8 +378,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/tv_label8"
-                        android:layout_centerHorizontal="true"
-                        android:background="@drawable/ic_check_on" />
+                        android:layout_centerHorizontal="true" />
                 </RelativeLayout>
             </LinearLayout>
 

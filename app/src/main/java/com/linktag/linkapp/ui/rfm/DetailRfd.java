@@ -90,6 +90,15 @@ public class DetailRfd extends BaseActivity {
 
         initialize();
 
+        if (getIntent().hasExtra("GUBUN")) {  //신규등록시 넘어오는 인텐트
+            rfm_move.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Toast.makeText(mContext,"등록진행 중인 식품은 이동할 수 없습니다.", Toast.LENGTH_LONG).show();
+                    return;
+                }
+            });
+        }
 
     }
 

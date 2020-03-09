@@ -39,6 +39,7 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.PcdVO;
 import com.linktag.linkapp.value_object.PcmVO;
 
@@ -90,8 +91,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
     private Calendar calendar = Calendar.getInstance();
 
-    private String CTM_01;
-    private String CTD_02;
+    private CtdVO intentVO;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,9 +104,11 @@ public class DetailPcm extends BaseActivity implements Serializable {
         initialize();
 
         if (getIntent().hasExtra("scanCode")) {
-            CTM_01 = getIntent().getStringExtra("CTM_01");
-            CTD_02 = getIntent().getStringExtra("CTD_02");
+            intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
+            btn_update.setVisibility(View.GONE);
+            tv_manageDay.setText("-");
         }
+
 
     }
 
@@ -280,7 +282,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
 
                 if (GUBUN.equals("INSERT")) {
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02, pcmVO.PCM_01);
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, pcmVO.PCM_01);
                     ctds_control.requestCTDS_CONTROL();
                     tv_manageDay.setText(format1.format(calendar.getTime()));
                 }
