@@ -204,8 +204,7 @@ public class PCMMain extends BaseActivity {
                                     Intent intent = new Intent(mContext, DetailPcm.class);
                                     intent.putExtra("PcmVO", pcmvo);
                                     intent.putExtra("scanCode", scancode);
-                                    intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
-                                    intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
+                                    intent.putExtra("intentVO", intentVO);
                                     mContext.startActivity(intent);
                                 } else {
                                     PcmVO pcmvo = mList.get(0);
