@@ -9,8 +9,8 @@ public class CAD_VO implements Serializable {
     public String CAD_01;       // 차량코드
     public String CAD_02;       // 일련번호
     public String CAD_03;       // 일자
-    public String CAD_04;       // 교체점검구분
-    public String CAD_05;       // 내역
+    public String CAD_04;       // 내역
+    public String CAD_05;       // 교체점검구분
     public String CAD_06;       // 셀프카센터구분
     public double CAD_07;       // 비용
     public int CAD_08;       // 주행거리

@@ -3,21 +3,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:background="@color/colorListBack"
+    android:background="@color/List4"
     tools:context=".ui.car.CadList">
 
     <com.linktag.base.base_header.BaseHeader
         android:id="@+id/header"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:title_text="차량 소모품 교체/점검 일지"/>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="horizontal">
+        android:layout_weight="1"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:paddingRight="30dp"
+            android:paddingLeft="30dp"
+            android:paddingTop="25dp"
+            android:paddingBottom="20dp"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/imgCarEdit"
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:background="@drawable/shape_search_icon"
+                android:padding="3dp"
+                android:src="@android:drawable/ic_menu_edit" />
+
+            <Spinner
+                android:id="@+id/spCar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical|left"
+                android:background="@drawable/spinner_background2"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:popupBackground="@color/white"/>
+        </LinearLayout>
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -34,12 +65,12 @@
 
             <ImageView
                 android:id="@+id/imgNew"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
                 android:layout_gravity="right|bottom"
                 android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:src="@drawable/plus" />
+                android:src="@drawable/ic_plus_add" />
 
         </FrameLayout>
 
@@ -53,5 +84,10 @@
             android:textSize="@dimen/text_normal" />
 
     </LinearLayout>
+
+    <com.linktag.base.base_footer.BaseFooter
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
 
 </LinearLayout>

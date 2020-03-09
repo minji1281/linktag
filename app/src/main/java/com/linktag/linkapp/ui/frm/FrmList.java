@@ -171,7 +171,7 @@ public class FrmList extends BaseActivity {
                                 if(mList2 == null)
                                     mList2 = new ArrayList<>();
 
-                                if(mList.size() == 0){ //등록된 정보가 없는경우
+                                if(mList2.size() == 0){ //등록된 정보가 없는경우
                                     goFrmNew();
                                 }
                                 else{ //등록된 정보가 있는경우
@@ -209,6 +209,7 @@ public class FrmList extends BaseActivity {
     // 요거
     private void initLayoutByContractType(){
         footer = findViewById(R.id.footer);
+        footer.btnFooterScan.setOnClickListener(v -> goScan());
 
         if(intentVO.CTM_19.equals("P")){
             // privateService

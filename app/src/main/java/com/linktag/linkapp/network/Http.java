@@ -797,11 +797,11 @@ public class Http extends HttpBaseService {
                 @Field(value = "POT_ID") String POT_ID,
                 @Field(value = "POT_01") String POT_01,
                 @Field(value = "POT_02") String POT_02,
-                @Field(value = "POT_04") int POT_04,
+                @Field(value = "POT_03") String POT_03,
 
+                @Field(value = "POT_04") int POT_04,
                 @Field(value = "POT_05") String POT_05,
                 @Field(value = "POT_06") String POT_06,
-                @Field(value = "POT_81") String POT_81,
                 @Field(value = "POT_96") String POT_96,
                 @Field(value = "POT_98") String POT_98,
 
@@ -976,9 +976,6 @@ public class Http extends HttpBaseService {
                 @Field(value = "CAR_03") String CAR_03,
 
                 @Field(value = "CAR_04") String CAR_04,
-                @Field(value = "CAR_05") String CAR_05,
-                @Field(value = "CAR_06") String CAR_06,
-                @Field(value = "CAR_07") String CAR_07,
                 @Field(value = "CAR_98") String CAR_98
         );
 
@@ -997,7 +994,10 @@ public class Http extends HttpBaseService {
                 @Field(value = "GUBUN") String GUBUN,
                 @Field(value = "CAD_ID") String CAD_ID,     // 컨테이너
                 @Field(value = "CAD_01") String CAD_01,     // 차량코드
-                @Field(value = "CAD_02") String CAD_02      // 일련번호
+                @Field(value = "CAD_02") String CAD_02,     // 일련번호
+                @Field(value = "CAD_03") String CAD_03,     // 정비일자
+
+                @Field(value = "CAD_04") String CAD_04      // 내역
         );
 
         @FormUrlEncoded

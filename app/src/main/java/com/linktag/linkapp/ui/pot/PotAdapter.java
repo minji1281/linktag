@@ -162,9 +162,10 @@ public class PotAdapter extends BaseAdapter {
         String GUBUN = GUB;
         String POT_ID = pot.POT_ID; //컨테이너
         String POT_01 = pot.POT_01; //코드번호
-        String POT_02 = pot.POT_02;
-        int POT_04 = 0;
+        String POT_02 = pot.POT_02; //명칭
+        String POT_03 = "";
 
+        int POT_04 = 0;
         String POT_05 = "";
         String POT_06 = "";
         String POT_81 = "";
@@ -179,11 +180,11 @@ public class PotAdapter extends BaseAdapter {
                 POT_ID,
                 POT_01,
                 POT_02,
-                POT_04,
+                POT_03,
 
+                POT_04,
                 POT_05,
                 POT_06,
-                POT_81,
                 POT_96,
                 POT_98,
 
@@ -210,7 +211,7 @@ public class PotAdapter extends BaseAdapter {
                             if(GUB.equals("WATER")){
 
                                 mList.get(position).DDAY = responseData.get(0).DDAY;
-                                mList.get(position).POT_03_T = responseData.get(0).POT_03_T;
+                                mList.get(position).POT_03 = responseData.get(0).POT_03;
                                 mList.get(position).POT_96 = responseData.get(0).POT_96;
                             }
                             else{ //ALARM_UPDATE

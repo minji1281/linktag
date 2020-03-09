@@ -253,11 +253,6 @@
             android:theme="@style/TranslucentUser"
             android:excludeFromRecents="true"/>
         <activity
-            android:name=".ui.car.CarDetail"
-            android:screenOrientation="portrait"
-            android:theme="@style/TranslucentUser"
-            android:excludeFromRecents="true"/>
-        <activity
             android:name=".ui.car.CadDetail"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser"

@@ -71,6 +71,7 @@ public class CodList extends BaseActivity {
     //======================
     ArrayList<SpinnerList> cosList = new ArrayList<>();
     public static COS_VO COS;
+    private String scanGubun = "N";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -81,7 +82,7 @@ public class CodList extends BaseActivity {
         intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
         COS = new COS_VO();
         if (getIntent().hasExtra("scanCode")) {
-            COS.COS_01 = getIntent().getExtras().getString("scanCode"); //scancode로 받을지... COS.COS_01로 받을지... 뭐가나을까???
+            COS.COS_01 = getIntent().getExtras().getString("scanCode");
             requestCOS_SELECT();
         }
 
@@ -242,6 +243,7 @@ public class CodList extends BaseActivity {
                                 mCosList = new ArrayList<>();
 
                             if (mCosList.size() == 0){
+                                scanGubun = "Y";
                                 cosDialog("INSERT"); //COS NEW
                             }
 
@@ -327,7 +329,7 @@ public class CodList extends BaseActivity {
     private void goCodNew(){
         Intent intent = new Intent(mContext, CodDetail.class);
         intent.putExtra("intentVO", intentVO);
-        intent.putExtra("COD_95", COS.COS_01); //화장대코드 이거맞나용???
+        intent.putExtra("COD_95", COS.COS_01); //화장대코드
 
         mContext.startActivity(intent);
     }
@@ -338,9 +340,14 @@ public class CodList extends BaseActivity {
         spCos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                COS.COS_01 = cosList.get(position).getCode();
-                COS.COS_02 = cosList.get(position).getName();
-                COS.COS_03 = cosList.get(position).getMemo();
+                if(scanGubun.equals("Y")){
+                    scanGubun = "N";
+                }
+                else{
+                    COS.COS_01 = cosList.get(position).getCode();
+                    COS.COS_02 = cosList.get(position).getName();
+                    COS.COS_03 = cosList.get(position).getMemo();
+                }
                 requestCOD_SELECT();
             }
 
@@ -416,6 +423,7 @@ public class CodList extends BaseActivity {
     // 요거
     private void initLayoutByContractType(){
         footer = findViewById(R.id.footer);
+        footer.btnFooterScan.setOnClickListener(v -> goScan());
 
         if(intentVO.CTM_19.equals("P")){
             // privateService

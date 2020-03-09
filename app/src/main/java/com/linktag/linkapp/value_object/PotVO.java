@@ -9,7 +9,7 @@ public class PotVO implements Serializable {
     public String POT_ID;       // 컨테이너
     public String POT_01;       // 코드번호
     public String POT_02;       // 명칭
-    //public Date POT_03;       // 최근 물주기 시각
+    public String POT_03;       // 최근 물주기 시각
     public int POT_04;       // 주기
     public String POT_05;       // 주기구분
     public String POT_06;       // 메모
@@ -19,7 +19,7 @@ public class PotVO implements Serializable {
     public String POT_98;       // 최종수정자
     //public Date POT_99;       // 최종수정일시
 
-    public String POT_03_T;       // 최근 물주기 시각(YYYY-MM-DD HH:mm)
+//    public String POT_03_T;       // 최근 물주기 시각(YYYY-MM-DD HH:mm)
     public String DDAY;       // 다음 알림시간까지 D-day
     public String ARM_03;       // 해당 사용자의 알림여부
     public int ARM_04;       // 알림ID
@@ -109,14 +109,6 @@ public class PotVO implements Serializable {
 
     public void setPOT_98(String POT_98) {
         this.POT_98 = POT_98;
-    }
-
-    public String getPOT_03_T() {
-        return POT_03_T;
-    }
-
-    public void setPOT_03_T(String POT_03_T) {
-        this.POT_03_T = POT_03_T;
     }
 
     public String getDDAY() {

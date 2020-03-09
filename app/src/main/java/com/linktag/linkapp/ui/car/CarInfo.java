@@ -11,11 +11,9 @@ import android.widget.Spinner;
 import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.CARModel;
-import com.linktag.linkapp.model.COSModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.spinner.SpinnerList;
 
 import java.util.ArrayList;
 
@@ -33,9 +31,9 @@ public class CarInfo extends AsyncTask<Void, Void, Void> {
     private String ID;
     private String value;
 
-    private ArrayList<SpinnerList> carList;
+    private ArrayList<CarSpinnerList> carList;
 
-    public CarInfo(ArrayList<SpinnerList> carList, Activity mActivity, String spName, String ID, String value){
+    public CarInfo(ArrayList<CarSpinnerList> carList, Activity mActivity, String spName, String ID, String value){
         this.mActivity = mActivity;
         this.carList = carList;
         this.spName = spName;
@@ -91,16 +89,16 @@ public class CarInfo extends AsyncTask<Void, Void, Void> {
 
                             if(response.body().Total > 0){
                                 for(int i = 0; i < response.body().Total; i++){
-                                    carList.add(new SpinnerList(response.body().Data.get(i).CAR_01, response.body().Data.get(i).CAR_02));
+                                    carList.add(new CarSpinnerList(response.body().Data.get(i).CAR_01, response.body().Data.get(i).CAR_02, response.body().Data.get(i).CAR_03, response.body().Data.get(i).CAR_04));
 
                                     ar[i] = response.body().Data.get(i).CAR_02;
                                     ar2[i] = response.body().Data.get(i).CAR_01;
                                 }
                             }
 
-                            adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_item2, ar);
-                            adapter2 = new ArrayAdapter<>(mActivity, R.layout.spinner_item2, ar2);
-                            adapter.setDropDownViewResource(R.layout.spinner_item2);
+                            adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_item5, ar);
+                            adapter2 = new ArrayAdapter<>(mActivity, R.layout.spinner_item5, ar2);
+                            adapter.setDropDownViewResource(R.layout.spinner_item5);
                             spCar.setAdapter(adapter);
                             int i = adapter2.getPosition(value);
                             if(i != -1){

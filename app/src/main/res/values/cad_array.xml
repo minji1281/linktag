@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="cad">
+        <item>엔진오일</item>
+        <item>미션오일</item>
+        <item>브레이크 오일</item>
+        <item>클러치 오일</item>
+        <item>파워스티어링 오일</item>
+        <item>변속기 오일</item>
+        <item>디퍼런셜 오일</item>
+        <item>냉각수(부동액)</item>
+        <item>오일 필터</item>
+        <item>연료 필터</item>
+        <item>히터 필터</item>
+        <item>에어컨 필터</item>
+        <item>에어클리너 필터</item>
+        <item>타이어 위치 교환</item>
+        <item>타이어 교체</item>
+        <item>타이어 공기압</item>
+        <item>브레이크 라이닝</item>
+        <item>브레이크 패드</item>
+        <item>휠 밸런스</item>
+        <item>휠 얼라이먼트</item>
+        <item>점화 플러그</item>
+        <item>배터리</item>
+        <item>파워벨트</item>
+        <item>타이밍 벨트</item>
+        <item>구동벨트</item>
+        <item>점화플러그</item>
+        <item>점화플러그 케이블</item>
+        <item>와이퍼</item>
+        <item>워터펌프</item>
+        <item>클러치디스크 베어링</item>
+        <item>흡기크리닝</item>
+        <item>인젝터(연료분사노즐)</item>
+        <item>전조등</item>
+        <item>브레이크등</item>
+        <item>산소센서</item>
+        <item>캐니스터</item>
+        <item>에어컨 가스점검 및 보충</item>
+        <item>정기점검</item>
+        <item>기타</item>
+    </string-array>
+</resources>
