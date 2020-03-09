@@ -88,8 +88,8 @@ public class BoardMain extends BaseActivity {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
-        if(GUBUN.equals("BRD")){ header.tvHeaderTitle.setText(R.string.dash_01);}
-        else if(GUBUN.equals("NOT")){ header.tvHeaderTitle.setText(R.string.dash_02);}
+        if(GUBUN.equals("BRD")){ header.tvHeaderTitle.setText(R.string.dash_02);}
+        else if(GUBUN.equals("NOT")){ header.tvHeaderTitle.setText(R.string.dash_01);}
 
         spinnerCity = findViewById(R.id.spinnerCity);
         spinnerStreet = findViewById(R.id.spinnerStreet);

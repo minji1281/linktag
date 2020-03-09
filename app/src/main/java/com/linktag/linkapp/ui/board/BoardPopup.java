@@ -97,8 +97,8 @@ public class BoardPopup extends BaseActivity {
 //        if(GUBUN.equals("BRC")){ alarmTitle = getString(R.string.dash_21); }
 //        else if(GUBUN.equals("NOC")){ alarmTitle = getString(R.string.dash_22);}
 
-        if(getIntent().getStringExtra("DSH_GB").equals("BRD")){alarmTitle = getString(R.string.dash_21);}
-        else if(getIntent().getStringExtra("DSH_GB").equals("NOT")){ alarmTitle = getString(R.string.dash_22);}
+        if(getIntent().getStringExtra("DSH_GB").equals("BRD")){alarmTitle = getString(R.string.dash_22);}
+        else if(getIntent().getStringExtra("DSH_GB").equals("NOT")){ alarmTitle = getString(R.string.dash_21);}
 
         mContext5 = this;
 

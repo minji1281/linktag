@@ -60,6 +60,7 @@ public class HomeFragment extends BaseFragment {
     private TextView tvHomeDate;
 
     private ExpandableHeightGridView gridBMK;
+    private ExpandableHeightGridView gridARM;
     private TextView btnBmkAdd;
     private TextView btnBmkDelete;
     private TextView btnBmkCancel;
@@ -120,6 +121,9 @@ public class HomeFragment extends BaseFragment {
                 onBmkGridClick(position);
             }
         });
+
+        gridARM = (ExpandableHeightGridView) view.findViewById(R.id.gridARM);
+        gridARM.setExpanded(true);
 
         tvHomeName = view.findViewById(R.id.tvHomeName);
         tvHomeEmail = view.findViewById(R.id.tvHomeEmail);
@@ -198,7 +202,7 @@ public class HomeFragment extends BaseFragment {
         gridBMK.setAdapter(mAdapter);
 
         mAdapter2 = new AlarmListAdapter(mContext, mList2);
-        listView.setAdapter(mAdapter2);
+        gridARM.setAdapter(mAdapter2);
     }
 
 
