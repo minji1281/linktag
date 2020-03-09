@@ -58,12 +58,15 @@ public class AddSharedAdapter extends BaseAdapter{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-        imageUrl = "http://app.linktag.io/files/admin/svc/" + mList.get(position).SVC_02 + "/" + mList.get(position).SVC_16;
+//        imageUrl = "http://app.linktag.io/files/admin/svc/" + mList.get(position).SVC_02 + "/" + mList.get(position).SVC_16;
+//
+//        Glide.with(mContext).load(imageUrl)
+//                .placeholder(R.drawable.main_profile_no_image)
+//                .error(R.drawable.main_profile_no_image)
+//                .into(viewHolder.ivService);
 
-        Glide.with(mContext).load(imageUrl)
-                .placeholder(R.drawable.main_profile_no_image)
-                .error(R.drawable.main_profile_no_image)
-                .into(viewHolder.ivService);
+        int resource = convertView.getResources().getIdentifier("service_" + mList.get(position).SVC_01.toLowerCase() , "drawable", mContext.getPackageName());
+        viewHolder.ivService.setImageResource(resource);
 
         viewHolder.tvService.setText(mList.get(position).SVC_03);
 

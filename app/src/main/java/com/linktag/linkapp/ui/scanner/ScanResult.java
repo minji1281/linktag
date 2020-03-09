@@ -111,7 +111,6 @@ public class ScanResult {
     }
 
     private void callBack(CTD_Model model, String scanCode){
-
         System.out.println("###############");
         System.out.println(scanCode);
         if(model.Data.get(0).Validation){
@@ -138,6 +137,7 @@ public class ScanResult {
 
              */
             Intent intent = new Intent(mContext, ChooseOne.class);
+            intent.putExtra("type", "SCAN");
             intent.putExtra("scanCode", scanCode);
             mContext.startActivity(intent);
         }

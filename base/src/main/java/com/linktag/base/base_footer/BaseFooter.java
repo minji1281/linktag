@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -22,13 +23,14 @@ public class BaseFooter extends LinearLayout {
 
     public LinearLayout btnFooterHome;
     public LinearLayout btnFooterCalendar;
+    public LinearLayout btnFooterScan;
     public LinearLayout btnFooterMenu;
     public LinearLayout btnFooterMember;
     public LinearLayout btnFooterSetting;
 
     public TextView tvFooterHome;
     public TextView tvFooterCalendar;
-    public ImageButton btnFooterScan;
+    public ImageView ivFooterScan;
     public TextView tvFooterMenu;
     public TextView tvFooterMember;
     public TextView tvFooterSetting;
@@ -113,7 +115,7 @@ public class BaseFooter extends LinearLayout {
 
         btnFooterHome = (LinearLayout) v.findViewById(R.id.btnFooterHome);
         btnFooterCalendar = (LinearLayout) v.findViewById(R.id.btnFooterCalendar);
-        btnFooterScan = (ImageButton) v.findViewById(R.id.btnFooterScan);
+        btnFooterScan = (LinearLayout) v.findViewById(R.id.btnFooterScan);
         btnFooterMenu = (LinearLayout) v.findViewById(R.id.btnFooterMenu);
         btnFooterMember = (LinearLayout) v.findViewById(R.id.btnFooterMember);
         btnFooterSetting = (LinearLayout) v.findViewById(R.id.btnFooterSetting);

@@ -1,4 +1,4 @@
-package com.linktag.linkapp.ui.menu;
+package com.linktag.linkapp.ui.main;
 
 import android.content.Context;
 import android.os.Build;
@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -17,14 +16,14 @@ import com.linktag.linkapp.value_object.CtdVO;
 
 import java.util.ArrayList;
 
-public class ServiceAdapter extends BaseAdapter{
+public class BookmarkAdapter extends BaseAdapter{
     private Context mContext;
     private ArrayList<CtdVO> mList;
     private LayoutInflater mInflater;
 
     private boolean deleteChk = false;
 
-    public ServiceAdapter(Context context, ArrayList<CtdVO> list){
+    public BookmarkAdapter(Context context, ArrayList<CtdVO> list){
         this.mContext = context;
         this.mList = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -57,6 +56,7 @@ public class ServiceAdapter extends BaseAdapter{
             }
             viewHolder.tvService = convertView.findViewById(R.id.tvService);
             viewHolder.layDelete = convertView.findViewById(R.id.layDelete);
+            viewHolder.layType = convertView.findViewById(R.id.layType);
 
             convertView.setTag(viewHolder);
         } else {
@@ -73,12 +73,19 @@ public class ServiceAdapter extends BaseAdapter{
         int resource = convertView.getResources().getIdentifier("service_" + mList.get(position).SVC_01.toLowerCase() , "drawable", mContext.getPackageName());
         viewHolder.ivService.setImageResource(resource);
 
-        viewHolder.tvService.setText(mList.get(position).CTD_02_NM);
-
         if(deleteChk)
             viewHolder.layDelete.setVisibility(View.VISIBLE);
         else
             viewHolder.layDelete.setVisibility(View.GONE);
+
+        if(mList.get(position).CTM_19.equals("S")){
+            viewHolder.layType.setVisibility(View.VISIBLE);
+            viewHolder.tvService.setText(mList.get(position).CTM_17);
+        }
+        else {
+            viewHolder.layType.setVisibility(View.GONE);
+            viewHolder.tvService.setText(mList.get(position).CTD_02_NM);
+        }
 
         return convertView;
     }
@@ -93,5 +100,6 @@ public class ServiceAdapter extends BaseAdapter{
         ImageView ivService;
         TextView tvService;
         LinearLayout layDelete;
+        LinearLayout layType;
     }
 }

@@ -1,6 +1,8 @@
 package com.linktag.linkapp.ui.menu;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,6 +34,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class SharedFragment extends BaseFragment {
+    private final String CHOOSE_TYPE_SCAN = "SCAN";
+    private final String CHOOSE_TYPE_BMK = "BMK";
+
+    private String GUBUN;
+
     private BaseHeader header;
     private View view;
     private GridView gridView;
@@ -88,6 +95,11 @@ public class SharedFragment extends BaseFragment {
 
         if(activity_name.equals("ChooseOne")){
             header.btnHeaderText.setVisibility(View.GONE);
+            layAdd.setVisibility(View.GONE);
+
+            GUBUN = "LIST_BOOKMARK2";
+        } else {
+            GUBUN = "LIST_SHARED";
         }
     }
 
@@ -115,11 +127,11 @@ public class SharedFragment extends BaseFragment {
 
         Call<CTD_Model> call = Http.ctd(HttpBaseService.TYPE.POST).CTD_SELECT(
                 BaseConst.URL_HOST,
-                "LIST_SHARED",
+                GUBUN,
                 "",
                 "",
                 mUser.Value.OCM_01,
-                ""
+                "S"
         );
 
         call.enqueue(new Callback<CTD_Model>() {
@@ -166,17 +178,39 @@ public class SharedFragment extends BaseFragment {
 
         if(activity_name.equals("ChooseOne")){
             // 해당 서비스 NEW 이동
+            String type;
             String scanCode;
 
             Bundle bundle = getArguments();
 
             if(bundle != null){
+                type =  bundle.getString("type");
                 scanCode = bundle.getString("scanCode");
 
-                ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, mList.get(position));
-                changeActivityCls.changeServiceWithScan(scanCode);
+                if(type.equals(CHOOSE_TYPE_SCAN)){
+                    ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, mList.get(position));
+                    changeActivityCls.changeServiceWithScan(scanCode);
 
-                mActivity.finish();
+                    closeLoadingBar();
+                    mActivity.finish();
+                } else {
+                    // 북마크 등록
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
+                    builder.setMessage("선택한 서비스를 즐겨찾기 하시겠습니까?");
+                    builder.setCancelable(true);
+                    builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                            requestBMK_CONTROL(mList.get(position));
+                        }
+                    });
+                    builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int id) {
+                        }
+                    });
+                    builder.create().show();
+                }
             }
         } else {
             ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, mList.get(position));
@@ -184,6 +218,55 @@ public class SharedFragment extends BaseFragment {
 
             //mActivity.finish();
         }
+    }
+
+    private void requestBMK_CONTROL(CtdVO ctdVO) {
+        // 인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext )){
+            BaseAlert.show(getString(R.string.common_network_error));
+            return;
+        }
+
+        //openLoadingBar();
+
+        Call<CTD_Model> call = Http.bmk(HttpBaseService.TYPE.POST).BMK_CONTROL(
+                BaseConst.URL_HOST,
+                "INSERT",
+                ctdVO.CTD_01,
+                ctdVO.CTD_02,
+                mUser.Value.OCM_01,
+                "1",
+                mUser.Value.OCM_01
+        );
+
+        call.enqueue(new Callback<CTD_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<CTD_Model> call, Response<CTD_Model> response) {
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+                            //closeLoadingBar();
+
+                            requestCTD_SELECT();
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<CTD_Model> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+                //closeLoadingBar();
+
+            }
+        });
+
     }
 
 }

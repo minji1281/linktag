@@ -1,53 +1,29 @@
 package com.linktag.linkapp.ui.main;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_footer.BaseFooter;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.base_view_pager.BaseViewPager;
 import com.linktag.base.base_view_pager.ViewPagerAdapter;
-import com.linktag.base.network.ClsNetworkCheck;
-import com.linktag.base.util.BaseAlert;
-import com.linktag.base.util.ClsAES;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.model.CTDS_Model;
-import com.linktag.linkapp.network.BaseConst;
-import com.linktag.linkapp.network.Http;
-import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.login.Login;
-import com.linktag.linkapp.ui.menu.ChangeActivityCls;
-import com.linktag.linkapp.ui.menu.ChooseOne;
-import com.linktag.linkapp.ui.scanner.ScanBarcode;
 import com.linktag.linkapp.ui.scanner.ScanResult;
-import com.linktag.linkapp.ui.work_place_search.FindWorkPlace;
-import com.linktag.linkapp.value_object.CtdVO;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
-
 
 public class Main extends BaseActivity {
     private final int TAB_PAGE_HOME = 0;
@@ -85,7 +61,6 @@ public class Main extends BaseActivity {
 
         initialize();
 
-        //checkPwd();
     }
 
     @Override
@@ -127,32 +102,6 @@ public class Main extends BaseActivity {
 
     }
 
-    private void checkPwd(){
-//        if(mUser.Value.EMP_15_CHK.equals("SAME")){
-//            new AlertDialog.Builder(mActivity)
-//                    .setMessage("아이디와 비밀번호가 같습니다.\n비밀번호 변경 페이지로 이동하시겠습니까?")
-//                    .setPositiveButton("예", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            Intent intent = new Intent(mContext, ProfileMain.class);
-//
-//                            intent.putExtra("setPwd", "1");
-//
-//                            mContext.startActivity(intent);
-//                        }
-//                    })
-//                    .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-//                        @Override
-//                        public void onClick(DialogInterface dialog, int which) {
-//                            return;
-//                        }
-//                    })
-//                    .setCancelable(false)
-//                    .show();
-//        }
-
-    }
-
     private void registerReceiver() {
         LocalBroadcastManager.getInstance(mContext).registerReceiver(mBroadcastLogout,
                 new IntentFilter(ClsBroadCast.BROAD_CAST_ACTION_LOGOUT));
@@ -168,8 +117,8 @@ public class Main extends BaseActivity {
         fragmentHome = new HomeFragment();
         fragmentCalendar = new CalendarFragment();
 
-        fragmentHome.setOnLoadingDialog(callLoadingBar);
-        fragmentCalendar.setOnLoadingDialog(callLoadingBar);
+        //fragmentHome.setOnLoadingDialog(callLoadingBar);
+        //fragmentCalendar.setOnLoadingDialog(callLoadingBar);
 
         mListFragment.add(fragmentHome);
         mListFragment.add(fragmentCalendar);
@@ -295,6 +244,5 @@ public class Main extends BaseActivity {
         super.onDestroy();
         unregisterReceiver();
     }
-
 
 }

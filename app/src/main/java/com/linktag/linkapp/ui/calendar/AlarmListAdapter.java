@@ -14,7 +14,6 @@ import android.widget.Toast;
 
 import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.ui.board.BoardMain;
 import com.linktag.linkapp.value_object.ARM_VO;
 import com.linktag.linkapp.value_object.CtdVO;
 
@@ -80,23 +79,27 @@ public class AlarmListAdapter extends BaseAdapter {
         }
 
      //   viewHolder.tvUserName.setText(mList.get(position).DSH_01);
-        if (mList.get(position).ARM_0101.substring(0,3).equals("POT")){         // 화분
-            viewHolder.tv_calenType.setImageResource(R.drawable.service_pot);
-        }else if (mList.get(position).ARM_0101.substring(0,3).equals("JDM")){   // 장독
-            viewHolder.tv_calenType.setImageResource(R.drawable.service_jdm);
-        }else if (mList.get(position).ARM_0101.substring(0,3).equals("CAR")){  // 차량
-            viewHolder.tv_calenType.setImageResource(R.drawable.service_car);
-        }else if (mList.get(position).ARM_0101.substring(0,3).equals("COS")){  // 화장품
-            viewHolder.tv_calenType.setImageResource(R.drawable.service_cos);
-        }else if (mList.get(position).ARM_0101.substring(0,3).equals("PCM")){  // 컴퓨터 관리
-            viewHolder.tv_calenType.setImageResource(R.drawable.service_pcm);
-        }else if (mList.get(position).ARM_0101.substring(0,3).equals("FRM")){  // 냉장고
-            viewHolder.tv_calenType.setImageResource(R.drawable.service_rfm);
-        }else if (mList.get(position).ARM_0101.substring(0,3).equals("TRP")){  //  복약
-            viewHolder.tv_calenType.setImageResource(R.drawable.service_trp);
-        }else if (mList.get(position).ARM_0101.substring(0,3).equals("FRM")){  //  필터
-            viewHolder.tv_calenType.setImageResource(R.drawable.service_frm);
-        }
+        int resource = convertView.getResources().getIdentifier("service_" + mList.get(position).ARM_0101.toLowerCase() , "drawable", mContext.getPackageName());
+        viewHolder.tv_calenType.setImageResource(resource);
+
+//        if (mList.get(position).ARM_0101.substring(0,3).equals("POT")){         // 화분
+//            viewHolder.tv_calenType.setImageResource(R.drawable.service_POT1);
+//        }else if (mList.get(position).ARM_0101.substring(0,3).equals("JDM")){   // 장독
+//            viewHolder.tv_calenType.setImageResource(R.drawable.service_JDM1);
+//        }else if (mList.get(position).ARM_0101.substring(0,3).equals("CAR")){  // 차량
+//            viewHolder.tv_calenType.setImageResource(R.drawable.service_CAR1);
+//        }else if (mList.get(position).ARM_0101.substring(0,3).equals("COS")){  // 화장품
+//            viewHolder.tv_calenType.setImageResource(R.drawable.service_COS1);
+//        }else if (mList.get(position).ARM_0101.substring(0,3).equals("PCM")){  // 컴퓨터 관리
+//            viewHolder.tv_calenType.setImageResource(R.drawable.service_PCM1);
+//        }else if (mList.get(position).ARM_0101.substring(0,3).equals("FRM")){  // 냉장고
+//            viewHolder.tv_calenType.setImageResource(R.drawable.service_RFM1);
+//        }else if (mList.get(position).ARM_0101.substring(0,3).equals("TRP")){  //  복약
+//            viewHolder.tv_calenType.setImageResource(R.drawable.service_TRP1);
+//        }else if (mList.get(position).ARM_0101.substring(0,3).equals("FRM")){  //  필터
+//            viewHolder.tv_calenType.setImageResource(R.drawable.service_FRM1);
+//        }
+
         String text1,text2,text3,text4;
 
         text1 = mList.get(position).ARM_92.substring(4,6)+"/"+mList.get(position).ARM_92.substring(6,8)+" ";

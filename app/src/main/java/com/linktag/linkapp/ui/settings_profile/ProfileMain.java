@@ -443,8 +443,12 @@ public class ProfileMain extends BaseActivity {
         intent.putExtra(MediaStore.EXTRA_OUTPUT, uriPhoto);
         intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
 
+        System.out.println("@@@@@@@@@@@333111qqq : "+uriPhoto);
+
         this.grantUriPermission("com.android.camera", uriPhoto,
                 Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+
+        System.out.println("@@@@@@@@@@@333111www : ");
 
         mActivity.startActivityForResult(intent, REQUEST_CODE_CROP);
     }
@@ -453,7 +457,12 @@ public class ProfileMain extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         // 사진
+        System.out.println("%%%%%%%%%%%%%%%% : " + requestCode);
+        System.out.println("%%%%%%%%%%%%%%%% : " + resultCode);
+
+
         if (requestCode == REQUEST_CODE_CROP && resultCode == RESULT_OK) {
+            System.out.println("@@@@@@@@@@@111");
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriPhoto);
                 imgProfilePhoto.setImageBitmap(bitmap);
@@ -463,6 +472,7 @@ public class ProfileMain extends BaseActivity {
                 e.printStackTrace();
             }
         } else if (requestCode == REQUEST_CODE_CROP_ALBUM && resultCode == RESULT_OK) {
+            System.out.println("@@@@@@@@@@@222");
             try {
                 Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriAlbum);
                 imgProfilePhoto.setImageURI(uriAlbum);
@@ -473,8 +483,10 @@ public class ProfileMain extends BaseActivity {
             }
         } else {
             if (resultCode == RESULT_OK) {
+                System.out.println("@@@@@@@@@@@333");
                 switch (requestCode) {
                     case REQUEST_CODE_ALBUM_PHOTO:
+                        System.out.println("@@@@@@@@@@@333111");
                         if (data.getData() != null) {
                             try {
                                 uriPhoto = data.getData();
@@ -485,6 +497,7 @@ public class ProfileMain extends BaseActivity {
                         }
                         break;
                     case REQUEST_CODE_PHOTO_TAKE_PHOTO:
+                        System.out.println("@@@@@@@@@@@333222");
                         if (!fileTakePhoto.exists()) {
                             return;
                         }
@@ -492,6 +505,7 @@ public class ProfileMain extends BaseActivity {
                         cropImage();
                         break;
                     case REQUEST_CODE_CROP:
+                        System.out.println("@@@@@@@@@@@333333");
                         try {
                             Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriPhoto);
                             imgProfilePhoto.setImageBitmap(bitmap);
