@@ -39,6 +39,7 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.PcdVO;
 import com.linktag.linkapp.value_object.PcmVO;
 
@@ -89,9 +90,8 @@ public class DetailPcm extends BaseActivity implements Serializable {
     private PcmVO pcmVO;
 
     private Calendar calendar = Calendar.getInstance();
-
-    private String CTM_01;
-    private String CTD_02;
+    SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
+    private CtdVO intentVO;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -104,9 +104,13 @@ public class DetailPcm extends BaseActivity implements Serializable {
         initialize();
 
         if (getIntent().hasExtra("scanCode")) {
-            CTM_01 = getIntent().getStringExtra("CTM_01");
-            CTD_02 = getIntent().getStringExtra("CTD_02");
+            intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
+            btn_update.setVisibility(View.GONE);
+            String date = formatDate.format(calendar.getTime());
+            pcmVO.setPCM_04(date);
+            tv_manageDay.setText(date.substring(0,4)+"년"+date.substring(4,6)+"년"+date.substring(6,8)+"일");
         }
+
 
     }
 
@@ -270,7 +274,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
                 pcmVO.PCM_96,
                 mUser.Value.OCM_01,
                 mUser.Value.OCM_01,
-                pcmVO.ARM_03
+                "N"
         );
 
 
@@ -280,14 +284,18 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
 
                 if (GUBUN.equals("INSERT")) {
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02, pcmVO.PCM_01);
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, pcmVO.PCM_01);
                     ctds_control.requestCTDS_CONTROL();
                     tv_manageDay.setText(format1.format(calendar.getTime()));
+                    onBackPressed();
                 }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
                     Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 PC관리 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    onBackPressed();
                 }
-                onBackPressed();
+                if(GUBUN.equals("UPDATE_DATE")){
+                    Toast.makeText(mContext,"관리일자 갱신 되었습니다.", Toast.LENGTH_SHORT).show();
+                }
             }
 
             @Override
@@ -472,7 +480,6 @@ public class DetailPcm extends BaseActivity implements Serializable {
                 SimpleDateFormat format1 = new SimpleDateFormat("yyyyMMdd");
                 pcmVO.setPCM_04(format1.format(calendar.getTime()));
                 requestPCM_CONTROL("UPDATE_DATE");
-                Toast.makeText(mContext, "최근 관리일자 업데이트", Toast.LENGTH_LONG).show();
                 String year = pcmVO.getPCM_04().substring(0, 4);
                 String month = pcmVO.getPCM_04().substring(4, 6);
                 String dayOfMonth = pcmVO.getPCM_04().substring(6, 8);

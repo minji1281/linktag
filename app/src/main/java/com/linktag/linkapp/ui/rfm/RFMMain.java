@@ -31,6 +31,7 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.ui.menu.Member;
+import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.ui.spinner.SpinnerList;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.RfdVO;
@@ -232,6 +233,7 @@ public class RFMMain extends BaseActivity {
 
     private void initLayoutByContractType() {
         footer = findViewById(R.id.footer);
+        footer.btnFooterScan.setOnClickListener(v -> goScan());
 
         if (intentVO.CTM_19.equals("P")) {
             // privateService
@@ -300,7 +302,7 @@ public class RFMMain extends BaseActivity {
                                     index[i] = response.body().Data.get(i).RFM_01;
                                     str[i] = response.body().Data.get(i).RFM_02;
                                 }
-                                final ArrayAdapter<String> hAdapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item2, str);
+                                final ArrayAdapter<String> hAdapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item6, str);
                                 headerSpinner.setAdapter(hAdapter);
                                 if (RFM_01.equals("")) {
                                     RFM_01 = mSpinnerList.get(0).getCode();
@@ -366,8 +368,8 @@ public class RFMMain extends BaseActivity {
                             if (mRfmList == null) mRfmList = new ArrayList<>();
                             if (mRfmList.size() == 0) {
                                 RfmVO rfmvo = new RfmVO();
-                                rfmvo.setRFM_ID(getIntent().getStringExtra("CTN_02"));
-                                rfmvo.setRFM_01(getIntent().getStringExtra("scanCode"));
+                                rfmvo.setRFM_ID(intentVO.CTN_02);
+                                rfmvo.setRFM_01(scancode);
                                 rfmvo.setRFM_02("");
                                 rfmvo.setRFM_03("");
                                 rfmvo.setRFM_97(mUser.Value.OCM_01);
@@ -377,8 +379,7 @@ public class RFMMain extends BaseActivity {
                                 intent.putExtra("RfmVO", rfmvo);
 
                                 intent.putExtra("scanCode", getIntent().getStringExtra("scanCode"));
-                                intent.putExtra("CTM_01", getIntent().getStringExtra("CTM_01"));
-                                intent.putExtra("CTD_02", getIntent().getStringExtra("CTD_02"));
+                                intent.putExtra("intentVO", intentVO);
                                 mContext.startActivity(intent);
                             } else {
                                 RFM_01 = mRfmList.get(0).RFM_01;
@@ -496,4 +497,11 @@ public class RFMMain extends BaseActivity {
         });
 
     }
+
+    @Override
+    protected void scanResult(String str){
+        ScanResult scanResult = new ScanResult(mContext, str, null);
+        scanResult.run();
+    }
+
 }

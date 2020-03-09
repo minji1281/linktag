@@ -91,7 +91,7 @@ public class CodDetail extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cod_detail2);
+        setContentView(R.layout.activity_cod_detail);
 
         intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
 

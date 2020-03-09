@@ -200,9 +200,9 @@ public class JDMMain extends BaseActivity {
                                     jdmvo.setJDM_03("");
                                     jdmvo.setJDM_04("");
                                     jdmvo.setJDM_05("");
-                                    jdmvo.setJDM_06("");
-                                    jdmvo.setJDM_07("");
-                                    jdmvo.setJDM_08(formatDate.format(calendar.getTime()));
+                                    jdmvo.setJDM_06("7");  //기본 7일
+                                    jdmvo.setJDM_07("0");  // 일
+                                    jdmvo.setJDM_08("");
                                     jdmvo.setJDM_96("");
                                     jdmvo.setJDM_97(mUser.Value.OCM_01);
                                     jdmvo.setARM_03("N");

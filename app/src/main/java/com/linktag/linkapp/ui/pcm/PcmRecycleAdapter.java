@@ -68,7 +68,8 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
         viewHolder.tv_name.setText(mList.get(position).PCM_02);
         viewHolder.tv_memo.setText(mList.get(position).PCM_03);
         viewHolder.tv_date.setText(mList.get(position).PCM_04.substring(0,4)+"."+mList.get(position).PCM_04.substring(4,6)+"."+mList.get(position).PCM_04.substring(6,8));
-
+        viewHolder.tv_hwCount.setText(mList.get(position).PCD_HW_CNT + "건");
+        viewHolder.tv_swCount.setText(mList.get(position).PCD_SW_CNT + "건");
 //        if (mList.get(position).ARM_03.equals("Y")) {
 //            viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
 //        } else if (mList.get(position).ARM_03.equals("N")) {
@@ -133,6 +134,9 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
         TextView tv_memo;
         TextView tv_date;
 
+        TextView tv_hwCount;
+        TextView tv_swCount;
+
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
@@ -140,6 +144,8 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_memo = itemView.findViewById(R.id.tv_memo);
             tv_date = itemView.findViewById(R.id.tv_date);
+            tv_hwCount = itemView.findViewById(R.id.tv_hwCount);
+            tv_swCount = itemView.findViewById(R.id.tv_swCount);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

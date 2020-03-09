@@ -37,6 +37,7 @@ import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm.AlarmDialog;
 import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.RfmVO;
 
@@ -60,10 +61,8 @@ public class DetailRfm extends BaseActivity {
 
     private RfmVO rfmVO;
 
-    private String CTM_01;
-    private String CTD_02;
 
-
+    private CtdVO intentVO;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,8 +75,7 @@ public class DetailRfm extends BaseActivity {
         initialize();
 
         if (getIntent().hasExtra("scanCode")) {
-            CTM_01 = getIntent().getStringExtra("CTM_01");
-            CTD_02 = getIntent().getStringExtra("CTD_02");
+            intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
         }
 
     }
@@ -107,7 +105,7 @@ public class DetailRfm extends BaseActivity {
             public void onResponse(Call<RFMModel> call, Response<RFMModel> response) {
 
                 if(GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")){
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, CTM_01, CTD_02, rfmVO.RFM_01);
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, rfmVO.RFM_01);
                     ctds_control.requestCTDS_CONTROL();
 
                     RFMMain.RFM_01 = rfmVO.RFM_01;
@@ -146,9 +144,6 @@ public class DetailRfm extends BaseActivity {
 
         ed_name.setText(rfmVO.getRFM_02());
 
-        //명칭은 읽기전용으로 일단은...
-        //ed_name.setEnabled(false);
-
         ed_memo.setText(rfmVO.getRFM_03());
 
     }
@@ -180,7 +175,7 @@ public class DetailRfm extends BaseActivity {
         header.btnHeaderRight1.setVisibility((View.VISIBLE));
         header.btnHeaderRight1.setMaxWidth(50);
         header.btnHeaderRight1.setMaxHeight(50);
-        header.btnHeaderRight1.setImageResource(R.drawable.delete); //delete는 왜 크기가 안맞는거야!!! 일단 대체아이콘으로..,,
+        header.btnHeaderRight1.setImageResource(R.drawable.btn_cancel); //delete는 왜 크기가 안맞는거야!!! 일단 대체아이콘으로..,,
         header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

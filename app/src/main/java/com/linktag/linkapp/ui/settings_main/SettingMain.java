@@ -20,6 +20,7 @@ import com.linktag.base.settings.SettingsKey;
 import com.linktag.base.util.ClsDateTime;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.ui.board.BoardMain;
 import com.linktag.linkapp.ui.settings_profile.ProfileMain;
 
 public class SettingMain extends BaseActivity {
@@ -94,7 +95,10 @@ public class SettingMain extends BaseActivity {
     }
 
     private void goNotice(){
-
+        Intent intent = new Intent(mContext, BoardMain.class);
+        intent.addFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intent.putExtra("DSH_GB", "NOT");
+        mContext.startActivity(intent);
     }
 
     /**

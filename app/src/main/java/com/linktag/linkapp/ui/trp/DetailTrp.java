@@ -35,6 +35,7 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
+import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
@@ -612,6 +613,5 @@ public class DetailTrp extends BaseActivity{
         });
 
     }
-
 
 }

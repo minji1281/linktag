@@ -3,6 +3,7 @@ package com.linktag.linkapp.ui.jdm;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
@@ -20,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListPopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +54,7 @@ public class DetailJdm extends BaseActivity {
 
     private BaseHeader header;
 
+    private RelativeLayout check_area;
     private EditText ed_name;
     private EditText ed_memo;
 
@@ -77,6 +80,7 @@ public class DetailJdm extends BaseActivity {
     private CtdVO intentVO;
     private JdmVO jdmVO;
     private Calendar calendar = Calendar.getInstance();
+    private Calendar dialogcalendar = Calendar.getInstance();
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
@@ -94,6 +98,7 @@ public class DetailJdm extends BaseActivity {
         setContentView(R.layout.activity_detail_jdm2);
 
 
+
         sp_size = findViewById(R.id.sp_size);
 
         String[] str = getResources().getStringArray(R.array.jdm);
@@ -107,6 +112,7 @@ public class DetailJdm extends BaseActivity {
 
         if (getIntent().hasExtra("scanCode")) {
             intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
+            check_area.setVisibility(View.GONE);
         }
 
     }
@@ -173,9 +179,13 @@ public class DetailJdm extends BaseActivity {
                     Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 장독정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }
+                if(GUBUN.equals("DELETE")){
+                    onBackPressed();
+                }
                 if (GUBUN.equals("UPDATE_NEXT")) {
                     imageView_check.setImageResource(R.drawable.ic_check_on);
                 }
+
             }
 
             @Override
@@ -196,7 +206,7 @@ public class DetailJdm extends BaseActivity {
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
-
+        check_area = findViewById(R.id.check_area);
         linearLayout = findViewById(R.id.linearLayout);
         datePicker = findViewById(R.id.datePicker);
         tv_nextDate = findViewById(R.id.tv_nextDate);
@@ -236,7 +246,7 @@ public class DetailJdm extends BaseActivity {
 
 
         if (jdmVO.getJDM_96().equals("")) {
-            calendar.add(Calendar.DATE, 3);
+            calendar.add(Calendar.DATE, Integer.parseInt(jdmVO.JDM_06));
             tv_nextDate.setText(format.format(calendar.getTime()));
             jdmVO.setJDM_96(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime()));
 
@@ -253,7 +263,7 @@ public class DetailJdm extends BaseActivity {
             imageView.setImageResource(R.drawable.alarm_state_off);
         }
 
-        if (Integer.parseInt(jdmVO.JDM_96.substring(0, 8)) < Integer.parseInt(formatDate.format(calendar.getTime()))) {
+        if (jdmVO.JDM_08.equals("") || Integer.parseInt(jdmVO.JDM_96.substring(0, 8)) < Integer.parseInt(formatDate.format(calendar.getTime()))) {
             imageView_check.setImageResource(R.drawable.ic_check_off);
         } else {
             imageView_check.setImageResource(R.drawable.ic_check_on);
@@ -270,6 +280,10 @@ public class DetailJdm extends BaseActivity {
         } else {
             sp_size.setSelection(Integer.parseInt(jdmVO.JDM_05));
         }
+
+        dialogcalendar.set(Calendar.YEAR, Integer.parseInt(jdmVO.JDM_96.substring(0, 4)));
+        dialogcalendar.set(Calendar.MONTH, Integer.parseInt(jdmVO.JDM_96.substring(4, 6)) - 1);
+        dialogcalendar.set(Calendar.DATE, Integer.parseInt(jdmVO.JDM_96.substring(6, 8)));
     }
 
     @Override
@@ -330,7 +344,6 @@ public class DetailJdm extends BaseActivity {
             public void onClick(View view) {
 
                 jdmVO.setJDM_05(map_size.get(sp_size.getSelectedItem()));
-                //jdmVO.setJDM_06(tv_recycleDay.toString().replace("일"));
                 jdmVO.setJDM_04(tv_datePicker.getText().toString().replace(".", ""));
                 if (getIntent().hasExtra("scanCode")) {
                     requestJMD_CONTROL("INSERT");
@@ -344,13 +357,15 @@ public class DetailJdm extends BaseActivity {
         tv_recycleDay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                RecycleDayDialog Dialog = new RecycleDayDialog(mContext, jdmVO.JDM_06, jdmVO.JDM_07);
+
+                RecycleDayDialog Dialog = new RecycleDayDialog(mContext, jdmVO.JDM_06, jdmVO.JDM_07, dialogcalendar);
 
                 Dialog.setDialogListener(new RecycleDayDialog.CustomDialogListener() {
                     @Override
-                    public void onPositiveClicked(String val1, String val2, String val3) {
+                    public void onPositiveClicked(String val1, String val2, String val3, Calendar calendar) {
 
                         setRecycleDay(val1, val2, val3);
+                        dialogcalendar = calendar;
                     }
 
                     @Override
@@ -451,9 +466,11 @@ public class DetailJdm extends BaseActivity {
             recycleDayVal1 = val1;
             recycleDayVal2 = val2;
             Calendar sCalendar = Calendar.getInstance();
-            sCalendar.set(Calendar.YEAR, Integer.parseInt(jdmVO.JDM_08.substring(0, 4)));
-            sCalendar.set(Calendar.MONTH, Integer.parseInt(jdmVO.JDM_08.substring(4, 6)) - 1);
-            sCalendar.set(Calendar.DATE, Integer.parseInt(jdmVO.JDM_08.substring(6, 8)));
+            if(!jdmVO.JDM_08.equals("")){
+                sCalendar.set(Calendar.YEAR, Integer.parseInt(jdmVO.JDM_08.substring(0, 4)));
+                sCalendar.set(Calendar.MONTH, Integer.parseInt(jdmVO.JDM_08.substring(4, 6)) - 1);
+                sCalendar.set(Calendar.DATE, Integer.parseInt(jdmVO.JDM_08.substring(6, 8)));
+            }
 
             jdmVO.setJDM_06(val1);
             jdmVO.setJDM_07(val2);
@@ -472,6 +489,8 @@ public class DetailJdm extends BaseActivity {
                     break;
             }
         } else {
+//            jdmVO.setJDM_06("1"); //1일
+//            jdmVO.setJDM_07("0"); //일
             recycleDayVal2 = "3";
             tv_recycleDay.setText("지정일");
             tv_nextDate.setText(val1 + "." + val2 + "." + val3);

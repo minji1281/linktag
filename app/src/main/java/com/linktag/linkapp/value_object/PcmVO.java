@@ -22,6 +22,10 @@ public class PcmVO implements Serializable {
     public String PCD_05;  //분류 세부설명
     public String PCD_98;  // 최종수정자 아이디
 
+    public String PCD_HW_CNT;
+    public String PCD_SW_CNT;
+
+
     public String ARM_ID;
     public String ARM_01;
     public String ARM_02;
@@ -153,6 +157,22 @@ public class PcmVO implements Serializable {
 
     public void setPCD_98(String PCD_98) {
         this.PCD_98 = PCD_98;
+    }
+
+    public String getPCD_HW_CNT() {
+        return PCD_HW_CNT;
+    }
+
+    public void setPCD_HW_CNT(String PCD_HW_CNT) {
+        this.PCD_HW_CNT = PCD_HW_CNT;
+    }
+
+    public String getPCD_SW_CNT() {
+        return PCD_SW_CNT;
+    }
+
+    public void setPCD_SW_CNT(String PCD_SW_CNT) {
+        this.PCD_SW_CNT = PCD_SW_CNT;
     }
 
     public String getARM_ID() {

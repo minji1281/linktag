@@ -20,6 +20,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class ChooseOne extends BaseActivity {
+    private final String CHOOSE_TYPE_SCAN = "SCAN";
+    private final String CHOOSE_TYPE_BMK = "BMK";
+
     private final int CHOOSE_PAGE_SERVICE = 0;
     private final int CHOOSE_PAGE_SHARED = 1;
 
@@ -35,6 +38,7 @@ public class ChooseOne extends BaseActivity {
     private TextView tvChooseService;
     private TextView tvChooseShared;
 
+    private String type;
     private String scanCode;
 
     @Override
@@ -100,13 +104,20 @@ public class ChooseOne extends BaseActivity {
             }
         });
 
-        scanCode = getIntent().getStringExtra("scanCode");
-        Bundle bundle = new Bundle(1);
-        bundle.putString("scanCode", scanCode);
+        type = getIntent().getStringExtra("type");
+
+        Bundle bundle = new Bundle(2);
+        bundle.putString("type", type);
+
+        if(type.equals(CHOOSE_TYPE_SCAN)){
+            scanCode = getIntent().getStringExtra("scanCode");
+            bundle.putString("scanCode", scanCode);
+        } else {
+            bundle.putString("scanCode", "");
+        }
 
         fragShared.setArguments(bundle);
         fragService.setArguments(bundle);
-
     }
 
     @Override

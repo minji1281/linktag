@@ -110,6 +110,10 @@ public class FrmDetail extends BaseActivity {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
+        clearCalTime(TODAY);
+        clearCalTime(FRM_03_C);
+        clearCalTime(FRM_96_C);
+
         etName = (EditText) findViewById(R.id.etName);
         etMemo = (EditText) findViewById(R.id.etMemo);
 
@@ -174,7 +178,9 @@ public class FrmDetail extends BaseActivity {
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                requestFRM_CONTROL(GUBUN);
+                if(validationCheck()){
+                    requestFRM_CONTROL(GUBUN);
+                }
             }
         });
         imgFilter = (ImageView) findViewById(R.id.imgFilter);
@@ -479,7 +485,9 @@ public class FrmDetail extends BaseActivity {
                             .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    requestFRM_CONTROL("FILTER");
+                                    if(validationCheck()){
+                                        requestFRM_CONTROL("FILTER");
+                                    }
                                 }
                             })
                             .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -498,7 +506,9 @@ public class FrmDetail extends BaseActivity {
             imgFilter.setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
-                    requestFRM_CONTROL("FILTER");
+                    if(validationCheck()){
+                        requestFRM_CONTROL("FILTER");
+                    }
                 }
             });
         }
@@ -553,6 +563,26 @@ public class FrmDetail extends BaseActivity {
         }, FRM_03_C.get(Calendar.YEAR), FRM_03_C.get(Calendar.MONTH), FRM_03_C.get(Calendar.DATE));
 
         dialog.show();
+    }
+
+    public boolean validationCheck(){
+        boolean check = true;
+        if(etName.getText().toString().equals("")){
+            check = false;
+            Toast.makeText(mActivity, "명칭을 입력해주세요.", Toast.LENGTH_SHORT).show();
+        }
+        else if(FRM.FRM_05.equals("")){
+            check = false;
+            Toast.makeText(mActivity, "주기를 선택하세요.", Toast.LENGTH_SHORT).show();
+        }
+        return check;
+    }
+
+    public void clearCalTime(Calendar c){
+        c.set(Calendar.HOUR, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
     }
 
 }

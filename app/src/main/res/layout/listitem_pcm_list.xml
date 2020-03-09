@@ -12,12 +12,12 @@
         android:background="@drawable/shape_base_border"
         android:orientation="horizontal"
         android:padding="8dp">
+
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
-            android:layout_marginStart="15dp"
-            android:layout_weight="2"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <TextView
@@ -38,31 +38,93 @@
                 android:id="@+id/tv_memo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:singleLine="true"
                 android:ellipsize="end"
+                android:singleLine="true"
                 android:text="윙윙 소리남 벌집있는듯"
                 android:textSize="12dp" />
         </LinearLayout>
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
-            <TextView
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="최근 관일자"/>
-            <TextView
-                android:id="@+id/tv_date"
-                android:layout_width="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="최근 관일자"
+                    android:textSize="13dp"
+                    android:textColor="@color/colorBase"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="20.01.03"
+                    android:textSize="13dp"
+                    android:textColor="@color/colorBase"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:text="20.01.03"
-                android:textSize="15dp"
-                android:textStyle="bold" />
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="하드웨어"
+                    android:textSize="13dp"
+                    android:textColor="@color/colorBase"
+                    android:textStyle="bold" />
+
+
+                <TextView
+                    android:id="@+id/tv_hwCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="5"
+                    android:textSize="13dp"
+                    android:textColor="@color/colorBase"
+                    android:textStyle="bold" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="소프트웨어 "
+                    android:textSize="13dp"
+                    android:textColor="@color/colorBase"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_swCount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="5dp"
+                    android:text="4"
+                    android:textSize="13dp"
+                    android:textColor="@color/colorBase"
+                    android:textStyle="bold" />
+            </LinearLayout>
         </LinearLayout>
 
     </LinearLayout>

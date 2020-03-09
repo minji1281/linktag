@@ -120,17 +120,25 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
 //        int count = (int) ((dCalendar.getTimeInMillis() - calendar.getTimeInMillis()) /  86400000);
 
 
-        if(count >=15){
+        if(count < 0){
+            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_red_8dp);
+            viewHolder.btn_label.setText("유통기한 마감");
+        }
+        else if(count == 0){
+            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_yellow_8dp);
+            viewHolder.btn_label.setText("오늘까지");
+        }
+        else if(count <= 7){
+            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_blue_8dp);
+            viewHolder.btn_label.setText("7일 이하 남음");
+        }
+        else if(count >=15){
             viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_green_8dp);
             viewHolder.btn_label.setText("15일이상 남음");
         }
         else if(count < 15 &&  count >=7){
             viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_blue_8dp);
-            viewHolder.btn_label.setText("7일이하 남음");
-        }
-        else if(count == 0){
-            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_yellow_8dp);
-            viewHolder.btn_label.setText("오늘까지");
+            viewHolder.btn_label.setText("15일 미만 남음");
         }
         else if(count < 0){
             viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_red_8dp);

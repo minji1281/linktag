@@ -207,6 +207,7 @@ public class PotList extends BaseActivity {
     // 요거
     private void initLayoutByContractType(){
         footer = findViewById(R.id.footer);
+        footer.btnFooterScan.setOnClickListener(v -> goScan());
 
         if(intentVO.CTM_19.equals("P")){
             // privateService

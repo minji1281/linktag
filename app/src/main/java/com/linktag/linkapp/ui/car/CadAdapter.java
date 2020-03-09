@@ -8,6 +8,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.value_object.CAD_VO;
 
@@ -18,11 +19,13 @@ public class CadAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<CAD_VO> mList;
     private LayoutInflater mInflater;
+    private InterfaceUser mUser;
 
     public CadAdapter(Context context, ArrayList<CAD_VO> list){
         this.mContext = context;
         this.mList = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        this.mUser = InterfaceUser.getInstance();
     }
 
     @Override
@@ -48,12 +51,11 @@ public class CadAdapter extends BaseAdapter {
             convertView = mInflater.inflate(R.layout.listitem_find_cad, parent, false);
 
             viewHolder = new ViewHolder();
-            viewHolder.tvCadName = convertView.findViewById(R.id.tvCadName);
-            viewHolder.tvCadKm = convertView.findViewById(R.id.tvCadKm);
-            viewHolder.tvCadMoney = convertView.findViewById(R.id.tvCadMoney);
-            viewHolder.tvCadDay = convertView.findViewById(R.id.tvCadDay);
-
-            viewHolder.imgCadIcon = (ImageView) convertView.findViewById(R.id.imgCadIcon);
+            viewHolder.imgGubunIcon = (ImageView) convertView.findViewById(R.id.imgGubunIcon);
+            viewHolder.tvDay = convertView.findViewById(R.id.tvDay);
+            viewHolder.tvName = convertView.findViewById(R.id.tvName);
+            viewHolder.tvMoney = convertView.findViewById(R.id.tvMoney);
+            viewHolder.tvKm =  convertView.findViewById(R.id.tvKm);
 
             convertView.setTag(viewHolder);
         } else {
@@ -61,19 +63,13 @@ public class CadAdapter extends BaseAdapter {
         }
 
         //Image
-        viewHolder.imgCadIcon.setImageResource(R.drawable.ic_cad);
+        viewHolder.imgGubunIcon.setImageResource(R.drawable.ic_menu_manage);
 
         //Text
-        String CAD_04_T = "교체";
-        if(mList.get(position).CAD_04.equals("2")){
-            CAD_04_T = "점검";
-        }
-        viewHolder.tvCadName.setText("[" + CAD_04_T + "]" + mList.get(position).CAD_05);
-        viewHolder.tvCadKm.setText(NumberFormat.getInstance().format(mList.get(position).CAD_08) + "km");
-        viewHolder.tvCadMoney.setText(NumberFormat.getInstance().format(mList.get(position).CAD_07) + "원");
-        if(!mList.get(position).CAD_03.equals("")){
-            viewHolder.tvCadDay.setText(mList.get(position).CAD_03.substring(2, 4) + "." + mList.get(position).CAD_03.substring(4, 6) + "." + mList.get(position).CAD_03.substring(6, 8));
-        }
+        viewHolder.tvDay.setText(mList.get(position).CAD_03.substring(0, 4) + "-" + mList.get(position).CAD_03.substring(4, 6) + "-" + mList.get(position).CAD_03.substring(6, 8));
+        viewHolder.tvName.setText(mList.get(position).CAD_04);
+        viewHolder.tvMoney.setText(NumberFormat.getInstance().format(mList.get(position).CAD_07) + "원");
+        viewHolder.tvKm.setText(NumberFormat.getInstance().format(mList.get(position).CAD_08) + "km");
 
         return convertView;
     }
@@ -81,12 +77,12 @@ public class CadAdapter extends BaseAdapter {
     public void updateData(ArrayList<CAD_VO> list){ mList = list;}
 
     static class ViewHolder{
-        TextView tvCadName;
-        TextView tvCadKm;
-        TextView tvCadMoney;
-        TextView tvCadDay;
+        ImageView imgGubunIcon;
 
-        ImageView imgCadIcon;
+        TextView tvDay;
+        TextView tvName;
+        TextView tvMoney;
+        TextView tvKm;
 
     }
 }
