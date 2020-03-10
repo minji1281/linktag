@@ -176,7 +176,7 @@ public class DetailRfd extends BaseActivity {
         sp_pos = findViewById(R.id.sp_pos);
 
         String[] str = getResources().getStringArray(R.array.rfd);
-        final ArrayAdapter<String> adapter_pos = new ArrayAdapter<String>(mContext, R.layout.spinner_item3, str);
+        final ArrayAdapter<String> adapter_pos = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, str);
         sp_pos.setAdapter(adapter_pos);
 
 
@@ -410,7 +410,7 @@ public class DetailRfd extends BaseActivity {
                                     RFM_02[i] = response.body().Data.get(i).RFM_02;
                                     map_rfm.put(response.body().Data.get(i).RFM_02, response.body().Data.get(i).RFM_01);
                                 }
-                                final ArrayAdapter<String> adapter_rtm = new ArrayAdapter<String>(mContext, R.layout.spinner_item4, RFM_02);
+                                final ArrayAdapter<String> adapter_rtm = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, RFM_02);
                                 sp_rfm.setAdapter(adapter_rtm);
                             }
                         }

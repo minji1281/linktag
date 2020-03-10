@@ -285,13 +285,13 @@
 
 
                             <LinearLayout
-                                android:layout_width="wrap_content"
+                                android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
                                 android:layout_marginTop="5dp">
 
                                 <Spinner
-                                    android:id="@+id/sp_size"
+                                    android:id="@+id/sp_pos"
                                     android:layout_width="match_parent"
                                     android:layout_height="35dp"
                                     android:layout_gravity="center_horizontal"
@@ -319,81 +319,41 @@
                             android:layout_height="0dp"
                             android:layout_weight="1"
                             android:background="@drawable/list_item_layout"
+                            android:gravity="center_vertical"
                             android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="5dp"
-                                android:text="청소주기"
-                                android:textSize="@dimen/text_small" />
-
+                            <Spinner
+                                android:id="@+id/sp_rfm"
+                                android:layout_width="match_parent"
+                                android:layout_height="35dp"
+                                android:layout_gravity="center_horizontal"
+                                android:layout_marginTop="5dp" />
 
                             <LinearLayout
-                                android:id="@+id/cleanRecycle"
+                                android:id="@+id/rfm_move"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="5dp">
-
-                                <ImageView
-                                    android:layout_width="30dp"
-                                    android:layout_height="30dp"
-                                    android:layout_gravity="center"
-                                    android:background="@drawable/ic_clean_recycle" />
+                                android:layout_marginTop="25dp">
 
                                 <TextView
                                     android:id="@+id/tv_recycleDay"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:text="2020.03.07"
+                                    android:text="보내기"
                                     android:textSize="@dimen/text_normal"
                                     android:textStyle="bold" />
-                            </LinearLayout>
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="0dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_weight="1"
-                            android:background="@drawable/list_item_layout"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_marginStart="10dp"
-                                android:layout_marginTop="5dp"
-                                android:text="담음 청소일"
-                                android:textSize="@dimen/text_small" />
-
-
-                            <LinearLayout
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center_horizontal"
-                                android:layout_marginTop="5dp"
-                                android:layout_marginBottom="5dp">
-
-                                <TextView
-                                    android:id="@+id/tv_nextDate"
-                                    android:layout_width="match_parent"
+                                <ImageView
+                                    android:layout_width="30dp"
                                     android:layout_height="30dp"
-                                    android:gravity="center_vertical"
-                                    android:text="2020.03.07"
-                                    android:textSize="@dimen/text_normal"
-                                    android:textStyle="bold" />
+                                    android:layout_gravity="center"
+                                    android:background="@drawable/ic_move"  />
 
                             </LinearLayout>
 
 
                         </LinearLayout>
+
 
                     </LinearLayout>
 
@@ -409,35 +369,6 @@
                 android:layout_weight="0.6"
                 android:gravity="center_vertical"
                 android:orientation="vertical">
-
-                <LinearLayout
-                    android:id="@+id/check_area"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/tv_label8"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="청소확인" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:id="@+id/imageView_check"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_centerVertical="true"
-                            android:adjustViewBounds="true"
-                            android:src="@drawable/ic_check_on" />
-                    </RelativeLayout>
-
-                </LinearLayout>
 
             </LinearLayout>
 
