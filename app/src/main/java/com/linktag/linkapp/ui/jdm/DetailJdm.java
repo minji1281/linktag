@@ -95,25 +95,26 @@ public class DetailJdm extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_jdm2);
+        //setContentView(R.layout.activity_detail_jdm2);
+        setContentView(R.layout.activity_detail_common);
 
 
-
-        sp_size = findViewById(R.id.sp_size);
-
-        String[] str = getResources().getStringArray(R.array.jdm);
-        final ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(mContext, R.layout.spinner_item3, str);
-        sp_size.setAdapter(adapter_size);
-
-
-        initLayout();
-
-        initialize();
-
-        if (getIntent().hasExtra("scanCode")) {
-            intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
-            check_area.setVisibility(View.GONE);
-        }
+//
+//        sp_size = findViewById(R.id.sp_size);
+//
+//        String[] str = getResources().getStringArray(R.array.jdm);
+//        final ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(mContext, R.layout.spinner_item3, str);
+//        sp_size.setAdapter(adapter_size);
+//
+//
+//        initLayout();
+//
+//        initialize();
+//
+//        if (getIntent().hasExtra("scanCode")) {
+//            intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
+//            check_area.setVisibility(View.GONE);
+//        }
 
     }
 
