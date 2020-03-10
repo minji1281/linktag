@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -8,105 +7,138 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="83dp"
+        android:layout_height="90dp"
         android:layout_marginLeft="20dp"
+        android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginBottom="8dp"
-        android:elevation="5dp"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:background="@drawable/list_round_shape"
-        android:orientation="horizontal"
-        android:padding="10dp">
+        android:elevation="5dp"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="3"
-                android:paddingRight="10dp"
-                android:orientation="vertical">
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
 
                 <TextView
                     android:id="@+id/tvFrmName"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:gravity="center_vertical|left"
                     android:ellipsize="end"
+                    android:gravity="center_vertical|left"
                     android:singleLine="true"
-                    android:textColor="@color/List1"
+                    android:textColor="@color/listitem_text1"
+                    android:textSize="@dimen/text_normal"
                     android:textStyle="bold"
-                    android:textSize="16dp"
-                    tools:text="공기청정기-1" />
+                    tools:text="공기청정기-사원사무실" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="5dp">
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:paddingTop="2dp"
+                    android:gravity="center_vertical|right"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="0dp"
+                    <ImageView
+                        android:id="@+id/imgAlarmIcon"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:ellipsize="end"
-                        android:gravity="center_vertical|left"
-                        android:singleLine="true"
-                        android:textColor="@color/List2"
-                        android:textSize="13dp"
-                        android:text="필터교체" />
-
-                    <TextView
-                        android:id="@+id/tvNextDay"
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1"
-                        android:gravity="center_vertical|right"
-                        android:singleLine="true"
-                        android:paddingRight="3dp"
-                        android:textColor="@color/List2"
-                        android:textSize="13dp"
-                        tools:text="2020-03-30" />
+                        tools:srcCompat="@drawable/alarm_state_on" />
 
                 </LinearLayout>
 
-                <ProgressBar
-                    android:id="@+id/pbFilter"
-                    style="@android:style/Widget.ProgressBar.Horizontal"
-                    android:layout_width="match_parent"
-                    android:layout_height="11dp"
-                    android:progress="50"
-                    android:progressDrawable="@drawable/progressbar_listitem" />
             </LinearLayout>
 
             <LinearLayout
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
                 android:layout_weight="1"
-                android:paddingLeft="15dp"
-                android:orientation="vertical">
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/imgAlarmIcon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:layout_weight="1.2"
-                    android:layout_gravity="center_vertical|right"
-                    android:layout_marginBottom="5dp"
-                    tools:srcCompat="@drawable/alarm_state_on" />
-
-                <Button
-                    android:id="@+id/btnFilterChange"
+                <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:background="@drawable/btn_round_blue2"
-                    android:textColor="@color/white"
-                    android:textStyle="bold"
-                    android:text="필터교체" />
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical|left"
+                            android:text="필터교체"
+                            android:textColor="@color/listitem_text2"
+                            android:textSize="@dimen/text_small" />
+
+                        <TextView
+                            android:id="@+id/tvNextDay"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/listitem_text2"
+                            android:textSize="@dimen/text_small"
+                            tools:text="2020-03-30" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <ProgressBar
+                            android:id="@+id/pbFilter"
+                            style="@android:style/Widget.ProgressBar.Horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="12dp"
+                            android:progress="50"
+                            android:progressDrawable="@drawable/progressbar_listitem" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="13dp">
+
+                    <Button
+                        android:id="@+id/btnFilterChange"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/btn_round_blue2"
+                        android:gravity="center_vertical|center"
+                        android:text="필터교체"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_small"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>

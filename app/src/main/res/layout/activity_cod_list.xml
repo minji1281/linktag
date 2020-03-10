@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:background="@color/List4"
+    android:background="@color/list_back"
     tools:context=".ui.cos.CodList">
 
     <com.linktag.base.base_header.BaseHeader
@@ -18,59 +16,92 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@color/white">
+
+        <Spinner
+            android:id="@+id/spCos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:gravity="center_vertical|left"
+            android:background="@drawable/spinner_background_list"
+            android:popupBackground="@color/white"/>
+
+        <Button
+            android:id="@+id/btnEdit"
+            android:layout_width="45dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/btn_round_black_non_back"
+            android:gravity="center_vertical|center"
+            android:textColor="@color/listitem_text1"
+            android:textSize="@dimen/text_small"
+            android:text="편집"/>
+
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/spinnerSpacer"
+        style="@style/common_horizontal_line" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="80dp"
-            android:paddingRight="30dp"
-            android:paddingLeft="30dp"
-            android:paddingTop="25dp"
-            android:paddingBottom="20dp"
-            android:orientation="horizontal">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="80dp"-->
+<!--            android:paddingRight="30dp"-->
+<!--            android:paddingLeft="30dp"-->
+<!--            android:paddingTop="25dp"-->
+<!--            android:paddingBottom="20dp"-->
+<!--            android:orientation="horizontal">-->
 
-            <ImageView
-                android:id="@+id/imgCosEdit"
-                android:layout_width="50dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/shape_search_icon"
-                android:padding="3dp"
-                android:src="@android:drawable/ic_menu_edit" />
+<!--            <ImageView-->
+<!--                android:id="@+id/imgCosEdit"-->
+<!--                android:layout_width="50dp"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:background="@drawable/shape_search_icon"-->
+<!--                android:padding="3dp"-->
+<!--                android:src="@android:drawable/ic_menu_edit" />-->
 
-            <Spinner
-                android:id="@+id/spCos"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical|left"
-                android:background="@drawable/spinner_background2"
-                android:paddingLeft="10dp"
-                android:paddingRight="10dp"
-                android:popupBackground="@color/white"/>
-        </LinearLayout>
+<!--            <Spinner-->
+<!--                android:id="@+id/spCos"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="match_parent"-->
+<!--                android:gravity="center_vertical|left"-->
+<!--                android:background="@drawable/spinner_background2"-->
+<!--                android:paddingLeft="10dp"-->
+<!--                android:paddingRight="10dp"-->
+<!--                android:popupBackground="@color/white"/>-->
+<!--        </LinearLayout>-->
 
         <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
             <ListView
-                android:id="@+id/listView"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:divider="@null"
-                android:paddingTop="5dp"
-                android:paddingBottom="5dp"
-                tools:listitem="@layout/listitem_find_cod"></ListView>
+            android:id="@+id/listView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:divider="@null"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
+            tools:listitem="@layout/listitem_find_cod"></ListView>
 
             <ImageView
                 android:id="@+id/imgNew"
-                android:layout_width="80dp"
-                android:layout_height="80dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="right|bottom"
-                android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:src="@drawable/ic_plus_add" />
+                android:layout_marginRight="20dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/btnadd" />
 
         </FrameLayout>
 

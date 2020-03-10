@@ -44,7 +44,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical|left"
-                android:background="@drawable/spinner_background2"
+                android:background="@drawable/spinner_background_list"
                 android:paddingLeft="10dp"
                 android:paddingRight="10dp"
                 android:popupBackground="@color/white"/>

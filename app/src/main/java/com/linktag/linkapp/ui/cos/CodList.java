@@ -54,7 +54,7 @@ public class CodList extends BaseActivity {
     private ListView listView;
     private TextView emptyText;
     private ImageView imgNew;
-    private ImageView imgCosEdit;
+    private Button btnEdit;
     @BindView(R.id.spCos)
     Spinner spCos;
 
@@ -116,8 +116,8 @@ public class CodList extends BaseActivity {
         });
         emptyText = findViewById(R.id.empty);
         listView.setEmptyView(emptyText);
-        imgCosEdit = findViewById(R.id.imgCosEdit);
-        imgCosEdit.setOnClickListener(new View.OnClickListener(){
+        btnEdit = (Button) findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 cosDialog("UPDATE");
