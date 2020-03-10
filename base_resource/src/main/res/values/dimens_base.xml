@@ -8,8 +8,8 @@
 
 
     <dimen name="activity_detail_root_margin_top">5dp</dimen>
-    <dimen name="activity_detail_root_margin_start">10dp</dimen>
-    <dimen name="activity_detail_root_margin_end">10dp</dimen>
+    <dimen name="activity_detail_root_margin_start">20dp</dimen>
+    <dimen name="activity_detail_root_margin_end">20dp</dimen>
     <dimen name="activity_detail_root_margin_bottom">10dp</dimen>
     <dimen name="activity_detail_section_margin_top">10dp</dimen>
 
