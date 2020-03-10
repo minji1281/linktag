@@ -13,21 +13,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="aa3c53df-bc95-4b7d-9e2f-bea3f9802aaf" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable/ic_clean_recycle.PNG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/resourceHashesCache.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/resourceHashesCache.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/classAnalysis.bin" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/javaCompile/javaCompile.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/DetailJdm.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/DetailJdm.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_common.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_common.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_jdm2.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_jdm2.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/spinner_item5.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/spinner_item5.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_resource/src/main/res/values/dimens_base.xml" beforeDir="false" afterPath="$PROJECT_DIR$/base_resource/src/main/res/values/dimens_base.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfd.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfd.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -38,7 +25,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_28" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="284bedc9d31c7ece" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -87,12 +74,12 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_jdm2.xml">
           <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="61">
-              <caret line="110" lean-forward="true" selection-start-line="110" selection-end-line="110" />
+            <state relative-caret-position="282">
+              <caret line="123" lean-forward="true" selection-start-line="123" selection-end-line="123" />
               <folding>
                 <element signature="e#868#910#0" expanded="true" />
                 <element signature="e#948#988#0" expanded="true" />
@@ -119,6 +106,38 @@
           </provider>
         </entry>
       </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfd.xml">
+          <provider editor-type-id="android-designer2" />
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="367">
+              <caret line="299" column="43" lean-forward="true" selection-start-line="299" selection-start-column="43" selection-end-line="299" selection-end-column="43" />
+              <folding>
+                <element signature="e#868#910#0" expanded="true" />
+                <element signature="e#948#988#0" expanded="true" />
+                <element signature="e#1026#1066#0" expanded="true" />
+                <element signature="e#1107#1150#0" expanded="true" />
+                <element signature="e#1841#1861#0" expanded="true" />
+                <element signature="e#2406#2426#0" expanded="true" />
+                <element signature="e#5108#5128#0" expanded="true" />
+                <element signature="e#5629#5649#0" expanded="true" />
+                <element signature="e#5857#5900#0" expanded="true" />
+                <element signature="e#6438#6458#0" expanded="true" />
+                <element signature="e#8412#8455#0" expanded="true" />
+                <element signature="e#8815#8835#0" expanded="true" />
+                <element signature="e#10138#10157#0" expanded="true" />
+                <element signature="e#11244#11264#0" expanded="true" />
+                <element signature="e#12301#12320#0" expanded="true" />
+                <element signature="e#14768#14787#0" expanded="true" />
+                <element signature="e#15950#15970#0" expanded="true" />
+                <element signature="e#17008#17027#0" expanded="true" />
+                <element signature="e#17848#17868#0" expanded="true" />
+                <element signature="e#18284#18327#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values/dimens_base.xml">
           <provider selected="true" editor-type-id="text-editor">
@@ -132,7 +151,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/DetailJdm.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="313">
-              <caret line="94" column="13" lean-forward="true" selection-start-line="94" selection-start-column="13" selection-end-line="94" selection-end-column="13" />
+              <caret line="88" column="13" lean-forward="true" selection-start-line="88" selection-start-column="13" selection-end-line="88" selection-end-column="13" />
               <folding>
                 <element signature="e#3296#3304#0" expanded="true" />
               </folding>
@@ -151,19 +170,13 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/spinner_item5.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/spinner_detail_item.xml">
           <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="170">
-              <caret line="10" column="34" lean-forward="true" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+              <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/spinner_item4.xml">
-          <provider editor-type-id="android-designer2" />
-          <provider selected="true" editor-type-id="text-editor" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
@@ -266,7 +279,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RFMMain.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/DetailRfm.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfm.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfd.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/DetailRfd.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfdRecycleAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/value_object/PcmVO.java" />
@@ -300,6 +312,7 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/spinner_item5.xml" />
         <option value="$PROJECT_DIR$/base_resource/src/main/res/values/dimens_base.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_jdm2.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfd.xml" />
       </list>
     </option>
   </component>
@@ -890,7 +903,14 @@
       <option name="project" value="LOCAL" />
       <updated>1583813717543</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="detail 공통 UI 수정">
+      <created>1583820029828</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1583820029828</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -898,7 +918,7 @@
     <editor active="true" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.17697228" />
+      <window_info active="true" content_ui="combo" id="Project" order="1" visible="true" weight="0.17697228" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -923,7 +943,7 @@
       <window_info anchor="right" id="Gradle" order="2" weight="0.32995737" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info active="true" anchor="right" id="Preview" order="5" visible="true" weight="0.26012793" />
+      <window_info anchor="right" id="Preview" order="5" visible="true" weight="0.26012793" />
       <window_info anchor="right" id="Assistant" order="6" weight="0.32995737" />
       <window_info anchor="right" id="Hierarchy" order="7" weight="0.32995737" />
       <window_info anchor="right" id="StringPreview" order="8" />
@@ -1252,14 +1272,6 @@
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfd.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="23" column="48" lean-forward="true" selection-start-line="23" selection-start-column="48" selection-end-line="23" selection-end-column="48" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/color.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="306">
@@ -1341,18 +1353,18 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/DetailJdm.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="313">
-          <caret line="94" column="13" lean-forward="true" selection-start-line="94" selection-start-column="13" selection-end-line="94" selection-end-column="13" />
+          <caret line="88" column="13" lean-forward="true" selection-start-line="88" selection-start-column="13" selection-end-line="88" selection-end-column="13" />
           <folding>
             <element signature="e#3296#3304#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/spinner_item5.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/spinner_detail_item.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="170">
-          <caret line="10" column="34" lean-forward="true" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
+          <caret line="10" column="34" selection-start-line="10" selection-start-column="34" selection-end-line="10" selection-end-column="34" />
         </state>
       </provider>
     </entry>
@@ -1366,8 +1378,8 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_jdm2.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="61">
-          <caret line="110" lean-forward="true" selection-start-line="110" selection-end-line="110" />
+        <state relative-caret-position="282">
+          <caret line="123" lean-forward="true" selection-start-line="123" selection-end-line="123" />
           <folding>
             <element signature="e#868#910#0" expanded="true" />
             <element signature="e#948#988#0" expanded="true" />
@@ -1389,6 +1401,36 @@
             <element signature="e#19393#19412#0" expanded="true" />
             <element signature="e#20233#20253#0" expanded="true" />
             <element signature="e#20669#20712#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfd.xml">
+      <provider editor-type-id="android-designer2" />
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="367">
+          <caret line="299" column="43" lean-forward="true" selection-start-line="299" selection-start-column="43" selection-end-line="299" selection-end-column="43" />
+          <folding>
+            <element signature="e#868#910#0" expanded="true" />
+            <element signature="e#948#988#0" expanded="true" />
+            <element signature="e#1026#1066#0" expanded="true" />
+            <element signature="e#1107#1150#0" expanded="true" />
+            <element signature="e#1841#1861#0" expanded="true" />
+            <element signature="e#2406#2426#0" expanded="true" />
+            <element signature="e#5108#5128#0" expanded="true" />
+            <element signature="e#5629#5649#0" expanded="true" />
+            <element signature="e#5857#5900#0" expanded="true" />
+            <element signature="e#6438#6458#0" expanded="true" />
+            <element signature="e#8412#8455#0" expanded="true" />
+            <element signature="e#8815#8835#0" expanded="true" />
+            <element signature="e#10138#10157#0" expanded="true" />
+            <element signature="e#11244#11264#0" expanded="true" />
+            <element signature="e#12301#12320#0" expanded="true" />
+            <element signature="e#14768#14787#0" expanded="true" />
+            <element signature="e#15950#15970#0" expanded="true" />
+            <element signature="e#17008#17027#0" expanded="true" />
+            <element signature="e#17848#17868#0" expanded="true" />
+            <element signature="e#18284#18327#0" expanded="true" />
           </folding>
         </state>
       </provider>
