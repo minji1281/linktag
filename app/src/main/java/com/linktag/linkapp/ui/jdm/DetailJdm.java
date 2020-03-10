@@ -96,7 +96,7 @@ public class DetailJdm extends BaseActivity {
         sp_size = findViewById(R.id.sp_size);
 
         String[] str = getResources().getStringArray(R.array.jdm);
-        final ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(mContext, R.layout.spinner_item5, str);
+        final ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, str);
         sp_size.setAdapter(adapter_size);
 
 
