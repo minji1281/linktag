@@ -42,8 +42,8 @@ public class PotList extends BaseActivity {
     private BaseFooter footer;
     private GridView gridView;
     private TextView emptyText;
-    private EditText etName;
-    private ImageView imgSearch;
+//    private EditText etName;
+//    private ImageView imgSearch;
 
     //======================
     // Variable
@@ -98,9 +98,9 @@ public class PotList extends BaseActivity {
 
         emptyText = findViewById(R.id.empty);
         gridView.setEmptyView(emptyText);
-        etName = findViewById(R.id.etName);
-        imgSearch = findViewById(R.id.imgSearch);
-        imgSearch.setOnClickListener(v -> requestPOT_SELECT("LIST", ""));
+//        etName = findViewById(R.id.etName);
+//        imgSearch = findViewById(R.id.imgSearch);
+//        imgSearch.setOnClickListener(v -> requestPOT_SELECT("LIST", ""));
     }
 
     @Override
@@ -129,9 +129,9 @@ public class PotList extends BaseActivity {
 
         String POT_ID = intentVO.CTN_02; //컨테이너
         String POT_02 = "";
-        if(GUBUN.equals("LIST")){
-            POT_02 = etName.getText().toString();
-        }
+//        if(GUBUN.equals("LIST")){
+//            POT_02 = etName.getText().toString();
+//        }
         String OCM_01 = mUser.Value.OCM_01; //사용자 아이디
 
         Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_SELECT(

@@ -379,13 +379,16 @@ public class PotDetail extends BaseActivity {
 
         String DDAY = "";
         if(day > 0){
-            DDAY = "D-" + day;
+//            DDAY = "D-" + day;
+            DDAY = String.valueOf(day);
         }
         else if(day == 0){
-            DDAY = "D-Day";
+//            DDAY = "D-Day";
+            DDAY = "0";
         }
         else{
-            DDAY = "D+" + (day * -1);
+//            DDAY = "D+" + (day * -1);
+            DDAY = String.valueOf(day);
         }
         tvDDAY.setText(DDAY);
     }
