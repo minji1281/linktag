@@ -7,8 +7,10 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
+import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +18,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -121,7 +124,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         }
 
         if (mList.get(position).JDM_04.equals("")) {
-            viewHolder.tv_D_day.setText("0");
+            viewHolder.tv_D_day.setText("현재까지 0일 숙성");
         } else {
             String year = mList.get(position).JDM_04.substring(0, 4);
             String month = mList.get(position).JDM_04.substring(4, 6);
@@ -130,18 +133,16 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
             aCalendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(dayOfMonth));
 
             int count = (int) ((calendar.getTimeInMillis() - aCalendar.getTimeInMillis()) / (24 * 60 * 60 * 1000));
-            viewHolder.tv_D_day.setText(String.valueOf(count));
+            viewHolder.tv_D_day.setText("현재까지" + String.valueOf(count)+"일 숙성");
 
         }
         viewHolder.tv_name.setText(mList.get(position).JDM_02);
-        viewHolder.tv_memo.setText(mList.get(position).JDM_03);
         viewHolder.tv_nextDay.setText(mList.get(position).JDM_96.substring(0, 4) + "." + mList.get(position).JDM_96.substring(4, 6) + "." + mList.get(position).JDM_96.substring(6, 8));
 
         if (mList.get(position).JDM_08.equals("") ||  Integer.parseInt(mList.get(position).JDM_96.substring(0, 8)) <= Integer.parseInt(formatDate.format(calendar.getTime()))) {
-            viewHolder.imageView_check.setImageResource(R.drawable.ic_check_off);
+            viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
         } else {
-            viewHolder.imageView_check.setImageResource(R.drawable.ic_check_on
-            );
+            viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_indigo_8dp);
         }
 
 
@@ -275,7 +276,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
                 int dcount = (int) ((calendar.getTimeInMillis() - nextDay.getTimeInMillis()) / (24 * 60 * 60 * 1000));
 
-                viewHolder.imageView_check.setImageResource(R.drawable.ic_check_on);
+                viewHolder.imageView_check.setBackgroundColor(R.drawable.ic_check_on);
                 viewHolder.tv_nextDay.setText(format.format(nextDay.getTime()));
                 viewHolder.progressBar.setProgress(dcount);
             }
@@ -312,10 +313,9 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageview;
         TextView tv_name;
-        TextView tv_memo;
         TextView tv_D_day;
         ProgressBar progressBar;
-        ImageView imageView_check;
+        Button imageView_check;
         TextView tv_nextDay;
 
         public ViewHolder(@NonNull View itemView) {
@@ -323,7 +323,6 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
             progressBar = itemView.findViewById(R.id.progressBar);
             imageview = itemView.findViewById(R.id.imageView);
             tv_name = itemView.findViewById(R.id.tv_name);
-            tv_memo = itemView.findViewById(R.id.tv_memo);
             tv_D_day = itemView.findViewById(R.id.tv_D_day);
             imageView_check = itemView.findViewById(R.id.imageView_check);
             tv_nextDay = itemView.findViewById(R.id.tv_nextDay);
@@ -377,6 +376,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                 "UPDATE_2",
                 armVO.ARM_ID,
                 armVO.ARM_01,
+                "",
                 armVO.ARM_02,
                 armVO.ARM_03,
                 armVO.ARM_90,

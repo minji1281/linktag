@@ -437,6 +437,7 @@ public class Http extends HttpBaseService {
                 @Field(value = "GUBUN") String GUBUN,
                 @Field(value = "ARM_ID") String ARM_ID,
                 @Field(value = "ARM_01") String ARM_01,
+                @Field(value = "ARM_0101") String ARM_0101,
                 @Field(value = "ARM_02") String ARM_02,
                 @Field(value = "ARM_03") String ARM_03,
                 @Field(value = "ARM_90") String ARM_90,
