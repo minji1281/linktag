@@ -7,10 +7,8 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
 import android.os.Build;
-import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.RecyclerView;
@@ -142,7 +140,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         if (mList.get(position).JDM_08.equals("") ||  Integer.parseInt(mList.get(position).JDM_96.substring(0, 8)) <= Integer.parseInt(formatDate.format(calendar.getTime()))) {
             viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
         } else {
-            viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_indigo_8dp);
+            viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_indigo_5dp);
         }
 
 
