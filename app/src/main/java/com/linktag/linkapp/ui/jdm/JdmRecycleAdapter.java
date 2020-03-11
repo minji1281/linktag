@@ -185,12 +185,12 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
             @Override
             public void onClick(View v) {
 
-                if (Integer.parseInt(mList.get(position).JDM_96.substring(0, 8)) <= Integer.parseInt(formatDate.format(calendar.getTime()))) {
+                if (mList.get(position).JDM_08.equals("") || Integer.parseInt(mList.get(position).JDM_96.substring(0, 8)) <= Integer.parseInt(formatDate.format(calendar.getTime()))) {
                     requestJMD_CONTROL(viewHolder, mList.get(position));
                 } else {
 
                     new AlertDialog.Builder(mContext)
-                            .setMessage("이전 청소이력이 있습니다. 청소확인 처리하시겠습니까?")
+                            .setMessage("예정 청소일 전입니다. 청소확인 처리하시겠습니까?")
                             .setPositiveButton("예", new DialogInterface.OnClickListener() {
                                 @RequiresApi(api = Build.VERSION_CODES.M)
                                 @Override

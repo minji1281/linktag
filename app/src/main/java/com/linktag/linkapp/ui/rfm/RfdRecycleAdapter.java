@@ -74,7 +74,6 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
         viewHolder.tv_name.setText(mList.get(position).RFD_03);
-        viewHolder.tv_memo.setText(mList.get(position).RFD_04);
         viewHolder.tv_D_day.setText(mList.get(position).RFD_96.substring(0, 4) + "." + mList.get(position).RFD_96.substring(4, 6) + "." + mList.get(position).RFD_96.substring(6, 8));
 
         calendar.clear(Calendar.HOUR);
@@ -114,54 +113,42 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
         long dDayDiff3 = dCalendar.getTimeInMillis() - calendar.getTimeInMillis();
         int count = (int)(Math.floor(TimeUnit.HOURS.convert(dDayDiff3, TimeUnit.MILLISECONDS) / 24f));
 
-//        int dcount = (int) ((calendar.getTimeInMillis() - sCalendar.getTimeInMillis()) / 86400000);
-//        int totalProgress = (int) ((dCalendar.getTimeInMillis() - sCalendar.getTimeInMillis()) / 86400000);
-//
-//        int count = (int) ((dCalendar.getTimeInMillis() - calendar.getTimeInMillis()) /  86400000);
-
 
         if(count < 0){
             viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_red_8dp);
             viewHolder.btn_label.setText("유통기한 마감");
         }
         else if(count == 0){
-            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_yellow_8dp);
+            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
             viewHolder.btn_label.setText("오늘까지");
         }
         else if(count <= 7){
-            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_blue_8dp);
+            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
             viewHolder.btn_label.setText("7일 이하 남음");
         }
         else if(count >=15){
-            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_green_8dp);
+            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
             viewHolder.btn_label.setText("15일이상 남음");
         }
         else if(count < 15 &&  count >=7){
-            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_blue_8dp);
+            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
             viewHolder.btn_label.setText("15일 미만 남음");
         }
-        else if(count < 0){
-            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_red_8dp);
-            viewHolder.btn_label.setText("유통기한 마감");
-        }
         else {
-            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_yellow_8dp);
+            viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
             viewHolder.btn_label.setText( count+"일 남음");
         }
 
         if (count == 0) {
-         //   viewHolder.tv_Deadline.setText("오늘까지 마감");
             viewHolder.progressBar.getProgressDrawable().setColorFilter(null);
             viewHolder.progressBar.setMax(1);
             viewHolder.progressBar.setProgress(1);
 
         } else if (count < 0) {
-            //viewHolder.tv_Deadline.setText("유통기한 지남");
             viewHolder.progressBar.setMax(1);
             viewHolder.progressBar.setProgress(1);
             viewHolder.progressBar.getProgressDrawable().setColorFilter(0xFFE97D6C, PorterDuff.Mode.SRC_IN);
         } else {
-           // viewHolder.tv_Deadline.setText(String.valueOf(count) + "일 남음");
             viewHolder.progressBar.setMax(totalProgress);
             viewHolder.progressBar.setProgress(dcount);
             viewHolder.progressBar.getProgressDrawable().setColorFilter(null);
@@ -219,9 +206,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageview;
         TextView tv_name;
-        TextView tv_memo;
         TextView tv_D_day;
-        TextView tv_Deadline;
         ProgressBar progressBar;
         Button btn_label;
 
@@ -231,9 +216,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
             progressBar = itemView.findViewById(R.id.progressBar);
             imageview = itemView.findViewById(R.id.imageView);
             tv_name = itemView.findViewById(R.id.tv_name);
-            tv_memo = itemView.findViewById(R.id.tv_memo);
             tv_D_day = itemView.findViewById(R.id.tv_D_day);
-            //tv_Deadline = itemView.findViewById(R.id.tv_Deadline);
             btn_label =itemView.findViewById(R.id.btn_label);
 
             itemView.setOnClickListener(new View.OnClickListener() {
@@ -245,8 +228,8 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
                     rfdvo.setRFD_ID(mList.get(position).RFD_ID);
                     rfdvo.setRFD_01(mList.get(position).RFD_01);
                     rfdvo.setRFD_02(mList.get(position).RFD_02);
-                    rfdvo.setRFD_03(tv_name.getText().toString());
-                    rfdvo.setRFD_04(tv_memo.getText().toString());
+                    rfdvo.setRFD_03(mList.get(position).RFD_03);
+                    rfdvo.setRFD_04(mList.get(position).RFD_04);
                     rfdvo.setRFD_05(mList.get(position).RFD_05);
                     rfdvo.setRFD_06(mList.get(position).RFD_06);
                     rfdvo.setRFD_96(mList.get(position).RFD_96);

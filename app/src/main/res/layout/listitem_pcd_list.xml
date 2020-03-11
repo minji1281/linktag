@@ -6,10 +6,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="10dp"
-        android:background="@drawable/shape_base_border_height_40"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:paddingStart="15dp"
+        android:paddingEnd="15dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="5dp"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -30,16 +31,17 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_weight="2"
-                android:background="@null"
                 android:text="윈도우 10 PRO"
                 android:textSize="13dp" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
+            <Button
+                android:id="@+id/btn_delete"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
                 android:layout_gravity="center_vertical"
-                android:background="@drawable/ic_minus_round" />
+                android:background="@drawable/btn_round_black"
+                android:text="X"
+                android:textColor="#FFF" />
 
         </LinearLayout>
 

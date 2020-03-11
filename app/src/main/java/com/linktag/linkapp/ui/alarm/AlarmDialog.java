@@ -1,5 +1,6 @@
 package com.linktag.linkapp.ui.alarm;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -9,7 +10,7 @@ import android.widget.TimePicker;
 
 import com.linktag.linkapp.R;
 
-public class AlarmDialog extends Dialog {
+public class AlarmDialog extends AlertDialog {
 
     private CustomDialogListener customDialogListener;
 

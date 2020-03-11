@@ -4,37 +4,84 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#F2F5F7"
     android:orientation="vertical"
-    tools:context=".ui.main.Main">
+    android:background="@color/list_back"
+    tools:context=".ui.pcm.PCMMain">
 
     <com.linktag.base.base_header.BaseHeader
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="PC관리"
-        />
+        app:title_text="PC목록" />
 
-    <android.support.v4.widget.SwipeRefreshLayout
-        android:id="@+id/swipeRefresh"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="match_parent"
         android:layout_weight="1"
-        tools:context=".ui.jdm.JDMMain">
+        android:orientation="vertical">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:background="@color/list_background"
-            tools:listitem="@layout/listitem_pcm_list" />
+        <!--        <LinearLayout-->
+        <!--            android:layout_width="match_parent"-->
+        <!--            android:layout_height="80dp"-->
+        <!--            android:paddingRight="30dp"-->
+        <!--            android:paddingLeft="30dp"-->
+        <!--            android:paddingTop="25dp"-->
+        <!--            android:paddingBottom="20dp"-->
+        <!--            android:orientation="horizontal">-->
 
-    </android.support.v4.widget.SwipeRefreshLayout>
+        <!--            <ImageView-->
+        <!--                android:id="@+id/imgSearch"-->
+        <!--                android:layout_width="50dp"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:background="@drawable/shape_search_icon"-->
+        <!--                android:padding="3dp"-->
+        <!--                android:src="@drawable/work_search" />-->
+
+        <!--            <EditText-->
+        <!--                android:id="@+id/etName"-->
+        <!--                android:layout_width="match_parent"-->
+        <!--                android:layout_height="match_parent"-->
+        <!--                android:hint="명칭을 입력하세요."-->
+        <!--                android:textSize="14dp"-->
+        <!--                android:singleLine="true"-->
+        <!--                android:maxLength="20"-->
+        <!--                android:gravity="center_vertical|left"-->
+        <!--                android:paddingLeft="10dp"-->
+        <!--                android:paddingRight="10dp"-->
+        <!--                android:background="@drawable/shape_search_edit" />-->
+        <!--        </LinearLayout>-->
+
+
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                tools:context=".ui.pcm.PCMMain">
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@color/list_back"
+                    tools:listitem="@layout/listitem_pcm_list" />
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+<!--        <TextView-->
+<!--            android:id="@+id/empty"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="match_parent"-->
+<!--            android:layout_margin="16dp"-->
+<!--            android:gravity="center|center_vertical"-->
+<!--            android:text="조회된 정보가 없습니다."-->
+<!--            android:textSize="@dimen/text_normal" />-->
+
+    </LinearLayout>
 
     <com.linktag.base.base_footer.BaseFooter
         android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content" />
+
 </LinearLayout>
-
-

@@ -10,6 +10,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -75,7 +76,7 @@ public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapte
         viewHolder.tv_name.setText(map.get(mList.get(position).PCD_04));
         viewHolder.tv_detail.setText(mList.get(position).PCD_05);
 
-        viewHolder.imageView.setOnClickListener(new View.OnClickListener() {
+        viewHolder.btn_delete.setOnClickListener(new View.OnClickListener() {
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View view) {
@@ -156,7 +157,7 @@ public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapte
 
         private TextView tv_name;
         private TextView tv_detail;
-        private ImageView imageView;
+        private Button btn_delete;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -164,7 +165,7 @@ public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapte
 
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_detail = itemView.findViewById(R.id.tv_detail);
-            imageView = itemView.findViewById(R.id.imageView);
+            btn_delete = itemView.findViewById(R.id.btn_delete);
 
         }
     }

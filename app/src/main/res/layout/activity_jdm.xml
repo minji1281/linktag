@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/list_back"
-    tools:context=".ui.frm.FrmList">
+    tools:context=".ui.jdm.JDMMain">
 
     <com.linktag.base.base_header.BaseHeader
         android:id="@+id/header"

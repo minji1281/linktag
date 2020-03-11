@@ -1,5 +1,6 @@
 package com.linktag.linkapp.ui.rfm;
 
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.os.Bundle;
@@ -10,7 +11,7 @@ import android.widget.EditText;
 
 import com.linktag.linkapp.R;
 
-public class RfmEditDialog extends Dialog {
+public class RfmEditDialog extends AlertDialog {
 
     private CustomDialogListener customDialogListener;
     private Context context;

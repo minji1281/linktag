@@ -14,6 +14,7 @@ import android.view.Window;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -67,7 +68,7 @@ public class RFMMain extends BaseActivity {
     private ArrayList<SpinnerList> mSpinnerList;
 
     private ImageView imgNew;
-    private ImageView img_edit;
+    private Button btnEdit;
 
     public static String RFM_01 = "";
     public String RFM_02 = "";
@@ -129,7 +130,7 @@ public class RFMMain extends BaseActivity {
         recyclerView = view.findViewById(R.id.recyclerView);
 
         imgNew = findViewById(R.id.imgNew);
-        img_edit = findViewById(R.id.img_edit);
+        btnEdit = findViewById(R.id.btnEdit);
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
 //        swipeRefresh.setOnRefreshListener(() -> requestJMD_SELECT());
@@ -199,7 +200,7 @@ public class RFMMain extends BaseActivity {
             }
         });
 
-        img_edit.setOnClickListener(new View.OnClickListener() {
+        btnEdit .setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -302,7 +303,7 @@ public class RFMMain extends BaseActivity {
                                     index[i] = response.body().Data.get(i).RFM_01;
                                     str[i] = response.body().Data.get(i).RFM_02;
                                 }
-                                final ArrayAdapter<String> hAdapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item6, str);
+                                final ArrayAdapter<String> hAdapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item_list, str);
                                 headerSpinner.setAdapter(hAdapter);
                                 if (RFM_01.equals("")) {
                                     RFM_01 = mSpinnerList.get(0).getCode();
