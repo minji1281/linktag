@@ -41,8 +41,7 @@
                     android:singleLine="true"
                     android:textColor="@color/listitem_text1"
                     android:textSize="@dimen/text_normal"
-                    android:textStyle="bold"
-                    tools:text="공기청정기-사원사무실" />
+                    android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="100dp"
@@ -95,8 +94,7 @@
                             android:layout_weight="1"
                             android:gravity="center_vertical|right"
                             android:textColor="@color/listitem_text2"
-                            android:textSize="@dimen/text_small"
-                            tools:text="2020-03-30" />
+                            android:textSize="@dimen/text_small" />
 
                     </LinearLayout>
 
@@ -124,7 +122,7 @@
                     android:layout_height="match_parent"
                     android:orientation="vertical"
                     android:paddingLeft="30dp"
-                    android:paddingTop="13dp">
+                    android:paddingTop="10dp">
 
                     <Button
                         android:id="@+id/btnFilterChange"

@@ -103,14 +103,14 @@ public class CosInfo extends AsyncTask<Void, Void, Void> {
 
 
                             if(gubun2.equals("L")){
+                                adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_item_list, ar);
+                                adapter2 = new ArrayAdapter<>(mActivity, R.layout.spinner_item_list, ar2);
+                                adapter.setDropDownViewResource(R.layout.spinner_item_list);
+                            }
+                            else{ //D
                                 adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_detail_item, ar);
                                 adapter2 = new ArrayAdapter<>(mActivity, R.layout.spinner_detail_item, ar2);
                                 adapter.setDropDownViewResource(R.layout.spinner_detail_item);
-                            }
-                            else{ //D
-                                adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_item2, ar);
-                                adapter2 = new ArrayAdapter<>(mActivity, R.layout.spinner_item2, ar2);
-                                adapter.setDropDownViewResource(R.layout.spinner_item2);
                             }
 
                             spCos.setAdapter(adapter);

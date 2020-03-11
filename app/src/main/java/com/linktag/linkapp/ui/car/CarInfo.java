@@ -96,9 +96,9 @@ public class CarInfo extends AsyncTask<Void, Void, Void> {
                                 }
                             }
 
-                            adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_detail_item, ar);
-                            adapter2 = new ArrayAdapter<>(mActivity, R.layout.spinner_detail_item, ar2);
-                            adapter.setDropDownViewResource(R.layout.spinner_detail_item);
+                            adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_item_list, ar);
+                            adapter2 = new ArrayAdapter<>(mActivity, R.layout.spinner_item_list, ar2);
+                            adapter.setDropDownViewResource(R.layout.spinner_item_list);
                             spCar.setAdapter(adapter);
                             int i = adapter2.getPosition(value);
                             if(i != -1){

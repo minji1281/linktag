@@ -86,7 +86,7 @@ public class CadDetail extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_cad_detail2);
+        setContentView(R.layout.activity_cad_detail);
 
         intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
 
@@ -125,7 +125,7 @@ public class CadDetail extends BaseActivity {
         ArrayList arrayList1 = new ArrayList();
         arrayList1.add("교체");
         arrayList1.add("점검");
-        ArrayAdapter arrayAdapter1 = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item2, arrayList1);
+        ArrayAdapter arrayAdapter1 = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_detail_item, arrayList1);
         spGub1.setAdapter(arrayAdapter1);
         spGub1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
@@ -141,7 +141,7 @@ public class CadDetail extends BaseActivity {
         ArrayList arrayList2 = new ArrayList();
         arrayList2.add("셀프");
         arrayList2.add("카센터");
-        ArrayAdapter arrayAdapter2 = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_item2, arrayList2);
+        ArrayAdapter arrayAdapter2 = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_detail_item, arrayList2);
         spGub2.setAdapter(arrayAdapter2);
         spGub2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override

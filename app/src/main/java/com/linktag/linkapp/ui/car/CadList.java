@@ -53,7 +53,7 @@ public class CadList extends BaseActivity {
     private ListView listView;
     private TextView emptyText;
     private ImageView imgNew;
-    private ImageView imgCarEdit;
+    private Button btnCarEdit;
     @BindView(R.id.spCar)
     Spinner spCar;
 
@@ -115,8 +115,8 @@ public class CadList extends BaseActivity {
         });
         emptyText = findViewById(R.id.empty);
         listView.setEmptyView(emptyText);
-        imgCarEdit = findViewById(R.id.imgCarEdit);
-        imgCarEdit.setOnClickListener(new View.OnClickListener(){
+        btnCarEdit = (Button) findViewById(R.id.btnCarEdit);
+        btnCarEdit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 carDialog("UPDATE");
