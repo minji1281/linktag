@@ -466,7 +466,7 @@ public class CadDetail extends BaseActivity {
             }
         });
 
-        final ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, getResources().getStringArray(R.array.cad));
+        final ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(mContext, R.layout.spinner_cad_list, getResources().getStringArray(R.array.cad));
         listView.setAdapter(stringArrayAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

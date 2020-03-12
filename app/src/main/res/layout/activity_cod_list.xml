@@ -57,14 +57,22 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
-            <ListView
-            android:id="@+id/listView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:divider="@null"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
-            tools:listitem="@layout/listitem_find_cod"></ListView>
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                tools:context=".ui.cos.CodList">
+
+                <ListView
+                    android:id="@+id/listView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:divider="@null"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    tools:listitem="@layout/listitem_find_cod"></ListView>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
 
             <ImageView
                 android:id="@+id/imgNew"
@@ -75,16 +83,16 @@
                 android:layout_marginBottom="20dp"
                 android:src="@drawable/btnadd" />
 
-        </FrameLayout>
+            <TextView
+                android:id="@+id/empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:gravity="center|center_vertical"
+                android:text="조회된 정보가 없습니다."
+                android:textSize="@dimen/text_normal" />
 
-        <TextView
-            android:id="@+id/empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:gravity="center|center_vertical"
-            android:text="조회된 정보가 없습니다."
-            android:textSize="@dimen/text_normal" />
+        </FrameLayout>
 
     </LinearLayout>
 
