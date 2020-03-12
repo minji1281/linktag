@@ -17,4 +17,9 @@ public class SettingsValue {
      * 자동 로그인 여부
      */
     public boolean AutoLogin;
+
+    /**
+     * 언어 설정 값
+     */
+    public String myLocale;
 }

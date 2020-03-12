@@ -62,7 +62,7 @@ public class Intro extends BaseActivity {
                 goPermissionInfo();
             else
                 goLogin();
-        }, 2000);
+        }, 1500);
     }
 
     /**

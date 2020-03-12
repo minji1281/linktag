@@ -3,6 +3,7 @@ package com.linktag.base.base_activity;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
@@ -14,6 +15,8 @@ import com.linktag.base.settings.InterfaceSettings;
 import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.base.util.BaseLoadingBar;
 import com.linktag.base.util.ScanCode;
+
+import java.util.Locale;
 
 public abstract class BaseActivity extends FragmentActivity {
     public static Context BaseContext;
@@ -33,6 +36,12 @@ public abstract class BaseActivity extends FragmentActivity {
         mActivity = this;
         mSettings = InterfaceSettings.getInstance(this);
         mUser = InterfaceUser.getInstance();
+
+        Locale locale = new Locale(mSettings.Value.myLocale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+
+        mActivity.getBaseContext().getResources().updateConfiguration(config, mActivity.getBaseContext().getResources().getDisplayMetrics());
     }
 
     @Override

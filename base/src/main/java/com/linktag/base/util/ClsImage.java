@@ -2,13 +2,17 @@ package com.linktag.base.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.util.Base64;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
-import com.bumptech.glide.request.animation.GlideAnimation;
-import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.target.CustomTarget;
+import com.bumptech.glide.request.transition.Transition;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -57,32 +61,42 @@ public class ClsImage {
             if (file.exists()) {
                 // 사진 파일을 받은 경우
                 try {
-                    SimpleTarget target = new SimpleTarget<Bitmap>() {
+                    CustomTarget target = new CustomTarget<Bitmap>(){
                         @Override
-                        public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                             imgView.setVisibility(View.VISIBLE);
 
-                            imgView.setImageBitmap(bitmap);
+                            imgView.setImageBitmap(resource);
+                        }
+
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
+
                         }
                     };
 
-                    Glide.with(context).load(file).asBitmap().override(2000, 2000).into(target);
+                    Glide.with(context).asBitmap().load(file).override(2000, 2000).into(target);
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
             } else {
                 // 사진 파일을 받아야 하는 경우
                 try {
-                    SimpleTarget target = new SimpleTarget<Bitmap>() {
+                    CustomTarget target = new CustomTarget<Bitmap>(){
                         @Override
-                        public void onResourceReady(Bitmap bitmap, GlideAnimation<? super Bitmap> glideAnimation) {
-                            imgView.setImageBitmap(bitmap);
+                        public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
+                            imgView.setImageBitmap(resource);
 
-                            makeImageFile(context, bitmap, strFilePath);
+                            makeImageFile(context, resource, strFilePath);
+                        }
+
+                        @Override
+                        public void onLoadCleared(@Nullable Drawable placeholder) {
+
                         }
                     };
 
-                    Glide.with(context).load(url).asBitmap().placeholder(placeHolder).into(target);
+                    Glide.with(context).asBitmap().load(url).placeholder(placeHolder).into(target);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -141,4 +155,5 @@ public class ClsImage {
 
         return imgString;
     }
+
 }

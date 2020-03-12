@@ -18,11 +18,13 @@ public class LoginVO implements Serializable {
     public String OCM_03_CHK;    // 체크
 
     public String OCM_21;       // 이메일
+    public String OCM_24;       // 알림 설정 여부
     public String OCM_28;       // 입사일자
     public String OCM_29;       // 퇴사일자
     public String OCM_31;       // 부서
     public String OCM_32;       // 직급
     public String OCM_51;       // 전화번호
+    public String OCM_52;       // 프로필 이미지
 
     // 안쓸듯
     public String CTU_08;       // 시작 매장

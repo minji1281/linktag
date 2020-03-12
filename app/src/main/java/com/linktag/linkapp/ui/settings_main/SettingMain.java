@@ -129,8 +129,8 @@ public class SettingMain extends BaseActivity {
      * 환경설정
      */
     private void goPreference() {
-//        Intent intent = new Intent(mContext, Preference.class);
-//        mContext.startActivity(intent);
+        Intent intent = new Intent(mContext, Preference.class);
+        mContext.startActivity(intent);
     }
 
     /**

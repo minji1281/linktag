@@ -268,6 +268,7 @@ public class Popup extends BaseActivity {
         String OCM_01 = mUser.Value.OCM_01;
         String OCM_02 = etUserName.getText().toString();
         String OCM_03 = etNewPwd1.getText().toString();
+        String OCM_24 = "";
         String OCM_51 = "";
         String OCM_52 = "";
         String OCM_98 = mUser.Value.OCM_01;
@@ -278,6 +279,7 @@ public class Popup extends BaseActivity {
                 OCM_01,
                 OCM_02,
                 OCM_03,
+                OCM_24,
                 OCM_51,
                 OCM_52,
                 OCM_98

@@ -17,11 +17,13 @@ public class UserValue {
     public String OCM_03_CHK;
 
     public String OCM_21;
+    public String OCM_24;
     public String OCM_28;
     public String OCM_29;
     public String OCM_31;
     public String OCM_32;
     public String OCM_51;
+    public String OCM_52;
 
     public String CTN_02;
 

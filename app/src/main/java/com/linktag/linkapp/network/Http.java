@@ -109,6 +109,7 @@ public class Http extends HttpBaseService {
                 @Field(value = "OCM_01") String OCM_01,
                 @Field(value = "OCM_02") String OCM_02,
                 @Field(value = "OCM_03") String OCM_03,
+                @Field(value = "OCM_24") String OCM_24,
                 @Field(value = "OCM_51") String OCM_51,
                 @Field(value = "OCM_52") String OCM_52,
                 @Field(value = "OCM_98") String OCM_98
