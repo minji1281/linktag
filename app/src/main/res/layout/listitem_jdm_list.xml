@@ -145,7 +145,7 @@
                         android:id="@+id/imageView_check"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/btn_round_indigo_5dp"
+                        android:background="@drawable/btn_round_skyblue_5dp"
                         android:gravity="center_vertical|center"
                         android:text="청소확인"
                         android:textColor="@color/white"

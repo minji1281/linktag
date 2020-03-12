@@ -258,9 +258,9 @@ public class DetailJdm extends BaseActivity {
         }
 
         if (jdmVO.JDM_08.equals("") || Integer.parseInt(jdmVO.JDM_96.substring(0, 8)) < Integer.parseInt(formatDate.format(calendar.getTime()))) {
-            imageView_check.setImageResource(R.drawable.ic_check_off);
+            imageView_check.setImageResource(R.drawable.btn_round_shallowgray_50dp);
         } else {
-            imageView_check.setImageResource(R.drawable.ic_check_on);
+            imageView_check.setImageResource(R.drawable.btn_round_skyblue_50dp);
         }
 
 

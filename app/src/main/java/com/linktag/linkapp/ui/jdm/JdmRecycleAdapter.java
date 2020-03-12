@@ -140,7 +140,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         if (mList.get(position).JDM_08.equals("") ||  Integer.parseInt(mList.get(position).JDM_96.substring(0, 8)) <= Integer.parseInt(formatDate.format(calendar.getTime()))) {
             viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
         } else {
-            viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_indigo_5dp);
+            viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_skyblue_5dp);
         }
 
 
