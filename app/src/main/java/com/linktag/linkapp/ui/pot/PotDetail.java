@@ -67,6 +67,9 @@ public class PotDetail extends BaseActivity {
     private TextView tvNextWaterDay;
     private TextView lbWater;
 
+    private View lineDDAY;
+    private TextView tvDayLabel;
+
     private Button btnSave;
 
     //======================
@@ -114,6 +117,9 @@ public class PotDetail extends BaseActivity {
         clearCalTime(TODAY);
         clearCalTime(POT_03_C);
         clearCalTime(POT_96_C);
+
+        lineDDAY = (View) findViewById(R.id.lineDDAY);
+        tvDayLabel = (TextView) findViewById(R.id.tvDayLabel);
 
         etName = (EditText) findViewById(R.id.etName);
         etMemo = (EditText) findViewById(R.id.etMemo);
@@ -175,7 +181,20 @@ public class PotDetail extends BaseActivity {
                 CycleDialog();
             }
         });
+        imgPreWaterDayIcon = (ImageView) findViewById(R.id.imgPreWaterDayIcon);
+        imgPreWaterDayIcon.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                preWaterDayDialog();
+            }
+        });
         tvPreWaterDay = (TextView) findViewById(R.id.tvPreWaterDay);
+        tvPreWaterDay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                preWaterDayDialog();
+            }
+        });
         tvNextWaterDay = (TextView) findViewById(R.id.tvNextWaterDay);
 
         btnSave = (Button) findViewById(R.id.btnSave);
@@ -216,22 +235,9 @@ public class PotDetail extends BaseActivity {
             }
         }
         else{ //INSERT
-            imgPreWaterDayIcon = (ImageView) findViewById(R.id.imgPreWaterDayIcon);
-            imgPreWaterDayIcon.setVisibility(View.VISIBLE);
-            imgPreWaterDayIcon.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    preWaterDayDialog();
-                }
-            });
-            tvPreWaterDay.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    preWaterDayDialog();
-                }
-            });
-
             tvDDAY.setVisibility(View.GONE);
+            lineDDAY.setVisibility(View.GONE);
+            tvDayLabel.setVisibility(View.GONE);
             imgWater.setVisibility(View.GONE);
             lbWater.setVisibility(View.GONE);
             getNewData();
@@ -276,12 +282,8 @@ public class PotDetail extends BaseActivity {
         int day = POT_03_C.get(Calendar.DATE);
         POT.POT_03 = String.valueOf(year) + (month<10 ? "0" + String.valueOf(month) : String.valueOf(month)) + (day<10 ? "0" + String.valueOf(day) : String.valueOf(day));
 
-//        tvPreWaterDay.setText("오늘일자로 설정됩니다.");
-//        tvPreWaterDay.setTextSize(14);
-
         setImgWater();
         setPreWaterDay();
-//        setDDAY();
     }
 
     private void requestPOT_CONTROL(String GUB) {
@@ -526,6 +528,7 @@ public class PotDetail extends BaseActivity {
                 if(!POT.POT_05.equals("")){
                     setNextWaterDay();
                 }
+                setImgWater();
             }
         }, POT_03_C.get(Calendar.YEAR), POT_03_C.get(Calendar.MONTH), POT_03_C.get(Calendar.DATE));
 
@@ -534,7 +537,7 @@ public class PotDetail extends BaseActivity {
 
     private void setImgWater(){
         if(POT_96_C.compareTo(TODAY) == 1){
-            imgWater.setImageResource(R.drawable.ic_check_on);
+            imgWater.setImageResource(R.drawable.btn_round_skyblue_50dp);
 
             imgWater.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -560,7 +563,7 @@ public class PotDetail extends BaseActivity {
             });
         }
         else{
-            imgWater.setImageResource(R.drawable.ic_check_off);
+            imgWater.setImageResource(R.drawable.btn_round_shallowgray_50dp);
 
             imgWater.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -582,6 +585,10 @@ public class PotDetail extends BaseActivity {
         else if(POT.POT_05.equals("")){
             check = false;
             Toast.makeText(mActivity, "주기를 선택하세요.", Toast.LENGTH_SHORT).show();
+        }
+        else if(TODAY.compareTo(POT_03_C) < 0){
+            check = false;
+            Toast.makeText(mActivity, "최근 물주기는 오늘일자 이전으로 설정 해주세요.", Toast.LENGTH_SHORT).show();
         }
         return check;
     }

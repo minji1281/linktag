@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,6 +43,7 @@ public class PotList extends BaseActivity {
     private BaseFooter footer;
     private GridView gridView;
     private TextView emptyText;
+    private SwipeRefreshLayout swipeRefresh;
 //    private EditText etName;
 //    private ImageView imgSearch;
 
@@ -101,6 +103,15 @@ public class PotList extends BaseActivity {
 //        etName = findViewById(R.id.etName);
 //        imgSearch = findViewById(R.id.imgSearch);
 //        imgSearch.setOnClickListener(v -> requestPOT_SELECT("LIST", ""));
+
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                requestPOT_SELECT("LIST", "");
+                swipeRefresh.setRefreshing(false);
+            }
+        });
     }
 
     @Override
@@ -167,6 +178,7 @@ public class PotList extends BaseActivity {
 
                                 mAdapter.updateData(mList);
                                 mAdapter.notifyDataSetChanged();
+                                swipeRefresh.setRefreshing(false);
                             }
                             else{ //DETAIL (스캔했을때)
                                 if(mList.size() == 0){ //등록된 정보가 없을때

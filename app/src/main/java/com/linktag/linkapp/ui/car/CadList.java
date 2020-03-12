@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,7 @@ public class CadList extends BaseActivity {
     //======================
     private BaseHeader header;
     private BaseFooter footer;
+    private SwipeRefreshLayout swipeRefresh;
     private ListView listView;
     private TextView emptyText;
     private ImageView imgNew;
@@ -123,6 +125,15 @@ public class CadList extends BaseActivity {
             }
         });
         spCar = (Spinner) findViewById(R.id.spCar);
+
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                requestCAD_SELECT();
+                swipeRefresh.setRefreshing(false);
+            }
+        });
     }
 
     @Override
@@ -187,6 +198,7 @@ public class CadList extends BaseActivity {
 
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();
+                            swipeRefresh.setRefreshing(false);
 
                         }
                     }

@@ -20,22 +20,36 @@
         android:layout_weight="1"
         android:orientation="vertical">
 
-        <GridView
-            android:id="@+id/gridView"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="10dp"
-            android:numColumns="2"
-            tools:listitem="@layout/griditem_find_pot"></GridView>
+            android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/empty"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="16dp"
-            android:gravity="center|center_vertical"
-            android:text="조회된 정보가 없습니다."
-            android:textSize="@dimen/text_normal" />
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefresh"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                tools:context=".ui.pot.PotList">
+
+                <GridView
+                    android:id="@+id/gridView"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:padding="10dp"
+                    android:numColumns="2"
+                    tools:listitem="@layout/griditem_find_pot"></GridView>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+            <TextView
+                android:id="@+id/empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:gravity="center|center_vertical"
+                android:text="조회된 정보가 없습니다."
+                android:textSize="@dimen/text_normal" />
+
+        </FrameLayout>
 
     </LinearLayout>
 
