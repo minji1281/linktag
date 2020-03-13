@@ -1,14 +1,11 @@
 package com.linktag.linkapp.ui.login;
 
 import android.annotation.SuppressLint;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
@@ -27,7 +24,6 @@ import com.linktag.base.util.ClsDateTime;
 import com.linktag.linkapp.ui.sign_up.SignUp;
 import com.linktag.linkapp.model.LOGIN_Model;
 import com.linktag.linkapp.value_object.LoginVO;
-import com.linktag.base.linkapp;
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.settings.SettingsKey;
@@ -37,17 +33,8 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.main.Main;
-import com.linktag.linkapp.ui.scanner.ScanBarcode;
-import com.google.zxing.integration.android.IntentIntegrator;
-import com.google.zxing.integration.android.IntentResult;
-
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.regex.Pattern;
 
@@ -92,9 +79,6 @@ public class Login extends BaseActivity {
                         token = task.getResult().getToken();
                         Log.d("FCM Log", "FCM 토큰: " + token);
                         //   Toast.makeText(Login.this, token, Toast.LENGTH_SHORT).show();
-
-
-
 
                     }
                 });
@@ -173,33 +157,6 @@ public class Login extends BaseActivity {
         btnLogin = findViewById(R.id.btnLogin);
         //btnLogin.setEnabled(false);
         btnLogin.setOnClickListener(v -> requestEMPVIEW());
-        //btnLogin.setOnClickListener(v -> alertTest());
-    }
-
-    private void alertTest(){
-//        AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-//
-//        builder.setTitle("매장 선택");
-//        builder.setMessage("최근에 선택한 가나다 매장으로 진행하시겠습니까?");
-//        builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(mContext, "Yes clicked", Toast.LENGTH_LONG).show();
-//            }
-//        });
-//        builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(mContext, "No clicked", Toast.LENGTH_LONG).show();
-//            }
-//        });
-//        builder.setNeutralButton("예(한달간 표시안함)", new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                Toast.makeText(mContext, "test", Toast.LENGTH_LONG).show();
-//            }
-//        });
-//        builder.create().show();
     }
 
     /**
@@ -358,11 +315,13 @@ public class Login extends BaseActivity {
         mUser.Value.OCM_03 = loginVO.OCM_03;
         mUser.Value.OCM_03_CHK = loginVO.OCM_03_CHK;
         mUser.Value.OCM_21 = loginVO.OCM_21;
+        mUser.Value.OCM_24 = loginVO.OCM_24;
         mUser.Value.OCM_28 = loginVO.OCM_28;
         mUser.Value.OCM_29 = loginVO.OCM_29;
         mUser.Value.OCM_31 = loginVO.OCM_31;
         mUser.Value.OCM_32 = loginVO.OCM_32;
         mUser.Value.OCM_51 = loginVO.OCM_51;
+        mUser.Value.OCM_52 = loginVO.OCM_52;
 
         requestTKN_SELECT();
         goMain();

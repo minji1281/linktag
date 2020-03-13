@@ -124,7 +124,7 @@ public class CodAdapter extends BaseAdapter {
                 viewHolder.pbUse.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.progressbar_listitem));
             }
             else{
-                viewHolder.pbUse.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.progressbar_listitem2));
+                viewHolder.pbUse.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.progressbar_full_listitem));
             }
         }
         else{ //사용종료일때!!

@@ -12,6 +12,7 @@ import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.model.CTU_Model;
 import com.linktag.linkapp.model.FRMModel;
 import com.linktag.linkapp.model.JDMModel;
+import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.model.NOCModel;
 import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.model.PCDModel;
@@ -109,6 +110,7 @@ public class Http extends HttpBaseService {
                 @Field(value = "OCM_01") String OCM_01,
                 @Field(value = "OCM_02") String OCM_02,
                 @Field(value = "OCM_03") String OCM_03,
+                @Field(value = "OCM_24") String OCM_24,
                 @Field(value = "OCM_51") String OCM_51,
                 @Field(value = "OCM_52") String OCM_52,
                 @Field(value = "OCM_98") String OCM_98
@@ -437,6 +439,7 @@ public class Http extends HttpBaseService {
                 @Field(value = "GUBUN") String GUBUN,
                 @Field(value = "ARM_ID") String ARM_ID,
                 @Field(value = "ARM_01") String ARM_01,
+                @Field(value = "ARM_0101") String ARM_0101,
                 @Field(value = "ARM_02") String ARM_02,
                 @Field(value = "ARM_03") String ARM_03,
                 @Field(value = "ARM_90") String ARM_90,
@@ -1065,9 +1068,32 @@ public class Http extends HttpBaseService {
                 @Field(value = "title") String title,
                 @Field(value = "body") String body
         );
-
-
-
     }
 
+
+
+    //--------------------------------------------------
+    // 이력(LOG)
+    //--------------------------------------------------
+    public static ILOG log(TYPE type) {
+        return (ILOG) retrofit(ILOG.class, type);
+    }
+
+    public interface ILOG  {
+
+        @FormUrlEncoded
+        @POST(BaseConst.LOG_CONTROL)
+        Call<LOG_Model> LOG_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "LOG_ID") String LOG_ID,
+                @Field(value = "LOG_01") String LOG_01,
+                @Field(value = "LOG_02") String LOG_02,
+                @Field(value = "LOG_03") String LOG_03,
+                @Field(value = "LOG_04") String LOG_04,
+                @Field(value = "LOG_05") String LOG_05,
+                @Field(value = "LOG_98") String LOG_98,
+                @Field(value = "SP_NAME") String SP_NAME
+        );
+    }
 }

@@ -1,7 +1,10 @@
 package com.linktag.linkapp.ui.settings_main;
 
 import android.content.Intent;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
@@ -17,6 +20,7 @@ import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_fragment.BaseFragment;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.settings.SettingsKey;
+import com.linktag.base.util.ClsBitmap;
 import com.linktag.base.util.ClsDateTime;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
@@ -32,6 +36,7 @@ public class SettingMain extends BaseActivity {
 
     private RelativeLayout layProfile;
 
+    private ImageView imgProfile;
     private TextView tvUserName;
     private TextView tvUserEmail;
     private TextView tvUserSignDate;
@@ -41,8 +46,6 @@ public class SettingMain extends BaseActivity {
     private TextView btnHelp;
     private TextView btnPreferences;
     private TextView btnLogout;
-
-
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,13 @@ public class SettingMain extends BaseActivity {
         initialize();
     }
 
+    @Override
+    protected void onResume(){
+        super.onResume();
+
+        ClsBitmap.setProfilePhoto(mContext, imgProfile, mUser.Value.OCM_01, mUser.Value.OCM_52, R.drawable.main_profile_no_image);
+    }
+
     /**
      * 레이아웃 초기화
      */
@@ -65,6 +75,11 @@ public class SettingMain extends BaseActivity {
 
         layProfile = findViewById(R.id.layProfile);
         layProfile.setOnClickListener(v -> goProfileMain());
+
+        imgProfile = findViewById(R.id.imgProfile);
+        imgProfile.setBackground(new ShapeDrawable(new OvalShape()));
+        if(Build.VERSION.SDK_INT >= 21)
+            imgProfile.setClipToOutline(true);
 
         tvUserName = findViewById(R.id.tvUserName);
         tvUserName.setText(mUser.Value.OCM_02);
@@ -129,8 +144,8 @@ public class SettingMain extends BaseActivity {
      * 환경설정
      */
     private void goPreference() {
-//        Intent intent = new Intent(mContext, Preference.class);
-//        mContext.startActivity(intent);
+        Intent intent = new Intent(mContext, Preference.class);
+        mContext.startActivity(intent);
     }
 
     /**

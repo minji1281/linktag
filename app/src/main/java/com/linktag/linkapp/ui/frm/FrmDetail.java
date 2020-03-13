@@ -66,6 +66,9 @@ public class FrmDetail extends BaseActivity {
     private TextView tvNextFilterDay;
     private TextView lbFilter;
 
+    private View lineDDAY;
+    private TextView tvDayLabel;
+
     private Button btnSave;
 
     //======================
@@ -80,8 +83,8 @@ public class FrmDetail extends BaseActivity {
     private String GUBUN;
 
     Calendar TODAY = Calendar.getInstance();
-    Calendar FRM_03_C = Calendar.getInstance();
-    Calendar FRM_96_C = Calendar.getInstance();
+    Calendar FRM_03_C = Calendar.getInstance(); //최근 필터교체
+    Calendar FRM_96_C = Calendar.getInstance(); //다음 필터교체
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -113,6 +116,9 @@ public class FrmDetail extends BaseActivity {
         clearCalTime(TODAY);
         clearCalTime(FRM_03_C);
         clearCalTime(FRM_96_C);
+
+        lineDDAY = (View) findViewById(R.id.lineDDAY);
+        tvDayLabel = (TextView) findViewById(R.id.tvDayLabel);
 
         etName = (EditText) findViewById(R.id.etName);
         etMemo = (EditText) findViewById(R.id.etMemo);
@@ -172,6 +178,19 @@ public class FrmDetail extends BaseActivity {
             }
         });
         tvPreFilterDay = (TextView) findViewById(R.id.tvPreFilterDay);
+        tvPreFilterDay.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                preFilterDayDialog();
+            }
+        });
+        imgPreFilterDayIcon = (ImageView) findViewById(R.id.imgPreFilterDayIcon);
+        imgPreFilterDayIcon.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                preFilterDayDialog();
+            }
+        });
         tvNextFilterDay = (TextView) findViewById(R.id.tvNextFilterDay);
 
         btnSave = (Button) findViewById(R.id.btnSave);
@@ -214,22 +233,9 @@ public class FrmDetail extends BaseActivity {
             }
         }
         else{ //INSERT
-            imgPreFilterDayIcon = (ImageView) findViewById(R.id.imgPreFilterDayIcon);
-            imgPreFilterDayIcon.setVisibility(View.VISIBLE);
-            imgPreFilterDayIcon.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    preFilterDayDialog();
-                }
-            });
-            tvPreFilterDay.setOnClickListener(new View.OnClickListener(){
-                @Override
-                public void onClick(View v){
-                    preFilterDayDialog();
-                }
-            });
-
             tvDDAY.setVisibility(View.GONE);
+            lineDDAY.setVisibility(View.GONE);
+            tvDayLabel.setVisibility(View.GONE);
             imgFilter.setVisibility(View.GONE);
             lbFilter.setVisibility(View.GONE);
             getNewData();
@@ -238,6 +244,9 @@ public class FrmDetail extends BaseActivity {
 
     @Override
     protected void initialize() {
+        setAlarm();
+        setCycle();
+
         if(GUBUN.equals("UPDATE")){
             getDetail();
         }
@@ -251,12 +260,26 @@ public class FrmDetail extends BaseActivity {
         etMemo.setText(FRM.FRM_06);
 
         setDDAY();
-        setAlarm();
-        setCycle();
         setImgFilter();
 
         tvPreFilterDay.setText(FRM.FRM_03.substring(0,4)+"."+FRM.FRM_03.substring(4,6)+"."+FRM.FRM_03.substring(6));
         tvNextFilterDay.setText(FRM.FRM_96.substring(0,4)+"."+FRM.FRM_96.substring(4,6)+"."+FRM.FRM_96.substring(6,8));
+    }
+
+    private void getNewData(){
+        //초기값
+        FRM.ARM_03 = "N";
+        FRM.FRM_04 = 1;
+        FRM.FRM_05 = "";
+        FRM.FRM_96 = "000000001200";
+
+        int year = FRM_03_C.get(Calendar.YEAR);
+        int month = FRM_03_C.get(Calendar.MONTH) + 1;
+        int day = FRM_03_C.get(Calendar.DATE);
+        FRM.FRM_03 = String.valueOf(year) + (month<10 ? "0" + String.valueOf(month) : String.valueOf(month)) + (day<10 ? "0" + String.valueOf(day) : String.valueOf(day));
+
+        setImgFilter();
+        setPreFilterDay();
     }
 
     private void requestFRM_CONTROL(String GUB) {
@@ -356,13 +379,16 @@ public class FrmDetail extends BaseActivity {
 
         String DDAY = "";
         if(day > 0){
-            DDAY = "D-" + day;
+//            DDAY = "D-" + day;
+            DDAY = String.valueOf(day);
         }
         else if(day == 0){
-            DDAY = "D-Day";
+//            DDAY = "D-Day";
+            DDAY = "0";
         }
         else{
-            DDAY = "D+" + (day * -1);
+//            DDAY = "D+" + (day * -1);
+            DDAY = String.valueOf(day);
         }
         tvDDAY.setText(DDAY);
     }
@@ -475,7 +501,7 @@ public class FrmDetail extends BaseActivity {
 
     private void setImgFilter(){
         if(FRM_96_C.compareTo(TODAY) == 1){
-            imgFilter.setImageResource(R.drawable.ic_check_on);
+            imgFilter.setImageResource(R.drawable.btn_round_skyblue_50dp);
 
             imgFilter.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -501,7 +527,7 @@ public class FrmDetail extends BaseActivity {
             });
         }
         else{
-            imgFilter.setImageResource(R.drawable.ic_check_off);
+            imgFilter.setImageResource(R.drawable.btn_round_shallowgray_50dp);
 
             imgFilter.setOnClickListener(new View.OnClickListener(){
                 @Override
@@ -512,24 +538,6 @@ public class FrmDetail extends BaseActivity {
                 }
             });
         }
-    }
-
-    private void getNewData(){
-        //초기값
-        FRM.ARM_03 = "N";
-        imgAlarm.setImageResource(R.drawable.alarm_state_off);
-
-        int year = FRM_03_C.get(Calendar.YEAR);
-        int month = FRM_03_C.get(Calendar.MONTH) + 1;
-        int day = FRM_03_C.get(Calendar.DATE);
-        FRM.FRM_03 = String.valueOf(year) + (month<10 ? "0" + String.valueOf(month) : String.valueOf(month)) + (day<10 ? "0" + String.valueOf(day) : String.valueOf(day));
-
-        FRM.FRM_04 = 1;
-        FRM.FRM_05 = "";
-        FRM.FRM_96 = "000000001200";
-
-        setCycle();
-        setPreFilterDay();
     }
 
     private void preFilterDayDialog(){
@@ -559,6 +567,7 @@ public class FrmDetail extends BaseActivity {
                 if(!FRM.FRM_05.equals("")){
                     setNextFilterDay();
                 }
+                setImgFilter();
             }
         }, FRM_03_C.get(Calendar.YEAR), FRM_03_C.get(Calendar.MONTH), FRM_03_C.get(Calendar.DATE));
 
@@ -574,6 +583,10 @@ public class FrmDetail extends BaseActivity {
         else if(FRM.FRM_05.equals("")){
             check = false;
             Toast.makeText(mActivity, "주기를 선택하세요.", Toast.LENGTH_SHORT).show();
+        }
+        else if(TODAY.compareTo(FRM_03_C) < 0){
+            check = false;
+            Toast.makeText(mActivity, "최근 필터교체는 오늘일자 이전으로 설정 해주세요.", Toast.LENGTH_SHORT).show();
         }
         return check;
     }

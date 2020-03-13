@@ -2,18 +2,22 @@ package com.linktag.linkapp.ui.settings_profile;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.solver.GoalRow;
 import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.PhoneNumberUtils;
@@ -24,11 +28,16 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.google.android.gms.vision.text.Line;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+import com.linktag.base.util.ClsBitmap;
+import com.linktag.base.util.ImageResizeUtils;
 import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
@@ -38,12 +47,15 @@ import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.settings.SettingsKey;
-import com.linktag.base.util.ClsDateTime;
 import com.linktag.base.util.ClsImage;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
+import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
+import java.io.IOException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Locale;
 
 import retrofit2.Call;
@@ -54,29 +66,20 @@ public class ProfileMain extends BaseActivity {
     //======================
     // Final
     //======================
-    private final int TAKE_PHOTO = 0;
-    private final int ALBUM = 1;
-    private final int DELETE_PHOTO = 2;
+    private final int PICK_FROM_CAMERA = 0;
+    private final int PICK_FROM_ALBUM = 1;
+    private final int DELETE_PHOTO= 2;
 
-    // 사진첨부
-    private final int REQUEST_CODE_ALBUM_PHOTO = 204;
-    // 사진첨부 사진 촬영
-    private final int REQUEST_CODE_PHOTO_TAKE_PHOTO = 205;
-    private final int REQUEST_CODE_CROP = 206;
-    private final int REQUEST_CODE_CROP_ALBUM = 207;
-    // 사진 타입
-    private final int MEDIA_TYPE_IMAGE = 1;
-    // 동영상 타입
-    private final int MEDIA_TYPE_VIDEO = 2;
-
+    private final String FIREBASE_URL = "gs://linktag-a43f8.appspot.com";
 
     //======================
     // Layout
     //======================
     private BaseHeader header;
 
-    private ImageView imgProfilePhoto;
-    private Button btnChangePhoto;
+    private ImageView imgProfile;
+
+    //private Button btnChangePhoto;
     private EditText etUserName;
     private EditText etPhoneNumber;
 
@@ -86,7 +89,6 @@ public class ProfileMain extends BaseActivity {
     private LinearLayout layoutSignDate;
 
     private LinearLayout layoutChangePwd;
-
 
     private LinearLayout layoutChange;
 
@@ -99,11 +101,15 @@ public class ProfileMain extends BaseActivity {
     //======================
     // Variable
     //======================
-    private File fileTakePhoto;
-    private Uri uriPhoto;
-    private Uri uriAlbum;
-    private String mBase64 = "";
-    private String mUserImage = "";
+    private Boolean isChangeImg = false;
+    private Boolean isCamera = false;
+    private File tempFile;
+    private Uri filePath;
+
+    private String setFileName;
+
+    private FirebaseStorage storage;
+    private StorageReference storageRef;
 
     //======================
     // Initialize
@@ -125,13 +131,12 @@ public class ProfileMain extends BaseActivity {
         header.btnHeaderText.setVisibility(View.VISIBLE);
         header.btnHeaderText.setOnClickListener(v -> requestOCM_CONTROL("UPDATE"));
 
-        imgProfilePhoto = findViewById(R.id.imgProfilePhoto);
-        if (Build.VERSION.SDK_INT >= 21) {
-            imgProfilePhoto.setClipToOutline(true);
-        }
+        imgProfile = findViewById(R.id.imgProfile);
+        imgProfile.setBackground(new ShapeDrawable(new OvalShape()));
+        if (Build.VERSION.SDK_INT >= 21)
+            imgProfile.setClipToOutline(true);
 
-        btnChangePhoto = findViewById(R.id.btnChangePhoto);
-        btnChangePhoto.setOnClickListener(v -> setUserPhoto());
+        imgProfile.setOnClickListener(v -> setUserPhoto());
 
         etUserName = findViewById(R.id.etUserName);
         etUserName.setText(mUser.Value.OCM_02);
@@ -160,7 +165,7 @@ public class ProfileMain extends BaseActivity {
                     btnSubmitPwd.performClick();
                     return true;
                 }
-                
+
                 return false;
             }
         });
@@ -191,6 +196,8 @@ public class ProfileMain extends BaseActivity {
 
             }
         });
+
+        storage = FirebaseStorage.getInstance();
         
     }
 
@@ -230,40 +237,39 @@ public class ProfileMain extends BaseActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
         final String str[] = {
-                "사진 찍기",
-                "사진 선택",
-                "사진 삭제"
+                "사진 촬영",
+                "앨범에서 선택",
+                "프로필 사진 삭제"
         };
 
         builder.setTitle("프로필 사진 변경").setNegativeButton(R.string.common_cancel, null)
                 .setItems(str, (dialog, which) -> {
                     switch (which) {
                         // 사직 찍기
-                        case TAKE_PHOTO:
-                            clickSendPhotoTakePhoto();
+                        case PICK_FROM_CAMERA:
+//                            if(isPermission)  takePhoto();
+//                            else Toast.makeText(this, getResources().getString(R.string.permission_2), Toast.LENGTH_LONG).show();
+                            takePhoto();
                             break;
                         // 사진 선택
-                        case ALBUM:
-                            clickSendPhotoAlbumPhoto();
+                        case PICK_FROM_ALBUM:
+//                            if(isPermission) goToAlbum();
+//                            else Toast.makeText(this, getResources().getString(R.string.permission_2), Toast.LENGTH_LONG).show();
+                            goToAlbum();
                             break;
                         // 사직 삭제
                         case DELETE_PHOTO:
-                            ClsImage.setUserPhoto(mContext, imgProfilePhoto, "", R.drawable.main_profile_no_image);
-                            mBase64 = "";
-                            mUserImage = "";
+                            ClsBitmap.setProfilePhoto(mContext, imgProfile, mUser.Value.OCM_01,"", R.drawable.main_profile_no_image);
                             break;
                     }
-                }).setCancelable(false).create();
+                }).create();
 
         builder.show();
     }
 
     @Override
     protected void initialize() {
-        String mUserImage = "";
-
-        // 프로필 이미지 설정
-        ClsImage.setUserPhoto(mContext, imgProfilePhoto, mUserImage, R.drawable.main_profile_no_image);
+        ClsBitmap.setProfilePhoto(mContext, imgProfile, mUser.Value.OCM_01, mUser.Value.OCM_52, R.drawable.main_profile_no_image);
     }
 
     private boolean validationCheck(String GUB){
@@ -302,14 +308,20 @@ public class ProfileMain extends BaseActivity {
             return;
         }
 
-        openLoadingBar();
+        //openLoadingBar();
 
         String GUBUN = GUB;
         String OCM_01 = mUser.Value.OCM_01;
         String OCM_02 = etUserName.getText().toString();
         String OCM_03 = etNewPwd1.getText().toString();
+        String OCM_24 = "";
         String OCM_51 = etPhoneNumber.getText().toString();
-        String OCM_52 = "";
+        String OCM_52;
+        if(isChangeImg)
+            OCM_52 = setFileName;
+        else
+            OCM_52 = mUser.Value.OCM_52;
+
         String OCM_98 = mUser.Value.OCM_01;
 
         Call<OCM_Model> call = Http.ocm(HttpBaseService.TYPE.POST).OCM_CONTROL(
@@ -318,6 +330,7 @@ public class ProfileMain extends BaseActivity {
                 OCM_01,
                 OCM_02,
                 OCM_03,
+                OCM_24,
                 OCM_51,
                 OCM_52,
                 OCM_98
@@ -335,7 +348,7 @@ public class ProfileMain extends BaseActivity {
                     @Override
                     public void handleMessage(Message msg){
                         if(msg.what == 100){
-                            closeLoadingBar();
+                            //closeLoadingBar();
 
                             Response<OCM_Model> response = (Response<OCM_Model>) msg.obj;
 
@@ -348,7 +361,7 @@ public class ProfileMain extends BaseActivity {
             @Override
             public void onFailure(Call<OCM_Model> call, Throwable t){
                 Log.d("OCM_CONTROL", t.getMessage());
-                closeLoadingBar();
+                //closeLoadingBar();
             }
         });
 
@@ -370,150 +383,218 @@ public class ProfileMain extends BaseActivity {
     }
 
     private void setUserData(OcmVO ocmVO) {
+        if(isChangeImg){
+            uploadFile();
+            isChangeImg = false;
+        }
+
         mUser.Value.OCM_02 = ocmVO.OCM_02;
         mUser.Value.OCM_51 = ocmVO.OCM_51;
+        mUser.Value.OCM_52 = ocmVO.OCM_52;
     }
 
     /**
-     * 사진첨부 찍어서 보내기
+     *  앨범에서 이미지 가져오기
      */
-    protected void clickSendPhotoTakePhoto() {
+    private void goToAlbum() {
+        isCamera = false;
+
+        Intent intent = new Intent(Intent.ACTION_PICK);
+
+        intent.setType(android.provider.MediaStore.Images.Media.CONTENT_TYPE);
+        intent.setData(android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+
+        startActivityForResult(intent, PICK_FROM_ALBUM);
+    }
+
+    /**
+     *  카메라에서 이미지 가져오기
+     */
+    private void takePhoto() {
+        isCamera = true;
+
         Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
-        fileTakePhoto = getOutputMediaFile(MEDIA_TYPE_IMAGE);
-        uriPhoto = FileProvider.getUriForFile(mContext, mContext.getPackageName() + ".fileprovider", fileTakePhoto);
+        try {
+            tempFile = createImageFile();
+        } catch (IOException e) {
+            Toast.makeText(this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            finish();
+            e.printStackTrace();
+        }
+        if (tempFile != null) {
 
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriPhoto);
-        startActivityForResult(intent, REQUEST_CODE_PHOTO_TAKE_PHOTO);
+            /**
+             *  안드로이드 OS 누가 버전 이후부터는 file:// URI 의 노출을 금지로 FileUriExposedException 발생
+             *  Uri 를 FileProvider 도 감싸 주어야 합니다.
+             *
+             */
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+
+                Uri photoUri = FileProvider.getUriForFile(this, this.getPackageName() + ".fileprovider", tempFile);
+
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(intent, PICK_FROM_CAMERA);
+
+            } else {
+
+                Uri photoUri = Uri.fromFile(tempFile);
+                //Log.d(TAG, "takePhoto photoUri : " + photoUri);
+
+                intent.putExtra(MediaStore.EXTRA_OUTPUT, photoUri);
+                startActivityForResult(intent, PICK_FROM_CAMERA);
+
+            }
+        }
+    }
+
+    private void uploadFile(){
+        if(filePath != null){
+            final ProgressDialog progressDialog = new ProgressDialog(this);
+            progressDialog.setTitle("업로드중...");
+            progressDialog.show();
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+
+//            //Unique한 파일명을 만들자.
+//            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
+//            Date now = new Date();
+//            String filename = formatter.format(now) + ".jpg";
+
+            //storage 주소와 폴더 파일명을 지정해 준다.
+            storageRef = storage.getReferenceFromUrl(FIREBASE_URL).child("profile" + "/" + mUser.Value.OCM_01 + "/" + setFileName);
+
+            storageRef.putFile(filePath)
+                    //성공시
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
+                            Toast.makeText(getApplicationContext(), "이미지 변경 완료!", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    //실패시
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception e) {
+                            progressDialog.dismiss();
+                            Toast.makeText(getApplicationContext(), "이미지 변경 실패!", Toast.LENGTH_SHORT).show();
+                        }
+                    })
+                    //진행중
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
+                                    double progress = (100 * taskSnapshot.getBytesTransferred()) /  taskSnapshot.getTotalByteCount();
+                            //dialog에 진행률을 퍼센트로 출력해 준다
+                            progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
+                        }
+                    });
+        } else {
+            Toast.makeText(this, "파일을 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+        }
     }
 
     /**
-     * 사진첨부 앨범에서 사진 보내기
+     *  Crop 기능
      */
-    protected void clickSendPhotoAlbumPhoto() {
-        Intent intent = new Intent(Intent.ACTION_PICK);
-        intent.setType(MediaStore.Images.Media.CONTENT_TYPE);
-        intent.setType("image/*");
-        startActivityForResult(intent, REQUEST_CODE_ALBUM_PHOTO);
-    }
-
-
-    @SuppressLint("SimpleDateFormat")
-    private File getOutputMediaFile(int type) {
-        File mediaStorageDir = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES), "linktag");
-
-        if (!mediaStorageDir.exists()) {
-            if (!mediaStorageDir.mkdirs()) {
-                Log.d("Test", "failed to create directory");
-                return null;
+    private void cropImage(Uri photoUri) {
+        /**
+         *  갤러리에서 선택한 경우에는 tempFile 이 없으므로 새로 생성해줍니다.
+         */
+        if(tempFile == null) {
+            try {
+                tempFile = createImageFile();
+            } catch (IOException e) {
+                Toast.makeText(this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                finish();
+                e.printStackTrace();
             }
         }
 
-        // Create a media file name
-        String timeStamp = ClsDateTime.getNow("yyyyMMddHHmmss", Locale.US);
-        File mediaFile;
+        //크롭 후 저장할 Uri
+        filePath = Uri.fromFile(tempFile);
 
-        if (type == MEDIA_TYPE_IMAGE) {
-            mediaFile = new File(
-                    mediaStorageDir.getPath() + File.separator + "_IMG_" + timeStamp + ".jpg");
-        } else if (type == MEDIA_TYPE_VIDEO) {
-            mediaFile = new File(
-                    mediaStorageDir.getPath() + File.separator + "_VID_" + timeStamp + ".mp4");
-        } else {
-            return null;
-        }
-
-        return mediaFile;
+        Crop.of(photoUri, filePath).asSquare().start(this);
     }
 
     /**
-     * 크롭하기
+     *  폴더 및 파일 만들기
      */
-    private void cropImage() {
-        Intent intent = new Intent("com.android.camera.action.CROP");
-        intent.setDataAndType(uriPhoto, "image/*");
-        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.addFlags(Intent.FLAG_GRANT_WRITE_URI_PERMISSION);
-        intent.putExtra("outputX", 300);
-        intent.putExtra("outputY", 300);
-        intent.putExtra("aspectX", 1);
-        intent.putExtra("aspectY", 1);
-        intent.putExtra("scale", true);
-        intent.putExtra("return-data", false);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, uriPhoto);
-        intent.putExtra("outputFormat", Bitmap.CompressFormat.JPEG.toString());
+    private File createImageFile() throws IOException {
+        // 이미지 파일 이름
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
+        Date now = new Date();
+        String imageFileName = formatter.format(now);
 
-        System.out.println("@@@@@@@@@@@333111qqq : "+uriPhoto);
 
-        this.grantUriPermission("com.android.camera", uriPhoto,
-                Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        // 이미지가 저장될 파일 이름
+        File storageDir = new File(getExternalFilesDir(null).getAbsolutePath() + "/linktag/");
+        if (!storageDir.exists()) storageDir.mkdirs();
 
-        System.out.println("@@@@@@@@@@@333111www : ");
+        System.out.println("!!!!!!!!!!!!!!!!!!!!!" + storageDir.getName());
+        // 빈 파일 생성
+        File image = File.createTempFile(imageFileName, ".jpg", storageDir);
 
-        mActivity.startActivityForResult(intent, REQUEST_CODE_CROP);
+        return image;
     }
+
+    /**
+     *  tempFile 을 bitmap 으로 변환 후 ImageView 에 설정한다.
+     */
+    private void setImage() {
+        ImageResizeUtils.resizeFile(tempFile, tempFile, 1280, isCamera);
+
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        Bitmap originalBm = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
+
+        imgProfile.setImageBitmap(originalBm);
+
+        /**
+         *  tempFile 사용 후 null 처리를 해줘야 합니다.
+         *  (resultCode != RESULT_OK) 일 때 (tempFile != null)이면 해당 파일을 삭제하기 때문에
+         *  기존에 데이터가 남아 있게 되면 원치 않은 삭제가 이뤄집니다.
+         */
+
+        isChangeImg = true;
+        setFileName = tempFile.getName();
+        tempFile = null;
+    }
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        // 사진
-        System.out.println("%%%%%%%%%%%%%%%% : " + requestCode);
-        System.out.println("%%%%%%%%%%%%%%%% : " + resultCode);
 
+        if (resultCode != RESULT_OK) {
+            System.out.println("########### NOT RESULT_OK");
+            Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show();
 
-        if (requestCode == REQUEST_CODE_CROP && resultCode == RESULT_OK) {
-            System.out.println("@@@@@@@@@@@111");
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriPhoto);
-                imgProfilePhoto.setImageBitmap(bitmap);
-                mBase64 = ClsImage.getBase64ImageString(bitmap);
-                mUserImage = uriPhoto.getPath();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else if (requestCode == REQUEST_CODE_CROP_ALBUM && resultCode == RESULT_OK) {
-            System.out.println("@@@@@@@@@@@222");
-            try {
-                Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriAlbum);
-                imgProfilePhoto.setImageURI(uriAlbum);
-                mBase64 = ClsImage.getBase64ImageString(bitmap);
-                mUserImage = uriAlbum.getPath();
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } else {
-            if (resultCode == RESULT_OK) {
-                System.out.println("@@@@@@@@@@@333");
-                switch (requestCode) {
-                    case REQUEST_CODE_ALBUM_PHOTO:
-                        System.out.println("@@@@@@@@@@@333111");
-                        if (data.getData() != null) {
-                            try {
-                                uriPhoto = data.getData();
-                                cropImage();
-                            } catch (Exception e) {
-                                e.printStackTrace();
-                            }
-                        }
-                        break;
-                    case REQUEST_CODE_PHOTO_TAKE_PHOTO:
-                        System.out.println("@@@@@@@@@@@333222");
-                        if (!fileTakePhoto.exists()) {
-                            return;
-                        }
-
-                        cropImage();
-                        break;
-                    case REQUEST_CODE_CROP:
-                        System.out.println("@@@@@@@@@@@333333");
-                        try {
-                            Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uriPhoto);
-                            imgProfilePhoto.setImageBitmap(bitmap);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        break;
+            if (tempFile != null) {
+                if (tempFile.delete()) {
+                    Toast.makeText(this, "삭제 성공.", Toast.LENGTH_SHORT).show();
+                    tempFile = null;
                 }
+            }
+            return;
+        }
+
+        switch (requestCode) {
+            case PICK_FROM_CAMERA: {
+                Uri photoUri = Uri.fromFile(tempFile);
+
+                cropImage(photoUri);
+                break;
+            }
+            case PICK_FROM_ALBUM: {
+                Uri photoUri = data.getData();
+
+                cropImage(photoUri);
+                break;
+            }
+            case Crop.REQUEST_CROP: {
+                setImage();
             }
         }
 
@@ -531,6 +612,22 @@ public class ProfileMain extends BaseActivity {
             Intent intent = new Intent(ClsBroadCast.BROAD_CAST_ACTION_LOGOUT);
             LocalBroadcastManager.getInstance(mContext).sendBroadcast(intent);
         }, 500);
+    }
+
+    private String getRealPathFromURI(Uri contentURI) {
+        String result;
+        Cursor cursor = getContentResolver().query(contentURI, null, null, null, null);
+
+        if (cursor == null) { // Source is Dropbox or other similar local file path
+            result = contentURI.getPath();
+        } else {
+            cursor.moveToFirst();
+            int idx = cursor.getColumnIndex(MediaStore.Images.ImageColumns.DATA);
+            result = cursor.getString(idx);
+            cursor.close();
+        }
+
+        return result;
     }
 
 

@@ -69,6 +69,9 @@ public class CodDetail extends BaseActivity {
     @BindView(R.id.spCos)
     Spinner spCos;
 
+    private View lineDDAY;
+    private TextView tvDayLabel;
+
     private Button btnSave;
 
     //======================
@@ -120,6 +123,9 @@ public class CodDetail extends BaseActivity {
         clearCalTime(COD_05_C);
         clearCalTime(COD_06_C);
         clearCalTime(COD_07_C);
+
+        lineDDAY = (View) findViewById(R.id.lineDDAY);
+        tvDayLabel = (TextView) findViewById(R.id.tvDayLabel);
 
         etName = (EditText) findViewById(R.id.etName);
         etMemo = (EditText) findViewById(R.id.etMemo);
@@ -247,16 +253,20 @@ public class CodDetail extends BaseActivity {
         else{ //INSERT
             getNewData();
             tvDDAY.setVisibility(View.GONE);
+            lineDDAY.setVisibility(View.GONE);
+            tvDayLabel.setVisibility(View.GONE);
             imgUseEnd.setVisibility(View.GONE);
             tvUseEndLabel.setVisibility(View.GONE);
-
-            etMoney.setText(String.valueOf(Math.round(COD.COD_04)));
         }
 
     }
 
     @Override
     protected void initialize() {
+        setAlarm();
+        setEndDay();
+        etMoney.setText(String.valueOf(Math.round(COD.COD_04)));
+
         if(GUBUN.equals("UPDATE")){
             getDetail();
         }
@@ -273,18 +283,17 @@ public class CodDetail extends BaseActivity {
         etName.setText(COD.COD_02);
         etMemo.setText(COD.COD_08);
         etBrand.setText(COD.COD_03);
-        etMoney.setText(String.valueOf(Math.round(COD.COD_04)));
 
         if(COD.COD_07.equals("")){ //기존 detail
             setDDAY();
         }
         else{ //사용종료 detail
             tvDDAY.setVisibility(View.GONE);
+            lineDDAY.setVisibility(View.GONE);
+            tvDayLabel.setVisibility(View.GONE);
             tvUseEndLabel.setText("사용시작");
+            imgUseEnd.setImageResource(R.drawable.btn_round_skyblue_50dp);
         }
-
-        setAlarm();
-        setEndDay();
     }
 
     private void getNewData(){
@@ -292,7 +301,10 @@ public class CodDetail extends BaseActivity {
         COD.ARM_03 = "N";
         imgAlarm.setImageResource(R.drawable.alarm_state_off);
 
-        COD.COD_06 = "";
+        int year = COD_06_C.get(Calendar.YEAR);
+        int month = COD_06_C.get(Calendar.MONTH) + 1;
+        int day = COD_06_C.get(Calendar.DATE);
+        COD.COD_06 = String.valueOf(year) + (month<10 ? "0" + String.valueOf(month) : String.valueOf(month)) + (day<10 ? "0" + String.valueOf(day) : String.valueOf(day));
         COD.COD_07 = "";
         COD.COD_96 = "1200";
     }
@@ -380,21 +392,24 @@ public class CodDetail extends BaseActivity {
     }
 
     private void setDDAY(){
-        if(COD.COD_07.equals("")){
-            tvDDAY.setVisibility(View.VISIBLE);
-        }
+//        if(COD.COD_07.equals("")){
+//            tvDDAY.setVisibility(View.VISIBLE);
+//        }
 
         int day = (int) ((COD_06_C.getTimeInMillis() - TODAY.getTimeInMillis()) / (24*60*60*1000));
 
         String DDAY = "";
         if(day > 0){
-            DDAY = "D-" + day;
+//            DDAY = "D-" + day;
+            DDAY = String.valueOf(day);
         }
         else if(day == 0){
-            DDAY = "D-Day";
+//            DDAY = "D-Day";
+            DDAY = "0";
         }
         else{
-            DDAY = "D+" + (day * -1);
+//            DDAY = "D+" + (day * -1);
+            DDAY = String.valueOf(day);
         }
         tvDDAY.setText(DDAY);
     }

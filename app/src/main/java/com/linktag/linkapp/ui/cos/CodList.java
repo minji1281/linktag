@@ -8,6 +8,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -51,10 +52,11 @@ public class CodList extends BaseActivity {
     //======================
     private BaseHeader header;
     private BaseFooter footer;
+    private SwipeRefreshLayout swipeRefresh;
     private ListView listView;
     private TextView emptyText;
     private ImageView imgNew;
-    private ImageView imgCosEdit;
+    private Button btnEdit;
     @BindView(R.id.spCos)
     Spinner spCos;
 
@@ -116,14 +118,23 @@ public class CodList extends BaseActivity {
         });
         emptyText = findViewById(R.id.empty);
         listView.setEmptyView(emptyText);
-        imgCosEdit = findViewById(R.id.imgCosEdit);
-        imgCosEdit.setOnClickListener(new View.OnClickListener(){
+        btnEdit = (Button) findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
                 cosDialog("UPDATE");
             }
         });
         spCos = (Spinner) findViewById(R.id.spCos);
+
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                requestCOD_SELECT();
+                swipeRefresh.setRefreshing(false);
+            }
+        });
 
     }
 
@@ -187,6 +198,7 @@ public class CodList extends BaseActivity {
 
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();
+                            swipeRefresh.setRefreshing(false);
 
                         }
                     }

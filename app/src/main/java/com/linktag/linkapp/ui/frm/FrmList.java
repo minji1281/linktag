@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,8 +43,9 @@ public class FrmList extends BaseActivity {
     private BaseFooter footer;
     private ListView listView;
     private TextView emptyText;
-    private EditText etName;
-    private ImageView imgSearch;
+    private SwipeRefreshLayout swipeRefresh;
+//    private EditText etName;
+//    private ImageView imgSearch;
 
     //======================
     // Variable
@@ -98,9 +100,18 @@ public class FrmList extends BaseActivity {
         });
         emptyText = findViewById(R.id.empty);
         listView.setEmptyView(emptyText);
-        etName = findViewById(R.id.etName);
-        imgSearch = findViewById(R.id.imgSearch);
-        imgSearch.setOnClickListener(v -> requestFRM_SELECT("LIST", ""));
+//        etName = findViewById(R.id.etName);
+//        imgSearch = findViewById(R.id.imgSearch);
+//        imgSearch.setOnClickListener(v -> requestFRM_SELECT("LIST", ""));
+
+        swipeRefresh = findViewById(R.id.swipeRefresh);
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                requestFRM_SELECT("LIST", "");
+                swipeRefresh.setRefreshing(false);
+            }
+        });
     }
 
     @Override
@@ -128,9 +139,9 @@ public class FrmList extends BaseActivity {
 
         String FRM_ID = intentVO.CTN_02; //컨테이너
         String FRM_02 = ""; //명칭
-        if(GUBUN.equals("LIST")){
-            FRM_02 = etName.getText().toString();
-        }
+//        if(GUBUN.equals("LIST")){
+//            FRM_02 = etName.getText().toString();
+//        }
         String OCM_01 = mUser.Value.OCM_01; //사용자 아이디
 
         Call<FRMModel> call = Http.frm(HttpBaseService.TYPE.POST).FRM_SELECT(
@@ -165,6 +176,7 @@ public class FrmList extends BaseActivity {
 
                                 mAdapter.updateData(mList);
                                 mAdapter.notifyDataSetChanged();
+                                swipeRefresh.setRefreshing(false);
                             }
                             else{ //DETAIL (스캔찍을때)
                                 mList2 = response.body().Data;

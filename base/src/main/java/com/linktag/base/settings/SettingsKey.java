@@ -5,6 +5,9 @@ public class SettingsKey {
     public static String LoginPW = "LoginPW";
     public static String AutoID = "AutoID";
     public static String AutoLogin = "AutoLogin";
+//    public static String isOnline = "isOnline";
+//    public static String isNotice = "isNotice";
+    public static String myLocale = "myLocale";
 
     public static String CTM_01 = "CTM_01";
     public static String OCM_01 = "OCM_01";

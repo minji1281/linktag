@@ -245,11 +245,11 @@ public class DetailTrp extends BaseActivity{
 
 
         String[] str = getResources().getStringArray(R.array.trp);
-        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item4, str);
+        final ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, str);
         sp_count.setAdapter(adapter);
 
         String[] str2 = getResources().getStringArray(R.array.trp2);
-        final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(mContext, R.layout.spinner_item4, str2);
+        final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, str2);
         sp_timing.setAdapter(adapter2);
 
 
