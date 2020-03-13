@@ -48,6 +48,9 @@ public class SharedFragment extends BaseFragment {
     private ArrayList<CtdVO> mList;
 
     private String activity_name;
+    private String type;
+
+    private Bundle bundle;
 
     public SharedFragment() {
         // Required empty public constructor
@@ -93,12 +96,20 @@ public class SharedFragment extends BaseFragment {
 
         activity_name = mActivity.getClass().getSimpleName();
 
+        GUBUN = "LIST_SHARED";
+
         if(activity_name.equals("ChooseOne")){
             header.btnHeaderText.setVisibility(View.GONE);
             layAdd.setVisibility(View.GONE);
-            GUBUN = "LIST_SHARED";
-        } else {
-            GUBUN = "LIST_BOOKMARK2";
+
+            bundle = getArguments();
+
+            if(bundle != null){
+                type = bundle.getString("type");
+
+                if(type.equals(CHOOSE_TYPE_BMK))
+                    GUBUN = "LIST_BOOKMARK2";
+            }
         }
     }
 
@@ -177,13 +188,9 @@ public class SharedFragment extends BaseFragment {
 
         if(activity_name.equals("ChooseOne")){
             // 해당 서비스 NEW 이동
-            String type;
             String scanCode;
 
-            Bundle bundle = getArguments();
-
             if(bundle != null){
-                type =  bundle.getString("type");
                 scanCode = bundle.getString("scanCode");
 
                 if(type.equals(CHOOSE_TYPE_SCAN)){
