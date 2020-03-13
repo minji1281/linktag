@@ -96,10 +96,9 @@ public class ServiceFragment extends BaseFragment {
         if(activity_name.equals("ChooseOne")){
             header.btnHeaderText.setVisibility(View.GONE);
             layAdd.setVisibility(View.GONE);
-
-            GUBUN = "LIST_BOOKMARK2";
-        } else {
             GUBUN = "LIST_SERVICE";
+        } else {
+            GUBUN = "LIST_BOOKMARK2";
         }
 
     }

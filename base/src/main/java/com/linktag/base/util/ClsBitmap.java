@@ -5,51 +5,41 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.util.Base64;
-import android.util.Log;
-import android.view.View;
 import android.widget.ImageView;
 
-import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.target.CustomTarget;
 import com.bumptech.glide.request.transition.Transition;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
-import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class ClsImage {
-    public static void setUserPhoto(Context context, ImageView imgUserPhoto, String url, int nNoImage) {
-        imgUserPhoto.setImageResource(nNoImage);
+public class ClsBitmap {
+    public static void setProfilePhoto(Context context, ImageView imageProfile, String fileFolder, String fileName, int nNoImage){
+        imageProfile.setImageResource(nNoImage);
 
-        try {
-            int nIndex = url.lastIndexOf("/");
-            String strFileName = "";
-
-            if (nIndex == -1) {
-                imgUserPhoto.setImageResource(nNoImage);
-            } else {
-                strFileName = url.substring(nIndex + 1, url.length());
-                setImage(context, "user_profile", strFileName, url, imgUserPhoto, nNoImage);
-            }
-        } catch (Exception e) {
-            imgUserPhoto.setImageResource(nNoImage);
-            e.printStackTrace();
+        if(fileName.equals("")){
+            imageProfile.setImageResource(nNoImage);
+        } else {
+            setImage(context, "profile" + "/" + fileFolder, fileName, imageProfile, nNoImage);
         }
     }
 
-    public static void setImage(final Context context, String folderPath, String fileName, String url,
+    public static void setImage(final Context context, String folderPath, String fileName,
                                 final ImageView imgView, int placeHolder) {
         try {
             final String strSavePath = context.getFilesDir() + "/" + folderPath;
 
             File dir = new File(strSavePath);
-            if (!dir.exists())
-                dir.mkdir();
+            if (!dir.exists()){
+                dir.mkdirs();
+            }
 
             final String strFilePath = strSavePath + "/" + fileName;
+
 
             File file = new File(strFilePath);
 
@@ -64,7 +54,7 @@ public class ClsImage {
                     CustomTarget target = new CustomTarget<Bitmap>(){
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            imgView.setVisibility(View.VISIBLE);
+                            //imgView.setVisibility(View.VISIBLE);
 
                             imgView.setImageBitmap(resource);
                         }
@@ -81,6 +71,8 @@ public class ClsImage {
                 }
             } else {
                 // 사진 파일을 받아야 하는 경우
+                StorageReference storageReference = FirebaseStorage.getInstance().getReference();
+                StorageReference pathRef = storageReference.child(folderPath + "/" + fileName);
                 try {
                     CustomTarget target = new CustomTarget<Bitmap>(){
                         @Override
@@ -96,7 +88,7 @@ public class ClsImage {
                         }
                     };
 
-                    GlideApp.with(context).asBitmap().load(url).placeholder(placeHolder).into(target);
+                    GlideApp.with(context).asBitmap().load(pathRef).placeholder(placeHolder).into(target);
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -136,24 +128,5 @@ public class ClsImage {
         return bResult;
     }
 
-    /**
-     * Base64로 이동
-     * @param photo
-     * @return
-     */
-    public static String getBase64ImageString(Bitmap photo) {
-        String imgString;
-        if (photo != null) {
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            photo.compress(Bitmap.CompressFormat.PNG, 100, outputStream);
-            byte[] profileImage = outputStream.toByteArray();
-
-            imgString = Base64.encodeToString(profileImage, Base64.NO_WRAP);
-        } else {
-            imgString = "";
-        }
-
-        return imgString;
-    }
 
 }
