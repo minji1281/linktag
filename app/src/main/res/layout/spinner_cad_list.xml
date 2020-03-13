@@ -4,9 +4,6 @@
     android:layout_height="35dp"
     android:textSize="14dp"
     android:textStyle="bold"
-    android:paddingRight="10dp"
     android:paddingLeft="10dp"
-    android:singleLine="true"
-    android:ellipsize="end"
     android:gravity="center_vertical|left"
     />

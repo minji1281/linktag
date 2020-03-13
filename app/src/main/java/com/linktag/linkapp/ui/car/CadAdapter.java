@@ -63,10 +63,15 @@ public class CadAdapter extends BaseAdapter {
         }
 
         //Image
-        viewHolder.imgGubunIcon.setImageResource(R.drawable.ic_menu_manage);
+        if(mList.get(position).CAD_05.equals("1")){ //1:교체
+            viewHolder.imgGubunIcon.setImageResource(R.drawable.ic_cad_change);
+        }
+        else{ //1:점검
+            viewHolder.imgGubunIcon.setImageResource(R.drawable.ic_cad_check);
+        }
 
         //Text
-        viewHolder.tvDay.setText(mList.get(position).CAD_03.substring(0, 4) + "-" + mList.get(position).CAD_03.substring(4, 6) + "-" + mList.get(position).CAD_03.substring(6, 8));
+        viewHolder.tvDay.setText("정비일자 " + mList.get(position).CAD_03.substring(0, 4) + "." + mList.get(position).CAD_03.substring(4, 6) + "." + mList.get(position).CAD_03.substring(6, 8));
         viewHolder.tvName.setText(mList.get(position).CAD_04);
         viewHolder.tvMoney.setText(NumberFormat.getInstance().format(mList.get(position).CAD_07) + "원");
         viewHolder.tvKm.setText(NumberFormat.getInstance().format(mList.get(position).CAD_08) + "km");

@@ -3,6 +3,7 @@ package com.linktag.base.settings;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.os.Build;
 
 public class InterfaceSettings {
     public static InterfaceSettings instance;
@@ -41,19 +42,17 @@ public class InterfaceSettings {
         Value.LoginID = getStringItem(SettingsKey.LoginID, "");
         Value.LoginPW = getStringItem(SettingsKey.LoginPW, "");
         Value.AutoLogin = getBooleanItem(SettingsKey.AutoLogin, false);
-        /*
-        Value.CTM_01 = getStringItem(SettingsKey.CTM_01, "");
-        Value.OCM_01 = getStringItem(SettingsKey.OCM_01, "");
-        Value.OCM_02 = getStringItem(SettingsKey.OCM_02, "");
-        Value.OCM_21 = getStringItem(SettingsKey.OCM_21, "");
-        Value.OCM_25 = getStringItem(SettingsKey.OCM_25, "");
-        Value.OCM_28 = getStringItem(SettingsKey.OCM_28, "");
-        Value.OCM_29 = getStringItem(SettingsKey.OCM_29, "");
-        Value.OCM_31 = getStringItem(SettingsKey.OCM_31, "");
-        Value.OCM_32 = getStringItem(SettingsKey.OCM_32, "");
-        Value.OCM_51 = getStringItem(SettingsKey.OCM_51, "");
-        Value.OCM_03_CHK = getStringItem(SettingsKey.OCM_03_CHK, "");
-        */
+//        Value.isOnline = getBooleanItem(SettingsKey.isOnline, true);
+//        Value.isNotice = getBooleanItem(SettingsKey.isNotice, true);
+
+        String loc;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.N){
+            loc = mContext.getResources().getConfiguration().getLocales().get(0).getLanguage();
+        } else {
+            loc = mContext.getResources().getSystem().getConfiguration().locale.getLanguage();
+        }
+
+        Value.myLocale = getStringItem(SettingsKey.myLocale, loc);
     }
 
     public static synchronized InterfaceSettings getInstance(Context context) {

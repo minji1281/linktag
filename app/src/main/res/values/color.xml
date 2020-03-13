@@ -17,4 +17,16 @@
     <color name="list_item_DateSelectedBtn">#F2BB13</color>
 
     <color name="colorBase">#3b4d61</color>
+
+
+    <!-- 기능 list color -->
+    <color name="list_back">#fafafa</color>
+    <color name="listitem_progressbar_back">#e0e0e0</color>
+    <color name="listitem_progressbar">#2ecc70</color>
+    <color name="listitem_progressbar_full">#e74d3c</color>
+    <color name="listitem_button_back">#34495e</color>
+    <color name="listitem_text1">#5e5e5e</color>
+    <color name="listitem_text2">#a7a7a7</color>
+    <color name="listitem_text3">#e74d3c</color>
+
 </resources>

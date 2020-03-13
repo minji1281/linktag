@@ -71,7 +71,6 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
         viewHolder.tv_name.setText(mList.get(position).TRP_02);
-        viewHolder.tv_memo.setText(mList.get(position).TRP_03);
         viewHolder.tv_week.setText(patternToWeeks(mList.get(position).TRP_04));
 
 
@@ -234,7 +233,6 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         ImageView imageview;
         TextView tv_name;
-        TextView tv_memo;
         TextView tv_week;
 
         private TrdRecycleAdapter_horizontal mAdapter_trd;
@@ -250,7 +248,6 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
 
             imageview = itemView.findViewById(R.id.imageView);
             tv_name = itemView.findViewById(R.id.tv_name);
-            tv_memo = itemView.findViewById(R.id.tv_memo);
             tv_week = itemView.findViewById(R.id.tv_week);
 
             recyclerView_TRD = itemView.findViewById(R.id.recyclerView_TRD);
@@ -265,8 +262,8 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
                     TrpVO trpvo = new TrpVO();
                     trpvo.setTRP_ID(mList.get(position).TRP_ID);
                     trpvo.setTRP_01(mList.get(position).TRP_01);
-                    trpvo.setTRP_02(tv_name.getText().toString());
-                    trpvo.setTRP_03(tv_memo.getText().toString());
+                    trpvo.setTRP_02(mList.get(position).TRP_02);
+                    trpvo.setTRP_03(mList.get(position).TRP_03);
                     trpvo.setTRP_04(mList.get(position).TRP_04);
                     trpvo.setTRP_05(mList.get(position).TRP_05);
                     trpvo.setTRP_06(mList.get(position).TRP_06);

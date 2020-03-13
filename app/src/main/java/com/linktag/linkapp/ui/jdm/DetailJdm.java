@@ -3,10 +3,8 @@ package com.linktag.linkapp.ui.jdm;
 import android.animation.ValueAnimator;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -20,8 +18,6 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ListPopupWindow;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -40,8 +36,6 @@ import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.JdmVO;
 
-import java.io.Serializable;
-import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -54,7 +48,7 @@ public class DetailJdm extends BaseActivity {
 
     private BaseHeader header;
 
-    private RelativeLayout check_area;
+    private LinearLayout check_area;
     private EditText ed_name;
     private EditText ed_memo;
 
@@ -95,26 +89,25 @@ public class DetailJdm extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.activity_detail_jdm2);
-        setContentView(R.layout.activity_detail_common);
+        setContentView(R.layout.activity_detail_jdm2);
 
 
-//
-//        sp_size = findViewById(R.id.sp_size);
-//
-//        String[] str = getResources().getStringArray(R.array.jdm);
-//        final ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(mContext, R.layout.spinner_item3, str);
-//        sp_size.setAdapter(adapter_size);
-//
-//
-//        initLayout();
-//
-//        initialize();
-//
-//        if (getIntent().hasExtra("scanCode")) {
-//            intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
-//            check_area.setVisibility(View.GONE);
-//        }
+
+        sp_size = findViewById(R.id.sp_size);
+
+        String[] str = getResources().getStringArray(R.array.jdm);
+        final ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, str);
+        sp_size.setAdapter(adapter_size);
+
+
+        initLayout();
+
+        initialize();
+
+        if (getIntent().hasExtra("scanCode")) {
+            intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
+            check_area.setVisibility(View.GONE);
+        }
 
     }
 
@@ -265,9 +258,9 @@ public class DetailJdm extends BaseActivity {
         }
 
         if (jdmVO.JDM_08.equals("") || Integer.parseInt(jdmVO.JDM_96.substring(0, 8)) < Integer.parseInt(formatDate.format(calendar.getTime()))) {
-            imageView_check.setImageResource(R.drawable.ic_check_off);
+            imageView_check.setImageResource(R.drawable.btn_round_shallowgray_50dp);
         } else {
-            imageView_check.setImageResource(R.drawable.ic_check_on);
+            imageView_check.setImageResource(R.drawable.btn_round_skyblue_50dp);
         }
 
 

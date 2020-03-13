@@ -24,267 +24,317 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_marginStart="15dp"
-            android:layout_marginTop="15dp"
-            android:layout_marginEnd="15dp"
-            android:layout_marginBottom="10dp"
+            android:layout_marginStart="@dimen/activity_detail_root_margin_start"
+            android:layout_marginTop="@dimen/activity_detail_root_margin_top"
+            android:layout_marginEnd="@dimen/activity_detail_root_margin_end"
+            android:layout_marginBottom="@dimen/activity_detail_root_margin_bottom"
             android:layout_weight="1"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:gravity="center_vertical"
-                android:layout_weight="0.2">
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical">
+                    android:layout_weight="1"
+                    android:gravity="center_vertical">
 
                     <TextView
-                        android:id="@+id/tv_title"
-                        android:layout_width="wrap_content"
+                        android:layout_width="40dp"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="Title."
-                        android:textSize="@dimen/_10sdp"
+                        android:text="명칭"
+                        android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
                     <EditText
                         android:id="@id/ed_name"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@+id/tv_title"
-                        android:layout_toLeftOf="@+id/imageView"
-                        android:textSize="15dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@null"
                         android:hint="명칭 입력란입니다."
                         android:singleLine="true"
-                        android:background="@null"
-                        android:textColor="#34495E"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/text_normal" />
 
+                </LinearLayout>
 
-                    <ImageView
-                        android:id="@+id/imageView"
-                        android:layout_width="35dp"
-                        android:layout_height="35dp"
-                        android:layout_alignParentRight="true"
-                        android:layout_marginStart="15dp"
-                        android:background="@drawable/alarm_state_on" />
-
-                </RelativeLayout>
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.2"
-                android:gravity="center_vertical"
-                android:layout_marginTop="10dp">
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
+                <LinearLayout
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical">
+                    android:layout_gravity="right"
+                    android:orientation="horizontal">
 
-                    <TextView
-                        android:id="@+id/tv_memo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:text="Memo."
-                        android:textSize="@dimen/_10sdp"
-                        android:textStyle="bold" />
-
-                    <EditText
-                        android:id="@+id/ed_memo"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_toRightOf="@+id/tv_memo"
-                        android:textSize="15dp"
-                        android:singleLine="true"
-                        android:background="@null"
-                        android:hint="메모 입력란입니다." />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                </RelativeLayout>
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/alarm_state_on" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="알림"
+                            android:textSize="10dp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginStart="10dp"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView2"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:adjustViewBounds="true"
+                            android:background="@android:drawable/ic_lock_idle_alarm" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="시간"
+                            android:textSize="10dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
 
-
-            <LinearLayout
-                android:orientation="vertical"
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_marginTop="10dp"
-                android:layout_weight="0.7">
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_detail_root_margin_bottom"
+                android:gravity="center_vertical">
+
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="메모"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@id/ed_memo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="메모 입력란입니다."
+                    android:singleLine="true"
+                    android:textSize="@dimen/text_normal" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_detail_root_margin_bottom"
+                android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|left"
-                    android:text="Detail Set"
-                    android:textSize="@dimen/_10sdp"
+                    android:text="상세정보"
+                    android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
-                    android:orientation="horizontal">
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/list_item_layout">
-
-                            <TextView
-                                android:id="@+id/tv_label5"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_marginLeft="10dp"
-                                android:text="일 복약 횟수"
-                                android:textSize="@dimen/_10sdp"
-                                android:textStyle="bold" />
-
-                            <Spinner
-                                android:id="@+id/sp_count"
-                                android:layout_width="150dp"
-                                android:layout_height="35dp"
-                                android:layout_below="@+id/tv_label5"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="5dp"
-                                android:textSize="30dp" />
-
-
-                        </RelativeLayout>
-
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:orientation="vertical"
-                        android:padding="10dp">
-
-                        <RelativeLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/list_item_layout">
-
-                            <TextView
-                                android:id="@+id/tv_label6"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_alignParentLeft="true"
-                                android:layout_marginLeft="10dp"
-                                android:text="식 전/후"
-                                android:textSize="@dimen/_10sdp"
-                                android:textStyle="bold" />
-
-                            <Spinner
-                                android:id="@+id/sp_timing"
-                                android:layout_width="150dp"
-                                android:layout_height="35dp"
-                                android:layout_below="@+id/tv_label6"
-                                android:layout_centerHorizontal="true"
-                                android:layout_marginTop="10dp"
-                                android:layout_marginBottom="5dp"
-                                android:textSize="30dp" />
-
-                        </RelativeLayout>
-
-                    </LinearLayout>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical"
-                    android:padding="10dp">
+                    android:paddingStart="15dp"
+                    android:paddingTop="15dp"
+                    android:paddingEnd="15dp">
 
-                    <RelativeLayout
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:background="@drawable/list_item_layout">
-
-                        <TextView
-                            android:id="@+id/tv_label4"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentLeft="true"
-                            android:layout_marginLeft="10dp"
-                            android:text="대상자"
-                            android:textSize="@dimen/_10sdp"
-                            android:textStyle="bold" />
-
+                        android:orientation="horizontal">
 
                         <LinearLayout
-                            android:layout_width="match_parent"
+                            android:layout_width="0dp"
                             android:layout_height="wrap_content"
-                            android:layout_below="@+id/tv_label4"
-                            android:layout_marginStart="20dp"
-                            android:layout_marginTop="10dp"
-                            android:layout_marginEnd="20dp">
+                            android:layout_weight="1"
+                            android:orientation="vertical">
 
-                            <EditText
-                                android:id="@+id/ed_target"
+                            <RelativeLayout
                                 android:layout_width="match_parent"
-                                android:layout_height="match_parent"
-                                android:layout_marginBottom="10dp"
-                                android:background="@null"
-                                android:scrollbars="vertical"
-                                android:text="홍길동"
-                                android:textColor="#34495E"
-                                android:textSize="15dp"
-                                android:textStyle="bold" />
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/list_item_layout"
+                                android:paddingBottom="5dp">
+
+                                <TextView
+                                    android:id="@+id/tv_label5"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="일 복약 횟수"
+                                    android:textSize="@dimen/small_text" />
+
+                                <Spinner
+                                    android:id="@+id/sp_count"
+                                    android:layout_width="150dp"
+                                    android:layout_height="35dp"
+                                    android:layout_below="@+id/tv_label5"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:textSize="30dp" />
+
+
+                            </RelativeLayout>
+
 
                         </LinearLayout>
 
-                    </RelativeLayout>
+                        <View
+                            android:layout_width="10dp"
+                            android:layout_height="match_parent" />
 
+                        <LinearLayout
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <RelativeLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center_horizontal"
+                                android:background="@drawable/list_item_layout"
+                                android:paddingBottom="5dp">
+
+                                <TextView
+                                    android:id="@+id/tv_label6"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_alignParentLeft="true"
+                                    android:layout_marginLeft="10dp"
+                                    android:text="식 전/후"
+                                    android:textSize="@dimen/small_text" />
+
+                                <Spinner
+                                    android:id="@+id/sp_timing"
+                                    android:layout_width="150dp"
+                                    android:layout_height="35dp"
+                                    android:layout_below="@+id/tv_label6"
+                                    android:layout_centerHorizontal="true"
+                                    android:layout_marginTop="10dp"
+                                    android:layout_marginBottom="5dp"
+                                    android:textSize="30dp" />
+
+                            </RelativeLayout>
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="vertical">
+
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:paddingBottom="5dp"
+                            android:background="@drawable/list_item_layout">
+
+                            <TextView
+                                android:id="@+id/tv_label4"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_alignParentLeft="true"
+                                android:layout_marginLeft="10dp"
+                                android:text="대상자"
+                                android:textSize="@dimen/small_text" />
+
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/tv_label4"
+                                android:layout_marginStart="20dp"
+                                android:layout_marginTop="10dp"
+                                android:layout_marginEnd="20dp">
+
+                                <EditText
+                                    android:id="@+id/ed_target"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:layout_marginBottom="10dp"
+                                    android:background="@null"
+                                    android:scrollbars="vertical"
+                                    android:text="홍길동"
+                                    android:textSize="@dimen/text_normal" />
+
+                            </LinearLayout>
+
+                        </RelativeLayout>
+
+                    </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
 
-            <LinearLayout
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="0.5"
-                android:layout_marginTop="10dp"
+                android:layout_weight="1" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_detail_root_margin_bottom"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="10dp"
+                    android:layout_marginBottom="5dp"
                     android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|left"
-                        android:text="Alarm List"
-                        android:textSize="@dimen/_10sdp"
+                        android:text="알람시간"
+                        android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
                     <View
@@ -295,54 +345,60 @@
                     <Button
                         android:id="@+id/btn_addAlarm"
                         android:layout_width="80dp"
-                        android:layout_height="30dp"
+                        android:layout_height="20dp"
                         android:layout_gravity="center_vertical|right"
-                        android:background="@drawable/list_item_round_button_base"
+                        android:background="@drawable/btn_round_indigo_5dp"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
                         android:text="알림 추가"
                         android:textColor="@color/white"
                         android:textSize="13dp"
                         android:textStyle="bold" />
+
+
                 </LinearLayout>
 
                 <TextView
                     android:id="@+id/tv_alarmLabel"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:textAlignment="center"
-                    android:gravity="center_vertical"
+                    android:layout_height="100dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
-                    android:text="알림 설정 없음"
                     android:background="@drawable/list_item_layout"
-                    android:visibility="gone"
-                    />
+                    android:gravity="center_vertical"
+                    android:text="알림 설정 없음"
+                    android:textAlignment="center"
+                    android:visibility="gone" />
+
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:padding="10dp"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="15dp"
+                    android:layout_marginEnd="15dp"
                     android:background="@drawable/list_item_layout"
+                    android:padding="10dp"
                     tools:listitem="@layout/listitem_trd_list" />
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <LinearLayout
                 android:id="@+id/tabItem2"
                 android:layout_width="match_parent"
                 android:layout_height="100dp"
-                android:layout_marginTop="10dp"
                 android:orientation="vertical">
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|left"
-                    android:text="Alarm cycle"
-                    android:textSize="@dimen/_10sdp"
+                    android:text="알람주기"
+                    android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
                 <RelativeLayout

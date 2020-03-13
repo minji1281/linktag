@@ -28,6 +28,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
 
+
         <activity
             android:name=".ui.intro.Intro"
             android:screenOrientation="portrait"
@@ -115,6 +116,10 @@
             android:name=".ui.menu.MemberInvite"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
+        <activity
+            android:name=".ui.settings_main.Preference"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser" />
 
 
         <!-- ================================== -->
@@ -139,6 +144,9 @@
         </service> <!-- ================================== -->
         <!-- Provider -->
         <!-- ================================== -->
+        <activity android:name="com.soundcloud.android.crop.CropImageActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <provider
             android:name="android.support.v4.content.FileProvider"
             android:authorities="${applicationId}.fileprovider"

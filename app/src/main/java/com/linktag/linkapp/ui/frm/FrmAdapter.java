@@ -102,7 +102,7 @@ public class FrmAdapter extends BaseAdapter {
             viewHolder.pbFilter.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.progressbar_listitem));
         }
         else{
-            viewHolder.pbFilter.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.progressbar_listitem2));
+            viewHolder.pbFilter.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.progressbar_full_listitem));
         }
 
         //Image

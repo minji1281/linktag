@@ -1,8 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/white"
     android:orientation="vertical">
 
     <com.linktag.base.base_header.BaseHeader
@@ -11,131 +13,127 @@
         android:layout_height="wrap_content"
         app:title_text="PC관리" />
 
-    <ScrollView
-        android:id="@+id/scrollView"
+    <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:background="@color/white">
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
 
         <LinearLayout
-            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/_8sdp"
-            android:background="@color/white"
+            android:layout_marginStart="@dimen/activity_detail_root_margin_start"
+            android:layout_marginTop="@dimen/activity_detail_root_margin_top"
+            android:layout_marginEnd="@dimen/activity_detail_root_margin_end"
+            android:layout_marginBottom="@dimen/activity_detail_root_margin_bottom"
             android:orientation="vertical">
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/list_item_layout2"
-                android:orientation="horizontal">
-
+                android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|left"
-                    android:layout_weight="1"
-                    android:text="명 칭"
-                    android:textSize="@dimen/_10sdp"
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="명칭"
+                    android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
                 <EditText
-                    android:id="@+id/ed_name"
+                    android:id="@id/ed_name"
                     android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="4"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
                     android:background="@null"
-                    android:hint="명칭을 입력하세요."
-                    android:textSize="@dimen/_10sdp" />
+                    android:hint="명칭 입력란입니다."
+                    android:singleLine="true"
+                    android:textSize="@dimen/text_normal" />
+
 
             </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="40dp"
+                    android:layout_height="wrap_content"
+                    android:text="메모"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@id/ed_memo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="메모 입력란입니다."
+                    android:singleLine="true"
+                    android:textSize="@dimen/text_normal" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <LinearLayout
 
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/list_item_layout2"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-
                 <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|left"
-                    android:layout_weight="1"
-                    android:text="메 모"
-                    android:textSize="@dimen/_10sdp"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@+id/ed_memo"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:layout_weight="4"
-                    android:background="@null"
-                    android:hint="메모를 입력하세요."
-                    android:textSize="@dimen/_10sdp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/list_item_layout2"
-                android:orientation="horizontal">
-
-
-                <TextView
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical|left"
-                    android:layout_weight="1"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
                     android:text="관리일자"
-                    android:textSize="@dimen/_10sdp"
+                    android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tv_manageDay"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:layout_gravity="center_vertical"
-                    android:background="@null"
-                    android:textSize="@dimen/_10sdp" />
-
-                <View
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:layout_weight="2" />
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/text_normal" />
+
                 <Button
                     android:id="@+id/btn_update"
-                    android:layout_width="0dp"
+                    android:layout_width="80dp"
                     android:layout_height="20dp"
-                    android:layout_weight="1"
-                    android:text="UPDATE"
-                    android:textSize="13dp"
+                    android:background="@drawable/btn_round_indigo_5dp"
+                    android:text="일자갱신"
                     android:textColor="#FFF"
-                    android:background="@color/colorBase"/>
+                    android:textSize="13dp" />
 
 
             </LinearLayout>
 
-            <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
+
+            <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/list_item_layout2"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -148,7 +146,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|left"
                         android:text="PC 하드웨어 정보 "
-                        android:textSize="@dimen/_10sdp"
+                        android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
                     <View
@@ -159,72 +157,68 @@
 
                 </LinearLayout>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical">
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingStart="7dp"
-                        android:paddingEnd="7dp"
-                        android:orientation="horizontal">
+                    <Spinner
+                        android:id="@+id/sp_hw"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:entries="@array/hw"
+                        android:textSize="8dp" />
 
-                        <Spinner
-                            android:id="@+id/sp_hw"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:entries="@array/hw"
-                            android:textSize="8dp" />
+                    <EditText
+                        android:id="@+id/et_hw"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:background="@null"
+                        android:hint="상세정보 입력"
+                        android:textSize="13dp" />
 
-                        <EditText
-                            android:id="@+id/et_hw"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:background="@null"
-                            android:hint="상세정보 입력"
-                            android:textSize="13dp" />
-
-
-                        <Button
-                            android:id="@+id/btn_addItem_hw"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/ic_plus_round"
-                            android:minWidth="0dp"
-                            android:minHeight="0dp"
-                            android:textColor="#FFF"
-                            android:textSize="13dp" />
-
-                    </LinearLayout>
+                    <Button
+                        android:id="@+id/btn_addItem_hw"
+                        android:layout_width="80dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical|right"
+                        android:background="@drawable/btn_round_indigo_5dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:text="정보추가"
+                        android:textColor="@color/white"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@color/colorPrimaryDark" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView_hw"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/list_item_layout"
                     tools:listitem="@layout/listitem_pcd_list" />
 
             </LinearLayout>
 
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+
             <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
                 xmlns:tools="http://schemas.android.com/tools"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:layout_margin="@dimen/_5sdp"
-                android:background="@drawable/list_item_layout2"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_detail_section_margin_top"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -237,7 +231,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|left"
                         android:text="PC 소프트웨어 정보 "
-                        android:textSize="@dimen/_10sdp"
+                        android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
                     <View
@@ -252,61 +246,72 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:paddingStart="8dp">
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:paddingStart="7dp"
-                        android:paddingEnd="7dp"
-                        android:orientation="horizontal">
-                        <Spinner
-                            android:id="@+id/sp_sw"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="2"
-                            android:textSize="13dp" />
-                        <EditText
-                            android:id="@+id/et_sw"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content"
-                            android:layout_weight="3"
-                            android:background="@null"
-                            android:hint="상세정보 입력"
-                            android:textSize="13dp" />
+                    <Spinner
+                        android:id="@+id/sp_sw"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textSize="13dp" />
+
+                    <EditText
+                        android:id="@+id/et_sw"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="3"
+                        android:background="@null"
+                        android:hint="상세정보 입력"
+                        android:textSize="13dp" />
 
 
-                        <Button
-                            android:id="@+id/btn_addItem_sw"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:background="@drawable/ic_plus_round"
-                            android:minWidth="0dp"
-                            android:minHeight="0dp"
-                            android:textColor="#FFF"
-                            android:textSize="13dp" />
+                    <Button
+                        android:id="@+id/btn_addItem_sw"
+                        android:layout_width="80dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical|right"
+                        android:background="@drawable/btn_round_indigo_5dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:text="정보추가"
+                        android:textColor="@color/white"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
 
-                    </LinearLayout>
+<!--                    <Button-->
+<!--                        android:id="@+id/btn_addItem_sw"-->
+<!--                        android:layout_width="25dp"-->
+<!--                        android:layout_height="25dp"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:background="@drawable/btn_round_blue_50dp"-->
+<!--                        android:text="+"-->
+<!--                        android:textColor="#FFF"-->
+<!--                        android:textStyle="bold" />-->
+
+
                 </LinearLayout>
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="2px"
-                    android:layout_marginTop="@dimen/_8sdp"
-                    android:background="@color/colorPrimaryDark" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView_sw"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/list_item_layout"
                     tools:listitem="@layout/listitem_pcd_list" />
 
             </LinearLayout>
 
-        </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
-    </ScrollView>
+        </LinearLayout>
+    </LinearLayout>
 
     <Button
         android:id="@+id/bt_save"

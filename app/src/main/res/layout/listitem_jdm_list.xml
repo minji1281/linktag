@@ -1,153 +1,162 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="10dp"
+        android:layout_height="120dp"
+        android:layout_marginLeft="20dp"
         android:layout_marginTop="10dp"
-        android:layout_marginEnd="10dp"
-        android:background="@drawable/shape_base_border"
-        android:orientation="vertical"
-        android:padding="8dp">
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="10dp"
+        android:paddingTop="5dp"
+        android:paddingBottom="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@drawable/list_round_shape"
+        android:elevation="5dp"
+        android:orientation="horizontal">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
-
-            <TextView
-                android:id="@+id/tv_name"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:ellipsize="end"
-                android:text="김치"
-                android:textColor="#34495E"
-                android:textSize="20dp"
-                android:textStyle="bold" />
-
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="35dp"
-                android:layout_height="35dp"
-                android:background="@drawable/alarm_state_on" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
-
-            <TextView
-                android:id="@+id/tv_memo"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:ellipsize="end"
-                android:text="메모메모메모"
-                android:textColor="#34495E"
-                android:layout_toLeftOf="@+id/tv_label"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:textSize="13dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_label"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/tv_D_day"
-                android:text="현재까지"
-                android:textColor="#34495E"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_D_day"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="5dp"
-                android:layout_toLeftOf="@+id/tv_label2"
-                android:text="35"
-                android:textColor="#34495E"
-                android:textSize="25dp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/tv_label2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:text="일 숙성"
-                android:textColor="#34495E"
-                android:textStyle="bold" />
-            <!--            <TextView-->
-            <!--                android:layout_width="wrap_content"-->
-            <!--                android:layout_height="wrap_content"-->
-            <!--                android:layout_toRightOf="@+id/tv_D_day"-->
-            <!--                android:layout_centerVertical="true"-->
-            <!--                android:text="+"/>-->
-
-
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@id/tv_name"
+            android:layout_height="match_parent"
             android:orientation="vertical">
-<!--            <LinearLayout-->
-<!--                android:orientation="horizontal"-->
-<!--                android:layout_width="match_parent"-->
-<!--                android:layout_height="wrap_content">-->
-<!--                <TextView-->
-<!--                    android:layout_width="0dp"-->
-<!--                    android:layout_height="wrap_content"-->
-<!--                    android:layout_weight="2"-->
-<!--                    android:textAlignment="textEnd"-->
-<!--                    android:text="2020.03.01" />-->
-<!--                <View-->
-<!--                    android:layout_width="30dp"-->
-<!--                    android:layout_height="1dp" />-->
-<!--            </LinearLayout>-->
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/tv_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|left"
+                    android:singleLine="true"
+                    android:textColor="@color/listitem_text1"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold"
+                    tools:text="명칭" />
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:paddingTop="2dp"
+                    android:gravity="center_vertical|right"
+                    android:orientation="vertical">
+
+                    <ImageView
+                        android:id="@+id/imageView"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        tools:srcCompat="@drawable/alarm_state_on" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
-                <ProgressBar
-                    android:id="@+id/progressBar"
-                    style="@android:style/Widget.ProgressBar.Horizontal"
-                    android:layout_width="0dp"
-                    android:layout_height="10dp"
-                    android:layout_gravity="center"
-                    android:layout_weight="2"
-                    android:progress="25"
-                    android:progressBackgroundTint="#898F99"
-                    android:progressTint="#FAB834" />
+                android:gravity="center_vertical">
                 <TextView
-                    android:id="@+id/tv_nextDay"
-                    android:layout_width="0dp"
+                    android:id="@+id/tv_D_day"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:textAlignment="center"
-                    android:layout_gravity="center_vertical"
-                    android:text="2020.03.01" />
-                <ImageView
-                    android:id="@+id/imageView_check"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:background="@drawable/ic_check_on" />
+                    android:text="현재까지 35일 숙성"
+                    android:textColor="#34495E"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+
             </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical|left"
+                            android:text="다음청소일"
+                            android:textColor="@color/listitem_text2"
+                            android:textSize="@dimen/text_small" />
+
+                        <TextView
+                            android:id="@+id/tv_nextDay"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="1"
+                            android:gravity="center_vertical|right"
+                            android:textColor="@color/listitem_text2"
+                            android:textSize="@dimen/text_small"
+                            tools:text="2020-03-30" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:gravity="bottom"
+                        android:orientation="horizontal">
+
+                        <ProgressBar
+                            android:id="@+id/progressBar"
+                            style="@android:style/Widget.ProgressBar.Horizontal"
+                            android:layout_width="match_parent"
+                            android:layout_height="12dp"
+                            android:progress="50"
+                            android:progressDrawable="@drawable/progressbar_listitem" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="100dp"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical"
+                    android:paddingLeft="30dp"
+                    android:paddingTop="10dp">
+
+                    <Button
+                        android:id="@+id/imageView_check"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/btn_round_skyblue_5dp"
+                        android:gravity="center_vertical|center"
+                        android:text="청소확인"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/text_small"
+                        android:textStyle="bold" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
         </LinearLayout>
 
-
     </LinearLayout>
-
-
-</LinearLayout>
+</RelativeLayout>
