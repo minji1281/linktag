@@ -12,6 +12,7 @@ import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.model.CTU_Model;
 import com.linktag.linkapp.model.FRMModel;
 import com.linktag.linkapp.model.JDMModel;
+import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.model.NOCModel;
 import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.model.PCDModel;
@@ -1072,4 +1073,52 @@ public class Http extends HttpBaseService {
 
     }
 
+
+
+    //--------------------------------------------------
+    // 이력(LOG)
+    //--------------------------------------------------
+    public static IJDML jdml(TYPE type) {
+        return (IJDML) retrofit(IJDML.class, type);
+    }
+
+    public interface IJDML  {
+
+        @FormUrlEncoded
+        @POST(BaseConst.JDML_CONTROL)
+        Call<LOG_Model> JDML_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "LOG_ID") String LOG_ID,
+                @Field(value = "LOG_01") String LOG_01,
+                @Field(value = "LOG_02") String LOG_02,
+                @Field(value = "LOG_03") String LOG_03,
+                @Field(value = "LOG_04") String LOG_04,
+                @Field(value = "LOG_05") String LOG_05,
+                @Field(value = "LOG_06") String LOG_06,
+                @Field(value = "LOG_98") String LOG_98
+        );
+
+    }
+
+
+    public static ITRPL trpl(TYPE type) {  return (ITRPL) retrofit(ITRPL.class, type); }
+    public interface ITRPL  {
+
+        @FormUrlEncoded
+        @POST(BaseConst.TRPL_CONTROL)
+        Call<LOG_Model> TRPL_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "LOG_ID") String LOG_ID,
+                @Field(value = "LOG_01") String LOG_01,
+                @Field(value = "LOG_02") String LOG_02,
+                @Field(value = "LOG_03") String LOG_03,
+                @Field(value = "LOG_04") String LOG_04,
+                @Field(value = "LOG_05") String LOG_05,
+                @Field(value = "LOG_06") String LOG_06,
+                @Field(value = "LOG_98") String LOG_98
+        );
+
+    }
 }

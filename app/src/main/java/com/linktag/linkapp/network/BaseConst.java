@@ -103,4 +103,11 @@ public class BaseConst {
     public static final String CAD_SELECT = "{host}/Mobile/CAD_SELECT";
     public static final String CAD_CONTROL = "{host}/Mobile/CAD_CONTROL";
 
+
+    //이력(log)
+    //장독
+    public static final String JDML_CONTROL = "{host}/Mobile/JDML_CONTROL";
+    //복약
+    public static final String TRPL_CONTROL = "{host}/Mobile/TRPL_CONTROL";
+
 }
