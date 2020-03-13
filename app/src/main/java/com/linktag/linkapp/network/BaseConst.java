@@ -105,9 +105,7 @@ public class BaseConst {
 
 
     //이력(log)
-    //장독
-    public static final String JDML_CONTROL = "{host}/Mobile/JDML_CONTROL";
-    //복약
-    public static final String TRPL_CONTROL = "{host}/Mobile/TRPL_CONTROL";
+    public static final String LOG_CONTROL = "{host}/Mobile/LOG_CONTROL";
+
 
 }

@@ -1078,15 +1078,15 @@ public class Http extends HttpBaseService {
     //--------------------------------------------------
     // 이력(LOG)
     //--------------------------------------------------
-    public static IJDML jdml(TYPE type) {
-        return (IJDML) retrofit(IJDML.class, type);
+    public static ILOG log(TYPE type) {
+        return (ILOG) retrofit(ILOG.class, type);
     }
 
-    public interface IJDML  {
+    public interface ILOG  {
 
         @FormUrlEncoded
-        @POST(BaseConst.JDML_CONTROL)
-        Call<LOG_Model> JDML_CONTROL(
+        @POST(BaseConst.LOG_CONTROL)
+        Call<LOG_Model> LOG_CONTROL(
                 @Path(value = "host", encoded = true) String host,
                 @Field(value = "GUBUN") String GUBUN,
                 @Field(value = "LOG_ID") String LOG_ID,
@@ -1096,29 +1096,8 @@ public class Http extends HttpBaseService {
                 @Field(value = "LOG_04") String LOG_04,
                 @Field(value = "LOG_05") String LOG_05,
                 @Field(value = "LOG_06") String LOG_06,
-                @Field(value = "LOG_98") String LOG_98
+                @Field(value = "LOG_98") String LOG_98,
+                @Field(value = "SP_NAME") String SP_NAME
         );
-
-    }
-
-
-    public static ITRPL trpl(TYPE type) {  return (ITRPL) retrofit(ITRPL.class, type); }
-    public interface ITRPL  {
-
-        @FormUrlEncoded
-        @POST(BaseConst.TRPL_CONTROL)
-        Call<LOG_Model> TRPL_CONTROL(
-                @Path(value = "host", encoded = true) String host,
-                @Field(value = "GUBUN") String GUBUN,
-                @Field(value = "LOG_ID") String LOG_ID,
-                @Field(value = "LOG_01") String LOG_01,
-                @Field(value = "LOG_02") String LOG_02,
-                @Field(value = "LOG_03") String LOG_03,
-                @Field(value = "LOG_04") String LOG_04,
-                @Field(value = "LOG_05") String LOG_05,
-                @Field(value = "LOG_06") String LOG_06,
-                @Field(value = "LOG_98") String LOG_98
-        );
-
     }
 }
