@@ -31,6 +31,8 @@
     <color name="colorDefault">#62b7ee</color>
     <color name="colorTextGray">#9dc8c8</color>
 
+    <color name="colorMadGray">#585858</color>
+
     <color name="colorFooterText">#41B1AC</color>
 
     <color name="List1">#5E5E5E</color>

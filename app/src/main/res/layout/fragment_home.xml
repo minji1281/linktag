@@ -242,6 +242,27 @@
                     android:textStyle="bold" />
 
 
+                <TextView
+                    android:id="@+id/btnBeacon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/tnSpacer2"
+                    android:paddingStart="10dp"
+                    android:paddingEnd="10dp"
+                    android:text="Beacon"
+                    android:visibility="gone"
+                    android:textSize="@dimen/text_small" />
+
+
+
+                <TextView
+                    android:id="@+id/tnSpacer2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toStartOf="@id/btnSql"
+                    android:gravity="center"
+                    android:visibility="gone"
+                    android:text="|" />
 
                 <TextView
                     android:id="@+id/btnSql"
@@ -249,9 +270,8 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_alignParentEnd="true"
-                    android:paddingStart="20dp"
-                    android:paddingEnd="20dp"
-                    android:text="테스트용"
+                    android:paddingStart="10dp"
+                    android:text="SQLite"
                     android:visibility="gone"
                     android:textSize="@dimen/text_small" />
 
