@@ -225,12 +225,29 @@
                 android:gravity="center_vertical"
                 android:orientation="vertical">
 
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="상세정보"
-                    android:textSize="@dimen/text_normal"
-                    android:textStyle="bold" />
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center_vertical|left"
+                        android:text="상세정보"
+                        android:textSize="@dimen/text_normal"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/tvLog"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:paddingRight="15dp"
+                        android:text="더보기"
+                        android:textSize="@dimen/text_normal" />
+
+                </LinearLayout>
 
                 <LinearLayout
                     android:layout_width="match_parent"

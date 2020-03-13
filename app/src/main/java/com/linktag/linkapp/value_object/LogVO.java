@@ -12,6 +12,8 @@ public class LogVO implements Serializable {
     public String LOG_05;
     public String LOG_98;
 
+    public String SP_NAME;
+
 
     public String getLOG_ID() {
         return LOG_ID;

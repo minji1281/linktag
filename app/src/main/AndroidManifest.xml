@@ -290,6 +290,13 @@
 
         <!--        <receiver android:name=".ui.alarm.AlarmReceiver" />-->
 
+        <!-- 이력 -->
+        <activity
+            android:name=".ui.master_log.MasterLog"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser" />
+
     </application>
 
 </manifest>

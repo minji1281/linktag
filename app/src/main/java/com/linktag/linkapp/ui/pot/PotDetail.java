@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -33,8 +34,10 @@ import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.master_log.MasterLog;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
+import com.linktag.linkapp.value_object.LogVO;
 import com.linktag.linkapp.value_object.PotVO;
 
 import java.util.Calendar;
@@ -66,6 +69,7 @@ public class PotDetail extends BaseActivity {
     private TextView tvPreWaterDay;
     private TextView tvNextWaterDay;
     private TextView lbWater;
+    private TextView tvLog;
 
     private View lineDDAY;
     private TextView tvDayLabel;
@@ -197,6 +201,23 @@ public class PotDetail extends BaseActivity {
         });
         tvNextWaterDay = (TextView) findViewById(R.id.tvNextWaterDay);
 
+        tvLog = (TextView) findViewById(R.id.tvLog);
+        tvLog.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                LogVO LOG = new LogVO();
+                LOG.LOG_ID = intentVO.CTN_02;
+                LOG.LOG_01 = POT.POT_01;
+                LOG.LOG_98 = mUser.Value.OCM_01;
+                LOG.SP_NAME = "SP_POTL_CONTROL";
+
+                Intent intent = new Intent(mContext, MasterLog.class);
+                intent.putExtra("LOG", LOG);
+
+                mContext.startActivity(intent);
+            }
+        });
+
         btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -240,6 +261,9 @@ public class PotDetail extends BaseActivity {
             tvDayLabel.setVisibility(View.GONE);
             imgWater.setVisibility(View.GONE);
             lbWater.setVisibility(View.GONE);
+
+            tvLog.setVisibility(View.GONE);
+
             getNewData();
         }
 
