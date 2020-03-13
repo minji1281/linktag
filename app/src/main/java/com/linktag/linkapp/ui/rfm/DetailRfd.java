@@ -49,6 +49,10 @@ import retrofit2.Response;
 
 public class DetailRfd extends BaseActivity {
 
+
+    private LinearLayout check_area;
+
+
     private BaseHeader header;
 
     private EditText ed_name;
@@ -68,6 +72,10 @@ public class DetailRfd extends BaseActivity {
     private String[] RFM_02;
     private Button bt_save;
     private LinearLayout rfm_move;
+
+    private ImageView imageView_check;
+    private TextView tv_check;
+
 
     private RfdVO rfdVO;
 
@@ -120,6 +128,7 @@ public class DetailRfd extends BaseActivity {
                 ed_memo.getText().toString(),
                 rfdVO.RFD_05,
                 rfdVO.RFD_06,
+                rfdVO.RFD_07,
                 rfdVO.RFD_96,
                 mUser.Value.OCM_01,
                 rfdVO.ARM_03
@@ -133,7 +142,9 @@ public class DetailRfd extends BaseActivity {
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
                     Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
                     RFMMain.RFM_01 = rfdVO.RFD_01;
-                } else {
+                }else if(GUBUN.equals("RFD_07_UPDATE")){
+                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보의 사용상태가 변경 되었습니다.", Toast.LENGTH_SHORT).show();
+                }  else {
                     Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 이동되었습니다.", Toast.LENGTH_SHORT).show();
                     RFMMain.RFM_01 = rfdVO.RFD_01;
                 }
@@ -159,6 +170,8 @@ public class DetailRfd extends BaseActivity {
 
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
 
+        check_area = findViewById(R.id.check_area);
+
         rfm_move = (LinearLayout) findViewById(R.id.rfm_move);
         linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
 
@@ -168,6 +181,8 @@ public class DetailRfd extends BaseActivity {
         ed_memo = (EditText) findViewById(R.id.ed_memo);
         imageView = findViewById(R.id.imageView);
         imageView2 = findViewById(R.id.imageView2);
+        imageView_check = findViewById(R.id.imageView_check);
+        tv_check = findViewById(R.id.tv_check);
         tv_datePicker = (TextView) findViewById(R.id.tv_datePicker);
         bt_save = (Button) findViewById(R.id.bt_save);
         tv_D_day = findViewById(R.id.tv_D_day);
@@ -231,6 +246,15 @@ public class DetailRfd extends BaseActivity {
         } else {
             sp_pos.setSelection(Integer.parseInt(rfdVO.RFD_06));
         }
+
+        if (rfdVO.RFD_07.equals("")) {
+            imageView_check.setBackgroundResource(R.drawable.btn_round_shallowgray_50dp);
+            tv_check.setText("사용종료");
+        } else {
+            imageView_check.setBackgroundResource(R.drawable.btn_round_shallowgray_50dp);
+            tv_check.setText("사용 재시작");
+        }
+
 
         ed_name.setText(rfdVO.getRFD_03());
         ed_memo.setText(rfdVO.getRFD_04());
@@ -341,6 +365,54 @@ public class DetailRfd extends BaseActivity {
                 requestRFD_CONTROL("DELETE");
                 rfdVO.setRFD_01(map_rfm.get(sp_rfm.getSelectedItem()));
                 requestRFD_CONTROL("RFD_MOVE");
+            }
+        });
+
+        imageView_check.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (!rfdVO.RFD_07.equals("")) {
+                    new AlertDialog.Builder(mActivity)
+                            .setMessage("사용 재시작 하시겠습니까?")
+                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                @RequiresApi(api = Build.VERSION_CODES.M)
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    rfdVO.setRFD_07("");
+                                    requestRFD_CONTROL("RFD_07_UPDATE");
+                                }
+                            })
+                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    return;
+                                }
+                            })
+                            .show();
+                    return;
+                } else {
+
+                    new AlertDialog.Builder(mActivity)
+                            .setMessage("사용종료 처리하시겠습니까?")
+                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                                @RequiresApi(api = Build.VERSION_CODES.M)
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    Calendar dCalendar = Calendar.getInstance();
+                                    rfdVO.setRFD_07(formatDate.format(dCalendar.getTime()));
+                                    requestRFD_CONTROL("RFD_07_UPDATE");
+                                }
+                            })
+                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    return;
+                                }
+                            })
+                            .show();
+                    return;
+                }
             }
         });
 

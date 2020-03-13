@@ -9,9 +9,10 @@ public class RfdVO implements Serializable {
     public String RFD_01;  //코드 일련번호
     public String RFD_02;  //일련번호
     public String RFD_03;  //명칭
-    public String RFD_04;  //일자 (유통기한 제조)
+    public String RFD_04;  //메모
     public String RFD_05;  //일자 (유통기한 제조)
-    public String RFD_06;  //일자2 (유기통기한 마감)
+    public String RFD_06;  //보관위치
+    public String RFD_07;  //사용종료일자
     public String RFD_96;  //알림 지정일자
     public String RFD_98;  // 최종수정자 아이디
 
@@ -89,6 +90,14 @@ public class RfdVO implements Serializable {
 
     public void setRFD_06(String RFD_06) {
         this.RFD_06 = RFD_06;
+    }
+
+    public String getRFD_07() {
+        return RFD_07;
+    }
+
+    public void setRFD_07(String RFD_07) {
+        this.RFD_07 = RFD_07;
     }
 
     public String getRFD_96() {

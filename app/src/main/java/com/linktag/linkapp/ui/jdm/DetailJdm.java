@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -32,9 +33,11 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm.AlarmDialog;
+import com.linktag.linkapp.ui.master_log.MasterLog;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.JdmVO;
+import com.linktag.linkapp.value_object.LogVO;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -67,6 +70,8 @@ public class DetailJdm extends BaseActivity {
     private TextView tv_D_day;
     private TextView tv_nextDate;
 
+
+    private Button bt_log;
 
     private Spinner sp_size;
     private TextView tv_recycleDay;
@@ -451,6 +456,21 @@ public class DetailJdm extends BaseActivity {
                 }
             });
         }
+
+        bt_log.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                Intent intent = new Intent(mContext, MasterLog.class);
+                LogVO logVO = new LogVO();
+                logVO.LOG_ID = jdmVO.JDM_ID;
+                logVO.LOG_01 = jdmVO.JDM_01;
+                logVO.LOG_98 = mUser.Value.OCM_01;
+                logVO.SP_NAME = "SP_JDML_CONTROL";
+
+                mContext.startActivity(intent);
+            }
+        });
 
     }
 

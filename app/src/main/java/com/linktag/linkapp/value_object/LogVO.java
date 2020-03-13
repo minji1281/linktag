@@ -71,4 +71,12 @@ public class LogVO implements Serializable {
     public void setLOG_98(String LOG_98) {
         this.LOG_98 = LOG_98;
     }
+
+    public String getSP_NAME() {
+        return SP_NAME;
+    }
+
+    public void setSP_NAME(String SP_NAME) {
+        this.SP_NAME = SP_NAME;
+    }
 }

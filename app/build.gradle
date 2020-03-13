@@ -71,6 +71,8 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:23.1.0'
     implementation 'org.altbeacon:android-beacon-library:2.16.3'
 
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'
