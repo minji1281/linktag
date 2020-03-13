@@ -29,6 +29,7 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.base.util.ExpandableHeightGridView;
+import com.linktag.linkapp.ui.beacon.beaconMain;
 import com.linktag.linkapp.ui.board.BoardDetail;
 import com.linktag.linkapp.ui.board.BoardMain;
 import com.linktag.linkapp.ui.calendar.AlarmListAdapter;
@@ -37,6 +38,8 @@ import com.linktag.linkapp.ui.menu.ChooseOne;
 import com.linktag.linkapp.ui.sqllite.SqlMain;
 import com.linktag.linkapp.value_object.ARM_VO;
 import com.linktag.linkapp.value_object.CtdVO;
+
+import org.altbeacon.beacon.Beacon;
 
 import java.util.ArrayList;
 
@@ -68,6 +71,7 @@ public class HomeFragment extends BaseFragment {
     private TextView btnNotNew;
     private TextView btnNotList;
     private TextView btnSql;
+    private TextView btnBeacon;
 
     private BookmarkAdapter mAdapter;
     private ArrayList<CtdVO> mList;
@@ -188,6 +192,21 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
+        btnBeacon = view.findViewById(R.id.btnBeacon);
+        btnBeacon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, beaconMain.class);
+//                intent.putExtra("DSH_01", "");
+//                intent.putExtra("DSH_04", "");
+//                intent.putExtra("DSH_05", "");
+//                intent.putExtra("DSH_09", "0");
+//                intent.putExtra("DSH_97","");
+//                intent.putExtra("DSH_GB", "NOT");
+
+                mContext.startActivity(intent);
+            }
+        });
     }
 
     protected void initialize(){
