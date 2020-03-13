@@ -265,6 +265,13 @@
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
 
+        <activity
+            android:name=".ui.beacon.beaconMain"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser" />
+
+
         <!-- 푸시알람 -->
         <!--        <receiver android:name=".ui.alarm.DeviceBootReceiver"-->
         <!--            android:enabled="false">-->

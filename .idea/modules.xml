@@ -2,10 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/base/base.iml" filepath="$PROJECT_DIR$/base/base.iml" />
-      <module fileurl="file://$PROJECT_DIR$/base_resource/base_resource.iml" filepath="$PROJECT_DIR$/base_resource/base_resource.iml" />
-      <module fileurl="file://$PROJECT_DIR$/linktag.iml" filepath="$PROJECT_DIR$/linktag.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="linktag/app" />
+      <module fileurl="file://$PROJECT_DIR$/base/base.iml" filepath="$PROJECT_DIR$/base/base.iml" group="linktag/base" />
+      <module fileurl="file://$PROJECT_DIR$/base_resource/base_resource.iml" filepath="$PROJECT_DIR$/base_resource/base_resource.iml" group="linktag/base_resource" />
+      <module fileurl="file://$PROJECT_DIR$/linktag.iml" filepath="$PROJECT_DIR$/linktag.iml" group="linktag" />
     </modules>
   </component>
 </project>
