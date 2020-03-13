@@ -8,16 +8,16 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.constraint.solver.GoalRow;
 import android.support.v4.content.FileProvider;
 import android.support.v4.content.LocalBroadcastManager;
 import android.telephony.PhoneNumberUtils;
@@ -28,17 +28,15 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.vision.text.Line;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.linktag.base.util.ClsBitmap;
 import com.linktag.base.util.ImageResizeUtils;
 import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.network.BaseConst;
@@ -49,7 +47,6 @@ import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.settings.SettingsKey;
-import com.linktag.base.util.ClsDateTime;
 import com.linktag.base.util.ClsImage;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
@@ -80,7 +77,7 @@ public class ProfileMain extends BaseActivity {
     //======================
     private BaseHeader header;
 
-    private ImageView imgProfilePhoto;
+    private ImageView imgProfile;
 
     //private Button btnChangePhoto;
     private EditText etUserName;
@@ -134,11 +131,12 @@ public class ProfileMain extends BaseActivity {
         header.btnHeaderText.setVisibility(View.VISIBLE);
         header.btnHeaderText.setOnClickListener(v -> requestOCM_CONTROL("UPDATE"));
 
-        imgProfilePhoto = findViewById(R.id.imgProfilePhoto);
-        if (Build.VERSION.SDK_INT >= 21) {
-            imgProfilePhoto.setClipToOutline(true);
-        }
-        imgProfilePhoto.setOnClickListener(v -> setUserPhoto());
+        imgProfile = findViewById(R.id.imgProfile);
+        imgProfile.setBackground(new ShapeDrawable(new OvalShape()));
+        if (Build.VERSION.SDK_INT >= 21)
+            imgProfile.setClipToOutline(true);
+
+        imgProfile.setOnClickListener(v -> setUserPhoto());
 
         etUserName = findViewById(R.id.etUserName);
         etUserName.setText(mUser.Value.OCM_02);
@@ -167,7 +165,7 @@ public class ProfileMain extends BaseActivity {
                     btnSubmitPwd.performClick();
                     return true;
                 }
-                
+
                 return false;
             }
         });
@@ -261,20 +259,17 @@ public class ProfileMain extends BaseActivity {
                             break;
                         // 사직 삭제
                         case DELETE_PHOTO:
-                            ClsImage.setUserPhoto(mContext, imgProfilePhoto, "", R.drawable.main_profile_no_image);
+                            ClsBitmap.setProfilePhoto(mContext, imgProfile, mUser.Value.OCM_01,"", R.drawable.main_profile_no_image);
                             break;
                     }
-                }).setCancelable(false).create();
+                }).create();
 
         builder.show();
     }
 
     @Override
     protected void initialize() {
-        String mUserImage = "";
-
-        // 프로필 이미지 설정
-        ClsImage.setUserPhoto(mContext, imgProfilePhoto, mUserImage, R.drawable.main_profile_no_image);
+        ClsBitmap.setProfilePhoto(mContext, imgProfile, mUser.Value.OCM_01, mUser.Value.OCM_52, R.drawable.main_profile_no_image);
     }
 
     private boolean validationCheck(String GUB){
@@ -467,7 +462,7 @@ public class ProfileMain extends BaseActivity {
 //            String filename = formatter.format(now) + ".jpg";
 
             //storage 주소와 폴더 파일명을 지정해 준다.
-            storageRef = storage.getReferenceFromUrl(FIREBASE_URL).child("profile/" + mUser.Value.OCM_01 + "/" + setFileName);
+            storageRef = storage.getReferenceFromUrl(FIREBASE_URL).child("profile" + "/" + mUser.Value.OCM_01 + "/" + setFileName);
 
             storageRef.putFile(filePath)
                     //성공시
@@ -554,7 +549,7 @@ public class ProfileMain extends BaseActivity {
         BitmapFactory.Options options = new BitmapFactory.Options();
         Bitmap originalBm = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
 
-        imgProfilePhoto.setImageBitmap(originalBm);
+        imgProfile.setImageBitmap(originalBm);
 
         /**
          *  tempFile 사용 후 null 처리를 해줘야 합니다.
@@ -594,7 +589,6 @@ public class ProfileMain extends BaseActivity {
             }
             case PICK_FROM_ALBUM: {
                 Uri photoUri = data.getData();
-                System.out.println(photoUri);
 
                 cropImage(photoUri);
                 break;
