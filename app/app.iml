@@ -184,7 +184,5 @@
     <orderEntry type="library" name="Gradle: com.soundcloud.android:android-crop:1.0.1@aar" level="project" />
     <orderEntry type="module" module-name="base" />
     <orderEntry type="module" module-name="base_resource" />
-    <orderEntry type="module" module-name="base" />
-    <orderEntry type="module" module-name="base_resource" />
   </component>
 </module>

@@ -10,7 +10,6 @@ public class LogVO implements Serializable {
     public String LOG_03;
     public String LOG_04;
     public String LOG_05;
-    public String LOG_06;
     public String LOG_98;
 
 
@@ -62,13 +61,6 @@ public class LogVO implements Serializable {
         this.LOG_05 = LOG_05;
     }
 
-    public String getLOG_06() {
-        return LOG_06;
-    }
-
-    public void setLOG_06(String LOG_06) {
-        this.LOG_06 = LOG_06;
-    }
 
     public String getLOG_98() {
         return LOG_98;

@@ -1095,7 +1095,6 @@ public class Http extends HttpBaseService {
                 @Field(value = "LOG_03") String LOG_03,
                 @Field(value = "LOG_04") String LOG_04,
                 @Field(value = "LOG_05") String LOG_05,
-                @Field(value = "LOG_06") String LOG_06,
                 @Field(value = "LOG_98") String LOG_98,
                 @Field(value = "SP_NAME") String SP_NAME
         );
