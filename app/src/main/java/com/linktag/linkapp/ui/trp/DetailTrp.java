@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -29,14 +30,17 @@ import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.model.TRDModel;
 import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.master_log.MasterLog;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CtdVO;
+import com.linktag.linkapp.value_object.LogVO;
 import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
 
@@ -86,6 +90,7 @@ public class DetailTrp extends BaseActivity{
 
     private String callBackTime = "";
 
+    private TextView tv_Log;
     public static TrpVO trpVO;
 
     private Calendar calendar = Calendar.getInstance();
@@ -185,6 +190,8 @@ public class DetailTrp extends BaseActivity{
         ed_memo = (EditText) findViewById(R.id.ed_memo);
 
         tv_alarmLabel = findViewById(R.id.tv_alarmLabel);
+
+        tv_Log = findViewById(R.id.tv_Log);
 
         sp_count = findViewById(R.id.sp_count);
         sp_timing = findViewById(R.id.sp_timing);
@@ -315,6 +322,18 @@ public class DetailTrp extends BaseActivity{
                         alarmTime = format.format(calendar.getTime()) + time;
 
                         requestTRD_CONTROL();
+
+                        String am_pm = "";
+                        int hourOfDay = Integer.parseInt(time.substring(0,2));
+                        int minute = Integer.parseInt(time.substring(2,4));
+                        if (hourOfDay > 12) {
+                            hourOfDay -= 12;
+                            am_pm = "오후 ";
+                        } else {
+                            am_pm = "오전 ";
+                        }
+
+                        requestLOG_CONTROL("2","알림추가 "+ am_pm+ hourOfDay +":" +minute);
                     }
 
                     @Override
@@ -326,6 +345,22 @@ public class DetailTrp extends BaseActivity{
             }
         });
 
+
+        tv_Log.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                LogVO LOG = new LogVO();
+                LOG.LOG_ID = trpVO.TRP_ID;
+                LOG.LOG_01 = trpVO.TRP_01;
+                LOG.LOG_98 = mUser.Value.OCM_01;
+                LOG.SP_NAME = "SP_TRPL_CONTROL";
+
+                Intent intent = new Intent(mContext, MasterLog.class);
+                intent.putExtra("LOG", LOG);
+
+                mContext.startActivity(intent);
+            }
+        });
 
         if (trpVO.TRP_97.equals(mUser.Value.OCM_01)) { //작성자만 삭제버튼 보임
             header.btnHeaderRight1.setVisibility((View.VISIBLE));
@@ -372,6 +407,7 @@ public class DetailTrp extends BaseActivity{
 
                 if (getIntent().hasExtra("scanCode")) {
                     requestTRP_CONTROL("INSERT");
+                    requestLOG_CONTROL("1","신규등록");
                 } else {
                     requestTRP_CONTROL("UPDATE");
                 }
@@ -463,6 +499,41 @@ public class DetailTrp extends BaseActivity{
         }
 
 
+    }
+
+    private void requestLOG_CONTROL(String LOG_03, String LOG_04){
+        //인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Call<LOG_Model> call = Http.log(HttpBaseService.TYPE.POST).LOG_CONTROL(
+                BaseConst.URL_HOST,
+                "INSERT",
+                trpVO.TRP_ID,
+                trpVO.TRP_01,
+                "",
+                LOG_03,
+                LOG_04,
+                "",
+                mUser.Value.OCM_01,
+                "SP_TRPL_CONTROL"
+        );
+
+        call.enqueue(new Callback<LOG_Model>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<LOG_Model> call, Response<LOG_Model> response){
+
+            }
+
+            @Override
+            public void onFailure(Call<LOG_Model> call, Throwable t){
+                Log.d("LOG_CONTROL", t.getMessage());
+//                closeLoadingBar();
+            }
+        });
     }
 
 

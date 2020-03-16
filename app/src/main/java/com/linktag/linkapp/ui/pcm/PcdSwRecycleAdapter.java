@@ -13,10 +13,13 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.linktag.base.network.ClsNetworkCheck;
+import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.model.PCDModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
@@ -38,6 +41,7 @@ public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapte
     private View view;
     private PcdSwRecycleAdapter mAdapter;
 
+    private InterfaceUser mUser = InterfaceUser.getInstance();
     private HashMap<String, String> map = new HashMap<String, String>();
 
 
@@ -132,6 +136,7 @@ public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapte
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();
 
+                            requestLOG_CONTROL(pcdVO.PCD_ID, pcdVO.PCD_01,"2","S/W 정보 " + pcdVO.PCD_05 + " 제거");
                         }
                     }
                 }.sendMessage(msg);
@@ -146,6 +151,41 @@ public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapte
 
     }
 
+
+    private void requestLOG_CONTROL(String LOG_ID, String LOG_01, String LOG_03, String LOG_04){
+        //인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            Toast.makeText(mContext, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Call<LOG_Model> call = Http.log(HttpBaseService.TYPE.POST).LOG_CONTROL(
+                BaseConst.URL_HOST,
+                "INSERT",
+                LOG_ID,
+                LOG_01,
+                "",
+                LOG_03,
+                LOG_04,
+                "",
+                mUser.Value.OCM_01,
+                "SP_PCML_CONTROL"
+        );
+
+        call.enqueue(new Callback<LOG_Model>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<LOG_Model> call, Response<LOG_Model> response){
+
+            }
+
+            @Override
+            public void onFailure(Call<LOG_Model> call, Throwable t){
+                Log.d("LOG_CONTROL", t.getMessage());
+//                closeLoadingBar();
+            }
+        });
+    }
 
     @Override
     public int getItemCount() {

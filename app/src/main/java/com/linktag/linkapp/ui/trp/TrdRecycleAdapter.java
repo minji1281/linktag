@@ -12,11 +12,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.model.TRDModel;
 import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
@@ -46,6 +48,9 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
     private TrdRecycleAdapter mAdapter;
     private InterfaceUser mUser;
 
+    private String am_pm;
+    private int hourOfDay;
+
     TrdRecycleAdapter(Context context, ArrayList<TrdVO> list) {
         mContext = context;
         mList = list;
@@ -71,8 +76,8 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        String am_pm = "";
-        int hourOfDay = Integer.parseInt(mList.get(position).TRD_96.substring(8, 10));
+        am_pm = "";
+        hourOfDay = Integer.parseInt(mList.get(position).TRD_96.substring(8, 10));
         if (hourOfDay > 12) {
             hourOfDay -= 12;
             am_pm = "오후";
@@ -94,9 +99,48 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
 
                 requestTRD_CONTROL(trdVO, position);
 
+                requestLOG_CONTROL("2","알림삭제 "+ am_pm+ hourOfDay +":" +minute);
+
+
             }
         });
 
+    }
+
+
+    private void requestLOG_CONTROL(String LOG_03, String LOG_04){
+        //인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            Toast.makeText(mContext, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Call<LOG_Model> call = Http.log(HttpBaseService.TYPE.POST).LOG_CONTROL(
+                BaseConst.URL_HOST,
+                "INSERT",
+                trpVO.TRP_ID,
+                trpVO.TRP_01,
+                "",
+                LOG_03,
+                LOG_04,
+                "",
+                mUser.Value.OCM_01,
+                "SP_TRPL_CONTROL"
+        );
+
+        call.enqueue(new Callback<LOG_Model>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<LOG_Model> call, Response<LOG_Model> response){
+
+            }
+
+            @Override
+            public void onFailure(Call<LOG_Model> call, Throwable t){
+                Log.d("LOG_CONTROL", t.getMessage());
+//                closeLoadingBar();
+            }
+        });
     }
 
 

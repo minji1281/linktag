@@ -131,6 +131,31 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:text="상세정보"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_Log"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingRight="15dp"
+                    android:text="더보기"
+                    android:textSize="@dimen/text_normal" />
+
+            </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -139,6 +164,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -146,8 +172,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|left"
                         android:text="PC 하드웨어 정보 "
-                        android:textSize="@dimen/text_normal"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/text_small" />
 
                     <View
                         android:layout_width="0dp"
@@ -224,6 +249,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
                     android:orientation="horizontal">
 
                     <TextView
@@ -231,8 +257,7 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|left"
                         android:text="PC 소프트웨어 정보 "
-                        android:textSize="@dimen/text_normal"
-                        android:textStyle="bold" />
+                        android:textSize="@dimen/text_small" />
 
                     <View
                         android:layout_width="0dp"

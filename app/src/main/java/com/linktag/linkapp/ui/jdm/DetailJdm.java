@@ -1,6 +1,7 @@
 package com.linktag.linkapp.ui.jdm;
 
 import android.animation.ValueAnimator;
+import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
@@ -8,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
@@ -29,6 +32,7 @@ import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.JDMModel;
+import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
@@ -40,6 +44,7 @@ import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.LogVO;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 
@@ -71,7 +76,7 @@ public class DetailJdm extends BaseActivity {
     private TextView tv_nextDate;
 
 
-    private Button bt_log;
+    private TextView tv_Log;
 
     private Spinner sp_size;
     private TextView tv_recycleDay;
@@ -176,13 +181,24 @@ public class DetailJdm extends BaseActivity {
                 }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
                     Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 장독정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+
+                    if (jdmVO.ARM_03.equals("Y")) {
+                        Toast.makeText(mContext,"다음알람은 "+ jdmVO.JDM_96.substring(0,4)+"년" + jdmVO.JDM_96.substring(4,6)+"월"+ jdmVO.JDM_96.substring(6,8)+"일" +
+                                jdmVO.JDM_96.substring(8,10)+"시" + jdmVO.JDM_96.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                    }
                     onBackPressed();
                 }
                 if(GUBUN.equals("DELETE")){
                     onBackPressed();
                 }
                 if (GUBUN.equals("UPDATE_NEXT")) {
-                    imageView_check.setImageResource(R.drawable.ic_check_on);
+                    imageView_check.setImageResource(R.drawable.btn_round_skyblue_50dp);
+
+                    if (jdmVO.ARM_03.equals("Y")) {
+                        Toast.makeText(mContext,"다음알람은 "+ jdmVO.JDM_96.substring(0,4)+"년" + jdmVO.JDM_96.substring(4,6)+"월"+ jdmVO.JDM_96.substring(6,8)+"일" +
+                                jdmVO.JDM_96.substring(8,10)+"시" + jdmVO.JDM_96.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                    }
+
                 }
 
             }
@@ -217,6 +233,7 @@ public class DetailJdm extends BaseActivity {
         tv_datePicker = findViewById(R.id.tv_datePicker);
         bt_save = findViewById(R.id.bt_save);
         tv_D_day = findViewById(R.id.tv_D_day);
+        tv_Log = findViewById(R.id.tv_Log);
         tv_recycleDay = findViewById(R.id.tv_recycleDay);
         jdmVO = (JdmVO) getIntent().getSerializableExtra("JdmVO");
 
@@ -346,6 +363,7 @@ public class DetailJdm extends BaseActivity {
                 jdmVO.setJDM_04(tv_datePicker.getText().toString().replace(".", ""));
                 if (getIntent().hasExtra("scanCode")) {
                     requestJMD_CONTROL("INSERT");
+                    requestLOG_CONTROL("1","신규등록");
                 } else {
                     requestJMD_CONTROL("UPDATE");
                 }
@@ -405,6 +423,7 @@ public class DetailJdm extends BaseActivity {
 
                 if (Integer.parseInt(jdmVO.JDM_96.substring(0, 8)) < Integer.parseInt(formatDate.format(calendar.getTime()))) {
                     requestJMD_CONTROL("UPDATE_NEXT");
+                    requestLOG_CONTROL("2","장독청소 완료");
                 } else {
 
                     new AlertDialog.Builder(mActivity)
@@ -414,6 +433,7 @@ public class DetailJdm extends BaseActivity {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     requestJMD_CONTROL("UPDATE_NEXT");
+                                    requestLOG_CONTROL("2","장독청소 완료");
                                 }
                             })
                             .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
@@ -425,6 +445,23 @@ public class DetailJdm extends BaseActivity {
                             .show();
                     return;
                 }
+            }
+        });
+
+
+        tv_Log.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                LogVO LOG = new LogVO();
+                LOG.LOG_ID = jdmVO.JDM_ID;
+                LOG.LOG_01 = jdmVO.JDM_01;
+                LOG.LOG_98 = mUser.Value.OCM_01;
+                LOG.SP_NAME = "SP_JDML_CONTROL";
+
+                Intent intent = new Intent(mContext, MasterLog.class);
+                intent.putExtra("LOG", LOG);
+
+                mContext.startActivity(intent);
             }
         });
 
@@ -456,21 +493,6 @@ public class DetailJdm extends BaseActivity {
                 }
             });
         }
-
-        bt_log.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-                Intent intent = new Intent(mContext, MasterLog.class);
-                LogVO logVO = new LogVO();
-                logVO.LOG_ID = jdmVO.JDM_ID;
-                logVO.LOG_01 = jdmVO.JDM_01;
-                logVO.LOG_98 = mUser.Value.OCM_01;
-                logVO.SP_NAME = "SP_JDML_CONTROL";
-
-                mContext.startActivity(intent);
-            }
-        });
 
     }
 
@@ -510,6 +532,43 @@ public class DetailJdm extends BaseActivity {
             tv_nextDate.setText(val1 + "." + val2 + "." + val3);
         }
     }
+
+
+    private void requestLOG_CONTROL(String LOG_03, String LOG_04){
+        //인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Call<LOG_Model> call = Http.log(HttpBaseService.TYPE.POST).LOG_CONTROL(
+                BaseConst.URL_HOST,
+                "INSERT",
+                jdmVO.JDM_ID,
+                jdmVO.JDM_01,
+                "",
+                LOG_03,
+                LOG_04,
+                "",
+                mUser.Value.OCM_01,
+                "SP_JDML_CONTROL"
+        );
+
+        call.enqueue(new Callback<LOG_Model>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<LOG_Model> call, Response<LOG_Model> response){
+
+            }
+
+            @Override
+            public void onFailure(Call<LOG_Model> call, Throwable t){
+                Log.d("LOG_CONTROL", t.getMessage());
+//                closeLoadingBar();
+            }
+        });
+    }
+
 
     private void startCountAnimation(int count) {
 
