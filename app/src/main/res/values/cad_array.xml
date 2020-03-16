@@ -39,6 +39,6 @@
         <item>캐니스터</item>
         <item>에어컨 가스점검 및 보충</item>
         <item>정기점검</item>
-        <item>기타</item>
+<!--        <item>기타</item>-->
     </string-array>
 </resources>

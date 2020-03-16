@@ -5,6 +5,8 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,6 +19,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.Spinner;
@@ -37,7 +40,9 @@ import com.linktag.linkapp.value_object.CtdVO;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -440,6 +445,33 @@ public class CadDetail extends BaseActivity {
         Dialog dialog = new Dialog(mContext);
         LayoutInflater inflater = LayoutInflater.from(mContext);
         View view = inflater.inflate(R.layout.dialog_cad, null);
+
+        LinearLayout layout1 = view.findViewById(R.id.layout1);
+        LinearLayout layout2 = view.findViewById(R.id.layout2);
+
+        TextView tvGub1 = view.findViewById(R.id.tvGub1);
+        TextView tvGub2 = view.findViewById(R.id.tvGub2);
+        tvGub1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                layout2.setVisibility(View.GONE);
+                layout1.setVisibility(View.VISIBLE);
+
+                tvGub1.setBackgroundColor(Color.parseColor("#FFFFFF"));
+                tvGub2.setBackgroundColor(Color.parseColor("#F2F5F7"));
+            }
+        });
+        tvGub2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                layout1.setVisibility(View.GONE);
+                layout2.setVisibility(View.VISIBLE);
+
+                tvGub1.setBackgroundColor(Color.parseColor("#F2F5F7"));
+                tvGub2.setBackgroundColor(Color.parseColor("#FFFFFF"));
+            }
+        });
+
         ListView listView = view.findViewById(R.id.lvCadName);
         SearchView searchView = view.findViewById(R.id.svCadName);
         BaseHeader nameHeader = view.findViewById(R.id.header);
@@ -451,18 +483,43 @@ public class CadDetail extends BaseActivity {
             }
         });
 
-        final ArrayAdapter<String> stringArrayAdapter = new ArrayAdapter<String>(mContext, R.layout.spinner_cad_list, getResources().getStringArray(R.array.cad));
-        listView.setAdapter(stringArrayAdapter);
+        EditText etCadName = (EditText) view.findViewById(R.id.etCadName);
+
+        Button btnSave = (Button) view.findViewById(R.id.btnSave);
+        btnSave.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                if(etCadName.getText().toString().equals("")){
+                    Toast.makeText(mActivity, "내역을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    CAD.CAD_04 = etCadName.getText().toString();
+                    tvName.setText(CAD.CAD_04);
+                    requestCAD_SELECT();
+
+                    dialog.dismiss();
+                }
+            }
+        });
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+        btnCancel.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dialog.dismiss();
+            }
+        });
+
+        String[] cadArray = getResources().getStringArray(R.array.cad);
+        List<String> cadArrayList = Arrays.asList(cadArray);
+        CadNameAdapter cadNameAdapter = new CadNameAdapter(mContext, cadArrayList);
+        listView.setAdapter(cadNameAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                Toast.makeText(mActivity, stringArrayAdapter.getItem(position), Toast.LENGTH_SHORT).show();
-                CAD.CAD_04 = stringArrayAdapter.getItem(position);
-                if(!CAD.CAD_04.equals("선택")){
-                    tvName.setText(CAD.CAD_04);
-                    requestCAD_SELECT();
-                }
+                CAD.CAD_04 = cadNameAdapter.getItem(position).toString();
+                tvName.setText(CAD.CAD_04);
+                requestCAD_SELECT();
 
                 dialog.dismiss();
             }
@@ -476,7 +533,7 @@ public class CadDetail extends BaseActivity {
 
             @Override
             public boolean onQueryTextChange(String newText) {
-                stringArrayAdapter.getFilter().filter(newText);
+                cadNameAdapter.getFilter().filter(newText);
                 return false;
             }
         });
