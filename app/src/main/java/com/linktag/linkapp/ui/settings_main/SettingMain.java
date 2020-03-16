@@ -62,7 +62,7 @@ public class SettingMain extends BaseActivity {
     protected void onResume(){
         super.onResume();
 
-        ClsBitmap.setProfilePhoto(mContext, imgProfile, mUser.Value.OCM_01, mUser.Value.OCM_52, R.drawable.main_profile_no_image);
+        ClsBitmap.setProfilePhoto(mContext, imgProfile, mUser.Value.OCM_01, mUser.Value.OCM_52, "", R.drawable.main_profile_no_image);
     }
 
     /**

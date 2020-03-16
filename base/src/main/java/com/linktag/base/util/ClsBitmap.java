@@ -18,28 +18,48 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class ClsBitmap {
-    public static void setProfilePhoto(Context context, ImageView imageProfile, String fileFolder, String fileName, int nNoImage){
+    public static void setProfilePhoto(Context context, ImageView imageProfile, String fileFolder, String fileName, String preFilename, int nNoImage){
         imageProfile.setImageResource(nNoImage);
 
         if(fileName.equals("")){
+//            deleteImageFile(context, "profile" + "/" + fileFolder, preFilename);
+            deleteImageFolder(context, "profile" + "/" + fileFolder);
+
             imageProfile.setImageResource(nNoImage);
         } else {
-            setImage(context, "profile" + "/" + fileFolder, fileName, imageProfile, nNoImage);
+            setImage(context, "profile" + "/" + fileFolder, fileName, preFilename, imageProfile, nNoImage);
         }
     }
 
-    public static void setImage(final Context context, String folderPath, String fileName,
+    public static void setSharedPhoto(Context context, ImageView imageProfile, String fileFolder, String fileName, String preFilename, int nNoImage){
+        imageProfile.setImageResource(nNoImage);
+
+        if(fileName.equals("")){
+//            deleteImageFile(context, "shared" + "/" + fileFolder, preFilename);
+            deleteImageFolder(context, "profile" + "/" + fileFolder);
+
+            imageProfile.setImageResource(nNoImage);
+        } else {
+            setImage(context, "shared" + "/" + fileFolder, fileName, preFilename, imageProfile, nNoImage);
+        }
+    }
+
+    public static void setImage(final Context context, String folderPath, String fileName, String preFilename,
                                 final ImageView imgView, int placeHolder) {
         try {
-            final String strSavePath = context.getFilesDir() + "/" + folderPath;
+            final String strSavePath = context.getCacheDir() + "/" + folderPath;
 
             File dir = new File(strSavePath);
             if (!dir.exists()){
                 dir.mkdirs();
+            } else {
+                if(preFilename.equals(""))
+                    deleteImageFolder(context, folderPath);
+                else
+                    deleteImageFile(context, folderPath, preFilename);
             }
 
             final String strFilePath = strSavePath + "/" + fileName;
-
 
             File file = new File(strFilePath);
 
@@ -54,8 +74,6 @@ public class ClsBitmap {
                     CustomTarget target = new CustomTarget<Bitmap>(){
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
-                            //imgView.setVisibility(View.VISIBLE);
-
                             imgView.setImageBitmap(resource);
                         }
 
@@ -97,6 +115,29 @@ public class ClsBitmap {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public static void deleteImageFolder(Context context, String folderPath){
+        final String strFolderPath = context.getCacheDir() + "/" + folderPath;
+
+        File folder = new File(strFolderPath);
+        try {
+            File[] file_list = folder.listFiles();
+
+            for(File childFile : file_list){
+                childFile.delete();
+            }
+
+        } catch (Exception e){
+            e.getStackTrace();
+        }
+    }
+
+    public static void deleteImageFile(Context context, String folderPath, String fileName){
+        final String strFilePath = context.getCacheDir() + "/" + folderPath + "/" + fileName;
+
+        File file = new File(strFilePath);
+        file.delete();
     }
 
     public static boolean makeImageFile(Context context, Bitmap bitmap, String path) {

@@ -30,8 +30,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -259,7 +261,11 @@ public class ProfileMain extends BaseActivity {
                             break;
                         // 사직 삭제
                         case DELETE_PHOTO:
-                            ClsBitmap.setProfilePhoto(mContext, imgProfile, mUser.Value.OCM_01,"", R.drawable.main_profile_no_image);
+                            if(!mUser.Value.OCM_52.equals("")){
+                                ClsBitmap.setProfilePhoto(mContext, imgProfile, mUser.Value.OCM_01,"", mUser.Value.OCM_52, R.drawable.main_profile_no_image);
+                                requestOCM_CONTROL("UPDATE_IMG");
+                            }
+
                             break;
                     }
                 }).create();
@@ -269,7 +275,7 @@ public class ProfileMain extends BaseActivity {
 
     @Override
     protected void initialize() {
-        ClsBitmap.setProfilePhoto(mContext, imgProfile, mUser.Value.OCM_01, mUser.Value.OCM_52, R.drawable.main_profile_no_image);
+        ClsBitmap.setProfilePhoto(mContext, imgProfile, mUser.Value.OCM_01, mUser.Value.OCM_52, "", R.drawable.main_profile_no_image);
     }
 
     private boolean validationCheck(String GUB){
@@ -377,6 +383,14 @@ public class ProfileMain extends BaseActivity {
                 case "UPDATE":
                     setUserData(data);
                     break;
+                case "UPDATE_IMG":
+                    isChangeImg = false;
+                    // 기존파일 삭제
+                    storageRef = storage.getReferenceFromUrl(FIREBASE_URL).child("profile" + "/" + mUser.Value.OCM_01 + "/" + mUser.Value.OCM_52);
+                    storageRef.delete();
+                    mUser.Value.OCM_52 = "";
+                    Toast.makeText(mActivity, "이미지가 변경 되었습니다.", Toast.LENGTH_SHORT).show();
+                    break;
             }
         }
 
@@ -449,48 +463,48 @@ public class ProfileMain extends BaseActivity {
     }
 
     private void uploadFile(){
-        if(filePath != null){
+        if(filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle("업로드중...");
             progressDialog.show();
 
-            FirebaseStorage storage = FirebaseStorage.getInstance();
-
-//            //Unique한 파일명을 만들자.
-//            SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
-//            Date now = new Date();
-//            String filename = formatter.format(now) + ".jpg";
-
             //storage 주소와 폴더 파일명을 지정해 준다.
-            storageRef = storage.getReferenceFromUrl(FIREBASE_URL).child("profile" + "/" + mUser.Value.OCM_01 + "/" + setFileName);
+            // 기존 파일 삭제 후 업로드
+            storageRef = storage.getReferenceFromUrl(FIREBASE_URL).child("profile" + "/" + mUser.Value.OCM_01 + "/" + mUser.Value.OCM_52);
+            storageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
+                @Override
+                public void onComplete(@NonNull Task<Void> task) {
+                    storageRef = storage.getReferenceFromUrl(FIREBASE_URL).child("profile" + "/" + mUser.Value.OCM_01 + "/" + setFileName);
+                    storageRef.putFile(filePath)
+                            //성공시
+                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                                    progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
+                                    Toast.makeText(getApplicationContext(), "이미지가 변경 되었습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            //실패시
+                            .addOnFailureListener(new OnFailureListener() {
+                                @Override
+                                public void onFailure(@NonNull Exception e) {
+                                    progressDialog.dismiss();
+                                    Toast.makeText(getApplicationContext(), "이미지 변경에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                                }
+                            })
+                            //진행중
+                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                                @Override
+                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                                    @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
+                                            double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                                    //dialog에 진행률을 퍼센트로 출력해 준다
+                                    progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
+                                }
+                            });
+                }
+            });
 
-            storageRef.putFile(filePath)
-                    //성공시
-                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                            progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-                            Toast.makeText(getApplicationContext(), "이미지 변경 완료!", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    //실패시
-                    .addOnFailureListener(new OnFailureListener() {
-                        @Override
-                        public void onFailure(@NonNull Exception e) {
-                            progressDialog.dismiss();
-                            Toast.makeText(getApplicationContext(), "이미지 변경 실패!", Toast.LENGTH_SHORT).show();
-                        }
-                    })
-                    //진행중
-                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                        @Override
-                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                            @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
-                                    double progress = (100 * taskSnapshot.getBytesTransferred()) /  taskSnapshot.getTotalByteCount();
-                            //dialog에 진행률을 퍼센트로 출력해 준다
-                            progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
-                        }
-                    });
         } else {
             Toast.makeText(this, "파일을 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
         }
@@ -524,7 +538,7 @@ public class ProfileMain extends BaseActivity {
      */
     private File createImageFile() throws IOException {
         // 이미지 파일 이름
-        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss");
+        SimpleDateFormat formatter = new SimpleDateFormat("yyyyMMHH_mmss_");
         Date now = new Date();
         String imageFileName = formatter.format(now);
 
@@ -533,7 +547,7 @@ public class ProfileMain extends BaseActivity {
         File storageDir = new File(getExternalFilesDir(null).getAbsolutePath() + "/linktag/");
         if (!storageDir.exists()) storageDir.mkdirs();
 
-        System.out.println("!!!!!!!!!!!!!!!!!!!!!" + storageDir.getName());
+//        System.out.println("!!!!!!!!!!!!!!!!!!!!!" + storageDir.getName());
         // 빈 파일 생성
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
 

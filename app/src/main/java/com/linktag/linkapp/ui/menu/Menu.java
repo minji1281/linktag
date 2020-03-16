@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.linktag.base.base_activity.BaseActivity;
@@ -48,8 +49,10 @@ public class Menu extends BaseActivity {
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> closePop(v));
-        header.layoutHeader.setBackgroundColor(Color.parseColor("#F2F5F7"));
+        header.layoutHeader.setBackgroundColor(Color.parseColor("#9AB6FF"));
         header.headerSpacer.setVisibility(View.INVISIBLE);
+        header.tvHeaderTitle.setTextColor(Color.WHITE);
+        header.btnHeaderLeft.setSelected(true);
 
         tvMenuService = findViewById(R.id.tvMenuService);
         tvMenuService.setOnClickListener(v -> setCurrentViewPager(TAB_PAGE_SERVICE));
@@ -105,13 +108,13 @@ public class Menu extends BaseActivity {
         switch (viewPager.getCurrentItem()) {
             case TAB_PAGE_SERVICE:
                 tvMenuService.setSelected(true);
-                tvMenuService.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                tvMenuShared.setBackgroundColor(Color.parseColor("#F2F5F7"));
+                tvMenuService.setElevation(20);
+                tvMenuShared.setElevation(0);
                 break;
             case TAB_PAGE_SHARED:
                 tvMenuShared.setSelected(true);
-                tvMenuShared.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                tvMenuService.setBackgroundColor(Color.parseColor("#F2F5F7"));
+                tvMenuService.setElevation(0);
+                tvMenuShared.setElevation(20);
                 break;
         }
     }
