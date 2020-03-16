@@ -142,9 +142,9 @@ public class DetailJdm extends BaseActivity {
                 tv_nextDate.setText(format.format(sCalendar.getTime()));
                 jdmVO.setJDM_96(formatDate.format(sCalendar.getTime()) + jdmVO.getJDM_96().substring(8, 12));
                 break;
-            case "3":
+            case "2":
                 jdmVO.setJDM_96(tv_nextDate.getText().toString().replace(".", "") + jdmVO.getJDM_96().substring(8, 12));
-                jdmVO.setJDM_07("3");
+                jdmVO.setJDM_07("2");
                 break;
         }
 
@@ -175,17 +175,22 @@ public class DetailJdm extends BaseActivity {
             @Override
             public void onResponse(Call<JDMModel> call, Response<JDMModel> response) {
 
+                Calendar calendar = Calendar.getInstance();
+                boolean dateBool = Long.parseLong(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime())) < Long.parseLong(jdmVO.JDM_96);
+
                 if (GUBUN.equals("INSERT")) {
                     CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, jdmVO.JDM_01);
                     ctds_control.requestCTDS_CONTROL();
                     onBackPressed();
                 }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
-                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 장독정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
 
-                    if (jdmVO.ARM_03.equals("Y")) {
-                        Toast.makeText(mContext,"다음알람 "+ jdmVO.JDM_96.substring(0,4)+"년" + jdmVO.JDM_96.substring(4,6)+"월"+ jdmVO.JDM_96.substring(6,8)+"일" +
-                                jdmVO.JDM_96.substring(8,10)+"시" + jdmVO.JDM_96.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                    if (jdmVO.ARM_03.equals("Y") && dateBool) {
+                        Toast.makeText(mContext,"[" + ed_name.getText().toString() + "]" + "  해당 장독정보가 저장되었습니다.\n"+
+                                "다음 알람예정은 "+ jdmVO.JDM_96.substring(0,4)+"년" + jdmVO.JDM_96.substring(4,6)+"월"+ jdmVO.JDM_96.substring(6,8)+"일" +
+                                jdmVO.JDM_96.substring(8,10)+"시" + jdmVO.JDM_96.substring(10,12)+"분 입니다.", Toast.LENGTH_LONG ).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 장독정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                     onBackPressed();
                 }
@@ -195,9 +200,9 @@ public class DetailJdm extends BaseActivity {
                 if (GUBUN.equals("UPDATE_NEXT")) {
                     imageView_check.setImageResource(R.drawable.btn_round_skyblue_50dp);
 
-                    if (jdmVO.ARM_03.equals("Y")) {
-                        Toast.makeText(mContext,"다음알람은 "+ jdmVO.JDM_96.substring(0,4)+"년" + jdmVO.JDM_96.substring(4,6)+"월"+ jdmVO.JDM_96.substring(6,8)+"일" +
-                                jdmVO.JDM_96.substring(8,10)+"시" + jdmVO.JDM_96.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                    if (jdmVO.ARM_03.equals("Y") && dateBool) {
+                        Toast.makeText(mContext,"다음 알람예정은 "+ jdmVO.JDM_96.substring(0,4)+"년" + jdmVO.JDM_96.substring(4,6)+"월"+ jdmVO.JDM_96.substring(6,8)+"일" +
+                                jdmVO.JDM_96.substring(8,10)+"시" + jdmVO.JDM_96.substring(10,12)+"분 입니다.", Toast.LENGTH_LONG ).show();
                     }
 
                 }
@@ -518,7 +523,7 @@ public class DetailJdm extends BaseActivity {
 
     private void setRecycleDay(String val1, String val2, String val3) {
 
-        if (!val2.equals("3") && val3.equals("")) {
+        if (!val2.equals("2") && val3.equals("")) {
             recycleDayVal1 = val1;
             recycleDayVal2 = val2;
             Calendar sCalendar = Calendar.getInstance();
@@ -547,7 +552,7 @@ public class DetailJdm extends BaseActivity {
         } else {
 //            jdmVO.setJDM_06("1"); //1일
 //            jdmVO.setJDM_07("0"); //일
-            recycleDayVal2 = "3";
+            recycleDayVal2 = "2";
             tv_recycleDay.setText("지정일");
             tv_nextDate.setText(val1 + "." + val2 + "." + val3);
         }

@@ -139,12 +139,27 @@ public class DetailRfd extends BaseActivity {
         call.enqueue(new Callback<RFDModel>() {
             @Override
             public void onResponse(Call<RFDModel> call, Response<RFDModel> response) {
+                Calendar calendar = Calendar.getInstance();
+                boolean dateBool = Long.parseLong(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime())) < Long.parseLong(rfdVO.RFD_96);
 
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
-                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    if (rfdVO.ARM_03.equals("Y") && dateBool) {
+                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 저장되었습니다.\n"+
+                                "다음 알람예정은 " + rfdVO.RFD_96.substring(0, 4) + "년" + rfdVO.RFD_96.substring(4, 6) + "월" + rfdVO.RFD_96.substring(6, 8) + "일" +
+                                rfdVO.RFD_96.substring(8, 10) + "시" + rfdVO.RFD_96.substring(10, 12) + "분 입니다.", Toast.LENGTH_LONG).show();
+                    } else {
+
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
                     RFMMain.RFM_01 = rfdVO.RFD_01;
                 } else if (GUBUN.equals("RFD_07_UPDATE")) {
-                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보의 사용상태가 변경 되었습니다.", Toast.LENGTH_SHORT).show();
+                    if (rfdVO.ARM_03.equals("Y") && rfdVO.RFD_07.equals("") && dateBool) {
+                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + "  해당 식품정보의 사용상태가 변경 되었습니다.\n"+
+                                "다음 알람예정은 " + rfdVO.RFD_96.substring(0, 4) + "년" + rfdVO.RFD_96.substring(4, 6) + "월" + rfdVO.RFD_96.substring(6, 8) + "일" +
+                                rfdVO.RFD_96.substring(8, 10) + "시" + rfdVO.RFD_96.substring(10, 12) + "분 입니다.", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보의 사용상태가 변경 되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
                 } else {
                     Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 이동되었습니다.", Toast.LENGTH_SHORT).show();
                     RFMMain.RFM_01 = rfdVO.RFD_01;

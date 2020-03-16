@@ -77,9 +77,9 @@ public class RecycleDayDialog extends Dialog {
         npCycle2.setMinValue(0);
         npCycle2.setMaxValue(1);
         npCycle2.setDisplayedValues(new String[]{"일", "개월"});
-        npCycle2.setValue(Integer.parseInt(val2 == "3"? "0":val2));
+        npCycle2.setValue(Integer.parseInt(val2 == "2"? "0":val2));
 
-        if(val2.equals("3")){
+        if(val2.equals("2")){
             TabLayout.Tab tab = tabLayout.getTabAt(1);
             tab.select();
             changeView(1);
@@ -130,7 +130,7 @@ public class RecycleDayDialog extends Dialog {
                     String monthString = "";
                     String dayOfMonthString = "";
                     String year = String.valueOf(datePicker.getYear());
-                    if (datePicker.getMonth() < 10) {
+                    if (datePicker.getMonth()+1 < 10) {
                         monthString = "0" + String.valueOf(datePicker.getMonth() + 1);
                     } else {
                         monthString = String.valueOf(datePicker.getMonth()+1);

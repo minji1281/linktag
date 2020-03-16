@@ -54,7 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailTrp extends BaseActivity{
+public class DetailTrp extends BaseActivity {
 
     private BaseHeader header;
 
@@ -101,6 +101,7 @@ public class DetailTrp extends BaseActivity{
 
     private CtdVO intentVO;
 
+    private String[] array_pattern;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -138,7 +139,7 @@ public class DetailTrp extends BaseActivity{
                 mUser.Value.OCM_01,
                 mUser.Value.OCM_01,
                 trpVO.ARM_03
-                );
+        );
 
 
         call.enqueue(new Callback<TRPModel>() {
@@ -150,7 +151,12 @@ public class DetailTrp extends BaseActivity{
                     ctds_control.requestCTDS_CONTROL();
                 }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
-                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 복약정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    if (trpVO.ARM_03.equals("Y")) {
+                        checkDayOfWeek("[" + ed_name.getText().toString() + "]" + "  해당 복약정보가 저장되었습니다.\n");
+                    }
+                    else{
+                        checkDayOfWeek("");
+                    }
                 }
                 onBackPressed();
             }
@@ -211,7 +217,6 @@ public class DetailTrp extends BaseActivity{
 
         trpVO = (TrpVO) getIntent().getSerializableExtra("TrpVO");
 
-        String[] array_pattern;
         array_pattern = trpVO.TRP_04.split("");
 
         if (trpVO.TRP_04.equals("")) {
@@ -325,8 +330,8 @@ public class DetailTrp extends BaseActivity{
                         requestTRD_CONTROL();
 
                         String am_pm = "";
-                        int hourOfDay = Integer.parseInt(time.substring(0,2));
-                        int minute = Integer.parseInt(time.substring(2,4));
+                        int hourOfDay = Integer.parseInt(time.substring(0, 2));
+                        int minute = Integer.parseInt(time.substring(2, 4));
                         if (hourOfDay > 12) {
                             hourOfDay -= 12;
                             am_pm = "오후 ";
@@ -334,7 +339,7 @@ public class DetailTrp extends BaseActivity{
                             am_pm = "오전 ";
                         }
 
-                        requestLOG_CONTROL("2","알림추가 "+ am_pm+ hourOfDay +":" +minute);
+                        requestLOG_CONTROL("2", "알림추가 " + am_pm + hourOfDay + ":" + minute);
                     }
 
                     @Override
@@ -347,9 +352,9 @@ public class DetailTrp extends BaseActivity{
         });
 
 
-        tv_Log.setOnClickListener(new View.OnClickListener(){
+        tv_Log.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 LogVO LOG = new LogVO();
                 LOG.LOG_ID = trpVO.TRP_ID;
                 LOG.LOG_01 = trpVO.TRP_01;
@@ -392,7 +397,8 @@ public class DetailTrp extends BaseActivity{
 
                 if (getIntent().hasExtra("scanCode")) {
                     requestTRP_CONTROL("INSERT");
-                    requestLOG_CONTROL("1","신규등록");
+                    requestLOG_CONTROL("1", "신규등록");
+
                 } else {
                     requestTRP_CONTROL("UPDATE");
                 }
@@ -408,7 +414,6 @@ public class DetailTrp extends BaseActivity{
                 @Override
                 public void onClick(View v) {
 
-                    String[] array_pattern;
                     array_pattern = trpVO.TRP_04.split("");
 
                     switch (v.getId()) {
@@ -519,9 +524,9 @@ public class DetailTrp extends BaseActivity{
     }
 
 
-    private void requestLOG_CONTROL(String LOG_03, String LOG_04){
+    private void requestLOG_CONTROL(String LOG_03, String LOG_04) {
         //인터넷 연결 여부 확인
-        if(!ClsNetworkCheck.isConnectable(mContext)){
+        if (!ClsNetworkCheck.isConnectable(mContext)) {
             Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
@@ -539,15 +544,15 @@ public class DetailTrp extends BaseActivity{
                 "SP_TRPL_CONTROL"
         );
 
-        call.enqueue(new Callback<LOG_Model>(){
+        call.enqueue(new Callback<LOG_Model>() {
             @SuppressLint("HandlerLeak")
             @Override
-            public void onResponse(Call<LOG_Model> call, Response<LOG_Model> response){
+            public void onResponse(Call<LOG_Model> call, Response<LOG_Model> response) {
 
             }
 
             @Override
-            public void onFailure(Call<LOG_Model> call, Throwable t){
+            public void onFailure(Call<LOG_Model> call, Throwable t) {
                 Log.d("LOG_CONTROL", t.getMessage());
 //                closeLoadingBar();
             }
@@ -701,6 +706,48 @@ public class DetailTrp extends BaseActivity{
             }
         });
 
+    }
+
+    public void checkDayOfWeek(String msg) {
+        Calendar calendar = Calendar.getInstance();
+
+        int nowWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        int nowTime = Integer.parseInt(formatTime.format(calendar.getTime()));
+        String time = "";
+        int count = 0;
+        for (TrdVO trdVO : mList) {
+            int setTime = Integer.parseInt(trdVO.TRD_96.substring(8, 12));
+            time = trdVO.TRD_96.substring(8, 12);
+            if(nowTime < setTime) {
+                count++;
+                break;
+            }
+        }
+        if(count == 0){  // 예정알림시간이 이미 다 지난경우 다음요일로 넘어감
+            for(int i=1; i < array_pattern.length; i++){
+                if(array_pattern[nowWeek+i].equals("Y")){
+                    nowWeek = nowWeek + i;
+                    break;
+                }
+            }
+        }
+
+        String ToastMessage = time.substring(0, 2) + "시" + time.substring(2, 4) + "분";
+        if (nowWeek == 1 && array_pattern[1].equals("Y")) { //일요일
+            Toast.makeText(mContext, msg +"다음 알림예정일은 일요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 2 && array_pattern[2].equals("Y")) { //월요일
+            Toast.makeText(mContext, msg +"다음 알림예정일은 월요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 3 && array_pattern[3].equals("Y")) { //화요일
+            Toast.makeText(mContext, msg +"다음 알림예정일은 화요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 4 && array_pattern[4].equals("Y")) { //수요일
+            Toast.makeText(mContext, msg +"다음 알림예정일은 수요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 5 && array_pattern[5].equals("Y")) { //목요일
+            Toast.makeText(mContext, msg +"다음 알림예정일은 목요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 6 && array_pattern[6].equals("Y")) { //금요일
+            Toast.makeText(mContext, msg +"다음 알림예정일은 금요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 7 && array_pattern[7].equals("Y")) { //토요일
+            Toast.makeText(mContext, msg +"다음 알림예정일은 토요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        }
     }
 
 }
