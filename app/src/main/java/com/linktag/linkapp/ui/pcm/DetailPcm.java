@@ -92,6 +92,8 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
     private TextView tv_manageDay;
 
+    public static TextView tv_hwCnt;
+    public static TextView tv_swCnt;
     private Button btn_update;
     private Button bt_save;
     private Button btn_addItem_hw;
@@ -170,12 +172,14 @@ public class DetailPcm extends BaseActivity implements Serializable {
                                 mList_HW = response.body().Data;
                                 if (mList_HW == null)
                                     mList_HW = new ArrayList<>();
+                                tv_hwCnt.setText("("+mList_HW.size()+"건)");
                                 mHwAdapter.updateData(mList_HW);
                                 mHwAdapter.notifyDataSetChanged();
                             } else if (GUBUN.equals("LIST_SW")) {
                                 mList_SW = response.body().Data;
                                 if (mList_SW == null)
                                     mList_SW = new ArrayList<>();
+                                tv_swCnt.setText("("+mList_SW.size()+"건)");
                                 mSwAdapter.updateData(mList_SW);
                                 mSwAdapter.notifyDataSetChanged();
                             }
@@ -236,6 +240,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
                                 mList_HW = response.body().Data;
                                 if (mList_HW == null)
                                     mList_HW = new ArrayList<>();
+                                tv_hwCnt.setText("("+mList_HW.size()+"건)");
                                 mHwAdapter.updateData(mList_HW);
                                 mHwAdapter.notifyDataSetChanged();
                                 et_hw.setText("");
@@ -246,6 +251,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
                                 mList_SW = response.body().Data;
                                 if (mList_SW == null)
                                     mList_SW = new ArrayList<>();
+                                tv_swCnt.setText("("+mList_SW.size()+"건)");
                                 mSwAdapter.updateData(mList_SW);
                                 mSwAdapter.notifyDataSetChanged();
                                 et_sw.setText("");
@@ -347,6 +353,8 @@ public class DetailPcm extends BaseActivity implements Serializable {
         ed_name = (EditText) findViewById(R.id.ed_name);
         ed_memo = (EditText) findViewById(R.id.ed_memo);
 
+        tv_hwCnt = findViewById(R.id.tv_hwCnt);
+        tv_swCnt = findViewById(R.id.tv_swCnt);
         tv_Log = findViewById(R.id.tv_Log);
 
         sp_hw = (Spinner) findViewById(R.id.sp_hw);

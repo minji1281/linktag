@@ -137,7 +137,7 @@ public class PcdHwRecycleAdapter extends RecyclerView.Adapter<PcdHwRecycleAdapte
                             mList = response.body().Data;
                             if (mList == null)
                                 mList = new ArrayList<>();
-
+                            DetailPcm.tv_hwCnt.setText("("+mList.size()+"건)");
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();
 

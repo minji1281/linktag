@@ -24,6 +24,7 @@ import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.pcm.DetailPcm;
 import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
 
@@ -159,7 +160,7 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
                 trdVO.TRD_01,
                 trdVO.TRD_02,
                 "",
-                "",
+                mUser.Value.OCM_01,
 
                 "",
                 "",
@@ -187,7 +188,7 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
                             mList = response.body().Data;
                             if (mList == null)
                                 mList = new ArrayList<>();
-
+                            DetailTrp.tv_alarmCnt.setText("("+mList.size()+"건)");
                             if(mList.size()==0){
                                 tv_alarmLabel.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);

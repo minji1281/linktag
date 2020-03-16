@@ -173,6 +173,12 @@
                         android:layout_gravity="center_vertical|left"
                         android:text="PC 하드웨어 정보 "
                         android:textSize="@dimen/text_small" />
+                    <TextView
+                        android:id="@+id/tv_hwCnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        android:layout_marginStart="10dp"/>
 
                     <View
                         android:layout_width="0dp"
@@ -258,7 +264,12 @@
                         android:layout_gravity="center_vertical|left"
                         android:text="PC 소프트웨어 정보 "
                         android:textSize="@dimen/text_small" />
-
+                    <TextView
+                        android:id="@+id/tv_swCnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        android:layout_marginStart="10dp"/>
                     <View
                         android:layout_width="0dp"
                         android:layout_height="match_parent"

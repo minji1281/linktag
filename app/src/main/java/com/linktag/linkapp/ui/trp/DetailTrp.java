@@ -92,6 +92,7 @@ public class DetailTrp extends BaseActivity {
     private String callBackTime = "";
 
     private TextView tv_Log;
+    public static TextView tv_alarmCnt;
     public static TrpVO trpVO;
 
     private Calendar calendar = Calendar.getInstance();
@@ -153,8 +154,7 @@ public class DetailTrp extends BaseActivity {
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
                     if (trpVO.ARM_03.equals("Y")) {
                         checkDayOfWeek("[" + ed_name.getText().toString() + "]" + "  해당 복약정보가 저장되었습니다.\n");
-                    }
-                    else{
+                    } else {
                         checkDayOfWeek("");
                     }
                 }
@@ -199,7 +199,7 @@ public class DetailTrp extends BaseActivity {
         tv_alarmLabel = findViewById(R.id.tv_alarmLabel);
 
         tv_Log = findViewById(R.id.tv_Log);
-
+        tv_alarmCnt = findViewById(R.id.tv_alarmCnt);
         sp_count = findViewById(R.id.sp_count);
         sp_timing = findViewById(R.id.sp_timing);
         ed_target = findViewById(R.id.ed_target);
@@ -597,6 +597,7 @@ public class DetailTrp extends BaseActivity {
                             if (mList == null)
                                 mList = new ArrayList<>();
 
+                            tv_alarmCnt.setText("(" + mList.size() + "건)");
                             if (mList.size() == 0) {
                                 tv_alarmLabel.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);
@@ -676,7 +677,7 @@ public class DetailTrp extends BaseActivity {
                             mList = response.body().Data;
                             if (mList == null)
                                 mList = new ArrayList<>();
-
+                            tv_alarmCnt.setText("(" + mList.size() + "건)");
                             if (mList.size() == 0) {
                                 tv_alarmLabel.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);
@@ -718,14 +719,14 @@ public class DetailTrp extends BaseActivity {
         for (TrdVO trdVO : mList) {
             int setTime = Integer.parseInt(trdVO.TRD_96.substring(8, 12));
             time = trdVO.TRD_96.substring(8, 12);
-            if(nowTime < setTime) {
+            if (nowTime < setTime) {
                 count++;
                 break;
             }
         }
-        if(count == 0){  // 예정알림시간이 이미 다 지난경우 다음요일로 넘어감
-            for(int i=1; i < array_pattern.length; i++){
-                if(array_pattern[nowWeek+i].equals("Y")){
+        if (count == 0) {  // 예정알림시간이 이미 다 지난경우 다음요일로 넘어감
+            for (int i = 1; i < array_pattern.length; i++) {
+                if (array_pattern[nowWeek + i].equals("Y")) {
                     nowWeek = nowWeek + i;
                     break;
                 }
@@ -734,19 +735,19 @@ public class DetailTrp extends BaseActivity {
 
         String ToastMessage = time.substring(0, 2) + "시" + time.substring(2, 4) + "분";
         if (nowWeek == 1 && array_pattern[1].equals("Y")) { //일요일
-            Toast.makeText(mContext, msg +"다음 알림예정일은 일요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg + "다음 알림예정일은 일요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
         } else if (nowWeek == 2 && array_pattern[2].equals("Y")) { //월요일
-            Toast.makeText(mContext, msg +"다음 알림예정일은 월요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg + "다음 알림예정일은 월요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
         } else if (nowWeek == 3 && array_pattern[3].equals("Y")) { //화요일
-            Toast.makeText(mContext, msg +"다음 알림예정일은 화요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg + "다음 알림예정일은 화요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
         } else if (nowWeek == 4 && array_pattern[4].equals("Y")) { //수요일
-            Toast.makeText(mContext, msg +"다음 알림예정일은 수요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg + "다음 알림예정일은 수요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
         } else if (nowWeek == 5 && array_pattern[5].equals("Y")) { //목요일
-            Toast.makeText(mContext, msg +"다음 알림예정일은 목요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg + "다음 알림예정일은 목요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
         } else if (nowWeek == 6 && array_pattern[6].equals("Y")) { //금요일
-            Toast.makeText(mContext, msg +"다음 알림예정일은 금요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg + "다음 알림예정일은 금요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
         } else if (nowWeek == 7 && array_pattern[7].equals("Y")) { //토요일
-            Toast.makeText(mContext, msg +"다음 알림예정일은 토요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg + "다음 알림예정일은 토요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
         }
     }
 
