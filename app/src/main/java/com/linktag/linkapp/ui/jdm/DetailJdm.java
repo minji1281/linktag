@@ -14,6 +14,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -183,7 +184,7 @@ public class DetailJdm extends BaseActivity {
                     Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 장독정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
 
                     if (jdmVO.ARM_03.equals("Y")) {
-                        Toast.makeText(mContext,"다음알람은 "+ jdmVO.JDM_96.substring(0,4)+"년" + jdmVO.JDM_96.substring(4,6)+"월"+ jdmVO.JDM_96.substring(6,8)+"일" +
+                        Toast.makeText(mContext,"다음알람 "+ jdmVO.JDM_96.substring(0,4)+"년" + jdmVO.JDM_96.substring(4,6)+"월"+ jdmVO.JDM_96.substring(6,8)+"일" +
                                 jdmVO.JDM_96.substring(8,10)+"시" + jdmVO.JDM_96.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
                     }
                     onBackPressed();
@@ -473,27 +474,46 @@ public class DetailJdm extends BaseActivity {
             header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new AlertDialog.Builder(mActivity)
-                            .setMessage("해당 정보를 삭제하시겠습니까?")
-                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                                @RequiresApi(api = Build.VERSION_CODES.M)
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    requestJMD_CONTROL("DELETE");
-                                }
-                            })
-                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    return;
-                                }
-                            })
-                            .show();
+
+                    deleteDialog();
 
                 }
             });
         }
 
+    }
+
+    private void deleteDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_delete, null);
+        builder.setView(view);
+
+        Button btnDelete = (Button) view.findViewById(R.id.btnDelete);
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+
+        EditText etDeleteName = (EditText) view.findViewById(R.id.etDeleteName);
+
+        AlertDialog dialog = builder.create();
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(etDeleteName.getText().toString().equals(jdmVO.JDM_02)){
+                    dialog.dismiss();
+                    requestJMD_CONTROL("DELETE");
+                }
+                else{
+                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     private void setRecycleDay(String val1, String val2, String val3) {
