@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,9 +33,11 @@ import com.linktag.linkapp.model.FRMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.master_log.MasterLog;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.FRM_VO;
+import com.linktag.linkapp.value_object.LogVO;
 
 import java.util.Calendar;
 
@@ -65,6 +68,7 @@ public class FrmDetail extends BaseActivity {
     private TextView tvPreFilterDay;
     private TextView tvNextFilterDay;
     private TextView lbFilter;
+    private TextView tvLog;
 
     private View lineDDAY;
     private TextView tvDayLabel;
@@ -193,6 +197,23 @@ public class FrmDetail extends BaseActivity {
         });
         tvNextFilterDay = (TextView) findViewById(R.id.tvNextFilterDay);
 
+        tvLog = (TextView) findViewById(R.id.tvLog);
+        tvLog.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                LogVO LOG = new LogVO();
+                LOG.LOG_ID = intentVO.CTN_02;
+                LOG.LOG_01 = FRM.FRM_01;
+                LOG.LOG_98 = mUser.Value.OCM_01;
+                LOG.SP_NAME = "SP_FRML_CONTROL";
+
+                Intent intent = new Intent(mContext, MasterLog.class);
+                intent.putExtra("LOG", LOG);
+
+                mContext.startActivity(intent);
+            }
+        });
+
         btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -238,6 +259,9 @@ public class FrmDetail extends BaseActivity {
             tvDayLabel.setVisibility(View.GONE);
             imgFilter.setVisibility(View.GONE);
             lbFilter.setVisibility(View.GONE);
+
+            tvLog.setVisibility(View.GONE);
+
             getNewData();
         }
     }
