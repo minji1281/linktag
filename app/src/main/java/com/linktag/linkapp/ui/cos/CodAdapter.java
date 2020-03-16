@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.user_interface.InterfaceUser;
@@ -245,11 +246,15 @@ public class CodAdapter extends BaseAdapter {
 
                             ArrayList<COD_VO> responseData = response.body().Data;
 
-                            if(GUBUN.equals("USEEND")){
+                            if(responseData.get(0).Validation){
                                 mList.get(position).COD_07 = responseData.get(0).COD_07;
-                            }
-                            else{ //ALARM_UPDATE
                                 mList.get(position).ARM_03 = responseData.get(0).ARM_03;
+
+                                if(responseData.get(0).ARM_03.equals("Y") && responseData.get(0).COD_07.equals("")){
+                                    String NextDay = responseData.get(0).COD_96;
+                                    Toast.makeText(mContext,"다음알람 "+ NextDay.substring(0,4)+"년 " + NextDay.substring(4,6)+"월 "+ NextDay.substring(6,8)+"일 " +
+                                            NextDay.substring(8,10)+"시 " + NextDay.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                                }
                             }
 
                             updateData(mList);

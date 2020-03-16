@@ -14,6 +14,7 @@ import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.user_interface.InterfaceUser;
@@ -208,14 +209,17 @@ public class PotAdapter extends BaseAdapter {
 
                             ArrayList<PotVO> responseData = response.body().Data;
 
-                            if(GUB.equals("WATER")){
-
+                            if(responseData.get(0).Validation){
                                 mList.get(position).DDAY = responseData.get(0).DDAY;
                                 mList.get(position).POT_03 = responseData.get(0).POT_03;
                                 mList.get(position).POT_96 = responseData.get(0).POT_96;
-                            }
-                            else{ //ALARM_UPDATE
                                 mList.get(position).ARM_03 = responseData.get(0).ARM_03;
+
+                                if(responseData.get(0).ARM_03.equals("Y")){
+                                    String NextDay = responseData.get(0).POT_96;
+                                    Toast.makeText(mContext,"다음알람 "+ NextDay.substring(0,4)+"년 " + NextDay.substring(4,6)+"월 "+ NextDay.substring(6,8)+"일 " +
+                                            NextDay.substring(8,10)+"시 " + NextDay.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                                }
                             }
 
                             updateData(mList);

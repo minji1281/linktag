@@ -403,23 +403,7 @@ public class CadList extends BaseActivity {
         if(GUBUN.equals("UPDATE")){
             btnDelete.setOnClickListener(new View.OnClickListener() {
                 public void onClick(View v) {
-                    new AlertDialog.Builder(mActivity)
-                            .setMessage("해당 차량의 모든 일지가 함께 삭제됩니다.\n삭제하시겠습니까?")
-                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface delete_dialog, int which) {
-                                    requestCAR_CONTROL("DELETE", "", "", "");
-
-                                    dialog.dismiss();
-                                }
-                            })
-                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    return;
-                                }
-                            })
-                            .show();
+                    deleteDialog(dialog);
                 }
             });
         }
@@ -432,6 +416,44 @@ public class CadList extends BaseActivity {
         }
 
         dialog.show();
+    }
+
+    private void deleteDialog(AlertDialog dialog){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_delete, null);
+        builder.setView(view);
+
+        Button btnDelete = (Button) view.findViewById(R.id.btnDelete);
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+
+        TextView tvDeleteText = (TextView) view.findViewById(R.id.tvDeleteText);
+        EditText etDeleteName = (EditText) view.findViewById(R.id.etDeleteName);
+
+        tvDeleteText.setText("해당 차량의 모든 내역이 함께 삭제됩니다.\n삭제하시려면 차량번호를 다시 입력해주세요.");
+        etDeleteName.setHint("차량번호 입력란입니다.");
+
+        AlertDialog dialogDelete = builder.create();
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(etDeleteName.getText().toString().equals(CAR.CAR_02)){
+                    dialogDelete.dismiss();
+                    requestCAR_CONTROL("DELETE", "", "", "");
+                    dialog.dismiss();
+                }
+                else{
+                    Toast.makeText(mActivity, "차량번호를 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialogDelete.dismiss();
+            }
+        });
+
+        dialogDelete.show();
     }
 
     // 요거

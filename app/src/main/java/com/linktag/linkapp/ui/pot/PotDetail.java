@@ -235,24 +235,7 @@ public class PotDetail extends BaseActivity {
                 header.btnHeaderRight1.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-//                        new AlertDialog.Builder(mActivity)
-//                                .setMessage("해당 화분을 삭제하시려면 명칭을 다시 입력해주세요.")
-//                                .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        requestPOT_CONTROL("DELETE");
-//                                    }
-//                                })
-//                                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
-//                                    @Override
-//                                    public void onClick(DialogInterface dialog, int which) {
-//                                        return;
-//                                    }
-//                                })
-//                                .show();
-
                         deleteDialog();
-
                     }
                 });
             }
@@ -320,7 +303,7 @@ public class PotDetail extends BaseActivity {
             return;
         }
 
-        openLoadingBar();
+//        openLoadingBar();
 
         String POT_ID = intentVO.CTN_02; //컨테이너
         String POT_01 = POT.POT_01; //코드번호
@@ -358,18 +341,28 @@ public class PotDetail extends BaseActivity {
                 msg.obj = response;
                 msg.what = 100;
 
-                if(GUB.equals("INSERT")){
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, POT.POT_01);
-                    ctds_control.requestCTDS_CONTROL();
-                }
-
                 new Handler(){
                     @Override
                     public void handleMessage(Message msg){
                         if(msg.what == 100){
-                            closeLoadingBar();
+//                            closeLoadingBar();
+
+                            if(GUB.equals("INSERT")){
+                                CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, POT.POT_01);
+                                ctds_control.requestCTDS_CONTROL();
+                            }
 
                             Response<POT_Model> response = (Response<POT_Model>) msg.obj;
+
+                            if(!GUB.equals("DELETE")){
+                                if(POT.ARM_03.equals("Y")){
+                                    if(GUB.equals("WATER")){
+                                        POT.POT_96 = response.body().Data.get(0).POT_96;
+                                    }
+                                    Toast.makeText(mContext,"다음알람 "+ POT.POT_96.substring(0,4)+"년 " + POT.POT_96.substring(4,6)+"월 "+ POT.POT_96.substring(6,8)+"일 " +
+                                            POT.POT_96.substring(8,10)+"시 " + POT.POT_96.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                                }
+                            }
 
                             if(GUB.equals("WATER")){
                                 setUserData(response.body().Data.get(0));
@@ -385,7 +378,7 @@ public class PotDetail extends BaseActivity {
             @Override
             public void onFailure(Call<POT_Model> call, Throwable t){
                 Log.d("POT_CONTROL", t.getMessage());
-                closeLoadingBar();
+//                closeLoadingBar();
             }
         });
 
