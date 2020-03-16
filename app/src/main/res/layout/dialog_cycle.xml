@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:btn_left_visibility="gone"
-        app:title_text="    주기 설정" />
+        app:title_text="주기 설정" />
 
     <RelativeLayout
         android:id="@+id/layoutCycle"

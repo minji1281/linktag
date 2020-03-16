@@ -235,21 +235,23 @@ public class PotDetail extends BaseActivity {
                 header.btnHeaderRight1.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        new AlertDialog.Builder(mActivity)
-                                .setMessage("해당 화분을 삭제하시겠습니까?")
-                                .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        requestPOT_CONTROL("DELETE");
-                                    }
-                                })
-                                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        return;
-                                    }
-                                })
-                                .show();
+//                        new AlertDialog.Builder(mActivity)
+//                                .setMessage("해당 화분을 삭제하시려면 명칭을 다시 입력해주세요.")
+//                                .setPositiveButton("삭제", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        requestPOT_CONTROL("DELETE");
+//                                    }
+//                                })
+//                                .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+//                                    @Override
+//                                    public void onClick(DialogInterface dialog, int which) {
+//                                        return;
+//                                    }
+//                                })
+//                                .show();
+
+                        deleteDialog();
 
                     }
                 });
@@ -598,6 +600,39 @@ public class PotDetail extends BaseActivity {
                 }
             });
         }
+    }
+
+    private void deleteDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_delete, null);
+        builder.setView(view);
+
+        Button btnDelete = (Button) view.findViewById(R.id.btnDelete);
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+
+        EditText etDeleteName = (EditText) view.findViewById(R.id.etDeleteName);
+
+        AlertDialog dialog = builder.create();
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(etDeleteName.getText().toString().equals(POT.POT_02)){
+                    dialog.dismiss();
+                    requestPOT_CONTROL("DELETE");
+                }
+                else{
+                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
 
     public boolean validationCheck(){
