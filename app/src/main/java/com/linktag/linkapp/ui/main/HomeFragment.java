@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -133,6 +136,11 @@ public class HomeFragment extends BaseFragment {
 
         gridARM = (ExpandableHeightGridView) view.findViewById(R.id.gridARM);
         gridARM.setExpanded(true);
+
+        imgProfile = view.findViewById(R.id.imgProfile);
+        imgProfile.setBackground(new ShapeDrawable(new OvalShape()));
+        if(Build.VERSION.SDK_INT >= 21)
+            imgProfile.setClipToOutline(true);
 
         tvHomeName = view.findViewById(R.id.tvHomeName);
         tvHomeEmail = view.findViewById(R.id.tvHomeEmail);
