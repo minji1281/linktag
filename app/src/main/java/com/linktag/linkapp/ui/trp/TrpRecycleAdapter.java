@@ -71,20 +71,20 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
     }
 
 
-    private class ListFilter extends Filter{
+    private class ListFilter extends Filter {
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
 
             String charString = constraint.toString();
-            if(charString.isEmpty()){
+            if (charString.isEmpty()) {
                 results.values = mList;
                 results.count = mList.size();
-            }else{
+            } else {
                 ArrayList<TrpVO> itemList = new ArrayList<>();
-                for(TrpVO item : mList){
-                    if(item.TRP_02.toLowerCase().contains(constraint.toString().toLowerCase())){
+                for (TrpVO item : mList) {
+                    if (item.TRP_02.toLowerCase().contains(constraint.toString().toLowerCase())) {
                         itemList.add(item);
                     }
                 }
@@ -97,11 +97,9 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
 
-            filteredmlist = (ArrayList<TrpVO>)results.values;
+            filteredmlist = (ArrayList<TrpVO>) results.values;
 
-            if(results.count>0){
-                notifyDataSetChanged();
-            }
+            notifyDataSetChanged();
         }
     }
 
@@ -144,8 +142,8 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
             @Override
             public void onClick(View view) {
 
-                if (viewHolder.filteredmlist_trd.size() ==0){
-                    Toast.makeText(mContext,"지정된 알림이 없습니다.",Toast.LENGTH_LONG).show();
+                if (viewHolder.filteredmlist_trd.size() == 0) {
+                    Toast.makeText(mContext, "지정된 알림이 없습니다.", Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -218,11 +216,10 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
                             if (viewHolder.filteredmlist_trd == null)
                                 viewHolder.filteredmlist_trd = new ArrayList<>();
 
-                            if (viewHolder.filteredmlist_trd.size() ==0){
+                            if (viewHolder.filteredmlist_trd.size() == 0) {
                                 viewHolder.tv_alarmNone.setVisibility(View.VISIBLE);
                                 viewHolder.recyclerView_TRD.setVisibility(View.GONE);
-                            }
-                            else{
+                            } else {
                                 viewHolder.tv_alarmNone.setVisibility(View.GONE);
                                 viewHolder.recyclerView_TRD.setVisibility(View.VISIBLE);
                             }

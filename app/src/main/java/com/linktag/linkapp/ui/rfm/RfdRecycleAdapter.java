@@ -49,7 +49,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.ViewHolder>  implements Filterable {
+public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.ViewHolder> implements Filterable {
 
     private Context mContext;
     private ArrayList<RfdVO> mList;
@@ -78,20 +78,20 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
     }
 
 
-    private class ListFilter extends Filter{
+    private class ListFilter extends Filter {
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
 
             String charString = constraint.toString();
-            if(charString.isEmpty()){
+            if (charString.isEmpty()) {
                 results.values = mList;
                 results.count = mList.size();
-            }else{
+            } else {
                 ArrayList<RfdVO> itemList = new ArrayList<>();
-                for(RfdVO item : mList){
-                    if(item.RFD_03.toLowerCase().contains(constraint.toString().toLowerCase())){
+                for (RfdVO item : mList) {
+                    if (item.RFD_03.toLowerCase().contains(constraint.toString().toLowerCase())) {
                         itemList.add(item);
                     }
                 }
@@ -104,11 +104,9 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
 
-            filteredmlist = (ArrayList<RfdVO>)results.values;
+            filteredmlist = (ArrayList<RfdVO>) results.values;
 
-            if(results.count>0){
-                notifyDataSetChanged();
-            }
+            notifyDataSetChanged();
         }
     }
 
@@ -286,7 +284,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
             tv_name = itemView.findViewById(R.id.tv_name);
             tv_D_day = itemView.findViewById(R.id.tv_D_day);
             btn_label = itemView.findViewById(R.id.btn_label);
-            tv_label1 =itemView.findViewById(R.id.tv_label1);
+            tv_label1 = itemView.findViewById(R.id.tv_label1);
             root_linearLayout = itemView.findViewById(R.id.root_linearLayout);
 
             itemView.setOnClickListener(new View.OnClickListener() {

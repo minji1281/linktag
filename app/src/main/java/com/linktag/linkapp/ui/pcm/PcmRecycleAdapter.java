@@ -68,20 +68,20 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
     }
 
 
-    private class ListFilter extends Filter{
+    private class ListFilter extends Filter {
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
 
             String charString = constraint.toString();
-            if(charString.isEmpty()){
+            if (charString.isEmpty()) {
                 results.values = mList;
                 results.count = mList.size();
-            }else{
+            } else {
                 ArrayList<PcmVO> itemList = new ArrayList<>();
-                for(PcmVO item : mList){
-                    if(item.PCM_02.toLowerCase().contains(constraint.toString().toLowerCase())){
+                for (PcmVO item : mList) {
+                    if (item.PCM_02.toLowerCase().contains(constraint.toString().toLowerCase())) {
                         itemList.add(item);
                     }
                 }
@@ -94,11 +94,9 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
 
-            filteredmlist = (ArrayList<PcmVO>)results.values;
+            filteredmlist = (ArrayList<PcmVO>) results.values;
 
-            if(results.count>0){
-                notifyDataSetChanged();
-            }
+            notifyDataSetChanged();
         }
     }
 
@@ -117,9 +115,9 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
         viewHolder.tv_name.setText(filteredmlist.get(position).PCM_02);
-        viewHolder.tv_date.setText(filteredmlist.get(position).PCM_04.substring(0,4)+"."+filteredmlist.get(position).PCM_04.substring(4,6)+"."+filteredmlist.get(position).PCM_04.substring(6,8));
-        viewHolder.tv_hwCount.setText("하드웨어 "+filteredmlist.get(position).PCD_HW_CNT + "건");
-        viewHolder.tv_swCount.setText("소프트웨어 "+filteredmlist.get(position).PCD_SW_CNT + "건");
+        viewHolder.tv_date.setText(filteredmlist.get(position).PCM_04.substring(0, 4) + "." + filteredmlist.get(position).PCM_04.substring(4, 6) + "." + filteredmlist.get(position).PCM_04.substring(6, 8));
+        viewHolder.tv_hwCount.setText("하드웨어 " + filteredmlist.get(position).PCD_HW_CNT + "건");
+        viewHolder.tv_swCount.setText("소프트웨어 " + filteredmlist.get(position).PCD_SW_CNT + "건");
 
     }
 

@@ -78,20 +78,20 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
     }
 
 
-    private class ListFilter extends Filter{
+    private class ListFilter extends Filter {
 
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
 
             String charString = constraint.toString();
-            if(charString.isEmpty()){
+            if (charString.isEmpty()) {
                 results.values = mList;
                 results.count = mList.size();
-            }else{
+            } else {
                 ArrayList<JdmVO> itemList = new ArrayList<>();
-                for(JdmVO item : mList){
-                    if(item.JDM_02.toLowerCase().contains(constraint.toString().toLowerCase())){
+                for (JdmVO item : mList) {
+                    if (item.JDM_02.toLowerCase().contains(constraint.toString().toLowerCase())) {
                         itemList.add(item);
                     }
                 }
@@ -104,11 +104,8 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         @Override
         protected void publishResults(CharSequence constraint, FilterResults results) {
 
-            filteredmlist = (ArrayList<JdmVO>)results.values;
-
-            if(results.count>0){
-                notifyDataSetChanged();
-            }
+            filteredmlist = (ArrayList<JdmVO>) results.values;
+            notifyDataSetChanged();
         }
     }
 
@@ -127,7 +124,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
         Calendar sCalendar = Calendar.getInstance();
-        if(!filteredmlist.get(position).JDM_08.equals("")){
+        if (!filteredmlist.get(position).JDM_08.equals("")) {
             sCalendar.set(Calendar.YEAR, Integer.parseInt(filteredmlist.get(position).JDM_08.substring(0, 4)));
             sCalendar.set(Calendar.MONTH, Integer.parseInt(filteredmlist.get(position).JDM_08.substring(4, 6)) - 1);
             sCalendar.set(Calendar.DATE, Integer.parseInt(filteredmlist.get(position).JDM_08.substring(6, 8)));
@@ -180,13 +177,13 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
             aCalendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(dayOfMonth));
 
             int count = (int) ((calendar.getTimeInMillis() - aCalendar.getTimeInMillis()) / (24 * 60 * 60 * 1000));
-            viewHolder.tv_D_day.setText("현재까지" + String.valueOf(count)+"일 숙성");
+            viewHolder.tv_D_day.setText("현재까지" + String.valueOf(count) + "일 숙성");
 
         }
         viewHolder.tv_name.setText(filteredmlist.get(position).JDM_02);
         viewHolder.tv_nextDay.setText(filteredmlist.get(position).JDM_96.substring(0, 4) + "." + filteredmlist.get(position).JDM_96.substring(4, 6) + "." + filteredmlist.get(position).JDM_96.substring(6, 8));
 
-        if (filteredmlist.get(position).JDM_08.equals("") ||  Integer.parseInt(filteredmlist.get(position).JDM_96.substring(0, 8)) <= Integer.parseInt(formatDate.format(calendar.getTime()))) {
+        if (filteredmlist.get(position).JDM_08.equals("") || Integer.parseInt(filteredmlist.get(position).JDM_96.substring(0, 8)) <= Integer.parseInt(formatDate.format(calendar.getTime()))) {
             viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
         } else {
             viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_skyblue_5dp);
