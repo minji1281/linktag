@@ -46,6 +46,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class MemberInvite extends BaseActivity {
+    public static int REQUEST_CODE = 5331;
+
     private int STATE = 0;
     private int STATE_NONE = 0;
     private int STATE_EMAIL = 1;

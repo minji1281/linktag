@@ -190,7 +190,8 @@ public class Member extends BaseActivity {
     private void goInvite(){
         Intent intent = new Intent(mContext, MemberInvite.class);
         intent.putExtra("intentVO", intentVO);
-        mContext.startActivity(intent);
+        startActivityForResult(intent,MemberInvite.REQUEST_CODE);
+//        mContext.startActivity(intent);
     }
 
     private void setSpinner(CTD_Model model){
@@ -302,4 +303,12 @@ public class Member extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if(requestCode == MemberInvite.REQUEST_CODE){
+            requestOCM_SELECT();
+        }
+    }
 }

@@ -3,6 +3,7 @@ package com.linktag.linkapp.ui.menu;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,6 +27,7 @@ import com.linktag.linkapp.model.SVC_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.SvcVO;
 
 import java.util.ArrayList;
@@ -43,24 +45,13 @@ public class AddShared extends BaseActivity {
     private GridView gridView;
     private ImageView btnSearch;
 
-    private LinearLayout layShared;
-    private RelativeLayout layInput;
-
-    private EditText etSharedName;
-    private ImageView ivShared;
-    private Button btnCancel;
-    private Button btnSubmit;
-
     //===================================
     // Variable
     //===================================
     private AddSharedAdapter mAdapter;
     private ArrayList<SvcVO> mList;
 
-    private String GUBUN;
     private String CTM_01;
-
-    private int sPosition = 0;
 
     //===================================
     // Initialize
@@ -81,8 +72,6 @@ public class AddShared extends BaseActivity {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
-        layShared = findViewById(R.id.layShared);
-
         btnSearch = findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(v -> requestSVC_SELECT());
         etSearch = findViewById(R.id.etSearch);
@@ -99,38 +88,7 @@ public class AddShared extends BaseActivity {
         });
 
         gridView = findViewById(R.id.gridView);
-        gridView.setOnItemClickListener((parent, view, position, id) -> onSelect(position));
-
-        layInput = findViewById(R.id.layInput);
-
-        etSharedName = findViewById(R.id.etSharedName);
-        ivShared = findViewById(R.id.ivService);
-        btnCancel = findViewById(R.id.btnCancel);
-        btnCancel.setOnClickListener(v -> goCancel());
-        btnSubmit = findViewById(R.id.btnSubmit);
-        btnSubmit.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                builder.setMessage(mList.get(sPosition).SVC_03 + " 을/를 추가하시겠습니까?");
-                builder.setCancelable(true);
-                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                        //GUBUN = contractType.equals("P") ? "INSERT" : "INSERT_SHARED";
-                        GUBUN = "INSERT_SHARED";
-                        requestCTD_CONTROL();
-                    }
-                });
-                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int id) {
-                    }
-                });
-                builder.create().show();
-            }
-        });
-
+        gridView.setOnItemClickListener((parent, view, position, id) -> goDetail(position));
     }
 
     @Override
@@ -152,22 +110,18 @@ public class AddShared extends BaseActivity {
         requestSVC_SELECT();
     }
 
-    private void onSelect(int position) {
-        sPosition = position;
+    private void goDetail(int position) {
+        CtdVO ctdVO = new CtdVO();
+        ctdVO.CTD_01 = "";
+        ctdVO.SVC_01 = mList.get(position).SVC_01;
+        ctdVO.CTD_02 = mList.get(position).SVC_02;
+        ctdVO.CTD_02_NM = mList.get(position).SVC_03;
+        ctdVO.CTD_08 = "";
 
-        layShared.setVisibility(View.GONE);
-        layInput.setVisibility(View.VISIBLE);
-
-        etSharedName.requestFocus();
-    }
-
-    private void goCancel(){
-        sPosition = 0;
-
-        layInput.setVisibility(View.GONE);
-        layShared.setVisibility(View.VISIBLE);
-
-        etSharedName.setText("");
+        Intent intent = new Intent(mContext, AddSharedDetail.class);
+        intent.putExtra("type", "INSERT");
+        intent.putExtra("intentVO", ctdVO);
+        mContext.startActivity(intent);
     }
 
     public void requestSVC_SELECT() {
@@ -179,12 +133,11 @@ public class AddShared extends BaseActivity {
 
         //openLoadingBar();
 
-        String GUB = "LIST";
         String SVC_03 = etSearch.getText().toString();
 
         Call<SVC_Model> call = Http.svc(HttpBaseService.TYPE.POST).SVC_SELECT(
                 BaseConst.URL_HOST,
-                GUB,
+                "LIST",
                 "",
                 CTM_01,
                 SVC_03,
@@ -228,77 +181,6 @@ public class AddShared extends BaseActivity {
 
             }
         });
-
-    }
-
-    public void requestCTD_CONTROL() {
-        // 인터넷 연결 여부 확인
-        if(!ClsNetworkCheck.isConnectable(mContext)){
-            BaseAlert.show(getString(R.string.common_network_error));
-            return;
-        }
-
-        String SVC_02 = mList.get(sPosition).SVC_02;
-        String CTD_10 = etSharedName.getText().toString();
-
-        //openLoadingBar();
-
-        Call<CTD_Model> call = Http.ctd(HttpBaseService.TYPE.POST).CTD_CONTROL(
-                BaseConst.URL_HOST,
-                GUBUN,
-                CTM_01,
-                SVC_02,
-                "1",
-                "1",
-                "3",
-                0,
-                mUser.Value.OCM_01,
-                "",
-                "",
-                CTD_10,
-                "",
-                mUser.Value.OCM_01
-        );
-
-        call.enqueue(new Callback<CTD_Model>() {
-            @SuppressLint("HandlerLeak")
-            @Override
-            public void onResponse(Call<CTD_Model> call, Response<CTD_Model> response) {
-                Message msg = new Message();
-                msg.obj = response;
-                msg.what = 100;
-
-                new Handler(){
-                    @Override
-                    public void handleMessage(Message msg){
-                        if(msg.what == 100){
-                            //closeLoadingBar();
-
-                            //Response<CTD_Model> response = (Response<CTD_Model>) msg.obj;
-                            mActivity.finish();
-
-                        }
-                    }
-                }.sendMessage(msg);
-            }
-
-            @Override
-            public void onFailure(Call<CTD_Model> call, Throwable t) {
-                Log.d("Test", t.getMessage());
-                //closeLoadingBar();
-
-            }
-        });
-
-    }
-
-    @Override
-    public void onBackPressed(){
-        if(layShared.getVisibility() == View.VISIBLE){
-            finish();
-        } else {
-            goCancel();
-        }
     }
 
 }

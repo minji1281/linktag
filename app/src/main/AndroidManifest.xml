@@ -106,6 +106,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
         <activity
+            android:name=".ui.menu.AddSharedDetail"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser" />
+        <activity
             android:name=".ui.menu.ChooseOne"
             android:theme="@android:style/Theme.Dialog" />
         <activity

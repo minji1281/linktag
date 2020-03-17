@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.GridView;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -42,7 +43,7 @@ public class ServiceFragment extends BaseFragment {
     private BaseHeader header;
     private View view;
     private GridView gridView;
-    private LinearLayout layAdd;
+    private ImageView imgNew;
 
     private ServiceAdapter mAdapter;
     private ArrayList<CtdVO> mList;
@@ -83,8 +84,8 @@ public class ServiceFragment extends BaseFragment {
     private void initLayout() {
         header = mActivity.findViewById(R.id.header);
 
-        layAdd = view.findViewById(R.id.layAdd);
-        layAdd.setOnClickListener(v -> goAdd());
+        imgNew = view.findViewById(R.id.imgNew);
+        imgNew.setOnClickListener(v -> goAdd());
 
         gridView = view.findViewById(R.id.gridView);
         gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -100,7 +101,7 @@ public class ServiceFragment extends BaseFragment {
 
         if(activity_name.equals("ChooseOne")){
             header.btnHeaderText.setVisibility(View.GONE);
-            layAdd.setVisibility(View.GONE);
+            imgNew.setVisibility(View.GONE);
 
             bundle = getArguments();
 
