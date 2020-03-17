@@ -14,34 +14,70 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="@string/sign_up_0" />
+        android:layout_marginBottom="50dp"/>
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:gravity="bottom"
+                android:layout_gravity="bottom"
+                android:layout_weight="1">
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="bottom"
+                    android:layout_gravity="bottom"
+                    android:scaleType="center"
+                    android:src="@drawable/login_logo2" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="30dp"
+                android:layout_weight="1">
 
                 <TextView
-                    style="@style/login_item_title"
-                    android:text="@string/sign_up_3" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:text="@string/sign_up_0"
+                    android:textColor="#3F53A1"
+                    android:textSize="@dimen/_12sdp">
+                </TextView>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp">
+
+                <!--                <TextView-->
+                <!--                    style="@style/login_item_title"-->
+                <!--                    android:text="@string/sign_up_3" />-->
 
                 <EditText
                     android:id="@+id/etName"
                     style="@style/login_input"
                     android:layout_height="50dp"
                     android:background="@drawable/border3"
-                    android:paddingLeft="10dp"
-                    android:layout_marginTop="8dp"
                     android:hint="@string/sign_up_4"
                     android:maxLength="10" />
             </LinearLayout>
@@ -50,21 +86,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp">
 
-                <TextView
-                    style="@style/login_item_title"
-                    android:text="@string/sign_up_5" />
+                <!--                <TextView-->
+                <!--                    style="@style/login_item_title"-->
+                <!--                    android:text="@string/sign_up_5" />-->
 
                 <EditText
                     android:id="@+id/etEmail"
                     style="@style/login_input"
-                    android:layout_marginTop="8dp"
                     android:hint="@string/sign_up_6"
                     android:inputType="textEmailAddress"
                     android:layout_height="50dp"
                     android:background="@drawable/border3"
-                    android:paddingLeft="10dp"
                     android:maxLength="20" />
             </LinearLayout>
 
@@ -72,25 +108,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <!--                <RelativeLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content">-->
 
-                    <TextView
-                        style="@style/login_item_title"
-                        android:text="PASSWORD" />
+                <!--                    <TextView-->
+                <!--                        style="@style/login_item_title"-->
+                <!--                        android:text="PASSWORD" />-->
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:text="영문, 숫자를 포함한 7-30자 입력"
-                        android:textColor="#6E6E6E"
-                        android:visibility="gone"
-                        android:textSize="@dimen/text_small" />
-                </RelativeLayout>
+                <!--                    <TextView-->
+                <!--                        android:layout_width="wrap_content"-->
+                <!--                        android:layout_height="wrap_content"-->
+                <!--                        android:layout_alignParentEnd="true"-->
+                <!--                        android:text="영문, 숫자를 포함한 7-30자 입력"-->
+                <!--                        android:textColor="#6E6E6E"-->
+                <!--                        android:visibility="gone"-->
+                <!--                        android:textSize="@dimen/text_small" />-->
+                <!--                </RelativeLayout>-->
 
                 <RelativeLayout
                     android:layout_width="match_parent"
@@ -99,13 +137,11 @@
                     <EditText
                         android:id="@+id/etPassword"
                         style="@style/login_input"
-                        android:layout_marginTop="8dp"
                         android:hint="@string/sign_up_7"
                         android:inputType="textPassword"
                         android:maxLength="30"
                         android:layout_height="50dp"
-                        android:background="@drawable/border3"
-                        android:paddingLeft="10dp"/>
+                        android:background="@drawable/border3"/>
 
                     <ImageView
                         android:id="@+id/imgShowPassword"
@@ -126,51 +162,51 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp">
 
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                <!--                <RelativeLayout-->
+                <!--                    android:layout_width="match_parent"-->
+                <!--                    android:layout_height="wrap_content">-->
 
-                    <TextView
-                        style="@style/login_item_title"
-                        android:text="PASSWORD" />
+                <!--                    <TextView-->
+                <!--                        style="@style/login_item_title"-->
+                <!--                        android:text="PASSWORD" />-->
 
-                </RelativeLayout>
+                <!--                </RelativeLayout>-->
 
                 <EditText
                     android:id="@+id/etPasswordConfirm"
                     style="@style/login_input"
-                    android:layout_marginTop="8dp"
                     android:hint="@string/sign_up_8"
                     android:inputType="textPassword"
                     android:maxLength="30"
                     android:layout_height="50dp"
-                    android:background="@drawable/border3"
-                    android:paddingLeft="10dp"/>
+                    android:background="@drawable/border3"/>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical"
-                android:padding="16dp">
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingBottom="16dp">
 
-                <TextView
-                    style="@style/login_item_title"
-                    android:text="PHONE NUMBER" />
+                <!--                <TextView-->
+                <!--                    style="@style/login_item_title"-->
+                <!--                    android:text="PHONE NUMBER" />-->
 
                 <EditText
                     android:id="@+id/etMobile"
                     style="@style/login_input"
-                    android:layout_marginTop="8dp"
                     android:digits="0123456789-"
                     android:hint="@string/sign_up_9"
                     android:inputType="numberSigned"
                     android:maxLength="13"
                     android:layout_height="50dp"
-                    android:background="@drawable/border3"
-                    android:paddingLeft="10dp"/>
+                    android:background="@drawable/border3"/>
             </LinearLayout>
 
             <LinearLayout
@@ -204,14 +240,31 @@
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="16dp">
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="60dp"
+                android:paddingBottom="70dp">
 
                 <Button
                     android:id="@+id/btnNext"
                     style="@style/signup_button"
-                    android:text="@string/sign_up_10"
+                    android:text="@string/sign_up_0"
                     tools:enabled="false" />
             </RelativeLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="bottom"
+                android:layout_gravity="bottom">
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|bottom"
+                    android:gravity="bottom"
+                    android:text="Copyright ⓒ (주)ESANSOFT All rights reserved."
+                    android:textSize="@dimen/text_small" />
+            </LinearLayout>
         </LinearLayout>
     </ScrollView>
 </LinearLayout>
