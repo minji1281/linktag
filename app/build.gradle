@@ -39,6 +39,7 @@ dependencies {
     implementation project(path: ':base')
     implementation project(path: ':base_resource')
     implementation 'com.github.bumptech.glide:glide:4.9.0'
+    implementation 'com.naver.maps:map-sdk:3.3.0'
     implementation 'com.journeyapps:zxing-android-embedded:3.6.0'
 
     implementation 'de.hdodenhof:circleimageview:2.2.0'
@@ -68,6 +69,12 @@ dependencies {
 
     implementation 'com.soundcloud.android:android-crop:1.0.1@aar'
     implementation 'org.altbeacon:android-beacon-library:2.16.3'
+
+    implementation 'com.github.andreilisun:circular-layout:1.0'
+    implementation 'com.ogaclejapan.arclayout:library:1.1.0@aar'
+
+
+
 }
 
 apply plugin: 'com.google.gms.google-services'

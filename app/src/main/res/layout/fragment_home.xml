@@ -250,7 +250,6 @@
                     android:paddingStart="10dp"
                     android:paddingEnd="10dp"
                     android:text="Beacon"
-                    android:visibility="gone"
                     android:textSize="@dimen/text_small" />
 
 
@@ -259,9 +258,8 @@
                     android:id="@+id/tnSpacer2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_toStartOf="@id/btnSql"
+                    android:layout_toStartOf="@id/btnArc"
                     android:gravity="center"
-                    android:visibility="gone"
                     android:text="|" />
 
                 <TextView
@@ -273,6 +271,16 @@
                     android:paddingStart="10dp"
                     android:text="SQLite"
                     android:visibility="gone"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/btnArc"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignParentEnd="true"
+                    android:paddingStart="10dp"
+                    android:text="아크"
                     android:textSize="@dimen/text_small" />
 
                 <ImageView

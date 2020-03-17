@@ -18,6 +18,7 @@ import com.linktag.base.base_view_pager.BaseViewPager;
 import com.linktag.base.base_view_pager.ViewPagerAdapter;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.ui.arclayout.arclayoutMain;
 import com.linktag.linkapp.ui.login.Login;
 import com.linktag.linkapp.ui.scanner.ScanResult;
 
@@ -75,7 +76,21 @@ public class Main extends BaseActivity {
 
         //footer.btnFooterMember.setOnClickListener(v -> goMember());
 
-        footer.btnFooterScan.setOnClickListener(v -> goScan());
+   //     footer.btnFooterScan.setOnClickListener(v -> goScan());
+        footer.btnFooterScan.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, arclayoutMain.class);
+//                intent.putExtra("DSH_01", "");
+//                intent.putExtra("DSH_04", "");
+//                intent.putExtra("DSH_05", "");
+//                intent.putExtra("DSH_09", "0");
+//                intent.putExtra("DSH_97","");
+//                intent.putExtra("DSH_GB", "NOT");
+
+                mContext.startActivity(intent);
+            }
+        });
         //footer.btnFooterMenu.setOnClickListener(v -> goMenu());
         //footer.btnFooterSetting.setOnClickListener(v -> goSettingMain());
 

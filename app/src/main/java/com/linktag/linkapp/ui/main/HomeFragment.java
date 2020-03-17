@@ -35,6 +35,7 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.base.util.ExpandableHeightGridView;
 import com.linktag.linkapp.ui.beacon.beaconMain;
+import com.linktag.linkapp.ui.arclayout.arclayoutMain;
 import com.linktag.linkapp.ui.board.BoardDetail;
 import com.linktag.linkapp.ui.board.BoardMain;
 import com.linktag.linkapp.ui.calendar.AlarmListAdapter;
@@ -78,6 +79,7 @@ public class HomeFragment extends BaseFragment {
     private TextView btnNotList;
     private TextView btnSql;
     private TextView btnBeacon;
+    private TextView btnArc;
 
     private BookmarkAdapter mAdapter;
     private ArrayList<CtdVO> mList;
@@ -210,6 +212,22 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, beaconMain.class);
+//                intent.putExtra("DSH_01", "");
+//                intent.putExtra("DSH_04", "");
+//                intent.putExtra("DSH_05", "");
+//                intent.putExtra("DSH_09", "0");
+//                intent.putExtra("DSH_97","");
+//                intent.putExtra("DSH_GB", "NOT");
+
+                mContext.startActivity(intent);
+            }
+        });
+
+        btnArc = view.findViewById(R.id.btnArc);
+        btnArc.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, arclayoutMain.class);
 //                intent.putExtra("DSH_01", "");
 //                intent.putExtra("DSH_04", "");
 //                intent.putExtra("DSH_05", "");

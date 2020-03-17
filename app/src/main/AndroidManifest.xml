@@ -279,7 +279,10 @@
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
 
-
+        <!-- 아크레이아웃용 -->
+        <activity
+            android:name=".ui.arclayout.arclayoutMain"
+            android:theme="@style/Theme.MyDialog" />
         <!-- 푸시알람 -->
         <!--        <receiver android:name=".ui.alarm.DeviceBootReceiver"-->
         <!--            android:enabled="false">-->

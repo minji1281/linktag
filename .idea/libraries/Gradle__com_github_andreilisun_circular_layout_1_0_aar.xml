@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="Gradle: com.github.andreilisun:circular-layout:1.0@aar">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d11aab564d9c48f5e21737d646c24845/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d11aab564d9c48f5e21737d646c24845/res" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.github.andreilisun/circular-layout/1.0/34e1fa9cfd0190562e6ddabab25a3f36dec29860/circular-layout-1.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

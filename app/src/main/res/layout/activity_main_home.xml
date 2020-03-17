@@ -30,6 +30,10 @@
     </com.linktag.base.base_view_pager.BaseViewPager>
 
 
+<!--    <com.linktag.base.base_footer.BaseFooter-->
+<!--        android:id="@+id/footer"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content" />-->
     <com.linktag.base.base_footer.BaseFooter
         android:id="@+id/footer"
         android:layout_width="match_parent"

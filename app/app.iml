@@ -183,6 +183,8 @@
     <orderEntry type="library" name="Gradle: com.github.PhilJay:MPAndroidChart:v3.1.0@aar" level="project" />
     <orderEntry type="library" name="Gradle: com.soundcloud.android:android-crop:1.0.1@aar" level="project" />
     <orderEntry type="library" name="Gradle: org.altbeacon:android-beacon-library:2.16.3@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.github.andreilisun:circular-layout:1.0@aar" level="project" />
+    <orderEntry type="library" name="Gradle: com.ogaclejapan.arclayout:library:1.1.0@aar" level="project" />
     <orderEntry type="module" module-name="base" />
     <orderEntry type="module" module-name="base_resource" />
     <orderEntry type="module" module-name="base" />
