@@ -9,8 +9,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_footer.BaseFooter;
@@ -51,6 +54,8 @@ public class TRPMain extends BaseActivity {
 
     private ArrayList<TrpVO> mList;
 
+    private EditText ed_search;
+
     // 요거
     private CtdVO intentVO;
 
@@ -76,6 +81,23 @@ public class TRPMain extends BaseActivity {
         super.onResume();
 
         requestTRP_SELECT("");
+
+        ed_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                mAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable edit) {
+            }
+        });
+
+
     }
 
 
@@ -90,6 +112,7 @@ public class TRPMain extends BaseActivity {
         view = findViewById(R.id.recyclerView);
         recyclerView = view.findViewById(R.id.recyclerView);
 
+        ed_search = findViewById(R.id.ed_search);
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
 
@@ -210,7 +233,7 @@ public class TRPMain extends BaseActivity {
                                     mContext.startActivity(intent);
                                 }
                             }
-
+                            mAdapter.getFilter().filter(ed_search.getText());
 
                         }
                     }

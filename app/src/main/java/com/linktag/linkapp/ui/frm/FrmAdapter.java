@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
@@ -37,8 +38,11 @@ import retrofit2.Response;
 public class FrmAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<FRM_VO> mList;
+    private ArrayList<FRM_VO> filteredmlist;
     private LayoutInflater mInflater;
     private InterfaceUser mUser;
+
+    Filter listFilter;
 
     Calendar TODAY = Calendar.getInstance();
     Calendar FRM_03_C = Calendar.getInstance();
@@ -49,16 +53,17 @@ public class FrmAdapter extends BaseAdapter {
         this.mList = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mUser = InterfaceUser.getInstance();
+        filteredmlist = list;
     }
 
     @Override
     public int getCount() {
-        return mList.size();
+        return filteredmlist.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mList.get(position);
+        return filteredmlist.get(position);
     }
 
     @Override
@@ -89,12 +94,12 @@ public class FrmAdapter extends BaseAdapter {
         }
 
         //Text
-        viewHolder.tvFrmName.setText(mList.get(position).FRM_02);
-        viewHolder.tvNextDay.setText(mList.get(position).FRM_96.substring(0, 4) + "-" + mList.get(position).FRM_96.substring(4, 6) + "-" + mList.get(position).FRM_96.substring(6, 8));
+        viewHolder.tvFrmName.setText(filteredmlist.get(position).FRM_02);
+        viewHolder.tvNextDay.setText(filteredmlist.get(position).FRM_96.substring(0, 4) + "-" + filteredmlist.get(position).FRM_96.substring(4, 6) + "-" + filteredmlist.get(position).FRM_96.substring(6, 8));
 
         //ProgressBar
-        FRM_03_C.set(Integer.parseInt(mList.get(position).FRM_03.substring(0,4)), Integer.parseInt(mList.get(position).FRM_03.substring(4,6)) - 1, Integer.parseInt(mList.get(position).FRM_03.substring(6)));
-        FRM_96_C.set(Integer.parseInt(mList.get(position).FRM_96.substring(0,4)), Integer.parseInt(mList.get(position).FRM_96.substring(4,6)) - 1, Integer.parseInt(mList.get(position).FRM_96.substring(6,8)));
+        FRM_03_C.set(Integer.parseInt(filteredmlist.get(position).FRM_03.substring(0,4)), Integer.parseInt(filteredmlist.get(position).FRM_03.substring(4,6)) - 1, Integer.parseInt(filteredmlist.get(position).FRM_03.substring(6)));
+        FRM_96_C.set(Integer.parseInt(filteredmlist.get(position).FRM_96.substring(0,4)), Integer.parseInt(filteredmlist.get(position).FRM_96.substring(4,6)) - 1, Integer.parseInt(filteredmlist.get(position).FRM_96.substring(6,8)));
         int max = (int) ((FRM_96_C.getTimeInMillis() - FRM_03_C.getTimeInMillis()) / (24*60*60*1000));
         int value = (int) ((TODAY.getTimeInMillis() - FRM_03_C.getTimeInMillis()) / (24*60*60*1000));
         viewHolder.pbFilter.setMax(max);
@@ -107,7 +112,7 @@ public class FrmAdapter extends BaseAdapter {
         }
 
         //Image
-        if(mList.get(position).ARM_03.equals("Y")){
+        if(filteredmlist.get(position).ARM_03.equals("Y")){
             viewHolder.imgAlarmIcon.setImageResource(R.drawable.alarm_state_on);
         }
         else{ //N
@@ -116,7 +121,7 @@ public class FrmAdapter extends BaseAdapter {
         viewHolder.imgAlarmIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FRM_VO data = mList.get(position);
+                FRM_VO data = filteredmlist.get(position);
                 requestFRM_CONTROL("ALARM_UPDATE", data, position);
             }
         });
@@ -130,7 +135,7 @@ public class FrmAdapter extends BaseAdapter {
                         .setPositiveButton("예", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                FRM_VO data = mList.get(position);
+                                FRM_VO data = filteredmlist.get(position);
                                 requestFRM_CONTROL("FILTER", data, position);
                             }
                         })
@@ -148,6 +153,50 @@ public class FrmAdapter extends BaseAdapter {
         viewHolder.btnFilterChange.setFocusable(false);
 
         return convertView;
+    }
+
+    public Filter getFilter() {
+        if (listFilter == null)
+            listFilter = new ListFilter();
+
+        return listFilter;
+    }
+
+    private class ListFilter extends Filter{
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            String charString = constraint.toString();
+            if(charString.isEmpty()){
+                results.values = mList;
+                results.count = mList.size();
+            }else{
+                ArrayList<FRM_VO> itemList = new ArrayList<>();
+                for(FRM_VO item : mList){
+                    if(item.FRM_02.toLowerCase().contains(constraint.toString().toLowerCase())){
+                        itemList.add(item);
+                    }
+                }
+                results.values = itemList;
+                results.count = itemList.size();
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            filteredmlist = (ArrayList<FRM_VO>)results.values;
+
+            if(results.count>0){
+                notifyDataSetChanged();
+            }
+            else {
+                notifyDataSetInvalidated();
+            }
+        }
     }
 
     public void updateData(ArrayList<FRM_VO> list){ mList = list;}
@@ -208,9 +257,9 @@ public class FrmAdapter extends BaseAdapter {
                             ArrayList<FRM_VO> responseData = response.body().Data;
 
                             if(responseData.get(0).Validation){
-                                mList.get(position).FRM_03 = responseData.get(0).FRM_03;
-                                mList.get(position).FRM_96 = responseData.get(0).FRM_96;
-                                mList.get(position).ARM_03 = responseData.get(0).ARM_03;
+                                filteredmlist.get(position).FRM_03 = responseData.get(0).FRM_03;
+                                filteredmlist.get(position).FRM_96 = responseData.get(0).FRM_96;
+                                filteredmlist.get(position).ARM_03 = responseData.get(0).ARM_03;
 
                                 if(responseData.get(0).ARM_03.equals("Y")){
                                     String NextDay = responseData.get(0).FRM_96;
@@ -219,7 +268,7 @@ public class FrmAdapter extends BaseAdapter {
                                 }
                             }
 
-                            updateData(mList);
+                            updateData(filteredmlist);
                             notifyDataSetChanged();
 
                         }

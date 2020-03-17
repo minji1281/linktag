@@ -9,8 +9,11 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.widget.EditText;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.linktag.base.base_activity.BaseActivity;
@@ -52,6 +55,8 @@ public class JDMMain extends BaseActivity {
 
     private CtdVO intentVO;
 
+    private EditText ed_search;
+
     private Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
 
@@ -78,9 +83,22 @@ public class JDMMain extends BaseActivity {
 
         requestJMD_SELECT("");
 
+        ed_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                mAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable edit) {
+            }
+        });
 
     }
-
 
 
     protected void initLayout() {
@@ -95,9 +113,10 @@ public class JDMMain extends BaseActivity {
         view = findViewById(R.id.recyclerView);
         recyclerView = view.findViewById(R.id.recyclerView);
 
+        ed_search = findViewById(R.id.ed_search);
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
-//        swipeRefresh.setOnRefreshListener(() -> requestJMD_SELECT());
+
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -109,6 +128,7 @@ public class JDMMain extends BaseActivity {
 
 
     protected void initialize() {
+
         mList = new ArrayList<>();
 //        linearLayoutManager = new GridLayoutManager(mContext,2);
 //        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -116,15 +136,14 @@ public class JDMMain extends BaseActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new JdmRecycleAdapter(mContext, mList);
         recyclerView.setAdapter(mAdapter);
-
     }
 
 
-    private void initLayoutByContractType(){
+    private void initLayoutByContractType() {
         footer = findViewById(R.id.footer);
         footer.btnFooterScan.setOnClickListener(v -> goScan());
 
-        if(intentVO.CTM_19.equals("P")){
+        if (intentVO.CTM_19.equals("P")) {
             // privateService
             footer.btnFooterSetting.setVisibility(View.VISIBLE);
             footer.btnFooterMember.setVisibility(View.GONE);
@@ -140,7 +159,7 @@ public class JDMMain extends BaseActivity {
         }
     }
 
-    private void goMember(){
+    private void goMember() {
         Intent intent = new Intent(mContext, Member.class);
         intent.putExtra("intentVO", intentVO);
         mContext.startActivity(intent);
@@ -152,10 +171,6 @@ public class JDMMain extends BaseActivity {
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }
-
-        //openLoadingBar();
-
-        //String strToday = ClsDateTime.getNow("yyyyMMdd");
 
 
         Call<JDMModel> call = Http.jdm(HttpBaseService.TYPE.POST).JDM_SELECT(
@@ -183,7 +198,6 @@ public class JDMMain extends BaseActivity {
 
                             Response<JDMModel> response = (Response<JDMModel>) msg.obj;
                             mList = response.body().Data;
-
                             if (scancode.equals("")) {
                                 if (mList == null) mList = new ArrayList<>();
 
@@ -220,7 +234,7 @@ public class JDMMain extends BaseActivity {
                                     mContext.startActivity(intent);
                                 }
                             }
-
+                            mAdapter.getFilter().filter(ed_search.getText());
                         }
                     }
                 }.sendMessage(msg);
@@ -237,7 +251,7 @@ public class JDMMain extends BaseActivity {
     }
 
     @Override
-    protected void scanResult(String str){
+    protected void scanResult(String str) {
         ScanResult scanResult = new ScanResult(mContext, str, null);
         scanResult.run();
     }

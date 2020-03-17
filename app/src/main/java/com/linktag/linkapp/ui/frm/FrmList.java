@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -44,7 +46,7 @@ public class FrmList extends BaseActivity {
     private ListView listView;
     private TextView emptyText;
     private SwipeRefreshLayout swipeRefresh;
-//    private EditText etName;
+    private EditText etSearch;
 //    private ImageView imgSearch;
 
     //======================
@@ -100,7 +102,7 @@ public class FrmList extends BaseActivity {
         });
         emptyText = findViewById(R.id.empty);
         listView.setEmptyView(emptyText);
-//        etName = findViewById(R.id.etName);
+        etSearch = findViewById(R.id.etSearch);
 //        imgSearch = findViewById(R.id.imgSearch);
 //        imgSearch.setOnClickListener(v -> requestFRM_SELECT("LIST", ""));
 
@@ -126,6 +128,21 @@ public class FrmList extends BaseActivity {
         super.onResume();
 
         requestFRM_SELECT("LIST", "");
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                mAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable edit) {
+            }
+        });
     }
 
     private void requestFRM_SELECT(String GUBUN, String FRM_01){
@@ -196,6 +213,8 @@ public class FrmList extends BaseActivity {
                                     mContext.startActivity(intent);
                                 }
                             }
+
+                            mAdapter.getFilter().filter(etSearch.getText());
 
                         }
                     }
