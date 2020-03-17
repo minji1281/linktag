@@ -13,6 +13,7 @@ import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -102,7 +103,7 @@ public class DetailRfd extends BaseActivity {
             rfm_move.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext,"등록진행 중인 식품은 이동할 수 없습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "등록진행 중인 식품은 이동할 수 없습니다.", Toast.LENGTH_LONG).show();
                     return;
                 }
             });
@@ -138,13 +139,28 @@ public class DetailRfd extends BaseActivity {
         call.enqueue(new Callback<RFDModel>() {
             @Override
             public void onResponse(Call<RFDModel> call, Response<RFDModel> response) {
+                Calendar calendar = Calendar.getInstance();
+                boolean dateBool = Long.parseLong(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime())) < Long.parseLong(rfdVO.RFD_96);
 
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
-                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    if (rfdVO.ARM_03.equals("Y") && dateBool) {
+                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 저장되었습니다.\n"+
+                                "다음 알람예정은 " + rfdVO.RFD_96.substring(0, 4) + "년" + rfdVO.RFD_96.substring(4, 6) + "월" + rfdVO.RFD_96.substring(6, 8) + "일" +
+                                rfdVO.RFD_96.substring(8, 10) + "시" + rfdVO.RFD_96.substring(10, 12) + "분 입니다.", Toast.LENGTH_LONG).show();
+                    } else {
+
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
                     RFMMain.RFM_01 = rfdVO.RFD_01;
-                }else if(GUBUN.equals("RFD_07_UPDATE")){
-                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보의 사용상태가 변경 되었습니다.", Toast.LENGTH_SHORT).show();
-                }  else {
+                } else if (GUBUN.equals("RFD_07_UPDATE")) {
+                    if (rfdVO.ARM_03.equals("Y") && rfdVO.RFD_07.equals("") && dateBool) {
+                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + "  해당 식품정보의 사용상태가 변경 되었습니다.\n"+
+                                "다음 알람예정은 " + rfdVO.RFD_96.substring(0, 4) + "년" + rfdVO.RFD_96.substring(4, 6) + "월" + rfdVO.RFD_96.substring(6, 8) + "일" +
+                                rfdVO.RFD_96.substring(8, 10) + "시" + rfdVO.RFD_96.substring(10, 12) + "분 입니다.", Toast.LENGTH_LONG).show();
+                    }else{
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보의 사용상태가 변경 되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                } else {
                     Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 이동되었습니다.", Toast.LENGTH_SHORT).show();
                     RFMMain.RFM_01 = rfdVO.RFD_01;
                 }
@@ -224,7 +240,7 @@ public class DetailRfd extends BaseActivity {
             dCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
 
             long dDayDiff = dCalendar.getTimeInMillis() - calendar.getTimeInMillis();
-            int day = (int)(Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
+            int day = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
 
             startCountAnimation(day);
 
@@ -238,7 +254,6 @@ public class DetailRfd extends BaseActivity {
         } else {
             imageView.setImageResource(R.drawable.alarm_state_off);
         }
-
 
 
         if (rfdVO.RFD_06.equals("")) {
@@ -321,7 +336,7 @@ public class DetailRfd extends BaseActivity {
                 } else {
                     dayOfMonthString = String.valueOf(dayOfMonth);
                 }
-                rfdVO.setRFD_96(year + monthString + dayOfMonthString + rfdVO.RFD_96.substring(8,12));
+                rfdVO.setRFD_96(year + monthString + dayOfMonthString + rfdVO.RFD_96.substring(8, 12));
                 tv_datePicker.setText(year + "." + monthString + "." + dayOfMonthString);
             }
         };
@@ -423,26 +438,43 @@ public class DetailRfd extends BaseActivity {
         header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                new AlertDialog.Builder(mActivity)
-                        .setMessage("해당 정보를 삭제하시겠습니까?")
-                        .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                            @RequiresApi(api = Build.VERSION_CODES.M)
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                requestRFD_CONTROL("DELETE");
-                            }
-                        })
-                        .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                return;
-                            }
-                        })
-                        .show();
-
+                deleteDialog();
             }
         });
     }
+
+    private void deleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_delete, null);
+        builder.setView(view);
+
+        Button btnDelete = (Button) view.findViewById(R.id.btnDelete);
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+
+        EditText etDeleteName = (EditText) view.findViewById(R.id.etDeleteName);
+
+        AlertDialog dialog = builder.create();
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (etDeleteName.getText().toString().equals(rfdVO.RFD_03)) {
+                    dialog.dismiss();
+                    requestRFD_CONTROL("DELETE");
+                } else {
+                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
 
     public void requestRFM_SELECT() {
         // 인터넷 연결 여부 확인

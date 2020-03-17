@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -230,22 +231,7 @@ public class CodDetail extends BaseActivity {
                 header.btnHeaderRight1.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        new AlertDialog.Builder(mActivity)
-                                .setMessage("해당 화장품을 삭제하시겠습니까?")
-                                .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        requestCOD_CONTROL("DELETE");
-                                    }
-                                })
-                                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        return;
-                                    }
-                                })
-                                .show();
-
+                        deleteDialog();
                     }
                 });
             }
@@ -274,7 +260,6 @@ public class CodDetail extends BaseActivity {
 
     private void getDetail() {
 
-        COD_05_C.set(Integer.parseInt(COD.COD_05.substring(0,4)), Integer.parseInt(COD.COD_05.substring(4,6))-1, Integer.parseInt(COD.COD_05.substring(6)));
         COD_06_C.set(Integer.parseInt(COD.COD_06.substring(0,4)), Integer.parseInt(COD.COD_06.substring(4,6))-1, Integer.parseInt(COD.COD_06.substring(6)));
         if(!COD.COD_07.equals("")){
             COD_07_C.set(Integer.parseInt(COD.COD_07.substring(0,4)), Integer.parseInt(COD.COD_07.substring(4,6))-1, Integer.parseInt(COD.COD_07.substring(6)));
@@ -285,9 +270,16 @@ public class CodDetail extends BaseActivity {
         etBrand.setText(COD.COD_03);
 
         if(COD.COD_07.equals("")){ //기존 detail
+            COD_05_C.set(Integer.parseInt(COD.COD_05.substring(0,4)), Integer.parseInt(COD.COD_05.substring(4,6))-1, Integer.parseInt(COD.COD_05.substring(6)));
+
             setDDAY();
         }
         else{ //사용종료 detail
+            int year = COD_05_C.get(Calendar.YEAR);
+            int month = COD_05_C.get(Calendar.MONTH) + 1;
+            int day = COD_05_C.get(Calendar.DATE);
+            COD.COD_05 = String.valueOf(year) + (month<10 ? "0" + String.valueOf(month) : String.valueOf(month)) + (day<10 ? "0" + String.valueOf(day) : String.valueOf(day));
+
             tvDDAY.setVisibility(View.GONE);
             lineDDAY.setVisibility(View.GONE);
             tvDayLabel.setVisibility(View.GONE);
@@ -376,6 +368,14 @@ public class CodDetail extends BaseActivity {
                             Response<CODModel> response = (Response<CODModel>) msg.obj;
 
                             CodList.COS.COS_01 = COD_95;
+
+                            if(GUB.equals("INSERT") || GUB.equals("UPDATE") || GUB.equals("USESTART")){
+                                if(COD.ARM_03.equals("Y")){
+                                    Toast.makeText(mContext,"다음알람 "+ COD.COD_06.substring(0,4)+"년 " + COD.COD_06.substring(4,6)+"월 "+ COD.COD_06.substring(6,8)+"일 " +
+                                            COD.COD_96.substring(0,2)+"시 " + COD.COD_96.substring(2,4)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                                }
+                            }
+
                             finish();
                         }
                     }
@@ -454,6 +454,39 @@ public class CodDetail extends BaseActivity {
                 setDDAY();
             }
         }, COD_06_C.get(Calendar.YEAR), COD_06_C.get(Calendar.MONTH), COD_06_C.get(Calendar.DATE));
+
+        dialog.show();
+    }
+
+    private void deleteDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_delete, null);
+        builder.setView(view);
+
+        Button btnDelete = (Button) view.findViewById(R.id.btnDelete);
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+
+        EditText etDeleteName = (EditText) view.findViewById(R.id.etDeleteName);
+
+        AlertDialog dialog = builder.create();
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(etDeleteName.getText().toString().equals(COD.COD_02)){
+                    dialog.dismiss();
+                    requestCOD_CONTROL("DELETE");
+                }
+                else{
+                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
         dialog.show();
     }

@@ -227,7 +227,7 @@ public class Main extends BaseActivity {
         if((now - IBackPressedTime) < 2 * 1000){
             unregisterReceiver();
 
-            clearAppCache(null);
+            //clearAppCache(null);
 
             this.finishAffinity();
 

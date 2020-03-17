@@ -4,6 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,12 +16,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.base.base_fragment.BaseFragment;
+import com.linktag.base.util.ClsBitmap;
 import com.linktag.base.util.ClsDateTime;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.ARM_Model;
@@ -58,6 +63,7 @@ public class HomeFragment extends BaseFragment {
     private TextView tvNotice;
     private SwipeRefreshLayout swipeRefresh;
 
+    private ImageView imgProfile;
     private TextView tvHomeName;
     private TextView tvHomeEmail;
     private TextView tvHomeDate;
@@ -111,6 +117,8 @@ public class HomeFragment extends BaseFragment {
 
         BMK_STATE = BMK_STATE_NORMAL;
 
+        ClsBitmap.setProfilePhoto(mContext, imgProfile, mUser.Value.OCM_01, mUser.Value.OCM_52, "", R.drawable.main_profile_no_image);
+
         requestCTD_SELECT();
         requestARM_SELECT("");
         requestDSH_SELECT();
@@ -128,6 +136,11 @@ public class HomeFragment extends BaseFragment {
 
         gridARM = (ExpandableHeightGridView) view.findViewById(R.id.gridARM);
         gridARM.setExpanded(true);
+
+        imgProfile = view.findViewById(R.id.imgProfile);
+        imgProfile.setBackground(new ShapeDrawable(new OvalShape()));
+        if(Build.VERSION.SDK_INT >= 21)
+            imgProfile.setClipToOutline(true);
 
         tvHomeName = view.findViewById(R.id.tvHomeName);
         tvHomeEmail = view.findViewById(R.id.tvHomeEmail);

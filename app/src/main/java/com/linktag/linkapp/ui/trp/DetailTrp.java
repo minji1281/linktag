@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -13,6 +14,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -29,14 +31,17 @@ import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.model.TRDModel;
 import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.master_log.MasterLog;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CtdVO;
+import com.linktag.linkapp.value_object.LogVO;
 import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
 
@@ -49,7 +54,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailTrp extends BaseActivity{
+public class DetailTrp extends BaseActivity {
 
     private BaseHeader header;
 
@@ -86,6 +91,8 @@ public class DetailTrp extends BaseActivity{
 
     private String callBackTime = "";
 
+    private TextView tv_Log;
+    public static TextView tv_alarmCnt;
     public static TrpVO trpVO;
 
     private Calendar calendar = Calendar.getInstance();
@@ -95,6 +102,7 @@ public class DetailTrp extends BaseActivity{
 
     private CtdVO intentVO;
 
+    private String[] array_pattern;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -132,7 +140,7 @@ public class DetailTrp extends BaseActivity{
                 mUser.Value.OCM_01,
                 mUser.Value.OCM_01,
                 trpVO.ARM_03
-                );
+        );
 
 
         call.enqueue(new Callback<TRPModel>() {
@@ -144,7 +152,11 @@ public class DetailTrp extends BaseActivity{
                     ctds_control.requestCTDS_CONTROL();
                 }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
-                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 복약정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    if (trpVO.ARM_03.equals("Y")) {
+                        checkDayOfWeek("[" + ed_name.getText().toString() + "]" + "  해당 복약정보가 저장되었습니다.\n");
+                    } else {
+                        checkDayOfWeek("");
+                    }
                 }
                 onBackPressed();
             }
@@ -186,6 +198,8 @@ public class DetailTrp extends BaseActivity{
 
         tv_alarmLabel = findViewById(R.id.tv_alarmLabel);
 
+        tv_Log = findViewById(R.id.tv_Log);
+        tv_alarmCnt = findViewById(R.id.tv_alarmCnt);
         sp_count = findViewById(R.id.sp_count);
         sp_timing = findViewById(R.id.sp_timing);
         ed_target = findViewById(R.id.ed_target);
@@ -203,7 +217,6 @@ public class DetailTrp extends BaseActivity{
 
         trpVO = (TrpVO) getIntent().getSerializableExtra("TrpVO");
 
-        String[] array_pattern;
         array_pattern = trpVO.TRP_04.split("");
 
         if (trpVO.TRP_04.equals("")) {
@@ -315,6 +328,18 @@ public class DetailTrp extends BaseActivity{
                         alarmTime = format.format(calendar.getTime()) + time;
 
                         requestTRD_CONTROL();
+
+                        String am_pm = "";
+                        int hourOfDay = Integer.parseInt(time.substring(0, 2));
+                        int minute = Integer.parseInt(time.substring(2, 4));
+                        if (hourOfDay > 12) {
+                            hourOfDay -= 12;
+                            am_pm = "오후 ";
+                        } else {
+                            am_pm = "오전 ";
+                        }
+
+                        requestLOG_CONTROL("2", "알림추가 " + am_pm + hourOfDay + ":" + minute);
                     }
 
                     @Override
@@ -327,6 +352,22 @@ public class DetailTrp extends BaseActivity{
         });
 
 
+        tv_Log.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LogVO LOG = new LogVO();
+                LOG.LOG_ID = trpVO.TRP_ID;
+                LOG.LOG_01 = trpVO.TRP_01;
+                LOG.LOG_98 = mUser.Value.OCM_01;
+                LOG.SP_NAME = "SP_TRPL_CONTROL";
+
+                Intent intent = new Intent(mContext, MasterLog.class);
+                intent.putExtra("LOG", LOG);
+
+                mContext.startActivity(intent);
+            }
+        });
+
         if (trpVO.TRP_97.equals(mUser.Value.OCM_01)) { //작성자만 삭제버튼 보임
             header.btnHeaderRight1.setVisibility((View.VISIBLE));
             header.btnHeaderRight1.setMaxWidth(50);
@@ -335,23 +376,7 @@ public class DetailTrp extends BaseActivity{
             header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new AlertDialog.Builder(mActivity)
-                            .setMessage("해당 정보를 삭제하시겠습니까?")
-                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                                @RequiresApi(api = Build.VERSION_CODES.M)
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    requestTRP_CONTROL("DELETE");
-                                }
-                            })
-                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    return;
-                                }
-                            })
-                            .show();
-
+                    deleteDialog();
                 }
             });
         }
@@ -372,6 +397,8 @@ public class DetailTrp extends BaseActivity{
 
                 if (getIntent().hasExtra("scanCode")) {
                     requestTRP_CONTROL("INSERT");
+                    requestLOG_CONTROL("1", "신규등록");
+
                 } else {
                     requestTRP_CONTROL("UPDATE");
                 }
@@ -387,7 +414,6 @@ public class DetailTrp extends BaseActivity{
                 @Override
                 public void onClick(View v) {
 
-                    String[] array_pattern;
                     array_pattern = trpVO.TRP_04.split("");
 
                     switch (v.getId()) {
@@ -465,6 +491,74 @@ public class DetailTrp extends BaseActivity{
 
     }
 
+    private void deleteDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_delete, null);
+        builder.setView(view);
+
+        Button btnDelete = (Button) view.findViewById(R.id.btnDelete);
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+
+        EditText etDeleteName = (EditText) view.findViewById(R.id.etDeleteName);
+
+        AlertDialog dialog = builder.create();
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if (etDeleteName.getText().toString().equals(trpVO.TRP_02)) {
+                    dialog.dismiss();
+                    requestTRP_CONTROL("DELETE");
+                } else {
+                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+
+    private void requestLOG_CONTROL(String LOG_03, String LOG_04) {
+        //인터넷 연결 여부 확인
+        if (!ClsNetworkCheck.isConnectable(mContext)) {
+            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Call<LOG_Model> call = Http.log(HttpBaseService.TYPE.POST).LOG_CONTROL(
+                BaseConst.URL_HOST,
+                "INSERT",
+                trpVO.TRP_ID,
+                trpVO.TRP_01,
+                "",
+                LOG_03,
+                LOG_04,
+                "",
+                mUser.Value.OCM_01,
+                "SP_TRPL_CONTROL"
+        );
+
+        call.enqueue(new Callback<LOG_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<LOG_Model> call, Response<LOG_Model> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<LOG_Model> call, Throwable t) {
+                Log.d("LOG_CONTROL", t.getMessage());
+//                closeLoadingBar();
+            }
+        });
+    }
+
 
     public void requestTRD_SELECT() {
         // 인터넷 연결 여부 확인
@@ -503,6 +597,7 @@ public class DetailTrp extends BaseActivity{
                             if (mList == null)
                                 mList = new ArrayList<>();
 
+                            tv_alarmCnt.setText("(" + mList.size() + "건)");
                             if (mList.size() == 0) {
                                 tv_alarmLabel.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);
@@ -582,7 +677,7 @@ public class DetailTrp extends BaseActivity{
                             mList = response.body().Data;
                             if (mList == null)
                                 mList = new ArrayList<>();
-
+                            tv_alarmCnt.setText("(" + mList.size() + "건)");
                             if (mList.size() == 0) {
                                 tv_alarmLabel.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);
@@ -612,6 +707,48 @@ public class DetailTrp extends BaseActivity{
             }
         });
 
+    }
+
+    public void checkDayOfWeek(String msg) {
+        Calendar calendar = Calendar.getInstance();
+
+        int nowWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        int nowTime = Integer.parseInt(formatTime.format(calendar.getTime()));
+        String time = "";
+        int count = 0;
+        for (TrdVO trdVO : mList) {
+            int setTime = Integer.parseInt(trdVO.TRD_96.substring(8, 12));
+            time = trdVO.TRD_96.substring(8, 12);
+            if (nowTime < setTime) {
+                count++;
+                break;
+            }
+        }
+        if (count == 0) {  // 예정알림시간이 이미 다 지난경우 다음요일로 넘어감
+            for (int i = 1; i < array_pattern.length; i++) {
+                if (array_pattern[nowWeek + i].equals("Y")) {
+                    nowWeek = nowWeek + i;
+                    break;
+                }
+            }
+        }
+
+        String ToastMessage = time.substring(0, 2) + "시" + time.substring(2, 4) + "분";
+        if (nowWeek == 1 && array_pattern[1].equals("Y")) { //일요일
+            Toast.makeText(mContext, msg + "다음 알림예정일은 일요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 2 && array_pattern[2].equals("Y")) { //월요일
+            Toast.makeText(mContext, msg + "다음 알림예정일은 월요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 3 && array_pattern[3].equals("Y")) { //화요일
+            Toast.makeText(mContext, msg + "다음 알림예정일은 화요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 4 && array_pattern[4].equals("Y")) { //수요일
+            Toast.makeText(mContext, msg + "다음 알림예정일은 수요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 5 && array_pattern[5].equals("Y")) { //목요일
+            Toast.makeText(mContext, msg + "다음 알림예정일은 목요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 6 && array_pattern[6].equals("Y")) { //금요일
+            Toast.makeText(mContext, msg + "다음 알림예정일은 금요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 7 && array_pattern[7].equals("Y")) { //토요일
+            Toast.makeText(mContext, msg + "다음 알림예정일은 토요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+        }
     }
 
 }

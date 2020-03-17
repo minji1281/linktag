@@ -233,22 +233,7 @@ public class FrmDetail extends BaseActivity {
                 header.btnHeaderRight1.setOnClickListener(new View.OnClickListener(){
                     @Override
                     public void onClick(View v) {
-                        new AlertDialog.Builder(mActivity)
-                                .setMessage("해당 필터를 삭제하시겠습니까?")
-                                .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        requestFRM_CONTROL("DELETE");
-                                    }
-                                })
-                                .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialog, int which) {
-                                        return;
-                                    }
-                                })
-                                .show();
-
+                        deleteDialog();
                     }
                 });
             }
@@ -314,7 +299,7 @@ public class FrmDetail extends BaseActivity {
             return;
         }
 
-        openLoadingBar();
+//        openLoadingBar();
 
         String FRM_ID = intentVO.CTN_02; //컨테이너
         String FRM_01 = FRM.FRM_01; //코드번호
@@ -354,18 +339,28 @@ public class FrmDetail extends BaseActivity {
                 msg.obj = response;
                 msg.what = 100;
 
-                if(GUB.equals("INSERT")){
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, FRM.FRM_01);
-                    ctds_control.requestCTDS_CONTROL();
-                }
-
                 new Handler(){
                     @Override
                     public void handleMessage(Message msg){
                         if(msg.what == 100){
-                            closeLoadingBar();
+//                            closeLoadingBar();
+
+                            if(GUB.equals("INSERT")){
+                                CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, FRM.FRM_01);
+                                ctds_control.requestCTDS_CONTROL();
+                            }
 
                             Response<FRMModel> response = (Response<FRMModel>) msg.obj;
+
+                            if(!GUB.equals("DELETE")){
+                                if(FRM.ARM_03.equals("Y")){
+                                    if(GUB.equals("WATER")){
+                                        FRM.FRM_96 = response.body().Data.get(0).FRM_96;
+                                    }
+                                    Toast.makeText(mContext,"다음알람 "+ FRM.FRM_96.substring(0,4)+"년 " + FRM.FRM_96.substring(4,6)+"월 "+ FRM.FRM_96.substring(6,8)+"일 " +
+                                            FRM.FRM_96.substring(8,10)+"시 " + FRM.FRM_96.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                                }
+                            }
 
                             if(GUB.equals("FILTER")){
                                 setUserData(response.body().Data.get(0));
@@ -381,7 +376,7 @@ public class FrmDetail extends BaseActivity {
             @Override
             public void onFailure(Call<FRMModel> call, Throwable t){
                 Log.d("FRM_CONTROL", t.getMessage());
-                closeLoadingBar();
+//                closeLoadingBar();
             }
         });
 
@@ -594,6 +589,39 @@ public class FrmDetail extends BaseActivity {
                 setImgFilter();
             }
         }, FRM_03_C.get(Calendar.YEAR), FRM_03_C.get(Calendar.MONTH), FRM_03_C.get(Calendar.DATE));
+
+        dialog.show();
+    }
+
+    private void deleteDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_delete, null);
+        builder.setView(view);
+
+        Button btnDelete = (Button) view.findViewById(R.id.btnDelete);
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+
+        EditText etDeleteName = (EditText) view.findViewById(R.id.etDeleteName);
+
+        AlertDialog dialog = builder.create();
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(etDeleteName.getText().toString().equals(FRM.FRM_02)){
+                    dialog.dismiss();
+                    requestFRM_CONTROL("DELETE");
+                }
+                else{
+                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
 
         dialog.show();
     }

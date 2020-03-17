@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,6 +15,7 @@ import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
@@ -31,15 +33,19 @@ import android.widget.Toast;
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
+import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.model.PCDModel;
 import com.linktag.linkapp.model.PCMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.master_log.MasterLog;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
+import com.linktag.linkapp.value_object.LogVO;
 import com.linktag.linkapp.value_object.PcdVO;
 import com.linktag.linkapp.value_object.PcmVO;
 
@@ -54,6 +60,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class DetailPcm extends BaseActivity implements Serializable {
+
 
     private BaseHeader header;
 
@@ -71,6 +78,8 @@ public class DetailPcm extends BaseActivity implements Serializable {
     private EditText ed_name;
     private EditText ed_memo;
 
+    private TextView tv_Log;
+
     private Spinner sp_sw;
     private EditText et_sw;
     private Spinner sp_hw;
@@ -83,6 +92,8 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
     private TextView tv_manageDay;
 
+    public static TextView tv_hwCnt;
+    public static TextView tv_swCnt;
     private Button btn_update;
     private Button bt_save;
     private Button btn_addItem_hw;
@@ -161,12 +172,14 @@ public class DetailPcm extends BaseActivity implements Serializable {
                                 mList_HW = response.body().Data;
                                 if (mList_HW == null)
                                     mList_HW = new ArrayList<>();
+                                tv_hwCnt.setText("("+mList_HW.size()+"건)");
                                 mHwAdapter.updateData(mList_HW);
                                 mHwAdapter.notifyDataSetChanged();
                             } else if (GUBUN.equals("LIST_SW")) {
                                 mList_SW = response.body().Data;
                                 if (mList_SW == null)
                                     mList_SW = new ArrayList<>();
+                                tv_swCnt.setText("("+mList_SW.size()+"건)");
                                 mSwAdapter.updateData(mList_SW);
                                 mSwAdapter.notifyDataSetChanged();
                             }
@@ -227,17 +240,22 @@ public class DetailPcm extends BaseActivity implements Serializable {
                                 mList_HW = response.body().Data;
                                 if (mList_HW == null)
                                     mList_HW = new ArrayList<>();
+                                tv_hwCnt.setText("("+mList_HW.size()+"건)");
                                 mHwAdapter.updateData(mList_HW);
                                 mHwAdapter.notifyDataSetChanged();
                                 et_hw.setText("");
+
+                                requestLOG_CONTROL("2","H/W 정보 " + pcdVO.PCD_05 + " 추가");
 
                             } else if (GUBUN.equals("SW")) {
                                 mList_SW = response.body().Data;
                                 if (mList_SW == null)
                                     mList_SW = new ArrayList<>();
+                                tv_swCnt.setText("("+mList_SW.size()+"건)");
                                 mSwAdapter.updateData(mList_SW);
                                 mSwAdapter.notifyDataSetChanged();
                                 et_sw.setText("");
+                                requestLOG_CONTROL("2","S/W 정보 " + pcdVO.PCD_05 + " 추가");
                             }
 
 
@@ -334,6 +352,10 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
         ed_name = (EditText) findViewById(R.id.ed_name);
         ed_memo = (EditText) findViewById(R.id.ed_memo);
+
+        tv_hwCnt = findViewById(R.id.tv_hwCnt);
+        tv_swCnt = findViewById(R.id.tv_swCnt);
+        tv_Log = findViewById(R.id.tv_Log);
 
         sp_hw = (Spinner) findViewById(R.id.sp_hw);
         sp_sw = (Spinner) findViewById(R.id.sp_sw);
@@ -483,7 +505,10 @@ public class DetailPcm extends BaseActivity implements Serializable {
                 String year = pcmVO.getPCM_04().substring(0, 4);
                 String month = pcmVO.getPCM_04().substring(4, 6);
                 String dayOfMonth = pcmVO.getPCM_04().substring(6, 8);
-                tv_manageDay.setText(year + "년" + month + "월" + dayOfMonth + "일");
+                String manageDay = year + "년" + month + "월" + dayOfMonth + "일";
+                tv_manageDay.setText(manageDay);
+
+                requestLOG_CONTROL("1","관리일자 업데이트 " + manageDay);
             }
         });
 
@@ -499,6 +524,22 @@ public class DetailPcm extends BaseActivity implements Serializable {
             }
         });
 
+        tv_Log.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                LogVO LOG = new LogVO();
+                LOG.LOG_ID = pcmVO.PCM_ID;
+                LOG.LOG_01 = pcmVO.PCM_01;
+                LOG.LOG_98 = mUser.Value.OCM_01;
+                LOG.SP_NAME = "SP_PCML_CONTROL";
+
+                Intent intent = new Intent(mContext, MasterLog.class);
+                intent.putExtra("LOG", LOG);
+
+                mContext.startActivity(intent);
+            }
+        });
+
 
         if (pcmVO.PCM_97.equals(mUser.Value.OCM_01)) { //작성자만 삭제버튼 보임
             header.btnHeaderRight1.setVisibility((View.VISIBLE));
@@ -508,26 +549,80 @@ public class DetailPcm extends BaseActivity implements Serializable {
             header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    new AlertDialog.Builder(mActivity)
-                            .setMessage("해당 정보를 삭제하시겠습니까?")
-                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
-                                @RequiresApi(api = Build.VERSION_CODES.M)
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    requestPCM_CONTROL("DELETE");
-                                }
-                            })
-                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
-                                @Override
-                                public void onClick(DialogInterface dialog, int which) {
-                                    return;
-                                }
-                            })
-                            .show();
-
+                    deleteDialog();
                 }
             });
         }
     }
+
+    private void deleteDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_delete, null);
+        builder.setView(view);
+
+        Button btnDelete = (Button) view.findViewById(R.id.btnDelete);
+        Button btnCancel = (Button) view.findViewById(R.id.btnCancel);
+
+        EditText etDeleteName = (EditText) view.findViewById(R.id.etDeleteName);
+
+        AlertDialog dialog = builder.create();
+
+        btnDelete.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                if(etDeleteName.getText().toString().equals(pcmVO.PCM_02)){
+                    dialog.dismiss();
+                    requestPCM_CONTROL("DELETE");
+                }
+                else{
+                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
+
+    private void requestLOG_CONTROL(String LOG_03, String LOG_04){
+        //인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+        Call<LOG_Model> call = Http.log(HttpBaseService.TYPE.POST).LOG_CONTROL(
+                BaseConst.URL_HOST,
+                "INSERT",
+                pcmVO.PCM_ID,
+                pcmVO.PCM_01,
+                "",
+                LOG_03,
+                LOG_04,
+                "",
+                mUser.Value.OCM_01,
+                "SP_PCML_CONTROL"
+        );
+
+        call.enqueue(new Callback<LOG_Model>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<LOG_Model> call, Response<LOG_Model> response){
+
+            }
+
+            @Override
+            public void onFailure(Call<LOG_Model> call, Throwable t){
+                Log.d("LOG_CONTROL", t.getMessage());
+//                closeLoadingBar();
+            }
+        });
+    }
+
 
 }
