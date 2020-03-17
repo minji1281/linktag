@@ -51,11 +51,6 @@
                         android:paddingRight="10dp" />
                 </LinearLayout>
 
-<!--        <EditText-->
-<!--            android:id="@+id/ed_search"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="wrap_content"-->
-<!--            android:hint="검색테스트"/>-->
         <android.support.v4.widget.SwipeRefreshLayout
             android:id="@+id/swipeRefresh"
             android:layout_width="match_parent"

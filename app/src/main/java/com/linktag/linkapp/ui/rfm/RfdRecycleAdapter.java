@@ -17,6 +17,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -32,7 +34,9 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm_service.AlarmHATT;
 import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
+import com.linktag.linkapp.ui.jdm.JdmRecycleAdapter;
 import com.linktag.linkapp.value_object.ArmVO;
+import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.RfdVO;
 
 import java.text.Format;
@@ -45,20 +49,67 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.ViewHolder> {
+public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.ViewHolder>  implements Filterable {
 
     private Context mContext;
     private ArrayList<RfdVO> mList;
+    private ArrayList<RfdVO> filteredmlist;
     private LayoutInflater mInflater;
     private View view;
     private InterfaceUser mUser;
 
     private Calendar calendar = Calendar.getInstance();
 
+    Filter listFilter;
+
     RfdRecycleAdapter(Context context, ArrayList<RfdVO> list) {
         mContext = context;
         mList = list;
         mUser = InterfaceUser.getInstance();
+        filteredmlist = list;
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (listFilter == null)
+            listFilter = new ListFilter();
+
+        return listFilter;
+    }
+
+
+    private class ListFilter extends Filter{
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            String charString = constraint.toString();
+            if(charString.isEmpty()){
+                results.values = mList;
+                results.count = mList.size();
+            }else{
+                ArrayList<RfdVO> itemList = new ArrayList<>();
+                for(RfdVO item : mList){
+                    if(item.RFD_03.toLowerCase().contains(constraint.toString().toLowerCase())){
+                        itemList.add(item);
+                    }
+                }
+                results.values = itemList;
+                results.count = itemList.size();
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            filteredmlist = (ArrayList<RfdVO>)results.values;
+
+            if(results.count>0){
+                notifyDataSetChanged();
+            }
+        }
     }
 
     @NonNull
@@ -75,10 +126,10 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        viewHolder.tv_name.setText(mList.get(position).RFD_03);
-        if (!mList.get(position).RFD_07.equals("")) {
+        viewHolder.tv_name.setText(filteredmlist.get(position).RFD_03);
+        if (!filteredmlist.get(position).RFD_07.equals("")) {
             viewHolder.tv_label1.setText("사용종료");
-            viewHolder.tv_D_day.setText(mList.get(position).RFD_07.substring(0, 4) + "." + mList.get(position).RFD_07.substring(4, 6) + "." + mList.get(position).RFD_07.substring(6, 8));
+            viewHolder.tv_D_day.setText(filteredmlist.get(position).RFD_07.substring(0, 4) + "." + filteredmlist.get(position).RFD_07.substring(4, 6) + "." + filteredmlist.get(position).RFD_07.substring(6, 8));
             viewHolder.btn_label.setVisibility(View.GONE);
             viewHolder.progressBar.setVisibility(View.GONE);
             viewHolder.imageview.setVisibility(View.GONE);
@@ -91,7 +142,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
             viewHolder.imageview.setVisibility(View.VISIBLE);
 
             viewHolder.root_linearLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.list_round_shape));
-            viewHolder.tv_D_day.setText(mList.get(position).RFD_96.substring(0, 4) + "." + mList.get(position).RFD_96.substring(4, 6) + "." + mList.get(position).RFD_96.substring(6, 8));
+            viewHolder.tv_D_day.setText(filteredmlist.get(position).RFD_96.substring(0, 4) + "." + filteredmlist.get(position).RFD_96.substring(4, 6) + "." + filteredmlist.get(position).RFD_96.substring(6, 8));
 
             calendar.clear(Calendar.HOUR);
             calendar.clear(Calendar.MINUTE);
@@ -99,9 +150,9 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
             calendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
 
             Calendar dCalendar = Calendar.getInstance();
-            dCalendar.set(Calendar.YEAR, Integer.parseInt(mList.get(position).RFD_96.substring(0, 4)));
-            dCalendar.set(Calendar.MONTH, Integer.parseInt(mList.get(position).RFD_96.substring(4, 6)) - 1);
-            dCalendar.set(Calendar.DATE, Integer.parseInt(mList.get(position).RFD_96.substring(6, 8)));
+            dCalendar.set(Calendar.YEAR, Integer.parseInt(filteredmlist.get(position).RFD_96.substring(0, 4)));
+            dCalendar.set(Calendar.MONTH, Integer.parseInt(filteredmlist.get(position).RFD_96.substring(4, 6)) - 1);
+            dCalendar.set(Calendar.DATE, Integer.parseInt(filteredmlist.get(position).RFD_96.substring(6, 8)));
 
             dCalendar.clear(Calendar.HOUR);
             dCalendar.clear(Calendar.MINUTE);
@@ -109,9 +160,9 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
             dCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
 
             Calendar sCalendar = Calendar.getInstance();
-            sCalendar.set(Calendar.YEAR, Integer.parseInt(mList.get(position).RFD_05.substring(0, 4)));
-            sCalendar.set(Calendar.MONTH, Integer.parseInt(mList.get(position).RFD_05.substring(4, 6)) - 1);
-            sCalendar.set(Calendar.DATE, Integer.parseInt(mList.get(position).RFD_05.substring(6, 8)));
+            sCalendar.set(Calendar.YEAR, Integer.parseInt(filteredmlist.get(position).RFD_05.substring(0, 4)));
+            sCalendar.set(Calendar.MONTH, Integer.parseInt(filteredmlist.get(position).RFD_05.substring(4, 6)) - 1);
+            sCalendar.set(Calendar.DATE, Integer.parseInt(filteredmlist.get(position).RFD_05.substring(6, 8)));
 
             sCalendar.clear(Calendar.HOUR);
             sCalendar.clear(Calendar.MINUTE);
@@ -166,9 +217,9 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
                 viewHolder.progressBar.getProgressDrawable().setColorFilter(null);
             }
 
-            if (mList.get(position).ARM_03.equals("Y")) {
+            if (filteredmlist.get(position).ARM_03.equals("Y")) {
                 viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-            } else if (mList.get(position).ARM_03.equals("N")) {
+            } else if (filteredmlist.get(position).ARM_03.equals("N")) {
                 viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
             }
 
@@ -177,12 +228,12 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
                 public void onClick(View view) {
 
 
-                    if (mList.get(position).ARM_03.equals("Y")) {
+                    if (filteredmlist.get(position).ARM_03.equals("Y")) {
                         viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-                        Toast.makeText(mContext, "[" + mList.get(position).RFD_03 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
-                    } else if (mList.get(position).ARM_03.equals("N")) {
+                        Toast.makeText(mContext, "[" + filteredmlist.get(position).RFD_03 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
+                    } else if (filteredmlist.get(position).ARM_03.equals("N")) {
                         viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                        Toast.makeText(mContext, "[" + mList.get(position).RFD_03 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "[" + filteredmlist.get(position).RFD_03 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
                     } else {
                         Toast.makeText(mContext, "알림일자를 지정하세요.", Toast.LENGTH_SHORT).show();
                         return;
@@ -190,14 +241,14 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
 
                     ArmVO armVO = new ArmVO();
 
-                    armVO.setARM_ID(mList.get(position).RFD_ID);
-                    armVO.setARM_01(mList.get(position).RFD_02);
+                    armVO.setARM_ID(filteredmlist.get(position).RFD_ID);
+                    armVO.setARM_01(filteredmlist.get(position).RFD_02);
                     armVO.setARM_02(mUser.Value.OCM_01);
-                    armVO.setARM_03(mList.get(position).ARM_03);
-                    armVO.setARM_95(mList.get(position).RFD_01);
-                    armVO.setARM_90(mList.get(position).RFD_03);
-                    armVO.setARM_91(mList.get(position).RFD_04);
-                    armVO.setARM_92(mList.get(position).RFD_96);
+                    armVO.setARM_03(filteredmlist.get(position).ARM_03);
+                    armVO.setARM_95(filteredmlist.get(position).RFD_01);
+                    armVO.setARM_90(filteredmlist.get(position).RFD_03);
+                    armVO.setARM_91(filteredmlist.get(position).RFD_04);
+                    armVO.setARM_92(filteredmlist.get(position).RFD_96);
                     armVO.setARM_93("");
                     armVO.setARM_94("N");
                     armVO.setARM_98(mUser.Value.OCM_01);
@@ -214,7 +265,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return filteredmlist.size();
     }
 
 
@@ -244,17 +295,17 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
                     int position = getAdapterPosition();
 
                     RfdVO rfdvo = new RfdVO();
-                    rfdvo.setRFD_ID(mList.get(position).RFD_ID);
-                    rfdvo.setRFD_01(mList.get(position).RFD_01);
-                    rfdvo.setRFD_02(mList.get(position).RFD_02);
-                    rfdvo.setRFD_03(mList.get(position).RFD_03);
-                    rfdvo.setRFD_04(mList.get(position).RFD_04);
-                    rfdvo.setRFD_05(mList.get(position).RFD_05);
-                    rfdvo.setRFD_06(mList.get(position).RFD_06);
-                    rfdvo.setRFD_07(mList.get(position).RFD_07);
-                    rfdvo.setRFD_96(mList.get(position).RFD_96);
-                    rfdvo.setARM_03(mList.get(position).ARM_03);
-                    rfdvo.setARM_04(mList.get(position).ARM_04);
+                    rfdvo.setRFD_ID(filteredmlist.get(position).RFD_ID);
+                    rfdvo.setRFD_01(filteredmlist.get(position).RFD_01);
+                    rfdvo.setRFD_02(filteredmlist.get(position).RFD_02);
+                    rfdvo.setRFD_03(filteredmlist.get(position).RFD_03);
+                    rfdvo.setRFD_04(filteredmlist.get(position).RFD_04);
+                    rfdvo.setRFD_05(filteredmlist.get(position).RFD_05);
+                    rfdvo.setRFD_06(filteredmlist.get(position).RFD_06);
+                    rfdvo.setRFD_07(filteredmlist.get(position).RFD_07);
+                    rfdvo.setRFD_96(filteredmlist.get(position).RFD_96);
+                    rfdvo.setARM_03(filteredmlist.get(position).ARM_03);
+                    rfdvo.setARM_04(filteredmlist.get(position).ARM_04);
 
                     Intent intent = new Intent(mContext, DetailRfd.class);
                     intent.putExtra("RfdVO", rfdvo);
@@ -301,11 +352,11 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
             @Override
             public void onResponse(Call<ARMModel> call, Response<ARMModel> response) {
 
-                if (mList.get(position).ARM_03.equals("Y")) {
-                    mList.get(position).setARM_03("N");
+                if (filteredmlist.get(position).ARM_03.equals("Y")) {
+                    filteredmlist.get(position).setARM_03("N");
 
                 } else {
-                    mList.get(position).setARM_03("Y");
+                    filteredmlist.get(position).setARM_03("Y");
 
                 }
             }

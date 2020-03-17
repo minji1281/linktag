@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +28,9 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm_service.AlarmHATT;
 import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
+import com.linktag.linkapp.ui.jdm.JdmRecycleAdapter;
 import com.linktag.linkapp.value_object.ArmVO;
+import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.PcmVO;
 
 import java.text.SimpleDateFormat;
@@ -36,19 +40,66 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.ViewHolder> {
+public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.ViewHolder> implements Filterable {
 
     private Context mContext;
     private ArrayList<PcmVO> mList;
+    private ArrayList<PcmVO> filteredmlist;
     private LayoutInflater mInflater;
     private View view;
     private InterfaceUser mUser;
     SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
 
+    Filter listFilter;
+
     PcmRecycleAdapter(Context context, ArrayList<PcmVO> list) {
         mContext = context;
         mList = list;
         mUser = InterfaceUser.getInstance();
+        filteredmlist = list;
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (listFilter == null)
+            listFilter = new ListFilter();
+
+        return listFilter;
+    }
+
+
+    private class ListFilter extends Filter{
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            String charString = constraint.toString();
+            if(charString.isEmpty()){
+                results.values = mList;
+                results.count = mList.size();
+            }else{
+                ArrayList<PcmVO> itemList = new ArrayList<>();
+                for(PcmVO item : mList){
+                    if(item.PCM_02.toLowerCase().contains(constraint.toString().toLowerCase())){
+                        itemList.add(item);
+                    }
+                }
+                results.values = itemList;
+                results.count = itemList.size();
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            filteredmlist = (ArrayList<PcmVO>)results.values;
+
+            if(results.count>0){
+                notifyDataSetChanged();
+            }
+        }
     }
 
     @NonNull
@@ -65,17 +116,17 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        viewHolder.tv_name.setText(mList.get(position).PCM_02);
-        viewHolder.tv_date.setText(mList.get(position).PCM_04.substring(0,4)+"."+mList.get(position).PCM_04.substring(4,6)+"."+mList.get(position).PCM_04.substring(6,8));
-        viewHolder.tv_hwCount.setText("하드웨어 "+mList.get(position).PCD_HW_CNT + "건");
-        viewHolder.tv_swCount.setText("소프트웨어 "+mList.get(position).PCD_SW_CNT + "건");
+        viewHolder.tv_name.setText(filteredmlist.get(position).PCM_02);
+        viewHolder.tv_date.setText(filteredmlist.get(position).PCM_04.substring(0,4)+"."+filteredmlist.get(position).PCM_04.substring(4,6)+"."+filteredmlist.get(position).PCM_04.substring(6,8));
+        viewHolder.tv_hwCount.setText("하드웨어 "+filteredmlist.get(position).PCD_HW_CNT + "건");
+        viewHolder.tv_swCount.setText("소프트웨어 "+filteredmlist.get(position).PCD_SW_CNT + "건");
 
     }
 
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return filteredmlist.size();
     }
 
 
@@ -103,15 +154,15 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
                     int position = getAdapterPosition();
 
                     PcmVO pcmvo = new PcmVO();
-                    pcmvo.setPCM_ID(mList.get(position).PCM_ID);
-                    pcmvo.setPCM_01(mList.get(position).PCM_01);
-                    pcmvo.setPCM_02(mList.get(position).PCM_04);
-                    pcmvo.setPCM_03(mList.get(position).PCM_03);
-                    pcmvo.setPCM_04(mList.get(position).PCM_04);
-                    pcmvo.setPCM_96(mList.get(position).PCM_96);
-                    pcmvo.setPCM_97(mList.get(position).PCM_97);
-                    pcmvo.setARM_03(mList.get(position).ARM_03);
-                    pcmvo.setARM_04(mList.get(position).ARM_04);
+                    pcmvo.setPCM_ID(filteredmlist.get(position).PCM_ID);
+                    pcmvo.setPCM_01(filteredmlist.get(position).PCM_01);
+                    pcmvo.setPCM_02(filteredmlist.get(position).PCM_04);
+                    pcmvo.setPCM_03(filteredmlist.get(position).PCM_03);
+                    pcmvo.setPCM_04(filteredmlist.get(position).PCM_04);
+                    pcmvo.setPCM_96(filteredmlist.get(position).PCM_96);
+                    pcmvo.setPCM_97(filteredmlist.get(position).PCM_97);
+                    pcmvo.setARM_03(filteredmlist.get(position).ARM_03);
+                    pcmvo.setARM_04(filteredmlist.get(position).ARM_04);
 
                     Intent intent = new Intent(mContext, DetailPcm.class);
                     intent.putExtra("PcmVO", pcmvo);

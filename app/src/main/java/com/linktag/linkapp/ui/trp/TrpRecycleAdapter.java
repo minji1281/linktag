@@ -14,6 +14,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Filter;
+import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -29,8 +31,10 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
+import com.linktag.linkapp.ui.jdm.JdmRecycleAdapter;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.ArmVO;
+import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
 
@@ -40,19 +44,65 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.ViewHolder> {
+public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.ViewHolder> implements Filterable {
 
     private Context mContext;
     private ArrayList<TrpVO> mList;
+    private ArrayList<TrpVO> filteredmlist;
     private LayoutInflater mInflater;
     private View view;
     private InterfaceUser mUser;
 
+    Filter listFilter;
 
     TrpRecycleAdapter(Context context, ArrayList<TrpVO> list) {
         mContext = context;
         mList = list;
         mUser = InterfaceUser.getInstance();
+        filteredmlist = list;
+    }
+
+    @Override
+    public Filter getFilter() {
+        if (listFilter == null)
+            listFilter = new ListFilter();
+
+        return listFilter;
+    }
+
+
+    private class ListFilter extends Filter{
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            String charString = constraint.toString();
+            if(charString.isEmpty()){
+                results.values = mList;
+                results.count = mList.size();
+            }else{
+                ArrayList<TrpVO> itemList = new ArrayList<>();
+                for(TrpVO item : mList){
+                    if(item.TRP_02.toLowerCase().contains(constraint.toString().toLowerCase())){
+                        itemList.add(item);
+                    }
+                }
+                results.values = itemList;
+                results.count = itemList.size();
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            filteredmlist = (ArrayList<TrpVO>)results.values;
+
+            if(results.count>0){
+                notifyDataSetChanged();
+            }
+        }
     }
 
     @NonNull
@@ -70,23 +120,23 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        viewHolder.tv_name.setText(mList.get(position).TRP_02);
-        viewHolder.tv_week.setText(patternToWeeks(mList.get(position).TRP_04));
+        viewHolder.tv_name.setText(filteredmlist.get(position).TRP_02);
+        viewHolder.tv_week.setText(patternToWeeks(filteredmlist.get(position).TRP_04));
 
 
-        requestTRD_SELECT(viewHolder, mList, position);
+        requestTRD_SELECT(viewHolder, filteredmlist, position);
 
-        viewHolder.mList_trd = new ArrayList<>();
+        viewHolder.filteredmlist_trd = new ArrayList<>();
         viewHolder.linearLayoutManager_TRD = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
-        viewHolder.mAdapter_trd = new TrdRecycleAdapter_horizontal(mContext, viewHolder.mList_trd);
+        viewHolder.mAdapter_trd = new TrdRecycleAdapter_horizontal(mContext, viewHolder.filteredmlist_trd);
 
         viewHolder.recyclerView_TRD.setLayoutManager(viewHolder.linearLayoutManager_TRD);
         viewHolder.recyclerView_TRD.setAdapter(viewHolder.mAdapter_trd);
 
 
-        if (mList.get(position).ARM_03.equals("Y")) {
+        if (filteredmlist.get(position).ARM_03.equals("Y")) {
             viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-        } else if (mList.get(position).ARM_03.equals("N")) {
+        } else if (filteredmlist.get(position).ARM_03.equals("N")) {
             viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
         }
 
@@ -94,32 +144,32 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
             @Override
             public void onClick(View view) {
 
-                if (viewHolder.mList_trd.size() ==0){
+                if (viewHolder.filteredmlist_trd.size() ==0){
                     Toast.makeText(mContext,"지정된 알림이 없습니다.",Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                if (mList.get(position).ARM_03.equals("Y")) {
-                    mList.get(position).setARM_03("N");
+                if (filteredmlist.get(position).ARM_03.equals("Y")) {
+                    filteredmlist.get(position).setARM_03("N");
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-                    Toast.makeText(mContext, "[" + mList.get(position).TRP_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "[" + filteredmlist.get(position).TRP_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
                 } else {
-                    mList.get(position).setARM_03("Y");
+                    filteredmlist.get(position).setARM_03("Y");
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + mList.get(position).TRP_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "[" + filteredmlist.get(position).TRP_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
                 }
 
                 TrpVO trpvo = new TrpVO();
-                trpvo.setTRP_ID(mList.get(position).TRP_ID);
-                trpvo.setTRP_01(mList.get(position).TRP_01);
-                trpvo.setTRP_02(mList.get(position).TRP_02);
-                trpvo.setTRP_03(mList.get(position).TRP_03);
-                trpvo.setTRP_04(mList.get(position).TRP_04);
-                trpvo.setTRP_05(mList.get(position).TRP_05);
-                trpvo.setTRP_06(mList.get(position).TRP_06);
-                trpvo.setTRP_07(mList.get(position).TRP_07);
-                trpvo.setTRP_97(mList.get(position).TRP_97);
-                trpvo.setARM_03(mList.get(position).ARM_03);
+                trpvo.setTRP_ID(filteredmlist.get(position).TRP_ID);
+                trpvo.setTRP_01(filteredmlist.get(position).TRP_01);
+                trpvo.setTRP_02(filteredmlist.get(position).TRP_02);
+                trpvo.setTRP_03(filteredmlist.get(position).TRP_03);
+                trpvo.setTRP_04(filteredmlist.get(position).TRP_04);
+                trpvo.setTRP_05(filteredmlist.get(position).TRP_05);
+                trpvo.setTRP_06(filteredmlist.get(position).TRP_06);
+                trpvo.setTRP_07(filteredmlist.get(position).TRP_07);
+                trpvo.setTRP_97(filteredmlist.get(position).TRP_97);
+                trpvo.setARM_03(filteredmlist.get(position).ARM_03);
 
                 requestTRP_CONTROL(trpvo, position);
 
@@ -128,7 +178,7 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
 
     }
 
-    public void requestTRD_SELECT(ViewHolder viewHolder, ArrayList<TrpVO> mList, int position) {
+    public void requestTRD_SELECT(ViewHolder viewHolder, ArrayList<TrpVO> filteredmlist, int position) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(mContext.getString(R.string.common_network_error));
@@ -143,8 +193,8 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
         Call<TRDModel> call = Http.trd(HttpBaseService.TYPE.POST).TRD_SELECT(
                 BaseConst.URL_HOST,
                 "LIST",
-                mList.get(position).TRP_ID,
-                mList.get(position).TRP_01,
+                filteredmlist.get(position).TRP_ID,
+                filteredmlist.get(position).TRP_01,
                 ""
         );
 
@@ -164,11 +214,11 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
 
                             Response<TRDModel> response = (Response<TRDModel>) msg.obj;
 
-                            viewHolder.mList_trd = response.body().Data;
-                            if (viewHolder.mList_trd == null)
-                                viewHolder.mList_trd = new ArrayList<>();
+                            viewHolder.filteredmlist_trd = response.body().Data;
+                            if (viewHolder.filteredmlist_trd == null)
+                                viewHolder.filteredmlist_trd = new ArrayList<>();
 
-                            if (viewHolder.mList_trd.size() ==0){
+                            if (viewHolder.filteredmlist_trd.size() ==0){
                                 viewHolder.tv_alarmNone.setVisibility(View.VISIBLE);
                                 viewHolder.recyclerView_TRD.setVisibility(View.GONE);
                             }
@@ -176,7 +226,7 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
                                 viewHolder.tv_alarmNone.setVisibility(View.GONE);
                                 viewHolder.recyclerView_TRD.setVisibility(View.VISIBLE);
                             }
-                            viewHolder.mAdapter_trd.updateData(viewHolder.mList_trd);
+                            viewHolder.mAdapter_trd.updateData(viewHolder.filteredmlist_trd);
                             viewHolder.mAdapter_trd.notifyDataSetChanged();
 
                         }
@@ -226,7 +276,7 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
 
     @Override
     public int getItemCount() {
-        return mList.size();
+        return filteredmlist.size();
     }
 
 
@@ -237,7 +287,7 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
 
         private TrdRecycleAdapter_horizontal mAdapter_trd;
         private LinearLayoutManager linearLayoutManager_TRD;
-        private ArrayList<TrdVO> mList_trd;
+        private ArrayList<TrdVO> filteredmlist_trd;
 
         RecyclerView recyclerView_TRD;
 
@@ -260,16 +310,16 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
                     int position = getAdapterPosition();
 
                     TrpVO trpvo = new TrpVO();
-                    trpvo.setTRP_ID(mList.get(position).TRP_ID);
-                    trpvo.setTRP_01(mList.get(position).TRP_01);
-                    trpvo.setTRP_02(mList.get(position).TRP_02);
-                    trpvo.setTRP_03(mList.get(position).TRP_03);
-                    trpvo.setTRP_04(mList.get(position).TRP_04);
-                    trpvo.setTRP_05(mList.get(position).TRP_05);
-                    trpvo.setTRP_06(mList.get(position).TRP_06);
-                    trpvo.setTRP_07(mList.get(position).TRP_07);
-                    trpvo.setTRP_97(mList.get(position).TRP_97);
-                    trpvo.setARM_03(mList.get(position).ARM_03);
+                    trpvo.setTRP_ID(filteredmlist.get(position).TRP_ID);
+                    trpvo.setTRP_01(filteredmlist.get(position).TRP_01);
+                    trpvo.setTRP_02(filteredmlist.get(position).TRP_02);
+                    trpvo.setTRP_03(filteredmlist.get(position).TRP_03);
+                    trpvo.setTRP_04(filteredmlist.get(position).TRP_04);
+                    trpvo.setTRP_05(filteredmlist.get(position).TRP_05);
+                    trpvo.setTRP_06(filteredmlist.get(position).TRP_06);
+                    trpvo.setTRP_07(filteredmlist.get(position).TRP_07);
+                    trpvo.setTRP_97(filteredmlist.get(position).TRP_97);
+                    trpvo.setARM_03(filteredmlist.get(position).ARM_03);
 
                     Intent intent = new Intent(mContext, DetailTrp.class);
                     intent.putExtra("TrpVO", trpvo);

@@ -8,6 +8,8 @@ import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -15,6 +17,7 @@ import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -80,6 +83,7 @@ public class RFMMain extends BaseActivity {
     private String[] str;
     private String[] index;
 
+    private EditText ed_search;
 
     private Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
@@ -110,6 +114,20 @@ public class RFMMain extends BaseActivity {
         requestRFM_SELECT();
 
 
+        ed_search.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                mAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable edit) {
+            }
+        });
     }
 
 
@@ -121,6 +139,8 @@ public class RFMMain extends BaseActivity {
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
         initLayoutByContractType();
+
+        ed_search = findViewById(R.id.ed_search);
 
         mSpinnerList = new ArrayList<>();
 
@@ -158,6 +178,7 @@ public class RFMMain extends BaseActivity {
                     RFM_01 = mSpinnerList.get(position).getCode();
                     RFM_02 = mSpinnerList.get(position).getName();
                     RFM_03 = mSpinnerList.get(position).getMemo();
+                    ed_search.setText("");
                 }
             }
 
@@ -485,6 +506,7 @@ public class RFMMain extends BaseActivity {
                             swipeRefresh.setRefreshing(false);
 
                         }
+                        mAdapter.getFilter().filter(ed_search.getText());
                     }
                 }.sendMessage(msg);
             }
