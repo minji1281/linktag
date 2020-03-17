@@ -9,6 +9,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -59,6 +61,7 @@ public class CodList extends BaseActivity {
     private Button btnEdit;
     @BindView(R.id.spCos)
     Spinner spCos;
+    private EditText etSearch;
 
     //======================
     // Variable
@@ -126,6 +129,7 @@ public class CodList extends BaseActivity {
             }
         });
         spCos = (Spinner) findViewById(R.id.spCos);
+        etSearch = findViewById(R.id.etSearch);
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -149,6 +153,20 @@ public class CodList extends BaseActivity {
     protected void onResume(){
         super.onResume();
         cosInitial();
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                mAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable edit) {
+            }
+        });
     }
 
     private void requestCOD_SELECT(){
@@ -199,6 +217,7 @@ public class CodList extends BaseActivity {
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();
                             swipeRefresh.setRefreshing(false);
+                            mAdapter.getFilter().filter(etSearch.getText());
 
                         }
                     }

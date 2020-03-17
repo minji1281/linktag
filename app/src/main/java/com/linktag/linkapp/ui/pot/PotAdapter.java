@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -35,24 +36,28 @@ import retrofit2.Response;
 public class PotAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<PotVO> mList;
+    private ArrayList<PotVO> filteredmlist;
     private LayoutInflater mInflater;
     private InterfaceUser mUser;
+
+    Filter listFilter;
 
     public PotAdapter(Context context, ArrayList<PotVO> list){
         this.mContext = context;
         this.mList = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mUser = InterfaceUser.getInstance();
+        filteredmlist = list;
     }
 
     @Override
     public int getCount() {
-        return mList.size();
+        return filteredmlist.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mList.get(position);
+        return filteredmlist.get(position);
     }
 
     @Override
@@ -82,25 +87,25 @@ public class PotAdapter extends BaseAdapter {
         }
 
         //Text
-        viewHolder.tvName.setText(mList.get(position).POT_02);
+        viewHolder.tvName.setText(filteredmlist.get(position).POT_02);
         String DDAY = "";
-        if(Integer.parseInt(mList.get(position).DDAY) > 0) {
-            DDAY = "D-" + mList.get(position).DDAY;
+        if(Integer.parseInt(filteredmlist.get(position).DDAY) > 0) {
+            DDAY = "D-" + filteredmlist.get(position).DDAY;
         }
-        else if(Integer.parseInt(mList.get(position).DDAY) == 0){
+        else if(Integer.parseInt(filteredmlist.get(position).DDAY) == 0){
             DDAY = "D-Day";
         }
         else{
-            DDAY = "D+" + (Integer.parseInt(mList.get(position).DDAY) * -1);
+            DDAY = "D+" + (Integer.parseInt(filteredmlist.get(position).DDAY) * -1);
         }
         viewHolder.tvDDAY.setText(DDAY);
 
         //Image
-        if(mList.get(position).POT_05.equals("F")){
+        if(filteredmlist.get(position).POT_05.equals("F")){
             viewHolder.PotIcon.setImageResource(R.drawable.ic_pot2_test);
         }
         else{
-            if(Integer.parseInt(mList.get(position).DDAY) <= 0){
+            if(Integer.parseInt(filteredmlist.get(position).DDAY) <= 0){
                 viewHolder.PotIcon.setImageResource(R.drawable.ic_pot1_test);
             }
             else{
@@ -108,7 +113,7 @@ public class PotAdapter extends BaseAdapter {
             }
         }
 
-        if(mList.get(position).ARM_03.equals("Y")){
+        if(filteredmlist.get(position).ARM_03.equals("Y")){
             viewHolder.AlarmIcon.setImageResource(R.drawable.alarm_state_on);
         }
         else{ //N
@@ -117,7 +122,7 @@ public class PotAdapter extends BaseAdapter {
         viewHolder.AlarmIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                PotVO data = mList.get(position);
+                PotVO data = filteredmlist.get(position);
                 requestPOT_CONTROL("ALARM_UPDATE", data, position);
             }
         });
@@ -131,7 +136,7 @@ public class PotAdapter extends BaseAdapter {
                         .setPositiveButton("예", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                PotVO data = mList.get(position);
+                                PotVO data = filteredmlist.get(position);
                                 requestPOT_CONTROL("WATER", data, position);
                             }
                         })
@@ -149,6 +154,50 @@ public class PotAdapter extends BaseAdapter {
         viewHolder.btnWater.setFocusable(false);
 
         return convertView;
+    }
+
+    public Filter getFilter() {
+        if (listFilter == null)
+            listFilter = new ListFilter();
+
+        return listFilter;
+    }
+
+    private class ListFilter extends Filter{
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            String charString = constraint.toString();
+            if(charString.isEmpty()){
+                results.values = mList;
+                results.count = mList.size();
+            }else{
+                ArrayList<PotVO> itemList = new ArrayList<>();
+                for(PotVO item : mList){
+                    if(item.POT_02.toLowerCase().contains(constraint.toString().toLowerCase())){
+                        itemList.add(item);
+                    }
+                }
+                results.values = itemList;
+                results.count = itemList.size();
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            filteredmlist = (ArrayList<PotVO>)results.values;
+
+            if(results.count>0){
+                notifyDataSetChanged();
+            }
+            else {
+                notifyDataSetInvalidated();
+            }
+        }
     }
 
     public void updateData(ArrayList<PotVO> list){ mList = list;}
@@ -210,10 +259,10 @@ public class PotAdapter extends BaseAdapter {
                             ArrayList<PotVO> responseData = response.body().Data;
 
                             if(responseData.get(0).Validation){
-                                mList.get(position).DDAY = responseData.get(0).DDAY;
-                                mList.get(position).POT_03 = responseData.get(0).POT_03;
-                                mList.get(position).POT_96 = responseData.get(0).POT_96;
-                                mList.get(position).ARM_03 = responseData.get(0).ARM_03;
+                                filteredmlist.get(position).DDAY = responseData.get(0).DDAY;
+                                filteredmlist.get(position).POT_03 = responseData.get(0).POT_03;
+                                filteredmlist.get(position).POT_96 = responseData.get(0).POT_96;
+                                filteredmlist.get(position).ARM_03 = responseData.get(0).ARM_03;
 
                                 if(responseData.get(0).ARM_03.equals("Y")){
                                     String NextDay = responseData.get(0).POT_96;
@@ -222,7 +271,7 @@ public class PotAdapter extends BaseAdapter {
                                 }
                             }
 
-                            updateData(mList);
+                            updateData(filteredmlist);
                             notifyDataSetChanged();
 
                         }

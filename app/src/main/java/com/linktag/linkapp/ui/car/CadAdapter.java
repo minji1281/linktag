@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,24 +19,28 @@ import java.util.ArrayList;
 public class CadAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<CAD_VO> mList;
+    private ArrayList<CAD_VO> filteredmlist;
     private LayoutInflater mInflater;
     private InterfaceUser mUser;
+
+    Filter listFilter;
 
     public CadAdapter(Context context, ArrayList<CAD_VO> list){
         this.mContext = context;
         this.mList = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mUser = InterfaceUser.getInstance();
+        filteredmlist = list;
     }
 
     @Override
     public int getCount() {
-        return mList.size();
+        return filteredmlist.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mList.get(position);
+        return filteredmlist.get(position);
     }
 
     @Override
@@ -63,7 +68,7 @@ public class CadAdapter extends BaseAdapter {
         }
 
         //Image
-        if(mList.get(position).CAD_05.equals("1")){ //1:교체
+        if(filteredmlist.get(position).CAD_05.equals("1")){ //1:교체
             viewHolder.imgGubunIcon.setImageResource(R.drawable.ic_cad_change);
         }
         else{ //1:점검
@@ -71,12 +76,56 @@ public class CadAdapter extends BaseAdapter {
         }
 
         //Text
-        viewHolder.tvDay.setText("정비일자 " + mList.get(position).CAD_03.substring(0, 4) + "." + mList.get(position).CAD_03.substring(4, 6) + "." + mList.get(position).CAD_03.substring(6, 8));
-        viewHolder.tvName.setText(mList.get(position).CAD_04);
-        viewHolder.tvMoney.setText(NumberFormat.getInstance().format(mList.get(position).CAD_07) + "원");
-        viewHolder.tvKm.setText(NumberFormat.getInstance().format(mList.get(position).CAD_08) + "km");
+        viewHolder.tvDay.setText("정비일자 " + filteredmlist.get(position).CAD_03.substring(0, 4) + "." + filteredmlist.get(position).CAD_03.substring(4, 6) + "." + filteredmlist.get(position).CAD_03.substring(6, 8));
+        viewHolder.tvName.setText(filteredmlist.get(position).CAD_04);
+        viewHolder.tvMoney.setText(NumberFormat.getInstance().format(filteredmlist.get(position).CAD_07) + "원");
+        viewHolder.tvKm.setText(NumberFormat.getInstance().format(filteredmlist.get(position).CAD_08) + "km");
 
         return convertView;
+    }
+
+    public Filter getFilter() {
+        if (listFilter == null)
+            listFilter = new ListFilter();
+
+        return listFilter;
+    }
+
+    private class ListFilter extends Filter{
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            String charString = constraint.toString();
+            if(charString.isEmpty()){
+                results.values = mList;
+                results.count = mList.size();
+            }else{
+                ArrayList<CAD_VO> itemList = new ArrayList<>();
+                for(CAD_VO item : mList){
+                    if(item.CAD_04.toLowerCase().contains(constraint.toString().toLowerCase())){
+                        itemList.add(item);
+                    }
+                }
+                results.values = itemList;
+                results.count = itemList.size();
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            filteredmlist = (ArrayList<CAD_VO>)results.values;
+
+            if(results.count>0){
+                notifyDataSetChanged();
+            }
+            else {
+                notifyDataSetInvalidated();
+            }
+        }
     }
 
     public void updateData(ArrayList<CAD_VO> list){ mList = list;}

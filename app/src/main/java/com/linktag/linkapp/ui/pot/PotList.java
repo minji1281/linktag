@@ -6,6 +6,8 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -44,7 +46,7 @@ public class PotList extends BaseActivity {
     private GridView gridView;
     private TextView emptyText;
     private SwipeRefreshLayout swipeRefresh;
-//    private EditText etName;
+    private EditText etSearch;
 //    private ImageView imgSearch;
 
     //======================
@@ -100,7 +102,7 @@ public class PotList extends BaseActivity {
 
         emptyText = findViewById(R.id.empty);
         gridView.setEmptyView(emptyText);
-//        etName = findViewById(R.id.etName);
+        etSearch = findViewById(R.id.etSearch);
 //        imgSearch = findViewById(R.id.imgSearch);
 //        imgSearch.setOnClickListener(v -> requestPOT_SELECT("LIST", ""));
 
@@ -127,6 +129,21 @@ public class PotList extends BaseActivity {
         super.onResume();
 
         requestPOT_SELECT("LIST", "");
+
+        etSearch.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                mAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable edit) {
+            }
+        });
     }
 
     private void requestPOT_SELECT(String GUBUN, String POT_01){
@@ -194,6 +211,8 @@ public class PotList extends BaseActivity {
                                     mContext.startActivity(intent);
                                 }
                             }
+
+                            mAdapter.getFilter().filter(etSearch.getText());
 
                         }
                     }

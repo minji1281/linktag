@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.Filter;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
@@ -29,6 +30,7 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.value_object.COD_VO;
+import com.linktag.linkapp.value_object.PotVO;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -40,8 +42,11 @@ import retrofit2.Response;
 public class CodAdapter extends BaseAdapter {
     private Context mContext;
     private ArrayList<COD_VO> mList;
+    private ArrayList<COD_VO> filteredmlist;
     private LayoutInflater mInflater;
     private InterfaceUser mUser;
+
+    Filter listFilter;
 
     Calendar TODAY = Calendar.getInstance();
     Calendar COD_05_C = Calendar.getInstance();
@@ -52,16 +57,17 @@ public class CodAdapter extends BaseAdapter {
         this.mList = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mUser = InterfaceUser.getInstance();
+        filteredmlist = list;
     }
 
     @Override
     public int getCount() {
-        return mList.size();
+        return filteredmlist.size();
     }
 
     @Override
     public Object getItem(int position) {
-        return mList.get(position);
+        return filteredmlist.get(position);
     }
 
     @Override
@@ -98,9 +104,9 @@ public class CodAdapter extends BaseAdapter {
         clearCalTime(COD_05_C);
         clearCalTime(COD_06_C);
 
-        viewHolder.tvCodName.setText(mList.get(position).COD_02);
+        viewHolder.tvCodName.setText(filteredmlist.get(position).COD_02);
 
-        if(mList.get(position).COD_07.equals("")){
+        if(filteredmlist.get(position).COD_07.equals("")){
             if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                 viewHolder.layoutCod.setBackground(ContextCompat.getDrawable(mContext, R.drawable.list_round_shape));
             } else {
@@ -112,11 +118,11 @@ public class CodAdapter extends BaseAdapter {
             viewHolder.pbUse.setVisibility(View.VISIBLE);
 
             //Text
-            viewHolder.tvEndDay.setText(mList.get(position).COD_06.substring(0, 4) + "-" + mList.get(position).COD_06.substring(4, 6) + "-" + mList.get(position).COD_06.substring(6, 8));
+            viewHolder.tvEndDay.setText(filteredmlist.get(position).COD_06.substring(0, 4) + "-" + filteredmlist.get(position).COD_06.substring(4, 6) + "-" + filteredmlist.get(position).COD_06.substring(6, 8));
 
             //ProgressBar
-            COD_05_C.set(Integer.parseInt(mList.get(position).COD_05.substring(0,4)), Integer.parseInt(mList.get(position).COD_05.substring(4,6)) - 1, Integer.parseInt(mList.get(position).COD_05.substring(6)));
-            COD_06_C.set(Integer.parseInt(mList.get(position).COD_06.substring(0,4)), Integer.parseInt(mList.get(position).COD_06.substring(4,6)) - 1, Integer.parseInt(mList.get(position).COD_06.substring(6)));
+            COD_05_C.set(Integer.parseInt(filteredmlist.get(position).COD_05.substring(0,4)), Integer.parseInt(filteredmlist.get(position).COD_05.substring(4,6)) - 1, Integer.parseInt(filteredmlist.get(position).COD_05.substring(6)));
+            COD_06_C.set(Integer.parseInt(filteredmlist.get(position).COD_06.substring(0,4)), Integer.parseInt(filteredmlist.get(position).COD_06.substring(4,6)) - 1, Integer.parseInt(filteredmlist.get(position).COD_06.substring(6)));
             int max = (int) ((COD_06_C.getTimeInMillis() - COD_05_C.getTimeInMillis()) / (24*60*60*1000));
             int value = (int) ((TODAY.getTimeInMillis() - COD_05_C.getTimeInMillis()) / (24*60*60*1000));
             viewHolder.pbUse.setMax(max);
@@ -140,11 +146,11 @@ public class CodAdapter extends BaseAdapter {
             viewHolder.pbUse.setVisibility(View.GONE);
 
             //Text
-            viewHolder.tvEndDay.setText(mList.get(position).COD_07.substring(0, 4) + "-" + mList.get(position).COD_07.substring(4, 6) + "-" + mList.get(position).COD_07.substring(6, 8));
+            viewHolder.tvEndDay.setText(filteredmlist.get(position).COD_07.substring(0, 4) + "-" + filteredmlist.get(position).COD_07.substring(4, 6) + "-" + filteredmlist.get(position).COD_07.substring(6, 8));
         }
 
         //Image
-        if(mList.get(position).ARM_03.equals("Y")){
+        if(filteredmlist.get(position).ARM_03.equals("Y")){
             viewHolder.imgAlarmIcon.setImageResource(R.drawable.alarm_state_on);
         }
         else{ //N
@@ -153,7 +159,7 @@ public class CodAdapter extends BaseAdapter {
         viewHolder.imgAlarmIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                COD_VO data = mList.get(position);
+                COD_VO data = filteredmlist.get(position);
                 requestCOD_CONTROL("ALARM_UPDATE", data, position);
             }
         });
@@ -167,7 +173,7 @@ public class CodAdapter extends BaseAdapter {
                         .setPositiveButton("예", new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
-                                COD_VO data = mList.get(position);
+                                COD_VO data = filteredmlist.get(position);
                                 requestCOD_CONTROL("USEEND", data, position);
                             }
                         })
@@ -247,8 +253,8 @@ public class CodAdapter extends BaseAdapter {
                             ArrayList<COD_VO> responseData = response.body().Data;
 
                             if(responseData.get(0).Validation){
-                                mList.get(position).COD_07 = responseData.get(0).COD_07;
-                                mList.get(position).ARM_03 = responseData.get(0).ARM_03;
+                                filteredmlist.get(position).COD_07 = responseData.get(0).COD_07;
+                                filteredmlist.get(position).ARM_03 = responseData.get(0).ARM_03;
 
                                 if(responseData.get(0).ARM_03.equals("Y") && responseData.get(0).COD_07.equals("")){
                                     String NextDay = responseData.get(0).COD_96;
@@ -257,7 +263,7 @@ public class CodAdapter extends BaseAdapter {
                                 }
                             }
 
-                            updateData(mList);
+                            updateData(filteredmlist);
                             notifyDataSetChanged();
 
                         }
@@ -272,6 +278,50 @@ public class CodAdapter extends BaseAdapter {
             }
         });
 
+    }
+
+    public Filter getFilter() {
+        if (listFilter == null)
+            listFilter = new ListFilter();
+
+        return listFilter;
+    }
+
+    private class ListFilter extends Filter{
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+
+            String charString = constraint.toString();
+            if(charString.isEmpty()){
+                results.values = mList;
+                results.count = mList.size();
+            }else{
+                ArrayList<COD_VO> itemList = new ArrayList<>();
+                for(COD_VO item : mList){
+                    if(item.COD_02.toLowerCase().contains(constraint.toString().toLowerCase())){
+                        itemList.add(item);
+                    }
+                }
+                results.values = itemList;
+                results.count = itemList.size();
+            }
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+
+            filteredmlist = (ArrayList<COD_VO>)results.values;
+
+            if(results.count>0){
+                notifyDataSetChanged();
+            }
+            else {
+                notifyDataSetInvalidated();
+            }
+        }
     }
 
     public void clearCalTime(Calendar c){
