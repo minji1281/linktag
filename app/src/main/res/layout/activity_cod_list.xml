@@ -15,6 +15,7 @@
         app:title_text="화장품 목록"/>
 
     <LinearLayout
+        android:id="@+id/layoutSpinner"
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:paddingLeft="20dp"
@@ -40,6 +41,24 @@
             android:textColor="@color/listitem_text1"
             android:textSize="@dimen/text_small"
             android:text="편집"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layoutSpinnerEmpty"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"
+        android:background="@color/white"
+        android:visibility="gone">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"
+            android:text="항목없음(스캔등록 해주세요)"/>
 
     </LinearLayout>
 

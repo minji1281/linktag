@@ -214,10 +214,10 @@ public class FrmAdapter extends BaseAdapter {
         String FRM_02 = FRM.FRM_02; //명칭
         String FRM_03 = "";
 
-        int FRM_04 = 0;
-        String FRM_05 = "";
-        String FRM_06 = "";
-        String FRM_96 = "";
+        int FRM_04 = FRM.FRM_04; //주기
+        String FRM_05 = FRM.FRM_05; //주기구분
+        String FRM_06 = FRM.FRM_06; //메모
+        String FRM_96 = FRM.FRM_96; //알림시각
         String FRM_98 = mUser.Value.OCM_01; //사용자코드
 
         String ARM_03 = FRM.ARM_03;

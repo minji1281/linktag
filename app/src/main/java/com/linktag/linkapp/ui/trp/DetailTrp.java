@@ -155,7 +155,7 @@ public class DetailTrp extends BaseActivity {
                     if (trpVO.ARM_03.equals("Y")) {
                         checkDayOfWeek("[" + ed_name.getText().toString() + "]" + "  해당 복약정보가 저장되었습니다.\n");
                     } else {
-                        checkDayOfWeek("");
+                        Toast.makeText(mContext,"[" + ed_name.getText().toString() + "]" + "  해당 복약정보가 저장되었습니다.",Toast.LENGTH_LONG).show();
                     }
                 }
                 onBackPressed();

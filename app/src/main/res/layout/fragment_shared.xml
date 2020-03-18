@@ -46,7 +46,7 @@
     </GridView>
 
     <ImageView
-        android:id="@+id/imgNew2"
+        android:id="@+id/imgNew"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="right|bottom"

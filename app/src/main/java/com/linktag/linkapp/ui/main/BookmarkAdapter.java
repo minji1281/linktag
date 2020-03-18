@@ -1,6 +1,8 @@
 package com.linktag.linkapp.ui.main;
 
 import android.content.Context;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,6 +13,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.linktag.base.util.ClsBitmap;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.value_object.CtdVO;
 
@@ -43,7 +46,6 @@ public class BookmarkAdapter extends BaseAdapter{
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        String imageUrl;
 
         if(convertView == null){
             convertView = mInflater.inflate(R.layout.griditem_service, parent, false);
@@ -51,6 +53,11 @@ public class BookmarkAdapter extends BaseAdapter{
             viewHolder = new ViewHolder();
 
             viewHolder.ivService = convertView.findViewById(R.id.ivService);
+
+            ShapeDrawable drawable = new ShapeDrawable(new OvalShape());
+            drawable.getPaint().setColor(mContext.getResources().getColor(R.color.transparent_color));
+
+            viewHolder.ivService.setBackground(drawable);
             if (Build.VERSION.SDK_INT >= 21) {
                 viewHolder.ivService.setClipToOutline(true);
             }
@@ -63,28 +70,23 @@ public class BookmarkAdapter extends BaseAdapter{
             viewHolder = (ViewHolder) convertView.getTag();
         }
 
-//        imageUrl = "http://app.linktag.io/files/admin/svc/" + mList.get(position).CTD_02 + "/" + mList.get(position).SVC_16;
-//
-//        Glide.with(mContext).load(imageUrl)
-//                .placeholder(R.drawable.main_profile_no_image)
-//                .error(R.drawable.main_profile_no_image)
-//                .into(viewHolder.ivService);
-
-        int resource = convertView.getResources().getIdentifier("service_" + mList.get(position).SVC_01.toLowerCase() , "drawable", mContext.getPackageName());
-        viewHolder.ivService.setImageResource(resource);
-
         if(deleteChk)
             viewHolder.layDelete.setVisibility(View.VISIBLE);
         else
             viewHolder.layDelete.setVisibility(View.GONE);
 
+        int resource = convertView.getResources().getIdentifier("service_" + mList.get(position).SVC_01.toLowerCase() , "drawable", mContext.getPackageName());
+
         if(mList.get(position).CTM_19.equals("S")){
             viewHolder.layType.setVisibility(View.VISIBLE);
             viewHolder.tvService.setText(mList.get(position).CTM_17);
+            ClsBitmap.setSharedPhoto(mContext, viewHolder.ivService, mList.get(position).CTD_01, mList.get(position).CTD_08, "", resource);
         }
         else {
             viewHolder.layType.setVisibility(View.GONE);
             viewHolder.tvService.setText(mList.get(position).CTD_02_NM);
+            viewHolder.ivService.setImageResource(resource);
+
         }
 
         return convertView;

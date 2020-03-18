@@ -20,22 +20,21 @@
         android:id="@+id/layoutChooseTab"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:background="#F2F5F7"
+        android:background="#9AB6FF"
         android:baselineAligned="false"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        android:paddingLeft="6dp"
-        android:paddingTop="4dp"
-        android:paddingEnd="6dp">
+        android:paddingTop="8dp">
 
         <TextView
             android:id="@+id/tvChooseService"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/menu_left_bar_button"
             android:gravity="center"
             android:text="나의 서비스"
-            android:textColor="@drawable/selector_main_tab_text"
+            android:textColor="@color/selector_text_black_white"
             android:textSize="@dimen/text_normal" />
 
         <TextView
@@ -43,9 +42,10 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="1"
+            android:background="@drawable/menu_right_bar_button"
             android:gravity="center"
             android:text="공유 서비스"
-            android:textColor="@drawable/selector_main_tab_text"
+            android:textColor="@color/selector_text_black_white"
             android:textSize="@dimen/text_normal" />
 
     </LinearLayout>

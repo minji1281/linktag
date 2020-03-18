@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -55,9 +56,11 @@ public class CodList extends BaseActivity {
     private BaseHeader header;
     private BaseFooter footer;
     private SwipeRefreshLayout swipeRefresh;
+    public static LinearLayout layoutSpinner;
+    public static LinearLayout layoutSpinnerEmpty;
     private ListView listView;
     private TextView emptyText;
-    private ImageView imgNew;
+    public static ImageView imgNew;
     private Button btnEdit;
     @BindView(R.id.spCos)
     Spinner spCos;
@@ -106,6 +109,9 @@ public class CodList extends BaseActivity {
         imgNew = findViewById(R.id.imgNew);
         imgNew.setOnClickListener(v -> goCodNew());
 
+        layoutSpinner = (LinearLayout) findViewById(R.id.layoutSpinner);
+        layoutSpinnerEmpty = (LinearLayout) findViewById(R.id.layoutSpinnerEmpty);
+
         listView = findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -153,6 +159,7 @@ public class CodList extends BaseActivity {
     protected void onResume(){
         super.onResume();
         cosInitial();
+
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {

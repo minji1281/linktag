@@ -36,7 +36,7 @@ public class ClsBitmap {
 
         if(fileName.equals("")){
 //            deleteImageFile(context, "shared" + "/" + fileFolder, preFilename);
-            deleteImageFolder(context, "profile" + "/" + fileFolder);
+            deleteImageFolder(context, "shared" + "/" + fileFolder);
 
             imageProfile.setImageResource(nNoImage);
         } else {

@@ -215,11 +215,10 @@ public class PotAdapter extends BaseAdapter {
         String POT_02 = pot.POT_02; //명칭
         String POT_03 = "";
 
-        int POT_04 = 0;
-        String POT_05 = "";
-        String POT_06 = "";
-        String POT_81 = "";
-        String POT_96 = "";
+        int POT_04 = pot.POT_04; //주기
+        String POT_05 = pot.POT_05; //주기구분
+        String POT_06 = pot.POT_06; //메모
+        String POT_96 = pot.POT_96; //알림시각
         String POT_98 = mUser.Value.OCM_01; //사용자 아이디
 
         String ARM_03 = pot.ARM_03; //알림여부

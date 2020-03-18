@@ -587,6 +587,7 @@ public class FrmDetail extends BaseActivity {
                     setNextFilterDay();
                 }
                 setImgFilter();
+                setDDAY();
             }
         }, FRM_03_C.get(Calendar.YEAR), FRM_03_C.get(Calendar.MONTH), FRM_03_C.get(Calendar.DATE));
 

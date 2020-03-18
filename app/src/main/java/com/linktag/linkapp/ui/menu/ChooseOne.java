@@ -56,8 +56,10 @@ public class ChooseOne extends BaseActivity {
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> closePop(v));
-        header.layoutHeader.setBackgroundColor(Color.parseColor("#F2F5F7"));
+        header.layoutHeader.setBackgroundColor(Color.parseColor("#9AB6FF"));
         header.headerSpacer.setVisibility(View.INVISIBLE);
+        header.tvHeaderTitle.setTextColor(Color.WHITE);
+        header.btnHeaderLeft.setSelected(true);
 
         tvChooseService = findViewById(R.id.tvChooseService);
         tvChooseService.setOnClickListener(v -> setCurrentViewPager(CHOOSE_PAGE_SERVICE));
@@ -142,13 +144,13 @@ public class ChooseOne extends BaseActivity {
         switch (viewPager.getCurrentItem()) {
             case CHOOSE_PAGE_SERVICE:
                 tvChooseService.setSelected(true);
-                tvChooseService.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                tvChooseShared.setBackgroundColor(Color.parseColor("#F2F5F7"));
+                tvChooseService.setElevation(20);
+                tvChooseShared.setElevation(0);
                 break;
             case CHOOSE_PAGE_SHARED:
                 tvChooseShared.setSelected(true);
-                tvChooseShared.setBackgroundColor(Color.parseColor("#FFFFFF"));
-                tvChooseService.setBackgroundColor(Color.parseColor("#F2F5F7"));
+                tvChooseShared.setElevation(20);
+                tvChooseService.setElevation(0);
                 break;
         }
     }
