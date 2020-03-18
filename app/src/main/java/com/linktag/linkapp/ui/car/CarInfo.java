@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -88,12 +89,21 @@ public class CarInfo extends AsyncTask<Void, Void, Void> {
                             carList.clear();
 
                             if(response.body().Total > 0){
+                                CadList.layoutSpinner.setVisibility(View.VISIBLE);
+                                CadList.layoutSpinnerEmpty.setVisibility(View.GONE);
+                                CadList.imgNew.setVisibility(View.VISIBLE);
+
                                 for(int i = 0; i < response.body().Total; i++){
                                     carList.add(new CarSpinnerList(response.body().Data.get(i).CAR_01, response.body().Data.get(i).CAR_02, response.body().Data.get(i).CAR_03, response.body().Data.get(i).CAR_04));
 
                                     ar[i] = response.body().Data.get(i).CAR_02;
                                     ar2[i] = response.body().Data.get(i).CAR_01;
                                 }
+                            }
+                            else{ //항목없을때
+                                CadList.layoutSpinner.setVisibility(View.GONE);
+                                CadList.layoutSpinnerEmpty.setVisibility(View.VISIBLE);
+                                CadList.imgNew.setVisibility(View.GONE);
                             }
 
                             adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_item_list, ar);

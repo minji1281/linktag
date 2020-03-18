@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
@@ -93,6 +94,10 @@ public class CosInfo extends AsyncTask<Void, Void, Void> {
                             cosList.clear();
 
                             if(response.body().Total > 0){
+                                CodList.layoutSpinner.setVisibility(View.VISIBLE);
+                                CodList.layoutSpinnerEmpty.setVisibility(View.GONE);
+                                CodList.imgNew.setVisibility(View.VISIBLE);
+
                                 for(int i = 0; i < response.body().Total; i++){
                                     cosList.add(new SpinnerList(response.body().Data.get(i).COS_01, response.body().Data.get(i).COS_02, response.body().Data.get(i).COS_03));
 
@@ -100,7 +105,11 @@ public class CosInfo extends AsyncTask<Void, Void, Void> {
                                     ar2[i] = response.body().Data.get(i).COS_01;
                                 }
                             }
-
+                            else{ //항목없을때
+                                CodList.layoutSpinner.setVisibility(View.GONE);
+                                CodList.layoutSpinnerEmpty.setVisibility(View.VISIBLE);
+                                CodList.imgNew.setVisibility(View.GONE);
+                            }
 
                             if(gubun2.equals("L")){
                                 adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_item_list, ar);

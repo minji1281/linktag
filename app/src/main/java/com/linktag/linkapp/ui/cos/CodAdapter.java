@@ -203,17 +203,17 @@ public class CodAdapter extends BaseAdapter {
 
         String COD_ID = COD.COD_ID; //컨테이너
         String COD_01 = COD.COD_01; //코드번호
-        String COD_02 = "";
-        String COD_03 = "";
-        double COD_04 = 0;
-        String COD_05 = "";
-        String COD_06 = "";
-        String COD_07 = "";
-        String COD_08 = "";
-        String COD_95 = "";
-        String COD_96 = "";
+        String COD_02 = COD.COD_02; //명칭
+        String COD_03 = COD.COD_03; //브랜드명
+        double COD_04 = COD.COD_04; //가격
+        String COD_05 = COD.COD_05; //사용일자
+        String COD_06 = COD.COD_06; //유효기간일자
+        String COD_07 = COD.COD_07; //사용종료일자
+        String COD_08 = COD.COD_08; //메모
+        String COD_95 = COD.COD_95; //화장대코드
+        String COD_96 = COD.COD_96; //알림시각
         String COD_98 = mUser.Value.OCM_01; //최종수정자
-        String ARM_03 = "";
+        String ARM_03 = COD.ARM_03; //알림여부
 
         Call<CODModel> call = Http.cod(HttpBaseService.TYPE.POST).COD_CONTROL(
                 BaseConst.URL_HOST,

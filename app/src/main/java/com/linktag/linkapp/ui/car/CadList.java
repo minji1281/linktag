@@ -18,6 +18,7 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -54,9 +55,11 @@ public class CadList extends BaseActivity {
     private BaseHeader header;
     private BaseFooter footer;
     private SwipeRefreshLayout swipeRefresh;
+    public static LinearLayout layoutSpinner;
+    public static LinearLayout layoutSpinnerEmpty;
     private ListView listView;
     private TextView emptyText;
-    private ImageView imgNew;
+    public static ImageView imgNew;
     private Button btnCarEdit;
     @BindView(R.id.spCar)
     Spinner spCar;
@@ -104,6 +107,9 @@ public class CadList extends BaseActivity {
 
         imgNew = findViewById(R.id.imgNew);
         imgNew.setOnClickListener(v -> goCadNew());
+
+        layoutSpinner = (LinearLayout) findViewById(R.id.layoutSpinner);
+        layoutSpinnerEmpty = (LinearLayout) findViewById(R.id.layoutSpinnerEmpty);
 
         listView = findViewById(R.id.listView);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {

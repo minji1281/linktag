@@ -548,6 +548,7 @@ public class PotDetail extends BaseActivity {
                     setNextWaterDay();
                 }
                 setImgWater();
+                setDDAY();
             }
         }, POT_03_C.get(Calendar.YEAR), POT_03_C.get(Calendar.MONTH), POT_03_C.get(Calendar.DATE));
 

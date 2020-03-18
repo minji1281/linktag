@@ -110,4 +110,7 @@
     <!--이력 화면 공통 -->
     <string name="record_title">이력</string>
 
+    <!-- 리스트 공통 -->
+    <string name="list_search_hint">명칭을 입력하세요.</string>
+
 </resources>
