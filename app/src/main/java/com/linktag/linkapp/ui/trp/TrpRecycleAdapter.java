@@ -157,6 +157,22 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
                     Toast.makeText(mContext, "[" + filteredmlist.get(position).TRP_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
                 }
 
+//                ArmVO armVO = new ArmVO();
+//
+//                armVO.setARM_ID(filteredmlist.get(position).TRP_ID);
+//                armVO.setARM_01(filteredmlist.get(position).TRP_01);
+//                armVO.setARM_02(mUser.Value.OCM_01);
+//                armVO.setARM_03(filteredmlist.get(position).ARM_03);
+//                armVO.setARM_95("");
+//                armVO.setARM_90(filteredmlist.get(position).JDM_02);
+//                armVO.setARM_91(filteredmlist.get(position).JDM_03);
+//                armVO.setARM_92(filteredmlist.get(position).JDM_96);
+//                armVO.setARM_93("");
+//                armVO.setARM_94("N");
+//                armVO.setARM_98(mUser.Value.OCM_01);
+//
+//                requestARM_CONTROL(armVO, position);
+
                 TrpVO trpvo = new TrpVO();
                 trpvo.setTRP_ID(filteredmlist.get(position).TRP_ID);
                 trpvo.setTRP_01(filteredmlist.get(position).TRP_01);

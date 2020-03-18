@@ -407,7 +407,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                 "UPDATE_2",
                 armVO.ARM_ID,
                 armVO.ARM_01,
-                "",
+                "JDM1",
                 armVO.ARM_02,
                 armVO.ARM_03,
                 armVO.ARM_90,

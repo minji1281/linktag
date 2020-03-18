@@ -86,4 +86,30 @@
     <string name="dash_24">알림</string>
     <string name="dash_25">즐겨찾기</string>
 
+
+
+    <!-- 디테일 공통 -->
+    <string name="detail_name">명칭</string>
+    <string name="detail_name_hint">명칭 입력란입니다.</string>
+    <string name="detail_memo">메모</string>
+    <string name="detail_memo_hint">메모 입력란입니다.</string>
+    <string name="detail_info">상세정보</string>
+    <string name="detail_alarm">알림</string>
+    <string name="detail_time">시간</string>
+    <string name="detail_more">더보기</string>
+    <string name="detail_save">저장</string>
+    <string name="detail_manageDate">관리일자</string>
+
+    <!--다이얼로그 팝업 공통 -->
+    <string name="alarm_title">알림시간 설정</string>
+    <string name="onPositive">확인</string>
+    <string name="onNegative">취소</string>
+
+
+    <!--이력 화면 공통 -->
+    <string name="record_title">이력</string>
+
+
+
+
 </resources>

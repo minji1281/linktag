@@ -333,7 +333,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
                 "UPDATE_2",
                 armVO.ARM_ID,
                 armVO.ARM_01,
-                "",
+                "RFM1",
                 armVO.ARM_02,
                 armVO.ARM_03,
                 armVO.ARM_90,

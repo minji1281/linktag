@@ -165,6 +165,9 @@ public class RFMMain extends BaseActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+                if(mSpinnerList.get(position).getCode().equals("")){
+                   return;
+                }
                 if (pos != -1) {
                     headerSpinner.setSelection(pos);
                     requestRFD_SELECT(mSpinnerList.get(pos).getCode());
@@ -209,6 +212,7 @@ public class RFMMain extends BaseActivity {
                 rfdvo.setRFD_04("");
                 rfdvo.setRFD_05(formatDate.format(calendar.getTime()) + calendar.get(Calendar.HOUR_OF_DAY) + calendar.get(Calendar.MINUTE));
                 rfdvo.setRFD_06("");
+                rfdvo.setRFD_07("");
                 rfdvo.setRFD_96("");
                 rfdvo.setARM_03("N");
                 rfdvo.setARM_04(0);
@@ -313,8 +317,18 @@ public class RFMMain extends BaseActivity {
                             Response<RFMModel> response = (Response<RFMModel>) msg.obj;
                             mRfmList = response.body().Data;
 
-                            str = new String[response.body().Total];
-                            index = new String[response.body().Total];
+                            if(response.body().Total >0){
+                                str = new String[response.body().Total];
+                                index = new String[response.body().Total];
+                                btnEdit.setVisibility(View.VISIBLE);
+                                imgNew.setVisibility(View.VISIBLE);
+                            }
+                            else{
+                                str = new String[1];
+                                index = new String[1];
+                                btnEdit.setVisibility(View.GONE);
+                                imgNew.setVisibility(View.GONE);
+                            }
 
                             mSpinnerList.clear();
                             if (response.body().Total > 0) {
@@ -329,6 +343,13 @@ public class RFMMain extends BaseActivity {
                                 if (RFM_01.equals("")) {
                                     RFM_01 = mSpinnerList.get(0).getCode();
                                 }
+                            }
+                            else{
+                                mSpinnerList.add(new SpinnerList("", "항목없음", ""));
+                                index[0] = "";
+                                str[0] = "항목없음";
+                                final ArrayAdapter<String> hAdapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item_list, str);
+                                headerSpinner.setAdapter(hAdapter);
                             }
                             if (index != null) {
                                 ArrayList<String> rfm_index = new ArrayList<>(Arrays.asList(index));
