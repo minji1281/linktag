@@ -42,6 +42,7 @@ import com.linktag.linkapp.value_object.RfdVO;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
@@ -103,7 +104,7 @@ public class DetailRfd extends BaseActivity {
             rfm_move.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Toast.makeText(mContext, "등록진행 중인 식품은 이동할 수 없습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, getString(R.string.rfd_text8), Toast.LENGTH_LONG).show();
                     return;
                 }
             });
@@ -144,24 +145,24 @@ public class DetailRfd extends BaseActivity {
 
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
                     if (rfdVO.ARM_03.equals("Y") && dateBool) {
-                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 저장되었습니다.\n"+
-                                "다음 알람예정은 " + rfdVO.RFD_96.substring(0, 4) + "년" + rfdVO.RFD_96.substring(4, 6) + "월" + rfdVO.RFD_96.substring(6, 8) + "일" +
-                                rfdVO.RFD_96.substring(8, 10) + "시" + rfdVO.RFD_96.substring(10, 12) + "분 입니다.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + getString(R.string.rfd_text1)+"\n"+
+                                getString(R.string.rfd_text4) +"\n"+ rfdVO.RFD_96.substring(0, 4) +"-"+ rfdVO.RFD_96.substring(4, 6) + "-" + rfdVO.RFD_96.substring(6, 8) + " " +
+                                rfdVO.RFD_96.substring(8, 10) + ":" + rfdVO.RFD_96.substring(10, 12) +" " + getString(R.string.rfd_text5), Toast.LENGTH_LONG).show();
                     } else {
 
-                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" +getString(R.string.rfd_text1), Toast.LENGTH_SHORT).show();
                     }
                     RFMMain.RFM_01 = rfdVO.RFD_01;
                 } else if (GUBUN.equals("RFD_07_UPDATE")) {
                     if (rfdVO.ARM_03.equals("Y") && rfdVO.RFD_07.equals("") && dateBool) {
-                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + "  해당 식품정보의 사용상태가 변경 되었습니다.\n"+
-                                "다음 알람예정은 " + rfdVO.RFD_96.substring(0, 4) + "년" + rfdVO.RFD_96.substring(4, 6) + "월" + rfdVO.RFD_96.substring(6, 8) + "일" +
-                                rfdVO.RFD_96.substring(8, 10) + "시" + rfdVO.RFD_96.substring(10, 12) + "분 입니다.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]"  + getString(R.string.rfd_text2)+"\n"+
+                                getString(R.string.rfd_text4) +"\n"+ rfdVO.RFD_96.substring(0, 4) +"-"+ rfdVO.RFD_96.substring(4, 6) + "-" + rfdVO.RFD_96.substring(6, 8) + " " +
+                                rfdVO.RFD_96.substring(8, 10) + ":" + rfdVO.RFD_96.substring(10, 12) +" " + getString(R.string.rfd_text5), Toast.LENGTH_LONG).show();
                     }else{
-                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보의 사용상태가 변경 되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" +getString(R.string.rfd_text2), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 식품정보가 이동되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" +getString(R.string.rfd_text3), Toast.LENGTH_SHORT).show();
                     RFMMain.RFM_01 = rfdVO.RFD_01;
                 }
                 onBackPressed();
@@ -202,6 +203,7 @@ public class DetailRfd extends BaseActivity {
         tv_datePicker = (TextView) findViewById(R.id.tv_datePicker);
         bt_save = (Button) findViewById(R.id.bt_save);
         tv_D_day = findViewById(R.id.tv_D_day);
+
 
         sp_rfm = findViewById(R.id.sp_rfm);
         sp_pos = findViewById(R.id.sp_pos);
@@ -264,10 +266,10 @@ public class DetailRfd extends BaseActivity {
 
         if (rfdVO.RFD_07.equals("")) {
             imageView_check.setBackgroundResource(R.drawable.btn_round_shallowgray_50dp);
-            tv_check.setText("사용종료");
+            tv_check.setText(getResources().getString(R.string.rfd_check_end));
         } else {
             imageView_check.setBackgroundResource(R.drawable.btn_round_shallowgray_50dp);
-            tv_check.setText("사용 재시작");
+            tv_check.setText(getResources().getString(R.string.rfd_check_use));
         }
 
 
@@ -345,6 +347,8 @@ public class DetailRfd extends BaseActivity {
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Locale locale = getResources().getConfiguration().locale;
+                Locale.setDefault(locale);
                 DatePickerDialog dialog = new DatePickerDialog(DetailRfd.this, callbackMethod, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
                 dialog.show();
             }
@@ -389,8 +393,8 @@ public class DetailRfd extends BaseActivity {
 
                 if (!rfdVO.RFD_07.equals("")) {
                     new AlertDialog.Builder(mActivity)
-                            .setMessage("사용 재시작 하시겠습니까?")
-                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                            .setMessage(getString(R.string.rfd_text6))
+                            .setPositiveButton(getResources().getString(R.string.common_yes), new DialogInterface.OnClickListener() {
                                 @RequiresApi(api = Build.VERSION_CODES.M)
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -398,7 +402,7 @@ public class DetailRfd extends BaseActivity {
                                     requestRFD_CONTROL("RFD_07_UPDATE");
                                 }
                             })
-                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(getResources().getString(R.string.common_no), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     return;
@@ -409,8 +413,8 @@ public class DetailRfd extends BaseActivity {
                 } else {
 
                     new AlertDialog.Builder(mActivity)
-                            .setMessage("사용종료 처리하시겠습니까?")
-                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                            .setMessage(getString(R.string.rfd_text7))
+                            .setPositiveButton(getResources().getString(R.string.common_yes), new DialogInterface.OnClickListener() {
                                 @RequiresApi(api = Build.VERSION_CODES.M)
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -419,7 +423,7 @@ public class DetailRfd extends BaseActivity {
                                     requestRFD_CONTROL("RFD_07_UPDATE");
                                 }
                             })
-                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(getResources().getString(R.string.common_no), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     return;
@@ -462,7 +466,7 @@ public class DetailRfd extends BaseActivity {
                     dialog.dismiss();
                     requestRFD_CONTROL("DELETE");
                 } else {
-                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, getResources().getString(R.string.common_confirm_delete), Toast.LENGTH_SHORT).show();
                 }
             }
         });

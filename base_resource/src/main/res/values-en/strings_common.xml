@@ -22,5 +22,10 @@
     <string name="common_file_notfound">File not found</string>
     <string name="common_confirm_delete">Please re-enter it correctly.</string>
 
-    <string name="common_alarm_send">Notification sending</string>
+    <string name="common_alarm_send">Alarm sending</string>
+
+    <!--    알림  -->
+    <string name="common_alarm_on">Alarm ON</string>
+    <string name="common_alarm_off">Alarm OFF</string>
+    <string name="common_no_alarm_toast">No Alarm specified.</string>
 </resources>

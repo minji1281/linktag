@@ -103,6 +103,7 @@ public class DetailTrp extends BaseActivity {
     private CtdVO intentVO;
 
     private String[] array_pattern;
+    private String[] str_weeks_text;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -153,9 +154,9 @@ public class DetailTrp extends BaseActivity {
                 }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
                     if (trpVO.ARM_03.equals("Y")) {
-                        checkDayOfWeek("[" + ed_name.getText().toString() + "]" + "  해당 복약정보가 저장되었습니다.\n");
+                        checkDayOfWeek("[" + ed_name.getText().toString() + "]" + " "+ getString(R.string.trp_text1) +"\n");
                     } else {
-                        Toast.makeText(mContext,"[" + ed_name.getText().toString() + "]" + "  해당 복약정보가 저장되었습니다.",Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext,"[" + ed_name.getText().toString() + "]" + " " + getString(R.string.trp_text1),Toast.LENGTH_LONG).show();
                     }
                 }
                 onBackPressed();
@@ -197,6 +198,8 @@ public class DetailTrp extends BaseActivity {
         ed_memo = (EditText) findViewById(R.id.ed_memo);
 
         tv_alarmLabel = findViewById(R.id.tv_alarmLabel);
+
+        str_weeks_text = getResources().getStringArray(R.array.trp3);
 
         tv_Log = findViewById(R.id.tv_Log);
         tv_alarmCnt = findViewById(R.id.tv_alarmCnt);
@@ -246,24 +249,23 @@ public class DetailTrp extends BaseActivity {
         ed_memo.setText(trpVO.getTRP_03());
 
 
-        map_count.put("1회", "0");
-        map_count.put("2회", "1");
-        map_count.put("3회", "2");
-        map_count.put("4회", "3");
-        map_count.put("5회", "4");
-
-        map_timing.put("식전 30분", "0");
-        map_timing.put("식후 30분", "1");
-        map_timing.put("상관없음", "2");
-
-
         String[] str = getResources().getStringArray(R.array.trp);
         final ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, str);
         sp_count.setAdapter(adapter);
 
+        map_count.put(str[0], "0");
+        map_count.put(str[1], "1");
+        map_count.put(str[2], "2");
+        map_count.put(str[3], "3");
+        map_count.put(str[4], "4");
+
         String[] str2 = getResources().getStringArray(R.array.trp2);
         final ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, str2);
         sp_timing.setAdapter(adapter2);
+
+        map_timing.put(str2[0], "0");
+        map_timing.put(str2[1], "1");
+        map_timing.put(str2[2],"2");
 
 
         if (trpVO.TRP_05.equals("")) {
@@ -300,7 +302,7 @@ public class DetailTrp extends BaseActivity {
             public void onClick(View v) {
 
                 if (!alarmState) {
-                    Toast.makeText(mContext, "지정된 알림이 없습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext,getString(R.string.trp_text2), Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -334,12 +336,12 @@ public class DetailTrp extends BaseActivity {
                         int minute = Integer.parseInt(time.substring(2, 4));
                         if (hourOfDay > 12) {
                             hourOfDay -= 12;
-                            am_pm = "오후 ";
+                            am_pm = getString(R.string.trp_Pm);
                         } else {
-                            am_pm = "오전 ";
+                            am_pm = getString(R.string.trp_Am);
                         }
 
-                        requestLOG_CONTROL("2", "알림추가 " + am_pm + hourOfDay + ":" + minute);
+                        requestLOG_CONTROL("2",  getString(R.string.trp_text3) +" " + am_pm + hourOfDay + ":" + minute);
                     }
 
                     @Override
@@ -397,7 +399,7 @@ public class DetailTrp extends BaseActivity {
 
                 if (getIntent().hasExtra("scanCode")) {
                     requestTRP_CONTROL("INSERT");
-                    requestLOG_CONTROL("1", "신규등록");
+                    requestLOG_CONTROL("1", getString(R.string.trp_text4));
 
                 } else {
                     requestTRP_CONTROL("UPDATE");
@@ -510,7 +512,7 @@ public class DetailTrp extends BaseActivity {
                     dialog.dismiss();
                     requestTRP_CONTROL("DELETE");
                 } else {
-                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, getString(R.string.common_confirm_delete), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -527,7 +529,7 @@ public class DetailTrp extends BaseActivity {
     private void requestLOG_CONTROL(String LOG_03, String LOG_04) {
         //인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
-            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, getString(R.string.common_network_error), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -672,7 +674,7 @@ public class DetailTrp extends BaseActivity {
                     public void handleMessage(Message msg) {
                         if (msg.what == 100) {
 
-                            Response<TRDModel> response = (Response<TRDModel>) msg.obj;
+                            Response<TRDModel>response = (Response<TRDModel>) msg.obj;
 
                             mList = response.body().Data;
                             if (mList == null)
@@ -697,7 +699,7 @@ public class DetailTrp extends BaseActivity {
                     }
                 }.sendMessage(msg);
                 if (!getIntent().hasExtra("scanCode")) {
-                    Toast.makeText(mContext, "추가되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, getString(R.string.trp_text5), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -733,21 +735,21 @@ public class DetailTrp extends BaseActivity {
             }
         }
 
-        String ToastMessage = time.substring(0, 2) + "시" + time.substring(2, 4) + "분";
+        String ToastMessage = time.substring(0, 2) + ":" + time.substring(2, 4) ;
         if (nowWeek == 1 && array_pattern[1].equals("Y")) { //일요일
-            Toast.makeText(mContext, msg + "다음 알림예정일은 일요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg + getString(R.string.trp_text6) + " "+ str_weeks_text[0] + " " + ToastMessage + " " +getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
         } else if (nowWeek == 2 && array_pattern[2].equals("Y")) { //월요일
-            Toast.makeText(mContext, msg + "다음 알림예정일은 월요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg +getString(R.string.trp_text6) + " "+ str_weeks_text[1] + " " +ToastMessage + " " +getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
         } else if (nowWeek == 3 && array_pattern[3].equals("Y")) { //화요일
-            Toast.makeText(mContext, msg + "다음 알림예정일은 화요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg + getString(R.string.trp_text6) +" "+ str_weeks_text[2] + " " +ToastMessage +  " " +getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
         } else if (nowWeek == 4 && array_pattern[4].equals("Y")) { //수요일
-            Toast.makeText(mContext, msg + "다음 알림예정일은 수요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg + getString(R.string.trp_text6) + " "+ str_weeks_text[3] + " " +ToastMessage +  " " +getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
         } else if (nowWeek == 5 && array_pattern[5].equals("Y")) { //목요일
-            Toast.makeText(mContext, msg + "다음 알림예정일은 목요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg + getString(R.string.trp_text6) + " "+ str_weeks_text[4] + " " +ToastMessage +  " " +getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
         } else if (nowWeek == 6 && array_pattern[6].equals("Y")) { //금요일
-            Toast.makeText(mContext, msg + "다음 알림예정일은 금요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg +getString(R.string.trp_text6) + " "+ str_weeks_text[5] + " " +ToastMessage +  " " +getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
         } else if (nowWeek == 7 && array_pattern[7].equals("Y")) { //토요일
-            Toast.makeText(mContext, msg + "다음 알림예정일은 토요일 " + ToastMessage + " 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, msg + getString(R.string.trp_text6) + " "+ str_weeks_text[6] + " " +ToastMessage +  " " +getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
         }
     }
 

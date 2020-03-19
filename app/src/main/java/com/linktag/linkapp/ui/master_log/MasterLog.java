@@ -93,7 +93,7 @@ public class MasterLog extends BaseActivity {
     private void requestLOG_CONTROL(){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
-            Toast.makeText(mActivity, getResources().getString(com.linktag.base.R.string.common_network_error), Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, getResources().getString(R.string.common_network_error), Toast.LENGTH_SHORT).show();
             return;
         }
 

@@ -64,9 +64,9 @@ public class TrdRecycleAdapter_horizontal extends RecyclerView.Adapter<TrdRecycl
         int hourOfDay = Integer.parseInt(mList.get(position).TRD_96.substring(8, 10));
         if (hourOfDay > 12) {
             hourOfDay -= 12;
-            am_pm = "PM";
+            am_pm = mContext.getString(R.string.trp_Pm);
         } else {
-            am_pm = "AM";
+            am_pm = mContext.getString(R.string.trp_Am);
         }
         String minute = mList.get(position).TRD_96.substring(10);
 

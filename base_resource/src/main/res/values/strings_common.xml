@@ -23,4 +23,9 @@
     <string name="common_confirm_delete">명칭을 정확하게 다시 입력해주세요.</string>
 
     <string name="common_alarm_send">알림발송</string>
+
+    <!--    알림 on/off   -->
+    <string name="common_alarm_on">알림 ON</string>
+    <string name="common_alarm_off">알림 OFF</string>
+    <string name="common_no_alarm_toast">지정된 알림이 없습니다.</string>
 </resources>

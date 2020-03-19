@@ -77,9 +77,20 @@
     <string-array name="rfd_label">
         <item>유통기한 마감</item>
         <item>오늘까지</item>
-        <item>일 이하 남음</item>
-        <item>일 미만 남음</item>
         <item>일 남음</item>
+        <item>사용종료</item>
+        <item>유통기간</item>
+    </string-array>
+
+    <string-array name="rfd_save_text">
+        <item>해당 식품정보가 저장되었습니다. </item>
+        <item>해당 식품정보의 사용상태가 변경 되었습니다. </item>
+        <item>해당 식품정보가 이동되었습니다. </item>
+        <item>다음 알람예정은 </item>
+        <item>입니다.</item>
+        <item>사용 재시작 하시겠습니까?</item>
+        <item>사용종료 처리하시겠습니까?</item>
+        <item>등록진행 중인 식품은 이동할 수 없습니다.</item>
     </string-array>
 
     <!--    PC      -->
@@ -107,6 +118,18 @@
     </string-array>
 
 
+    <string-array name="pcm_save_text">
+        <item>해당 PC관리 저장되었습니다.</item>
+        <item>관리일자 갱신 되었습니다.</item>
+        <item>선택 필요</item>
+        <item>관리일자 업데이트</item>
+        <item>H/W 정보</item>
+        <item>S/W 정보</item>
+        <item>추가</item>
+        <item>제거</item>
+    </string-array>
+
+
     <!--    복약      -->
     <string-array name="trp">
         <item>1회</item>
@@ -122,4 +145,23 @@
         <item>상관없음</item>
     </string-array>
 
+    <string-array name="trp3">
+        <item>일요일</item>
+        <item>월요일</item>
+        <item>화요일</item>
+        <item>수요일</item>
+        <item>목요일</item>
+        <item>금요일</item>
+        <item>토요일</item>
+    </string-array>
+
+    <string-array name="trp_save_text">
+        <item>해당 복약정보가 저장되었습니다. </item>
+        <item>지정된 알림이 없습니다. </item>
+        <item>알림추가</item>
+        <item>신규등록 </item>
+        <item>추가되었습니다.</item>
+        <item>다음 알림예정일은</item>
+        <item>입니다.</item>
+    </string-array>
 </resources>

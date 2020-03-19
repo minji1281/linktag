@@ -162,14 +162,14 @@
     <string name="record_title">Record</string>
 
     <!-- 리스트 공통 -->
-    <string name="list_search_hint">Search for a name</string>
+    <string name="list_search_hint">Search input Title</string>
     <string name="list_empty">No data.</string>
 
     <!-- 화분 -->
     <string name="pot_list_header_title">Pot List</string>
     <string name="pot_list_water">Water</string>
     <string name="pot_detail_header_title">Pot Detail</string>
-    <string name="pot_detail_dday_title">By the scheduled date</string>
+    <string name="pot_detail_dday_title">By the next due date</string>
     <string name="pot_detail_cycle_title">Cycle</string>
     <string name="pot_detail_water">Water</string>
     <string name="pot_detail_recent_water">Recent watering</string>
@@ -177,7 +177,7 @@
     <string name="pot_dialog_water_text">Do you want to update the watering information for that pot?</string>
     <string name="pot_dialog_water_text2">It\'s before the scheduled date.\nDo you want to complete the watering?</string>
     <string name="pot_validation_check1">Enter the name.</string>
-    <string name="pot_validation_check2">Set a cycle.</string>
+    <string name="pot_validation_check2">Select a cycle.</string>
     <string name="pot_validation_check3">Set the recent watering before today.</string>
 
     <!-- 주기 팝업 -->
@@ -205,6 +205,14 @@
     <string name="jdm_nextDate">Next cleaning day</string>
     <string name="jdm_check">Cleaning</string>
 
+    <string name="jdm_text1">That information has been saved.</string>
+    <string name="jdm_text2">The next Alarm will be </string>
+    <string name="jdm_text3"></string>
+    <string name="jdm_text4">It is before the scheduled cleaning date. Would you like to confirm the cleaning?</string>
+    <string name="jdm_text5">The scheduled cleaning date must be greater than the current date.</string>
+    <string name="jdm_text6">New registration</string>
+    <string name="jdm_text7">Cleaning finished</string>
+
 
     <!--장독 다이얼로그 -->
     <string name="jdm_dialog_title">Cleaning cycle Setting</string>
@@ -230,12 +238,27 @@
     <string name="trp_Sat">Sat</string>
     <string name="trp_Sun">Sun</string>
 
+    <string name="trp_Am">AM</string>
+    <string name="trp_Pm">PM</string>
+
+    <string name="trp_Everyday">Every Day</string>
+
+    <string name="trp_Alarm_delete">Alarm Time Delete</string>
+
+
+    <string name="trp_text1">That information has been saved.</string>
+    <string name="trp_text2">No Alarm specified. </string>
+    <string name="trp_text3">Alarm added</string>
+    <string name="trp_text4">New registration </string>
+    <string name="trp_text5">Alarm was added</string>
+    <string name="trp_text6">The next Alarm will be </string>
+    <string name="trp_text7"></string>
 
     <!--PC 리스트 -->
     <string name="pcm_list_title">PC List</string>
     <string name="pcm_list_recent_management">Managemen date</string>
     <string name="pcm_list_hwText">HardWare</string>
-    <string name="pcm_list_swText">HardWare</string>
+    <string name="pcm_list_swText">SoftdWare</string>
 
 
     <!--PC 디테일 -->
@@ -246,10 +269,18 @@
     <string name="pcm_info_add">INFO Add</string>
     <string name="pcm_info_hint">INFO Detail input</string>
 
+    <string name ="pcm_text1">That information has been saved.</string>
+    <string name ="pcm_text2">The management date has been updated.</string>
+    <string name ="pcm_text3">Need to Selection</string>
+    <string name ="pcm_text4">Management Date Update</string>
+    <string name ="pcm_text5">H/W Info</string>
+    <string name ="pcm_text6">S/W Info</string>
+    <string name ="pcm_text7">Add</string>
+    <string name ="pcm_text8">Delete</string>
 
     <!--냉장고 리스트 -->
-    <string name="rfd_list_title">Refrigerator food List</string>
-    <string name="rfd_list_DdayText">Expiration day</string>
+    <string name="rfd_list_title">Refrigerator Food List</string>
+    <string name="rfd_list_DdayText">Expiry Date</string>
     <string name="rfd_header_Edit">Edit</string>
 
 
@@ -257,34 +288,21 @@
     <string name="rfm_detail_title">Refrigerator Register</string>
     <string name="rfm_detail_edit">Refrigerator Edit</string>
     <string name="rfd_detail_title">Refrigerator food management</string>
-    <string name="rfd_Dday">Expiration day</string>
-    <string name="rfd_date">Expiration date</string>
+    <string name="rfd_Dday">Remaining Expiry Day</string>
+    <string name="rfd_date">Expiry Date</string>
     <string name="rfd_pos">Storage location</string>
     <string name="rfd_move">Moves</string>
     <string name="rfd_send">Sends</string>
-    <string name="rfd_check">End of Use</string>
-
-    <!-- 삭제 dialog 공통 -->
-    <string name="dialog_delete_header_title">Delete</string>
-    <string name="dialog_delete_text">Enter the name again to delete it.</string>
-    <string name="onDelete">Delete</string>
-    <string name="onCancel">Cancel</string>
-
-    <!-- 필터 -->
-    <string name="frm_list_header_title">Filter List</string>
-    <string name="frm_list_filter_replace_button">Replace it</string>
-    <string name="frm_list_filter_replace_text">Filter replacement</string>
-    <string name="frm_list_filterreplace_alert">Do you want to update the replacement date of the filter?</string>
-    <string name="frm_detail_header_title">Filter Detail</string>
-    <string name="frm_detail_dday_title">By the scheduled date</string>
-    <string name="frm_detail_cycle_title">Cycle</string>
-    <string name="frm_detail_recent_replace">Recent date</string>
-    <string name="frm_detail_next_replace">Next date</string>
-    <string name="frm_detail_filterreplace">Replace it</string>
-    <string name="frm_detail_replace_text">It\'s before the scheduled date.\nDo you want to replace it?</string>
-    <string name="frm_validation_check1">Enter the name.</string>
-    <string name="frm_validation_check2">Set a cycle.</string>
-    <string name="frm_validation_check3">Set recent replacement date before today.</string>
+    <string name="rfd_check_end">End of Use</string>
+    <string name="rfd_check_use">Restart Use</string>
 
 
+    <string name ="rfd_text1">That information has been saved.</string>
+    <string name ="rfd_text2">The use status of the food information has been changed. </string>
+    <string name ="rfd_text3">The food information has been moved. </string>
+    <string name ="rfd_text4">The next Alarm will be </string>
+    <string name ="rfd_text5"></string>
+    <string name ="rfd_text6">Would you like to restart use?</string>
+    <string name ="rfd_text7">Do you want to end use?</string>
+    <string name ="rfd_text8">Food in progress cannot be moved.</string>
 </resources>

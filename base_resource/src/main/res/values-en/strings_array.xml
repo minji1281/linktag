@@ -40,6 +40,8 @@
         <item>minute</item>
     </string-array>
 
+
+
     <!--    장독      -->
     <string-array name="jdm_size">
         <item>Big</item>
@@ -55,12 +57,11 @@
 
     <string-array name="jdm_save_text">
         <item>That information has been saved.</item>
-        <item>The next notification will be </item>
+        <item>The next Alarm will be </item>
         <item></item>
         <item>It is before the scheduled cleaning date. Would you like to confirm the cleaning?</item>
         <item>The scheduled cleaning date must be greater than the current date.</item>
         <item>New registration</item>
-        <item>Notification sending</item>
         <item>Cleaning finished</item>
     </string-array>
 
@@ -73,12 +74,25 @@
     </string-array>
 
     <string-array name="rfd_label">
-        <item>Expiration</item>
-        <item>Today</item>
-        <item>Within</item>
-        <item>days</item>
-        <item>left</item>
+        <item>Expired</item>
+        <item>Until Today</item>
+        <item>days left</item>
+        <item>End of Use</item>
+        <item>Expiry Date</item>
     </string-array>
+
+
+    <string-array name="rfd_save_text">
+        <item>That information has been saved.</item>
+        <item>The use status of the food information has been changed. </item>
+        <item>The food information has been moved. </item>
+        <item>The next Alarm will be </item>
+        <item></item>
+        <item>Would you like to restart use?</item>
+        <item>Do you want to end use?</item>
+        <item>Food in progress cannot be moved.</item>
+    </string-array>
+
 
 
     <!--    PC      -->
@@ -105,6 +119,17 @@
         <item>Other</item>
     </string-array>
 
+    <string-array name="pcm_save_text">
+        <item>That information has been saved.</item>
+        <item>The management date has been updated.</item>
+        <item>Need to Selection</item>
+        <item>Management Date Update</item>
+        <item>H/W Info</item>
+        <item>S/W Info</item>
+        <item>Add</item>
+        <item>Delete</item>
+    </string-array>
+
 
     <!--    복약      -->
     <string-array name="trp">
@@ -119,6 +144,26 @@
         <item>30 minutes before meals</item>
         <item>30 minutes after meals</item>
         <item>Any time</item>
+    </string-array>
+
+    <string-array name="trp3">
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
+    </string-array>
+
+    <string-array name="trp_save_text">
+        <item>That information has been saved.</item>
+        <item>No Alarm specified. </item>
+        <item>Alarm added</item>
+        <item>New registration </item>
+        <item>Alarm was added</item>
+        <item>The next Alarm will be </item>
+        <item></item>
     </string-array>
 
 </resources>

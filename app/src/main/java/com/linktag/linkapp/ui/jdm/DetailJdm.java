@@ -48,6 +48,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -99,8 +100,6 @@ public class DetailJdm extends BaseActivity {
 
 
 
-    private String[] str_datetime;
-    private String[] str_save_text;
     private String[] str_cycle;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -182,11 +181,11 @@ public class DetailJdm extends BaseActivity {
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
 
                     if (jdmVO.ARM_03.equals("Y") && dateBool) {
-                        Toast.makeText(mContext,"[" + ed_name.getText().toString() + "]" + str_save_text[0] +"\n"+
-                                str_save_text[1]+ jdmVO.JDM_96.substring(0,4)+str_datetime[0] + jdmVO.JDM_96.substring(4,6)+str_datetime[1]+ jdmVO.JDM_96.substring(6,8)+str_datetime[2] +
-                                jdmVO.JDM_96.substring(8,10)+str_datetime[3] + jdmVO.JDM_96.substring(10,12)+str_datetime[4] + str_save_text[2], Toast.LENGTH_LONG ).show();
+                        Toast.makeText(mContext,"[" + ed_name.getText().toString() + "]" + getString(R.string.jdm_text1) +"\n"+
+                                getString(R.string.jdm_text2) +"\n"+ jdmVO.JDM_96.substring(0,4)+"-" + jdmVO.JDM_96.substring(4,6)+"-"+ jdmVO.JDM_96.substring(6,8)+" " +
+                                jdmVO.JDM_96.substring(8,10)+":" + jdmVO.JDM_96.substring(10,12)+ " " + getString(R.string.jdm_text3), Toast.LENGTH_LONG ).show();
                     }else{
-                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + str_save_text[0], Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + getString(R.string.jdm_text1), Toast.LENGTH_SHORT).show();
                     }
                     onBackPressed();
                 }
@@ -197,9 +196,9 @@ public class DetailJdm extends BaseActivity {
                     imageView_check.setImageResource(R.drawable.btn_round_skyblue_50dp);
 
                     if (jdmVO.ARM_03.equals("Y") && dateBool) {
-                        Toast.makeText(mContext,"[" + ed_name.getText().toString() + "]" + str_save_text[0] +"\n"+
-                                str_save_text[1]+ jdmVO.JDM_96.substring(0,4)+str_datetime[0] + jdmVO.JDM_96.substring(4,6)+str_datetime[1]+ jdmVO.JDM_96.substring(6,8)+str_datetime[2] +
-                                jdmVO.JDM_96.substring(8,10)+str_datetime[3] + jdmVO.JDM_96.substring(10,12)+str_datetime[4] + str_save_text[2], Toast.LENGTH_LONG ).show();
+                        Toast.makeText(mContext,"[" + ed_name.getText().toString() + "]" +getString(R.string.jdm_text1) +"\n"+
+                                getString(R.string.jdm_text2) +"\n"+ jdmVO.JDM_96.substring(0,4)+"-" + jdmVO.JDM_96.substring(4,6)+"-"+ jdmVO.JDM_96.substring(6,8)+" " +
+                                jdmVO.JDM_96.substring(8,10)+":" + jdmVO.JDM_96.substring(10,12)+ " " + getString(R.string.jdm_text3), Toast.LENGTH_LONG ).show();
                     }
 
                 }
@@ -240,10 +239,8 @@ public class DetailJdm extends BaseActivity {
         tv_recycleDay = findViewById(R.id.tv_recycleDay);
         jdmVO = (JdmVO) getIntent().getSerializableExtra("JdmVO");
 
-
-        str_datetime = getResources().getStringArray(R.array.datetime);
         str_cycle = getResources().getStringArray(R.array.jdm_cycle);
-        str_save_text = getResources().getStringArray(R.array.jdm_save_text);
+
 
         setRecycleDay(jdmVO.JDM_06, jdmVO.JDM_07, "");
 
@@ -357,6 +354,8 @@ public class DetailJdm extends BaseActivity {
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Locale locale = getResources().getConfiguration().locale;
+                Locale.setDefault(locale);
                 DatePickerDialog dialog = new DatePickerDialog(DetailJdm.this, callbackMethod, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
                 dialog.show();
             }
@@ -379,7 +378,7 @@ public class DetailJdm extends BaseActivity {
                 jdmVO.setJDM_04(tv_datePicker.getText().toString().replace(".", ""));
                 if (getIntent().hasExtra("scanCode")) {
                     requestJMD_CONTROL("INSERT");
-                    requestLOG_CONTROL("1",str_save_text[5]);
+                    requestLOG_CONTROL("1",getString(R.string.jdm_text6));
                 } else {
                     requestJMD_CONTROL("UPDATE");
                 }
@@ -439,17 +438,17 @@ public class DetailJdm extends BaseActivity {
 
                 if (Integer.parseInt(jdmVO.JDM_96.substring(0, 8)) < Integer.parseInt(formatDate.format(calendar.getTime()))) {
                     requestJMD_CONTROL("UPDATE_NEXT");
-                    requestLOG_CONTROL("2",str_save_text[6]);
+                    requestLOG_CONTROL("2",getString(R.string.jdm_text7));
                 } else {
 
                     new AlertDialog.Builder(mActivity)
-                            .setMessage(str_save_text[3])
+                            .setMessage(getString(R.string.jdm_text4))
                             .setPositiveButton(getResources().getString(com.linktag.base.R.string.common_yes), new DialogInterface.OnClickListener() {
                                 @RequiresApi(api = Build.VERSION_CODES.M)
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     requestJMD_CONTROL("UPDATE_NEXT");
-                                    requestLOG_CONTROL("2",str_save_text[6]);
+                                    requestLOG_CONTROL("2",getString(R.string.jdm_text7));
                                 }
                             })
                             .setNegativeButton(getResources().getString(com.linktag.base.R.string.common_no), new DialogInterface.OnClickListener() {
