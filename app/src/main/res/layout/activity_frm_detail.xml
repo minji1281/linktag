@@ -11,7 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="공기청정기 정보" />
+        app:title_text="@string/frm_detail_header_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,9 +41,9 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:text="명칭"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/detail_name"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:hint="명칭 입력란입니다."
+                        android:hint="@string/detail_name_hint"
                         android:singleLine="true"
                         android:textSize="@dimen/text_normal" />
 
@@ -83,7 +83,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="알림"
+                            android:text="@string/detail_alarm"
                             android:textSize="10dp" />
                     </LinearLayout>
 
@@ -105,7 +105,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="시간"
+                            android:text="@string/detail_time"
                             android:textSize="10dp" />
                     </LinearLayout>
 
@@ -126,9 +126,9 @@
 
 
                 <TextView
-                    android:layout_width="40dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:text="메모"
+                    android:text="@string/detail_memo"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -139,7 +139,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="메모 입력란입니다."
+                    android:hint="@string/detail_memo_hint"
                     android:singleLine="true"
                     android:textSize="@dimen/text_normal" />
 
@@ -165,7 +165,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="다음 예정일까지"
+                        android:text="@string/frm_detail_dday_title"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
@@ -235,7 +235,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="center_vertical|left"
-                        android:text="상세정보"
+                        android:text="@string/detail_info"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
@@ -244,7 +244,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:paddingRight="15dp"
-                        android:text="더보기"
+                        android:text="@string/detail_more"
                         android:textSize="@dimen/text_normal" />
 
                 </LinearLayout>
@@ -278,7 +278,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="교체 주기"
+                                android:text="@string/frm_detail_cycle_title"
                                 android:textSize="@dimen/text_small" />
 
                             <TextView
@@ -317,7 +317,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="최근 필터교체"
+                                android:text="@string/frm_detail_recent_replace"
                                 android:textSize="@dimen/text_small" />
 
 
@@ -361,7 +361,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="다음 필터교체"
+                                android:text="@string/frm_detail_next_replace"
                                 android:textSize="@dimen/text_small" />
 
 
@@ -433,7 +433,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
-                                android:text="필터교체"
+                                android:text="@string/frm_detail_filterreplace"
                                 android:textColor="@color/white"
                                 android:textStyle="bold" />
                         </RelativeLayout>
@@ -451,6 +451,6 @@
         android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:background="@color/list_item_Detail_saveBtn"
-        android:text="저장"
+        android:text="@string/detail_save"
         android:textColor="@color/white" />
 </LinearLayout>

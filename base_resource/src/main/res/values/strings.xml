@@ -272,5 +272,21 @@
     <string name="onDelete">삭제</string>
     <string name="onCancel">취소</string>
 
+    <!-- 필터 -->
+    <string name="frm_list_header_title">필터 목록</string>
+    <string name="frm_list_filter_replace_text">필터교체</string>
+    <string name="frm_list_filter_replace_button">필터교체</string>
+    <string name="frm_list_filterreplace_alert">해당 필터의 교체일자를 업데이트 하시겠습니까?</string>
+    <string name="frm_detail_header_title">필터 정보</string>
+    <string name="frm_detail_dday_title">다음 예정일까지</string>
+    <string name="frm_detail_cycle_title">교체 주기</string>
+    <string name="frm_detail_recent_replace">최근 필터교체</string>
+    <string name="frm_detail_next_replace">다음 필터교체</string>
+    <string name="frm_detail_filterreplace">필터교체</string>
+    <string name="frm_detail_replace_text">예정일자 전입니다.\n필터교체 완료 하시겠습니까?</string>
+    <string name="frm_validation_check1">명칭을 입력해주세요.</string>
+    <string name="frm_validation_check2">주기를 선택하세요.</string>
+    <string name="frm_validation_check3">최근 필터교체는 오늘일자 이전으로 설정 해주세요.</string>
+
 
 </resources>

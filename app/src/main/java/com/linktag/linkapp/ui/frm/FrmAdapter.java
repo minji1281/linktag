@@ -131,15 +131,15 @@ public class FrmAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(mContext)
-                        .setMessage("해당 필터의 교체일자를 업데이트 하시겠습니까?")
-                        .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                        .setMessage(R.string.frm_list_filterreplace_alert)
+                        .setPositiveButton(R.string.onPositive, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 FRM_VO data = filteredmlist.get(position);
                                 requestFRM_CONTROL("FILTER", data, position);
                             }
                         })
-                        .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.onNegative, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 return;
@@ -263,8 +263,8 @@ public class FrmAdapter extends BaseAdapter {
 
                                 if(responseData.get(0).ARM_03.equals("Y")){
                                     String NextDay = responseData.get(0).FRM_96;
-                                    Toast.makeText(mContext,"다음알람 "+ NextDay.substring(0,4)+"년 " + NextDay.substring(4,6)+"월 "+ NextDay.substring(6,8)+"일 " +
-                                            NextDay.substring(8,10)+"시 " + NextDay.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                                    Toast.makeText(mContext,mContext.getString(R.string.dialog_alarm_toast_text) + " " + NextDay.substring(0,4)+"." + NextDay.substring(4,6)+"."+ NextDay.substring(6,8)+" " +
+                                            NextDay.substring(8,10)+":" + NextDay.substring(10,12), Toast.LENGTH_LONG ).show();
                                 }
                             }
 
