@@ -156,12 +156,40 @@
     <string name="alarm_title">알림시간 설정</string>
     <string name="onPositive">확인</string>
     <string name="onNegative">취소</string>
+    <string name="dialog_alarm_toast_text">다음 알람일</string>
+    <string name="dialog_delete_check_text">명칭을 정확하게 다시 입력해주세요.</string>
 
     <!--이력 화면 공통 -->
     <string name="record_title">이력</string>
 
     <!-- 리스트 공통 -->
     <string name="list_search_hint">명칭을 입력하세요.</string>
+    <string name="list_empty">조회된 정보가 없습니다.</string>
+
+    <!-- 화분 -->
+    <string name="pot_list_header_title">화분 목록</string>
+    <string name="pot_list_water">물주기</string>
+    <string name="pot_detail_header_title">화분 정보</string>
+    <string name="pot_detail_dday_title">다음 예정일까지</string>
+    <string name="pot_detail_cycle_title">주기</string>
+    <string name="pot_detail_water">물주기</string>
+    <string name="pot_detail_recent_water">최근 물주기</string>
+    <string name="pot_detail_next_water">다음 물주기</string>
+    <string name="pot_dialog_water_text">해당 화분의 물주기 정보를 업데이트 하시겠습니까?</string>
+    <string name="pot_dialog_water_text2">예정일자 전입니다.\n물주기 완료 하시겠습니까?</string>
+    <string name="pot_validation_check1">명칭을 입력해주세요.</string>
+    <string name="pot_validation_check2">주기를 선택하세요.</string>
+    <string name="pot_validation_check3">최근 물주기는 오늘일자 이전으로 설정 해주세요.</string>
+
+    <!-- 주기 팝업 -->
+    <string name="dialog_cycle_title">주기 설정</string>
+    <string name="dialog_cycle_day">일</string>
+    <string name="dialog_cycle_month">개월</string>
+    <string name="dialog_cycle_empty">선택</string>
+    <string name="dialog_cycle_day_num">2</string>
+    <string name="dialog_cycle_month_num">3</string>
+
+
 
 
     <!--장독 리스트 -->

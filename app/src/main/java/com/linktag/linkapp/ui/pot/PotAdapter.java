@@ -132,15 +132,15 @@ public class PotAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(mContext)
-                        .setMessage("해당 화분의 물주기 정보를 업데이트 하시겠습니까?")
-                        .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                        .setMessage(R.string.pot_dialog_water_text)
+                        .setPositiveButton(R.string.onPositive, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 PotVO data = filteredmlist.get(position);
                                 requestPOT_CONTROL("WATER", data, position);
                             }
                         })
-                        .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.onNegative, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 return;
@@ -265,8 +265,8 @@ public class PotAdapter extends BaseAdapter {
 
                                 if(responseData.get(0).ARM_03.equals("Y")){
                                     String NextDay = responseData.get(0).POT_96;
-                                    Toast.makeText(mContext,"다음알람 "+ NextDay.substring(0,4)+"년 " + NextDay.substring(4,6)+"월 "+ NextDay.substring(6,8)+"일 " +
-                                            NextDay.substring(8,10)+"시 " + NextDay.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                                    Toast.makeText(mContext, mContext.getString(R.string.dialog_alarm_toast_text) + " " + NextDay.substring(0,4)+"." + NextDay.substring(4,6)+"."+ NextDay.substring(6,8)+" " +
+                                            NextDay.substring(8,10)+":" + NextDay.substring(10,12), Toast.LENGTH_LONG ).show();
                                 }
                             }
 

@@ -154,6 +154,8 @@
     <string name="alarm_title">Alarm Time Setting</string>
     <string name="onPositive">OK</string>
     <string name="onNegative">Cancel</string>
+    <string name="dialog_alarm_toast_text">Next alarm is</string>
+    <string name="dialog_delete_check_text">Enter the name correctly</string>
 
 
     <!--이력 화면 공통 -->
@@ -161,6 +163,30 @@
 
     <!-- 리스트 공통 -->
     <string name="list_search_hint">Search input Title</string>
+    <string name="list_empty">No data.</string>
+
+    <!-- 화분 -->
+    <string name="pot_list_header_title">Pot List</string>
+    <string name="pot_list_water">Water</string>
+    <string name="pot_detail_header_title">Pot Detail</string>
+    <string name="pot_detail_dday_title">By the next due date</string>
+    <string name="pot_detail_cycle_title">Cycle</string>
+    <string name="pot_detail_water">Water</string>
+    <string name="pot_detail_recent_water">Recent watering</string>
+    <string name="pot_detail_next_water">Next watering</string>
+    <string name="pot_dialog_water_text">Do you want to update the watering information for that pot?</string>
+    <string name="pot_dialog_water_text2">It\'s before the scheduled date.\nDo you want to complete the watering?</string>
+    <string name="pot_validation_check1">Enter the name.</string>
+    <string name="pot_validation_check2">Select a cycle.</string>
+    <string name="pot_validation_check3">Set the recent watering before today.</string>
+
+    <!-- 주기 팝업 -->
+    <string name="dialog_cycle_title">Cycle setting</string>
+    <string name="dialog_cycle_day">Day</string>
+    <string name="dialog_cycle_month">Month</string>
+    <string name="dialog_cycle_empty">Empty</string>
+    <string name="dialog_cycle_day_num">4</string>
+    <string name="dialog_cycle_month_num">6</string>
 
 
     <!--장독 리스트 -->

@@ -359,8 +359,8 @@ public class PotDetail extends BaseActivity {
                                     if(GUB.equals("WATER")){
                                         POT.POT_96 = response.body().Data.get(0).POT_96;
                                     }
-                                    Toast.makeText(mContext,"다음알람 "+ POT.POT_96.substring(0,4)+"년 " + POT.POT_96.substring(4,6)+"월 "+ POT.POT_96.substring(6,8)+"일 " +
-                                            POT.POT_96.substring(8,10)+"시 " + POT.POT_96.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                                    Toast.makeText(mContext, mContext.getString(R.string.dialog_alarm_toast_text) + " "+ POT.POT_96.substring(0,4)+"." + POT.POT_96.substring(4,6)+"."+ POT.POT_96.substring(6,8)+" " +
+                                            POT.POT_96.substring(8,10)+":" + POT.POT_96.substring(10,12), Toast.LENGTH_LONG ).show();
                                 }
                             }
 
@@ -440,7 +440,7 @@ public class PotDetail extends BaseActivity {
         NumberPicker npCycle2 = (NumberPicker) view.findViewById(R.id.npCycle2);
         npCycle2.setMinValue(0);
         npCycle2.setMaxValue(1);
-        npCycle2.setDisplayedValues(new String[] {"일", "개월"});
+        npCycle2.setDisplayedValues(new String[] {mContext.getString(R.string.dialog_cycle_day), mContext.getString(R.string.dialog_cycle_month)});
         if (POT.POT_05.equals("M")){
             npCycle2.setValue(1); //개월
         }
@@ -482,15 +482,15 @@ public class PotDetail extends BaseActivity {
         int spanEndNum = 0;
 
         if(POT.POT_05.equals("D")){
-            cycle = String.valueOf(POT.POT_04) + " 일";
-            spanEndNum = 2;
+            cycle = String.valueOf(POT.POT_04) + " " + mContext.getString(R.string.dialog_cycle_day);
+            spanEndNum = Integer.valueOf(mContext.getString(R.string.dialog_cycle_day_num));
         }
         else if(POT.POT_05.equals("M")){
-            cycle = String.valueOf(POT.POT_04) + " 개월";
-            spanEndNum = 3;
+            cycle = String.valueOf(POT.POT_04) + " " + mContext.getString(R.string.dialog_cycle_month);
+            spanEndNum = Integer.valueOf(mContext.getString(R.string.dialog_cycle_month_num));
         }
         else{ //신규
-            cycle = "선택";
+            cycle = String.valueOf(R.string.dialog_cycle_empty);
         }
 
         SpannableStringBuilder ssb = new SpannableStringBuilder(cycle);
@@ -563,8 +563,8 @@ public class PotDetail extends BaseActivity {
                 @Override
                 public void onClick(View v){
                     new AlertDialog.Builder(mActivity)
-                            .setMessage("예정일자 전입니다.\n물주기 완료 하시겠습니까?")
-                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                            .setMessage(R.string.pot_dialog_water_text2)
+                            .setPositiveButton(R.string.onPositive, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     if(validationCheck()){
@@ -572,7 +572,7 @@ public class PotDetail extends BaseActivity {
                                     }
                                 }
                             })
-                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(R.string.onNegative, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     return;
@@ -616,7 +616,7 @@ public class PotDetail extends BaseActivity {
                     requestPOT_CONTROL("DELETE");
                 }
                 else{
-                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, R.string.dialog_delete_check_text, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -633,15 +633,15 @@ public class PotDetail extends BaseActivity {
         boolean check = true;
         if(etName.getText().toString().equals("")){
             check = false;
-            Toast.makeText(mActivity, "명칭을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.pot_validation_check1, Toast.LENGTH_SHORT).show();
         }
         else if(POT.POT_05.equals("")){
             check = false;
-            Toast.makeText(mActivity, "주기를 선택하세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.pot_validation_check2, Toast.LENGTH_SHORT).show();
         }
         else if(TODAY.compareTo(POT_03_C) < 0){
             check = false;
-            Toast.makeText(mActivity, "최근 물주기는 오늘일자 이전으로 설정 해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.pot_validation_check3, Toast.LENGTH_SHORT).show();
         }
         return check;
     }
