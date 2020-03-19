@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:btn_left_visibility="gone"
-        app:title_text="삭제" />
+        app:title_text="@string/dialog_delete_header_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,7 +25,7 @@
             android:gravity="bottom|center"
             android:paddingBottom="15dp"
             android:textSize="@dimen/text_normal"
-            android:text="삭제하시려면 명칭을 다시 입력해주세요."/>
+            android:text="@string/dialog_delete_text"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -44,7 +44,7 @@
                 android:inputType="text"
                 android:maxLength="20"
                 android:textSize="@dimen/text_normal"
-                android:hint="명칭 입력란입니다."/>
+                android:hint="@string/detail_name_hint"/>
 
         </LinearLayout>
 
@@ -64,7 +64,7 @@
             android:gravity="center"
             android:background="@drawable/shape_border_gray"
             android:textColor="@color/List2"
-            android:text="취소"/>
+            android:text="@string/onCancel"/>
 
         <View
             android:layout_width="1dp"
@@ -79,7 +79,7 @@
             android:gravity="center"
             android:background="@drawable/shape_border_gray"
             android:textColor="@color/listitem_text3"
-            android:text="삭제"/>
+            android:text="@string/onDelete"/>
 
     </LinearLayout>
 

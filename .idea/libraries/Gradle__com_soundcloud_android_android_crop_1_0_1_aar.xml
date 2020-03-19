@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.soundcloud.android:android-crop:1.0.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6cd4aa30acc9db8fc9d23edb237201ce/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/6cd4aa30acc9db8fc9d23edb237201ce/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/369a0e67f5fc58ea24cb5f11bb45d404/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/369a0e67f5fc58ea24cb5f11bb45d404/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

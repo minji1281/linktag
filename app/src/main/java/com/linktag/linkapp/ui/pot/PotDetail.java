@@ -41,6 +41,7 @@ import com.linktag.linkapp.value_object.LogVO;
 import com.linktag.linkapp.value_object.PotVO;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -490,7 +491,7 @@ public class PotDetail extends BaseActivity {
             spanEndNum = Integer.valueOf(mContext.getString(R.string.dialog_cycle_month_num));
         }
         else{ //신규
-            cycle = String.valueOf(R.string.dialog_cycle_empty);
+            cycle = mContext.getString(R.string.dialog_cycle_empty);
         }
 
         SpannableStringBuilder ssb = new SpannableStringBuilder(cycle);
@@ -521,6 +522,8 @@ public class PotDetail extends BaseActivity {
     }
 
     private void preWaterDayDialog(){
+        Locale locale = getResources().getConfiguration().locale;
+        Locale.setDefault(locale);
         DatePickerDialog dialog = new DatePickerDialog(mActivity, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int date) {

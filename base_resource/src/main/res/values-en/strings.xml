@@ -162,7 +162,7 @@
     <string name="record_title">Record</string>
 
     <!-- 리스트 공통 -->
-    <string name="list_search_hint">Search input Title</string>
+    <string name="list_search_hint">Search for a name</string>
     <string name="list_empty">No data.</string>
 
     <!-- 화분 -->
@@ -263,6 +263,12 @@
     <string name="rfd_move">Moves</string>
     <string name="rfd_send">Sends</string>
     <string name="rfd_check">End of Use</string>
+
+    <!-- 삭제 dialog 공통 -->
+    <string name="dialog_delete_header_title">Delete</string>
+    <string name="dialog_delete_text">Enter the name again to delete it.</string>
+    <string name="onDelete">Delete</string>
+    <string name="onCancel">Cancel</string>
 
 
 </resources>

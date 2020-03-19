@@ -263,5 +263,11 @@
     <string name="rfd_send">보내기</string>
     <string name="rfd_check">사용종료</string>
 
+    <!-- 삭제 dialog 공통 -->
+    <string name="dialog_delete_header_title">삭제</string>
+    <string name="dialog_delete_text">삭제하시려면 명칭을 다시 입력해주세요.</string>
+    <string name="onDelete">삭제</string>
+    <string name="onCancel">취소</string>
+
 
 </resources>
