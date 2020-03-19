@@ -162,14 +162,14 @@
     <string name="record_title">Record</string>
 
     <!-- 리스트 공통 -->
-    <string name="list_search_hint">Search input Title</string>
+    <string name="list_search_hint">Search for a name</string>
     <string name="list_empty">No data.</string>
 
     <!-- 화분 -->
     <string name="pot_list_header_title">Pot List</string>
     <string name="pot_list_water">Water</string>
     <string name="pot_detail_header_title">Pot Detail</string>
-    <string name="pot_detail_dday_title">By the next due date</string>
+    <string name="pot_detail_dday_title">By the scheduled date</string>
     <string name="pot_detail_cycle_title">Cycle</string>
     <string name="pot_detail_water">Water</string>
     <string name="pot_detail_recent_water">Recent watering</string>
@@ -177,7 +177,7 @@
     <string name="pot_dialog_water_text">Do you want to update the watering information for that pot?</string>
     <string name="pot_dialog_water_text2">It\'s before the scheduled date.\nDo you want to complete the watering?</string>
     <string name="pot_validation_check1">Enter the name.</string>
-    <string name="pot_validation_check2">Select a cycle.</string>
+    <string name="pot_validation_check2">Set a cycle.</string>
     <string name="pot_validation_check3">Set the recent watering before today.</string>
 
     <!-- 주기 팝업 -->
@@ -293,6 +293,32 @@
     <string name="rfd_pos">Storage location</string>
     <string name="rfd_move">Moves</string>
     <string name="rfd_send">Sends</string>
+
+    <string name="rfd_check">End of Use</string>
+
+    <!-- 삭제 dialog 공통 -->
+    <string name="dialog_delete_header_title">Delete</string>
+    <string name="dialog_delete_text">Enter the name again to delete it.</string>
+    <string name="onDelete">Delete</string>
+    <string name="onCancel">Cancel</string>
+
+    <!-- 필터 -->
+    <string name="frm_list_header_title">Filter List</string>
+    <string name="frm_list_filter_replace_button">Replace it</string>
+    <string name="frm_list_filter_replace_text">Filter replacement</string>
+    <string name="frm_list_filterreplace_alert">Do you want to update the replacement date of the filter?</string>
+    <string name="frm_detail_header_title">Filter Detail</string>
+    <string name="frm_detail_dday_title">By the scheduled date</string>
+    <string name="frm_detail_cycle_title">Cycle</string>
+    <string name="frm_detail_recent_replace">Recent date</string>
+    <string name="frm_detail_next_replace">Next date</string>
+    <string name="frm_detail_filterreplace">Replace it</string>
+    <string name="frm_detail_replace_text">It\'s before the scheduled date.\nDo you want to replace it?</string>
+    <string name="frm_validation_check1">Enter the name.</string>
+    <string name="frm_validation_check2">Set a cycle.</string>
+    <string name="frm_validation_check3">Set recent replacement date before today.</string>
+
+
     <string name="rfd_check_end">End of Use</string>
     <string name="rfd_check_use">Restart Use</string>
 
@@ -305,4 +331,5 @@
     <string name ="rfd_text6">Would you like to restart use?</string>
     <string name ="rfd_text7">Do you want to end use?</string>
     <string name ="rfd_text8">Food in progress cannot be moved.</string>
+
 </resources>
