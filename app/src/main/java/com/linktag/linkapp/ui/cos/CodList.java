@@ -2,7 +2,6 @@ package com.linktag.linkapp.ui.cos;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -410,7 +409,7 @@ public class CodList extends BaseActivity {
         Button btnSave = (Button) view.findViewById(R.id.btnSave);
         Button btnDelete = (Button) view.findViewById(R.id.btnDelete);
         if(GUBUN.equals("INSERT")){
-            btnDelete.setText("취소");
+            btnDelete.setText(R.string.onCancel);
             btnDelete.setTextColor(Color.GRAY);
         }
 
@@ -425,9 +424,14 @@ public class CodList extends BaseActivity {
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                requestCOS_CONTROL(GUBUN, etName.getText().toString(), etMemo.getText().toString());
+                if(etName.getText().toString().equals("")){
+                    Toast.makeText(mActivity, R.string.pot_validation_check1, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    requestCOS_CONTROL(GUBUN, etName.getText().toString(), etMemo.getText().toString());
 
-                dialog.dismiss();
+                    dialog.dismiss();
+                }
             }
         });
         if(GUBUN.equals("UPDATE")){
@@ -460,7 +464,7 @@ public class CodList extends BaseActivity {
         TextView tvDeleteText = (TextView) view.findViewById(R.id.tvDeleteText);
         EditText etDeleteName = (EditText) view.findViewById(R.id.etDeleteName);
 
-        tvDeleteText.setText("해당 화장대의 모든 화장품이 함께 삭제됩니다.\n삭제하시려면 명칭을 다시 입력해주세요.");
+        tvDeleteText.setText(R.string.cos_delete_text);
 
         AlertDialog dialogDelete = builder.create();
 
@@ -472,7 +476,7 @@ public class CodList extends BaseActivity {
                     dialog.dismiss();
                 }
                 else{
-                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, R.string.dialog_delete_check_text, Toast.LENGTH_SHORT).show();
                 }
             }
         });

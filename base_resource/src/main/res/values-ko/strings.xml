@@ -294,8 +294,17 @@
     <string name="rfd_pos">보관위치</string>
     <string name="rfd_move">식품이동</string>
     <string name="rfd_send">보내기</string>
-
     <string name="rfd_check">사용종료</string>
+    <string name="rfd_check_end">사용종료</string>
+    <string name="rfd_check_use">사용 재시작</string>
+    <string name ="rfd_text1">해당 식품정보가 저장되었습니다. </string>
+    <string name ="rfd_text2">해당 식품정보의 사용상태가 변경 되었습니다. </string>
+    <string name ="rfd_text3">해당 식품정보가 이동되었습니다. </string>
+    <string name ="rfd_text4">다음 알람예정은 </string>
+    <string name ="rfd_text5">입니다.</string>
+    <string name ="rfd_text6">사용 재시작 하시겠습니까?</string>
+    <string name ="rfd_text7">사용종료 처리하시겠습니까?</string>
+    <string name ="rfd_text8">등록진행 중인 식품은 이동할 수 없습니다.</string>
 
     <!-- 삭제 dialog 공통 -->
     <string name="dialog_delete_header_title">삭제</string>
@@ -319,19 +328,24 @@
     <string name="frm_validation_check2">주기를 선택하세요.</string>
     <string name="frm_validation_check3">최근 필터교체는 오늘일자 이전으로 설정 해주세요.</string>
 
-
-    <string name="rfd_check_end">사용종료</string>
-    <string name="rfd_check_use">사용 재시작</string>
-
-
-    <string name ="rfd_text1">해당 식품정보가 저장되었습니다. </string>
-    <string name ="rfd_text2">해당 식품정보의 사용상태가 변경 되었습니다. </string>
-    <string name ="rfd_text3">해당 식품정보가 이동되었습니다. </string>
-    <string name ="rfd_text4">다음 알람예정은 </string>
-    <string name ="rfd_text5">입니다.</string>
-    <string name ="rfd_text6">사용 재시작 하시겠습니까?</string>
-    <string name ="rfd_text7">사용종료 처리하시겠습니까?</string>
-    <string name ="rfd_text8">등록진행 중인 식품은 이동할 수 없습니다.</string>
+    <!-- 화장품 -->
+    <string name="cod_list_cos_edit">편집</string>
+    <string name="cod_list_date_title1">유효기간</string>
+    <string name="cod_list_date_title2">사용종료</string>
+    <string name="cod_list_header_title">화장품 목록</string>
+    <string name="cod_list_useend_button">사용종료</string>
+    <string name="cod_list_cos_empty">항목없음 (스캔등록 해주세요)</string>
+    <string name="cod_useend_check_text">해당 화장품을 사용종료 하시겠습니까?</string>
+    <string name="cos_delete_text">해당 화장대의 모든 화장품이 함께 삭제됩니다.\n삭제하시려면 명칭을 다시 입력해주세요.</string>
+    <string name="cos_detail_header_title">화장대 정보</string>
+    <string name="cod_detail_header_title">화장품 정보</string>
+    <string name="cod_detail_dday_title">남은 유효기간</string>
+    <string name="cod_detail_cos">화장대</string>
+    <string name="cod_detail_brand">브랜드명</string>
+    <string name="cod_detail_expiration_date">유효기간</string>
+    <string name="cod_detail_price">가격</string>
+    <string name="cod_detail_end_button">사용종료</string>
+    <string name="cod_detail_price_unit">\\</string>
 
 
 </resources>

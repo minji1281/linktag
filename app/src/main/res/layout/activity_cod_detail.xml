@@ -11,7 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="화장품 정보" />
+        app:title_text="@string/cod_detail_header_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,9 +41,9 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        android:layout_width="40dp"
-                        android:layout_height="wrap_content"
-                        android:text="명칭"
+                        android:layout_width="50dp"
+                        android:layout_height="match_parent"
+                        android:text="@string/detail_name"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
@@ -54,7 +54,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:hint="명칭 입력란입니다."
+                        android:hint="@string/detail_name_hint"
                         android:singleLine="true"
                         android:textSize="@dimen/text_normal" />
 
@@ -83,7 +83,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="알림"
+                            android:text="@string/detail_alarm"
                             android:textSize="10dp" />
                     </LinearLayout>
 
@@ -105,7 +105,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="시간"
+                            android:text="@string/detail_time"
                             android:textSize="10dp" />
                     </LinearLayout>
 
@@ -126,9 +126,9 @@
 
 
                 <TextView
-                    android:layout_width="40dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:text="메모"
+                    android:text="@string/detail_memo"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -139,7 +139,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="메모 입력란입니다."
+                    android:hint="@string/detail_memo_hint"
                     android:singleLine="true"
                     android:textSize="@dimen/text_normal" />
 
@@ -165,7 +165,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="남은 유효기간"
+                        android:text="@string/cod_detail_dday_title"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
@@ -186,7 +186,6 @@
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:minWidth="80dp"
-                                android:text="0"
                                 android:textAlignment="center"
                                 android:textColor="@color/colorBase"
                                 android:textSize="70dp"
@@ -229,7 +228,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="상세정보"
+                    android:text="@string/detail_info"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -262,7 +261,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="화장대"
+                                android:text="@string/cod_detail_cos"
                                 android:textSize="@dimen/text_small" />
 
                             <Spinner
@@ -290,7 +289,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="유효기간"
+                                android:text="@string/cod_detail_expiration_date"
                                 android:textSize="@dimen/text_small" />
 
 
@@ -312,7 +311,6 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:text="2020.03.07"
                                     android:textSize="@dimen/text_normal"
                                     android:textStyle="bold" />
 
@@ -346,7 +344,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="브랜드명"
+                                android:text="@string/cod_detail_brand"
                                 android:textSize="@dimen/text_small" />
 
 
@@ -388,7 +386,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="가격"
+                                android:text="@string/cod_detail_price"
                                 android:textSize="@dimen/text_small" />
 
 
@@ -399,7 +397,17 @@
                                 android:layout_marginRight="10dp"
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginTop="5dp"
-                                android:layout_marginBottom="5dp">
+                                android:layout_marginBottom="5dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="30dp"
+                                    android:gravity="center_vertical|center"
+                                    android:paddingRight="5dp"
+                                    android:textSize="@dimen/text_normal"
+                                    android:textStyle="bold"
+                                    android:text="@string/cod_detail_price_unit" />
 
                                 <EditText
                                     android:id="@+id/etMoney"
@@ -411,14 +419,6 @@
                                     android:inputType="number"
                                     android:textSize="@dimen/text_normal"
                                     android:textStyle="bold"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="30dp"
-                                    android:gravity="center_vertical|center"
-                                    android:textSize="@dimen/text_normal"
-                                    android:textStyle="bold"
-                                    android:text="원" />
 
                             </LinearLayout>
 
@@ -483,7 +483,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerHorizontal="true"
                                     android:layout_centerVertical="true"
-                                    android:text="사용종료"
+                                    android:text="@string/cod_detail_end_button"
                                     android:textColor="@color/white"
                                     android:textStyle="bold" />
                             </RelativeLayout>
@@ -511,6 +511,6 @@
         android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:background="@color/list_item_Detail_saveBtn"
-        android:text="저장"
+        android:text="@string/detail_save"
         android:textColor="@color/white" />
 </LinearLayout>

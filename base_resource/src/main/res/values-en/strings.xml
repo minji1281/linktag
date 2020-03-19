@@ -293,8 +293,17 @@
     <string name="rfd_pos">Storage location</string>
     <string name="rfd_move">Moves</string>
     <string name="rfd_send">Sends</string>
-
     <string name="rfd_check">End of Use</string>
+    <string name="rfd_check_end">End of Use</string>
+    <string name="rfd_check_use">Restart Use</string>
+    <string name ="rfd_text1">That information has been saved.</string>
+    <string name ="rfd_text2">The use status of the food information has been changed. </string>
+    <string name ="rfd_text3">The food information has been moved. </string>
+    <string name ="rfd_text4">The next Alarm will be </string>
+    <string name ="rfd_text5"></string>
+    <string name ="rfd_text6">Would you like to restart use?</string>
+    <string name ="rfd_text7">Do you want to end use?</string>
+    <string name ="rfd_text8">Food in progress cannot be moved.</string>
 
     <!-- 삭제 dialog 공통 -->
     <string name="dialog_delete_header_title">Delete</string>
@@ -318,18 +327,23 @@
     <string name="frm_validation_check2">Set a cycle.</string>
     <string name="frm_validation_check3">Set recent replacement date before today.</string>
 
-
-    <string name="rfd_check_end">End of Use</string>
-    <string name="rfd_check_use">Restart Use</string>
-
-
-    <string name ="rfd_text1">That information has been saved.</string>
-    <string name ="rfd_text2">The use status of the food information has been changed. </string>
-    <string name ="rfd_text3">The food information has been moved. </string>
-    <string name ="rfd_text4">The next Alarm will be </string>
-    <string name ="rfd_text5"></string>
-    <string name ="rfd_text6">Would you like to restart use?</string>
-    <string name ="rfd_text7">Do you want to end use?</string>
-    <string name ="rfd_text8">Food in progress cannot be moved.</string>
+    <!-- 화장품 -->
+    <string name="cod_list_cos_edit">Edit</string>
+    <string name="cod_list_date_title1">Expiration date</string>
+    <string name="cod_list_date_title2">End of use date</string>
+    <string name="cod_list_header_title">Cosmetic List</string>
+    <string name="cod_list_useend_button">End of use</string>
+    <string name="cod_list_cos_empty">No data (Scan and register.)</string>
+    <string name="cos_delete_text">All cosmetics in that data will be deleted together.\nPlease re-enter the name to delete it.</string>
+    <string name="cod_useend_check_text">Do you want to end the use of the cosmetics?</string>
+    <string name="cos_detail_header_title">Dressing Table Detail</string>
+    <string name="cod_detail_header_title">Cosmetic Detail</string>
+    <string name="cod_detail_dday_title">The remaining days</string>
+    <string name="cod_detail_cos">Dressing table</string>
+    <string name="cod_detail_brand">Brand name</string>
+    <string name="cod_detail_expiration_date">Expiration date</string>
+    <string name="cod_detail_price">Price</string>
+    <string name="cod_detail_end_button">End of use</string>
+    <string name="cod_detail_price_unit">$</string>
 
 </resources>
