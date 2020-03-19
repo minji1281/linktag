@@ -211,7 +211,7 @@ public class CodAdapter extends BaseAdapter {
         String COD_07 = COD.COD_07; //사용종료일자
         String COD_08 = COD.COD_08; //메모
         String COD_95 = COD.COD_95; //화장대코드
-        String COD_96 = COD.COD_96; //알림시각
+        String COD_96 = COD.COD_96.substring(8,12); //알림시각
         String COD_98 = mUser.Value.OCM_01; //최종수정자
         String ARM_03 = COD.ARM_03; //알림여부
 

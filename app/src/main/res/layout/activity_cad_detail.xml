@@ -158,12 +158,21 @@
 
                             <TextView
                                 android:id="@+id/tvPreDay"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
-                                android:paddingLeft="5dp"
                                 android:gravity="center_vertical|left"
                                 android:textStyle="bold"
                                 android:textSize="@dimen/text_normal" />
+
+                            <TextView
+                                android:id="@+id/tvPreDayGap"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:layout_weight="1"
+                                android:paddingRight="10dp"
+                                android:gravity="center_vertical|right"
+                                android:textColor="@color/listitem_text2"
+                                android:textSize="@dimen/text_small" />
 
                         </LinearLayout>
 
@@ -182,10 +191,9 @@
 
                             <TextView
                                 android:id="@+id/tvPreKm"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical|left"
-                                android:paddingLeft="5dp"
                                 android:textStyle="bold"
                                 android:textSize="@dimen/text_normal" />
 

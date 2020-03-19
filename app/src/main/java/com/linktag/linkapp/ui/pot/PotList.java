@@ -27,6 +27,7 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.menu.Member;
+import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.PotVO;
 
@@ -261,6 +262,12 @@ public class PotList extends BaseActivity {
         Intent intent = new Intent(mContext, Member.class);
         intent.putExtra("intentVO", intentVO);
         mContext.startActivity(intent);
+    }
+
+    @Override
+    protected void scanResult(String str){
+        ScanResult scanResult = new ScanResult(mContext, str, null);
+        scanResult.run();
     }
 
 }

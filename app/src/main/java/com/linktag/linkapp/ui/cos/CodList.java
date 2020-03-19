@@ -36,6 +36,7 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.ui.menu.Member;
+import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.ui.spinner.SpinnerList;
 import com.linktag.linkapp.value_object.COD_VO;
 import com.linktag.linkapp.value_object.COS_VO;
@@ -335,10 +336,15 @@ public class CodList extends BaseActivity {
                     CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, COS_01);
                     ctds_control.requestCTDS_CONTROL();
                     COS.COS_01 = COS_01;
+                    COS.COS_02 = COS_02;
+                    COS.COS_03 = COS_03;
                 }
 
                 if(GUBUN.equals("DELETE")){
-                    COS.COS_01 = ""; //굳이 할 필요 없을라나...
+                    COS.COS_01 = "";
+                    mList.clear();
+                    mAdapter.updateData(mList);
+                    mAdapter.notifyDataSetChanged();
                 }
 
                 new Handler(){
@@ -505,6 +511,12 @@ public class CodList extends BaseActivity {
         Intent intent = new Intent(mContext, Member.class);
         intent.putExtra("intentVO", intentVO);
         mContext.startActivity(intent);
+    }
+
+    @Override
+    protected void scanResult(String str){
+        ScanResult scanResult = new ScanResult(mContext, str, null);
+        scanResult.run();
     }
 
 }
