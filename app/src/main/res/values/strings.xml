@@ -1,3 +1,135 @@
 <resources>
 
+    <!-- 디테일 공통 -->
+    <string name="detail_name">명칭</string>
+    <string name="detail_name_hint">명칭 입력란입니다.</string>
+    <string name="detail_memo">메모</string>
+    <string name="detail_memo_hint">메모 입력란입니다.</string>
+    <string name="detail_info">상세정보</string>
+    <string name="detail_alarm">알림</string>
+    <string name="detail_time">시간</string>
+    <string name="detail_more">더보기</string>
+    <string name="detail_save">저장</string>
+    <string name="detail_manageDate">관리일자</string>
+
+    <!--다이얼로그 팝업 공통 -->
+    <string name="alarm_title">알림시간 설정</string>
+    <string name="onPositive">확인</string>
+    <string name="onNegative">취소</string>
+
+
+    <!--이력 화면 공통 -->
+    <string name="record_title">이력</string>
+
+    <!--리스트 화면 공통-->
+    <string name="search_hint">명칭을 입력하세요</string>
+
+    <!--장독 리스트 -->
+    <string name="jdm_list_title">장독목록</string>
+    <string name="jdm_list_agingDayText1">현재까지</string>
+    <string name="jdm_list_agingDayText2">일 숙성</string>
+    <string name="jdm_list_next_cleaning">다음청소일</string>
+    <string name="jdm_list_check">청소확인</string>
+
+    <!--장독 디테일 -->
+    <string name="jdm_detail_title">장독관리</string>
+    <string name="jdm_agingDay">숙성일</string>
+    <string name="jdm_size">장독크기</string>
+    <string name="jdm_cycle">청소주기</string>
+    <string name="jdm_date">담금일자</string>
+    <string name="jdm_nextDate">다음 청소일</string>
+    <string name="jdm_check">청소확인</string>
+
+    <string name="jdm_spinner_item1">대</string>
+    <string name="jdm_spinner_item2">중</string>
+    <string name="jdm_spinner_item3">소</string>
+
+    <!--장독 다이얼로그 -->
+    <string name="jdm_dialog_title">청소주기일 설정</string>
+    <string name="jdm_dialog_tab1">주기일</string>
+    <string name="jdm_dialog_tab2">지정일</string>
+
+    <!--복약 리스트 -->
+    <string name="trp_list_title">복약목록</string>
+
+    <!--복약 디테일 -->
+    <string name="trp_detail_title">복약관리</string>
+    <string name="trp_alarm_time">알림시간</string>
+    <string name="trp_alarm_cycle">알림주기</string>
+    <string name="trp_alarm_add">알림추가</string>
+    <string name="trp_numOfday">일 복약 횟수</string>
+    <string name="trp_after_before">식 전/후</string>
+    <string name="trp_target">대상자</string>
+    <string name="trp_Mon">월</string>
+    <string name="trp_Tue">화</string>
+    <string name="trp_Wed">수</string>
+    <string name="trp_Thu">목</string>
+    <string name="trp_Fri">금</string>
+    <string name="trp_Sat">토</string>
+    <string name="trp_Sun">일</string>
+
+    <!--PC 리스트 -->
+    <string name="pcm_list_title">PC목록</string>
+    <string name="pcm_list_recent_management">최근 관리일자</string>
+    <string name="pcm_list_hwText">하드웨어</string>
+    <string name="pcm_list_swText">소프트웨어</string>
+
+
+    <!--PC 디테일 -->
+    <string name="pcm_detail_title">PC관리</string>
+    <string name="pcm_hw_info">하드웨어 정보</string>
+    <string name="pcm_sw_info">소프트웨어 정보</string>
+    <string name="pcm_update">일자갱신</string>
+    <string name="pcm_info_add">정보추가</string>
+    <string name="pcm_info_hint">상세정보 입력</string>
+
+    <string name="pcm_sw_spinner_item1">선택</string>
+    <string name="pcm_sw_spinner_item2">운영체제</string>
+    <string name="pcm_sw_spinner_item3">그래픽드라이버</string>
+    <string name="pcm_sw_spinner_item4">어도비</string>
+    <string name="pcm_sw_spinner_item5">백신</string>
+    <string name="pcm_sw_spinner_item6">기타</string>
+
+    <string name="pcm_hw_spinner_item1">선택</string>
+    <string name="pcm_hw_spinner_item2">CPU</string>
+    <string name="pcm_hw_spinner_item3">메인보드</string>
+    <string name="pcm_hw_spinner_item4">그래픽카드</string>
+    <string name="pcm_hw_spinner_item5">RAM</string>
+    <string name="pcm_hw_spinner_item6">SSD</string>
+    <string name="pcm_hw_spinner_item7">HDD</string>
+    <string name="pcm_hw_spinner_item8">파워</string>
+    <string name="pcm_hw_spinner_item9">쿨러</string>
+    <string name="pcm_hw_spinner_item10">OOD</string>
+    <string name="pcm_hw_spinner_item11">케이스</string>
+
+
+    <!--PC 리스트 -->
+    <string name="rfd_list_title">냉장고 식품 목록</string>
+    <string name="rfd_list_DdayText">유통기한</string>
+    <string name="rfd_header_Edit">편집</string>
+
+    <string name="rfd_label_item1">유통기한 마감</string>
+    <string name="rfd_label_item2">오늘까지</string>
+    <string name="rfd_label_item3">일 이하 남음</string>
+    <string name="rfd_label_item4">일 이하 남음</string>
+    <string name="rfd_label_item5">일 미만 남음</string>
+    <string name="rfd_label_item6">일 남음</string>
+
+
+    <!--냉장고 디테일 -->
+    <string name="rfm_detail_title">냉장고 등록</string>
+    <string name="rfm_detail_edit">냉장고 편집</string>
+    <string name="rfd_detail_title">냉장고 식품 관리</string>
+    <string name="rfd_Dday">남은 유통기한</string>
+    <string name="rfd_date">유통기한 마감</string>
+    <string name="rfd_pos">보관위치</string>
+    <string name="rfd_move">식품이동</string>
+    <string name="rfd_send">보내기</string>
+    <string name="rfd_check">사용종료</string>
+
+    <string name="rfd_spinner_item1">냉장실</string>
+    <string name="rfd_spinner_item2">냉동실</string>
+    <string name="rfd_spinner_item3">야채실</string>
+    <string name="rfd_spinner_item4">기타</string>
+
 </resources>

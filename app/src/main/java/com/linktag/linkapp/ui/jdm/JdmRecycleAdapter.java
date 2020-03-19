@@ -168,7 +168,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         }
 
         if (filteredmlist.get(position).JDM_04.equals("")) {
-            viewHolder.tv_D_day.setText("현재까지 0일 숙성");
+            viewHolder.tv_D_day.setText("0");
         } else {
             String year = filteredmlist.get(position).JDM_04.substring(0, 4);
             String month = filteredmlist.get(position).JDM_04.substring(4, 6);
@@ -177,7 +177,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
             aCalendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(dayOfMonth));
 
             int count = (int) ((calendar.getTimeInMillis() - aCalendar.getTimeInMillis()) / (24 * 60 * 60 * 1000));
-            viewHolder.tv_D_day.setText("현재까지" + String.valueOf(count) + "일 숙성");
+            viewHolder.tv_D_day.setText(String.valueOf(count));
 
         }
         viewHolder.tv_name.setText(filteredmlist.get(position).JDM_02);

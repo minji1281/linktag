@@ -9,7 +9,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="냉장고 식품 관리" />
+        app:title_text="@string/rfm_detail_title" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -34,7 +34,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|left"
                     android:layout_weight="1"
-                    android:text="명 칭"
+                    android:text="@string/detail_name"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
@@ -45,7 +45,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="4"
                     android:background="@null"
-                    android:hint="명칭을 입력하세요."
+                    android:hint="@string/detail_name_hint"
                     android:textSize="@dimen/_10sdp" />
 
             </LinearLayout>
@@ -64,7 +64,7 @@
                     android:layout_height="match_parent"
                     android:layout_gravity="center_vertical|left"
                     android:layout_weight="1"
-                    android:text="메 모"
+                    android:text="@string/detail_memo"
                     android:textSize="@dimen/_10sdp"
                     android:textStyle="bold" />
 
@@ -75,7 +75,7 @@
                     android:layout_gravity="center_vertical"
                     android:layout_weight="4"
                     android:background="@null"
-                    android:hint="메모를 입력하세요."
+                    android:hint="@string/detail_memo_hint"
                     android:textSize="@dimen/_10sdp" />
 
             </LinearLayout>
@@ -87,7 +87,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/list_item_Detail_saveBtn"
-        android:text="저장"
+        android:text="@string/detail_save"
         android:textColor="@color/white" />
 
 </LinearLayout>

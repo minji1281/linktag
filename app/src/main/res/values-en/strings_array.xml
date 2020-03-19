@@ -1,0 +1,10 @@
+<resources>
+
+    <!--    냉장고     -->
+    <string-array name="rfd_pos">
+        <item>Cold room</item>
+        <item>Freezer room</item>
+        <item>Vegetable room</item>
+        <item>Other</item>
+    </string-array>
+</resources>

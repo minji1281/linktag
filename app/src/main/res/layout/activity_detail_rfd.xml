@@ -11,7 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="냉장고 식품 정보" />
+        app:title_text="@string/rfd_detail_title" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -42,9 +42,9 @@
                     android:gravity="center_vertical">
 
                     <TextView
-                        android:layout_width="40dp"
+                        android:layout_width="50dp"
                         android:layout_height="wrap_content"
-                        android:text="명칭"
+                        android:text="@string/detail_name"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
@@ -55,7 +55,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:hint="명칭 입력란입니다."
+                        android:hint="@string/detail_name_hint"
                         android:singleLine="true"
                         android:textSize="@dimen/text_normal" />
 
@@ -84,7 +84,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="알림"
+                            android:text="@string/detail_alarm"
                             android:textSize="10dp" />
                     </LinearLayout>
 
@@ -106,7 +106,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:text="시간"
+                            android:text="@string/detail_time"
                             android:textSize="10dp" />
                     </LinearLayout>
 
@@ -127,9 +127,9 @@
 
 
                 <TextView
-                    android:layout_width="40dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:text="메모"
+                    android:text="@string/detail_memo"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -140,7 +140,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="메모 입력란입니다."
+                    android:hint="@string/detail_memo_hint"
                     android:singleLine="true"
                     android:textSize="@dimen/text_normal" />
 
@@ -167,7 +167,7 @@
                         android:id="@+id/tv_label1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="남은 유통기간"
+                        android:text="@string/rfd_Dday"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
@@ -230,7 +230,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="상세정보"
+                    android:text="@string/detail_info"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -263,7 +263,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="유통기한 마감"
+                                android:text="@string/rfd_date"
                                 android:textSize="@dimen/text_small" />
 
                             <LinearLayout
@@ -311,7 +311,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="보관위치"
+                                android:text="@string/rfd_pos"
                                 android:textSize="@dimen/text_small" />
 
 
@@ -359,7 +359,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="식품 이동"
+                                android:text="@string/rfd_move"
                                 android:textSize="@dimen/text_small" />
 
                             <Spinner
@@ -381,7 +381,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_gravity="center_vertical"
-                                    android:text="보내기"
+                                    android:text="@string/rfd_send"
                                     android:textSize="@dimen/text_big"
                                     android:textStyle="bold" />
 
@@ -453,7 +453,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
-                                android:text="사용종료"
+                                android:text="@string/rfd_check"
                                 android:textColor="@color/white"
                                 android:textStyle="bold" />
                         </RelativeLayout>
@@ -471,6 +471,6 @@
         android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:background="@color/list_item_Detail_saveBtn"
-        android:text="저장"
+        android:text="@string/detail_save"
         android:textColor="@color/white" />
 </LinearLayout>

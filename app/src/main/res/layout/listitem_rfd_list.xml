@@ -86,7 +86,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical|left"
-                            android:text="유통기한"
+                            android:text="@string/rfd_list_DdayText"
                             android:textColor="@color/listitem_text2"
                             android:textSize="@dimen/text_small" />
 
@@ -136,6 +136,7 @@
                         android:gravity="center_vertical|center"
                         android:text="15일이상 남음"
                         android:textColor="@color/white"
+                        android:textAllCaps="false"
                         android:textSize="@dimen/text_small"
                         android:textStyle="bold" />
 

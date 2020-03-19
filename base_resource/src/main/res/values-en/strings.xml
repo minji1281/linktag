@@ -160,6 +160,83 @@
     <string name="record_title">Record</string>
 
     <!-- 리스트 공통 -->
-    <string name="list_search_hint">Please enter your name.</string>
+    <string name="list_search_hint">Search input Title</string>
+
+
+    <!--장독 리스트 -->
+    <string name="jdm_list_title">Jangdokdae List</string>
+    <string name="jdm_list_agingDayText1">Until Now</string>
+    <string name="jdm_list_agingDayText2">Day Aging</string>
+    <string name="jdm_list_next_cleaning">Next Clreaning</string>
+    <string name="jdm_list_check">Cleaning</string>
+
+    <!--장독 디테일 -->
+    <string name="jdm_detail_title">Jangdokdae Management</string>
+    <string name="jdm_agingDay">Aging Day</string>
+    <string name="jdm_size">Jangdok Size</string>
+    <string name="jdm_cycle">Cleaning cycle</string>
+    <string name="jdm_date">Date of Manufacture</string>
+    <string name="jdm_nextDate">Next cleaning day</string>
+    <string name="jdm_check">Cleaning</string>
+
+
+    <!--장독 다이얼로그 -->
+    <string name="jdm_dialog_title">Cleaning cycle Setting</string>
+    <string name="jdm_dialog_tab1">Cycle</string>
+    <string name="jdm_dialog_tab2">Designated</string>
+
+    <!--복약 리스트 -->
+    <string name="trp_list_title">Medication List</string>
+
+    <!--복약 디테일 -->
+    <string name="trp_detail_title">Medication Management</string>
+    <string name="trp_alarm_time">Alarm Time</string>
+    <string name="trp_alarm_cycle">Alarm Cycle</string>
+    <string name="trp_alarm_add">Alarm Add</string>
+    <string name="trp_numOfday">medications per day</string>
+    <string name="trp_after_before">Before and after meals</string>
+    <string name="trp_target">Corresponding person</string>
+    <string name="trp_Mon">Mon</string>
+    <string name="trp_Tue">Tue</string>
+    <string name="trp_Wed">Wed</string>
+    <string name="trp_Thu">Thu</string>
+    <string name="trp_Fri">Fri</string>
+    <string name="trp_Sat">Sat</string>
+    <string name="trp_Sun">Sun</string>
+
+
+    <!--PC 리스트 -->
+    <string name="pcm_list_title">PC List</string>
+    <string name="pcm_list_recent_management">Managemen date</string>
+    <string name="pcm_list_hwText">HardWare</string>
+    <string name="pcm_list_swText">HardWare</string>
+
+
+    <!--PC 디테일 -->
+    <string name="pcm_detail_title">PC Management</string>
+    <string name="pcm_hw_info">HardWare INFO</string>
+    <string name="pcm_sw_info">SoftWare INFO</string>
+    <string name="pcm_update">UPDATE</string>
+    <string name="pcm_info_add">INFO Add</string>
+    <string name="pcm_info_hint">INFO Detail input</string>
+
+
+    <!--냉장고 리스트 -->
+    <string name="rfd_list_title">Refrigerator food List</string>
+    <string name="rfd_list_DdayText">Expiration day</string>
+    <string name="rfd_header_Edit">Edit</string>
+
+
+    <!--냉장고 디테일 -->
+    <string name="rfm_detail_title">Refrigerator Register</string>
+    <string name="rfm_detail_edit">Refrigerator Edit</string>
+    <string name="rfd_detail_title">Refrigerator food management</string>
+    <string name="rfd_Dday">Expiration day</string>
+    <string name="rfd_date">Expiration date</string>
+    <string name="rfd_pos">Storage location</string>
+    <string name="rfd_move">Moves</string>
+    <string name="rfd_send">Sends</string>
+    <string name="rfd_check">End of Use</string>
+
 
 </resources>

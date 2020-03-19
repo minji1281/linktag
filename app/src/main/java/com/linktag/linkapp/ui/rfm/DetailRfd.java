@@ -206,7 +206,7 @@ public class DetailRfd extends BaseActivity {
         sp_rfm = findViewById(R.id.sp_rfm);
         sp_pos = findViewById(R.id.sp_pos);
 
-        String[] str = getResources().getStringArray(R.array.rfd);
+        String[] str = getResources().getStringArray(R.array.rfd_pos);
         final ArrayAdapter<String> adapter_pos = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, str);
         sp_pos.setAdapter(adapter_pos);
 
@@ -274,10 +274,10 @@ public class DetailRfd extends BaseActivity {
         ed_name.setText(rfdVO.getRFD_03());
         ed_memo.setText(rfdVO.getRFD_04());
 
-        map_pos.put("냉장실", "0");
-        map_pos.put("냉동실", "1");
-        map_pos.put("야채실", "2");
-        map_pos.put("기타", "3");
+        map_pos.put(str[0], "0");
+        map_pos.put(str[1], "1");
+        map_pos.put(str[2], "2");
+        map_pos.put(str[3], "3");
 
         requestRFM_SELECT();
     }

@@ -12,7 +12,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="PC목록" />
+        app:title_text="@string/pcm_list_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -41,7 +41,7 @@
                 android:id="@+id/ed_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="명칭을 입력하세요."
+                android:hint="@string/list_search_hint"
                 android:textSize="@dimen/text_normal"
                 android:singleLine="true"
                 android:background="@null"

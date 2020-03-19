@@ -597,7 +597,7 @@ public class DetailTrp extends BaseActivity {
                             if (mList == null)
                                 mList = new ArrayList<>();
 
-                            tv_alarmCnt.setText("(" + mList.size() + "건)");
+                            tv_alarmCnt.setText("(" + mList.size() + ")");
                             if (mList.size() == 0) {
                                 tv_alarmLabel.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);
@@ -677,7 +677,7 @@ public class DetailTrp extends BaseActivity {
                             mList = response.body().Data;
                             if (mList == null)
                                 mList = new ArrayList<>();
-                            tv_alarmCnt.setText("(" + mList.size() + "건)");
+                            tv_alarmCnt.setText("(" + mList.size() + ")");
                             if (mList.size() == 0) {
                                 tv_alarmLabel.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);

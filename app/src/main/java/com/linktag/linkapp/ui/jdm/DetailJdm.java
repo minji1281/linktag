@@ -102,15 +102,6 @@ public class DetailJdm extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_jdm2);
 
-
-
-        sp_size = findViewById(R.id.sp_size);
-
-        String[] str = getResources().getStringArray(R.array.jdm);
-        final ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, str);
-        sp_size.setAdapter(adapter_size);
-
-
         initLayout();
 
         initialize();
@@ -250,6 +241,18 @@ public class DetailJdm extends BaseActivity {
         ed_memo.setText(jdmVO.getJDM_03());
 
 
+        sp_size = findViewById(R.id.sp_size);
+
+        String[] str = getResources().getStringArray(R.array.jdm);
+        final ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, str);
+        sp_size.setAdapter(adapter_size);
+
+        map_size.put(str[0], "0");
+        map_size.put(str[1], "1");
+        map_size.put(str[2], "2");
+
+
+
         if (jdmVO.getJDM_04().equals("")) {
             tv_datePicker.setText(format.format(calendar.getTime()));
         } else {
@@ -290,11 +293,6 @@ public class DetailJdm extends BaseActivity {
         } else {
             imageView_check.setImageResource(R.drawable.btn_round_skyblue_50dp);
         }
-
-
-        map_size.put("대", "0");
-        map_size.put("중", "1");
-        map_size.put("소", "2");
 
 
         if (jdmVO.JDM_05.equals("")) {

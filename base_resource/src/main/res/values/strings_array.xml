@@ -31,4 +31,70 @@
         <item>프로필 사진 삭제</item>
     </string-array>
 
+
+
+    <!--    장독      -->
+    <string-array name="jdm">
+        <item>대</item>
+        <item>중</item>
+        <item>소</item>
+    </string-array>
+
+
+    <!--    냉장고      -->
+    <string-array name="rfd_pos">
+        <item>냉장실</item>
+        <item>냉동실</item>
+        <item>야채실</item>
+        <item>기타</item>
+    </string-array>
+
+    <string-array name="rfd_label">
+        <item>유통기한 마감</item>
+        <item>오늘까지</item>
+        <item>일 이하 남음</item>
+        <item>일 미만 남음</item>
+        <item>일 남음</item>
+    </string-array>
+
+    <!--    PC      -->
+    <string-array name="hw">
+        <item>선택</item>
+        <item>CPU</item>
+        <item>메인보드</item>
+        <item>그래픽카드</item>
+        <item>RAM</item>
+        <item>SSD</item>
+        <item>HDD</item>
+        <item>파워</item>
+        <item>쿨러</item>
+        <item>OOD</item>
+        <item>케이스</item>
+    </string-array>
+
+    <string-array name="sw">
+        <item>선택</item>
+        <item>운영체제</item>
+        <item>그래픽드라이버</item>
+        <item>어도비</item>
+        <item>백신</item>
+        <item>기타</item>
+    </string-array>
+
+
+    <!--    복약      -->
+    <string-array name="trp">
+        <item>1회</item>
+        <item>2회</item>
+        <item>3회</item>
+        <item>4회</item>
+        <item>5회</item>
+    </string-array>
+
+    <string-array name="trp2">
+        <item>식전 30분</item>
+        <item>식후 30분</item>
+        <item>상관없음</item>
+    </string-array>
+
 </resources>

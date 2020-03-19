@@ -70,7 +70,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:gravity="center_vertical|left"
-                            android:text="최근 관리일자"
+                            android:text="@string/pcm_list_recent_management"
                             android:textColor="@color/listitem_text2"
                             android:textSize="@dimen/text_small" />
 
@@ -105,24 +105,34 @@
                 android:layout_height="wrap_content"
                 android:padding="3dp">
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/listitem_text2"
+                    android:text="@string/pcm_list_hwText"/>
+                <TextView
                     android:id="@+id/tv_hwCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/listitem_text2"
                     android:textStyle="bold"
-                    android:text="하드웨어 2건"/>
+                    android:text="2"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="3dp">
                 <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/listitem_text2"
+                    android:text="@string/pcm_list_swText"/>
+                <TextView
                     android:id="@+id/tv_swCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/listitem_text2"
                     android:textStyle="bold"
-                    android:text="소프트웨어 2건"/>
+                    android:text="2"/>
             </LinearLayout>
         </LinearLayout>
 

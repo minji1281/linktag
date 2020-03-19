@@ -1,8 +1,3 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string-array name="jdm">
-        <item>대</item>
-        <item>중</item>
-        <item>소</item>
-    </string-array>
 </resources>

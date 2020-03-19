@@ -31,4 +31,68 @@
         <item>Clear</item>
     </string-array>
 
+    <!--    장독      -->
+    <string-array name="jdm">
+        <item>Big</item>
+        <item>Normal</item>
+        <item>Small</item>
+    </string-array>
+
+    <!--    냉장고     -->
+    <string-array name="rfd_pos">
+        <item>Cold room</item>
+        <item>Freezer room</item>
+        <item>Vegetable room</item>
+        <item>Other</item>
+    </string-array>
+
+    <string-array name="rfd_label">
+        <item>Expiration</item>
+        <item>Today</item>
+        <item>Within</item>
+        <item>days</item>
+        <item>left</item>
+    </string-array>
+
+
+    <!--    PC      -->
+    <string-array name="hw">
+        <item>Selection</item>
+        <item>CPU</item>
+        <item>Main board</item>
+        <item>Graphic card</item>
+        <item>RAM</item>
+        <item>SSD</item>
+        <item>HDD</item>
+        <item>Power</item>
+        <item>Cooler</item>
+        <item>OOD</item>
+        <item>Case</item>
+    </string-array>
+
+    <string-array name="sw">
+        <item>Selection</item>
+        <item>OS</item>
+        <item>Graphics driver</item>
+        <item>Adobe</item>
+        <item>Vaccine</item>
+        <item>Other</item>
+    </string-array>
+
+
+    <!--    복약      -->
+    <string-array name="trp">
+        <item>1 times</item>
+        <item>2 times</item>
+        <item>3 times</item>
+        <item>4 times</item>
+        <item>5 times</item>
+    </string-array>
+
+    <string-array name="trp2">
+        <item>30 minutes before meals</item>
+        <item>30 minutes after meals</item>
+        <item>Any time</item>
+    </string-array>
+
 </resources>

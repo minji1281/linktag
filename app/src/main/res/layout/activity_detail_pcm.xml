@@ -11,7 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="PC관리" />
+        app:title_text="@string/pcm_detail_title" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -34,9 +34,9 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="40dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:text="명칭"
+                    android:text="@string/detail_name"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -47,7 +47,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="명칭 입력란입니다."
+                    android:hint="@string/detail_name_hint"
                     android:singleLine="true"
                     android:textSize="@dimen/text_normal" />
 
@@ -65,9 +65,9 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="40dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:text="메모"
+                    android:text="@string/detail_memo"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -78,7 +78,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="메모 입력란입니다."
+                    android:hint="@string/detail_memo_hint"
                     android:singleLine="true"
                     android:textSize="@dimen/text_normal" />
 
@@ -99,9 +99,9 @@
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="80dp"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="관리일자"
+                    android:text="@string/detail_manageDate"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -109,6 +109,7 @@
                     android:id="@+id/tv_manageDay"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:gravity="center_vertical"
                     android:textSize="@dimen/text_normal" />
@@ -118,7 +119,8 @@
                     android:layout_width="80dp"
                     android:layout_height="20dp"
                     android:background="@drawable/btn_round_indigo_5dp"
-                    android:text="일자갱신"
+                    android:text="@string/pcm_update"
+                    android:textStyle="bold"
                     android:textColor="#FFF"
                     android:textSize="13dp" />
 
@@ -142,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical|left"
-                    android:text="상세정보"
+                    android:text="@string/detail_info"
                     android:layout_marginBottom="10dp"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
@@ -152,7 +154,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:paddingRight="15dp"
-                    android:text="더보기"
+                    android:text="@string/detail_more"
                     android:textSize="@dimen/text_normal" />
 
             </LinearLayout>
@@ -171,7 +173,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|left"
-                        android:text="PC 하드웨어 정보 "
+                        android:text="@string/pcm_hw_info"
                         android:textSize="@dimen/text_small" />
                     <TextView
                         android:id="@+id/tv_hwCnt"
@@ -207,10 +209,11 @@
                         android:id="@+id/et_hw"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3"
+                        android:layout_weight="2.5"
                         android:background="@null"
-                        android:hint="상세정보 입력"
-                        android:textSize="13dp" />
+                        android:singleLine="true"
+                        android:hint="@string/pcm_info_hint"
+                        android:textSize="@dimen/small_text" />
 
                     <Button
                         android:id="@+id/btn_addItem_hw"
@@ -220,8 +223,9 @@
                         android:background="@drawable/btn_round_indigo_5dp"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:text="정보추가"
+                        android:text="@string/pcm_info_add"
                         android:textColor="@color/white"
+                        android:textAllCaps="false"
                         android:textSize="13dp"
                         android:textStyle="bold" />
                 </LinearLayout>
@@ -262,7 +266,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|left"
-                        android:text="PC 소프트웨어 정보 "
+                        android:text="@string/pcm_sw_info"
                         android:textSize="@dimen/text_small" />
                     <TextView
                         android:id="@+id/tv_swCnt"
@@ -297,10 +301,11 @@
                         android:id="@+id/et_sw"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight="3"
+                        android:layout_weight="2.5"
                         android:background="@null"
-                        android:hint="상세정보 입력"
-                        android:textSize="13dp" />
+                        android:singleLine="true"
+                        android:hint="@string/pcm_info_hint"
+                        android:textSize="@dimen/small_text" />
 
 
                     <Button
@@ -311,8 +316,9 @@
                         android:background="@drawable/btn_round_indigo_5dp"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:text="정보추가"
+                        android:text="@string/pcm_info_add"
                         android:textColor="@color/white"
+                        android:textAllCaps="false"
                         android:textSize="13dp"
                         android:textStyle="bold" />
 
@@ -354,7 +360,7 @@
         android:layout_width="match_parent"
         android:layout_height="50dp"
         android:background="@color/list_item_Detail_saveBtn"
-        android:text="저장"
+        android:text="@string/detail_save"
         android:textColor="@color/white" />
 
 
