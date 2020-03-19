@@ -93,7 +93,7 @@ public class MasterLog extends BaseActivity {
     private void requestLOG_CONTROL(){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
-            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, getResources().getString(com.linktag.base.R.string.common_network_error), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -104,7 +104,7 @@ public class MasterLog extends BaseActivity {
         String LOG_01 = LOG.LOG_01; //코드번호
         String LOG_02 = ""; //일련번호
         String LOG_03 = ""; //구분
-        String LOG_04 = ""; //내역
+        String LOG_04 = getResources().getString(com.linktag.base.R.string.common_alarm_send); //내역
         String LOG_05 = ""; //수정일시
         String LOG_98 = LOG.LOG_98; //최종수정자
         String SP_NAME = LOG.SP_NAME;

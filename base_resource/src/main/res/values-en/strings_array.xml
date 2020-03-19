@@ -31,11 +31,37 @@
         <item>Clear</item>
     </string-array>
 
+    <!--    날짜 시간 텍스트 -->
+    <string-array name="datetime">
+        <item>year</item>
+        <item>month</item>
+        <item>day</item>
+        <item>hour</item>
+        <item>minute</item>
+    </string-array>
+
     <!--    장독      -->
-    <string-array name="jdm">
+    <string-array name="jdm_size">
         <item>Big</item>
         <item>Normal</item>
         <item>Small</item>
+    </string-array>
+
+    <string-array name="jdm_cycle">
+        <item>Day</item>
+        <item>Month</item>
+        <item>Designated date</item>
+    </string-array>
+
+    <string-array name="jdm_save_text">
+        <item>That information has been saved.</item>
+        <item>The next notification will be </item>
+        <item></item>
+        <item>It is before the scheduled cleaning date. Would you like to confirm the cleaning?</item>
+        <item>The scheduled cleaning date must be greater than the current date.</item>
+        <item>New registration</item>
+        <item>Notification sending</item>
+        <item>Cleaning finished</item>
     </string-array>
 
     <!--    냉장고     -->

@@ -20,4 +20,7 @@
     <string name="common_network_error">Please check your internet connection and try again</string>
     <string name="common_call_admin">Please contact the administrator</string>
     <string name="common_file_notfound">File not found</string>
+    <string name="common_confirm_delete">Please re-enter it correctly.</string>
+
+    <string name="common_alarm_send">Notification sending</string>
 </resources>

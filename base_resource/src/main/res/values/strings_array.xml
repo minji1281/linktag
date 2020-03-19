@@ -33,12 +33,39 @@
 
 
 
+    <!--    날짜 시간 텍스트 -->
+    <string-array name="datetime">
+        <item>년</item>
+        <item>월</item>
+        <item>일</item>
+        <item>시</item>
+        <item>분</item>
+    </string-array>
+
     <!--    장독      -->
-    <string-array name="jdm">
+    <string-array name="jdm_size">
         <item>대</item>
         <item>중</item>
         <item>소</item>
     </string-array>
+
+    <string-array name="jdm_cycle">
+        <item>일</item>
+        <item>개월</item>
+        <item>지정일</item>
+    </string-array>
+
+    <string-array name="jdm_save_text">
+        <item>해당 장독정보가 저장되었습니다. </item>
+        <item>다음 알람예정은 </item>
+        <item>입니다.</item>
+        <item>예정 청소일 전입니다. 청소확인 처리하시겠습니까?</item>
+        <item>청소 예정일은 현재일자보다 커야합니다.</item>
+        <item>신규등록</item>
+        <item>장독청소 완료</item>
+    </string-array>
+
+
 
 
     <!--    냉장고      -->
