@@ -143,6 +143,7 @@
                 android:horizontalSpacing="10dp"
                 android:isScrollContainer="false"
                 android:numColumns="4"
+                android:scrollbars="none"
                 android:stretchMode="columnWidth"
                 android:verticalSpacing="20dp" />
 

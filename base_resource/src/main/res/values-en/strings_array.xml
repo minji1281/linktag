@@ -25,4 +25,10 @@
         <item>기타</item>
     </string-array>
 
+    <string-array name="photo_select">
+        <item>Camera</item>
+        <item>Album</item>
+        <item>Clear</item>
+    </string-array>
+
 </resources>

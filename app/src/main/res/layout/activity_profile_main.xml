@@ -11,7 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="프로필 설정" />
+        app:title_text="@string/profile_title" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -77,7 +77,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="이메일"
+                    android:text="@string/sign_up_6"
                     android:textSize="@dimen/text_small" />
 
                 <TextView
@@ -114,7 +114,7 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="가입일"
+                    android:text="@string/sign_up_10"
                     android:textSize="@dimen/text_small" />
 
                 <TextView
@@ -153,7 +153,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:text="비밀번호"
+                        android:text="@string/sign_up_7"
                         android:textSize="@dimen/text_small" />
 
                     <Button
@@ -163,7 +163,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentEnd="true"
                         android:layout_centerVertical="true"
-                        android:text="변경"
+                        android:text="@string/common_change"
                         android:textSize="@dimen/text_smaller" />
 
                 </RelativeLayout>
@@ -186,7 +186,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="20"
-                            android:hint="기존 비밀번호를 입력해 주세요"
+                            android:hint="@string/placeholder_profile_pwd1"
                             android:inputType="textPassword"
                             android:textSize="@dimen/text_smaller" />
                     </RelativeLayout>
@@ -202,7 +202,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="20"
-                            android:hint="새 비밀번호를 입력해주세요."
+                            android:hint="@string/placeholder_profile_pwd2"
                             android:inputType="textPassword"
                             android:textSize="@dimen/text_smaller" />
                     </RelativeLayout>
@@ -218,7 +218,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:ems="20"
-                            android:hint="새 비밀번호를 한번 더 확인해주세요."
+                            android:hint="@string/placeholder_profile_pwd3"
                             android:inputType="textPassword"
                             android:textSize="@dimen/text_smaller" />
                     </RelativeLayout>
@@ -234,7 +234,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:background="@android:color/holo_red_light"
-                            android:text="확인"
+                            android:text="@string/common_confirm"
                             android:textColor="@android:color/white"
                             android:textSize="@dimen/text_smaller" />
                     </RelativeLayout>
@@ -270,7 +270,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="이름"
+                    android:text="@string/sign_up_4"
                     android:textSize="@dimen/text_small" />
 
                 <EditText
@@ -301,7 +301,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="휴대전화 번호"
+                    android:text="@string/sign_up_9"
                     android:textSize="@dimen/text_small" />
 
                 <EditText

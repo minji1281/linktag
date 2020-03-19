@@ -133,13 +133,13 @@ public class MemberInvite extends BaseActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int spinnerPosition = spinnerShared.getSelectedItemPosition();
                 if(spinnerPosition == 0){
-                    Toast.makeText(mContext, "사용자를 추가 할 공유를 선택해 주세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "추가 할 공유를 선택해 주세요", Toast.LENGTH_LONG).show();
                     return;
                 }
                 else {
                     new AlertDialog.Builder(mActivity)
-                            .setMessage("해당 유저를 등록 하시겠습니까?")
-                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                            .setMessage(R.string.alert_member_invite)
+                            .setPositiveButton(R.string.common_yes, new DialogInterface.OnClickListener() {
                                 @RequiresApi(api = Build.VERSION_CODES.M)
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
@@ -147,7 +147,7 @@ public class MemberInvite extends BaseActivity {
 
                                 }
                             })
-                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(R.string.common_no, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     return;
@@ -260,9 +260,9 @@ public class MemberInvite extends BaseActivity {
         sharedList.clear();
 
         ar = new String[model.Total + 1];
-        ar[0] = "공유 선택";
+        ar[0] = getResources().getString(R.string.please_select);
 
-        sharedList.add(new ClsShared("공유 선택", "", ""));
+        sharedList.add(new ClsShared(ar[0], "", ""));
 
         if(model.Total != 0){
             if(model.Total > 0){
@@ -403,9 +403,9 @@ public class MemberInvite extends BaseActivity {
 
     private void callBack(CtuVO ctuVO){
         if(ctuVO.Validation){
-            Toast.makeText(mContext, "등록 되었습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.alert_member_callback1, Toast.LENGTH_SHORT).show();
         } else {
-            Toast.makeText(mContext, "이미 등록 된 사용자 입니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, R.string.alert_member_callback2, Toast.LENGTH_SHORT).show();
         }
     }
 

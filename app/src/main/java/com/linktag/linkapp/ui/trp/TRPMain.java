@@ -27,6 +27,7 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.jdm.DetailJdm;
+import com.linktag.linkapp.ui.menu.AddSharedDetail;
 import com.linktag.linkapp.ui.menu.Member;
 import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CtdVO;
@@ -138,6 +139,19 @@ public class TRPMain extends BaseActivity {
             // sharedService
             header.tvHeaderTitle2.setVisibility(View.VISIBLE);
             header.tvHeaderTitle2.setText(intentVO.CTM_17);
+
+            if(intentVO.CTM_04.equals(mUser.Value.OCM_01)){
+                header.btnHeaderRight1.setVisibility(View.VISIBLE);
+                header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, AddSharedDetail.class);
+                        intent.putExtra("type", "UPDATE");
+                        intent.putExtra("intentVO", intentVO);
+                        mContext.startActivity(intent);
+                    }
+                });
+            }
 
             footer.btnFooterSetting.setVisibility(View.GONE);
             footer.btnFooterMember.setVisibility(View.VISIBLE);

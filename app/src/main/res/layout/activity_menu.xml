@@ -11,7 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="카테고리" />
+        app:title_text="@string/home_04" />
 
     <LinearLayout
         android:id="@+id/layoutMenuTab"
@@ -30,7 +30,7 @@
             android:layout_weight="1"
             android:background="@drawable/menu_left_bar_button"
             android:gravity="center"
-            android:text="나의 서비스"
+            android:text="@string/menu_bar1"
             android:textColor="@color/selector_text_black_white"
             android:textSize="@dimen/text_normal" />
 
@@ -41,7 +41,7 @@
             android:layout_weight="1"
             android:background="@drawable/menu_right_bar_button"
             android:gravity="center"
-            android:text="공유 서비스"
+            android:text="@string/menu_bar2"
             android:textColor="@color/selector_text_black_white"
             android:textSize="@dimen/text_normal" />
 

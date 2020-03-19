@@ -1,10 +1,23 @@
 <resources>
-    <string name="common_confirm">확인</string>
-    <string name="common_cancel">취소</string>
-    <string name="common_yes">예</string>
-    <string name="common_no">아니오</string>
-    <string name="common_save">저장</string>
+    <string name="common_confirm">Confirm</string>
+    <string name="common_cancel">Cancel</string>
+    <string name="common_yes">Yes</string>
+    <string name="common_no">No</string>
+    <string name="common_save">Save</string>
     <string name="common_loading">Loading...</string>
-    <string name="common_close">닫기</string>
-    <string name="common_network_error">인터넷 연결을 확인후 다시 시도해 주세요.</string>
+    <string name="common_uploading">Uploading...</string>
+    <string name="common_close">Close</string>
+    <string name="common_add">Add</string>
+    <string name="common_update">Update</string>
+    <string name="common_delete">Delete</string>
+    <string name="common_change">Change</string>
+
+    <string name="common_canceled">Canceled</string>
+    <string name="common_added">Added</string>
+    <string name="common_updated">Updated</string>
+    <string name="common_deleted">Deleted</string>
+
+    <string name="common_network_error">Please check your internet connection and try again</string>
+    <string name="common_call_admin">Please contact the administrator</string>
+    <string name="common_file_notfound">File not found</string>
 </resources>

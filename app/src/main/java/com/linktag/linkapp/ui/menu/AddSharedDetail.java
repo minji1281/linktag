@@ -79,6 +79,7 @@ public class AddSharedDetail extends BaseActivity {
     //===================================
     // Variable
     //===================================
+    private String GUBUN;
     private String type;
     private String typeStr;
     private CtdVO intentVO;
@@ -119,15 +120,15 @@ public class AddSharedDetail extends BaseActivity {
             @Override
             public void onClick(View v) {
                 AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                builder.setMessage(intentVO.CTD_02_NM + " 을/를 추가하시겠습니까?");
+                builder.setMessage("[" + intentVO.CTD_02_NM + "] " + getString(R.string.alert_service_add));
                 builder.setCancelable(true);
-                builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                builder.setPositiveButton(R.string.common_yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
-                        requestCTD_CONTROL(GUBUN_TYPE_INSERT);
+                        requestCTD_CONTROL();
                     }
                 });
-                builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                builder.setNegativeButton(R.string.common_no, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                     }
@@ -146,11 +147,16 @@ public class AddSharedDetail extends BaseActivity {
         intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
 
         if(type.equals("INSERT")){
-            header.tvHeaderTitle.setText(intentVO.CTD_02_NM + " 공유 추가");
+            GUBUN = GUBUN_TYPE_INSERT;
+            typeStr = getResources().getString(R.string.common_added);
+            header.tvHeaderTitle.setText(getString(R.string.menu_bar2) + " " + getString(R.string.common_add));
         } else {
+            GUBUN = GUBUN_TYPE_UPDATE;
+            typeStr = getResources().getString(R.string.common_updated);
             if(!intentVO.CTD_08.equals(""))
                 ClsBitmap.setSharedPhoto(mContext, imgShared, intentVO.CTD_01, intentVO.CTD_08, "", R.drawable.shared_no_image);
-            header.tvHeaderTitle.setText(intentVO.CTD_02_NM + " 공유 수정");
+            etSharedName.setText(intentVO.CTM_17);
+            header.tvHeaderTitle.setText(getString(R.string.menu_bar2) + " " + getString(R.string.common_update));
         }
 
         etSharedName.requestFocus();
@@ -159,14 +165,8 @@ public class AddSharedDetail extends BaseActivity {
     private void setSharedPhoto() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-        final String str[] = {
-                "사진 촬영",
-                "앨범에서 선택",
-                "프로필 사진 삭제"
-        };
-
-        builder.setTitle("프로필 사진 변경").setNegativeButton(R.string.common_cancel, null)
-                .setItems(str, (dialog, which) -> {
+        builder.setTitle(R.string.set_profile_image).setNegativeButton(R.string.common_cancel, null)
+                .setItems(R.array.photo_select, (dialog, which) -> {
                     switch (which) {
                         // 사직 찍기
                         case PICK_FROM_CAMERA:
@@ -180,7 +180,7 @@ public class AddSharedDetail extends BaseActivity {
                         case DELETE_PHOTO:
                             if(intentVO.CTD_01 != null && intentVO.CTD_01 != "" && !intentVO.CTD_08.equals("")){
                                 ClsBitmap.setSharedPhoto(mContext, imgShared, intentVO.CTD_01,"", intentVO.CTD_08, R.drawable.shared_no_image);
-                                requestCTD_CONTROL(GUBUN_TYPE_UPDATE);
+                                requestCTD_CONTROL();
                             }
 
                             break;
@@ -215,7 +215,7 @@ public class AddSharedDetail extends BaseActivity {
         try {
             tempFile = createImageFile();
         } catch (IOException e) {
-            Toast.makeText(this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.alert_image_error1, Toast.LENGTH_SHORT).show();
             finish();
             e.printStackTrace();
         }
@@ -248,7 +248,7 @@ public class AddSharedDetail extends BaseActivity {
     private void storageTask(){
         if(filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("업로드중...");
+            progressDialog.setTitle(R.string.common_uploading);
             progressDialog.show();
 
             if (intentVO.CTD_01 != null && !intentVO.CTD_01.equals("") && !intentVO.CTD_08.equals("")){
@@ -268,7 +268,7 @@ public class AddSharedDetail extends BaseActivity {
                 uploadFile(progressDialog);
             }
         } else {
-            Toast.makeText(this, "파일을 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.common_file_notfound, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -280,10 +280,8 @@ public class AddSharedDetail extends BaseActivity {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-                if(type.equals("INSERT"))
-                    Toast.makeText(getApplicationContext(), "공유 서비스가 생성되었습니다.", Toast.LENGTH_SHORT).show();
-                else
-                    Toast.makeText(getApplicationContext(), "이미지가 변경 되었습니다.", Toast.LENGTH_SHORT).show();
+
+                Toast.makeText(getApplicationContext(), typeStr, Toast.LENGTH_SHORT).show();
                 mActivity.finish();
             }
         })
@@ -292,7 +290,7 @@ public class AddSharedDetail extends BaseActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 progressDialog.dismiss();
-                Toast.makeText(getApplicationContext(), "이미지 변경에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), R.string.alert_image_error1, Toast.LENGTH_SHORT).show();
             }
         })
         //진행중
@@ -318,7 +316,7 @@ public class AddSharedDetail extends BaseActivity {
             try {
                 tempFile = createImageFile();
             } catch (IOException e) {
-                Toast.makeText(this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.alert_image_error1, Toast.LENGTH_SHORT).show();
                 finish();
                 e.printStackTrace();
             }
@@ -377,11 +375,11 @@ public class AddSharedDetail extends BaseActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         if (resultCode != RESULT_OK) {
-            Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.common_canceled, Toast.LENGTH_SHORT).show();
 
             if (tempFile != null) {
                 if (tempFile.delete()) {
-                    Toast.makeText(this, "삭제 성공.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.common_deleted, Toast.LENGTH_SHORT).show();
                     tempFile = null;
                 }
             }
@@ -408,7 +406,7 @@ public class AddSharedDetail extends BaseActivity {
 
     }
 
-    public void requestCTD_CONTROL(String GUB) {
+    public void requestCTD_CONTROL() {
         // 인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             BaseAlert.show(getString(R.string.common_network_error));
@@ -428,7 +426,7 @@ public class AddSharedDetail extends BaseActivity {
 
         Call<CTD_Model> call = Http.ctd(HttpBaseService.TYPE.POST).CTD_CONTROL(
                 BaseConst.URL_HOST,
-                GUB,
+                GUBUN,
                 CTD_01,
                 SVC_02,
                 "1",
@@ -458,7 +456,7 @@ public class AddSharedDetail extends BaseActivity {
                             //closeLoadingBar();
 
                             Response<CTD_Model> response = (Response<CTD_Model>) msg.obj;
-                            callBack(GUB, response.body().Data.get(0));
+                            callBack(response.body().Data.get(0));
 
                         }
                     }
@@ -475,13 +473,13 @@ public class AddSharedDetail extends BaseActivity {
 
     }
 
-    private void callBack(String GUB, CtdVO data){
+    private void callBack(CtdVO data){
         if(isChangeImg){
-            if(GUB.equals(GUBUN_TYPE_INSERT))
+            if(GUBUN.equals(GUBUN_TYPE_INSERT))
                 intentVO.CTD_01 = data.CTD_01;
-
             storageTask();
         } else {
+            Toast.makeText(getApplicationContext(), typeStr, Toast.LENGTH_SHORT).show();
             mActivity.finish();
         }
 

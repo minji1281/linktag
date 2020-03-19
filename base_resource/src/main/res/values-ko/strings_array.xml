@@ -25,4 +25,10 @@
         <item>기타</item>
     </string-array>
 
+    <string-array name="photo_select">
+        <item>사진 촬영</item>
+        <item>앨범에서 선택</item>
+        <item>프로필 사진 삭제</item>
+    </string-array>
+
 </resources>

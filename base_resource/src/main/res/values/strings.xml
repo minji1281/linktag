@@ -88,6 +88,56 @@
     <string name="login_hint4">자동로그인</string>
     <string name="login_btn1">로그인</string>
 
+    <!-- 메뉴(카테고리) -->
+    <string name="menu_bar1">나의 서비스</string>
+    <string name="menu_bar2">공유 서비스</string>
+    <string name="menu_title_addservice">서비스 추가</string>
+    <string name="menu_title_addshared">공유 서비스 추가</string>
+
+    <!-- 서비스 -->
+    <string name="placeholder_search_addservice">서비스명</string>
+    <string name="placeholder_edittext_addshared">공유명 입력</string>
+
+    <string name="alert_service_bmk">선택한 서비스를 즐겨찾기 하시겠습니까?</string>
+    <string name="alert_service_add">추가 하시겠습니까?</string>
+    <string name="alert_service_location_error">해당 서비스의 경로를 찾을 수 없습니다</string>
+
+    <string name="please_select">선택 해주세요</string>
+
+    <!-- 멤버 -->
+    <string name="placeholder_search_member">성명 / 이메일</string>
+    <string name="member_invite">멤버 초대하기</string>
+
+    <string name="alert_member_invite_error">추가 할 공유를 선택해 주세요</string>
+    <string name="alert_member_invite">해당 유저를 초대 하시겠습니까?</string>
+    <string name="alert_member_callback1">등록 되었습니다</string>
+    <string name="alert_member_callback2">이미 등록 된 사용자 입니다</string>
+
+    <!-- 세팅 / 프로필 / 이미지 처리 -->
+    <string name="set_profile_image">프로필 사진 변경</string>
+
+    <string name="alert_image_error1">이미지 처리 오류! 다시 시도해 주세요</string>
+
+    <string name="setting_01">공지</string>
+    <string name="setting_02">가이드</string>
+    <string name="setting_03">고객센터</string>
+    <string name="setting_04">기능설정</string>
+    <string name="setting_05">로그아웃</string>
+
+    <string name="setting_06">알림설정 동의(Push)</string>
+    <string name="setting_07">언어 설정</string>
+    <string name="setting_08">사용중 서비스</string>
+    <string name="setting_09">미사용 서비스</string>
+
+    <!-- 프로필 -->
+    <string name="profile_title">프로필 설정</string>
+
+    <string name="placeholder_profile_pwd1">비밀번호를 입력해 주세요</string>
+    <string name="placeholder_profile_pwd2">새 비밀번호를 입력해 주세요</string>
+    <string name="placeholder_profile_pwd3">새 비밀번호를 한번 더 입력해 주세요</string>
+
+    <string name="alert_pwd_change1">비밀번호를 변경하시겠습니까?</string>
+    <string name="alert_pwd_change2">변경 후 자동으로 로그아웃 됩니다.</string>
 
     <!-- 디테일 공통 -->
     <string name="detail_name">명칭</string>

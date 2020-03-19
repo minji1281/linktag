@@ -86,6 +86,57 @@
     <string name="dash_24">Alarm</string>
     <string name="dash_25">Favorites</string>
 
+    <!-- 메뉴(카테고리) -->
+    <string name="menu_bar1">My Service</string>
+    <string name="menu_bar2">Shared Service</string>
+    <string name="menu_title_addservice">AddService</string>
+    <string name="menu_title_addshared">AddShared</string>
+
+    <!-- 서비스 -->
+    <string name="placeholder_search_addservice">Service Name</string>
+    <string name="placeholder_edittext_addshared">Shared Name</string>
+
+    <string name="alert_service_bmk">Would you like to bookmark the selected service?</string>
+    <string name="alert_service_add">Would you like add it?</string>
+    <string name="alert_service_location_error">Could not find the route for that service</string>
+
+    <string name="please_select">Please select</string>
+
+    <!-- 멤버 -->
+    <string name="placeholder_search_member">Name / Email</string>
+    <string name="member_invite">Invite members</string>
+
+    <string name="alert_member_invite_error">Please select a share to add</string>
+    <string name="alert_member_invite">Would you like to register this user?</string>
+    <string name="alert_member_callback1">Has been registered</string>
+    <string name="alert_member_callback2">User already registered.</string>
+
+    <!-- 세팅 / 이미지 처리 -->
+    <string name="set_profile_image">Change profile picture</string>
+
+    <string name="alert_image_error1">Change profile picture</string>
+
+    <string name="setting_01">Notices</string>
+    <string name="setting_02">Guide</string>
+    <string name="setting_03">Support</string>
+    <string name="setting_04">Settings</string>
+    <string name="setting_05">Log Out</string>
+
+    <string name="setting_06">Push Notification</string>
+    <string name="setting_07">Language</string>
+    <string name="setting_08">Use Service</string>
+    <string name="setting_09">Not Use Service</string>
+
+    <!-- 프로필 -->
+    <string name="profile_title">Profile</string>
+
+    <string name="placeholder_profile_pwd1">Please input password</string>
+    <string name="placeholder_profile_pwd2">Please input new password</string>
+    <string name="placeholder_profile_pwd3">Please input new password again</string>
+
+    <string name="alert_pwd_change1">Change your password</string>
+    <string name="alert_pwd_change2">Automatically logout after change</string>
+
     <!-- 디테일 공통 -->
     <string name="detail_name">Name</string>
     <string name="detail_name_hint">Name field.</string>

@@ -115,7 +115,7 @@ public class AddService extends BaseActivity {
     private void onSelect(int position) {
         if(mList.get(position).SVC_CHK.equals("N")){
             AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-            builder.setMessage(mList.get(position).SVC_03 + " 을/를 추가하시겠습니까?");
+            builder.setMessage("[" + mList.get(position).SVC_03 + "] " + R.string.alert_service_add);
             builder.setCancelable(true);
             builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
                 @Override

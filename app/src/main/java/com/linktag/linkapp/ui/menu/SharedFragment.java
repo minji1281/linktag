@@ -207,15 +207,15 @@ public class SharedFragment extends BaseFragment {
                 } else {
                     // 북마크 등록
                     AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                    builder.setMessage("선택한 서비스를 즐겨찾기 하시겠습니까?");
+                    builder.setMessage(R.string.alert_service_bmk);
                     builder.setCancelable(true);
-                    builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                    builder.setPositiveButton(R.string.common_yes, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                             requestBMK_CONTROL(mList.get(position));
                         }
                     });
-                    builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(R.string.common_no, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int id) {
                         }
