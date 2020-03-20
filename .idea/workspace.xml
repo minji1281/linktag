@@ -93,11 +93,19 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_altbeacon_android_beacon_library_2_16_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_altbeacon_android_beacon_library_2_16_3_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/DetailJdm.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/DetailJdm.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JDMMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JDMMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmRecycleAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmRecycleAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PCMMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PCMMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/DetailRfd.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/DetailRfd.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RFMMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RFMMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TRPMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TRPMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_jdm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_jdm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_pcm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_pcm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_rfm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_rfm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_trp.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_trp.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/base/base.iml" beforeDir="false" afterPath="$PROJECT_DIR$/base/base.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/base_resource/base_resource.iml" beforeDir="false" afterPath="$PROJECT_DIR$/base_resource/base_resource.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_resource/src/main/res/values-en/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/base_resource/src/main/res/values-en/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_resource/src/main/res/values-ko/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/base_resource/src/main/res/values-ko/strings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/base_resource/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/base_resource/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -156,102 +164,124 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values/strings_array.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/frm/FrmList.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="469">
-              <caret line="153" column="24" lean-forward="true" selection-end-line="173" />
+            <state relative-caret-position="284">
+              <caret line="103" column="8" selection-start-line="103" selection-start-column="8" selection-end-line="103" selection-end-column="41" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values-en/strings_array.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RFMMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="326">
-              <caret line="150" column="27" lean-forward="true" selection-start-line="150" selection-start-column="27" selection-end-line="150" selection-end-column="27" />
+            <state relative-caret-position="351">
+              <caret line="99" column="38" selection-start-line="99" selection-start-column="38" selection-end-line="99" selection-end-column="38" />
+              <folding>
+                <element signature="e#17629#18678#0" expanded="true" />
+                <element signature="e#18677#18678#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values/strings.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JDMMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="314">
-              <caret line="320" lean-forward="true" selection-start-line="320" selection-end-line="320" />
+            <state relative-caret-position="561">
+              <caret line="71" column="40" selection-start-line="71" selection-start-column="40" selection-end-line="71" selection-end-column="40" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values-en/strings.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PCMMain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="425">
+              <caret line="70" column="38" selection-start-line="70" selection-start-column="38" selection-end-line="70" selection-end-column="38" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TRPMain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="255">
+              <caret line="106" column="72" lean-forward="true" selection-start-line="106" selection-start-column="72" selection-end-line="106" selection-end-column="72" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_trp.xml">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="434">
-              <caret line="333" selection-start-line="333" selection-end-line="333" />
+              <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+              <folding>
+                <element signature="e#3141#3161#0" expanded="true" />
+                <element signature="e#3199#3219#0" expanded="true" />
+              </folding>
             </state>
           </provider>
+          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values-ko/strings.xml">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_pcm.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-25">
-              <caret line="308" column="63" lean-forward="true" selection-start-line="308" selection-start-column="63" selection-end-line="308" selection-end-column="63" />
+            <state relative-caret-position="468">
+              <caret line="74" column="51" lean-forward="true" selection-start-line="74" selection-start-column="51" selection-end-line="74" selection-end-column="51" />
+              <folding>
+                <element signature="e#3186#3206#0" expanded="true" />
+                <element signature="e#3240#3260#0" expanded="true" />
+              </folding>
             </state>
           </provider>
+          <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listitem_pcm_list.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="411">
+              <caret line="120" column="25" lean-forward="true" selection-start-line="120" selection-start-column="25" selection-end-line="120" selection-end-column="25" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/frm/FrmDetail.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_jdm.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="415" lean-forward="true" selection-start-line="415" selection-end-line="415" />
+            <state relative-caret-position="672">
+              <caret line="85" column="44" lean-forward="true" selection-start-line="85" selection-start-column="44" selection-end-line="85" selection-end-column="44" />
+              <folding>
+                <element signature="e#3157#3177#0" expanded="true" />
+                <element signature="e#3211#3231#0" expanded="true" />
+              </folding>
             </state>
           </provider>
+          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrdRecycleAdapter_horizontal.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_rfm.xml">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="799">
-              <caret line="75" column="5" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
+            <state relative-caret-position="179">
+              <caret line="97" column="51" selection-start-line="97" selection-start-column="39" selection-end-line="97" selection-end-column="51" />
+              <folding>
+                <element signature="e#4752#4772#0" expanded="true" />
+                <element signature="e#4806#4826#0" expanded="true" />
+              </folding>
             </state>
           </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/DetailRfd.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="8330">
-              <caret line="545" column="64" selection-start-line="545" selection-start-column="64" selection-end-line="545" selection-end-column="64" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/DetailPcm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7361">
-              <caret line="492" column="21" selection-start-line="492" selection-start-column="21" selection-end-line="492" selection-end-column="21" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/DetailRfm.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="68">
-              <caret line="49" column="13" selection-start-line="49" selection-start-column="13" selection-end-line="49" selection-end-column="13" />
-            </state>
-          </provider>
+          <provider editor-type-id="android-designer2" />
         </entry>
       </file>
     </leaf>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>cosInitial</find>
-      <find>cosDialog</find>
-      <find>_CONTROL</find>
       <find>&quot;Y&quot;</find>
       <find>requestCOS_CONTROL</find>
       <find>requestCOD_SELECT</find>
@@ -279,6 +309,9 @@
       <find>str_save_text</find>
       <find>frm</find>
       <find>필터</find>
+      <find>DecimalFormat format = new DecimalFormat(&quot;###,###&quot;);</find>
+      <find>emptyText</find>
+      <find>empty</find>
     </findStrings>
     <replaceStrings>
       <replace>filteredmlist</replace>
@@ -296,16 +329,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_pcm.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_rfm.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_trp.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcmRecycleAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/member_class/FindMember.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RFMMain.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_jdm2.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_log_list.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/car/CarInfo.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/cos/CosInfo.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/cos/CodAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/car/CadDetail.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_cod_detail.xml" />
@@ -331,7 +354,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrdRecycleAdapter_horizontal.java" />
         <option value="$PROJECT_DIR$/base_resource/src/main/res/values/strings_array.xml" />
         <option value="$PROJECT_DIR$/base_resource/src/main/res/values-ko/strings_array.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmRecycleAdapter.java" />
         <option value="$PROJECT_DIR$/base_resource/src/main/res/values/strings_common.xml" />
         <option value="$PROJECT_DIR$/base_resource/src/main/res/values-ko/strings_common.xml" />
         <option value="$PROJECT_DIR$/base_resource/src/main/res/values-en/strings_common.xml" />
@@ -341,12 +363,23 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listitem_trp_list.xml" />
         <option value="$PROJECT_DIR$/base_resource/src/main/res/values-en/strings_array.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/DetailTrp.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/DetailRfd.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/DetailPcm.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/DetailJdm.java" />
         <option value="$PROJECT_DIR$/base_resource/src/main/res/values-en/strings.xml" />
-        <option value="$PROJECT_DIR$/base_resource/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/base_resource/src/main/res/values-ko/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/frm/FrmDetail.java" />
+        <option value="$PROJECT_DIR$/base_resource/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmRecycleAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/DetailJdm.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/DetailRfd.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/listitem_rfd_list.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RFMMain.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PCMMain.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_rfm.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JDMMain.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_jdm.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TRPMain.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_pcm.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_trp.xml" />
       </list>
     </option>
   </component>
@@ -366,202 +399,16 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope">
-        <subPane subId="Scope 'Problems'; set:Problems; class com.intellij.psi.search.scope.ProblemsScope">
-          <expand>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="linktag" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="linktag" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="linkapp" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="linktag" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="linkapp" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="ui" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="linktag" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="linkapp" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="ui" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-              <item name="alarm" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
-          <expand>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Android\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-            </path>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Android\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Android\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="base" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-            <path>
-              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
-              <item name="C:\Android\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
-              <item name="base_resource" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="AndroidView">
+      <pane id="PackagesPane">
         <subPane>
           <expand>
             <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="linktag" type="58d84e3e:PackageViewProjectNode" />
+              <item name="app" type="616d4139:PackageViewModuleNode" />
             </path>
             <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="frm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="base" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base_resource" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base_resource" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base_resource" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base_resource" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
-              <item name="strings" type="c431d0b8:AndroidResGroupNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base_resource" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
-              <item name="strings_array" type="c431d0b8:AndroidResGroupNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+              <item name="linktag" type="58d84e3e:PackageViewProjectNode" />
+              <item name="base" type="616d4139:PackageViewModuleNode" />
             </path>
           </expand>
           <select />
@@ -777,16 +624,182 @@
           <select />
         </subPane>
       </pane>
-      <pane id="PackagesPane">
+      <pane id="Scope">
+        <subPane subId="Scope 'Problems'; set:Problems; class com.intellij.psi.search.scope.ProblemsScope">
+          <expand>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="linktag" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="linktag" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="linkapp" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="linktag" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="linkapp" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="ui" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Users\esansoft2\AndroidStudioProjects\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="src" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="main" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="java" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="com" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="linktag" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="linkapp" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="ui" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+              <item name="alarm" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+        <subPane subId="Scope 'Project Files'; set:Project Files; class com.intellij.psi.search.scope.ProjectFilesScope">
+          <expand>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Android\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+            </path>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Android\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="app" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Android\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="base" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+            <path>
+              <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
+              <item name="C:\Android\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
+              <item name="base_resource" type="9f88c78c:ScopeViewTreeModel$FileNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="AndroidView">
         <subPane>
           <expand>
             <path>
-              <item name="linktag" type="58d84e3e:PackageViewProjectNode" />
-              <item name="app" type="616d4139:PackageViewModuleNode" />
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
             </path>
             <path>
-              <item name="linktag" type="58d84e3e:PackageViewProjectNode" />
-              <item name="base" type="616d4139:PackageViewModuleNode" />
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="jdm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="pcm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="rfm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="trp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
           <select />
@@ -948,7 +961,14 @@
       <option name="project" value="LOCAL" />
       <updated>1584587110670</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="장독, 냉장고, PC, 복약 영문 추가">
+      <created>1584607556967</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1584607556967</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -957,7 +977,7 @@
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
       <window_info id="Capture Tool" order="1" />
-      <window_info active="true" content_ui="combo" id="Project" order="2" visible="true" weight="0.14818764" />
+      <window_info content_ui="combo" id="Project" order="2" visible="true" weight="0.14818764" />
       <window_info id="Structure" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
       <window_info id="Image Layers" order="5" />
@@ -968,18 +988,18 @@
       <window_info anchor="bottom" id="Run" order="1" sideWeight="0.49946696" weight="0.3264642" />
       <window_info anchor="bottom" id="Logcat" order="2" />
       <window_info anchor="bottom" id="TODO" order="3" />
-      <window_info anchor="bottom" id="Android Profiler" order="4" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Android Profiler" order="4" />
       <window_info anchor="bottom" id="Terminal" order="5" />
       <window_info anchor="bottom" id="Event Log" order="6" sideWeight="0.50053304" side_tool="true" weight="0.3275488" />
       <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info anchor="bottom" id="Build" order="8" visible="true" weight="0.3271028" />
+      <window_info anchor="bottom" id="Build" order="8" visible="true" weight="0.1879543" />
       <window_info anchor="bottom" id="Find" order="9" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
       <window_info anchor="right" id="Palette&#9;" order="4" />
-      <window_info anchor="right" id="Preview" order="5" weight="0.22068231" />
+      <window_info active="true" anchor="right" id="Preview" order="5" visible="true" weight="0.22068231" />
       <window_info anchor="right" id="StringPreview" order="6" />
     </layout>
     <layout-to-restore>
@@ -1060,76 +1080,10 @@
     <MESSAGE value="목록 검색 수정" />
     <MESSAGE value="화장품, 차량 공유 항목없음 추가" />
     <MESSAGE value="장독 영문 추가" />
-    <option name="LAST_COMMIT_MESSAGE" value="장독 영문 추가" />
+    <MESSAGE value="장독, 냉장고, PC, 복약 영문 추가" />
+    <option name="LAST_COMMIT_MESSAGE" value="장독, 냉장고, PC, 복약 영문 추가" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pot/PotList.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="226">
-          <caret line="244" column="50" selection-start-line="244" selection-start-column="50" selection-end-line="244" selection-end-column="50" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v24/btn_round_skyblue_5dp.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v24/btn_round_shallowgray_8dp.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-v24/btn_round_shallowgray_5dp.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="8" lean-forward="true" selection-start-line="6" selection-start-column="8" selection-end-line="6" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-en/strings_array.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-ko/strings_array.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-en/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values-ko/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="11" selection-start-column="11" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/strings_array.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" column="12" lean-forward="true" selection-start-line="11" selection-start-column="12" selection-end-line="11" selection-end-column="12" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listitem_rfd_list.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="292">
-          <caret line="88" column="68" lean-forward="true" selection-start-line="88" selection-start-column="68" selection-end-line="88" selection-end-column="68" />
-          <folding>
-            <element signature="e#3543#3570#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/pcm_str_array.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/language_array.xml">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/rfd_str_array.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/jdm_array.xml" />
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/trp_str_array.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -1145,12 +1099,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfd.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="309">
           <caret line="451" column="67" lean-forward="true" selection-start-line="451" selection-start-column="67" selection-end-line="451" selection-end-column="67" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/CTDS_CONTROL.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1163,20 +1117,20 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listitem_find_log.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="207">
           <caret line="23" column="42" selection-start-line="23" selection-start-column="33" selection-end-line="23" selection-end-column="42" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_log_list.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="385">
           <caret line="34" lean-forward="true" selection-start-line="34" selection-end-line="34" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/master_log/LogAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1199,17 +1153,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="442">
           <caret line="106" column="52" selection-start-line="106" selection-start-column="52" selection-end-line="106" selection-end-column="52" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listitem_pcm_list.xml">
-      <provider editor-type-id="android-designer2" />
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="115" column="53" lean-forward="true" selection-start-line="115" selection-start-column="53" selection-end-line="115" selection-end-column="53" />
-          <folding>
-            <element signature="e#5144#5169#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1238,17 +1181,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmRecycleAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="208" column="85" selection-start-line="208" selection-start-column="85" selection-end-line="208" selection-end-column="85" />
-          <folding>
-            <element signature="e#8511#8571#0" expanded="true" />
-            <element signature="e#8850#8909#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values-ko/strings_common.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="493">
@@ -1256,35 +1188,13 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfdRecycleAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="283" column="28" selection-start-line="283" selection-start-column="28" selection-end-line="283" selection-end-column="28" />
-          <folding>
-            <element signature="e#9544#9604#0" expanded="true" />
-            <element signature="e#9903#9962#0" expanded="true" />
-            <element signature="e#10070#10120#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TRPMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="952">
-          <caret line="185" column="27" lean-forward="true" selection-start-line="185" selection-start-column="27" selection-end-line="185" selection-end-column="27" />
-          <folding>
-            <element signature="e#5737#5777#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listitem_trp_list.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="479">
           <caret line="67" column="55" lean-forward="true" selection-start-line="67" selection-start-column="55" selection-end-line="67" selection-end-column="55" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values-en/strings_common.xml">
       <provider selected="true" editor-type-id="text-editor">
@@ -1317,16 +1227,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/DetailJdm.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2227">
-          <caret line="183" column="115" selection-start-line="183" selection-start-column="115" selection-end-line="183" selection-end-column="115" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values/strings_common.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -1346,12 +1246,12 @@
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_frm_detail.xml">
-      <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="221">
           <caret line="13" column="54" selection-start-line="13" selection-start-column="54" selection-end-line="13" selection-end-column="54" />
         </state>
       </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/DetailTrp.java">
       <provider selected="true" editor-type-id="text-editor">
@@ -1360,17 +1260,48 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/drawable-xxhdpi/base_checkbox_checked.png">
+      <provider selected="true" editor-type-id="images" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values/strings_array.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2890">
+          <caret line="170" column="19" selection-start-line="170" selection-start-column="19" selection-end-line="170" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values-en/strings_array.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2703">
+          <caret line="159" selection-start-line="159" selection-end-line="164" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values-en/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5899">
+          <caret line="347" selection-start-line="347" selection-end-line="347" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values-ko/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="5389">
+          <caret line="317" column="63" selection-start-line="317" selection-start-column="63" selection-end-line="317" selection-end-column="63" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/frm/FrmDetail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="7480">
+          <caret line="494" selection-start-line="494" selection-end-line="494" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrdRecycleAdapter_horizontal.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="799">
           <caret line="75" column="5" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/DetailRfd.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="8330">
-          <caret line="545" column="64" selection-start-line="545" selection-start-column="64" selection-end-line="545" selection-end-column="64" />
         </state>
       </provider>
     </entry>
@@ -1388,50 +1319,189 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/drawable-xxhdpi/base_checkbox_checked.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values/strings_array.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="469">
-          <caret line="153" column="24" lean-forward="true" selection-end-line="173" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values-en/strings_array.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="326">
-          <caret line="150" column="27" lean-forward="true" selection-start-line="150" selection-start-column="27" selection-end-line="150" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values-en/strings.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="434">
-          <caret line="333" selection-start-line="333" selection-end-line="333" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="314">
-          <caret line="320" lean-forward="true" selection-start-line="320" selection-end-line="320" />
+        <state relative-caret-position="587">
+          <caret line="276" column="48" lean-forward="true" selection-start-line="276" selection-start-column="48" selection-end-line="276" selection-end-column="48" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values-ko/strings.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmRecycleAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-25">
-          <caret line="308" column="63" lean-forward="true" selection-start-line="308" selection-start-column="63" selection-end-line="308" selection-end-column="63" />
+        <state relative-caret-position="428">
+          <caret line="169" column="55" lean-forward="true" selection-start-line="169" selection-start-column="55" selection-end-line="169" selection-end-column="55" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/frm/FrmDetail.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/DetailJdm.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="415" lean-forward="true" selection-start-line="415" selection-end-line="415" />
+        <state relative-caret-position="480">
+          <caret line="614" column="89" lean-forward="true" selection-start-line="614" selection-start-column="33" selection-end-line="614" selection-end-column="89" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/DetailRfd.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="222">
+          <caret line="530" column="69" lean-forward="true" selection-start-line="530" selection-start-column="69" selection-end-line="530" selection-end-column="69" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values/dimens_base.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="348">
+          <caret line="30" column="17" selection-start-line="30" selection-start-column="17" selection-end-line="30" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listitem_rfd_list.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="132" column="59" lean-forward="true" selection-start-line="132" selection-start-column="59" selection-end-line="132" selection-end-column="59" />
+          <folding>
+            <element signature="e#3543#3570#0" expanded="true" />
+            <element signature="e#5896#5915#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfdRecycleAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="119" column="52" selection-start-line="119" selection-start-column="52" selection-end-line="119" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_pot_list.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="298">
+          <caret line="73" selection-start-line="73" selection-end-line="80" selection-end-column="56" />
+          <folding>
+            <element signature="e#3150#3170#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pot/PotAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="35" column="13" selection-start-line="35" selection-start-column="13" selection-end-line="35" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pot/PotList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-476">
+          <caret line="45" column="21" selection-start-line="45" selection-start-column="21" selection-end-line="45" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/widget/AdapterView.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="683" column="16" selection-start-line="683" selection-start-column="16" selection-end-line="683" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/frm/FrmList.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="284">
+          <caret line="103" column="8" selection-start-line="103" selection-start-column="8" selection-end-line="103" selection-end-column="41" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TRPMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="106" column="72" lean-forward="true" selection-start-line="106" selection-start-column="72" selection-end-line="106" selection-end-column="72" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PCMMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="70" column="38" selection-start-line="70" selection-start-column="38" selection-end-line="70" selection-end-column="38" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listitem_pcm_list.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="411">
+          <caret line="120" column="25" lean-forward="true" selection-start-line="120" selection-start-column="25" selection-end-line="120" selection-end-column="25" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_pcm.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="468">
+          <caret line="74" column="51" lean-forward="true" selection-start-line="74" selection-start-column="51" selection-end-line="74" selection-end-column="51" />
+          <folding>
+            <element signature="e#3186#3206#0" expanded="true" />
+            <element signature="e#3240#3260#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_trp.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="434">
+          <caret line="81" lean-forward="true" selection-start-line="81" selection-end-line="81" />
+          <folding>
+            <element signature="e#3141#3161#0" expanded="true" />
+            <element signature="e#3199#3219#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RFMMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="351">
+          <caret line="99" column="38" selection-start-line="99" selection-start-column="38" selection-end-line="99" selection-end-column="38" />
+          <folding>
+            <element signature="e#17629#18678#0" expanded="true" />
+            <element signature="e#18677#18678#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_rfm.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="179">
+          <caret line="97" column="51" selection-start-line="97" selection-start-column="39" selection-end-line="97" selection-end-column="51" />
+          <folding>
+            <element signature="e#4752#4772#0" expanded="true" />
+            <element signature="e#4806#4826#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JDMMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="71" column="40" selection-start-line="71" selection-start-column="40" selection-end-line="71" selection-end-column="40" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_jdm.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="672">
+          <caret line="85" column="44" lean-forward="true" selection-start-line="85" selection-start-column="44" selection-end-line="85" selection-end-column="44" />
+          <folding>
+            <element signature="e#3157#3177#0" expanded="true" />
+            <element signature="e#3211#3231#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
     </entry>
   </component>
   <component name="masterDetails">

@@ -13,6 +13,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_footer.BaseFooter;
@@ -58,7 +59,7 @@ public class PCMMain extends BaseActivity {
     private CtdVO intentVO;
 
     private EditText ed_search;
-
+    private TextView empty;
 
     public PCMMain() {
     }
@@ -115,7 +116,7 @@ public class PCMMain extends BaseActivity {
         recyclerView = view.findViewById(R.id.recyclerView);
 
         ed_search = findViewById(R.id.ed_search);
-
+        empty = findViewById(R.id.empty);
         swipeRefresh = findViewById(R.id.swipeRefresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -203,6 +204,13 @@ public class PCMMain extends BaseActivity {
                             mList = response.body().Data;
                             if (scancode.equals("")) {
                                 if (mList == null) mList = new ArrayList<>();
+
+                                if(mList.size() ==0){
+                                    empty.setVisibility(View.VISIBLE);
+                                }
+                                else{
+                                    empty.setVisibility(View.GONE);
+                                }
 
                                 mAdapter.updateData(mList);
                                 mAdapter.notifyDataSetChanged();

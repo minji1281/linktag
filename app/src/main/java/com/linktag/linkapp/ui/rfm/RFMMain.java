@@ -20,6 +20,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
@@ -85,6 +86,7 @@ public class RFMMain extends BaseActivity {
 
     private EditText ed_search;
 
+    private TextView empty;
     private Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
 
@@ -146,9 +148,11 @@ public class RFMMain extends BaseActivity {
 
         headerSpinner = findViewById(R.id.headerSpinner);
 
+
         view = findViewById(R.id.recyclerView);
         recyclerView = view.findViewById(R.id.recyclerView);
 
+        empty = findViewById(R.id.empty);
         imgNew = findViewById(R.id.imgNew);
         btnEdit = findViewById(R.id.btnEdit);
 
@@ -198,7 +202,6 @@ public class RFMMain extends BaseActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new RfdRecycleAdapter(mContext, mList);
         recyclerView.setAdapter(mAdapter);
-
         imgNew.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -521,6 +524,13 @@ public class RFMMain extends BaseActivity {
                             mList = response.body().Data;
                             if (mList == null)
                                 mList = new ArrayList<>();
+
+                            if(mList.size() ==0){
+                                empty.setVisibility(View.VISIBLE);
+                            }
+                            else{
+                                empty.setVisibility(View.GONE);
+                            }
 
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();

@@ -39,6 +39,7 @@ import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm.AlarmDialog;
 import com.linktag.linkapp.value_object.RfdVO;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -538,12 +539,13 @@ public class DetailRfd extends BaseActivity {
 
     private void startCountAnimation(int count) {
 
+        DecimalFormat format = new DecimalFormat("###,###");
         ValueAnimator animator = ValueAnimator.ofInt(0, count); //0 is min number, 600 is max number
         animator.setDuration(500); //Duration is in milliseconds
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
 
-                tv_D_day.setText(animation.getAnimatedValue().toString());
+                tv_D_day.setText(format.format(animation.getAnimatedValue()).toString());
             }
         });
 
