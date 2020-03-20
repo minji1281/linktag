@@ -12,7 +12,7 @@
         android:layout_height="wrap_content"
         app:btn_left_visibility="gone"
         app:btn_right1_visibility="visible"
-        app:title_text="차량 소모품 내역" />
+        app:title_text="@string/cad_name_dialog_header_title" />
 
     <LinearLayout
         android:id="@+id/layoutCycleTop"
@@ -33,7 +33,7 @@
             android:layout_weight="1"
             android:gravity="center"
             android:background="#FFFFFF"
-            android:text="선택"
+            android:text="@string/cad_name_dialog_gub1"
             android:textColor="@drawable/selector_main_tab_text"
             android:textSize="@dimen/text_normal" />
 
@@ -43,7 +43,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center"
-            android:text="직접입력"
+            android:text="@string/cad_name_dialog_gub2"
             android:textColor="@drawable/selector_main_tab_text"
             android:textSize="@dimen/text_normal" />
 
@@ -94,7 +94,7 @@
                 android:maxLength="20"
                 android:inputType="text"
                 android:background="@drawable/shape_border_deletename"
-                android:hint="내역 입력란입니다."/>
+                android:hint="@string/detail_name_hint"/>
 
         </LinearLayout>
 
@@ -112,7 +112,7 @@
                 android:gravity="center"
                 android:background="@drawable/shape_border_gray"
                 android:textColor="@color/List2"
-                android:text="취소"/>
+                android:text="@string/onCancel"/>
 
             <View
                 android:layout_width="1dp"
@@ -127,7 +127,7 @@
                 android:gravity="center"
                 android:background="@drawable/shape_border_gray"
                 android:textColor="#3498db"
-                android:text="확인"/>
+                android:text="@string/onPositive"/>
 
         </LinearLayout>
 

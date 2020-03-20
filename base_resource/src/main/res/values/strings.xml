@@ -165,6 +165,8 @@
     <!-- 리스트 공통 -->
     <string name="list_search_hint">명칭을 입력하세요.</string>
     <string name="list_empty">조회된 정보가 없습니다.</string>
+    <string name="list_edit">편집</string>
+    <string name="list_parent_empty">항목없음 (스캔등록 해주세요)</string>
 
     <!-- 화분 -->
     <string name="pot_list_header_title">화분 목록</string>
@@ -330,11 +332,9 @@
 
     <!-- 화장품 -->
     <string name="cod_list_header_title">화장품 목록</string>
-    <string name="cod_list_cos_edit">편집</string>
     <string name="cod_list_date_title1">유효기간</string>
     <string name="cod_list_date_title2">사용종료</string>
     <string name="cod_list_useend_button">사용종료</string>
-    <string name="cod_list_cos_empty">항목없음 (스캔등록 해주세요)</string>
     <string name="cod_useend_check_text">해당 화장품을 사용종료 하시겠습니까?</string>
     <string name="cos_delete_text">해당 화장대의 모든 화장품이 함께 삭제됩니다.\n삭제하시려면 명칭을 다시 입력해주세요.</string>
     <string name="cos_detail_header_title">화장대 정보</string>
@@ -345,7 +345,43 @@
     <string name="cod_detail_expiration_date">유효기간</string>
     <string name="cod_detail_price">가격</string>
     <string name="cod_detail_end_button">사용종료</string>
-    <string name="cod_detail_price_unit">\\</string>
+    <string name="price_unit">₩</string>
+    <string name="cod_detail_start_button">사용시작</string>
+    <string name="cod_detail_endday_text">사용종료일</string>
+    <string name="cod_detail_startday_text">사용시작일</string>
+    <string name="cod_validation_check1">명칭을 입력해주세요.</string>
+    <string name="cod_validation_check2">유효기간을 입력하세요.</string>
+    <string name="cod_validation_check3">유효기간은 사용시작일자 이후로 설정 해주세요.</string>
+
+    <!-- 차량 -->
+    <string name="cad_list_header_title">차량 소모품 교체/점검 목록</string>
+    <string name="cad_list_day">정비일자</string>
+    <string name="car_delete_text">해당 차량의 모든 내역이 함께 삭제됩니다.\n삭제하시려면 차량번호를 다시 입력해주세요.</string>
+    <string name="car_carnum_hint">차량번호 입력란입니다.</string>
+    <string name="car_delete_name_check">차량번호를 정확하게 다시 입력해주세요.</string>
+    <string name="car_detail_header_title">차량 정보</string>
+    <string name="car_detail_carnum">차량번호</string>
+    <string name="car_detail_caryear">연식</string>
+    <string name="car_detail_caryear_hint">연식 입력란입니다.</string>
+    <string name="cad_detail_header_title">차량 소모품 교체/점검 내역</string>
+    <string name="cad_detail_day">정비일자</string>
+    <string name="cad_detail_pre_history">이전내역</string>
+    <string name="cad_detail_pre_day">이전 교환일시</string>
+    <string name="cad_detail_pre_km">이전 교환거리</string>
+    <string name="cad_detail_km_title">주행거리</string>
+    <string name="cad_detail_price_title">비용</string>
+    <string name="cad_detail_gub1_title">교체/점검</string>
+    <string name="cad_detail_gub2_title">셀프/카센터</string>
+    <string name="cad_detail_replace">교체</string>
+    <string name="cad_detail_check">점검</string>
+    <string name="cad_detail_self">셀프</string>
+    <string name="cad_detail_shop">카센터</string>
+    <string name="cad_detail_select">선택</string>
+    <string name="cad_detail_later">경과</string>
+    <string name="cad_validation_check1">내역을 입력해주세요.</string>
+    <string name="cad_name_dialog_header_title">차량 소모품 내역</string>
+    <string name="cad_name_dialog_gub1">선택</string>
+    <string name="cad_name_dialog_gub2">직접입력</string>
 
 
 </resources>

@@ -76,9 +76,9 @@ public class CadAdapter extends BaseAdapter {
         }
 
         //Text
-        viewHolder.tvDay.setText("정비일자 " + filteredmlist.get(position).CAD_03.substring(0, 4) + "." + filteredmlist.get(position).CAD_03.substring(4, 6) + "." + filteredmlist.get(position).CAD_03.substring(6, 8));
+        viewHolder.tvDay.setText(mContext.getString(R.string.cad_list_day) + " " + filteredmlist.get(position).CAD_03.substring(0, 4) + "." + filteredmlist.get(position).CAD_03.substring(4, 6) + "." + filteredmlist.get(position).CAD_03.substring(6, 8));
         viewHolder.tvName.setText(filteredmlist.get(position).CAD_04);
-        viewHolder.tvMoney.setText(NumberFormat.getInstance().format(filteredmlist.get(position).CAD_07) + "원");
+        viewHolder.tvMoney.setText(mContext.getString(R.string.price_unit) + NumberFormat.getInstance().format(filteredmlist.get(position).CAD_07));
         viewHolder.tvKm.setText(NumberFormat.getInstance().format(filteredmlist.get(position).CAD_08) + "km");
 
         return convertView;

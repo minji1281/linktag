@@ -164,6 +164,8 @@
     <!-- 리스트 공통 -->
     <string name="list_search_hint">Search for a name</string>
     <string name="list_empty">No data.</string>
+    <string name="list_edit">Edit</string>
+    <string name="list_parent_empty">No data (Scan and register.)</string>
 
     <!-- 화분 -->
     <string name="pot_list_header_title">Pot List</string>
@@ -182,8 +184,8 @@
 
     <!-- 주기 팝업 -->
     <string name="dialog_cycle_title">Cycle setting</string>
-    <string name="dialog_cycle_day">Day</string>
-    <string name="dialog_cycle_month">Month</string>
+    <string name="dialog_cycle_day">Days</string>
+    <string name="dialog_cycle_month">Months</string>
     <string name="dialog_cycle_empty">Empty</string>
     <string name="dialog_cycle_day_num">4</string>
     <string name="dialog_cycle_month_num">6</string>
@@ -328,12 +330,10 @@
     <string name="frm_validation_check3">Set recent replacement date before today.</string>
 
     <!-- 화장품 -->
-    <string name="cod_list_cos_edit">Edit</string>
     <string name="cod_list_date_title1">Expiration date</string>
     <string name="cod_list_date_title2">End of use date</string>
     <string name="cod_list_header_title">Cosmetic List</string>
     <string name="cod_list_useend_button">End of use</string>
-    <string name="cod_list_cos_empty">No data (Scan and register.)</string>
     <string name="cos_delete_text">All cosmetics in that data will be deleted together.\nPlease re-enter the name to delete it.</string>
     <string name="cod_useend_check_text">Do you want to end the use of the cosmetics?</string>
     <string name="cos_detail_header_title">Dressing Table Detail</string>
@@ -344,6 +344,42 @@
     <string name="cod_detail_expiration_date">Expiration date</string>
     <string name="cod_detail_price">Price</string>
     <string name="cod_detail_end_button">End of use</string>
-    <string name="cod_detail_price_unit">$</string>
+    <string name="price_unit">$</string>
+    <string name="cod_detail_start_button">Start of use</string>
+    <string name="cod_detail_endday_text">End of use date</string>
+    <string name="cod_detail_startday_text">Start of use date</string>
+    <string name="cod_validation_check1">Enter the name.</string>
+    <string name="cod_validation_check2">Enter the expiration date.</string>
+    <string name="cod_validation_check3">Set the expiration date after the start of use date.</string>
+
+    <!-- 차량 -->
+    <string name="cad_list_header_title">Vehicle Parts Replacement/Check List</string>
+    <string name="cad_list_day">Maintenance date</string>
+    <string name="car_delete_text">All details of the vehicle will be deleted together.\nRe-enter the vehicle number to delete it.</string>
+    <string name="car_carnum_hint">Vehicle number field</string>
+    <string name="car_delete_name_check">Enter the vehicle number correctly again.</string>
+    <string name="car_detail_header_title">Vehicle Detail</string>
+    <string name="car_detail_carnum">Vehicle Number</string>
+    <string name="car_detail_caryear">Vehicle model year</string>
+    <string name="car_detail_caryear_hint">Vehicle model year field</string>
+    <string name="cad_detail_header_title">Vehicle Parts Replacement/Check Detail</string>
+    <string name="cad_detail_day">Date</string>
+    <string name="cad_detail_pre_history">Previous history</string>
+    <string name="cad_detail_pre_day">Previous date</string>
+    <string name="cad_detail_pre_km">Previous mileage</string>
+    <string name="cad_detail_km_title">Mileage</string>
+    <string name="cad_detail_price_title">Price</string>
+    <string name="cad_detail_gub1_title">Replacement/Check</string>
+    <string name="cad_detail_gub2_title">Self/Shop</string>
+    <string name="cad_detail_select">Empty</string>
+    <string name="cad_detail_later">later</string>
+    <string name="cad_detail_replace">Replacement</string>
+    <string name="cad_detail_check">Check</string>
+    <string name="cad_detail_self">Self</string>
+    <string name="cad_detail_shop">Shop</string>
+    <string name="cad_validation_check1">Enter the name.</string>
+    <string name="cad_name_dialog_gub1">Select</string>
+    <string name="cad_name_dialog_header_title">Vehicle parts List</string>
+    <string name="cad_name_dialog_gub2">Input</string>
 
 </resources>

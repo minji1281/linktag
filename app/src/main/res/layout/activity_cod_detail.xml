@@ -407,7 +407,7 @@
                                     android:paddingRight="5dp"
                                     android:textSize="@dimen/text_normal"
                                     android:textStyle="bold"
-                                    android:text="@string/cod_detail_price_unit" />
+                                    android:text="@string/price_unit" />
 
                                 <EditText
                                     android:id="@+id/etMoney"
@@ -494,6 +494,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="bottom|right"
+                            android:gravity="center_vertical|center"
                             android:textSize="@dimen/text_small"
                             android:textColor="@color/listitem_text2" />
 

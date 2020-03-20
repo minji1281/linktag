@@ -10,7 +10,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="차량 소모품 교체/점검 내역" />
+        app:title_text="@string/cad_detail_header_title" />
 
 
     <LinearLayout
@@ -43,7 +43,7 @@
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:text="정비일자"
+                        android:text="@string/cad_detail_day"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
@@ -87,7 +87,7 @@
                     <TextView
                         android:layout_width="80dp"
                         android:layout_height="wrap_content"
-                        android:text="명칭"
+                        android:text="@string/detail_name"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
@@ -124,9 +124,9 @@
                 android:orientation="vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="이전내역"
+                    android:text="@string/cad_detail_pre_history"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -153,7 +153,7 @@
                                 android:layout_width="120dp"
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical|center"
-                                android:text="이전 교환일시"
+                                android:text="@string/cad_detail_pre_day"
                                 android:textSize="@dimen/text_small" />
 
                             <TextView
@@ -187,7 +187,7 @@
                                 android:layout_height="match_parent"
                                 android:gravity="center_vertical|center"
                                 android:textSize="@dimen/text_small"
-                                android:text="이전 교환거리" />
+                                android:text="@string/cad_detail_pre_km" />
 
                             <TextView
                                 android:id="@+id/tvPreKm"
@@ -214,9 +214,9 @@
 
 
                 <TextView
-                    android:layout_width="40dp"
+                    android:layout_width="50dp"
                     android:layout_height="wrap_content"
-                    android:text="메모"
+                    android:text="@string/detail_memo"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -227,7 +227,7 @@
                     android:layout_marginStart="10dp"
                     android:layout_weight="1"
                     android:background="@null"
-                    android:hint="메모 입력란입니다."
+                    android:hint="@string/detail_memo_hint"
                     android:singleLine="true"
                     android:textSize="@dimen/text_normal" />
 
@@ -245,7 +245,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="상세정보"
+                    android:text="@string/detail_info"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -275,7 +275,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="주행거리"
+                                android:text="@string/cad_detail_km_title"
                                 android:textSize="@dimen/text_small" />
 
                             <LinearLayout
@@ -323,7 +323,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="비용"
+                                android:text="@string/cad_detail_price_title"
                                 android:textSize="@dimen/text_small" />
 
 
@@ -331,6 +331,15 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="match_parent"
                                 android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center_vertical|center"
+                                    android:layout_marginLeft="10dp"
+                                    android:textStyle="bold"
+                                    android:textSize="@dimen/text_normal"
+                                    android:text="@string/price_unit" />
 
                                 <EditText
                                     android:id="@+id/etMoney"
@@ -341,18 +350,9 @@
                                     android:background="@null"
                                     android:inputType="number"
                                     android:paddingLeft="5dp"
-                                    android:paddingRight="5dp"
+                                    android:paddingRight="15dp"
                                     android:textStyle="bold"
                                     android:textSize="@dimen/text_normal"/>
-
-                                <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="match_parent"
-                                    android:gravity="center_vertical|center"
-                                    android:layout_marginRight="10dp"
-                                    android:textStyle="bold"
-                                    android:textSize="@dimen/text_normal"
-                                    android:text="원" />
 
                             </LinearLayout>
 
@@ -383,7 +383,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="교체/점검"
+                                android:text="@string/cad_detail_gub1_title"
                                 android:textSize="@dimen/text_small" />
 
                             <Spinner
@@ -408,7 +408,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="셀프/카센터"
+                                android:text="@string/cad_detail_gub2_title"
                                 android:textSize="@dimen/text_small" />
 
                             <Spinner
@@ -437,7 +437,7 @@
         android:layout_height="50dp"
         android:layout_gravity="bottom"
         android:background="@color/list_item_Detail_saveBtn"
-        android:text="저장"
+        android:text="@string/detail_save"
         android:textColor="@color/white" />
 
 </LinearLayout>
