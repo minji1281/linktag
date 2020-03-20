@@ -191,6 +191,10 @@
     <string name="dialog_cycle_month_num">6</string>
 
 
+    <!--    입력 유효성  -->
+    <string name="validation_check1">Enter the name.</string>
+
+
     <!--장독 리스트 -->
     <string name="jdm_list_title">Jangdokdae List</string>
     <string name="jdm_list_agingDayText1">Until Now</string>
@@ -281,6 +285,7 @@
     <string name ="pcm_text8">Delete</string>
 
     <!--냉장고 리스트 -->
+    <string name="rfm_list_empty">No data (Scan and register.)</string>
     <string name="rfd_list_title">Refrigerator Food List</string>
     <string name="rfd_list_DdayText">Expiry Date</string>
     <string name="rfd_header_Edit">Edit</string>

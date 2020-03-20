@@ -193,6 +193,9 @@
 
 
 
+    <!--    입력 유효성  -->
+    <string name="validation_check1">명칭을 입력해주세요.</string>
+
 
     <!--장독 리스트 -->
     <string name="jdm_list_title">장독목록</string>
@@ -283,6 +286,7 @@
     <string name ="pcm_text8">제거</string>
 
     <!--냉장고 리스트 -->
+    <string name="rfm_list_empty">항목없음 (스캔등록 해주세요)</string>
     <string name="rfd_list_title">냉장고 식품 목록</string>
     <string name="rfd_list_DdayText">유통기한</string>
     <string name="rfd_header_Edit">편집</string>

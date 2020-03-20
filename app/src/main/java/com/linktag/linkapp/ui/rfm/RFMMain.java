@@ -348,9 +348,9 @@ public class RFMMain extends BaseActivity {
                                 }
                             }
                             else{
-                                mSpinnerList.add(new SpinnerList("", "항목없음", ""));
+                                mSpinnerList.add(new SpinnerList("", getString(R.string.rfm_list_empty), ""));
                                 index[0] = "";
-                                str[0] = "항목없음";
+                                str[0] = getString(R.string.rfm_list_empty);
                                 final ArrayAdapter<String> hAdapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item_list, str);
                                 headerSpinner.setAdapter(hAdapter);
                             }

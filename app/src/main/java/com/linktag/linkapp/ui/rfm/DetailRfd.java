@@ -368,6 +368,11 @@ public class DetailRfd extends BaseActivity {
             @Override
             public void onClick(View view) {
 
+                if( ed_name.getText().equals("")){
+                    Toast.makeText(mContext,getString(R.string.validation_check1),Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 rfdVO.setRFD_06(map_pos.get(sp_pos.getSelectedItem()));
 
                 if (getIntent().hasExtra("GUBUN")) {

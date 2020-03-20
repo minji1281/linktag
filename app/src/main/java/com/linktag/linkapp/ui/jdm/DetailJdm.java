@@ -375,6 +375,11 @@ public class DetailJdm extends BaseActivity {
             @Override
             public void onClick(View view) {
 
+                if( ed_name.getText().equals("")){
+                    Toast.makeText(mContext,getString(R.string.validation_check1),Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 jdmVO.setJDM_05(map_size.get(sp_size.getSelectedItem()));
                 jdmVO.setJDM_04(tv_datePicker.getText().toString().replace(".", ""));
                 if (getIntent().hasExtra("scanCode")) {

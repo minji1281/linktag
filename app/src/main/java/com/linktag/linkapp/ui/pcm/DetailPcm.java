@@ -517,6 +517,11 @@ public class DetailPcm extends BaseActivity implements Serializable {
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if( ed_name.getText().equals("")){
+                    Toast.makeText(mContext,getString(R.string.validation_check1),Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 if (getIntent().hasExtra("scanCode")) {
                     requestPCM_CONTROL("INSERT");
                 } else {
