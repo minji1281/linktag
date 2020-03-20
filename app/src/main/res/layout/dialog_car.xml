@@ -18,7 +18,7 @@
         android:orientation="vertical"
         android:background="@color/List4">
 
-        <!-- 명칭 -->
+        <!-- 차량번호 -->
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="50dp"
@@ -35,7 +35,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="20dp"
                 android:gravity="center_vertical|left"
-                android:text="명칭"
+                android:text="차량번호"
                 android:textColor="@color/black"
                 android:textSize="@dimen/text_small"
                 android:textStyle="bold" />

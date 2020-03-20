@@ -10,7 +10,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="환경설정">
+        app:title_text="@string/setting_04">
 
     </com.linktag.base.base_header.BaseHeader>
 
@@ -73,7 +73,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:text="알림설정 동의 (푸시)"
+                        android:text="@string/setting_06"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_normal" />
 
@@ -105,7 +105,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentStart="true"
                         android:layout_centerVertical="true"
-                        android:text="언어 설정"
+                        android:text="@string/setting_07"
                         android:textColor="@color/black"
                         android:textSize="@dimen/text_normal" />
 
@@ -151,7 +151,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="사용중 서비스"
+                        android:text="@string/setting_08"
                         android:textSize="@dimen/text_normal" />
 
 
@@ -188,7 +188,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="미사용 서비스"
+                        android:text="@string/setting_09"
                         android:textSize="@dimen/text_normal" />
 
 

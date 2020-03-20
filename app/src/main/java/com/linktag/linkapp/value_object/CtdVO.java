@@ -27,6 +27,7 @@ public class CtdVO implements Serializable {
     public String CTD_07_NM;        //
 
     public String CTM_01;       // 계약번호(CTD_01)
+    public String CTM_04;       // 계약자 아이디
     public String CTM_17;       // 공유명
     public String CTM_19;       // 계약구분(P: 개인, S: 공유)
 

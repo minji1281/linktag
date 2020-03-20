@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.widget.Toast;
 
 import com.linktag.base.user_interface.InterfaceUser;
+import com.linktag.linkapp.R;
 import com.linktag.linkapp.value_object.CtdVO;
 
 public class ChangeActivityCls {
@@ -44,7 +45,7 @@ public class ChangeActivityCls {
 
         }
         else {
-            Toast.makeText(mContext, "해당 서비스의 경로를 찾을 수 없습니다.\n관리자에게 문의 바랍니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, R.string.alert_service_location_error + "\n" + R.string.common_call_admin, Toast.LENGTH_LONG).show();
         }
 
     }
@@ -84,7 +85,7 @@ public class ChangeActivityCls {
 
         }
         else {
-            Toast.makeText(mContext, "해당 서비스의 경로를 찾을 수 없습니다.\n관리자에게 문의 바랍니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, R.string.alert_service_location_error + "\n" + R.string.common_call_admin, Toast.LENGTH_LONG).show();
         }
 
     }

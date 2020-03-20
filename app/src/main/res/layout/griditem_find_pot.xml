@@ -71,7 +71,8 @@
             android:layout_weight="1.2"
             android:gravity="center_vertical|center"
             android:background="@drawable/btn_round_indigo_5dp"
-            android:text="물주기"
+            android:textAllCaps="false"
+            android:text="@string/pot_list_water"
             android:textColor="@color/white"
             android:textSize="@dimen/text_normal"
             android:textStyle="bold" />

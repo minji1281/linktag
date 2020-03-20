@@ -22,7 +22,7 @@
         <item name="android:textSize">@dimen/text_normal</item>
     </style>
 
-    <!-- 기본 설명 라인 -->
+    <!-- 기본 설명 라인 -->~
     <style name="common_description">
         <item name="android:background">@color/colorBackground</item>
         <item name="android:layout_width">match_parent</item>

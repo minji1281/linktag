@@ -36,6 +36,7 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.ui.menu.Member;
+import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CAD_VO;
 import com.linktag.linkapp.value_object.CAR_VO;
 import com.linktag.linkapp.value_object.CtdVO;
@@ -88,21 +89,23 @@ public class CadList extends BaseActivity {
 
         intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
         CAR = new CAR_VO();
-        if (getIntent().hasExtra("scanCode")) {
-            CAR.CAR_01 = getIntent().getExtras().getString("scanCode");
-            requestCAR_SELECT();
-        }
 
         initLayout();
 
         initialize();
+
+        if (getIntent().hasExtra("scanCode")) {
+            CAR.CAR_01 = getIntent().getExtras().getString("scanCode");
+            requestCAR_SELECT();
+        }
     }
 
     @Override
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
-        // 요거
+
+        //요거
         initLayoutByContractType();
 
         imgNew = findViewById(R.id.imgNew);
@@ -334,10 +337,16 @@ public class CadList extends BaseActivity {
                     CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, CAR_01);
                     ctds_control.requestCTDS_CONTROL();
                     CAR.CAR_01 = CAR_01;
+                    CAR.CAR_02 = CAR_02;
+                    CAR.CAR_03 = CAR_03;
+                    CAR.CAR_04 = CAR_04;
                 }
 
                 if(GUBUN.equals("DELETE")){
                     CAR.CAR_01 = ""; //굳이 할 필요 없을라나...
+                    mList.clear();
+                    mAdapter.updateData(mList);
+                    mAdapter.notifyDataSetChanged();
                 }
 
                 new Handler(){
@@ -483,11 +492,11 @@ public class CadList extends BaseActivity {
     }
 
     // 요거
-    private void initLayoutByContractType(){
+    private void initLayoutByContractType() {
         footer = findViewById(R.id.footer);
         footer.btnFooterScan.setOnClickListener(v -> goScan());
 
-        if(intentVO.CTM_19.equals("P")){
+        if (intentVO.CTM_19.equals("P")) {
             // privateService
             footer.btnFooterSetting.setVisibility(View.VISIBLE);
             footer.btnFooterMember.setVisibility(View.GONE);
@@ -504,10 +513,16 @@ public class CadList extends BaseActivity {
     }
 
     // 요거
-    private void goMember(){
+    private void goMember() {
         Intent intent = new Intent(mContext, Member.class);
         intent.putExtra("intentVO", intentVO);
         mContext.startActivity(intent);
+    }
+
+    @Override
+    protected void scanResult(String str){
+        ScanResult scanResult = new ScanResult(mContext, str, null);
+        scanResult.run();
     }
 
 }

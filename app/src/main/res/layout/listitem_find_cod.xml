@@ -85,7 +85,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical|left"
-                            android:text="유효기간"
+                            android:text="@string/cod_list_date_title1"
                             android:textColor="@color/listitem_text2"
                             android:textSize="@dimen/text_small" />
 
@@ -132,7 +132,8 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/btn_round_blue2"
                         android:gravity="center_vertical|center"
-                        android:text="사용종료"
+                        android:text="@string/cod_list_useend_button"
+                        android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="@dimen/text_small"
                         android:textStyle="bold" />

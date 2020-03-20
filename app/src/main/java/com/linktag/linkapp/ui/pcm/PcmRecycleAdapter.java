@@ -116,8 +116,8 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
 
         viewHolder.tv_name.setText(filteredmlist.get(position).PCM_02);
         viewHolder.tv_date.setText(filteredmlist.get(position).PCM_04.substring(0, 4) + "." + filteredmlist.get(position).PCM_04.substring(4, 6) + "." + filteredmlist.get(position).PCM_04.substring(6, 8));
-        viewHolder.tv_hwCount.setText("하드웨어 " + filteredmlist.get(position).PCD_HW_CNT + "건");
-        viewHolder.tv_swCount.setText("소프트웨어 " + filteredmlist.get(position).PCD_SW_CNT + "건");
+        viewHolder.tv_hwCount.setText(filteredmlist.get(position).PCD_HW_CNT);
+        viewHolder.tv_swCount.setText(filteredmlist.get(position).PCD_SW_CNT);
 
     }
 
@@ -154,7 +154,7 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
                     PcmVO pcmvo = new PcmVO();
                     pcmvo.setPCM_ID(filteredmlist.get(position).PCM_ID);
                     pcmvo.setPCM_01(filteredmlist.get(position).PCM_01);
-                    pcmvo.setPCM_02(filteredmlist.get(position).PCM_04);
+                    pcmvo.setPCM_02(filteredmlist.get(position).PCM_02);
                     pcmvo.setPCM_03(filteredmlist.get(position).PCM_03);
                     pcmvo.setPCM_04(filteredmlist.get(position).PCM_04);
                     pcmvo.setPCM_96(filteredmlist.get(position).PCM_96);

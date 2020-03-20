@@ -9,7 +9,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="멤버" />
+        app:title_text="@string/home_05" />
 
     <LinearLayout
         android:id="@+id/layInvite"
@@ -35,7 +35,7 @@
             android:layout_marginStart="10dp"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:text="멤버 초대하기"
+            android:text="@string/member_invite"
             android:textSize="@dimen/text_normal" />
 
         <ImageView
@@ -69,7 +69,7 @@
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="4"
-            android:text="멤버"
+            android:text="@string/home_05"
             android:textSize="@dimen/text_big" />
 
         <FrameLayout
@@ -111,7 +111,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/transparent_color"
-            android:hint="성명 / 이메일"
+            android:hint="@string/placeholder_search_member"
             android:maxLength="20"
             android:singleLine="true"
             android:textSize="@dimen/text_normal" />

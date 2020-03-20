@@ -59,6 +59,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
     private Calendar nextDay = Calendar.getInstance();
 
+    private String[] str_save_text;
 
     Filter listFilter;
 
@@ -67,6 +68,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         mList = list;
         mUser = InterfaceUser.getInstance();
         filteredmlist = list;
+        str_save_text = mContext.getResources().getStringArray(R.array.jdm_save_text);
     }
 
     @Override
@@ -168,7 +170,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         }
 
         if (filteredmlist.get(position).JDM_04.equals("")) {
-            viewHolder.tv_D_day.setText("현재까지 0일 숙성");
+            viewHolder.tv_D_day.setText("0");
         } else {
             String year = filteredmlist.get(position).JDM_04.substring(0, 4);
             String month = filteredmlist.get(position).JDM_04.substring(4, 6);
@@ -177,14 +179,14 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
             aCalendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(dayOfMonth));
 
             int count = (int) ((calendar.getTimeInMillis() - aCalendar.getTimeInMillis()) / (24 * 60 * 60 * 1000));
-            viewHolder.tv_D_day.setText("현재까지" + String.valueOf(count) + "일 숙성");
+            viewHolder.tv_D_day.setText(String.valueOf(count));
 
         }
         viewHolder.tv_name.setText(filteredmlist.get(position).JDM_02);
         viewHolder.tv_nextDay.setText(filteredmlist.get(position).JDM_96.substring(0, 4) + "." + filteredmlist.get(position).JDM_96.substring(4, 6) + "." + filteredmlist.get(position).JDM_96.substring(6, 8));
 
         if (filteredmlist.get(position).JDM_08.equals("") || Integer.parseInt(filteredmlist.get(position).JDM_96.substring(0, 8)) <= Integer.parseInt(formatDate.format(calendar.getTime()))) {
-            viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
+            viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_shallowgray_5dp);
         } else {
             viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_skyblue_5dp);
         }
@@ -202,10 +204,10 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
                 if (filteredmlist.get(position).ARM_03.equals("Y")) {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-                    Toast.makeText(mContext, "[" + filteredmlist.get(position).JDM_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "[" + filteredmlist.get(position).JDM_02 + "]-" +mContext.getResources().getString(R.string.common_alarm_off), Toast.LENGTH_SHORT).show();
                 } else if (filteredmlist.get(position).ARM_03.equals("N")) {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + filteredmlist.get(position).JDM_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "[" + filteredmlist.get(position).JDM_02 + "]-"+mContext.getResources().getString(R.string.common_alarm_on), Toast.LENGTH_SHORT).show();
                 }
 
                 ArmVO armVO = new ArmVO();
@@ -236,15 +238,15 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                 } else {
 
                     new AlertDialog.Builder(mContext)
-                            .setMessage("예정 청소일 전입니다. 청소확인 처리하시겠습니까?")
-                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                            .setMessage(str_save_text[3])
+                            .setPositiveButton(mContext.getResources().getString(com.linktag.base.R.string.common_yes), new DialogInterface.OnClickListener() {
                                 @RequiresApi(api = Build.VERSION_CODES.M)
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     requestJMD_CONTROL(viewHolder, filteredmlist.get(position));
                                 }
                             })
-                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(mContext.getResources().getString(com.linktag.base.R.string.common_no), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     return;
@@ -320,7 +322,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
                 int dcount = (int) ((calendar.getTimeInMillis() - nextDay.getTimeInMillis()) / (24 * 60 * 60 * 1000));
 
-                viewHolder.imageView_check.setBackgroundColor(R.drawable.ic_check_on);
+                viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_skyblue_5dp);
                 viewHolder.tv_nextDay.setText(format.format(nextDay.getTime()));
                 viewHolder.progressBar.setProgress(dcount);
             }

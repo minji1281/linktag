@@ -38,6 +38,8 @@ public class RecycleDayDialog extends Dialog {
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
 
     private int pos;
+    private String[] str_cycle;
+    private String[] str_save_text;
 
     public RecycleDayDialog(Context context, String val1, String val2, Calendar calendar) {
         super(context);
@@ -69,6 +71,9 @@ public class RecycleDayDialog extends Dialog {
 
         tabLayout = findViewById(R.id.tab_layout);
 
+        str_cycle = mContext.getResources().getStringArray(R.array.jdm_cycle);
+        str_save_text = mContext.getResources().getStringArray(R.array.jdm_save_text);
+
         npCycle = findViewById(R.id.numberPicker);
         npCycle.setMinValue(0);
         npCycle.setMaxValue(60);
@@ -76,7 +81,7 @@ public class RecycleDayDialog extends Dialog {
         npCycle2 = findViewById(R.id.numberPicker2);
         npCycle2.setMinValue(0);
         npCycle2.setMaxValue(1);
-        npCycle2.setDisplayedValues(new String[]{"일", "개월"});
+        npCycle2.setDisplayedValues(new String[]{str_cycle[0], str_cycle[1]});
         npCycle2.setValue(Integer.parseInt(val2 == "2"? "0":val2));
 
         if(val2.equals("2")){
@@ -142,7 +147,7 @@ public class RecycleDayDialog extends Dialog {
                     }
 
                     if(Integer.parseInt(year + monthString + dayOfMonthString) <= Integer.parseInt(formatDate.format(sCalendar.getTime()))){
-                        Toast.makeText(mContext,"청소 예정일은 현재일자보다 커야합니다.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext,str_save_text[4], Toast.LENGTH_LONG).show();
                         return;
                     }
                     customDialogListener.onPositiveClicked(year,monthString,dayOfMonthString,calendar);
@@ -168,10 +173,12 @@ public class RecycleDayDialog extends Dialog {
             case 0:
                 relativeLayout1.setVisibility(View.VISIBLE);
                 RelativeLayout2.setVisibility(View.INVISIBLE);
+                pos = 0;
                 break;
             case 1:
                 relativeLayout1.setVisibility(View.INVISIBLE);
                 RelativeLayout2.setVisibility(View.VISIBLE);
+                pos = 1;
                 break;
 
         }

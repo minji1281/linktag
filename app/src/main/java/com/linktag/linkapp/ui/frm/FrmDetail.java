@@ -40,6 +40,7 @@ import com.linktag.linkapp.value_object.FRM_VO;
 import com.linktag.linkapp.value_object.LogVO;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -357,8 +358,9 @@ public class FrmDetail extends BaseActivity {
                                     if(GUB.equals("WATER")){
                                         FRM.FRM_96 = response.body().Data.get(0).FRM_96;
                                     }
-                                    Toast.makeText(mContext,"다음알람 "+ FRM.FRM_96.substring(0,4)+"년 " + FRM.FRM_96.substring(4,6)+"월 "+ FRM.FRM_96.substring(6,8)+"일 " +
-                                            FRM.FRM_96.substring(8,10)+"시 " + FRM.FRM_96.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                                    String NextDay = FRM.FRM_96;
+                                    Toast.makeText(mContext,mContext.getString(R.string.dialog_alarm_toast_text) + " " + NextDay.substring(0,4)+"." + NextDay.substring(4,6)+"."+ NextDay.substring(6,8)+" " +
+                                            NextDay.substring(8,10)+":" + NextDay.substring(10,12), Toast.LENGTH_LONG ).show();
                                 }
                             }
 
@@ -438,7 +440,7 @@ public class FrmDetail extends BaseActivity {
         NumberPicker npCycle2 = (NumberPicker) view.findViewById(R.id.npCycle2);
         npCycle2.setMinValue(0);
         npCycle2.setMaxValue(1);
-        npCycle2.setDisplayedValues(new String[] {"일", "개월"});
+        npCycle2.setDisplayedValues(new String[] {mContext.getString(R.string.dialog_cycle_day), mContext.getString(R.string.dialog_cycle_month)});
         if (FRM.FRM_05.equals("M")){
             npCycle2.setValue(1); //개월
         }
@@ -480,15 +482,15 @@ public class FrmDetail extends BaseActivity {
         int spanEndNum = 0;
 
         if(FRM.FRM_05.equals("D")){
-            cycle = String.valueOf(FRM.FRM_04) + " 일";
-            spanEndNum = 2;
+            cycle = String.valueOf(FRM.FRM_04) + " " + mContext.getString(R.string.dialog_cycle_day);
+            spanEndNum = Integer.valueOf(mContext.getString(R.string.dialog_cycle_day_num));
         }
         else if(FRM.FRM_05.equals("M")){
-            cycle = String.valueOf(FRM.FRM_04) + " 개월";
-            spanEndNum = 3;
+            cycle = String.valueOf(FRM.FRM_04) + " " + mContext.getString(R.string.dialog_cycle_month);
+            spanEndNum = Integer.valueOf(mContext.getString(R.string.dialog_cycle_month_num));
         }
         else{ //신규
-            cycle = "선택";
+            cycle = mContext.getString(R.string.dialog_cycle_empty);
         }
 
         SpannableStringBuilder ssb = new SpannableStringBuilder(cycle);
@@ -526,8 +528,8 @@ public class FrmDetail extends BaseActivity {
                 @Override
                 public void onClick(View v){
                     new AlertDialog.Builder(mActivity)
-                            .setMessage("예정일자 전입니다.\n필터교체 완료 하시겠습니까?")
-                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                            .setMessage(R.string.frm_detail_replace_text)
+                            .setPositiveButton(R.string.onPositive, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     if(validationCheck()){
@@ -535,7 +537,7 @@ public class FrmDetail extends BaseActivity {
                                     }
                                 }
                             })
-                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(R.string.onNegative, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     return;
@@ -560,6 +562,8 @@ public class FrmDetail extends BaseActivity {
     }
 
     private void preFilterDayDialog(){
+        Locale locale = getResources().getConfiguration().locale;
+        Locale.setDefault(locale);
         DatePickerDialog dialog = new DatePickerDialog(mActivity, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int date) {
@@ -614,7 +618,7 @@ public class FrmDetail extends BaseActivity {
                     requestFRM_CONTROL("DELETE");
                 }
                 else{
-                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, R.string.dialog_delete_check_text, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -631,15 +635,15 @@ public class FrmDetail extends BaseActivity {
         boolean check = true;
         if(etName.getText().toString().equals("")){
             check = false;
-            Toast.makeText(mActivity, "명칭을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.frm_validation_check1, Toast.LENGTH_SHORT).show();
         }
         else if(FRM.FRM_05.equals("")){
             check = false;
-            Toast.makeText(mActivity, "주기를 선택하세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.frm_validation_check2, Toast.LENGTH_SHORT).show();
         }
         else if(TODAY.compareTo(FRM_03_C) < 0){
             check = false;
-            Toast.makeText(mActivity, "최근 필터교체는 오늘일자 이전으로 설정 해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.frm_validation_check3, Toast.LENGTH_SHORT).show();
         }
         return check;
     }

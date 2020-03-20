@@ -13,7 +13,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="공유 서비스 추가" >
+        app:title_text="@string/menu_title_addshared">
 
     </com.linktag.base.base_header.BaseHeader>
 
@@ -37,7 +37,7 @@
                 android:layout_marginBottom="15dp"
                 android:background="@color/transparent_color"
                 android:gravity="center"
-                android:hint="공유명 입력"
+                android:hint="@string/placeholder_edittext_addshared"
                 android:maxLength="20"
                 android:singleLine="true"
                 android:textSize="@dimen/text_biggest" />
@@ -65,7 +65,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:background="@android:color/holo_red_light"
-                android:text="완료"
+                android:text="@string/common_confirm"
                 android:textColor="@android:color/white"
                 android:textSize="@dimen/text_smaller" />
         </LinearLayout>

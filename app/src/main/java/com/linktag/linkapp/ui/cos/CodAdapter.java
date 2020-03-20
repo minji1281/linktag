@@ -30,7 +30,6 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.value_object.COD_VO;
-import com.linktag.linkapp.value_object.PotVO;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -112,7 +111,7 @@ public class CodAdapter extends BaseAdapter {
             } else {
                 viewHolder.layoutCod.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.list_round_shape));
             }
-            viewHolder.tvDayLabel.setText("유효기간");
+            viewHolder.tvDayLabel.setText(R.string.cod_list_date_title1);
             viewHolder.imgAlarmIcon.setVisibility(View.VISIBLE);
             viewHolder.btnUseEnd.setVisibility(View.VISIBLE);
             viewHolder.pbUse.setVisibility(View.VISIBLE);
@@ -140,7 +139,7 @@ public class CodAdapter extends BaseAdapter {
             } else {
                 viewHolder.layoutCod.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.list_round_shape_gray));
             }
-            viewHolder.tvDayLabel.setText("사용종료");
+            viewHolder.tvDayLabel.setText(R.string.cod_list_date_title2);
             viewHolder.imgAlarmIcon.setVisibility(View.GONE);
             viewHolder.btnUseEnd.setVisibility(View.GONE);
             viewHolder.pbUse.setVisibility(View.GONE);
@@ -169,15 +168,15 @@ public class CodAdapter extends BaseAdapter {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(mContext)
-                        .setMessage("해당 화장품을 사용종료 하시겠습니까?")
-                        .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                        .setMessage(R.string.cod_useend_check_text)
+                        .setPositiveButton(R.string.onPositive, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 COD_VO data = filteredmlist.get(position);
                                 requestCOD_CONTROL("USEEND", data, position);
                             }
                         })
-                        .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.onNegative, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 return;
@@ -211,7 +210,7 @@ public class CodAdapter extends BaseAdapter {
         String COD_07 = COD.COD_07; //사용종료일자
         String COD_08 = COD.COD_08; //메모
         String COD_95 = COD.COD_95; //화장대코드
-        String COD_96 = COD.COD_96; //알림시각
+        String COD_96 = COD.COD_96.substring(8,12); //알림시각
         String COD_98 = mUser.Value.OCM_01; //최종수정자
         String ARM_03 = COD.ARM_03; //알림여부
 
@@ -258,8 +257,8 @@ public class CodAdapter extends BaseAdapter {
 
                                 if(responseData.get(0).ARM_03.equals("Y") && responseData.get(0).COD_07.equals("")){
                                     String NextDay = responseData.get(0).COD_96;
-                                    Toast.makeText(mContext,"다음알람 "+ NextDay.substring(0,4)+"년 " + NextDay.substring(4,6)+"월 "+ NextDay.substring(6,8)+"일 " +
-                                            NextDay.substring(8,10)+"시 " + NextDay.substring(10,12)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                                    Toast.makeText(mContext,mContext.getString(R.string.dialog_alarm_toast_text) + " " + NextDay.substring(0,4)+"." + NextDay.substring(4,6)+"."+ NextDay.substring(6,8)+" " +
+                                            NextDay.substring(8,10)+":" + NextDay.substring(10,12), Toast.LENGTH_LONG ).show();
                                 }
                             }
 

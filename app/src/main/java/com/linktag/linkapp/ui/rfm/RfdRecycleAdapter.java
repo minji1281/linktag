@@ -27,6 +27,7 @@ import android.widget.Toast;
 
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.user_interface.InterfaceUser;
+import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.network.BaseConst;
@@ -60,6 +61,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
 
     private Calendar calendar = Calendar.getInstance();
 
+    private String[] str_label;
     Filter listFilter;
 
     RfdRecycleAdapter(Context context, ArrayList<RfdVO> list) {
@@ -67,6 +69,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
         mList = list;
         mUser = InterfaceUser.getInstance();
         filteredmlist = list;
+        str_label = mContext.getResources().getStringArray(R.array.rfd_label);
     }
 
     @Override
@@ -126,7 +129,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
 
         viewHolder.tv_name.setText(filteredmlist.get(position).RFD_03);
         if (!filteredmlist.get(position).RFD_07.equals("")) {
-            viewHolder.tv_label1.setText("사용종료");
+            viewHolder.tv_label1.setText(str_label[3]);
             viewHolder.tv_D_day.setText(filteredmlist.get(position).RFD_07.substring(0, 4) + "." + filteredmlist.get(position).RFD_07.substring(4, 6) + "." + filteredmlist.get(position).RFD_07.substring(6, 8));
             viewHolder.btn_label.setVisibility(View.GONE);
             viewHolder.progressBar.setVisibility(View.GONE);
@@ -134,7 +137,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
             viewHolder.root_linearLayout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.list_round_shape_gray));
 
         } else {
-            viewHolder.tv_label1.setText("유통기간");
+            viewHolder.tv_label1.setText(str_label[4]);
             viewHolder.btn_label.setVisibility(View.VISIBLE);
             viewHolder.progressBar.setVisibility(View.VISIBLE);
             viewHolder.imageview.setVisibility(View.VISIBLE);
@@ -182,22 +185,13 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
 
             if (count < 0) {
                 viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_red_8dp);
-                viewHolder.btn_label.setText("유통기한 마감");
+                viewHolder.btn_label.setText(str_label[0]);
             } else if (count == 0) {
                 viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
-                viewHolder.btn_label.setText("오늘까지");
-            } else if (count <= 7) {
-                viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
-                viewHolder.btn_label.setText("7일 이하 남음");
-            } else if (count >= 15) {
-                viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
-                viewHolder.btn_label.setText("15일이상 남음");
-            } else if (count < 15 && count >= 7) {
-                viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
-                viewHolder.btn_label.setText("15일 미만 남음");
+                viewHolder.btn_label.setText(str_label[1]);
             } else {
                 viewHolder.btn_label.setBackgroundResource(R.drawable.btn_round_shallowgray_8dp);
-                viewHolder.btn_label.setText(count + "일 남음");
+                viewHolder.btn_label.setText(count + " " +str_label[2]);
             }
 
             if (count == 0) {
@@ -228,12 +222,12 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
 
                     if (filteredmlist.get(position).ARM_03.equals("Y")) {
                         viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-                        Toast.makeText(mContext, "[" + filteredmlist.get(position).RFD_03 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "[" + filteredmlist.get(position).RFD_03 + "]-" +mContext.getResources().getString(R.string.common_alarm_off), Toast.LENGTH_SHORT).show();
                     } else if (filteredmlist.get(position).ARM_03.equals("N")) {
                         viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                        Toast.makeText(mContext, "[" + filteredmlist.get(position).RFD_03 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "[" + filteredmlist.get(position).RFD_03 + "]-" +mContext.getResources().getString(R.string.common_alarm_on), Toast.LENGTH_SHORT).show();
                     } else {
-                        Toast.makeText(mContext, "알림일자를 지정하세요.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, mContext.getString(R.string.common_no_alarm_toast), Toast.LENGTH_SHORT).show();
                         return;
                     }
 
@@ -323,7 +317,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
 
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
-            //BaseAlert.show(getString(R.string.common_network_error));
+            BaseAlert.show(mContext.getString(R.string.common_network_error));
             return;
         }
 

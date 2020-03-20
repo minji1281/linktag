@@ -66,14 +66,29 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
                 <TextView
-                    android:id="@+id/tv_D_day"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="현재까지 35일 숙성"
+                    android:text="@string/jdm_list_agingDayText1"
                     android:textColor="#34495E"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
-
+                <TextView
+                    android:id="@+id/tv_D_day"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="35"
+                    android:layout_marginStart="5dp"
+                    android:textColor="#34495E"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="5dp"
+                    android:text="@string/jdm_list_agingDayText2"
+                    android:textColor="#34495E"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
 
             </LinearLayout>
             <LinearLayout
@@ -99,7 +114,7 @@
                             android:layout_height="match_parent"
                             android:layout_weight="1"
                             android:gravity="center_vertical|left"
-                            android:text="다음청소일"
+                            android:text="@string/jdm_list_next_cleaning"
                             android:textColor="@color/listitem_text2"
                             android:textSize="@dimen/text_small" />
 
@@ -147,8 +162,9 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/btn_round_skyblue_5dp"
                         android:gravity="center_vertical|center"
-                        android:text="청소확인"
+                        android:text="@string/jdm_list_check"
                         android:textColor="@color/white"
+                        android:textAllCaps="false"
                         android:textSize="@dimen/text_small"
                         android:textStyle="bold" />
 

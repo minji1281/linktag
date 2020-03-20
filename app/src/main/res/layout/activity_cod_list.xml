@@ -12,7 +12,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="화장품 목록"/>
+        app:title_text="@string/cod_list_header_title"/>
 
     <LinearLayout
         android:id="@+id/layoutSpinner"
@@ -40,7 +40,7 @@
             android:gravity="center_vertical|center"
             android:textColor="@color/listitem_text1"
             android:textSize="@dimen/text_small"
-            android:text="편집"/>
+            android:text="@string/cod_list_cos_edit"/>
 
     </LinearLayout>
 
@@ -58,7 +58,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical|left"
             android:paddingLeft="10dp"
-            android:text="항목없음(스캔등록 해주세요)"/>
+            android:text="@string/cod_list_cos_empty"/>
 
     </LinearLayout>
 
@@ -93,7 +93,7 @@
                 android:id="@+id/etSearch"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="명칭을 입력하세요."
+                android:hint="@string/list_search_hint"
                 android:textSize="@dimen/text_normal"
                 android:singleLine="true"
                 android:background="@null"
@@ -139,7 +139,7 @@
                 android:layout_height="match_parent"
                 android:layout_margin="16dp"
                 android:gravity="center|center_vertical"
-                android:text="조회된 정보가 없습니다."
+                android:text="@string/list_empty"
                 android:textSize="@dimen/text_normal" />
 
         </FrameLayout>

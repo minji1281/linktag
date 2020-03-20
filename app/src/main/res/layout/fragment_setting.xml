@@ -18,7 +18,7 @@
             android:id="@+id/header"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:title_text="설정" >
+            app:title_text="@string/home_06">
 
         </com.linktag.base.base_header.BaseHeader>
 
@@ -110,7 +110,7 @@
                     android:drawableTop="@drawable/icon_notice"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:text="공지"
+                    android:text="@string/setting_01"
                     android:textAlignment="center"
                     android:textSize="@dimen/text_small" />
 
@@ -121,7 +121,7 @@
                     android:drawableTop="@drawable/icon_logout"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:text="로그아웃"
+                    android:text="@string/setting_05"
                     android:textAlignment="center"
                     android:textSize="@dimen/text_small" />
             </LinearLayout>
@@ -143,7 +143,7 @@
                     android:drawableTop="@drawable/icon_guide"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:text="가이드"
+                    android:text="@string/setting_02"
                     android:textAlignment="center"
                     android:textSize="@dimen/text_small" />
 
@@ -166,7 +166,7 @@
                     android:drawableTop="@drawable/icon_help"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:text="고객센터"
+                    android:text="@string/setting_03"
                     android:textAlignment="center"
                     android:textSize="@dimen/text_small" />
 
@@ -189,7 +189,7 @@
                     android:drawableTop="@drawable/icon_setting"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:text="기능설정"
+                    android:text="@string/setting_04"
                     android:textAlignment="center"
                     android:textSize="@dimen/text_small" />
 

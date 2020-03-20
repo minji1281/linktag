@@ -7,9 +7,11 @@ import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.res.Resources;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -39,6 +41,8 @@ import com.linktag.linkapp.value_object.CtdVO;
 
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
@@ -61,6 +65,7 @@ public class CadDetail extends BaseActivity {
     private TextView tvDay;
     private TextView tvPreDay;
     private TextView tvPreKm;
+    private TextView tvPreDayGap;
     private TextView tvName;
 
     private EditText etMemo;
@@ -114,6 +119,8 @@ public class CadDetail extends BaseActivity {
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
+
+        clearCalTime(CAD_03_C);
 
         tvName = (TextView) findViewById(R.id.tvName);
         tvName.setOnClickListener(new View.OnClickListener() {
@@ -176,6 +183,7 @@ public class CadDetail extends BaseActivity {
         });
         tvPreDay = (TextView) findViewById(R.id.tvPreDay);
         tvPreKm = (TextView) findViewById(R.id.tvPreKm);
+        tvPreDayGap = (TextView) findViewById(R.id.tvPreDayGap);
 
         etMemo = (EditText) findViewById(R.id.etMemo);
         etMoney = (EditText) findViewById(R.id.etMoney);
@@ -280,6 +288,7 @@ public class CadDetail extends BaseActivity {
                 msg.what = 100;
 
                 new Handler(){
+                    @RequiresApi(api = Build.VERSION_CODES.O)
                     @Override
                     public void handleMessage(Message msg){
                         if(msg.what == 100){
@@ -293,10 +302,24 @@ public class CadDetail extends BaseActivity {
                             if(mList.size() == 0){
                                 tvPreDay.setText("");
                                 tvPreKm.setText("");
+                                tvPreDayGap.setText("");
                             }
                             else{
                                 tvPreDay.setText(sDateFormat(mList.get(0).CAD_03));
                                 tvPreKm.setText(NumberFormat.getInstance().format(mList.get(0).CAD_08) + "km");
+
+                                LocalDate oldDate = LocalDate.of(Integer.parseInt(mList.get(0).CAD_03.substring(0,4)), Integer.parseInt(mList.get(0).CAD_03.substring(4,6))-1, Integer.parseInt(mList.get(0).CAD_03.substring(6)));
+                                LocalDate now = LocalDate.of(Integer.parseInt(CAD.CAD_03.substring(0,4)), Integer.parseInt(CAD.CAD_03.substring(4,6))-1, Integer.parseInt(CAD.CAD_03.substring(6)));
+                                Period diff = Period.between(oldDate, now);
+                                String gapText = "";
+                                if(diff.getMonths() > 0){
+                                    gapText += diff.getMonths() + "개월 ";
+                                }
+                                if(diff.getDays() > 0){
+                                    gapText += diff.getDays() + "일 경과";
+                                }
+
+                                tvPreDayGap.setText(gapText);
                             }
 
                         }
@@ -572,6 +595,13 @@ public class CadDetail extends BaseActivity {
         });
 
         dialog.show();
+    }
+
+    public void clearCalTime(Calendar c){
+        c.set(Calendar.HOUR, 0);
+        c.set(Calendar.MINUTE, 0);
+        c.set(Calendar.SECOND, 0);
+        c.set(Calendar.MILLISECOND, 0);
     }
 
 }

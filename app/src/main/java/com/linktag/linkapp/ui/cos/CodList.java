@@ -2,7 +2,6 @@ package com.linktag.linkapp.ui.cos;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -36,6 +35,7 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.ui.menu.Member;
+import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.ui.spinner.SpinnerList;
 import com.linktag.linkapp.value_object.COD_VO;
 import com.linktag.linkapp.value_object.COS_VO;
@@ -335,10 +335,15 @@ public class CodList extends BaseActivity {
                     CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, COS_01);
                     ctds_control.requestCTDS_CONTROL();
                     COS.COS_01 = COS_01;
+                    COS.COS_02 = COS_02;
+                    COS.COS_03 = COS_03;
                 }
 
                 if(GUBUN.equals("DELETE")){
-                    COS.COS_01 = ""; //굳이 할 필요 없을라나...
+                    COS.COS_01 = "";
+                    mList.clear();
+                    mAdapter.updateData(mList);
+                    mAdapter.notifyDataSetChanged();
                 }
 
                 new Handler(){
@@ -404,7 +409,7 @@ public class CodList extends BaseActivity {
         Button btnSave = (Button) view.findViewById(R.id.btnSave);
         Button btnDelete = (Button) view.findViewById(R.id.btnDelete);
         if(GUBUN.equals("INSERT")){
-            btnDelete.setText("취소");
+            btnDelete.setText(R.string.onCancel);
             btnDelete.setTextColor(Color.GRAY);
         }
 
@@ -419,9 +424,14 @@ public class CodList extends BaseActivity {
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                requestCOS_CONTROL(GUBUN, etName.getText().toString(), etMemo.getText().toString());
+                if(etName.getText().toString().equals("")){
+                    Toast.makeText(mActivity, R.string.pot_validation_check1, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    requestCOS_CONTROL(GUBUN, etName.getText().toString(), etMemo.getText().toString());
 
-                dialog.dismiss();
+                    dialog.dismiss();
+                }
             }
         });
         if(GUBUN.equals("UPDATE")){
@@ -454,7 +464,7 @@ public class CodList extends BaseActivity {
         TextView tvDeleteText = (TextView) view.findViewById(R.id.tvDeleteText);
         EditText etDeleteName = (EditText) view.findViewById(R.id.etDeleteName);
 
-        tvDeleteText.setText("해당 화장대의 모든 화장품이 함께 삭제됩니다.\n삭제하시려면 명칭을 다시 입력해주세요.");
+        tvDeleteText.setText(R.string.cos_delete_text);
 
         AlertDialog dialogDelete = builder.create();
 
@@ -466,7 +476,7 @@ public class CodList extends BaseActivity {
                     dialog.dismiss();
                 }
                 else{
-                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, R.string.dialog_delete_check_text, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -505,6 +515,12 @@ public class CodList extends BaseActivity {
         Intent intent = new Intent(mContext, Member.class);
         intent.putExtra("intentVO", intentVO);
         mContext.startActivity(intent);
+    }
+
+    @Override
+    protected void scanResult(String str){
+        ScanResult scanResult = new ScanResult(mContext, str, null);
+        scanResult.run();
     }
 
 }

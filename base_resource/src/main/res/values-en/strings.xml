@@ -86,6 +86,57 @@
     <string name="dash_24">Alarm</string>
     <string name="dash_25">Favorites</string>
 
+    <!-- 메뉴(카테고리) -->
+    <string name="menu_bar1">My Service</string>
+    <string name="menu_bar2">Shared Service</string>
+    <string name="menu_title_addservice">AddService</string>
+    <string name="menu_title_addshared">AddShared</string>
+
+    <!-- 서비스 -->
+    <string name="placeholder_search_addservice">Service Name</string>
+    <string name="placeholder_edittext_addshared">Shared Name</string>
+
+    <string name="alert_service_bmk">Would you like to bookmark the selected service?</string>
+    <string name="alert_service_add">Would you like add it?</string>
+    <string name="alert_service_location_error">Could not find the route for that service</string>
+
+    <string name="please_select">Please select</string>
+
+    <!-- 멤버 -->
+    <string name="placeholder_search_member">Name / Email</string>
+    <string name="member_invite">Invite members</string>
+
+    <string name="alert_member_invite_error">Please select a share to add</string>
+    <string name="alert_member_invite">Would you like to register this user?</string>
+    <string name="alert_member_callback1">Has been registered</string>
+    <string name="alert_member_callback2">User already registered.</string>
+
+    <!-- 세팅 / 이미지 처리 -->
+    <string name="set_profile_image">Change profile picture</string>
+
+    <string name="alert_image_error1">Change profile picture</string>
+
+    <string name="setting_01">Notices</string>
+    <string name="setting_02">Guide</string>
+    <string name="setting_03">Support</string>
+    <string name="setting_04">Settings</string>
+    <string name="setting_05">Log Out</string>
+
+    <string name="setting_06">Push Notification</string>
+    <string name="setting_07">Language</string>
+    <string name="setting_08">Use Service</string>
+    <string name="setting_09">Not Use Service</string>
+
+    <!-- 프로필 -->
+    <string name="profile_title">Profile</string>
+
+    <string name="placeholder_profile_pwd1">Please input password</string>
+    <string name="placeholder_profile_pwd2">Please input new password</string>
+    <string name="placeholder_profile_pwd3">Please input new password again</string>
+
+    <string name="alert_pwd_change1">Change your password</string>
+    <string name="alert_pwd_change2">Automatically logout after change</string>
+
     <!-- 디테일 공통 -->
     <string name="detail_name">Name</string>
     <string name="detail_name_hint">Name field.</string>
@@ -103,12 +154,196 @@
     <string name="alarm_title">Alarm Time Setting</string>
     <string name="onPositive">OK</string>
     <string name="onNegative">Cancel</string>
+    <string name="dialog_alarm_toast_text">Next alarm is</string>
+    <string name="dialog_delete_check_text">Enter the name correctly</string>
 
 
     <!--이력 화면 공통 -->
     <string name="record_title">Record</string>
 
     <!-- 리스트 공통 -->
-    <string name="list_search_hint">Please enter your name.</string>
+    <string name="list_search_hint">Search for a name</string>
+    <string name="list_empty">No data.</string>
+
+    <!-- 화분 -->
+    <string name="pot_list_header_title">Pot List</string>
+    <string name="pot_list_water">Water</string>
+    <string name="pot_detail_header_title">Pot Detail</string>
+    <string name="pot_detail_dday_title">By the scheduled date</string>
+    <string name="pot_detail_cycle_title">Cycle</string>
+    <string name="pot_detail_water">Water</string>
+    <string name="pot_detail_recent_water">Recent watering</string>
+    <string name="pot_detail_next_water">Next watering</string>
+    <string name="pot_dialog_water_text">Do you want to update the watering information for that pot?</string>
+    <string name="pot_dialog_water_text2">It\'s before the scheduled date.\nDo you want to complete the watering?</string>
+    <string name="pot_validation_check1">Enter the name.</string>
+    <string name="pot_validation_check2">Set a cycle.</string>
+    <string name="pot_validation_check3">Set the recent watering before today.</string>
+
+    <!-- 주기 팝업 -->
+    <string name="dialog_cycle_title">Cycle setting</string>
+    <string name="dialog_cycle_day">Day</string>
+    <string name="dialog_cycle_month">Month</string>
+    <string name="dialog_cycle_empty">Empty</string>
+    <string name="dialog_cycle_day_num">4</string>
+    <string name="dialog_cycle_month_num">6</string>
+
+
+    <!--장독 리스트 -->
+    <string name="jdm_list_title">Jangdokdae List</string>
+    <string name="jdm_list_agingDayText1">Until Now</string>
+    <string name="jdm_list_agingDayText2">Day Aging</string>
+    <string name="jdm_list_next_cleaning">Next Clreaning</string>
+    <string name="jdm_list_check">Cleaning</string>
+
+    <!--장독 디테일 -->
+    <string name="jdm_detail_title">Jangdokdae Management</string>
+    <string name="jdm_agingDay">Aging Day</string>
+    <string name="jdm_size">Jangdok Size</string>
+    <string name="jdm_cycle">Cleaning cycle</string>
+    <string name="jdm_date">Date of Manufacture</string>
+    <string name="jdm_nextDate">Next cleaning day</string>
+    <string name="jdm_check">Cleaning</string>
+
+    <string name="jdm_text1">That information has been saved.</string>
+    <string name="jdm_text2">The next Alarm will be </string>
+    <string name="jdm_text3"></string>
+    <string name="jdm_text4">It is before the scheduled cleaning date. Would you like to confirm the cleaning?</string>
+    <string name="jdm_text5">The scheduled cleaning date must be greater than the current date.</string>
+    <string name="jdm_text6">New registration</string>
+    <string name="jdm_text7">Cleaning finished</string>
+
+
+    <!--장독 다이얼로그 -->
+    <string name="jdm_dialog_title">Cleaning cycle Setting</string>
+    <string name="jdm_dialog_tab1">Cycle</string>
+    <string name="jdm_dialog_tab2">Designated</string>
+
+    <!--복약 리스트 -->
+    <string name="trp_list_title">Medication List</string>
+
+    <!--복약 디테일 -->
+    <string name="trp_detail_title">Medication Management</string>
+    <string name="trp_alarm_time">Alarm Time</string>
+    <string name="trp_alarm_cycle">Alarm Cycle</string>
+    <string name="trp_alarm_add">Alarm Add</string>
+    <string name="trp_numOfday">medications per day</string>
+    <string name="trp_after_before">Before and after meals</string>
+    <string name="trp_target">Corresponding person</string>
+    <string name="trp_Mon">Mon</string>
+    <string name="trp_Tue">Tue</string>
+    <string name="trp_Wed">Wed</string>
+    <string name="trp_Thu">Thu</string>
+    <string name="trp_Fri">Fri</string>
+    <string name="trp_Sat">Sat</string>
+    <string name="trp_Sun">Sun</string>
+
+    <string name="trp_Am">AM</string>
+    <string name="trp_Pm">PM</string>
+
+    <string name="trp_Everyday">Every Day</string>
+
+    <string name="trp_Alarm_delete">Alarm Time Delete</string>
+
+
+    <string name="trp_text1">That information has been saved.</string>
+    <string name="trp_text2">No Alarm specified. </string>
+    <string name="trp_text3">Alarm added</string>
+    <string name="trp_text4">New registration </string>
+    <string name="trp_text5">Alarm was added</string>
+    <string name="trp_text6">The next Alarm will be </string>
+    <string name="trp_text7"></string>
+
+    <!--PC 리스트 -->
+    <string name="pcm_list_title">PC List</string>
+    <string name="pcm_list_recent_management">Managemen date</string>
+    <string name="pcm_list_hwText">HardWare</string>
+    <string name="pcm_list_swText">SoftdWare</string>
+
+
+    <!--PC 디테일 -->
+    <string name="pcm_detail_title">PC Management</string>
+    <string name="pcm_hw_info">HardWare INFO</string>
+    <string name="pcm_sw_info">SoftWare INFO</string>
+    <string name="pcm_update">UPDATE</string>
+    <string name="pcm_info_add">INFO Add</string>
+    <string name="pcm_info_hint">INFO Detail input</string>
+
+    <string name ="pcm_text1">That information has been saved.</string>
+    <string name ="pcm_text2">The management date has been updated.</string>
+    <string name ="pcm_text3">Need to Selection</string>
+    <string name ="pcm_text4">Management Date Update</string>
+    <string name ="pcm_text5">H/W Info</string>
+    <string name ="pcm_text6">S/W Info</string>
+    <string name ="pcm_text7">Add</string>
+    <string name ="pcm_text8">Delete</string>
+
+    <!--냉장고 리스트 -->
+    <string name="rfd_list_title">Refrigerator Food List</string>
+    <string name="rfd_list_DdayText">Expiry Date</string>
+    <string name="rfd_header_Edit">Edit</string>
+
+
+    <!--냉장고 디테일 -->
+    <string name="rfm_detail_title">Refrigerator Register</string>
+    <string name="rfm_detail_edit">Refrigerator Edit</string>
+    <string name="rfd_detail_title">Refrigerator food management</string>
+    <string name="rfd_Dday">Remaining Expiry Day</string>
+    <string name="rfd_date">Expiry Date</string>
+    <string name="rfd_pos">Storage location</string>
+    <string name="rfd_move">Moves</string>
+    <string name="rfd_send">Sends</string>
+    <string name="rfd_check">End of Use</string>
+    <string name="rfd_check_end">End of Use</string>
+    <string name="rfd_check_use">Restart Use</string>
+    <string name ="rfd_text1">That information has been saved.</string>
+    <string name ="rfd_text2">The use status of the food information has been changed. </string>
+    <string name ="rfd_text3">The food information has been moved. </string>
+    <string name ="rfd_text4">The next Alarm will be </string>
+    <string name ="rfd_text5"></string>
+    <string name ="rfd_text6">Would you like to restart use?</string>
+    <string name ="rfd_text7">Do you want to end use?</string>
+    <string name ="rfd_text8">Food in progress cannot be moved.</string>
+
+    <!-- 삭제 dialog 공통 -->
+    <string name="dialog_delete_header_title">Delete</string>
+    <string name="dialog_delete_text">Enter the name again to delete it.</string>
+    <string name="onDelete">Delete</string>
+    <string name="onCancel">Cancel</string>
+
+    <!-- 필터 -->
+    <string name="frm_list_header_title">Filter List</string>
+    <string name="frm_list_filter_replace_button">Replace it</string>
+    <string name="frm_list_filter_replace_text">Filter replacement</string>
+    <string name="frm_list_filterreplace_alert">Do you want to update the replacement date of the filter?</string>
+    <string name="frm_detail_header_title">Filter Detail</string>
+    <string name="frm_detail_dday_title">By the scheduled date</string>
+    <string name="frm_detail_cycle_title">Cycle</string>
+    <string name="frm_detail_recent_replace">Recent date</string>
+    <string name="frm_detail_next_replace">Next date</string>
+    <string name="frm_detail_filterreplace">Replace it</string>
+    <string name="frm_detail_replace_text">It\'s before the scheduled date.\nDo you want to replace it?</string>
+    <string name="frm_validation_check1">Enter the name.</string>
+    <string name="frm_validation_check2">Set a cycle.</string>
+    <string name="frm_validation_check3">Set recent replacement date before today.</string>
+
+    <!-- 화장품 -->
+    <string name="cod_list_cos_edit">Edit</string>
+    <string name="cod_list_date_title1">Expiration date</string>
+    <string name="cod_list_date_title2">End of use date</string>
+    <string name="cod_list_header_title">Cosmetic List</string>
+    <string name="cod_list_useend_button">End of use</string>
+    <string name="cod_list_cos_empty">No data (Scan and register.)</string>
+    <string name="cos_delete_text">All cosmetics in that data will be deleted together.\nPlease re-enter the name to delete it.</string>
+    <string name="cod_useend_check_text">Do you want to end the use of the cosmetics?</string>
+    <string name="cos_detail_header_title">Dressing Table Detail</string>
+    <string name="cod_detail_header_title">Cosmetic Detail</string>
+    <string name="cod_detail_dday_title">The remaining days</string>
+    <string name="cod_detail_cos">Dressing table</string>
+    <string name="cod_detail_brand">Brand name</string>
+    <string name="cod_detail_expiration_date">Expiration date</string>
+    <string name="cod_detail_price">Price</string>
+    <string name="cod_detail_end_button">End of use</string>
+    <string name="cod_detail_price_unit">$</string>
 
 </resources>

@@ -45,21 +45,26 @@ public class PcdHwRecycleAdapter extends RecyclerView.Adapter<PcdHwRecycleAdapte
     private HashMap<String, String> map = new HashMap<String, String>();
 
 
+    private String[] str_save_text;
+
     PcdHwRecycleAdapter(Context context, ArrayList<PcdVO> list) {
         mContext = context;
         mList = list;
 
-        map.put("0", "선택");
-        map.put("1", "CPU");
-        map.put("2", "메인보드");
-        map.put("3", "그래픽카드");
-        map.put("4", "RAM");
-        map.put("5", "SSD");
-        map.put("6", "HDD");
-        map.put("7", "파워");
-        map.put("8", "쿨러");
-        map.put("9", "ODD");
-        map.put("10", "케이스");
+        str_save_text = mContext.getResources().getStringArray(R.array.pcm_save_text);
+        String[] str = mContext.getResources().getStringArray(R.array.hw);
+
+        map.put("0", str[0]);
+        map.put("1", str[1]);
+        map.put("2", str[2]);
+        map.put("3", str[3]);
+        map.put("4", str[4]);
+        map.put("5", str[5]);
+        map.put("6", str[6]);
+        map.put("7", str[7]);
+        map.put("8", str[8]);
+        map.put("9", str[9]);
+        map.put("10",str[10]);
 
     }
 
@@ -137,11 +142,11 @@ public class PcdHwRecycleAdapter extends RecyclerView.Adapter<PcdHwRecycleAdapte
                             mList = response.body().Data;
                             if (mList == null)
                                 mList = new ArrayList<>();
-                            DetailPcm.tv_hwCnt.setText("("+mList.size()+"건)");
+                            DetailPcm.tv_hwCnt.setText("("+mList.size()+")");
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();
 
-                            requestLOG_CONTROL(pcdVO.PCD_ID, pcdVO.PCD_01,"2","H/W 정보 " + pcdVO.PCD_05 + " 제거");
+                            requestLOG_CONTROL(pcdVO.PCD_ID, pcdVO.PCD_01,"2",str_save_text[4] +" " + pcdVO.PCD_05 + " " + str_save_text[7]);
 
                         }
                     }
@@ -160,7 +165,7 @@ public class PcdHwRecycleAdapter extends RecyclerView.Adapter<PcdHwRecycleAdapte
     private void requestLOG_CONTROL(String LOG_ID, String LOG_01, String LOG_03, String LOG_04){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
-            Toast.makeText(mContext, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, mContext.getString(R.string.common_network_error), Toast.LENGTH_SHORT).show();
             return;
         }
 

@@ -16,7 +16,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|left"
-            android:text="냉장고 편집"
+            android:text="@string/rfm_detail_edit"
             android:textColor="#FFF"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -37,7 +37,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical|left"
             android:layout_weight="1"
-            android:text="명 칭"
+            android:text="@string/detail_name"
             android:textSize="@dimen/_10sdp"
             android:textStyle="bold" />
 
@@ -48,7 +48,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="4"
             android:background="@null"
-            android:hint="명칭을 입력하세요."
+            android:hint="@string/detail_name_hint"
             android:textSize="@dimen/_10sdp" />
 
     </LinearLayout>
@@ -67,7 +67,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center_vertical|left"
             android:layout_weight="1"
-            android:text="메 모"
+            android:text="@string/detail_memo"
             android:textSize="@dimen/_10sdp"
             android:textStyle="bold" />
 
@@ -78,7 +78,7 @@
             android:layout_gravity="center_vertical"
             android:layout_weight="4"
             android:background="@null"
-            android:hint="메모를 입력하세요."
+            android:hint="@string/detail_memo_hint"
             android:textSize="@dimen/_10sdp" />
 
     </LinearLayout>
@@ -95,7 +95,7 @@
             android:layout_weight="1"
             android:background="#ffffff"
             android:gravity="center"
-            android:text="취소"
+            android:text="@string/onNegative"
             android:textColor="#000000"
             android:textSize="16dp" />
 
@@ -111,7 +111,7 @@
             android:layout_weight="1"
             android:background="#ffffff"
             android:gravity="center"
-            android:text="수정"
+            android:text="@string/onPositive"
             android:textColor="#000000"
             android:textSize="16dp" />
     </LinearLayout>

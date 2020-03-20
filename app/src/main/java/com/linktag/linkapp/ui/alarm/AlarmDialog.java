@@ -10,7 +10,7 @@ import android.widget.TimePicker;
 
 import com.linktag.linkapp.R;
 
-public class AlarmDialog extends AlertDialog {
+public class AlarmDialog extends Dialog {
 
     private CustomDialogListener customDialogListener;
 

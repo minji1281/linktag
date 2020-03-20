@@ -200,9 +200,9 @@ public class Member extends BaseActivity {
         sharedList.clear();
 
         ar = new String[model.Total + 1];
-        ar[0] = "공유 선택";
+        ar[0] = getResources().getString(R.string.please_select);
 
-        sharedList.add(new ClsShared("공유 선택", "", ""));
+        sharedList.add(new ClsShared(ar[0], "", ""));
 
         if(model.Total > 0){
             for (int i=1; i<model.Total + 1; i++){

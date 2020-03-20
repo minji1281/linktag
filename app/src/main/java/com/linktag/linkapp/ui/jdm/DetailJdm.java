@@ -48,6 +48,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -97,19 +98,13 @@ public class DetailJdm extends BaseActivity {
     private String recycleDayVal1;
     private String recycleDayVal2;
 
+
+
+    private String[] str_cycle;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_jdm2);
-
-
-
-        sp_size = findViewById(R.id.sp_size);
-
-        String[] str = getResources().getStringArray(R.array.jdm);
-        final ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, str);
-        sp_size.setAdapter(adapter_size);
-
 
         initLayout();
 
@@ -186,11 +181,11 @@ public class DetailJdm extends BaseActivity {
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
 
                     if (jdmVO.ARM_03.equals("Y") && dateBool) {
-                        Toast.makeText(mContext,"[" + ed_name.getText().toString() + "]" + "  해당 장독정보가 저장되었습니다.\n"+
-                                "다음 알람예정은 "+ jdmVO.JDM_96.substring(0,4)+"년" + jdmVO.JDM_96.substring(4,6)+"월"+ jdmVO.JDM_96.substring(6,8)+"일" +
-                                jdmVO.JDM_96.substring(8,10)+"시" + jdmVO.JDM_96.substring(10,12)+"분 입니다.", Toast.LENGTH_LONG ).show();
+                        Toast.makeText(mContext,"[" + ed_name.getText().toString() + "]" + getString(R.string.jdm_text1) +"\n"+
+                                getString(R.string.jdm_text2) +"\n"+ jdmVO.JDM_96.substring(0,4)+"-" + jdmVO.JDM_96.substring(4,6)+"-"+ jdmVO.JDM_96.substring(6,8)+" " +
+                                jdmVO.JDM_96.substring(8,10)+":" + jdmVO.JDM_96.substring(10,12)+ " " + getString(R.string.jdm_text3), Toast.LENGTH_LONG ).show();
                     }else{
-                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 장독정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + getString(R.string.jdm_text1), Toast.LENGTH_SHORT).show();
                     }
                     onBackPressed();
                 }
@@ -201,8 +196,9 @@ public class DetailJdm extends BaseActivity {
                     imageView_check.setImageResource(R.drawable.btn_round_skyblue_50dp);
 
                     if (jdmVO.ARM_03.equals("Y") && dateBool) {
-                        Toast.makeText(mContext,"다음 알람예정은 "+ jdmVO.JDM_96.substring(0,4)+"년" + jdmVO.JDM_96.substring(4,6)+"월"+ jdmVO.JDM_96.substring(6,8)+"일" +
-                                jdmVO.JDM_96.substring(8,10)+"시" + jdmVO.JDM_96.substring(10,12)+"분 입니다.", Toast.LENGTH_LONG ).show();
+                        Toast.makeText(mContext,"[" + ed_name.getText().toString() + "]" +getString(R.string.jdm_text1) +"\n"+
+                                getString(R.string.jdm_text2) +"\n"+ jdmVO.JDM_96.substring(0,4)+"-" + jdmVO.JDM_96.substring(4,6)+"-"+ jdmVO.JDM_96.substring(6,8)+" " +
+                                jdmVO.JDM_96.substring(8,10)+":" + jdmVO.JDM_96.substring(10,12)+ " " + getString(R.string.jdm_text3), Toast.LENGTH_LONG ).show();
                     }
 
                 }
@@ -243,11 +239,27 @@ public class DetailJdm extends BaseActivity {
         tv_recycleDay = findViewById(R.id.tv_recycleDay);
         jdmVO = (JdmVO) getIntent().getSerializableExtra("JdmVO");
 
+        str_cycle = getResources().getStringArray(R.array.jdm_cycle);
+
+
         setRecycleDay(jdmVO.JDM_06, jdmVO.JDM_07, "");
 
 
         ed_name.setText(jdmVO.getJDM_02());
         ed_memo.setText(jdmVO.getJDM_03());
+
+
+        sp_size = findViewById(R.id.sp_size);
+
+
+        String[] str = getResources().getStringArray(R.array.jdm_size);
+        final ArrayAdapter<String> adapter_size = new ArrayAdapter<String>(mContext, R.layout.spinner_detail_item, str);
+        sp_size.setAdapter(adapter_size);
+
+        map_size.put(str[0], "0");
+        map_size.put(str[1], "1");
+        map_size.put(str[2], "2");
+
 
 
         if (jdmVO.getJDM_04().equals("")) {
@@ -290,11 +302,6 @@ public class DetailJdm extends BaseActivity {
         } else {
             imageView_check.setImageResource(R.drawable.btn_round_skyblue_50dp);
         }
-
-
-        map_size.put("대", "0");
-        map_size.put("중", "1");
-        map_size.put("소", "2");
 
 
         if (jdmVO.JDM_05.equals("")) {
@@ -347,6 +354,8 @@ public class DetailJdm extends BaseActivity {
         datePicker.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Locale locale = getResources().getConfiguration().locale;
+                Locale.setDefault(locale);
                 DatePickerDialog dialog = new DatePickerDialog(DetailJdm.this, callbackMethod, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
                 dialog.show();
             }
@@ -369,7 +378,7 @@ public class DetailJdm extends BaseActivity {
                 jdmVO.setJDM_04(tv_datePicker.getText().toString().replace(".", ""));
                 if (getIntent().hasExtra("scanCode")) {
                     requestJMD_CONTROL("INSERT");
-                    requestLOG_CONTROL("1","신규등록");
+                    requestLOG_CONTROL("1",getString(R.string.jdm_text6));
                 } else {
                     requestJMD_CONTROL("UPDATE");
                 }
@@ -429,20 +438,20 @@ public class DetailJdm extends BaseActivity {
 
                 if (Integer.parseInt(jdmVO.JDM_96.substring(0, 8)) < Integer.parseInt(formatDate.format(calendar.getTime()))) {
                     requestJMD_CONTROL("UPDATE_NEXT");
-                    requestLOG_CONTROL("2","장독청소 완료");
+                    requestLOG_CONTROL("2",getString(R.string.jdm_text7));
                 } else {
 
                     new AlertDialog.Builder(mActivity)
-                            .setMessage("예정 청소일 전입니다. 청소확인 처리하시겠습니까?")
-                            .setPositiveButton("예", new DialogInterface.OnClickListener() {
+                            .setMessage(getString(R.string.jdm_text4))
+                            .setPositiveButton(getResources().getString(com.linktag.base.R.string.common_yes), new DialogInterface.OnClickListener() {
                                 @RequiresApi(api = Build.VERSION_CODES.M)
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     requestJMD_CONTROL("UPDATE_NEXT");
-                                    requestLOG_CONTROL("2","장독청소 완료");
+                                    requestLOG_CONTROL("2",getString(R.string.jdm_text7));
                                 }
                             })
-                            .setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                            .setNegativeButton(getResources().getString(com.linktag.base.R.string.common_no), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
                                     return;
@@ -508,7 +517,7 @@ public class DetailJdm extends BaseActivity {
                     requestJMD_CONTROL("DELETE");
                 }
                 else{
-                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity,  getResources().getString(com.linktag.base.R.string.common_confirm_delete), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -539,13 +548,13 @@ public class DetailJdm extends BaseActivity {
             switch (val2) {
                 case "0":
                     sCalendar.add(Calendar.DATE, Integer.parseInt(val1));
-                    tv_recycleDay.setText(val1 + "일");
+                    tv_recycleDay.setText(val1 +" "+ str_cycle[0]);
                     tv_nextDate.setText(format.format(sCalendar.getTime()));
 
                     break;
                 case "1":
                     sCalendar.add(Calendar.MONTH, Integer.parseInt(val1));
-                    tv_recycleDay.setText(val1 + "개월");
+                    tv_recycleDay.setText(val1 +" "+ str_cycle[1]);
                     tv_nextDate.setText(format.format(sCalendar.getTime()));
                     break;
             }
@@ -553,7 +562,7 @@ public class DetailJdm extends BaseActivity {
 //            jdmVO.setJDM_06("1"); //1일
 //            jdmVO.setJDM_07("0"); //일
             recycleDayVal2 = "2";
-            tv_recycleDay.setText("지정일");
+            tv_recycleDay.setText(str_cycle[2]);
             tv_nextDate.setText(val1 + "." + val2 + "." + val3);
         }
     }
@@ -562,10 +571,9 @@ public class DetailJdm extends BaseActivity {
     private void requestLOG_CONTROL(String LOG_03, String LOG_04){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
-            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, getResources().getString(com.linktag.base.R.string.common_network_error), Toast.LENGTH_SHORT).show();
             return;
         }
-
         Call<LOG_Model> call = Http.log(HttpBaseService.TYPE.POST).LOG_CONTROL(
                 BaseConst.URL_HOST,
                 "INSERT",

@@ -11,7 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="장독관리" />
+        app:title_text="@string/jdm_detail_title" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -167,7 +167,7 @@
                         android:id="@+id/tv_label1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="숙성일"
+                        android:text="@string/jdm_agingDay"
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
@@ -280,7 +280,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="장독크기"
+                                android:text="@string/jdm_size"
                                 android:textSize="@dimen/text_small" />
 
                             <Spinner
@@ -308,7 +308,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="담금일자"
+                                android:text="@string/jdm_date"
                                 android:textSize="@dimen/text_small" />
 
 
@@ -363,7 +363,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="청소주기"
+                                android:text="@string/jdm_cycle"
                                 android:textSize="@dimen/text_small" />
 
 
@@ -408,7 +408,7 @@
                                 android:layout_alignParentLeft="true"
                                 android:layout_marginStart="10dp"
                                 android:layout_marginTop="5dp"
-                                android:text="담음 청소일"
+                                android:text="@string/jdm_nextDate"
                                 android:textSize="@dimen/text_small" />
 
 
@@ -486,7 +486,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_centerHorizontal="true"
                                 android:layout_centerVertical="true"
-                                android:text="청소확인"
+                                android:text="@string/jdm_check"
                                 android:textColor="@color/white"
                                 android:textStyle="bold" />
                         </RelativeLayout>

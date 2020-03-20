@@ -119,7 +119,7 @@
                 android:background="@color/transparent_color"
                 android:contentDescription="@null"
                 android:padding="10dp"
-                android:src="@drawable/btn_setting_gray"
+                android:src="@drawable/btn_photo"
                 android:visibility="gone"
                 tools:visibility="visible" />
 

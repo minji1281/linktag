@@ -44,17 +44,21 @@ public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapte
     private InterfaceUser mUser = InterfaceUser.getInstance();
     private HashMap<String, String> map = new HashMap<String, String>();
 
+    private String[] str_save_text;
 
     PcdSwRecycleAdapter(Context context, ArrayList<PcdVO> list) {
         mContext = context;
         mList = list;
 
-        map.put("0", "선택");
-        map.put("1", "운영체제");
-        map.put("2", "그래픽드라");
-        map.put("3", "어도비");
-        map.put("4", "백신");
-        map.put("5", "기타");
+        str_save_text = mContext.getResources().getStringArray(R.array.pcm_save_text);
+        String[] str = mContext.getResources().getStringArray(R.array.sw);
+
+        map.put("0", str[0]);
+        map.put("1", str[1]);
+        map.put("2", str[2]);
+        map.put("3", str[3]);
+        map.put("4", str[4]);
+        map.put("5", str[5]);
     }
 
 
@@ -132,11 +136,11 @@ public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapte
                             mList = response.body().Data;
                             if (mList == null)
                                 mList = new ArrayList<>();
-                            DetailPcm.tv_swCnt.setText("("+mList.size()+"건)");
+                            DetailPcm.tv_swCnt.setText("("+mList.size()+")");
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();
 
-                            requestLOG_CONTROL(pcdVO.PCD_ID, pcdVO.PCD_01,"2","S/W 정보 " + pcdVO.PCD_05 + " 제거");
+                            requestLOG_CONTROL(pcdVO.PCD_ID, pcdVO.PCD_01,"2",str_save_text[5] +" " + pcdVO.PCD_05 + " " + str_save_text[7]);
                         }
                     }
                 }.sendMessage(msg);
@@ -155,7 +159,7 @@ public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapte
     private void requestLOG_CONTROL(String LOG_ID, String LOG_01, String LOG_03, String LOG_04){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
-            Toast.makeText(mContext, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, mContext.getString(R.string.common_network_error), Toast.LENGTH_SHORT).show();
             return;
         }
 

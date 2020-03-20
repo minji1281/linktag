@@ -4,7 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -56,6 +55,7 @@ public class CodDetail extends BaseActivity {
     private TextView tvDDAY;
     private TextView tvEndDay;
     private TextView tvUseEndLabel;
+    private TextView tvUseEndDayLabel;
 
     private EditText etName;
     private EditText etMemo;
@@ -197,6 +197,7 @@ public class CodDetail extends BaseActivity {
         tvDDAY = (TextView) findViewById(R.id.tvDDAY);
         tvEndDay = (TextView) findViewById(R.id.tvEndDay);
         tvUseEndLabel = (TextView) findViewById(R.id.tvUseEndLabel);
+        tvUseEndDayLabel = (TextView) findViewById(R.id.tvUseEndDayLabel);
 
         spCos = (Spinner) findViewById(R.id.spCos);
         cosInitial();
@@ -243,6 +244,7 @@ public class CodDetail extends BaseActivity {
             tvDayLabel.setVisibility(View.GONE);
             imgUseEnd.setVisibility(View.GONE);
             tvUseEndLabel.setVisibility(View.GONE);
+            tvUseEndDayLabel.setVisibility(View.GONE);
         }
 
     }
@@ -273,6 +275,8 @@ public class CodDetail extends BaseActivity {
             COD_05_C.set(Integer.parseInt(COD.COD_05.substring(0,4)), Integer.parseInt(COD.COD_05.substring(4,6))-1, Integer.parseInt(COD.COD_05.substring(6)));
 
             setDDAY();
+
+            tvUseEndDayLabel.setVisibility(View.GONE);
         }
         else{ //사용종료 detail
             int year = COD_05_C.get(Calendar.YEAR);
@@ -285,6 +289,7 @@ public class CodDetail extends BaseActivity {
             tvDayLabel.setVisibility(View.GONE);
             tvUseEndLabel.setText("사용시작");
             imgUseEnd.setImageResource(R.drawable.btn_round_skyblue_50dp);
+            tvUseEndDayLabel.setText("사용종료 : " + COD.COD_07.substring(0,4)+"."+COD.COD_07.substring(4,6)+"."+COD.COD_07.substring(6));
         }
     }
 

@@ -104,6 +104,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
     private CtdVO intentVO;
 
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -119,7 +120,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
             btn_update.setVisibility(View.GONE);
             String date = formatDate.format(calendar.getTime());
             pcmVO.setPCM_04(date);
-            tv_manageDay.setText(date.substring(0,4)+"년"+date.substring(4,6)+"년"+date.substring(6,8)+"일");
+            tv_manageDay.setText(date.substring(0,4)+"."+date.substring(4,6)+"."+date.substring(6,8));
         }
 
 
@@ -172,14 +173,14 @@ public class DetailPcm extends BaseActivity implements Serializable {
                                 mList_HW = response.body().Data;
                                 if (mList_HW == null)
                                     mList_HW = new ArrayList<>();
-                                tv_hwCnt.setText("("+mList_HW.size()+"건)");
+                                tv_hwCnt.setText("("+mList_HW.size()+")");
                                 mHwAdapter.updateData(mList_HW);
                                 mHwAdapter.notifyDataSetChanged();
                             } else if (GUBUN.equals("LIST_SW")) {
                                 mList_SW = response.body().Data;
                                 if (mList_SW == null)
                                     mList_SW = new ArrayList<>();
-                                tv_swCnt.setText("("+mList_SW.size()+"건)");
+                                tv_swCnt.setText("("+mList_SW.size()+")");
                                 mSwAdapter.updateData(mList_SW);
                                 mSwAdapter.notifyDataSetChanged();
                             }
@@ -240,22 +241,22 @@ public class DetailPcm extends BaseActivity implements Serializable {
                                 mList_HW = response.body().Data;
                                 if (mList_HW == null)
                                     mList_HW = new ArrayList<>();
-                                tv_hwCnt.setText("("+mList_HW.size()+"건)");
+                                tv_hwCnt.setText("("+mList_HW.size()+")");
                                 mHwAdapter.updateData(mList_HW);
                                 mHwAdapter.notifyDataSetChanged();
                                 et_hw.setText("");
 
-                                requestLOG_CONTROL("2","H/W 정보 " + pcdVO.PCD_05 + " 추가");
+                                requestLOG_CONTROL("2",getString(R.string.pcm_text5) +" " + pcdVO.PCD_05 + " " + getString(R.string.pcm_text7));
 
                             } else if (GUBUN.equals("SW")) {
                                 mList_SW = response.body().Data;
                                 if (mList_SW == null)
                                     mList_SW = new ArrayList<>();
-                                tv_swCnt.setText("("+mList_SW.size()+"건)");
+                                tv_swCnt.setText("("+mList_SW.size()+")");
                                 mSwAdapter.updateData(mList_SW);
                                 mSwAdapter.notifyDataSetChanged();
                                 et_sw.setText("");
-                                requestLOG_CONTROL("2","S/W 정보 " + pcdVO.PCD_05 + " 추가");
+                                requestLOG_CONTROL("2",getString(R.string.pcm_text6) +" "+ pcdVO.PCD_05 + " " + getString(R.string.pcm_text7));
                             }
 
 
@@ -308,11 +309,11 @@ public class DetailPcm extends BaseActivity implements Serializable {
                     onBackPressed();
                 }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
-                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "  해당 PC관리 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "] " + getString(R.string.pcm_text1), Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }
                 if(GUBUN.equals("UPDATE_DATE")){
-                    Toast.makeText(mContext,"관리일자 갱신 되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext,getString(R.string.pcm_text2), Toast.LENGTH_SHORT).show();
                 }
             }
 
@@ -353,9 +354,11 @@ public class DetailPcm extends BaseActivity implements Serializable {
         ed_name = (EditText) findViewById(R.id.ed_name);
         ed_memo = (EditText) findViewById(R.id.ed_memo);
 
+
         tv_hwCnt = findViewById(R.id.tv_hwCnt);
         tv_swCnt = findViewById(R.id.tv_swCnt);
         tv_Log = findViewById(R.id.tv_Log);
+
 
         sp_hw = (Spinner) findViewById(R.id.sp_hw);
         sp_sw = (Spinner) findViewById(R.id.sp_sw);
@@ -364,36 +367,34 @@ public class DetailPcm extends BaseActivity implements Serializable {
         final ArrayAdapter<String> adapter_hw = new ArrayAdapter<String>(mContext, R.layout.spinner_item, str);
         sp_hw.setAdapter(adapter_hw);
 
+
+        map_hw.put(str[0], "0");
+        map_hw.put(str[1], "1");
+        map_hw.put(str[2], "2");
+        map_hw.put(str[3], "3");
+        map_hw.put(str[4], "4");
+        map_hw.put(str[5], "5");
+        map_hw.put(str[6], "6");
+        map_hw.put(str[7], "7");
+        map_hw.put(str[8], "8");
+        map_hw.put(str[9], "9");
+        map_hw.put(str[10], "10");
+
         str = getResources().getStringArray(R.array.sw);
         final ArrayAdapter<String> adapter_sw = new ArrayAdapter<String>(mContext, R.layout.spinner_item, str);
         sp_sw.setAdapter(adapter_sw);
 
+        map_sw.put(str[0], "0");
+        map_sw.put(str[1], "1");
+        map_sw.put(str[2], "2");
+        map_sw.put(str[3], "3");
+        map_sw.put(str[4], "4");
+        map_sw.put(str[5], "5");
 
         et_sw = (EditText) findViewById(R.id.et_sw);
 
         sp_hw = (Spinner) findViewById(R.id.sp_hw);
         et_hw = (EditText) findViewById(R.id.et_hw);
-
-
-        map_sw.put("선택", "0");
-        map_sw.put("운영체제", "1");
-        map_sw.put("그래픽드라이버", "2");
-        map_sw.put("어도비", "3");
-        map_sw.put("백신", "4");
-        map_sw.put("기타", "5");
-
-
-        map_hw.put("선택", "0");
-        map_hw.put("CPU", "1");
-        map_hw.put("메인보드", "2");
-        map_hw.put("그래픽카드", "3");
-        map_hw.put("RAM", "4");
-        map_hw.put("SSD", "5");
-        map_hw.put("HDD", "6");
-        map_hw.put("파워", "7");
-        map_hw.put("쿨러", "8");
-        map_hw.put("케이스", "9");
-
 
         btn_addItem_hw = (Button) findViewById(R.id.btn_addItem_hw);
         btn_addItem_sw = (Button) findViewById(R.id.btn_addItem_sw);
@@ -410,7 +411,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
             String year = pcmVO.getPCM_04().substring(0, 4);
             String month = pcmVO.getPCM_04().substring(4, 6);
             String dayOfMonth = pcmVO.getPCM_04().substring(6, 8);
-            tv_manageDay.setText(year + "년" + month + "월" + dayOfMonth + "일");
+            tv_manageDay.setText(year + "." + month + "." + dayOfMonth);
         }
 
 
@@ -447,7 +448,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
             public void onClick(View v) {
 
                 if (map_hw.get(sp_hw.getSelectedItem()).equals("0")) {
-                    Toast.makeText(mContext, "선택 필요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, getString(R.string.pcm_text3), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -470,7 +471,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
             public void onClick(View v) {
 
                 if (map_sw.get(sp_sw.getSelectedItem()).equals("0")) {
-                    Toast.makeText(mContext, "선택 필요", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, getString(R.string.pcm_text3), Toast.LENGTH_SHORT).show();
                     return;
                 }
 
@@ -505,10 +506,10 @@ public class DetailPcm extends BaseActivity implements Serializable {
                 String year = pcmVO.getPCM_04().substring(0, 4);
                 String month = pcmVO.getPCM_04().substring(4, 6);
                 String dayOfMonth = pcmVO.getPCM_04().substring(6, 8);
-                String manageDay = year + "년" + month + "월" + dayOfMonth + "일";
+                String manageDay = year + "." + month + "." + dayOfMonth + ".";
                 tv_manageDay.setText(manageDay);
 
-                requestLOG_CONTROL("1","관리일자 업데이트 " + manageDay);
+                requestLOG_CONTROL("1",getString(R.string.pcm_text4));
             }
         });
 
@@ -575,7 +576,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
                     requestPCM_CONTROL("DELETE");
                 }
                 else{
-                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, getResources().getString(R.string.common_confirm_delete), Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -592,7 +593,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
     private void requestLOG_CONTROL(String LOG_03, String LOG_04){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
-            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity,  getResources().getString(R.string.common_network_error), Toast.LENGTH_SHORT).show();
             return;
         }
 

@@ -180,14 +180,14 @@ public class ProfileMain extends BaseActivity {
             @Override
             public void onClick(View v) {
                 new AlertDialog.Builder(mActivity)
-                        .setMessage("비밀번호를 변경하시겠습니까?\n변경후에는 자동으로 로그아웃 됩니다.")
-                        .setPositiveButton("확인", new DialogInterface.OnClickListener() {
+                        .setMessage(getString(R.string.alert_pwd_change1) + "\n" + getString(R.string.alert_pwd_change2))
+                        .setPositiveButton(R.string.common_confirm, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 requestOCM_CONTROL("PASS");
                             }
                         })
-                        .setNegativeButton("취소", new DialogInterface.OnClickListener() {
+                        .setNegativeButton(R.string.common_cancel, new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 return;
@@ -195,7 +195,6 @@ public class ProfileMain extends BaseActivity {
                         })
                         .setCancelable(false)
                         .show();
-
             }
         });
 
@@ -204,7 +203,7 @@ public class ProfileMain extends BaseActivity {
     }
 
     private void setUserPwd() {
-        if(btnChangePwd.getText().equals("수정")) {
+        if(btnChangePwd.getText().equals(getString(R.string.common_change))) {
             layoutPhoto.setVisibility(View.GONE);
             layoutEmail.setVisibility(View.GONE);
             layoutSignDate.setVisibility(View.GONE);
@@ -216,7 +215,7 @@ public class ProfileMain extends BaseActivity {
             etOldPwd.setText("");
             etNewPwd1.setText("");
             etNewPwd2.setText("");
-            btnChangePwd.setText("취소");
+            btnChangePwd.setText(getString(R.string.common_cancel));
             etOldPwd.requestFocus();
 
         } else {
@@ -231,21 +230,15 @@ public class ProfileMain extends BaseActivity {
             etOldPwd.setText("");
             etNewPwd1.setText("");
             etNewPwd2.setText("");
-            btnChangePwd.setText("수정");
+            btnChangePwd.setText(getString(R.string.common_change));
         }
     }
 
     private void setUserPhoto() {
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
 
-        final String str[] = {
-                "사진 촬영",
-                "앨범에서 선택",
-                "프로필 사진 삭제"
-        };
-
-        builder.setTitle("프로필 사진 변경").setNegativeButton(R.string.common_cancel, null)
-                .setItems(str, (dialog, which) -> {
+        builder.setTitle(R.string.set_profile_image).setNegativeButton(R.string.common_cancel, null)
+                .setItems(R.array.photo_select, (dialog, which) -> {
                     switch (which) {
                         // 사직 찍기
                         case PICK_FROM_CAMERA:
@@ -283,17 +276,17 @@ public class ProfileMain extends BaseActivity {
         {
             if(!mUser.Value.OCM_03.equals(etOldPwd.getText().toString())){
                 etOldPwd.requestFocus();
-                Toast.makeText(mActivity, "현재 비밀번호가 맞지 않습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, R.string.login_1, Toast.LENGTH_SHORT).show();
                 return false;
             }
             if(etNewPwd1.getText().toString().length() == 0){
                 etNewPwd1.requestFocus();
-                Toast.makeText(mActivity, "수정 할 비밀번호를 입력해 주세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, R.string.placeholder_profile_pwd1, Toast.LENGTH_SHORT).show();
                 return false;
             }
             if(!etNewPwd1.getText().toString().equals(etNewPwd2.getText().toString())){
                 etNewPwd1.requestFocus();
-                Toast.makeText(mActivity, "입력된 비밀번호가 일치하지 않습니다.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mActivity, R.string.login_1, Toast.LENGTH_SHORT).show();
                 return false;
             }
         } else if (GUB.equals("UPDATE")) {
@@ -310,7 +303,7 @@ public class ProfileMain extends BaseActivity {
 
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
-            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.common_network_error, Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -389,7 +382,7 @@ public class ProfileMain extends BaseActivity {
                     storageRef = storage.getReferenceFromUrl(FIREBASE_URL).child("profile" + "/" + mUser.Value.OCM_01 + "/" + mUser.Value.OCM_52);
                     storageRef.delete();
                     mUser.Value.OCM_52 = "";
-                    Toast.makeText(mActivity, "이미지가 변경 되었습니다.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, R.string.common_updated, Toast.LENGTH_SHORT).show();
                     break;
             }
         }
@@ -432,7 +425,7 @@ public class ProfileMain extends BaseActivity {
         try {
             tempFile = createImageFile();
         } catch (IOException e) {
-            Toast.makeText(this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.alert_image_error1, Toast.LENGTH_SHORT).show();
             finish();
             e.printStackTrace();
         }
@@ -465,7 +458,7 @@ public class ProfileMain extends BaseActivity {
     private void uploadFile(){
         if(filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
-            progressDialog.setTitle("업로드중...");
+            progressDialog.setTitle(R.string.common_uploading);
             progressDialog.show();
 
             //storage 주소와 폴더 파일명을 지정해 준다.
@@ -481,7 +474,7 @@ public class ProfileMain extends BaseActivity {
                                 @Override
                                 public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                                     progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-                                    Toast.makeText(getApplicationContext(), "이미지가 변경 되었습니다.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), R.string.common_updated, Toast.LENGTH_SHORT).show();
                                 }
                             })
                             //실패시
@@ -489,7 +482,7 @@ public class ProfileMain extends BaseActivity {
                                 @Override
                                 public void onFailure(@NonNull Exception e) {
                                     progressDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), "이미지 변경에 실패하였습니다.", Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(getApplicationContext(), R.string.alert_image_error1, Toast.LENGTH_SHORT).show();
                                 }
                             })
                             //진행중
@@ -506,7 +499,7 @@ public class ProfileMain extends BaseActivity {
             });
 
         } else {
-            Toast.makeText(this, "파일을 찾을 수 없습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.common_file_notfound, Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -521,7 +514,7 @@ public class ProfileMain extends BaseActivity {
             try {
                 tempFile = createImageFile();
             } catch (IOException e) {
-                Toast.makeText(this, "이미지 처리 오류! 다시 시도해주세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, R.string.alert_image_error1, Toast.LENGTH_SHORT).show();
                 finish();
                 e.printStackTrace();
             }
@@ -547,7 +540,6 @@ public class ProfileMain extends BaseActivity {
         File storageDir = new File(getExternalFilesDir(null).getAbsolutePath() + "/linktag/");
         if (!storageDir.exists()) storageDir.mkdirs();
 
-//        System.out.println("!!!!!!!!!!!!!!!!!!!!!" + storageDir.getName());
         // 빈 파일 생성
         File image = File.createTempFile(imageFileName, ".jpg", storageDir);
 
@@ -583,11 +575,11 @@ public class ProfileMain extends BaseActivity {
 
         if (resultCode != RESULT_OK) {
             System.out.println("########### NOT RESULT_OK");
-            Toast.makeText(this, "취소 되었습니다.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, R.string.common_canceled, Toast.LENGTH_SHORT).show();
 
             if (tempFile != null) {
                 if (tempFile.delete()) {
-                    Toast.makeText(this, "삭제 성공.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(this, R.string.common_deleted, Toast.LENGTH_SHORT).show();
                     tempFile = null;
                 }
             }

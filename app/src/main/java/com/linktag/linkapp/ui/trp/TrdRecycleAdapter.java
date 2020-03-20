@@ -81,9 +81,9 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
         hourOfDay = Integer.parseInt(mList.get(position).TRD_96.substring(8, 10));
         if (hourOfDay > 12) {
             hourOfDay -= 12;
-            am_pm = "오후";
+            am_pm = mContext.getString(R.string.trp_Pm);
         } else {
-            am_pm = "오전";
+            am_pm = mContext.getString(R.string.trp_Am);
         }
         String minute = mList.get(position).TRD_96.substring(10);
 
@@ -100,7 +100,7 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
 
                 requestTRD_CONTROL(trdVO, position);
 
-                requestLOG_CONTROL("2","알림삭제 "+ am_pm+ hourOfDay +":" +minute);
+                requestLOG_CONTROL("2",mContext.getString(R.string.trp_Alarm_delete) + " " + am_pm+ hourOfDay +":" +minute);
 
 
             }
@@ -112,7 +112,7 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
     private void requestLOG_CONTROL(String LOG_03, String LOG_04){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
-            Toast.makeText(mContext, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, mContext.getString(R.string.common_network_error), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -188,7 +188,7 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
                             mList = response.body().Data;
                             if (mList == null)
                                 mList = new ArrayList<>();
-                            DetailTrp.tv_alarmCnt.setText("("+mList.size()+"건)");
+                            DetailTrp.tv_alarmCnt.setText("("+mList.size()+")");
                             if(mList.size()==0){
                                 tv_alarmLabel.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);

@@ -143,18 +143,18 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
             public void onClick(View view) {
 
                 if (viewHolder.filteredmlist_trd.size() == 0) {
-                    Toast.makeText(mContext, "지정된 알림이 없습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, mContext.getString(R.string.common_no_alarm_toast), Toast.LENGTH_LONG).show();
                     return;
                 }
 
                 if (filteredmlist.get(position).ARM_03.equals("Y")) {
                     filteredmlist.get(position).setARM_03("N");
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-                    Toast.makeText(mContext, "[" + filteredmlist.get(position).TRP_02 + "]- 알림 OFF", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "[" + filteredmlist.get(position).TRP_02 + "]- " +mContext.getString(R.string.common_alarm_off) , Toast.LENGTH_SHORT).show();
                 } else {
                     filteredmlist.get(position).setARM_03("Y");
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + filteredmlist.get(position).TRP_02 + "]- 알림 ON", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "[" + filteredmlist.get(position).TRP_02 + "]- " + mContext.getString(R.string.common_alarm_on), Toast.LENGTH_SHORT).show();
                 }
 
 //                ArmVO armVO = new ArmVO();
@@ -262,24 +262,24 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
         String result_Weeks = "";
         array_pattern = pattern.split("");
         if (pattern.equals("YYYYYYY")) {
-            result_Weeks = "매일";
+            result_Weeks = mContext.getString(R.string.trp_Everyday);
             return result_Weeks;
         } else {
             for (int i = 0; i < array_pattern.length; i++) {
                 if (array_pattern[i].equals("Y") && i == 1) {
-                    result_Weeks += "일 ";
+                    result_Weeks += mContext.getString(R.string.trp_Sun) +" ";
                 } else if (array_pattern[i].equals("Y") && i == 2) {
-                    result_Weeks += "월 ";
+                    result_Weeks += mContext.getString(R.string.trp_Mon) +" ";
                 } else if (array_pattern[i].equals("Y") && i == 3) {
-                    result_Weeks += "화 ";
+                    result_Weeks += mContext.getString(R.string.trp_Tue) +" ";
                 } else if (array_pattern[i].equals("Y") && i == 4) {
-                    result_Weeks += "수 ";
+                    result_Weeks += mContext.getString(R.string.trp_Wed) +" ";
                 } else if (array_pattern[i].equals("Y") && i == 5) {
-                    result_Weeks += "목 ";
+                    result_Weeks += mContext.getString(R.string.trp_Thu) +" ";
                 } else if (array_pattern[i].equals("Y") && i == 6) {
-                    result_Weeks += "금 ";
+                    result_Weeks += mContext.getString(R.string.trp_Fri) +" ";
                 } else if (array_pattern[i].equals("Y") && i == 7) {
-                    result_Weeks += "토 ";
+                    result_Weeks += mContext.getString(R.string.trp_Sat) +" ";
                 }
             }
         }
