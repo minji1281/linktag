@@ -15,6 +15,12 @@
             <enum name="invisible" value="0x00000004" />
             <enum name="gone" value="0x00000008" />
         </attr>
+        <attr name="title_image" format="reference|string" />
+        <attr name="title_image_visibility" format="enum">
+            <enum name="visible" value="0x00000000" />
+            <enum name="invisible" value="0x00000004" />
+            <enum name="gone" value="0x00000008" />
+        </attr>
         <attr name="btn_text_text" format="reference|string" />        
         <attr name="btn_text_visibility" format="enum">
             <enum name="visible" value="0x00000000" />

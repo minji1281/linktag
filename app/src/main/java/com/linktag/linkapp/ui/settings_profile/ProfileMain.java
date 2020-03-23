@@ -49,7 +49,6 @@ import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.settings.SettingsKey;
-import com.linktag.base.util.ClsImage;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
 import com.soundcloud.android.crop.Crop;

@@ -80,7 +80,6 @@ public class AlarmListAdapter extends BaseAdapter {
 
      //   viewHolder.tvUserName.setText(mList.get(position).DSH_01);
         int resource = convertView.getResources().getIdentifier("service_" + mList.get(position).ARM_0101.toLowerCase() , "drawable", mContext.getPackageName());
-System.out.println("@@@@@@@@@ : " + resource);
         viewHolder.tv_calenType.setImageResource(resource);
 
 //        if (mList.get(position).ARM_0101.substring(0,3).equals("POT")){         // 화분

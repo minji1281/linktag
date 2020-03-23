@@ -7,6 +7,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.res.TypedArray;
 import android.graphics.Color;
+import android.graphics.drawable.Drawable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
@@ -15,6 +16,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -39,6 +41,7 @@ public class BaseHeader extends LinearLayout {
     // 텍스트 타이틀(기본)
     public TextView tvHeaderTitle;
     public TextView tvHeaderTitle2;
+    public ImageView ivHeaderTitle;
     // 왼쪽 버튼 (Back)
     public ImageButton btnHeaderLeft;
     // 오른쪽1 버튼
@@ -99,6 +102,9 @@ public class BaseHeader extends LinearLayout {
         // 타이틀 text2 설정
         tvHeaderTitle2.setText(typedArray.getString(R.styleable.BaseHeader_title_text2));
         tvHeaderTitle2.setVisibility(typedArray.getInt(R.styleable.BaseHeader_title_text2_visibility, View.GONE));
+
+        // 타이틀 이미지 설정
+        ivHeaderTitle.setVisibility(typedArray.getInt(R.styleable.BaseHeader_title_image_visibility, View.GONE));
 
         // 왼쪽 버튼 visibility 설정
         btnHeaderLeft.setVisibility(typedArray.getInt(R.styleable.BaseHeader_btn_left_visibility, View.VISIBLE));
@@ -183,6 +189,7 @@ public class BaseHeader extends LinearLayout {
         layoutHeader = (LinearLayout) v.findViewById(R.id.layoutHeader);
         tvHeaderTitle = (TextView) v.findViewById(R.id.tvHeaderTitle);
         tvHeaderTitle2 = (TextView) v.findViewById(R.id.tvHeaderTitle2);
+        ivHeaderTitle = (ImageView) v.findViewById(R.id.ivHeaderTitle);
 
         btnHeaderLeft = (ImageButton) v.findViewById(R.id.btnHeaderLeft);
         btnHeaderRight1 = (ImageButton) v.findViewById(R.id.btnHeaderRight1);

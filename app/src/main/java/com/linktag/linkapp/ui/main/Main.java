@@ -4,6 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
@@ -66,6 +67,10 @@ public class Main extends BaseActivity {
     @Override
     protected void initLayout() {
         header = findViewById(R.id.header);
+        header.layoutHeader.setBackgroundColor(getResources().getColor(R.color.header_background));
+        header.ivHeaderTitle.setVisibility(View.VISIBLE);
+
+//        header.tvHeaderTitle.setTextColor(Color.WHITE);
 
         footer = findViewById(R.id.footer);
         footer.btnFooterHome.setSelected(true);
@@ -154,11 +159,13 @@ public class Main extends BaseActivity {
         switch (viewPager.getCurrentItem()) {
             case TAB_PAGE_HOME:
                 footer.btnFooterHome.setSelected(true);
-                header.tvHeaderTitle.setText(R.string.home_01);
+//                header.tvHeaderTitle.setText(R.string.home_01);
+//                header.tvHeaderTitle.setText("LINK TAG");
                 break;
             case TAB_PAGE_CALENDAR:
                 footer.btnFooterCalendar.setSelected(true);
-                header.tvHeaderTitle.setText(R.string.home_02);
+//                header.tvHeaderTitle.setText(R.string.home_02);
+//                header.tvHeaderTitle.setText("LINK TAG");
                 break;
         }
     }
