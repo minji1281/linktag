@@ -394,6 +394,12 @@ public class DetailTrp extends BaseActivity {
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
+                if( ed_name.getText().equals("")){
+                    Toast.makeText(mContext,getString(R.string.validation_check1),Toast.LENGTH_LONG).show();
+                    return;
+                }
+                
                 trpVO.setTRP_05(map_count.get(sp_count.getSelectedItem()));
                 trpVO.setTRP_06(map_timing.get(sp_timing.getSelectedItem()));
 

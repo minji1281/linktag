@@ -3,19 +3,15 @@ package com.linktag.linkapp.ui.settings_main;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.ComponentName;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
-import android.content.res.TypedArray;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
@@ -24,6 +20,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
+import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.settings.SettingsKey;
 import com.linktag.base.util.BaseAlert;
@@ -44,11 +41,13 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class Preference extends BaseActivity {
+public class Settings extends BaseActivity {
     //===================================
     // Layout
     //===================================
 //    private Switch swIsOnline;
+    private BaseHeader header;
+
     private Switch swIsNotice;
     private RelativeLayout layLanguage;
     private TextView tvLanguage;
@@ -74,7 +73,7 @@ public class Preference extends BaseActivity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_preference);
+        setContentView(R.layout.activity_settings);
 
         initLayout();
 
@@ -85,6 +84,9 @@ public class Preference extends BaseActivity {
 
     @Override
     protected void initLayout() {
+        header = findViewById(R.id.header);
+        header.btnHeaderLeft.setOnClickListener(v -> finish());
+
 //        swIsOnline = findViewById(R.id.swIsOnline);
 //        swIsOnline.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
 //            @Override
@@ -156,7 +158,7 @@ public class Preference extends BaseActivity {
 
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
-        alertDialogBuilder.setTitle("언어 설정");
+        alertDialogBuilder.setTitle(R.string.setting_07);
         alertDialogBuilder.setSingleChoiceItems(R.array.language_name, lan_index,
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -164,9 +166,9 @@ public class Preference extends BaseActivity {
                         if(lan_index != index){
 
                             AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-                            builder.setMessage("변경 후 앱이 재시작 됩니다.\n진행 하시겠습니까?");
+                            builder.setMessage(R.string.alert_lan_change1);
                             builder.setCancelable(true);
-                            builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+                            builder.setPositiveButton(R.string.common_yes, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog2, int id) {
                                     setLanguage(index);
@@ -174,7 +176,7 @@ public class Preference extends BaseActivity {
                                     dialog2.dismiss();
                                 }
                             });
-                            builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+                            builder.setNegativeButton(R.string.common_no, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog2, int id) {
                                     dialog2.dismiss();
@@ -204,7 +206,7 @@ public class Preference extends BaseActivity {
 
         // 언어 변경
         Locale locale = new Locale(lan_code[index]);
-        System.out.println("@@@@@@@@@@@ :" + locale.getDisplayName());
+        //System.out.println("@@@@@@@@@@@ :" + locale.getDisplayName());
         Configuration config = new Configuration();
         config.locale = locale;
 
@@ -240,7 +242,7 @@ public class Preference extends BaseActivity {
     private void requestOCM_CONTROL(boolean checked){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
-            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.common_network_error, Toast.LENGTH_SHORT).show();
             return;
         }
 

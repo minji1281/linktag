@@ -4,8 +4,6 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
-import android.content.res.Resources;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
@@ -47,6 +45,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -135,8 +134,8 @@ public class CadDetail extends BaseActivity {
 
         spGub1 = (Spinner) findViewById(R.id.spGub1);
         ArrayList arrayList1 = new ArrayList();
-        arrayList1.add("교체");
-        arrayList1.add("점검");
+        arrayList1.add(mContext.getString(R.string.cad_detail_replace));
+        arrayList1.add(mContext.getString(R.string.cad_detail_check));
         ArrayAdapter arrayAdapter1 = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_detail_item, arrayList1);
         spGub1.setAdapter(arrayAdapter1);
         spGub1.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -151,8 +150,8 @@ public class CadDetail extends BaseActivity {
         });
         spGub2 = (Spinner) findViewById(R.id.spGub2);
         ArrayList arrayList2 = new ArrayList();
-        arrayList2.add("셀프");
-        arrayList2.add("카센터");
+        arrayList2.add(mContext.getString(R.string.cad_detail_self));
+        arrayList2.add(mContext.getString(R.string.cad_detail_shop));
         ArrayAdapter arrayAdapter2 = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_detail_item, arrayList2);
         spGub2.setAdapter(arrayAdapter2);
         spGub2.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
@@ -242,7 +241,7 @@ public class CadDetail extends BaseActivity {
 
     private void getNewData(){
         //초기값
-        CAD.CAD_04 = "선택";
+        CAD.CAD_04 = mContext.getString(R.string.cad_detail_select);
         CAD.CAD_02 = "";
 
         CAD.CAD_07 = 0;
@@ -313,10 +312,10 @@ public class CadDetail extends BaseActivity {
                                 Period diff = Period.between(oldDate, now);
                                 String gapText = "";
                                 if(diff.getMonths() > 0){
-                                    gapText += diff.getMonths() + "개월 ";
+                                    gapText += diff.getMonths() + mContext.getString(R.string.dialog_cycle_month) + " ";
                                 }
                                 if(diff.getDays() > 0){
-                                    gapText += diff.getDays() + "일 경과";
+                                    gapText += diff.getDays() + mContext.getString(R.string.dialog_cycle_day) + " " + mContext.getString(R.string.cad_detail_later);
                                 }
 
                                 tvPreDayGap.setText(gapText);
@@ -426,15 +425,17 @@ public class CadDetail extends BaseActivity {
     public boolean validationCheck(){
         boolean check = true;
 
-        if(CAD.CAD_04.equals("선택")){
+        if(CAD.CAD_04.equals(mContext.getString(R.string.cad_detail_select))){
             check = false;
-            Toast.makeText(mActivity, "내역을 선택해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.cad_validation_check1, Toast.LENGTH_SHORT).show();
         }
 
         return check;
     }
 
     private void dayDialog(){
+        Locale locale = getResources().getConfiguration().locale;
+        Locale.setDefault(locale);
         DatePickerDialog dialog = new DatePickerDialog(mActivity, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int date) {
@@ -513,7 +514,7 @@ public class CadDetail extends BaseActivity {
             @Override
             public void onClick(View v){
                 if(etCadName.getText().toString().equals("")){
-                    Toast.makeText(mActivity, "내역을 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, R.string.cad_validation_check1, Toast.LENGTH_SHORT).show();
                 }
                 else{
                     CAD.CAD_04 = etCadName.getText().toString();
@@ -584,7 +585,7 @@ public class CadDetail extends BaseActivity {
                     requestCAD_CONTROL("DELETE");
                 }
                 else{
-                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, R.string.dialog_delete_check_text, Toast.LENGTH_SHORT).show();
                 }
             }
         });

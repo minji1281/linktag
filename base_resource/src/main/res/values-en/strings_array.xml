@@ -166,4 +166,46 @@
         <item></item>
     </string-array>
 
+    <!-- 차량 -->
+    <string-array name="cad">
+        <item>Engine oil</item>
+        <item>Transmission fluid</item>
+        <item>Brake oil</item>
+        <item>Clutch oil</item>
+        <item>Power steering oil</item>
+        <item>Transmission oil</item>
+        <item>Reference oil</item>
+        <item>Coolant</item>
+        <item>Oil filter</item>
+        <item>Fuel filter</item>
+        <item>Fuel filter heater</item>
+        <item>Cabin filter </item>
+        <item>Air filter</item>
+        <item>Tire Position Replacement</item>
+        <item>Tire replacement</item>
+        <item>Tire pressure</item>
+        <item>Brake lining</item>
+        <item>Brake pad</item>
+        <item>Wheel balance</item>
+        <item>Wheel alignment</item>
+        <item>Battery</item>
+        <item>Power belt</item>
+        <item>Timing belt</item>
+        <item>Drive belt</item>
+        <item>Spark plug</item>
+        <item>Spark plug cable</item>
+        <item>Wiper</item>
+        <item>Water pumps</item>
+        <item>Clutch disc bearing</item>
+        <item>Intake cleaning</item>
+        <item>Fuel injector</item>
+        <item>Headlight</item>
+        <item>Brake light</item>
+        <item>Oxygen sensor</item>
+        <item>Canister</item>
+        <item>Check and Replenish Air Conditioning Gas</item>
+        <item>Service</item>
+        <!--        <item>etc</item>-->
+    </string-array>
+
 </resources>

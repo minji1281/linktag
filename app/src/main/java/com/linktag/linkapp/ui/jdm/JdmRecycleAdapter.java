@@ -37,6 +37,7 @@ import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
 import com.linktag.linkapp.value_object.ArmVO;
 import com.linktag.linkapp.value_object.JdmVO;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -179,7 +180,8 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
             aCalendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(dayOfMonth));
 
             int count = (int) ((calendar.getTimeInMillis() - aCalendar.getTimeInMillis()) / (24 * 60 * 60 * 1000));
-            viewHolder.tv_D_day.setText(String.valueOf(count));
+            DecimalFormat format = new DecimalFormat("###,###");
+            viewHolder.tv_D_day.setText(format.format(count));
 
         }
         viewHolder.tv_name.setText(filteredmlist.get(position).JDM_02);

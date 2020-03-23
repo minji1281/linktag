@@ -38,9 +38,10 @@
             android:layout_marginLeft="10dp"
             android:background="@drawable/btn_round_black_non_back"
             android:gravity="center_vertical|center"
+            android:textAllCaps="false"
             android:textColor="@color/listitem_text1"
             android:textSize="@dimen/text_small"
-            android:text="@string/cod_list_cos_edit"/>
+            android:text="@string/list_edit"/>
 
     </LinearLayout>
 
@@ -58,7 +59,7 @@
             android:layout_height="match_parent"
             android:gravity="center_vertical|left"
             android:paddingLeft="10dp"
-            android:text="@string/cod_list_cos_empty"/>
+            android:text="@string/list_parent_empty"/>
 
     </LinearLayout>
 

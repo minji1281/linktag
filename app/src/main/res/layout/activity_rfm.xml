@@ -116,16 +116,18 @@
                 android:layout_marginBottom="20dp"
                 android:src="@drawable/btnadd" />
 
+            <TextView
+                android:id="@+id/empty"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="16dp"
+                android:gravity="center|center_vertical"
+                android:text="@string/list_empty"
+                android:textSize="@dimen/text_normal"
+                android:visibility="gone"/>
+
         </FrameLayout>
 
-<!--        <TextView-->
-<!--            android:id="@+id/empty"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_margin="16dp"-->
-<!--            android:gravity="center|center_vertical"-->
-<!--            android:text="조회된 정보가 없습니다."-->
-<!--            android:textSize="@dimen/text_normal" />-->
 
     </LinearLayout>
 

@@ -104,6 +104,11 @@ public class DetailRfm extends BaseActivity {
             @Override
             public void onResponse(Call<RFMModel> call, Response<RFMModel> response) {
 
+                if(ed_name.getText().equals("")){
+                    Toast.makeText(mContext,getString(R.string.validation_check1),Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 if(GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")){
                     CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, rfmVO.RFM_01);
                     ctds_control.requestCTDS_CONTROL();

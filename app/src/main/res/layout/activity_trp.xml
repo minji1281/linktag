@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/list_back"
+    android:orientation="vertical"
     tools:context=".ui.frm.FrmList">
 
     <com.linktag.base.base_header.BaseHeader
@@ -23,8 +23,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="15dp"
             android:layout_marginEnd="20dp"
             android:layout_marginBottom="10dp"
             android:background="@drawable/shape_search_edit"
@@ -41,40 +41,46 @@
                 android:id="@+id/ed_search"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/list_search_hint"
-                android:textSize="@dimen/text_normal"
-                android:singleLine="true"
                 android:background="@null"
-                android:maxLength="20"
                 android:gravity="center_vertical|left"
+                android:hint="@string/list_search_hint"
+                android:maxLength="20"
                 android:paddingLeft="10dp"
-                android:paddingRight="10dp" />
+                android:paddingRight="10dp"
+                android:singleLine="true"
+                android:textSize="@dimen/text_normal" />
         </LinearLayout>
 
-        <android.support.v4.widget.SwipeRefreshLayout
-            android:id="@+id/swipeRefresh"
+        <FrameLayout
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            tools:context=".ui.jdm.JDMMain">
+            android:layout_height="match_parent">
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recyclerView"
+            <android.support.v4.widget.SwipeRefreshLayout
+                android:id="@+id/swipeRefresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/list_back"
-                tools:listitem="@layout/listitem_trp_list" />
+                tools:context=".ui.jdm.JDMMain">
 
-        </android.support.v4.widget.SwipeRefreshLayout>
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@color/list_back"
+                    tools:listitem="@layout/listitem_trp_list" />
 
-<!--        <TextView-->
-<!--            android:id="@+id/empty"-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent"-->
-<!--            android:layout_margin="16dp"-->
-<!--            android:gravity="center|center_vertical"-->
-<!--            android:text="조회된 정보가 없습니다."-->
-<!--            android:textSize="@dimen/text_normal" />-->
+                <TextView
+                    android:id="@+id/empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/list_empty"
+                    android:textSize="@dimen/text_normal"
+                    android:visibility="gone"/>
+
+            </android.support.v4.widget.SwipeRefreshLayout>
+
+        </FrameLayout>
 
     </LinearLayout>
 

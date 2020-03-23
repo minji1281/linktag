@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.base.util.ClsAES;
+import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
@@ -66,7 +67,7 @@ public class ScanResult {
         if(validation){
             requestCTD_SELECT(scanCode);
         } else {
-            Toast.makeText(mContext, "유효하지 않은 코드 입니다.", Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, R.string.alert_scan_error1, Toast.LENGTH_LONG).show();
         }
     }
 
@@ -111,12 +112,12 @@ public class ScanResult {
     }
 
     private void callBack(CTD_Model model, String scanCode){
-        System.out.println("###############");
-        System.out.println(scanCode);
+//        System.out.println("###############");
+//        System.out.println(scanCode);
         if(model.Data.get(0).Validation){
 
             if (model.Data.get(0).ErrorCode.equals("002")) {
-                Toast.makeText(mContext, " 사용중인 코드 입니다.", Toast.LENGTH_LONG).show();
+                Toast.makeText(mContext, R.string.alert_scan_error2, Toast.LENGTH_LONG).show();
             } else {
                 // Detail
                 // Detail 조회 페이지 이동
@@ -126,16 +127,6 @@ public class ScanResult {
         } else {
             // New
             // 선택 페이지 이동
-
-            /*
-            if(intentVO == null){
-
-            } else {
-
-            }
-
-
-             */
             Intent intent = new Intent(mContext, ChooseOne.class);
             intent.putExtra("type", "SCAN");
             intent.putExtra("scanCode", scanCode);

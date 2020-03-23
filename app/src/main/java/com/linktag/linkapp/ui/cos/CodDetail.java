@@ -34,6 +34,7 @@ import com.linktag.linkapp.value_object.CtdVO;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.BindView;
 import retrofit2.Call;
@@ -287,9 +288,9 @@ public class CodDetail extends BaseActivity {
             tvDDAY.setVisibility(View.GONE);
             lineDDAY.setVisibility(View.GONE);
             tvDayLabel.setVisibility(View.GONE);
-            tvUseEndLabel.setText("사용시작");
+            tvUseEndLabel.setText(R.string.cod_detail_start_button);
             imgUseEnd.setImageResource(R.drawable.btn_round_skyblue_50dp);
-            tvUseEndDayLabel.setText("사용종료 : " + COD.COD_07.substring(0,4)+"."+COD.COD_07.substring(4,6)+"."+COD.COD_07.substring(6));
+            tvUseEndDayLabel.setText(mContext.getString(R.string.cod_detail_endday_text) + "\n" + COD.COD_07.substring(0,4)+"."+COD.COD_07.substring(4,6)+"."+COD.COD_07.substring(6));
         }
     }
 
@@ -302,6 +303,7 @@ public class CodDetail extends BaseActivity {
         int month = COD_06_C.get(Calendar.MONTH) + 1;
         int day = COD_06_C.get(Calendar.DATE);
         COD.COD_06 = String.valueOf(year) + (month<10 ? "0" + String.valueOf(month) : String.valueOf(month)) + (day<10 ? "0" + String.valueOf(day) : String.valueOf(day));
+        COD.COD_05 = COD.COD_06; //오늘일자로!
         COD.COD_07 = "";
         COD.COD_96 = "1200";
     }
@@ -376,8 +378,9 @@ public class CodDetail extends BaseActivity {
 
                             if(GUB.equals("INSERT") || GUB.equals("UPDATE") || GUB.equals("USESTART")){
                                 if(COD.ARM_03.equals("Y")){
-                                    Toast.makeText(mContext,"다음알람 "+ COD.COD_06.substring(0,4)+"년 " + COD.COD_06.substring(4,6)+"월 "+ COD.COD_06.substring(6,8)+"일 " +
-                                            COD.COD_96.substring(0,2)+"시 " + COD.COD_96.substring(2,4)+"분 예정입니다.", Toast.LENGTH_LONG ).show();
+                                    String NextDay = COD.COD_06;
+                                    Toast.makeText(mContext,mContext.getString(R.string.dialog_alarm_toast_text) + " " + NextDay.substring(0,4)+"." + NextDay.substring(4,6)+"."+ NextDay.substring(6,8)+" " +
+                                            COD.COD_96.substring(0,2)+":" + COD.COD_96.substring(2,4), Toast.LENGTH_LONG ).show();
                                 }
                             }
 
@@ -433,6 +436,8 @@ public class CodDetail extends BaseActivity {
     }
 
     private void endDayDialog(){
+        Locale locale = getResources().getConfiguration().locale;
+        Locale.setDefault(locale);
         DatePickerDialog dialog = new DatePickerDialog(mActivity, new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int date) {
@@ -483,7 +488,7 @@ public class CodDetail extends BaseActivity {
                     requestCOD_CONTROL("DELETE");
                 }
                 else{
-                    Toast.makeText(mActivity, "명칭을 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, R.string.dialog_delete_check_text, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -522,16 +527,16 @@ public class CodDetail extends BaseActivity {
         boolean check = true;
         if(etName.getText().toString().equals("")){
             check = false;
-            Toast.makeText(mActivity, "명칭을 입력해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.cod_validation_check1, Toast.LENGTH_SHORT).show();
         }
         else if(COD.COD_06.equals("")){
             check = false;
-            Toast.makeText(mActivity, "유효기간을 입력하세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, R.string.cod_validation_check2, Toast.LENGTH_SHORT).show();
         }
         else if(COD_06_C.compareTo(COD_05_C) <= 0){
             check = false;
             String COD_05_T = COD.COD_05.substring(0,4)+"."+COD.COD_05.substring(4,6)+"."+COD.COD_05.substring(6);
-            Toast.makeText(mActivity, "유효기간은 사용시작일자(" + COD_05_T + ") 이후로 설정 해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mActivity, mContext.getString(R.string.cod_validation_check3) + " " + mContext.getString(R.string.cod_detail_startday_text) + " : " + COD_05_T, Toast.LENGTH_SHORT).show();
         }
         return check;
     }

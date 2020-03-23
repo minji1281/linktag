@@ -44,6 +44,7 @@ import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.LogVO;
 
+import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -374,6 +375,11 @@ public class DetailJdm extends BaseActivity {
             @Override
             public void onClick(View view) {
 
+                if( ed_name.getText().equals("")){
+                    Toast.makeText(mContext,getString(R.string.validation_check1),Toast.LENGTH_LONG).show();
+                    return;
+                }
+
                 jdmVO.setJDM_05(map_size.get(sp_size.getSelectedItem()));
                 jdmVO.setJDM_04(tv_datePicker.getText().toString().replace(".", ""));
                 if (getIntent().hasExtra("scanCode")) {
@@ -605,12 +611,13 @@ public class DetailJdm extends BaseActivity {
 
     private void startCountAnimation(int count) {
 
+        DecimalFormat format = new DecimalFormat("###,###");
         ValueAnimator animator = ValueAnimator.ofInt(0, count); //0 is min number, 600 is max number
         animator.setDuration(500); //Duration is in milliseconds
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
 
-                tv_D_day.setText(animation.getAnimatedValue().toString());
+                tv_D_day.setText(format.format(animation.getAnimatedValue()).toString());
             }
         });
 

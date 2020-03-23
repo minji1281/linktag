@@ -2,7 +2,6 @@ package com.linktag.linkapp.ui.car;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -343,7 +342,7 @@ public class CadList extends BaseActivity {
                 }
 
                 if(GUBUN.equals("DELETE")){
-                    CAR.CAR_01 = ""; //굳이 할 필요 없을라나...
+                    CAR.CAR_01 = "";
                     mList.clear();
                     mAdapter.updateData(mList);
                     mAdapter.notifyDataSetChanged();
@@ -413,7 +412,7 @@ public class CadList extends BaseActivity {
         Button btnSave = (Button) view.findViewById(R.id.btnSave);
         Button btnDelete = (Button) view.findViewById(R.id.btnDelete);
         if(GUBUN.equals("INSERT")){
-            btnDelete.setText("취소");
+            btnDelete.setText(R.string.onCancel);
             btnDelete.setTextColor(Color.GRAY);
         }
 
@@ -465,8 +464,8 @@ public class CadList extends BaseActivity {
         TextView tvDeleteText = (TextView) view.findViewById(R.id.tvDeleteText);
         EditText etDeleteName = (EditText) view.findViewById(R.id.etDeleteName);
 
-        tvDeleteText.setText("해당 차량의 모든 내역이 함께 삭제됩니다.\n삭제하시려면 차량번호를 다시 입력해주세요.");
-        etDeleteName.setHint("차량번호 입력란입니다.");
+        tvDeleteText.setText(R.string.car_delete_text);
+        etDeleteName.setHint(R.string.car_carnum_hint);
 
         AlertDialog dialogDelete = builder.create();
 
@@ -478,7 +477,7 @@ public class CadList extends BaseActivity {
                     dialog.dismiss();
                 }
                 else{
-                    Toast.makeText(mActivity, "차량번호를 정확하게 다시 입력해주세요.", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, R.string.car_delete_name_check, Toast.LENGTH_SHORT).show();
                 }
             }
         });

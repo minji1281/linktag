@@ -349,15 +349,15 @@ public class HomeFragment extends BaseFragment {
             changeActivityCls.changeService();
         } else if (BMK_STATE == BMK_STATE_DELETE){
             AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
-            builder.setMessage("선택한 즐겨찾기를 삭제 하시겠습니까?");
+            builder.setMessage(R.string.alert_bookmark1);
             builder.setCancelable(true);
-            builder.setPositiveButton("예", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.common_yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
                     requestBMK_CONTROL(mList.get(position));
                 }
             });
-            builder.setNegativeButton("아니오", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.common_no, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
                 }
@@ -367,8 +367,6 @@ public class HomeFragment extends BaseFragment {
     }
 
     public void requestDSH_SELECT() {
-
-        System.out.println("$$$$$$$$$$$$$$$됐다 됐다 잘 됐다.");
         // 인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             BaseAlert.show(getString(R.string.common_network_error));
@@ -378,7 +376,6 @@ public class HomeFragment extends BaseFragment {
      //   openLoadingBar();
 
         String strToday = ClsDateTime.getNow("yyyyMMdd");
-
 
         Call<DSHModel> call = Http.commute(HttpBaseService.TYPE.POST).DSH_SELECT(
                 BaseConst.URL_HOST,

@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.linktag.base.base_activity.BaseActivity;
@@ -56,6 +57,7 @@ public class JDMMain extends BaseActivity {
     private CtdVO intentVO;
 
     private EditText ed_search;
+    private TextView empty;
 
     private Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
@@ -114,6 +116,7 @@ public class JDMMain extends BaseActivity {
         recyclerView = view.findViewById(R.id.recyclerView);
 
         ed_search = findViewById(R.id.ed_search);
+        empty = findViewById(R.id.empty);
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
 
@@ -200,6 +203,13 @@ public class JDMMain extends BaseActivity {
                             mList = response.body().Data;
                             if (scancode.equals("")) {
                                 if (mList == null) mList = new ArrayList<>();
+
+                                if(mList.size() ==0){
+                                    empty.setVisibility(View.VISIBLE);
+                                }
+                                else{
+                                    empty.setVisibility(View.GONE);
+                                }
 
                                 mAdapter.updateData(mList);
                                 mAdapter.notifyDataSetChanged();
