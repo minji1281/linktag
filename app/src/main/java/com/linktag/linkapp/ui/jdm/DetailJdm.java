@@ -481,6 +481,7 @@ public class DetailJdm extends BaseActivity {
 
                 Intent intent = new Intent(mContext, MasterLog.class);
                 intent.putExtra("LOG", LOG);
+                intent.putExtra("func_text", getString(R.string.jdm_text7));
 
                 mContext.startActivity(intent);
             }
