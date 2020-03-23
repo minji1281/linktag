@@ -10,7 +10,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="@string/setting_04">
+        app:title_text="@string/settings_title">
 
     </com.linktag.base.base_header.BaseHeader>
 
@@ -176,7 +176,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:background="@color/white"
                 android:orientation="vertical"
                 android:padding="15dp">

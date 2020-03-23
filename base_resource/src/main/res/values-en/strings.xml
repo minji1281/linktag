@@ -11,6 +11,14 @@
     <string name="sign_up_0">Sign Up</string>
     <string name="sign_up_1">Forgot your ID &amp; PASSWORD</string>
     <string name="sign_up_2">Sign up is complete. Please log in again.</string>
+    <string name="sign_up_3">NAME</string>
+    <string name="sign_up_4">NAME</string>
+    <string name="sign_up_5">E-MAIL</string>
+    <string name="sign_up_6">ID(E-MAIL)</string>
+    <string name="sign_up_7">PASSWORD</string>
+    <string name="sign_up_8">PASSWORD CHECK</string>
+    <string name="sign_up_9">PHONE NUMBER</string>
+    <string name="sign_up_10">SIGN UP</string>
 
     <string name="login_0">E-mail not found.</string>
     <string name="login_1">Passwords do not match.</string>
@@ -55,14 +63,6 @@
     <string name="dash_09">Contents</string>
     <string name="dash_10">Please enter a subject line.</string>
     <string name="dash_11">Please enter the content.</string>
-
-    <!-- 로그인 설명 -->
-    <string name="title_name">Cloud platform</string>
-    <string name="login_hint1">Enter your mobile number</string>
-    <string name="login_hint2">Enter Password</string>
-    <string name="login_hint3">Save ID</string>
-    <string name="login_hint4">Auto-Login</string>
-    <string name="login_btn1">Login</string>
     <string name="dash_12">Delete</string>
     <string name="dash_13">[NOTICE]</string>
     <string name="dash_14">[BOARD]</string>
@@ -74,17 +74,23 @@
     <string name="dash_20">" Please check your comments."</string>
     <string name="dash_21">"[NOTICE] : "</string>
     <string name="dash_22">"[BOARD] : "</string>
-    <string name="sign_up_3">NAME</string>
-    <string name="sign_up_4">NAME</string>
-    <string name="sign_up_5">E-MAIL</string>
-    <string name="sign_up_6">ID(E-MAIL)</string>
-    <string name="sign_up_7">PASSWORD</string>
-    <string name="sign_up_8">PASSWORD CHECK</string>
-    <string name="sign_up_9">PHONE NUMBER</string>
-    <string name="sign_up_10">SIGN UP</string>
     <string name="dash_23">Notice</string>
     <string name="dash_24">Alarm</string>
     <string name="dash_25">Favorites</string>
+    <string name="dash_26">List</string>
+    <string name="alert_bookmark1">Do you delete bookmark?</string>
+
+    <!-- 로그인 설명 -->
+    <string name="title_name">Cloud platform</string>
+    <string name="login_hint1">Enter your mobile number</string>
+    <string name="login_hint2">Enter Password</string>
+    <string name="login_hint3">Save ID</string>
+    <string name="login_hint4">Auto-Login</string>
+    <string name="login_btn1">Login</string>
+
+    <!-- 스캔 -->
+    <string name="alert_scan_error1">Invalid code</string>
+    <string name="alert_scan_error2">Use code</string>
 
     <!-- 메뉴(카테고리) -->
     <string name="menu_bar1">My Service</string>
@@ -121,11 +127,13 @@
     <string name="setting_03">Support</string>
     <string name="setting_04">Settings</string>
     <string name="setting_05">Log Out</string>
-
     <string name="setting_06">Push Notification</string>
     <string name="setting_07">Language</string>
     <string name="setting_08">Use Service</string>
     <string name="setting_09">Not Use Service</string>
+
+    <string name="settings_title">SETTINGS</string>
+    <string name="alert_lan_change1">App will restart after the change</string>
 
     <!-- 프로필 -->
     <string name="profile_title">Profile</string>

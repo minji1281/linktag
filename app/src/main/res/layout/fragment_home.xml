@@ -84,7 +84,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:text="즐겨찾기"
+                    android:text="@string/dash_25"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -95,7 +95,7 @@
                     android:layout_toStartOf="@id/BmkSpacer"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
-                    android:text="추가"
+                    android:text="@string/common_add"
                     android:textSize="@dimen/text_small" />
 
                 <TextView
@@ -126,7 +126,7 @@
                     android:layout_alignParentEnd="true"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
-                    android:text="삭제"
+                    android:text="@string/common_delete"
                     android:textSize="@dimen/text_small" />
 
             </RelativeLayout>
@@ -169,7 +169,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentStart="true"
                     android:layout_alignParentTop="true"
-                    android:text="공지"
+                    android:text="@string/dash_23"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -180,7 +180,7 @@
                     android:layout_toStartOf="@id/tnSpacer"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
-                    android:text="리스트"
+                    android:text="@string/dash_26"
                     android:textSize="@dimen/text_small" />
 
 
@@ -201,7 +201,7 @@
                     android:layout_alignParentEnd="true"
                     android:paddingStart="20dp"
                     android:paddingEnd="20dp"
-                    android:text="추가"
+                    android:text="@string/common_add"
                     android:textSize="@dimen/text_small" />
 
             </RelativeLayout>
@@ -238,7 +238,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="알림"
+                    android:text="@string/dash_24"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 

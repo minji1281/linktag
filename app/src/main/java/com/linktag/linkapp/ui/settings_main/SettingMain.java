@@ -8,16 +8,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.linktag.base.base_activity.BaseActivity;
-import com.linktag.base.base_fragment.BaseFragment;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.settings.SettingsKey;
 import com.linktag.base.util.ClsBitmap;
@@ -44,7 +39,7 @@ public class SettingMain extends BaseActivity {
     private TextView btnNotice;
     private TextView btnGuide;
     private TextView btnHelp;
-    private TextView btnPreferences;
+    private TextView btnSettings;
     private TextView btnLogout;
 
     @Override
@@ -97,8 +92,8 @@ public class SettingMain extends BaseActivity {
         btnHelp = findViewById(R.id.btnHelp);
         btnHelp.setOnClickListener(v -> goHomepage("help"));
 
-        btnPreferences = findViewById(R.id.btnPreferences);
-        btnPreferences.setOnClickListener(v -> goPreference());
+        btnSettings = findViewById(R.id.btnSettings);
+        btnSettings.setOnClickListener(v -> goSettings());
 
         btnLogout = findViewById(R.id.btnLogout);
         btnLogout.setOnClickListener(v -> logout());
@@ -143,8 +138,8 @@ public class SettingMain extends BaseActivity {
     /**
      * 환경설정
      */
-    private void goPreference() {
-        Intent intent = new Intent(mContext, Preference.class);
+    private void goSettings() {
+        Intent intent = new Intent(mContext, Settings.class);
         mContext.startActivity(intent);
     }
 
