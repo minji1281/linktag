@@ -19,12 +19,14 @@ public class LogAdapter extends BaseAdapter {
     private ArrayList<LogVO> mList;
     private LayoutInflater mInflater;
     private InterfaceUser mUser;
+    private String func_text;
 
-    public LogAdapter(Context context, ArrayList<LogVO> list){
+    public LogAdapter(Context context, ArrayList<LogVO> list, String text){
         this.mContext = context;
         this.mList = list;
         this.mInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         this.mUser = InterfaceUser.getInstance();
+        this.func_text = text;
     }
 
     @Override
@@ -60,7 +62,15 @@ public class LogAdapter extends BaseAdapter {
         }
 
         //Text
-        viewHolder.tvContent.setText(mList.get(position).LOG_04);
+        if(mList.get(position).LOG_03.equals("1")){ //신규등록
+            viewHolder.tvContent.setText(R.string.log_new_text);
+        }
+        else if (mList.get(position).LOG_03.equals("2")){ //기능
+            viewHolder.tvContent.setText(func_text);
+        }
+        else if (mList.get(position).LOG_03.equals("3")){ //알림발송
+            viewHolder.tvContent.setText(R.string.log_alarm_text);
+        }
         viewHolder.tvDay.setText(mList.get(position).LOG_05.substring(0, 4) + "." + mList.get(position).LOG_05.substring(4, 6) + "." + mList.get(position).LOG_05.substring(6, 8) + " " + mList.get(position).LOG_05.substring(8, 10) + ":" + mList.get(position).LOG_05.substring(10, 12));
         viewHolder.tvUserName.setText(mList.get(position).LOG_98);
 

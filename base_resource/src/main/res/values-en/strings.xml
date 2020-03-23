@@ -395,4 +395,10 @@
     <string name="cad_name_dialog_header_title">Vehicle parts List</string>
     <string name="cad_name_dialog_gub2">Input</string>
 
+    <!-- 로그 -->
+    <string name="log_new_text">New registration</string>
+    <string name="log_alarm_text">Send app notifications</string>
+    <string name="pot_log_func_text">Watering complete</string>
+    <string name="frm_log_func_text">Filter replacement complete</string>
+
 </resources>

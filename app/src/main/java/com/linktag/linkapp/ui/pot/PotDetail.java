@@ -214,6 +214,7 @@ public class PotDetail extends BaseActivity {
 
                 Intent intent = new Intent(mContext, MasterLog.class);
                 intent.putExtra("LOG", LOG);
+                intent.putExtra("func_text", mContext.getString(R.string.pot_log_func_text));
 
                 mContext.startActivity(intent);
             }
