@@ -45,6 +45,7 @@ public class MasterLog extends BaseActivity {
     // Initialize
     //======================
     private LogVO LOG;
+    private String func_text;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +54,9 @@ public class MasterLog extends BaseActivity {
         setContentView(R.layout.activity_log_list);
 
         LOG = (LogVO) getIntent().getSerializableExtra("LOG");
+        if(getIntent().hasExtra("func_text")){
+            func_text = getIntent().getStringExtra("func_text");
+        }
 
         initLayout();
 
@@ -79,7 +83,7 @@ public class MasterLog extends BaseActivity {
     @Override
     protected void initialize() {
         mList = new ArrayList<>();
-        mAdapter = new LogAdapter(mContext, mList);
+        mAdapter = new LogAdapter(mContext, mList, func_text);
         listView.setAdapter(mAdapter);
     }
 

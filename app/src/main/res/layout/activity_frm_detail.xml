@@ -195,7 +195,7 @@
                                 android:id="@+id/lineDDAY"
                                 android:layout_width="match_parent"
                                 android:layout_height="15px"
-                                android:background="#3498DB" />
+                                android:background="#DD7171" />
                         </LinearLayout>
 
                         <TextView

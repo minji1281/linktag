@@ -422,5 +422,11 @@
     <string name="cad_name_dialog_gub1">선택</string>
     <string name="cad_name_dialog_gub2">직접입력</string>
 
+    <!-- 로그 -->
+    <string name="log_new_text">신규등록</string>
+    <string name="log_alarm_text">알림발송</string>
+    <string name="pot_log_func_text">물주기 완료</string>
+    <string name="frm_log_func_text">필터교체 완료</string>
+
 
 </resources>
