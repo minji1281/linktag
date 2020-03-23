@@ -10,6 +10,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.support.annotation.GuardedBy;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
@@ -121,6 +122,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
             String date = formatDate.format(calendar.getTime());
             pcmVO.setPCM_04(date);
             tv_manageDay.setText(date.substring(0,4)+"."+date.substring(4,6)+"."+date.substring(6,8));
+            header.btnHeaderRight1.setVisibility((View.GONE));
         }
 
 
@@ -314,6 +316,9 @@ public class DetailPcm extends BaseActivity implements Serializable {
                 }
                 if(GUBUN.equals("UPDATE_DATE")){
                     Toast.makeText(mContext,getString(R.string.pcm_text2), Toast.LENGTH_SHORT).show();
+                }
+                if(GUBUN.equals("DELETE")){
+                    onBackPressed();
                 }
             }
 

@@ -40,6 +40,7 @@ import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm.AlarmDialog;
 import com.linktag.linkapp.ui.master_log.MasterLog;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
+import com.linktag.linkapp.ui.rfm.DetailRfd;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.LogVO;
@@ -114,6 +115,7 @@ public class DetailJdm extends BaseActivity {
         if (getIntent().hasExtra("scanCode")) {
             intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
             check_area.setVisibility(View.GONE);
+            header.btnHeaderRight1.setVisibility((View.GONE));
         }
 
     }
@@ -357,7 +359,11 @@ public class DetailJdm extends BaseActivity {
             public void onClick(View view) {
                 Locale locale = getResources().getConfiguration().locale;
                 Locale.setDefault(locale);
-                DatePickerDialog dialog = new DatePickerDialog(DetailJdm.this, callbackMethod, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+                Calendar sCalendar = Calendar.getInstance();
+                sCalendar.set(Calendar.YEAR,Integer.parseInt(jdmVO.JDM_04.substring(0,4)));
+                sCalendar.set(Calendar.MONTH,Integer.parseInt(jdmVO.JDM_04.substring(4,6))-1);
+                sCalendar.set(Calendar.DATE,Integer.parseInt(jdmVO.JDM_04.substring(6,8)));
+                DatePickerDialog dialog = new DatePickerDialog(DetailJdm.this, callbackMethod, sCalendar.get(Calendar.YEAR), sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.DATE));
                 dialog.show();
             }
         });

@@ -116,6 +116,7 @@ public class DetailTrp extends BaseActivity {
         initialize();
 
         if (getIntent().hasExtra("scanCode")) {
+            header.btnHeaderRight1.setVisibility((View.GONE));
             intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
         }
     }

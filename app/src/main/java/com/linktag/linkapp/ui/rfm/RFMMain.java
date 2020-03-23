@@ -238,7 +238,7 @@ public class RFMMain extends BaseActivity {
                 } else {
                     position = pos;
                 }
-                RfmEditDialog rfmEditDialog = new RfmEditDialog(mContext, RFM_02, RFM_03);
+                RfmEditDialog rfmEditDialog = new RfmEditDialog(mContext, intentVO.CTN_02, RFM_01, RFM_02, RFM_03);
 
                 rfmEditDialog.setDialogListener(new RfmEditDialog.CustomDialogListener() {
                     @Override
