@@ -2,7 +2,7 @@
 <LinearLayout
     android:orientation="vertical"
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="300dp"
     android:layout_height="match_parent">
 
     <LinearLayout
@@ -89,13 +89,13 @@
         android:orientation="horizontal">
 
         <Button
-            android:id="@+id/cancelButton"
+            android:id="@+id/deleteButton"
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_weight="1"
             android:background="#ffffff"
             android:gravity="center"
-            android:text="@string/onNegative"
+            android:text="@string/onDelete"
             android:textColor="#000000"
             android:textSize="16dp" />
 
@@ -111,7 +111,7 @@
             android:layout_weight="1"
             android:background="#ffffff"
             android:gravity="center"
-            android:text="@string/onPositive"
+            android:text="@string/detail_save"
             android:textColor="#000000"
             android:textSize="16dp" />
     </LinearLayout>

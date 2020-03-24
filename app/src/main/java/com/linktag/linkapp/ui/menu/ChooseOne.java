@@ -56,7 +56,7 @@ public class ChooseOne extends BaseActivity {
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> closePop(v));
-        header.layoutHeader.setBackgroundColor(Color.parseColor("#9AB6FF"));
+        header.layoutHeader.setBackgroundColor(getResources().getColor(R.color.header_background));
         header.headerSpacer.setVisibility(View.INVISIBLE);
         header.tvHeaderTitle.setTextColor(Color.WHITE);
         header.btnHeaderLeft.setSelected(true);

@@ -11,6 +11,7 @@
     <color name="profile_item_header_text_color">#4A4A4A</color>
     <color name="profile_item_details_text_color">#774A4A4A</color>
 
+    <color name="header_background">#9AB6FF</color>
 
     <color name="list_background">#EFF6FB</color>
     <color name="list_item_Detail_saveBtn">#324759</color>

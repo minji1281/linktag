@@ -43,7 +43,7 @@
                 android:gravity="center"
                 android:text="@string/home_01"
                 android:textColor="@drawable/selector_footer_textcolor"
-                android:textSize="@dimen/text_small"
+                android:textSize="@dimen/text_smallest"
                 android:visibility="visible"
                 tools:visibility="visible" />
         </LinearLayout>
@@ -72,7 +72,7 @@
                 android:gravity="center"
                 android:text="@string/home_02"
                 android:textColor="@drawable/selector_footer_textcolor"
-                android:textSize="@dimen/text_small"
+                android:textSize="@dimen/text_smallest"
                 android:visibility="visible"
                 tools:visibility="visible" />
         </LinearLayout>
@@ -146,7 +146,7 @@
                 android:gravity="center"
                 android:text="@string/home_04"
                 android:textColor="@drawable/selector_footer_textcolor"
-                android:textSize="@dimen/text_small"
+                android:textSize="@dimen/text_smallest"
                 android:visibility="visible"
                 tools:visibility="visible" />
         </LinearLayout>
@@ -189,7 +189,7 @@
                 android:gravity="center"
                 android:text="@string/home_05"
                 android:textColor="@drawable/selector_footer_textcolor"
-                android:textSize="@dimen/text_small"
+                android:textSize="@dimen/text_smallest"
                 android:visibility="visible"
                 tools:visibility="visible" />
         </LinearLayout>
@@ -233,7 +233,7 @@
                 android:gravity="center"
                 android:text="@string/home_06"
                 android:textColor="@drawable/selector_footer_textcolor"
-                android:textSize="@dimen/text_small"
+                android:textSize="@dimen/text_smallest"
                 android:visibility="visible"
                 tools:visibility="visible" />
         </LinearLayout>

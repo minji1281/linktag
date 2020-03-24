@@ -102,6 +102,7 @@ public class DetailRfd extends BaseActivity {
         initialize();
 
         if (getIntent().hasExtra("GUBUN")) {  //신규등록시 넘어오는 인텐트
+            header.btnHeaderRight1.setVisibility((View.GONE));
             rfm_move.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -350,7 +351,12 @@ public class DetailRfd extends BaseActivity {
             public void onClick(View view) {
                 Locale locale = getResources().getConfiguration().locale;
                 Locale.setDefault(locale);
-                DatePickerDialog dialog = new DatePickerDialog(DetailRfd.this, callbackMethod, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
+                Calendar dCalendar = Calendar.getInstance();
+                dCalendar.set(Calendar.YEAR,Integer.parseInt(rfdVO.RFD_96.substring(0,4)));
+                dCalendar.set(Calendar.MONTH,Integer.parseInt(rfdVO.RFD_96.substring(4,6))-1);
+                dCalendar.set(Calendar.DATE,Integer.parseInt(rfdVO.RFD_96.substring(6,8)));
+
+                DatePickerDialog dialog = new DatePickerDialog(DetailRfd.this, callbackMethod, dCalendar.get(Calendar.YEAR), dCalendar.get(Calendar.MONTH), dCalendar.get(Calendar.DATE));
                 dialog.show();
             }
         });

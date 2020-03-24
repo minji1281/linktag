@@ -21,8 +21,8 @@
 
         <LinearLayout
             android:id="@+id/layDelete"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
             android:layout_gravity="right"
             android:gravity="center|center_vertical"
             android:orientation="horizontal"
@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:scaleType="fitCenter"
-                android:src="@drawable/side_icon_delete" />
+                android:src="@drawable/btn_delete" />
         </LinearLayout>
 
         <LinearLayout
@@ -55,9 +55,12 @@
 
     <TextView
         android:id="@+id/tvService"
-        android:layout_width="wrap_content"
+        android:layout_width="56dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:text="TextView"
-        android:textSize="@dimen/text_small" />
+        android:textAlignment="center"
+        android:textColor="@color/black"
+        android:textSize="@dimen/text_smaller" />
+
 </LinearLayout>

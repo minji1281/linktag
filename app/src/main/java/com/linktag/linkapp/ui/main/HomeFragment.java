@@ -27,7 +27,6 @@ import com.linktag.base.util.ClsBitmap;
 import com.linktag.base.util.ClsDateTime;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.ARM_Model;
-import com.linktag.linkapp.model.CMTModel;
 import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.model.DSHModel;
 import com.linktag.linkapp.network.BaseConst;
@@ -44,8 +43,6 @@ import com.linktag.linkapp.ui.menu.ChooseOne;
 import com.linktag.linkapp.ui.sqllite.SqlMain;
 import com.linktag.linkapp.value_object.ARM_VO;
 import com.linktag.linkapp.value_object.CtdVO;
-
-import org.altbeacon.beacon.Beacon;
 
 import java.util.ArrayList;
 
@@ -71,12 +68,13 @@ public class HomeFragment extends BaseFragment {
 
     private ExpandableHeightGridView gridBMK;
     private ExpandableHeightGridView gridARM;
-    private TextView btnBmkAdd;
-    private TextView btnBmkDelete;
-    private TextView btnBmkCancel;
+    private ImageView btnBmkAdd;
+    private ImageView btnBmkDelete;
+    private ImageView btnBmkCancel;
+
     private TextView BmkSpacer;
-    private TextView btnNotNew;
-    private TextView btnNotList;
+//    private TextView btnNotNew;
+    private ImageView btnNotList;
     private TextView btnSql;
     private TextView btnBeacon;
     private TextView btnArc;
@@ -154,7 +152,6 @@ public class HomeFragment extends BaseFragment {
         btnBmkDelete.setOnClickListener(v -> setBmkState(BMK_STATE_DELETE));
         btnBmkCancel = view.findViewById(R.id.btnBmkCancel);
         btnBmkCancel.setOnClickListener(v -> setBmkState(BMK_STATE_NORMAL));
-        BmkSpacer = view.findViewById(R.id.BmkSpacer);
 
         listView = view.findViewById(R.id.listView);
         tvNotice = view.findViewById(R.id.tvNotice);
@@ -175,21 +172,21 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
-        btnNotNew = view.findViewById(R.id.btnNotNew);
-        btnNotNew.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, BoardDetail.class);
-                intent.putExtra("DSH_01", "");
-                intent.putExtra("DSH_04", "");
-                intent.putExtra("DSH_05", "");
-                intent.putExtra("DSH_09", "0");
-                intent.putExtra("DSH_97","");
-                intent.putExtra("DSH_GB", "NOT");
-
-                mContext.startActivity(intent);
-            }
-        });
+//        btnNotNew = view.findViewById(R.id.btnNotNew);
+//        btnNotNew.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                Intent intent = new Intent(mContext, BoardDetail.class);
+//                intent.putExtra("DSH_01", "");
+//                intent.putExtra("DSH_04", "");
+//                intent.putExtra("DSH_05", "");
+//                intent.putExtra("DSH_09", "0");
+//                intent.putExtra("DSH_97","");
+//                intent.putExtra("DSH_GB", "NOT");
+//
+//                mContext.startActivity(intent);
+//            }
+//        });
 
         btnSql = view.findViewById(R.id.btnSql);
         btnSql.setOnClickListener(new View.OnClickListener() {
@@ -328,7 +325,6 @@ public class HomeFragment extends BaseFragment {
                 btnBmkCancel.setVisibility(View.GONE);
                 btnBmkDelete.setVisibility(View.VISIBLE);
                 btnBmkAdd.setVisibility(View.VISIBLE);
-                BmkSpacer.setVisibility(View.VISIBLE);
 
             } else if(setBmkState == BMK_STATE_DELETE) {
                 mAdapter.setDelete(true);
@@ -336,7 +332,6 @@ public class HomeFragment extends BaseFragment {
                 btnBmkCancel.setVisibility(View.VISIBLE);
                 btnBmkDelete.setVisibility(View.GONE);
                 btnBmkAdd.setVisibility(View.GONE);
-                BmkSpacer.setVisibility(View.GONE);
 
             }
             mAdapter.notifyDataSetChanged();

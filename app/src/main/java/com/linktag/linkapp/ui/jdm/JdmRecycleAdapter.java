@@ -30,6 +30,7 @@ import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.model.JDMModel;
+import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
@@ -60,8 +61,6 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
     private Calendar nextDay = Calendar.getInstance();
 
-    private String[] str_save_text;
-
     Filter listFilter;
 
     JdmRecycleAdapter(Context context, ArrayList<JdmVO> list) {
@@ -69,7 +68,6 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         mList = list;
         mUser = InterfaceUser.getInstance();
         filteredmlist = list;
-        str_save_text = mContext.getResources().getStringArray(R.array.jdm_save_text);
     }
 
     @Override
@@ -206,10 +204,10 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
                 if (filteredmlist.get(position).ARM_03.equals("Y")) {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-                    Toast.makeText(mContext, "[" + filteredmlist.get(position).JDM_02 + "]-" +mContext.getResources().getString(R.string.common_alarm_off), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "[" + filteredmlist.get(position).JDM_02 + "]-" + mContext.getResources().getString(R.string.common_alarm_off), Toast.LENGTH_SHORT).show();
                 } else if (filteredmlist.get(position).ARM_03.equals("N")) {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + filteredmlist.get(position).JDM_02 + "]-"+mContext.getResources().getString(R.string.common_alarm_on), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "[" + filteredmlist.get(position).JDM_02 + "]-" + mContext.getResources().getString(R.string.common_alarm_on), Toast.LENGTH_SHORT).show();
                 }
 
                 ArmVO armVO = new ArmVO();
@@ -237,10 +235,11 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
                 if (filteredmlist.get(position).JDM_08.equals("") || Integer.parseInt(filteredmlist.get(position).JDM_96.substring(0, 8)) <= Integer.parseInt(formatDate.format(calendar.getTime()))) {
                     requestJMD_CONTROL(viewHolder, filteredmlist.get(position));
+                    requestLOG_CONTROL(filteredmlist.get(position).JDM_ID, filteredmlist.get(position).JDM_01, "2", mContext.getResources().getString(R.string.jdm_text7));
                 } else {
 
                     new AlertDialog.Builder(mContext)
-                            .setMessage(str_save_text[3])
+                            .setMessage(mContext.getResources().getString(R.string.jdm_text4))
                             .setPositiveButton(mContext.getResources().getString(com.linktag.base.R.string.common_yes), new DialogInterface.OnClickListener() {
                                 @RequiresApi(api = Build.VERSION_CODES.M)
                                 @Override
@@ -263,6 +262,40 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
 
     }
 
+    private void requestLOG_CONTROL(String LOG_ID, String LOG_01, String LOG_03, String LOG_04) {
+        //인터넷 연결 여부 확인
+        if (!ClsNetworkCheck.isConnectable(mContext)) {
+            Toast.makeText(mContext, mContext.getResources().getString(R.string.common_network_error), Toast.LENGTH_SHORT).show();
+            return;
+        }
+        Call<LOG_Model> call = Http.log(HttpBaseService.TYPE.POST).LOG_CONTROL(
+                BaseConst.URL_HOST,
+                "INSERT",
+                LOG_ID,
+                LOG_01,
+                "",
+                LOG_03,
+                LOG_04,
+                "",
+                mUser.Value.OCM_01,
+                "SP_JDML_CONTROL"
+        );
+
+        call.enqueue(new Callback<LOG_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<LOG_Model> call, Response<LOG_Model> response) {
+
+            }
+
+            @Override
+            public void onFailure(Call<LOG_Model> call, Throwable t) {
+                Log.d("LOG_CONTROL", t.getMessage());
+//                closeLoadingBar();
+            }
+        });
+    }
+
     public void requestJMD_CONTROL(ViewHolder viewHolder, JdmVO jdmVO) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
@@ -270,32 +303,16 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
             return;
         }
 
-        nextDay.set(Calendar.YEAR, Integer.parseInt(jdmVO.JDM_96.substring(0, 4)));
-        nextDay.set(Calendar.MONTH, Integer.parseInt(jdmVO.JDM_96.substring(4, 6)) - 1);
-        nextDay.set(Calendar.DATE, Integer.parseInt(jdmVO.JDM_96.substring(6, 8)));
 
-        boolean date = true;
-        while (date) {
-            switch (jdmVO.JDM_06) {
-                case "0":
-                    nextDay.add(Calendar.DATE, 3);
-                    break;
-                case "1":
-                    nextDay.add(Calendar.DATE, 5);
-                    break;
-                case "2":
-                    nextDay.add(Calendar.DATE, 7);
-                    break;
-                case "3":
-                    nextDay.add(Calendar.DATE, 15);
-                    break;
-                case "4":
-                    nextDay.add(Calendar.DATE, 30);
-                    break;
-            }
-            if (Integer.parseInt(formatDate.format(nextDay.getTime())) > Integer.parseInt(formatDate.format(calendar.getTime()))) {
-                date = false;
-            }
+        switch (jdmVO.JDM_07) {
+            case "0":
+                nextDay.add(Calendar.DATE, Integer.parseInt(jdmVO.JDM_06));
+                break;
+            case "1":
+                nextDay.add(Calendar.MONTH, Integer.parseInt(jdmVO.JDM_06) - 1);
+                break;
+            case "2":
+                break;
         }
 
 
@@ -310,7 +327,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                 jdmVO.JDM_05,
                 jdmVO.JDM_06,
                 jdmVO.JDM_07,
-                jdmVO.JDM_08,
+                formatDate.format(calendar.getTime()),
                 formatDate.format(nextDay.getTime()) + jdmVO.JDM_96.substring(8, 12),
                 mUser.Value.OCM_01,
                 mUser.Value.OCM_01,

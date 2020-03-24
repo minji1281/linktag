@@ -65,7 +65,7 @@ public class LogAdapter extends BaseAdapter {
         if (mList.get(position).LOG_03.equals("1")) { //신규등록
             viewHolder.tvContent.setText(R.string.log_new_text);
         } else if (mList.get(position).LOG_03.equals("2")) {
-            if (!func_text.equals("")) {
+            if (func_text != null) {
                 //기능
                 viewHolder.tvContent.setText(func_text);
             }else{
