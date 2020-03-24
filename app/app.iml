@@ -190,5 +190,7 @@
     <orderEntry type="library" name="Gradle: com.ogaclejapan.arclayout:library:1.1.0@aar" level="project" />
     <orderEntry type="module" module-name="base" />
     <orderEntry type="module" module-name="base_resource" />
+    <orderEntry type="module" module-name="base" />
+    <orderEntry type="module" module-name="base_resource" />
   </component>
 </module>
