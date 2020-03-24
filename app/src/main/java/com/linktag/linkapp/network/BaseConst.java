@@ -107,5 +107,14 @@ public class BaseConst {
     //이력(log)
     public static final String LOG_CONTROL = "{host}/Mobile/LOG_CONTROL";
 
+    //접종
+    public static final String URL_VAC_SELECT = "{host}/Mobile/VAC_SELECT";
+    public static final String URL_VAC_CONTROL = "{host}/Mobile/VAC_CONTROL";
+
+    public static final String URL_VAM_SELECT = "{host}/Mobile/VAM_SELECT";
+    public static final String URL_VAM_CONTROL = "{host}/Mobile/VAM_CONTROL";
+
+    public static final String URL_VAD_SELECT = "{host}/Mobile/VAD_SELECT";
+    public static final String URL_VAD_CONTROL = "{host}/Mobile/VAD_CONTROL";
 
 }

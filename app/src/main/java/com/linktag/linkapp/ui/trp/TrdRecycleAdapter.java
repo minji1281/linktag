@@ -24,9 +24,7 @@ import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.pcm.DetailPcm;
 import com.linktag.linkapp.value_object.TrdVO;
-import com.linktag.linkapp.value_object.TrpVO;
 
 import java.util.ArrayList;
 
@@ -34,11 +32,11 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-import static com.linktag.linkapp.ui.trp.DetailTrp.tv_alarmLabel;
-import static com.linktag.linkapp.ui.trp.DetailTrp.recyclerView;
-import static com.linktag.linkapp.ui.trp.DetailTrp.alarmState;
-import static com.linktag.linkapp.ui.trp.DetailTrp.imageView;
-import static com.linktag.linkapp.ui.trp.DetailTrp.trpVO;
+import static com.linktag.linkapp.ui.trp.TrpDetail.tv_alarmLabel;
+import static com.linktag.linkapp.ui.trp.TrpDetail.recyclerView;
+import static com.linktag.linkapp.ui.trp.TrpDetail.alarmState;
+import static com.linktag.linkapp.ui.trp.TrpDetail.imageView;
+import static com.linktag.linkapp.ui.trp.TrpDetail.trpVO;
 
 public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.ViewHolder> {
 
@@ -188,7 +186,7 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
                             mList = response.body().Data;
                             if (mList == null)
                                 mList = new ArrayList<>();
-                            DetailTrp.tv_alarmCnt.setText("("+mList.size()+")");
+                            TrpDetail.tv_alarmCnt.setText("("+mList.size()+")");
                             if(mList.size()==0){
                                 tv_alarmLabel.setVisibility(View.VISIBLE);
                                 recyclerView.setVisibility(View.GONE);

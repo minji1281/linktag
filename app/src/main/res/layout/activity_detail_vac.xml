@@ -1,0 +1,367 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    android:orientation="vertical">
+
+    <com.linktag.base.base_header.BaseHeader
+        android:id="@+id/header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:title_text="@string/pcm_detail_title" />
+
+    <LinearLayout
+        android:id="@+id/linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginStart="@dimen/activity_detail_root_margin_start"
+            android:layout_marginTop="@dimen/activity_detail_root_margin_top"
+            android:layout_marginEnd="@dimen/activity_detail_root_margin_end"
+            android:layout_marginBottom="@dimen/activity_detail_root_margin_bottom"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_name"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@id/ed_name"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/detail_name_hint"
+                    android:singleLine="true"
+                    android:textSize="@dimen/text_normal" />
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:layout_width="50dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_memo"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@id/ed_memo"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:background="@null"
+                    android:hint="@string/detail_memo_hint"
+                    android:singleLine="true"
+                    android:textSize="@dimen/text_normal" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="100dp"
+                    android:layout_height="wrap_content"
+                    android:text="@string/detail_manageDate"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_manageDay"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="10dp"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical"
+                    android:textSize="@dimen/text_normal" />
+
+                <Button
+                    android:id="@+id/btn_update"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:background="@drawable/btn_round_indigo_5dp"
+                    android:text="@string/pcm_update"
+                    android:textStyle="bold"
+                    android:textColor="#FFF"
+                    android:textSize="13dp" />
+
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|left"
+                    android:text="@string/detail_info"
+                    android:layout_marginBottom="10dp"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_Log"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:paddingRight="15dp"
+                    android:text="@string/detail_more"
+                    android:textSize="@dimen/text_normal" />
+
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|left"
+                        android:text="@string/pcm_hw_info"
+                        android:textSize="@dimen/text_small" />
+                    <TextView
+                        android:id="@+id/tv_hwCnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        android:layout_marginStart="10dp"/>
+
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="5dp"
+                    android:orientation="horizontal"
+                    android:paddingStart="8dp">
+
+                    <Spinner
+                        android:id="@+id/sp_hw"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:entries="@array/hw"
+                        android:textSize="8dp" />
+
+                    <EditText
+                        android:id="@+id/et_hw"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:background="@null"
+                        android:singleLine="true"
+                        android:hint="@string/pcm_info_hint"
+                        android:textSize="@dimen/small_text" />
+
+                    <Button
+                        android:id="@+id/btn_addItem_hw"
+                        android:layout_width="80dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical|right"
+                        android:background="@drawable/btn_round_indigo_5dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:text="@string/pcm_info_add"
+                        android:textColor="@color/white"
+                        android:textAllCaps="false"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_hw"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/list_item_layout"
+                    tools:listitem="@layout/listitem_pcd_list" />
+
+            </LinearLayout>
+
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+
+            <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/activity_detail_section_margin_top"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical|left"
+                        android:text="@string/pcm_sw_info"
+                        android:textSize="@dimen/text_small" />
+                    <TextView
+                        android:id="@+id/tv_swCnt"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textSize="@dimen/text_small"
+                        android:layout_marginStart="10dp"/>
+                    <View
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="1" />
+
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginBottom="5dp"
+                    android:paddingStart="8dp">
+
+                    <Spinner
+                        android:id="@+id/sp_sw"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2"
+                        android:textSize="13dp" />
+
+                    <EditText
+                        android:id="@+id/et_sw"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="2.5"
+                        android:background="@null"
+                        android:singleLine="true"
+                        android:hint="@string/pcm_info_hint"
+                        android:textSize="@dimen/small_text" />
+
+
+                    <Button
+                        android:id="@+id/btn_addItem_sw"
+                        android:layout_width="80dp"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center_vertical|right"
+                        android:background="@drawable/btn_round_indigo_5dp"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:text="@string/pcm_info_add"
+                        android:textColor="@color/white"
+                        android:textAllCaps="false"
+                        android:textSize="13dp"
+                        android:textStyle="bold" />
+
+<!--                    <Button-->
+<!--                        android:id="@+id/btn_addItem_sw"-->
+<!--                        android:layout_width="25dp"-->
+<!--                        android:layout_height="25dp"-->
+<!--                        android:layout_gravity="center_vertical"-->
+<!--                        android:background="@drawable/btn_round_blue_50dp"-->
+<!--                        android:text="+"-->
+<!--                        android:textColor="#FFF"-->
+<!--                        android:textStyle="bold" />-->
+
+
+                </LinearLayout>
+
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView_sw"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/list_item_layout"
+                    tools:listitem="@layout/listitem_pcd_list" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/bt_save"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:background="@color/list_item_Detail_saveBtn"
+        android:text="@string/detail_save"
+        android:textColor="@color/white" />
+
+
+</LinearLayout>

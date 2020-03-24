@@ -177,7 +177,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.trp.DetailTrp"
+            android:name=".ui.trp.TrpDetail"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
@@ -190,7 +190,7 @@
             android:excludeFromRecents="true"/>
 
         <activity
-            android:name=".ui.jdm.DetailJdm"
+            android:name=".ui.jdm.JdmDetail"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
@@ -203,7 +203,7 @@
             android:excludeFromRecents="true"/>
 
         <activity
-            android:name=".ui.pcm.DetailPcm"
+            android:name=".ui.pcm.PcmDetail"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
@@ -215,19 +215,19 @@
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
         <activity
-            android:name=".ui.rfm.DetailRfm"
+            android:name=".ui.rfm.RfmDetail"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
         <activity
-            android:name=".ui.rfm.DetailRfd"
+            android:name=".ui.rfm.RfdDetail"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
 
         <!-- 물주기 -->
         <activity
-            android:name=".ui.pot.PotList"
+            android:name=".ui.pot.PotMain"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait" />
         <activity
@@ -237,7 +237,7 @@
 
         <!-- 필터관리 -->
         <activity
-            android:name=".ui.frm.FrmList"
+            android:name=".ui.frm.FrmMain"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
@@ -247,7 +247,7 @@
 
         <!-- 화장품 유효기간 관리 -->
         <activity
-            android:name=".ui.cos.CodList"
+            android:name=".ui.cos.CodMain"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
@@ -257,7 +257,7 @@
 
         <!-- 차량소모품 교체점검내역 -->
         <activity
-            android:name=".ui.car.CadList"
+            android:name=".ui.car.CadMain"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
         <activity
@@ -304,6 +304,14 @@
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
+
+
+        <!--접종-->
+        <activity
+            android:name=".ui.vac.VACMain"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:excludeFromRecents="true"/>
 
     </application>
 

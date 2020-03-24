@@ -11,7 +11,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -44,13 +43,10 @@ public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapte
     private InterfaceUser mUser = InterfaceUser.getInstance();
     private HashMap<String, String> map = new HashMap<String, String>();
 
-    private String[] str_save_text;
 
     PcdSwRecycleAdapter(Context context, ArrayList<PcdVO> list) {
         mContext = context;
         mList = list;
-
-        str_save_text = mContext.getResources().getStringArray(R.array.pcm_save_text);
         String[] str = mContext.getResources().getStringArray(R.array.sw);
 
         map.put("0", str[0]);
@@ -136,11 +132,11 @@ public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapte
                             mList = response.body().Data;
                             if (mList == null)
                                 mList = new ArrayList<>();
-                            DetailPcm.tv_swCnt.setText("("+mList.size()+")");
+                            PcmDetail.tv_swCnt.setText("("+mList.size()+")");
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();
 
-                            requestLOG_CONTROL(pcdVO.PCD_ID, pcdVO.PCD_01,"2",str_save_text[5] +" " + pcdVO.PCD_05 + " " + str_save_text[7]);
+                            requestLOG_CONTROL(pcdVO.PCD_ID, pcdVO.PCD_01,"2",mContext.getString(R.string.pcm_text6) +" " + pcdVO.PCD_05 + " " + mContext.getString(R.string.pcm_text8));
                         }
                     }
                 }.sendMessage(msg);

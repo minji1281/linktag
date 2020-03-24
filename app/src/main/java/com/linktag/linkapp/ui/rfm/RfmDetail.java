@@ -1,12 +1,8 @@
 package com.linktag.linkapp.ui.rfm;
 
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
-import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -15,14 +11,8 @@ import android.util.Log;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Switch;
-import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
@@ -34,20 +24,15 @@ import com.linktag.linkapp.model.RFMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.alarm.AlarmDialog;
-import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
-import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.RfmVO;
-
-import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailRfm extends BaseActivity {
+public class RfmDetail extends BaseActivity {
 
     private BaseHeader header;
 
@@ -82,7 +67,7 @@ public class DetailRfm extends BaseActivity {
 
     public void requestRFM_CONTROL(String GUBUN) {
         // 인터넷 연결 여부 확인
-        if (!ClsNetworkCheck.isConnectable(DetailRfm.this)) {
+        if (!ClsNetworkCheck.isConnectable(RfmDetail.this)) {
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }

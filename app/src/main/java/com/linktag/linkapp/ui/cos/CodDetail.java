@@ -386,7 +386,7 @@ public class CodDetail extends BaseActivity {
 
                             Response<CODModel> response = (Response<CODModel>) msg.obj;
 
-                            CodList.COS.COS_01 = COD_95;
+                            CodMain.COS.COS_01 = COD_95;
 
                             if(GUB.equals("INSERT") || GUB.equals("UPDATE") || GUB.equals("USESTART")){
                                 if(COD.ARM_03.equals("Y")){

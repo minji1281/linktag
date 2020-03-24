@@ -1,4 +1,4 @@
-package com.linktag.linkapp.ui.car;
+package com.linktag.linkapp.ui.cos;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
@@ -28,16 +28,18 @@ import com.linktag.base.base_footer.BaseFooter;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.model.CADModel;
-import com.linktag.linkapp.model.CARModel;
+import com.linktag.linkapp.model.CODModel;
+import com.linktag.linkapp.model.COSModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.menu.AddSharedDetail;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.ui.menu.Member;
 import com.linktag.linkapp.ui.scanner.ScanResult;
-import com.linktag.linkapp.value_object.CAD_VO;
-import com.linktag.linkapp.value_object.CAR_VO;
+import com.linktag.linkapp.ui.spinner.SpinnerList;
+import com.linktag.linkapp.value_object.COD_VO;
+import com.linktag.linkapp.value_object.COS_VO;
 import com.linktag.linkapp.value_object.CtdVO;
 
 import java.util.ArrayList;
@@ -48,7 +50,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class CadList extends BaseActivity {
+public class CodMain extends BaseActivity {
     //======================
     // Layout
     //======================
@@ -60,55 +62,53 @@ public class CadList extends BaseActivity {
     private ListView listView;
     private TextView emptyText;
     public static ImageView imgNew;
-    private Button btnCarEdit;
-    @BindView(R.id.spCar)
-    Spinner spCar;
+    private Button btnEdit;
+    @BindView(R.id.spCos)
+    Spinner spCos;
     private EditText etSearch;
 
     //======================
     // Variable
     //======================
-    private CadAdapter mAdapter;
-    private ArrayList<CAD_VO> mList;
-    private ArrayList<CAR_VO> mCarList;
+    private CodAdapter mAdapter;
+    private ArrayList<COD_VO> mList;
+    private ArrayList<COS_VO> mCosList;
     private CtdVO intentVO;
 
     //======================
     // Initialize
     //======================
-    ArrayList<CarSpinnerList> carList = new ArrayList<>();
-    public static CAR_VO CAR;
+    ArrayList<SpinnerList> cosList = new ArrayList<>();
+    public static COS_VO COS;
     private String scanGubun = "N";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_cad_list);
+        setContentView(R.layout.activity_cod_list);
 
         intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
-        CAR = new CAR_VO();
+        COS = new COS_VO();
+        if (getIntent().hasExtra("scanCode")) {
+            COS.COS_01 = getIntent().getExtras().getString("scanCode");
+            requestCOS_SELECT();
+        }
 
         initLayout();
 
         initialize();
-
-        if (getIntent().hasExtra("scanCode")) {
-            CAR.CAR_01 = getIntent().getExtras().getString("scanCode");
-            requestCAR_SELECT();
-        }
     }
 
     @Override
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
-
-        //요거
+        // 요거
         initLayoutByContractType();
 
         imgNew = findViewById(R.id.imgNew);
-        imgNew.setOnClickListener(v -> goCadNew());
+        imgNew.setOnClickListener(v -> goCodNew());
 
         layoutSpinner = (LinearLayout) findViewById(R.id.layoutSpinner);
         layoutSpinnerEmpty = (LinearLayout) findViewById(R.id.layoutSpinnerEmpty);
@@ -117,10 +117,10 @@ public class CadList extends BaseActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                CAD_VO CAD = mList.get(position);
+                COD_VO COD = mList.get(position);
 
-                Intent intent = new Intent(mContext, CadDetail.class);
-                intent.putExtra("CAD", CAD);
+                Intent intent = new Intent(mContext, CodDetail.class);
+                intent.putExtra("COD", COD);
                 intent.putExtra("intentVO", intentVO);
 
                 mContext.startActivity(intent);
@@ -128,38 +128,38 @@ public class CadList extends BaseActivity {
         });
         emptyText = findViewById(R.id.empty);
         listView.setEmptyView(emptyText);
-        btnCarEdit = (Button) findViewById(R.id.btnCarEdit);
-        btnCarEdit.setOnClickListener(new View.OnClickListener(){
+        btnEdit = (Button) findViewById(R.id.btnEdit);
+        btnEdit.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View v){
-                carDialog("UPDATE");
+                cosDialog("UPDATE");
             }
         });
-        spCar = (Spinner) findViewById(R.id.spCar);
+        spCos = (Spinner) findViewById(R.id.spCos);
         etSearch = findViewById(R.id.etSearch);
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                requestCAD_SELECT();
+                requestCOD_SELECT();
                 swipeRefresh.setRefreshing(false);
             }
         });
+
     }
 
     @Override
     protected void initialize() {
         mList = new ArrayList<>();
-        mAdapter = new CadAdapter(mContext, mList);
+        mAdapter = new CodAdapter(mContext, mList);
         listView.setAdapter(mAdapter);
     }
 
     @Override
     protected void onResume(){
         super.onResume();
-
-        carInitial();
+        cosInitial();
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -177,7 +177,7 @@ public class CadList extends BaseActivity {
         });
     }
 
-    private void requestCAD_SELECT(){
+    private void requestCOD_SELECT(){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
@@ -187,27 +187,24 @@ public class CadList extends BaseActivity {
 //        openLoadingBar();
 
         String GUBUN = "LIST";
-        String CAD_ID = intentVO.CTN_02; //컨테이너
-        String CAD_01 = CAR.CAR_01; //차량코드
-        String CAD_02 = ""; //일련번호
-        String CAD_03 = ""; //정비일자
-        String CAD_04 = ""; //내역
+        String COD_ID = intentVO.CTN_02; //컨테이너
+        String COD_01 = ""; //일련번호
+        String COD_95 = COS.COS_01;
+        String OCM_01 = mUser.Value.OCM_01; //사용자 아이디
 
-        Call<CADModel> call = Http.cad(HttpBaseService.TYPE.POST).CAD_SELECT(
+        Call<CODModel> call = Http.cod(HttpBaseService.TYPE.POST).COD_SELECT(
                 BaseConst.URL_HOST,
                 GUBUN,
-                CAD_ID,
-                CAD_01,
-                CAD_02,
-                CAD_03,
-
-                CAD_04
+                COD_ID,
+                COD_01,
+                COD_95,
+                OCM_01
         );
 
-        call.enqueue(new Callback<CADModel>(){
+        call.enqueue(new Callback<CODModel>(){
             @SuppressLint("HandlerLeak")
             @Override
-            public void onResponse(Call<CADModel> call, Response<CADModel> response){
+            public void onResponse(Call<CODModel> call, Response<CODModel> response){
                 Message msg = new Message();
                 msg.obj = response;
                 msg.what = 100;
@@ -218,10 +215,12 @@ public class CadList extends BaseActivity {
                         if(msg.what == 100){
 //                            closeLoadingBar();
 
-                            Response<CADModel> response = (Response<CADModel>) msg.obj;
+                            Response<CODModel> response = (Response<CODModel>) msg.obj;
 
                             mList = response.body().Data;
-                            if (mList == null) mList = new ArrayList<>();
+
+                            if(mList == null)
+                                mList = new ArrayList<>();
 
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();
@@ -234,37 +233,37 @@ public class CadList extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<CADModel> call, Throwable t){
-                Log.d("CAD_SELECT", t.getMessage());
+            public void onFailure(Call<CODModel> call, Throwable t){
+                Log.d("COD_SELECT", t.getMessage());
 //                closeLoadingBar();
             }
         });
     }
 
-    private void requestCAR_SELECT(){
+    private void requestCOS_SELECT(){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
             return;
         }
 
-//        openLoadingBar();
+        openLoadingBar();
 
         String GUBUN = "DETAIL";
-        String CAR_ID = intentVO.CTN_02; //컨테이너
-        String CAD_01 = CAR.CAR_01; //코드번호
+        String COS_ID = intentVO.CTN_02; //컨테이너
+        String COS_01 = COS.COS_01; //일련번호
 
-        Call<CARModel> call = Http.car(HttpBaseService.TYPE.POST).CAR_SELECT(
+        Call<COSModel> call = Http.cos(HttpBaseService.TYPE.POST).COS_SELECT(
                 BaseConst.URL_HOST,
                 GUBUN,
-                CAR_ID,
-                CAD_01
+                COS_ID,
+                COS_01
         );
 
-        call.enqueue(new Callback<CARModel>(){
+        call.enqueue(new Callback<COSModel>(){
             @SuppressLint("HandlerLeak")
             @Override
-            public void onResponse(Call<CARModel> call, Response<CARModel> response){
+            public void onResponse(Call<COSModel> call, Response<COSModel> response){
                 Message msg = new Message();
                 msg.obj = response;
                 msg.what = 100;
@@ -273,16 +272,18 @@ public class CadList extends BaseActivity {
                     @Override
                     public void handleMessage(Message msg){
                         if(msg.what == 100){
-//                            closeLoadingBar();
+                            closeLoadingBar();
 
-                            Response<CARModel> response = (Response<CARModel>) msg.obj;
+                            Response<COSModel> response = (Response<COSModel>) msg.obj;
 
-                            mCarList = response.body().Data;
-                            if (mCarList == null) mCarList = new ArrayList<>();
+                            mCosList = response.body().Data;
 
-                            if (mCarList.size() == 0){
+                            if(mCosList == null)
+                                mCosList = new ArrayList<>();
+
+                            if (mCosList.size() == 0){
                                 scanGubun = "Y";
-                                carDialog("INSERT"); //CAR NEW
+                                cosDialog("INSERT"); //COS NEW
                             }
 
                         }
@@ -291,14 +292,14 @@ public class CadList extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<CARModel> call, Throwable t){
-                Log.d("CAR_SELECT", t.getMessage());
-//                closeLoadingBar();
+            public void onFailure(Call<COSModel> call, Throwable t){
+                Log.d("COS_SELECT", t.getMessage());
+                closeLoadingBar();
             }
         });
     }
 
-    private void requestCAR_CONTROL(String GUBUN, String CAR_02, String CAR_03, String CAR_04) {
+    private void requestCOS_CONTROL(String GUBUN, String COS_02, String COS_03) {
 
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
@@ -308,41 +309,39 @@ public class CadList extends BaseActivity {
 
 //        openLoadingBar();
 
-        String CAR_ID = intentVO.CTN_02; //컨테이너
-        String CAR_01 = CAR.CAR_01; //일련번호
-        String CAR_98 = mUser.Value.OCM_01; //최종수정자
+        String COS_ID = intentVO.CTN_02; //컨테이너
+        String COS_01 = COS.COS_01; //일련번호
+        String COS_98 = mUser.Value.OCM_01; //최종수정자
 
-        Call<CARModel> call = Http.car(HttpBaseService.TYPE.POST).CAR_CONTROL(
+        Call<COSModel> call = Http.cos(HttpBaseService.TYPE.POST).COS_CONTROL(
                 BaseConst.URL_HOST,
                 GUBUN,
-                CAR_ID,
-                CAR_01,
-                CAR_02,
-                CAR_03,
+                COS_ID,
+                COS_01,
+                COS_02,
+                COS_03,
 
-                CAR_04,
-                CAR_98
+                COS_98
         );
 
-        call.enqueue(new Callback<CARModel>(){
+        call.enqueue(new Callback<COSModel>(){
             @SuppressLint("HandlerLeak")
             @Override
-            public void onResponse(Call<CARModel> call, Response<CARModel> response){
+            public void onResponse(Call<COSModel> call, Response<COSModel> response){
                 Message msg = new Message();
                 msg.obj = response;
                 msg.what = 100;
 
                 if (GUBUN.equals("INSERT")) {
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, CAR_01);
+                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, COS_01);
                     ctds_control.requestCTDS_CONTROL();
-                    CAR.CAR_01 = CAR_01;
-                    CAR.CAR_02 = CAR_02;
-                    CAR.CAR_03 = CAR_03;
-                    CAR.CAR_04 = CAR_04;
+                    COS.COS_01 = COS_01;
+                    COS.COS_02 = COS_02;
+                    COS.COS_03 = COS_03;
                 }
 
                 if(GUBUN.equals("DELETE")){
-                    CAR.CAR_01 = "";
+                    COS.COS_01 = "";
                     mList.clear();
                     mAdapter.updateData(mList);
                     mAdapter.notifyDataSetChanged();
@@ -354,47 +353,46 @@ public class CadList extends BaseActivity {
                         if(msg.what == 100){
 //                            closeLoadingBar();
 
-                            Response<CARModel> response = (Response<CARModel>) msg.obj;
+                            Response<COSModel> response = (Response<COSModel>) msg.obj;
 
-                            carInitial();
+                            cosInitial();
                         }
                     }
                 }.sendMessage(msg);
             }
 
             @Override
-            public void onFailure(Call<CARModel> call, Throwable t){
-                Log.d("CAR_CONTROL", t.getMessage());
+            public void onFailure(Call<COSModel> call, Throwable t){
+                Log.d("COS_CONTROL", t.getMessage());
 //                closeLoadingBar();
             }
         });
 
     }
 
-    private void goCadNew(){
-        Intent intent = new Intent(mContext, CadDetail.class);
+    private void goCodNew(){
+        Intent intent = new Intent(mContext, CodDetail.class);
         intent.putExtra("intentVO", intentVO);
-        intent.putExtra("CAD_01", CAR.CAR_01); //차량코드
+        intent.putExtra("COD_95", COS.COS_01); //화장대코드
 
         mContext.startActivity(intent);
     }
 
-    private void carInitial(){
-        CarInfo carinfo = new CarInfo(carList, mActivity, "spCar", intentVO.CTN_02, CAR.CAR_01);
-        carinfo.execute();
-        spCar.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+    private void cosInitial(){
+        CosInfo cosinfo = new CosInfo(cosList, mActivity, "spCos", "LIST2", intentVO.CTN_02, COS.COS_01, "L");
+        cosinfo.execute();
+        spCos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 if(scanGubun.equals("Y")){
                     scanGubun = "N";
                 }
                 else{
-                    CAR.CAR_01 = carList.get(position).getCode();
-                    CAR.CAR_02 = carList.get(position).getCarNum();
-                    CAR.CAR_03 = carList.get(position).getCarYear();
-                    CAR.CAR_04 = carList.get(position).getMemo();
+                    COS.COS_01 = cosList.get(position).getCode();
+                    COS.COS_02 = cosList.get(position).getName();
+                    COS.COS_03 = cosList.get(position).getMemo();
                 }
-                requestCAD_SELECT();
+                requestCOD_SELECT();
             }
 
             @Override
@@ -403,10 +401,10 @@ public class CadList extends BaseActivity {
         });
     }
 
-    private void carDialog(String GUBUN){
+    private void cosDialog(String GUBUN){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialog_car, null);
+        View view = inflater.inflate(R.layout.dialog_cos, null);
         builder.setView(view);
 
         Button btnSave = (Button) view.findViewById(R.id.btnSave);
@@ -416,22 +414,25 @@ public class CadList extends BaseActivity {
             btnDelete.setTextColor(Color.GRAY);
         }
 
-        EditText etCarNum = (EditText) view.findViewById(R.id.etCarNum);
-        EditText etCarYear = (EditText) view.findViewById(R.id.etCarYear);
+        EditText etName = (EditText) view.findViewById(R.id.etName);
         EditText etMemo = (EditText) view.findViewById(R.id.etMemo);
         if(GUBUN.equals("UPDATE")){
-            etCarNum.setText(CAR.CAR_02);
-            etCarYear.setText(CAR.CAR_03);
-            etMemo.setText(CAR.CAR_04);
+            etName.setText(COS.COS_02);
+            etMemo.setText(COS.COS_03);
         }
 
         AlertDialog dialog = builder.create();
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                requestCAR_CONTROL(GUBUN, etCarNum.getText().toString(), etCarYear.getText().toString(), etMemo.getText().toString());
+                if(etName.getText().toString().equals("")){
+                    Toast.makeText(mActivity, R.string.pot_validation_check1, Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    requestCOS_CONTROL(GUBUN, etName.getText().toString(), etMemo.getText().toString());
 
-                dialog.dismiss();
+                    dialog.dismiss();
+                }
             }
         });
         if(GUBUN.equals("UPDATE")){
@@ -464,20 +465,19 @@ public class CadList extends BaseActivity {
         TextView tvDeleteText = (TextView) view.findViewById(R.id.tvDeleteText);
         EditText etDeleteName = (EditText) view.findViewById(R.id.etDeleteName);
 
-        tvDeleteText.setText(R.string.car_delete_text);
-        etDeleteName.setHint(R.string.car_carnum_hint);
+        tvDeleteText.setText(R.string.cos_delete_text);
 
         AlertDialog dialogDelete = builder.create();
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(etDeleteName.getText().toString().equals(CAR.CAR_02)){
+                if(etDeleteName.getText().toString().equals(COS.COS_02)){
                     dialogDelete.dismiss();
-                    requestCAR_CONTROL("DELETE", "", "", "");
+                    requestCOS_CONTROL("DELETE", "", "");
                     dialog.dismiss();
                 }
                 else{
-                    Toast.makeText(mActivity, R.string.car_delete_name_check, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mActivity, R.string.dialog_delete_check_text, Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -491,11 +491,11 @@ public class CadList extends BaseActivity {
     }
 
     // 요거
-    private void initLayoutByContractType() {
+    private void initLayoutByContractType(){
         footer = findViewById(R.id.footer);
         footer.btnFooterScan.setOnClickListener(v -> goScan());
 
-        if (intentVO.CTM_19.equals("P")) {
+        if(intentVO.CTM_19.equals("P")){
             // privateService
             footer.btnFooterSetting.setVisibility(View.VISIBLE);
             footer.btnFooterMember.setVisibility(View.GONE);
@@ -503,6 +503,19 @@ public class CadList extends BaseActivity {
             // sharedService
             header.tvHeaderTitle2.setVisibility(View.VISIBLE);
             header.tvHeaderTitle2.setText(intentVO.CTM_17);
+
+            if(intentVO.CTM_04.equals(mUser.Value.OCM_01)){
+                header.btnHeaderRight1.setVisibility(View.VISIBLE);
+                header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, AddSharedDetail.class);
+                        intent.putExtra("type", "UPDATE");
+                        intent.putExtra("intentVO", intentVO);
+                        mContext.startActivity(intent);
+                    }
+                });
+            }
 
             footer.btnFooterSetting.setVisibility(View.GONE);
             footer.btnFooterMember.setVisibility(View.VISIBLE);
@@ -512,7 +525,7 @@ public class CadList extends BaseActivity {
     }
 
     // 요거
-    private void goMember() {
+    private void goMember(){
         Intent intent = new Intent(mContext, Member.class);
         intent.putExtra("intentVO", intentVO);
         mContext.startActivity(intent);

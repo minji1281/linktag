@@ -116,11 +116,14 @@ public class RfmEditDialog extends Dialog {
         btnDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 if (etDeleteName.getText().toString().equals(ed_name.getText().toString())) {
-                    dialog.dismiss();
                     requestRFM_CONTROL("DELETE");
                 } else {
                     Toast.makeText(mContext, mContext.getResources().getString(R.string.common_confirm_delete), Toast.LENGTH_SHORT).show();
+                    return;
                 }
+                dialog.dismiss();
+                dismiss();
+
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -156,6 +159,8 @@ public class RfmEditDialog extends Dialog {
         call.enqueue(new Callback<RFMModel>() {
             @Override
             public void onResponse(Call<RFMModel> call, Response<RFMModel> response) {
+                customDialogListener.onNegativeClicked();
+                Toast.makeText(mContext,"삭제되었습니다.",Toast.LENGTH_LONG).show();
             }
 
             @Override
@@ -166,7 +171,5 @@ public class RfmEditDialog extends Dialog {
         });
 
     }
-
-
 
 }

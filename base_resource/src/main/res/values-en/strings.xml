@@ -402,4 +402,7 @@
     <string name="pot_log_func_text">Watering complete</string>
     <string name="frm_log_func_text">Filter replacement complete</string>
 
+    <!-- 접종 리스트  -->
+    <string name="vac_list_title">접종목록</string>
+
 </resources>

@@ -29,6 +29,9 @@ import com.linktag.linkapp.model.TKNModel;
 import com.linktag.linkapp.model.TRDModel;
 import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.model.ARM_Model;
+import com.linktag.linkapp.model.VACModel;
+import com.linktag.linkapp.model.VADModel;
+import com.linktag.linkapp.model.VAMModel;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -1096,5 +1099,104 @@ public class Http extends HttpBaseService {
                 @Field(value = "LOG_98") String LOG_98,
                 @Field(value = "SP_NAME") String SP_NAME
         );
+    }
+
+    //--------------------------------------------------
+    // 접종
+    //--------------------------------------------------
+    public static IVAC vac(TYPE type) {
+        return (IVAC) retrofit(IVAC.class, type);
+    }
+
+    public interface IVAC {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_VAC_SELECT)
+        Call<VACModel> VAC_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "VAC_ID") String VAC_ID,
+                @Field(value = "VAC_01") String VAC_01,
+                @Field(value = "OCM_01") String OCM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_VAC_CONTROL)
+        Call<VACModel> VAC_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "VAC_ID") String VAC_ID,
+                @Field(value = "VAC_01") String VAC_01,
+                @Field(value = "VAC_02") String VAC_02,
+                @Field(value = "VAC_03") String VAC_03,
+                @Field(value = "VAC_04") String VAC_04,
+                @Field(value = "VAC_97") String VAC_97,
+                @Field(value = "VAC_98") String VAC_98,
+                @Field(value = "ARM_03") String ARM_03
+
+        );
+
+    }
+
+    public static IVAM vam(TYPE type) {
+        return (IVAM) retrofit(IVAM.class, type);
+    }
+
+    public interface IVAM {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_VAM_SELECT)
+        Call<VAMModel> VAM_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "VAM_ID") String VAM_ID,
+                @Field(value = "VAM_01") String VAM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_VAM_CONTROL)
+        Call<VAMModel> VAM_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "VAM_ID") String VAM_ID,
+                @Field(value = "VAM_01") String VAM_01,
+                @Field(value = "VAM_02") String VAM_02,
+                @Field(value = "VAM_03") String VAM_03,
+                @Field(value = "VAM_98") String VAM_98
+
+        );
+
+    }
+
+    public static IVAD vad(TYPE type) {
+        return (IVAD) retrofit(IVAD.class, type);
+    }
+
+    public interface IVAD {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_VAD_SELECT)
+        Call<VADModel> VAD_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "VAD_ID") String VAD_ID,
+                @Field(value = "VAD_01") String VAD_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_VAD_CONTROL)
+        Call<VADModel> VAD_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "VAD_ID") String VAD_ID,
+                @Field(value = "VAD_01") String VAD_01,
+                @Field(value = "VAD_02") String VAD_02,
+                @Field(value = "VAD_03") String VAD_03,
+                @Field(value = "VAD_04") String VAD_04,
+                @Field(value = "VAD_05") String VAD_05,
+                @Field(value = "VAD_98") String VAD_98
+
+        );
+
     }
 }

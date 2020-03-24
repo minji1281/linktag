@@ -94,9 +94,9 @@ public class CosInfo extends AsyncTask<Void, Void, Void> {
                             cosList.clear();
 
                             if(response.body().Total > 0){
-                                CodList.layoutSpinner.setVisibility(View.VISIBLE);
-                                CodList.layoutSpinnerEmpty.setVisibility(View.GONE);
-                                CodList.imgNew.setVisibility(View.VISIBLE);
+                                CodMain.layoutSpinner.setVisibility(View.VISIBLE);
+                                CodMain.layoutSpinnerEmpty.setVisibility(View.GONE);
+                                CodMain.imgNew.setVisibility(View.VISIBLE);
 
                                 for(int i = 0; i < response.body().Total; i++){
                                     cosList.add(new SpinnerList(response.body().Data.get(i).COS_01, response.body().Data.get(i).COS_02, response.body().Data.get(i).COS_03));
@@ -106,9 +106,9 @@ public class CosInfo extends AsyncTask<Void, Void, Void> {
                                 }
                             }
                             else{ //항목없을때
-                                CodList.layoutSpinner.setVisibility(View.GONE);
-                                CodList.layoutSpinnerEmpty.setVisibility(View.VISIBLE);
-                                CodList.imgNew.setVisibility(View.GONE);
+                                CodMain.layoutSpinner.setVisibility(View.GONE);
+                                CodMain.layoutSpinnerEmpty.setVisibility(View.VISIBLE);
+                                CodMain.imgNew.setVisibility(View.GONE);
                             }
 
                             if(gubun2.equals("L")){

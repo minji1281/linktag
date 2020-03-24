@@ -422,7 +422,7 @@ public class CadDetail extends BaseActivity {
 
                             Response<CADModel> response = (Response<CADModel>) msg.obj;
 
-//                            CadList.CAR.CAR_01 = CAD_01;
+//                            CadMain.CAR.CAR_01 = CAD_01;
                             finish();
                         }
                     }

@@ -1,15 +1,9 @@
 package com.linktag.linkapp.ui.pcm;
 
-import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,28 +11,13 @@ import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.model.ARMModel;
-import com.linktag.linkapp.network.BaseConst;
-import com.linktag.linkapp.network.Http;
-import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.alarm_service.AlarmHATT;
-import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
-import com.linktag.linkapp.ui.jdm.JdmRecycleAdapter;
-import com.linktag.linkapp.value_object.ArmVO;
-import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.PcmVO;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-
-import retrofit2.Call;
-import retrofit2.Callback;
-import retrofit2.Response;
 
 public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.ViewHolder> implements Filterable {
 
@@ -162,7 +141,7 @@ public class PcmRecycleAdapter extends RecyclerView.Adapter<PcmRecycleAdapter.Vi
                     pcmvo.setARM_03(filteredmlist.get(position).ARM_03);
                     pcmvo.setARM_04(filteredmlist.get(position).ARM_04);
 
-                    Intent intent = new Intent(mContext, DetailPcm.class);
+                    Intent intent = new Intent(mContext, PcmDetail.class);
                     intent.putExtra("PcmVO", pcmvo);
                     mContext.startActivity(intent);
                 }

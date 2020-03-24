@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
@@ -22,18 +21,14 @@ import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.model.TRDModel;
 import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.jdm.DetailJdm;
 import com.linktag.linkapp.ui.menu.AddSharedDetail;
 import com.linktag.linkapp.ui.menu.Member;
 import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CtdVO;
-import com.linktag.linkapp.value_object.JdmVO;
-import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
 
 import java.util.ArrayList;
@@ -243,14 +238,14 @@ public class TRPMain extends BaseActivity {
                                     trpvo.setTRP_07("");
                                     trpvo.setTRP_97(mUser.Value.OCM_01);
                                     trpvo.setARM_03("N");
-                                    Intent intent = new Intent(mContext, DetailTrp.class);
+                                    Intent intent = new Intent(mContext, TrpDetail.class);
                                     intent.putExtra("TrpVO", trpvo);
                                     intent.putExtra("scanCode", scancode);
                                     intent.putExtra("intentVO", intentVO);  // 요래 넘깁시다
                                     mContext.startActivity(intent);
                                 } else {
                                     TrpVO trpvo = mList.get(0);
-                                    Intent intent = new Intent(mContext, DetailTrp.class);
+                                    Intent intent = new Intent(mContext, TrpDetail.class);
                                     intent.putExtra("TrpVO", trpvo);
                                     mContext.startActivity(intent);
                                 }

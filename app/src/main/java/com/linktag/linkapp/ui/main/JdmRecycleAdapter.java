@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.ui.jdm.DetailJdm;
+import com.linktag.linkapp.ui.jdm.JdmDetail;
 import com.linktag.linkapp.value_object.JdmVO;
 
 import java.util.ArrayList;
@@ -91,7 +91,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                     jdmvo.setJDM_96(mList.get(position).JDM_96);
                     jdmvo.setARM_03(mList.get(position).ARM_03);
 
-                    Intent intent = new Intent(mContext, DetailJdm.class);
+                    Intent intent = new Intent(mContext, JdmDetail.class);
                     intent.putExtra("JdmVO", jdmvo);
                     mContext.startActivity(intent);
                 }
