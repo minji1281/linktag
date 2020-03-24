@@ -56,10 +56,35 @@
         android:orientation="vertical"
         android:background="@color/white">
 
-        <SearchView
-            android:id="@+id/svCadName"
+<!--        <SearchView-->
+<!--            android:id="@+id/svCadName"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            app:actionViewClass="android.support.v7.widget.SearchView"/>-->
+
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:background="@drawable/shape_search_edit"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="50dp"
+                android:layout_height="match_parent"
+                android:padding="8dp"
+                android:src="@drawable/work_search" />
+
+            <EditText
+                android:id="@+id/etSearch"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/list_search_hint"
+                android:textSize="@dimen/text_normal"
+                android:singleLine="true"
+                android:background="@null"
+                android:maxLength="20"
+                android:gravity="center_vertical|left" />
+        </LinearLayout>
 
         <ListView
             android:id="@+id/lvCadName"

@@ -10,9 +10,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.RequiresApi;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,6 +37,7 @@ import com.linktag.linkapp.model.CADModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.number.NumberTextWatcher;
 import com.linktag.linkapp.value_object.CAD_VO;
 import com.linktag.linkapp.value_object.CtdVO;
 
@@ -44,6 +48,7 @@ import java.time.Period;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -61,6 +66,9 @@ public class CadDetail extends BaseActivity {
     //======================
     private BaseHeader header;
 
+    private LinearLayout linearLayout;
+    private InputMethodManager imm;
+
     private TextView tvDay;
     private TextView tvPreDay;
     private TextView tvPreKm;
@@ -75,8 +83,10 @@ public class CadDetail extends BaseActivity {
     private Spinner spGub2;
 
     private Button btnSave;
+    private Button btnName;
 
     private ImageView imgDayIcon;
+
 
     //======================
     // Variable
@@ -121,8 +131,18 @@ public class CadDetail extends BaseActivity {
 
         clearCalTime(CAD_03_C);
 
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        linearLayout = findViewById(R.id.linearLayout);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imm.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
+            }
+        });
+
         tvName = (TextView) findViewById(R.id.tvName);
-        tvName.setOnClickListener(new View.OnClickListener() {
+        btnName = (Button) findViewById(R.id.btnName);
+        btnName.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 nameDialog();
@@ -186,7 +206,9 @@ public class CadDetail extends BaseActivity {
 
         etMemo = (EditText) findViewById(R.id.etMemo);
         etMoney = (EditText) findViewById(R.id.etMoney);
+        etMoney.addTextChangedListener(new NumberTextWatcher(etMoney));
         etKm = (EditText) findViewById(R.id.etKm);
+        etKm.addTextChangedListener(new NumberTextWatcher(etKm));
 
         btnSave = (Button) findViewById(R.id.btnSave);
         btnSave.setOnClickListener(new View.OnClickListener(){
@@ -224,8 +246,8 @@ public class CadDetail extends BaseActivity {
             getDetail();
         }
 
-        etMoney.setText(String.valueOf(Math.round(CAD.CAD_07)));
-        etKm.setText(String.valueOf(Math.round(CAD.CAD_08)));
+        etMoney.setText(String.valueOf(CAD.CAD_07));
+        etKm.setText(String.valueOf(CAD.CAD_08));
         tvDay.setText(sDateFormat(CAD.CAD_03));
         tvName.setText(CAD.CAD_04);
     }
@@ -459,6 +481,7 @@ public class CadDetail extends BaseActivity {
 
                 CAD.CAD_03 = tmp;
                 tvDay.setText(sDateFormat(CAD.CAD_03));
+                requestCAD_SELECT();
             }
         }, CAD_03_C.get(Calendar.YEAR), CAD_03_C.get(Calendar.MONTH), CAD_03_C.get(Calendar.DATE));
 
@@ -497,7 +520,7 @@ public class CadDetail extends BaseActivity {
         });
 
         ListView listView = view.findViewById(R.id.lvCadName);
-        SearchView searchView = view.findViewById(R.id.svCadName);
+        EditText etSearch = view.findViewById(R.id.etSearch);
         BaseHeader nameHeader = view.findViewById(R.id.header);
         nameHeader.btnHeaderRight1.setImageResource(R.drawable.btn_cancel_gray);
         nameHeader.btnHeaderRight1.setOnClickListener(new View.OnClickListener(){
@@ -535,6 +558,7 @@ public class CadDetail extends BaseActivity {
 
         String[] cadArray = getResources().getStringArray(R.array.cad);
         List<String> cadArrayList = Arrays.asList(cadArray);
+        Collections.sort(cadArrayList);
         CadNameAdapter cadNameAdapter = new CadNameAdapter(mContext, cadArrayList);
         listView.setAdapter(cadNameAdapter);
 
@@ -549,18 +573,21 @@ public class CadDetail extends BaseActivity {
             }
         });
 
-        searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
+        etSearch.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onQueryTextSubmit(String newText) {
-                return false;
+            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
             }
 
             @Override
-            public boolean onQueryTextChange(String newText) {
-                cadNameAdapter.getFilter().filter(newText);
-                return false;
+            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
+                cadNameAdapter.getFilter().filter(charSequence);
+            }
+
+            @Override
+            public void afterTextChanged(Editable edit) {
             }
         });
+
         dialog.setContentView(view);
         dialog.show();
     }

@@ -421,6 +421,7 @@
     <string name="cad_name_dialog_header_title">차량 소모품 내역</string>
     <string name="cad_name_dialog_gub1">선택</string>
     <string name="cad_name_dialog_gub2">직접입력</string>
+    <string name="cad_detail_name_button">선택</string>
 
     <!-- 로그 -->
     <string name="log_new_text">신규등록</string>

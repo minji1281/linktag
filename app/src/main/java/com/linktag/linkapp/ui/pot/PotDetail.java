@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.TimePickerDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
@@ -16,10 +17,12 @@ import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -34,6 +37,7 @@ import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.alarm.AlarmDialog;
 import com.linktag.linkapp.ui.master_log.MasterLog;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
@@ -56,6 +60,9 @@ public class PotDetail extends BaseActivity {
     // Layout
     //======================
     private BaseHeader header;
+
+    private LinearLayout linearLayout;
+    private InputMethodManager imm;
 
     private EditText etName;
     private EditText etMemo;
@@ -123,6 +130,15 @@ public class PotDetail extends BaseActivity {
         clearCalTime(POT_03_C);
         clearCalTime(POT_96_C);
 
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        linearLayout = findViewById(R.id.linearLayout);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imm.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
+            }
+        });
+
         lineDDAY = (View) findViewById(R.id.lineDDAY);
         tvDayLabel = (TextView) findViewById(R.id.tvDayLabel);
 
@@ -148,30 +164,20 @@ public class PotDetail extends BaseActivity {
         imgTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlarmDialog alarmDialog = new AlarmDialog(mContext, POT.POT_96.substring(8, 12));
 
-                TimePickerDialog dialog = new TimePickerDialog(mActivity, AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
+                alarmDialog.setDialogListener(new AlarmDialog.CustomDialogListener() {
                     @Override
-                    public void onTimeSet(TimePicker timePicker, int hour, int min) {
-                        String tmp = "";
-                        if(hour<10){
-                            tmp = "0" + String.valueOf(hour);
-                        }
-                        else{
-                            tmp = String.valueOf(hour);
-                        }
-
-                        if(min<10){
-                            tmp += "0" + String.valueOf(min);
-                        }
-                        else{
-                            tmp += String.valueOf(min);
-                        }
-
-                        POT.POT_96 = POT.POT_96.substring(0, 8) + tmp;
+                    public void onPositiveClicked(String time) {
+                        POT.POT_96 = POT.POT_96.substring(0, 8) + time;
                     }
-                }, Integer.valueOf(POT.POT_96.substring(8,10)), Integer.valueOf(POT.POT_96.substring(10,12)), false);
 
-                dialog.show();
+                    @Override
+                    public void onNegativeClicked() {
+
+                    }
+                });
+                alarmDialog.show();
 
             }
         });
@@ -243,9 +249,9 @@ public class PotDetail extends BaseActivity {
             }
         }
         else{ //INSERT
-            tvDDAY.setVisibility(View.GONE);
-            lineDDAY.setVisibility(View.GONE);
-            tvDayLabel.setVisibility(View.GONE);
+//            tvDDAY.setVisibility(View.GONE);
+//            lineDDAY.setVisibility(View.GONE);
+//            tvDayLabel.setVisibility(View.GONE);
             imgWater.setVisibility(View.GONE);
             lbWater.setVisibility(View.GONE);
 
