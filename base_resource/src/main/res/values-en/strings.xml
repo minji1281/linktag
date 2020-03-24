@@ -394,6 +394,7 @@
     <string name="cad_name_dialog_gub1">Select</string>
     <string name="cad_name_dialog_header_title">Vehicle parts List</string>
     <string name="cad_name_dialog_gub2">Input</string>
+    <string name="cad_detail_name_button">Select</string>
 
     <!-- 로그 -->
     <string name="log_new_text">New registration</string>

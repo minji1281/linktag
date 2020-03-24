@@ -7,14 +7,19 @@ import android.app.TimePickerDialog;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
@@ -28,10 +33,14 @@ import com.linktag.linkapp.model.CODModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.alarm.AlarmDialog;
+import com.linktag.linkapp.ui.number.NumberTextWatcher;
 import com.linktag.linkapp.ui.spinner.SpinnerList;
 import com.linktag.linkapp.value_object.COD_VO;
 import com.linktag.linkapp.value_object.CtdVO;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
@@ -51,7 +60,8 @@ public class CodDetail extends BaseActivity {
     //======================
     private BaseHeader header;
 
-//    private Spinner spCos;
+    private LinearLayout linearLayout;
+    private InputMethodManager imm;
 
     private TextView tvDDAY;
     private TextView tvEndDay;
@@ -87,6 +97,8 @@ public class CodDetail extends BaseActivity {
     private COD_VO COD;
     private String GUBUN;
     ArrayList<SpinnerList> cosList = new ArrayList<>();
+    DecimalFormat df = new DecimalFormat("###,###.####");
+    String result="";
 
     Calendar COD_05_C = Calendar.getInstance(); //사용일자
     Calendar COD_06_C = Calendar.getInstance(); //유효기간일자
@@ -126,6 +138,15 @@ public class CodDetail extends BaseActivity {
         clearCalTime(COD_06_C);
         clearCalTime(COD_07_C);
 
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+        linearLayout = findViewById(R.id.linearLayout);
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imm.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
+            }
+        });
+
         lineDDAY = (View) findViewById(R.id.lineDDAY);
         tvDayLabel = (TextView) findViewById(R.id.tvDayLabel);
 
@@ -133,6 +154,7 @@ public class CodDetail extends BaseActivity {
         etMemo = (EditText) findViewById(R.id.etMemo);
         etBrand = (EditText) findViewById(R.id.etBrand);
         etMoney = (EditText) findViewById(R.id.etMoney);
+        etMoney.addTextChangedListener(new NumberTextWatcher(etMoney));
 
         imgAlarm = (ImageView) findViewById(R.id.imgAlarm);
         imgAlarm.setOnClickListener(new View.OnClickListener(){
@@ -152,30 +174,20 @@ public class CodDetail extends BaseActivity {
         imgTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                AlarmDialog alarmDialog = new AlarmDialog(mContext, COD.COD_96);
 
-                TimePickerDialog dialog = new TimePickerDialog(mActivity, AlertDialog.THEME_HOLO_LIGHT, new TimePickerDialog.OnTimeSetListener() {
+                alarmDialog.setDialogListener(new AlarmDialog.CustomDialogListener() {
                     @Override
-                    public void onTimeSet(TimePicker timePicker, int hour, int min) {
-                        String tmp = "";
-                        if(hour<10){
-                            tmp = "0" + String.valueOf(hour);
-                        }
-                        else{
-                            tmp = String.valueOf(hour);
-                        }
-
-                        if(min<10){
-                            tmp += "0" + String.valueOf(min);
-                        }
-                        else{
-                            tmp += String.valueOf(min);
-                        }
-
-                        COD.COD_96 = tmp;
+                    public void onPositiveClicked(String time) {
+                        COD.COD_96 = time;
                     }
-                }, Integer.valueOf(COD.COD_96.substring(0,2)), Integer.valueOf(COD.COD_96.substring(2)), false);
 
-                dialog.show();
+                    @Override
+                    public void onNegativeClicked() {
+
+                    }
+                });
+                alarmDialog.show();
 
             }
         });
@@ -240,9 +252,9 @@ public class CodDetail extends BaseActivity {
         }
         else{ //INSERT
             getNewData();
-            tvDDAY.setVisibility(View.GONE);
-            lineDDAY.setVisibility(View.GONE);
-            tvDayLabel.setVisibility(View.GONE);
+//            tvDDAY.setVisibility(View.GONE);
+//            lineDDAY.setVisibility(View.GONE);
+//            tvDayLabel.setVisibility(View.GONE);
             imgUseEnd.setVisibility(View.GONE);
             tvUseEndLabel.setVisibility(View.GONE);
             tvUseEndDayLabel.setVisibility(View.GONE);
@@ -254,7 +266,7 @@ public class CodDetail extends BaseActivity {
     protected void initialize() {
         setAlarm();
         setEndDay();
-        etMoney.setText(String.valueOf(Math.round(COD.COD_04)));
+        etMoney.setText(String.valueOf(COD.COD_04));
 
         if(GUBUN.equals("UPDATE")){
             getDetail();

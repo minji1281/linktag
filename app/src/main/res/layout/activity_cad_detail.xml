@@ -14,6 +14,7 @@
 
 
     <LinearLayout
+        android:id="@+id/linearLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1">
@@ -101,14 +102,20 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
                             android:gravity="center_vertical|left"
                             android:textSize="@dimen/text_normal" />
 
-                        <ImageView
-                            android:layout_width="25dp"
+                        <Button
+                            android:id="@+id/btnName"
+                            android:layout_width="80dp"
                             android:layout_height="match_parent"
-                            android:layout_marginRight="10dp"
-                            android:background="@android:drawable/ic_menu_more" />
+                            android:background="@drawable/btn_round_indigo_5dp"
+                            android:text="@string/cad_detail_name_button"
+                            android:textStyle="bold"
+                            android:textColor="#FFF"
+                            android:textSize="13dp" />
 
                     </LinearLayout>
 
@@ -291,6 +298,7 @@
                                     android:gravity="center_vertical|right"
                                     android:background="@null"
                                     android:inputType="number"
+                                    android:maxLength="25"
                                     android:paddingLeft="5dp"
                                     android:paddingRight="5dp"
                                     android:textStyle="bold"
@@ -348,7 +356,10 @@
                                     android:layout_weight="1"
                                     android:gravity="center_vertical|right"
                                     android:background="@null"
-                                    android:inputType="number"
+                                    android:inputType="numberDecimal"
+                                    android:digits="0123456789."
+                                    android:maxLength="25"
+                                    android:singleLine="true"
                                     android:paddingLeft="5dp"
                                     android:paddingRight="15dp"
                                     android:textStyle="bold"
