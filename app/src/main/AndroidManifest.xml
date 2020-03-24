@@ -3,7 +3,8 @@
     package="com.linktag.linkapp">
 
     <uses-feature android:name="android.hardware.camera" />
-
+    <uses-feature android:name="android.hardware.nfc" android:required="false" />
+    <uses-permission android:name="android.permission.NFC" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,6 +16,7 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
 
     <application
         android:name="com.linktag.base.linkapp"
@@ -272,6 +274,12 @@
 
         <activity
             android:name=".ui.beacon.beaconMain"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:theme="@style/TranslucentUser" />
+
+        <activity
+            android:name=".ui.nfc.nfcMain"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />

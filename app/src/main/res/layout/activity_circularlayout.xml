@@ -1,0 +1,31 @@
+<com.github.andreilisun.circular_layout.CircularLayout android:layout_width="220dp"
+    android:layout_height="220dp"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <android.support.v7.widget.SwitchCompat
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <ImageView
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@mipmap/sym_icon" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ok" />
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <RadioButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Chronometer
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</com.github.andreilisun.circular_layout.CircularLayout>

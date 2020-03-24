@@ -1,37 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
-    android:padding="16dp">
+    android:paddingBottom="5dp"
+    android:background="@android:color/white">
 
-    <com.linktag.base.base_header.BaseHeader
-        android:id="@+id/header"
-        android:layout_width="match_parent"
+    <ImageButton
+        android:id="@+id/btnExit"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/btn_cancel"
+        android:background="@android:color/transparent"
+        />
+
+    <ImageView
+        android:id="@+id/imglogo"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:title_text="SQLite 테스트" />
+        android:layout_marginTop="80dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/login_logo2" />
+
+    <ImageView
+        android:id="@+id/searchload"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/imglogo"
+        android:layout_marginTop="60dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/load" />
+
+
+    <TextView  android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:layout_weight="1"
+        android:layout_below="@+id/searchload"
+        android:layout_marginTop="30dp"
+        tools:text="ssssssssssss"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/Textview"
+        android:gravity="center"
+        android:fontFamily="@font/notosans_medium"
+        android:textColor="#3F53A1"
+        android:textSize="20sp"/>
+
+
+
+
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:gravity="center_vertical">
-
-        <TextView  android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:id="@+id/Textview" />
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/Textview"
+        android:layout_marginTop="50dp"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
         <Button
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:text="Run"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="찾기"
             android:id="@+id/button"
-            android:layout_weight="5"
-            android:layout_centerVertical="true"
-            android:layout_centerHorizontal="true"
-            android:onClick="OnButtonClicked" />
+            android:layout_weight="1"
+            android:onClick="OnButtonClicked"
+            android:layout_marginRight="10dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:textSize="18dp"
+            android:fontFamily="@font/notosans_regular"/>
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="사용"
+            android:id="@+id/button2"
+            android:layout_weight="1"
+            android:layout_marginLeft="10dp"
+            android:paddingLeft="50dp"
+            android:paddingRight="50dp"
+            android:paddingTop="20dp"
+            android:paddingBottom="20dp"
+            android:textSize="18dp"
+            android:fontFamily="@font/notosans_regular"
+            android:onClick="OnButtonClicked2" />
+
+
+
+
+
     </LinearLayout>
 
-</LinearLayout>
+
+    <com.linktag.base.base_footer.BaseFooter
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+</RelativeLayout>

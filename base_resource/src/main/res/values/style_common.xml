@@ -6,6 +6,12 @@
         <item name="android:background">#CCCCCC</item>
     </style>
 
+    <style name="main_horizontal_line">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">2px</item>
+        <item name="android:background">#000000</item>
+    </style>
+
     <style name="common_button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">45dp</item>
@@ -17,7 +23,7 @@
     <style name="signup_button">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">45dp</item>
-        <item name="android:background">@drawable/selector_signup_button</item>
+        <item name="android:background">@drawable/selector_login_button</item>
         <item name="android:textColor">@color/white</item>
         <item name="android:textSize">@dimen/text_normal</item>
     </style>

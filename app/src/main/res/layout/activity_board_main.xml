@@ -81,6 +81,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="horizontal">
+
         <ListView
             android:id="@+id/listView"
             android:layout_width="match_parent"
@@ -88,6 +89,7 @@
             android:divider="@null"
             android:foregroundGravity="center"
             tools:listitem="@layout/listitem_brd_record" />
+
         <LinearLayout
             android:id="@+id/linearLayout1"
             android:layout_width="wrap_content"
@@ -101,6 +103,7 @@
                 android:background="@drawable/plus"
                 android:layout_marginBottom="10dp"
                 android:layout_marginEnd="10dp"
+                android:visibility="gone"
                 android:onClick="New"/>
         </LinearLayout>
     </RelativeLayout>

@@ -63,12 +63,12 @@ public class BoardBRDAdapter extends BaseAdapter {
         }
 
         vh.tvUserName.setText(mList.get(position).BRD_04); //제목
-        vh.tvWorkType.setText(mList.get(position).BRD_05); // 내용
+        vh.tvWorkType.setText(mList.get(position).BRD_05.replace("<p>","").replace("</p>","\n").replace("<br />"," "));
 
-        vh.tvWorkTime.setText(mList.get(position).BRD_97NM);
-        vh.tvWorkDate.setText(mList.get(position).BRD_06.substring(0,4)+"-"+mList.get(position).BRD_06.substring(4,6)+"-"+mList.get(position).BRD_06.substring(6,8));
+        vh.tvWorkTime.setText(mList.get(position).BRD_02.substring(0,4)+"-"+mList.get(position).BRD_02.substring(4,6)+"-"+mList.get(position).BRD_02.substring(6,8));
+        vh.tvWorkDate.setText(mList.get(position).BRD_03.substring(0,4)+"-"+mList.get(position).BRD_03.substring(4,6)+"-"+mList.get(position).BRD_03.substring(6,8));
 
-        vh.tvWorkState.setText(mList.get(position).BRD_09); // 내용
+        vh.tvWorkState.setText(""); // 내용
 
 
 

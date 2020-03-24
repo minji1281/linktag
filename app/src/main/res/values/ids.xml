@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+  <item name="arc_layout" type="id"/>
+  <item name="note_text" type="id"/>
+  <item name="btn_qrcode" type="id"/>
+  <item name="btn_beacon" type="id"/>
+  <item name="btn_nfc" type="id"/>
+
+</resources>

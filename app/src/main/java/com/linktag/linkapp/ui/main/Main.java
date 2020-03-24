@@ -106,6 +106,13 @@ public class Main extends BaseActivity {
     }
 
     @Override
+    protected void onPause() {
+        super.onPause();
+        overridePendingTransition(0,0);
+        //액티비티 애니메이션 x
+    }
+
+    @Override
     protected void initialize() {
         registerReceiver();
         setTag();

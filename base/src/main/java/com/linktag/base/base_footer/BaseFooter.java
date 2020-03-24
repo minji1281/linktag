@@ -3,6 +3,7 @@ package com.linktag.base.base_footer;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.TypedArray;
+import android.graphics.Color;
 import android.media.Image;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -23,7 +24,8 @@ public class BaseFooter extends LinearLayout {
 
     public LinearLayout btnFooterHome;
     public LinearLayout btnFooterCalendar;
-    public LinearLayout btnFooterScan;
+    public LinearLayout marginFooter;
+    public ImageView btnFooterScan;
     public LinearLayout btnFooterMenu;
     public LinearLayout btnFooterMember;
     public LinearLayout btnFooterSetting;
@@ -112,10 +114,11 @@ public class BaseFooter extends LinearLayout {
         View v = li.inflate(R.layout.layout_base_footer, this, false);
 
         layoutFooter = (LinearLayout) v.findViewById(R.id.layoutFooter);
-
+        marginFooter= (LinearLayout) v.findViewById(R.id.marginFooter);
+        marginFooter.setBackgroundColor(Color.parseColor("#00ff0000"));
         btnFooterHome = (LinearLayout) v.findViewById(R.id.btnFooterHome);
         btnFooterCalendar = (LinearLayout) v.findViewById(R.id.btnFooterCalendar);
-        btnFooterScan = (LinearLayout) v.findViewById(R.id.btnFooterScan);
+        btnFooterScan = (ImageView) v.findViewById(R.id.btnFooterScan);
         btnFooterMenu = (LinearLayout) v.findViewById(R.id.btnFooterMenu);
         btnFooterMember = (LinearLayout) v.findViewById(R.id.btnFooterMember);
         btnFooterSetting = (LinearLayout) v.findViewById(R.id.btnFooterSetting);

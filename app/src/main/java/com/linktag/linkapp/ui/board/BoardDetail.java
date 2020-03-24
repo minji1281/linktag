@@ -66,8 +66,9 @@ public class BoardDetail extends BaseActivity {
 
     private Button btnCancel;
     private Button btnUpdate;
-    private EditText etSubjecet;
+    private TextView etSubjecet;
     private EditText etContent;
+    private TextView tvDay;
     private TextView replyCnt;
 
     String DSH_GB="";
@@ -75,8 +76,8 @@ public class BoardDetail extends BaseActivity {
     String getDSH_01 = "";
     String getDSH_04 = "";
     String getDSH_05 = "";
-    String getDSH_09 = "";
-    String getDSH_97 = "";
+    String getDSH_02 = "";
+    String getDSH_03 = "";
 
     //======================
     // Initialize
@@ -95,8 +96,8 @@ public class BoardDetail extends BaseActivity {
         if(getIntent().getStringExtra("DSH_01").equals("")){ getDSH_01 = "";}else{getDSH_01 = getIntent().getStringExtra("DSH_01");}
         if(getIntent().getStringExtra("DSH_04").equals("")){ getDSH_04 = "";}else{getDSH_04 = getIntent().getStringExtra("DSH_04");}
         if(getIntent().getStringExtra("DSH_05").equals("")){ getDSH_05 = "";}else{getDSH_05 = getIntent().getStringExtra("DSH_05");}
-        if(getIntent().getStringExtra("DSH_09").equals("")){ getDSH_09 = "0";}else{getDSH_09 = getIntent().getStringExtra("DSH_09");}
-        if(getIntent().getStringExtra("DSH_97").equals("")){ getDSH_97 = "";}else{getDSH_97 = getIntent().getStringExtra("DSH_97");}
+        if(getIntent().getStringExtra("DSH_02").equals("")){ getDSH_02 = "";}else{getDSH_02 = getIntent().getStringExtra("DSH_02");}
+        if(getIntent().getStringExtra("DSH_03").equals("")){ getDSH_03 = "";}else{getDSH_03 = getIntent().getStringExtra("DSH_03");}
 
         mBoard1 = this;
 
@@ -118,12 +119,21 @@ public class BoardDetail extends BaseActivity {
 
         etSubjecet = findViewById(R.id.etSubjecet);
         etSubjecet.setText(getDSH_04);
+        etSubjecet.setFocusable(false);
+
+        etSubjecet.setClickable(false);
 
         etContent = findViewById(R.id.etContent);
-        etContent.setText(getDSH_05);
+        etContent.setText(getDSH_05.replace("<p>","").replace("</p>","\n").replace("<br />"," "));
+        etContent.setFocusable(false);
 
-        replyCnt = findViewById(R.id.replyCnt);
-        replyCnt.setText(getDSH_09);
+        etContent.setClickable(false);
+
+        tvDay = findViewById(R.id.tvDay);
+        tvDay.setText(getDSH_02.substring(0,4)+"-"+getDSH_02.substring(4,6)+"-"+getDSH_02.substring(6,8) +" ~ "+  getDSH_03.substring(0,4)+"-"+getDSH_03.substring(4,6)+"-"+getDSH_03.substring(6,8));
+        tvDay.setFocusable(false);
+
+        tvDay.setClickable(false);
 
         btnCancel = findViewById(R.id.btnCancel);
         if(DB_GB.equals("INSERT")){ btnCancel.setText(R.string.dash_05); btnCancel.setOnClickListener(v -> finish()); }
@@ -176,11 +186,11 @@ public class BoardDetail extends BaseActivity {
         String GUBUN = GUB;
         String BRD_ID = mUser.Value.CTM_01;
         if(GUB.equals("INSERT")){  BRD_01 = "";} else { BRD_01 = getIntent().getStringExtra("DSH_01");}
-        String BRD_02 = "";
-        String BRD_03 = "";
+        String BRD_02 = strToday;
+        String BRD_03 = strToday;
         String BRD_04 = etSubjecet.getText().toString();
         String BRD_05 = etContent.getText().toString();
-        String BRD_06 = strToday;
+        String BRD_06 = "";
         String BRD_98 = mUser.Value.OCM_01;
         Call<BRDModel> call = Http.commute(HttpBaseService.TYPE.POST).BRD_CONTROL(
                 BaseConst.URL_HOST,
@@ -275,11 +285,11 @@ public class BoardDetail extends BaseActivity {
         String GUBUN = GUB;
         String NOT_ID = mUser.Value.CTM_01;
         if(GUB.equals("INSERT")){  NOT_01 = "";} else { NOT_01 = getIntent().getStringExtra("DSH_01");}
-        String NOT_02 = "";
-        String NOT_03 = "";
+        String NOT_02 = strToday;
+        String NOT_03 = strToday;
         String NOT_04 = etSubjecet.getText().toString();
         String NOT_05 = etContent.getText().toString();
-        String NOT_06 = strToday;
+        String NOT_06 = "";
         String NOT_98 = mUser.Value.OCM_01;
         Call<NOTModel> call = Http.commute(HttpBaseService.TYPE.POST).NOT_CONTROL(
                 BaseConst.URL_HOST,
@@ -375,7 +385,6 @@ public class BoardDetail extends BaseActivity {
         intent.putExtra("DSH_GB", DSH_GB);
         intent.putExtra("DSH_01", getDSH_01);
         intent.putExtra("DSH_ID", mUser.Value.OCM_01);
-        intent.putExtra("DSH_97", getDSH_97);
         intent.putExtra("DSH_04", getDSH_04);
 
         startActivityForResult(intent, 1);

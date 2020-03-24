@@ -314,8 +314,8 @@ public class BoardMain extends BaseActivity {
         intent.putExtra("DSH_01", NOTList.get(position).NOT_01);
         intent.putExtra("DSH_04", NOTList.get(position).NOT_04);
         intent.putExtra("DSH_05", NOTList.get(position).NOT_05);
-        intent.putExtra("DSH_09", NOTList.get(position).NOT_09);
-        intent.putExtra("DSH_97", NOTList.get(position).NOT_97);
+        intent.putExtra("DSH_02", NOTList.get(position).NOT_02);
+        intent.putExtra("DSH_03", NOTList.get(position).NOT_03);
         intent.putExtra("DSH_GB", GUBUN);
         mContext.startActivity(intent);
        // Log.d("***********************",String.valueOf(BRDList.get(position).RUTC_01));

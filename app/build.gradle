@@ -71,9 +71,7 @@ dependencies {
     implementation 'org.altbeacon:android-beacon-library:2.16.3'
 
     implementation 'com.github.andreilisun:circular-layout:1.0'
-    implementation 'com.ogaclejapan.arclayout:library:1.1.0@aar'
-
-
+     implementation 'com.ogaclejapan.arclayout:library:1.1.0@aar'
 
 }
 

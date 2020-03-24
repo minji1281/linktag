@@ -71,5 +71,6 @@
     <color name="path_green">#5FB336</color>
     <color name="path_purple">#49098A</color>
 
-    <color name="transparent_arc">#D1ffffff</color>
+    <color name="transparent_arc">#FFFFFF</color>
+    <color name="transparent_arc2">#00ffffff</color>
 </resources>

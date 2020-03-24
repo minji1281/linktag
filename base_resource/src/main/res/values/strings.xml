@@ -12,12 +12,12 @@
     <string name="sign_up_1">아이디 &amp; 비밀번호 찾기</string>
     <string name="sign_up_2">가입 완료되었습니다. 다시 로그인 해주세요.</string>
     <string name="sign_up_3">NAME</string>
-    <string name="sign_up_4">성명</string>
+    <string name="sign_up_4">이름</string>
     <string name="sign_up_5">E-MAIL</string>
-    <string name="sign_up_6">아이디(이메일)</string>
+    <string name="sign_up_6">아이디</string>
     <string name="sign_up_7">비밀번호</string>
     <string name="sign_up_8">비밀번호 확인</string>
-    <string name="sign_up_9">휴대전화</string>
+    <string name="sign_up_9">휴대번호</string>
     <string name="sign_up_10">가입</string>
 
     <string name="login_0">휴대전화 번호를 찾을 수 없습니다.</string>
@@ -170,7 +170,7 @@
     <string name="note_bottom_right"><![CDATA[app:arc_origin=&quot;<b>bottom|right</b>&quot;<br/>Quarter arc of from 180 degrees]]></string>
     <string name="note_advanced_freeangle"><![CDATA[app:arc_freeAngle=&quot;<b>true</b>&quot;<br/>Can be free angle to place the child view]]></string>
     <string name="note_advanced_tumblr">Try pressing the button</string>
-    <string name="note_advanced_path">Try pressing the button</string>
+    <string name="note_advanced_path">인식방법을 선택해 주세요</string>
 
 
 

@@ -219,23 +219,8 @@ public class HomeFragment extends BaseFragment {
                 mContext.startActivity(intent);
             }
         });
-
-        btnArc = view.findViewById(R.id.btnArc);
-        btnArc.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(mContext, arclayoutMain.class);
-//                intent.putExtra("DSH_01", "");
-//                intent.putExtra("DSH_04", "");
-//                intent.putExtra("DSH_05", "");
-//                intent.putExtra("DSH_09", "0");
-//                intent.putExtra("DSH_97","");
-//                intent.putExtra("DSH_GB", "NOT");
-
-                mContext.startActivity(intent);
-            }
-        });
     }
+
 
     protected void initialize(){
         tvHomeName.setText(mUser.Value.OCM_02);

@@ -1,0 +1,146 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/root_layout"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#9ab6ff">
+
+    <ImageButton
+        android:id="@+id/btnExit"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentRight="true"
+        android:src="@drawable/btn_cancel"
+        android:visibility="gone"
+        android:background="@android:color/transparent"
+        />
+    <ImageView
+        android:id="@+id/imglogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        android:src="@drawable/home_logo" />
+    <TextView
+        android:id="@+id/txtlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imglogo"
+        android:fontFamily="@font/notosans_regular"
+        android:text="@string/note_advanced_path"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        />
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="250dp"
+        android:layout_alignParentBottom="true">
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="250dp"
+            android:background="@drawable/arc_round_background"
+            android:gravity="center|bottom">
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="205dp"
+                android:layout_marginBottom="-2dp"
+                android:layout_marginLeft="30dp"
+                android:layout_marginRight="30dp"
+                android:background="@drawable/arc_round_background2"
+                android:gravity="center|bottom">
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <FrameLayout
+        android:id="@+id/menu_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="invisible"
+        >
+
+        <com.ogaclejapan.arclayout.ArcLayout
+            android:id="@id/arc_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:arc_axisRadius="@dimen/layout_child_offset_path"
+            app:arc_freeAngle="true"
+            app:arc_origin="bottom"
+            app:arc_radius="@dimen/layout_radius_path"
+            >
+
+            <Button
+                android:id="@id/btn_qrcode"
+                android:layout_height="@dimen/item_circle_size_medium"
+                android:layout_width="@dimen/item_circle_size_medium"
+                android:textSize="@dimen/item_font_size_path"
+                android:background="@drawable/btn_qrcode"
+                android:text="QR"
+                android:textColor="#000000"
+                android:gravity="bottom|center_horizontal"
+                app:arc_angle="30"
+                />
+
+            <Button
+                android:id="@id/btn_beacon"
+                android:layout_height="@dimen/item_circle_size_medium"
+                android:layout_width="@dimen/item_circle_size_medium"
+                android:textSize="@dimen/item_font_size_path"
+                android:background="@drawable/btn_beacon"
+                android:text="BEACON"
+                android:gravity="bottom|center_horizontal"
+                android:textColor="#000000"
+                app:arc_angle="90"
+                />
+
+
+
+            <Button
+                android:id="@id/btn_nfc"
+                android:layout_height="@dimen/item_circle_size_medium"
+                android:layout_width="@dimen/item_circle_size_medium"
+                android:textSize="@dimen/item_font_size_path"
+                android:background="@drawable/btn_nfc"
+                android:gravity="bottom|center_horizontal"
+                android:text="NFC"
+                android:textColor="#000000"
+                app:arc_angle="150"
+                />
+
+        </com.ogaclejapan.arclayout.ArcLayout>
+
+    </FrameLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true">
+        <ImageButton
+            android:id="@+id/fab"
+            android:layout_width="165dp"
+            android:layout_height="110dp"
+            android:scaleType="centerCrop"
+            android:layout_marginBottom="-30dp"
+            android:src="@drawable/footer_scan2"
+            android:background="@android:color/transparent" />
+    </LinearLayout>
+
+
+
+    <com.linktag.base.base_footer.BaseFooter
+        android:id="@+id/footer"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone"/>
+
+</RelativeLayout>

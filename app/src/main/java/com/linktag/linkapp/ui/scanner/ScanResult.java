@@ -42,7 +42,6 @@ public class ScanResult {
 
     public void run(){
         String scanCode = "";
-
         try{
             String[] split = str.split("\\?");
             if(split[0].equals("http://www.linktag.io/scan")) {
@@ -55,10 +54,23 @@ public class ScanResult {
                 ClsAES aes = new ClsAES();
                 String dec = aes.Decrypt(aes.Base64Decoding(s));
 
-                if (t.length() == 2 && u.length() == 10 && dec.length() == 15) {
-                    validation = true;
-                    scanCode = t + u + dec;
-                }
+               if(t.length() ==2) {//QR일때
+                    if (u.length() == 10 && dec.length() == 15) {
+                        validation = true;
+                        scanCode = t + u + dec;
+                    }
+               }else if(t.length() == 3){ //NFC일때             암호화 모듈사용시 오류 발생.
+                   if (u.length() == 10 && s.length() == 14) {
+                       validation = true;
+                       scanCode = t + u + s;
+                   }
+               }
+               else if(t.length() == 6){ //BEACON일때              암호화 모듈사용시 오류 발생.
+                   if (u.length() == 10 && s.length() == 36) {
+                       validation = true;
+                       scanCode = t + u + s;
+                   }
+               }
             }
         } catch (Exception e) {
             validation = false;

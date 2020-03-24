@@ -62,10 +62,10 @@ public class BoardNOTAdapter extends BaseAdapter {
         }
 
         vh.tvUserName.setText(mList.get(position).NOT_04); //제목
-        vh.tvWorkType.setText(mList.get(position).NOT_05); // 내용
+        vh.tvWorkType.setText(mList.get(position).NOT_05.replace("<p>","").replace("</p>","\n").replace("<br />"," "));
 
-        vh.tvWorkTime.setText(mList.get(position).NOT_97NM);
-        vh.tvWorkDate.setText(mList.get(position).NOT_06.substring(0,4)+"-"+mList.get(position).NOT_06.substring(4,6)+"-"+mList.get(position).NOT_06.substring(6,8));
+        vh.tvWorkTime.setText(mList.get(position).NOT_02.substring(0,4)+"-"+mList.get(position).NOT_02.substring(4,6)+"-"+mList.get(position).NOT_02.substring(6,8));
+        vh.tvWorkDate.setText(mList.get(position).NOT_03.substring(0,4)+"-"+mList.get(position).NOT_03.substring(4,6)+"-"+mList.get(position).NOT_03.substring(6,8));
 
         vh.tvWorkState.setText(mList.get(position).NOT_09); // 내용
 

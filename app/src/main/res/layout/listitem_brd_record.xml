@@ -79,6 +79,7 @@
                 android:layout_marginTop="6dp"
                 android:ellipsize="end"
                 android:singleLine="true"
+                android:maxLines="1"
                 android:textSize="@dimen/text_small"
                 tools:text="개발부 사원" />
 
@@ -87,7 +88,15 @@
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
-
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:minWidth="50dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small"
+                    android:text="시작일 :" />
                 <TextView
                     android:id="@+id/tvWorkTime"
                     android:layout_width="match_parent"
@@ -95,9 +104,18 @@
                     android:ellipsize="end"
                     android:minWidth="100dp"
                     android:singleLine="true"
-                    android:textColor="@color/colorTextGray"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/text_small"
                     tools:text="10:18" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:ellipsize="end"
+                    android:minWidth="50dp"
+                    android:singleLine="true"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/text_small"
+                    android:text="종료일 :" />
 
                 <TextView
                     android:id="@+id/tvWorkDate"
@@ -117,6 +135,7 @@
                     android:maxWidth="30dp"
                     android:src="@drawable/dashboard"
                     android:background="@android:color/transparent"
+                    android:visibility="gone"
                     android:scaleType="fitEnd">
                 </ImageView>
 
@@ -130,6 +149,7 @@
                     android:gravity="start|center"
                     android:singleLine="true"
                     android:textColor="#00BAF7"
+                    android:visibility="gone"
                     android:textSize="@dimen/text_normal"
                     tools:text="근무중" />
             </LinearLayout>
