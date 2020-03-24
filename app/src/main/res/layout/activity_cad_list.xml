@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/list_back"
-    tools:context=".ui.car.CadList">
+    tools:context=".ui.car.CadMain">
 
     <com.linktag.base.base_header.BaseHeader
         android:id="@+id/header"
@@ -112,7 +112,7 @@
                 android:id="@+id/swipeRefresh"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                tools:context=".ui.car.CadList">
+                tools:context=".ui.car.CadMain">
 
                 <ListView
                     android:id="@+id/listView"

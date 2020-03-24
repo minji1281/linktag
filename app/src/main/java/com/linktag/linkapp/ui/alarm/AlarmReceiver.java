@@ -45,7 +45,7 @@ public class AlarmReceiver extends BroadcastReceiver {
         NotificationCompat.Builder builder = new NotificationCompat.Builder(context, "linktag alarm");
 //        builder.setContentIntent(resultPendingIntent);
 
-////        Intent resultIntent = new Intent(context, PotList.class);
+////        Intent resultIntent = new Intent(context, PotMain.class);
 //        TaskStackBuilder stackBuilder = TaskStackBuilder.create(context);
 //        stackBuilder.addParentStack(intent.getComponent());
 ////        intent.setClassName(context.getPackageName(), context.getPackageName() + ".ui.login.Login");

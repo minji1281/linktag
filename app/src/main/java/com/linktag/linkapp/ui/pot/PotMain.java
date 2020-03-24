@@ -1,4 +1,4 @@
-package com.linktag.linkapp.ui.frm;
+package com.linktag.linkapp.ui.pot;
 
 import android.annotation.SuppressLint;
 import android.content.Intent;
@@ -12,7 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -21,14 +21,15 @@ import com.linktag.base.base_footer.BaseFooter;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.model.FRMModel;
+import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.menu.AddSharedDetail;
 import com.linktag.linkapp.ui.menu.Member;
 import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CtdVO;
-import com.linktag.linkapp.value_object.FRM_VO;
+import com.linktag.linkapp.value_object.PotVO;
 
 import java.util.ArrayList;
 
@@ -37,13 +38,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class FrmList extends BaseActivity {
+public class PotMain extends BaseActivity {
     //======================
     // Layout
     //======================
     private BaseHeader header;
     private BaseFooter footer;
-    private ListView listView;
+    private GridView gridView;
     private TextView emptyText;
     private SwipeRefreshLayout swipeRefresh;
     private EditText etSearch;
@@ -52,10 +53,9 @@ public class FrmList extends BaseActivity {
     //======================
     // Variable
     //======================
-    private FrmAdapter mAdapter;
-    private ArrayList<FRM_VO> mList;
-    private ArrayList<FRM_VO> mList2;
-    private String scancode;
+    private PotAdapter mAdapter;
+    private ArrayList<PotVO> mList;
+    private String scancode = "";
     private CtdVO intentVO;
 
     //======================
@@ -66,12 +66,12 @@ public class FrmList extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_frm_list);
+        setContentView(R.layout.activity_pot_list);
 
         intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
         if (getIntent().hasExtra("scanCode")) {
             scancode = getIntent().getExtras().getString("scanCode");
-            requestFRM_SELECT("DETAIL", scancode);
+            requestPOT_SELECT("DETAIL", scancode);
         }
 
         initLayout();
@@ -87,30 +87,31 @@ public class FrmList extends BaseActivity {
         // 요거
         initLayoutByContractType();
 
-        listView = (ListView) findViewById(R.id.listView);
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        gridView = (GridView) findViewById(R.id.gridView);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                FRM_VO FRM = mList.get(position);
+                PotVO POT = mList.get(position);
 
-                Intent intent = new Intent(mContext, FrmDetail.class);
-                intent.putExtra("FRM", FRM);
+                Intent intent = new Intent(mContext, PotDetail.class);
+                intent.putExtra("POT", POT);
                 intent.putExtra("intentVO", intentVO);
 
                 mContext.startActivity(intent);
             }
         });
+
         emptyText = findViewById(R.id.empty);
-        listView.setEmptyView(emptyText);
+        gridView.setEmptyView(emptyText);
         etSearch = findViewById(R.id.etSearch);
 //        imgSearch = findViewById(R.id.imgSearch);
-//        imgSearch.setOnClickListener(v -> requestFRM_SELECT("LIST", ""));
+//        imgSearch.setOnClickListener(v -> requestPOT_SELECT("LIST", ""));
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                requestFRM_SELECT("LIST", "");
+                requestPOT_SELECT("LIST", "");
                 swipeRefresh.setRefreshing(false);
             }
         });
@@ -119,15 +120,16 @@ public class FrmList extends BaseActivity {
     @Override
     protected void initialize() {
         mList = new ArrayList<>();
-        mAdapter = new FrmAdapter(mContext, mList);
-        listView.setAdapter(mAdapter);
+        mAdapter = new PotAdapter(mContext, mList);
+        gridView.setAdapter(mAdapter);
+
     }
 
     @Override
     protected void onResume(){
         super.onResume();
 
-        requestFRM_SELECT("LIST", "");
+        requestPOT_SELECT("LIST", "");
 
         etSearch.addTextChangedListener(new TextWatcher() {
             @Override
@@ -145,7 +147,7 @@ public class FrmList extends BaseActivity {
         });
     }
 
-    private void requestFRM_SELECT(String GUBUN, String FRM_01){
+    private void requestPOT_SELECT(String GUBUN, String POT_01){
         //인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
@@ -154,26 +156,26 @@ public class FrmList extends BaseActivity {
 
 //        openLoadingBar();
 
-        String FRM_ID = intentVO.CTN_02; //컨테이너
-        String FRM_02 = ""; //명칭
+        String POT_ID = intentVO.CTN_02; //컨테이너
+        String POT_02 = "";
 //        if(GUBUN.equals("LIST")){
-//            FRM_02 = etName.getText().toString();
+//            POT_02 = etName.getText().toString();
 //        }
         String OCM_01 = mUser.Value.OCM_01; //사용자 아이디
 
-        Call<FRMModel> call = Http.frm(HttpBaseService.TYPE.POST).FRM_SELECT(
+        Call<POT_Model> call = Http.pot(HttpBaseService.TYPE.POST).POT_SELECT(
                 BaseConst.URL_HOST,
                 GUBUN,
-                FRM_ID,
-                FRM_01,
-                FRM_02,
+                POT_ID,
+                POT_01,
+                POT_02,
                 OCM_01
         );
 
-        call.enqueue(new Callback<FRMModel>(){
+        call.enqueue(new Callback<POT_Model>(){
             @SuppressLint("HandlerLeak")
             @Override
-            public void onResponse(Call<FRMModel> call, Response<FRMModel> response){
+            public void onResponse(Call<POT_Model> call, Response<POT_Model> response){
                 Message msg = new Message();
                 msg.obj = response;
                 msg.what = 100;
@@ -184,10 +186,11 @@ public class FrmList extends BaseActivity {
                         if(msg.what == 100){
 //                            closeLoadingBar();
 
-                            Response<FRMModel> response = (Response<FRMModel>) msg.obj;
+                            Response<POT_Model> response = (Response<POT_Model>) msg.obj;
+
+                            mList = response.body().Data;
 
                             if(GUBUN.equals("LIST")){
-                                mList = response.body().Data;
                                 if(mList == null)
                                     mList = new ArrayList<>();
 
@@ -195,19 +198,15 @@ public class FrmList extends BaseActivity {
                                 mAdapter.notifyDataSetChanged();
                                 swipeRefresh.setRefreshing(false);
                             }
-                            else{ //DETAIL (스캔찍을때)
-                                mList2 = response.body().Data;
-                                if(mList2 == null)
-                                    mList2 = new ArrayList<>();
-
-                                if(mList2.size() == 0){ //등록된 정보가 없는경우
-                                    goFrmNew();
+                            else{ //DETAIL (스캔했을때)
+                                if(mList.size() == 0){ //등록된 정보가 없을때
+                                    goPotNew();
                                 }
-                                else{ //등록된 정보가 있는경우
-                                    FRM_VO FRM = mList2.get(0);
+                                else{ //등록된 정보가 있을때
+                                    PotVO POT = mList.get(0);
 
-                                    Intent intent = new Intent(mContext, FrmDetail.class);
-                                    intent.putExtra("FRM", FRM);
+                                    Intent intent = new Intent(mContext, PotDetail.class);
+                                    intent.putExtra("POT", POT);
                                     intent.putExtra("intentVO", intentVO);
 
                                     mContext.startActivity(intent);
@@ -222,16 +221,16 @@ public class FrmList extends BaseActivity {
             }
 
             @Override
-            public void onFailure(Call<FRMModel> call, Throwable t){
-                Log.d("FRM_SELECT", t.getMessage());
+            public void onFailure(Call<POT_Model> call, Throwable t){
+                Log.d("POT_SELECT", t.getMessage());
                 closeLoadingBar();
             }
         });
     }
 
-    private void goFrmNew(){
-        Intent intent = new Intent(mContext, FrmDetail.class);
-        intent.putExtra("scancode", scancode);
+    private void goPotNew(){
+        Intent intent = new Intent(mContext, PotDetail.class);
+        intent.putExtra("scancode", scancode); //scancode
         intent.putExtra("intentVO", intentVO);
 
         mContext.startActivity(intent);
@@ -250,6 +249,19 @@ public class FrmList extends BaseActivity {
             // sharedService
             header.tvHeaderTitle2.setVisibility(View.VISIBLE);
             header.tvHeaderTitle2.setText(intentVO.CTM_17);
+
+            if(intentVO.CTM_04.equals(mUser.Value.OCM_01)){
+                header.btnHeaderRight1.setVisibility(View.VISIBLE);
+                header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, AddSharedDetail.class);
+                        intent.putExtra("type", "UPDATE");
+                        intent.putExtra("intentVO", intentVO);
+                        mContext.startActivity(intent);
+                    }
+                });
+            }
 
             footer.btnFooterSetting.setVisibility(View.GONE);
             footer.btnFooterMember.setVisibility(View.VISIBLE);

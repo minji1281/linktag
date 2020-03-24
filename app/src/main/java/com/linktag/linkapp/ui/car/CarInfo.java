@@ -89,9 +89,9 @@ public class CarInfo extends AsyncTask<Void, Void, Void> {
                             carList.clear();
 
                             if(response.body().Total > 0){
-                                CadList.layoutSpinner.setVisibility(View.VISIBLE);
-                                CadList.layoutSpinnerEmpty.setVisibility(View.GONE);
-                                CadList.imgNew.setVisibility(View.VISIBLE);
+                                CadMain.layoutSpinner.setVisibility(View.VISIBLE);
+                                CadMain.layoutSpinnerEmpty.setVisibility(View.GONE);
+                                CadMain.imgNew.setVisibility(View.VISIBLE);
 
                                 for(int i = 0; i < response.body().Total; i++){
                                     carList.add(new CarSpinnerList(response.body().Data.get(i).CAR_01, response.body().Data.get(i).CAR_02, response.body().Data.get(i).CAR_03, response.body().Data.get(i).CAR_04));
@@ -101,9 +101,9 @@ public class CarInfo extends AsyncTask<Void, Void, Void> {
                                 }
                             }
                             else{ //항목없을때
-                                CadList.layoutSpinner.setVisibility(View.GONE);
-                                CadList.layoutSpinnerEmpty.setVisibility(View.VISIBLE);
-                                CadList.imgNew.setVisibility(View.GONE);
+                                CadMain.layoutSpinner.setVisibility(View.GONE);
+                                CadMain.layoutSpinnerEmpty.setVisibility(View.VISIBLE);
+                                CadMain.imgNew.setVisibility(View.GONE);
                             }
 
                             adapter = new ArrayAdapter<>(mActivity, R.layout.spinner_item_list, ar);
