@@ -44,7 +44,7 @@ public class ScanResult {
         String scanCode = "";
         try{
             String[] split = str.split("\\?");
-            if(split[0].equals("http://www.linktag.io/scan")) {
+            if(split[0].equals("http://linktag.io/scan") || split[0].equals("http://www.linktag.io/scan")) {
                 Uri uri = Uri.parse(str);
 
                 String t = uri.getQueryParameter("t");

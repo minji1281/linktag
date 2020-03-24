@@ -40,4 +40,17 @@
         <!--<item name="android:statusBarColor">#8DC63F</item>-->
         <item name="android:statusBarColor">@color/transparent_color</item>
     </style>
+
+
+    <style name="Theme.MyDialog" parent="Theme.AppCompat.Light.DarkActionBar">
+        <!-- Customize your theme here. -->
+        <item name="android:windowBackground">@color/transparent_arc</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:windowIsTranslucent">false</item>
+        <item name="android:windowAnimationStyle">@android:style/Animation</item>
+
+        <!-- No Title Bar-->
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
 </resources>
