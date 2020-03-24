@@ -1,9 +1,7 @@
 package com.linktag.linkapp.ui.jdm;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
 import android.app.AlertDialog;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -34,7 +32,6 @@ import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
 import com.linktag.linkapp.value_object.ArmVO;
 import com.linktag.linkapp.value_object.JdmVO;
 
@@ -400,7 +397,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                     jdmvo.setARM_03(filteredmlist.get(position).ARM_03);
                     jdmvo.setARM_04(filteredmlist.get(position).ARM_04);
 
-                    Intent intent = new Intent(mContext, DetailJdm.class);
+                    Intent intent = new Intent(mContext, JdmDetail.class);
                     intent.putExtra("JdmVO", jdmvo);
                     mContext.startActivity(intent);
                 }

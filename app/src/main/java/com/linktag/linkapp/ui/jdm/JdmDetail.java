@@ -9,8 +9,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
@@ -40,14 +38,12 @@ import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm.AlarmDialog;
 import com.linktag.linkapp.ui.master_log.MasterLog;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
-import com.linktag.linkapp.ui.rfm.DetailRfd;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.LogVO;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
@@ -56,7 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailJdm extends BaseActivity {
+public class JdmDetail extends BaseActivity {
 
     private BaseHeader header;
 
@@ -122,7 +118,7 @@ public class DetailJdm extends BaseActivity {
 
     public void requestJMD_CONTROL(String GUBUN) {
         // 인터넷 연결 여부 확인
-        if (!ClsNetworkCheck.isConnectable(DetailJdm.this)) {
+        if (!ClsNetworkCheck.isConnectable(JdmDetail.this)) {
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }
@@ -363,7 +359,7 @@ public class DetailJdm extends BaseActivity {
                 sCalendar.set(Calendar.YEAR,Integer.parseInt(jdmVO.JDM_04.substring(0,4)));
                 sCalendar.set(Calendar.MONTH,Integer.parseInt(jdmVO.JDM_04.substring(4,6))-1);
                 sCalendar.set(Calendar.DATE,Integer.parseInt(jdmVO.JDM_04.substring(6,8)));
-                DatePickerDialog dialog = new DatePickerDialog(DetailJdm.this, callbackMethod, sCalendar.get(Calendar.YEAR), sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.DATE));
+                DatePickerDialog dialog = new DatePickerDialog(JdmDetail.this, callbackMethod, sCalendar.get(Calendar.YEAR), sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.DATE));
                 dialog.show();
             }
         });

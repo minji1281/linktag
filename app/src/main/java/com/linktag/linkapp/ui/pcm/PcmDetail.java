@@ -2,17 +2,12 @@ package com.linktag.linkapp.ui.pcm;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.support.annotation.GuardedBy;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -21,20 +16,15 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.CompoundButton;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
-import android.widget.Switch;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
-import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.LOG_Model;
@@ -60,7 +50,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailPcm extends BaseActivity implements Serializable {
+public class PcmDetail extends BaseActivity implements Serializable {
 
 
     private BaseHeader header;
@@ -129,7 +119,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
     }
 
     public static void setmList_HW(ArrayList<PcdVO> mList_HW) {
-        DetailPcm.mList_HW = mList_HW;
+        PcmDetail.mList_HW = mList_HW;
     }
 
 
@@ -278,7 +268,7 @@ public class DetailPcm extends BaseActivity implements Serializable {
 
     public void requestPCM_CONTROL(String GUBUN) {
         // 인터넷 연결 여부 확인
-        if (!ClsNetworkCheck.isConnectable(DetailPcm.this)) {
+        if (!ClsNetworkCheck.isConnectable(PcmDetail.this)) {
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }

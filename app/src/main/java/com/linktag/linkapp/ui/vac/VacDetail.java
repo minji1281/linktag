@@ -1,16 +1,13 @@
-package com.linktag.linkapp.ui.trp;
+package com.linktag.linkapp.ui.vac;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -39,7 +36,8 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.master_log.MasterLog;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
-import com.linktag.linkapp.ui.scanner.ScanResult;
+import com.linktag.linkapp.ui.trp.AlarmDialog;
+import com.linktag.linkapp.ui.trp.TrdRecycleAdapter;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.LogVO;
 import com.linktag.linkapp.value_object.TrdVO;
@@ -54,7 +52,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailTrp extends BaseActivity {
+public class VacDetail extends BaseActivity {
 
     private BaseHeader header;
 
@@ -108,22 +106,22 @@ public class DetailTrp extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_detail_trp2);
+        setContentView(R.layout.activity_detail_vac);
 
 
-        initLayout();
-
-        initialize();
-
-        if (getIntent().hasExtra("scanCode")) {
-            header.btnHeaderRight1.setVisibility((View.GONE));
-            intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
-        }
+//        initLayout();
+//
+//        initialize();
+//
+//        if (getIntent().hasExtra("scanCode")) {
+//            header.btnHeaderRight1.setVisibility((View.GONE));
+//            intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
+//        }
     }
 
     public void requestTRP_CONTROL(String GUBUN) {
         // 인터넷 연결 여부 확인
-        if (!ClsNetworkCheck.isConnectable(DetailTrp.this)) {
+        if (!ClsNetworkCheck.isConnectable(VacDetail.this)) {
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }
@@ -177,7 +175,7 @@ public class DetailTrp extends BaseActivity {
     public void onResume() {
         super.onResume();
 
-        requestTRD_SELECT();
+        //requestTRD_SELECT();
 
 
     }
@@ -293,7 +291,7 @@ public class DetailTrp extends BaseActivity {
         mList = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new TrdRecycleAdapter(mContext, mList);
+//        mAdapter = new TrdRecycleAdapter(mContext, mList);
         mAdapter.setmAdapter(mAdapter);
 
         recyclerView.setAdapter(mAdapter);

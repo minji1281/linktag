@@ -175,7 +175,7 @@
             android:screenOrientation="portrait" />
 
         <activity
-            android:name=".ui.trp.DetailTrp"
+            android:name=".ui.trp.TrpDetail"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
@@ -188,7 +188,7 @@
             android:excludeFromRecents="true"/>
 
         <activity
-            android:name=".ui.jdm.DetailJdm"
+            android:name=".ui.jdm.JdmDetail"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
@@ -201,7 +201,7 @@
             android:excludeFromRecents="true"/>
 
         <activity
-            android:name=".ui.pcm.DetailPcm"
+            android:name=".ui.pcm.PcmDetail"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
@@ -213,12 +213,12 @@
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
         <activity
-            android:name=".ui.rfm.DetailRfm"
+            android:name=".ui.rfm.RfmDetail"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
         <activity
-            android:name=".ui.rfm.DetailRfd"
+            android:name=".ui.rfm.RfdDetail"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
@@ -293,6 +293,14 @@
             android:excludeFromRecents="true"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser" />
+
+
+        <!--접종-->
+        <activity
+            android:name=".ui.vac.VACMain"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:excludeFromRecents="true"/>
 
     </application>
 

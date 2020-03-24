@@ -50,7 +50,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DetailRfd extends BaseActivity {
+public class RfdDetail extends BaseActivity {
 
 
     private LinearLayout check_area;
@@ -116,7 +116,7 @@ public class DetailRfd extends BaseActivity {
 
     public void requestRFD_CONTROL(String GUBUN) {
         // 인터넷 연결 여부 확인
-        if (!ClsNetworkCheck.isConnectable(DetailRfd.this)) {
+        if (!ClsNetworkCheck.isConnectable(RfdDetail.this)) {
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }
@@ -356,7 +356,7 @@ public class DetailRfd extends BaseActivity {
                 dCalendar.set(Calendar.MONTH,Integer.parseInt(rfdVO.RFD_96.substring(4,6))-1);
                 dCalendar.set(Calendar.DATE,Integer.parseInt(rfdVO.RFD_96.substring(6,8)));
 
-                DatePickerDialog dialog = new DatePickerDialog(DetailRfd.this, callbackMethod, dCalendar.get(Calendar.YEAR), dCalendar.get(Calendar.MONTH), dCalendar.get(Calendar.DATE));
+                DatePickerDialog dialog = new DatePickerDialog(RfdDetail.this, callbackMethod, dCalendar.get(Calendar.YEAR), dCalendar.get(Calendar.MONTH), dCalendar.get(Calendar.DATE));
                 dialog.show();
             }
         });

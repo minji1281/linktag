@@ -12,8 +12,6 @@ import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
-import android.view.Window;
-import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -34,7 +32,7 @@ import com.linktag.linkapp.model.RFMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
+import com.linktag.linkapp.ui.menu.AddSharedDetail;
 import com.linktag.linkapp.ui.menu.Member;
 import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.ui.spinner.SpinnerList;
@@ -220,7 +218,7 @@ public class RFMMain extends BaseActivity {
                 rfdvo.setARM_03("N");
                 rfdvo.setARM_04(0);
 
-                Intent intent = new Intent(mContext, DetailRfd.class);
+                Intent intent = new Intent(mContext, RfdDetail.class);
                 intent.putExtra("RfdVO", rfdvo);
 
                 intent.putExtra("GUBUN", "INSERT");
@@ -249,7 +247,7 @@ public class RFMMain extends BaseActivity {
 
                     @Override
                     public void onNegativeClicked() {
-
+                        requestRFM_SELECT();
                     }
                 });
 
@@ -260,11 +258,11 @@ public class RFMMain extends BaseActivity {
     }
 
 
-    private void initLayoutByContractType() {
+    private void initLayoutByContractType(){
         footer = findViewById(R.id.footer);
         footer.btnFooterScan.setOnClickListener(v -> goScan());
 
-        if (intentVO.CTM_19.equals("P")) {
+        if(intentVO.CTM_19.equals("P")){
             // privateService
             footer.btnFooterSetting.setVisibility(View.VISIBLE);
             footer.btnFooterMember.setVisibility(View.GONE);
@@ -272,6 +270,19 @@ public class RFMMain extends BaseActivity {
             // sharedService
             header.tvHeaderTitle2.setVisibility(View.VISIBLE);
             header.tvHeaderTitle2.setText(intentVO.CTM_17);
+
+            if(intentVO.CTM_04.equals(mUser.Value.OCM_01)){
+                header.btnHeaderRight1.setVisibility(View.VISIBLE);
+                header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, AddSharedDetail.class);
+                        intent.putExtra("type", "UPDATE");
+                        intent.putExtra("intentVO", intentVO);
+                        mContext.startActivity(intent);
+                    }
+                });
+            }
 
             footer.btnFooterSetting.setVisibility(View.GONE);
             footer.btnFooterMember.setVisibility(View.VISIBLE);
@@ -421,7 +432,7 @@ public class RFMMain extends BaseActivity {
                                 rfmvo.setRFM_97(mUser.Value.OCM_01);
                                 rfmvo.setRFM_98(mUser.Value.OCM_01);
 
-                                Intent intent = new Intent(mContext, DetailRfm.class);
+                                Intent intent = new Intent(mContext, RfmDetail.class);
                                 intent.putExtra("RfmVO", rfmvo);
 
                                 intent.putExtra("scanCode", getIntent().getStringExtra("scanCode"));

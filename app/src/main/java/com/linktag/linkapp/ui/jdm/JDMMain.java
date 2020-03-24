@@ -1,22 +1,23 @@
 package com.linktag.linkapp.ui.jdm;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.FrameLayout;
 import android.widget.TextView;
 
-import com.google.zxing.integration.android.IntentIntegrator;
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_footer.BaseFooter;
 import com.linktag.base.base_header.BaseHeader;
@@ -27,6 +28,7 @@ import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.menu.AddSharedDetail;
 import com.linktag.linkapp.ui.menu.Member;
 import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CtdVO;
@@ -61,6 +63,9 @@ public class JDMMain extends BaseActivity {
 
     private Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
+
+    private FrameLayout linearLayout;
+    private InputMethodManager imm;
 
     public JDMMain() {
     }
@@ -112,6 +117,9 @@ public class JDMMain extends BaseActivity {
 
         initLayoutByContractType();
 
+        linearLayout = findViewById(R.id.linearLayout);
+        imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+
         view = findViewById(R.id.recyclerView);
         recyclerView = view.findViewById(R.id.recyclerView);
 
@@ -139,14 +147,23 @@ public class JDMMain extends BaseActivity {
         recyclerView.setLayoutManager(linearLayoutManager);
         mAdapter = new JdmRecycleAdapter(mContext, mList);
         recyclerView.setAdapter(mAdapter);
+
+        linearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
+                imm.hideSoftInputFromWindow(linearLayout.getWindowToken(), 0);
+            }
+        });
+
     }
 
 
-    private void initLayoutByContractType() {
+    private void initLayoutByContractType(){
         footer = findViewById(R.id.footer);
         footer.btnFooterScan.setOnClickListener(v -> goScan());
 
-        if (intentVO.CTM_19.equals("P")) {
+        if(intentVO.CTM_19.equals("P")){
             // privateService
             footer.btnFooterSetting.setVisibility(View.VISIBLE);
             footer.btnFooterMember.setVisibility(View.GONE);
@@ -154,6 +171,19 @@ public class JDMMain extends BaseActivity {
             // sharedService
             header.tvHeaderTitle2.setVisibility(View.VISIBLE);
             header.tvHeaderTitle2.setText(intentVO.CTM_17);
+
+            if(intentVO.CTM_04.equals(mUser.Value.OCM_01)){
+                header.btnHeaderRight1.setVisibility(View.VISIBLE);
+                header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, AddSharedDetail.class);
+                        intent.putExtra("type", "UPDATE");
+                        intent.putExtra("intentVO", intentVO);
+                        mContext.startActivity(intent);
+                    }
+                });
+            }
 
             footer.btnFooterSetting.setVisibility(View.GONE);
             footer.btnFooterMember.setVisibility(View.VISIBLE);
@@ -231,14 +261,14 @@ public class JDMMain extends BaseActivity {
                                     jdmvo.setJDM_97(mUser.Value.OCM_01);
                                     jdmvo.setARM_03("N");
                                     jdmvo.setARM_04(0);
-                                    Intent intent = new Intent(mContext, DetailJdm.class);
+                                    Intent intent = new Intent(mContext, JdmDetail.class);
                                     intent.putExtra("JdmVO", jdmvo);
                                     intent.putExtra("scanCode", scancode);
                                     intent.putExtra("intentVO", intentVO);
                                     mContext.startActivity(intent);
                                 } else {
                                     JdmVO jdmvo = mList.get(0);
-                                    Intent intent = new Intent(mContext, DetailJdm.class);
+                                    Intent intent = new Intent(mContext, JdmDetail.class);
                                     intent.putExtra("JdmVO", jdmvo);
 
                                     mContext.startActivity(intent);

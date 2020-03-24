@@ -1,8 +1,6 @@
 package com.linktag.linkapp.ui.trp;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -24,17 +22,11 @@ import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.model.TRDModel;
 import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
-import com.linktag.linkapp.ui.jdm.JdmRecycleAdapter;
-import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
-import com.linktag.linkapp.value_object.ArmVO;
-import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
 
@@ -334,7 +326,7 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
                     trpvo.setTRP_97(filteredmlist.get(position).TRP_97);
                     trpvo.setARM_03(filteredmlist.get(position).ARM_03);
 
-                    Intent intent = new Intent(mContext, DetailTrp.class);
+                    Intent intent = new Intent(mContext, TrpDetail.class);
                     intent.putExtra("TrpVO", trpvo);
                     mContext.startActivity(intent);
                 }

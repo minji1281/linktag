@@ -22,18 +22,14 @@ import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.PCMModel;
-import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.jdm.DetailJdm;
+import com.linktag.linkapp.ui.menu.AddSharedDetail;
 import com.linktag.linkapp.ui.menu.Member;
 import com.linktag.linkapp.ui.scanner.ScanResult;
-import com.linktag.linkapp.ui.trp.TrpRecycleAdapter;
 import com.linktag.linkapp.value_object.CtdVO;
-import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.PcmVO;
-import com.linktag.linkapp.value_object.TrpVO;
 
 import java.util.ArrayList;
 
@@ -150,6 +146,19 @@ public class PCMMain extends BaseActivity {
             header.tvHeaderTitle2.setVisibility(View.VISIBLE);
             header.tvHeaderTitle2.setText(intentVO.CTM_17);
 
+            if(intentVO.CTM_04.equals(mUser.Value.OCM_01)){
+                header.btnHeaderRight1.setVisibility(View.VISIBLE);
+                header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        Intent intent = new Intent(mContext, AddSharedDetail.class);
+                        intent.putExtra("type", "UPDATE");
+                        intent.putExtra("intentVO", intentVO);
+                        mContext.startActivity(intent);
+                    }
+                });
+            }
+
             footer.btnFooterSetting.setVisibility(View.GONE);
             footer.btnFooterMember.setVisibility(View.VISIBLE);
 
@@ -230,14 +239,14 @@ public class PCMMain extends BaseActivity {
                                     pcmvo.setARM_03("N");
                                     pcmvo.setARM_04(0);
 
-                                    Intent intent = new Intent(mContext, DetailPcm.class);
+                                    Intent intent = new Intent(mContext, PcmDetail.class);
                                     intent.putExtra("PcmVO", pcmvo);
                                     intent.putExtra("scanCode", scancode);
                                     intent.putExtra("intentVO", intentVO);
                                     mContext.startActivity(intent);
                                 } else {
                                     PcmVO pcmvo = mList.get(0);
-                                    Intent intent = new Intent(mContext, DetailPcm.class);
+                                    Intent intent = new Intent(mContext, PcmDetail.class);
                                     intent.putExtra("PcmVO", pcmvo);
 
                                     mContext.startActivity(intent);

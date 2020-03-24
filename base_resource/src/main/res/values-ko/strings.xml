@@ -394,5 +394,7 @@
     <string name="pot_log_func_text">물주기 완료</string>
     <string name="frm_log_func_text">필터교체 완료</string>
 
+    <!-- 접종 리스트  -->
+    <string name="vac_list_title">Vaccination list</string>
 
 </resources>

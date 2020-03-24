@@ -1,14 +1,9 @@
 package com.linktag.linkapp.ui.rfm;
 
 import android.annotation.SuppressLint;
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.PorterDuff;
-import android.os.Handler;
-import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
@@ -33,15 +28,9 @@ import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.alarm_service.AlarmHATT;
-import com.linktag.linkapp.ui.alarm_service.Alarm_Receiver;
-import com.linktag.linkapp.ui.jdm.JdmRecycleAdapter;
 import com.linktag.linkapp.value_object.ArmVO;
-import com.linktag.linkapp.value_object.JdmVO;
 import com.linktag.linkapp.value_object.RfdVO;
 
-import java.text.Format;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.concurrent.TimeUnit;
@@ -299,7 +288,7 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
                     rfdvo.setARM_03(filteredmlist.get(position).ARM_03);
                     rfdvo.setARM_04(filteredmlist.get(position).ARM_04);
 
-                    Intent intent = new Intent(mContext, DetailRfd.class);
+                    Intent intent = new Intent(mContext, RfdDetail.class);
                     intent.putExtra("RfdVO", rfdvo);
                     mContext.startActivity(intent);
                 }
