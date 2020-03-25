@@ -90,7 +90,7 @@ public class beaconMain extends BaseActivity implements BeaconConsumer {
         public void handleMessage(Message msg) {
             textView.setText("");
             for (Beacon beacon : beaconList) {
-                if(Double.parseDouble(String.format("%.3f", beacon.getDistance())) <= 0.5){
+                if(Double.parseDouble(String.format("%.3f", beacon.getDistance())) <= 1.0){
                     textView.setText("장치 : " + beacon.getBluetoothName()  + "\n " + "거리 : " + Double.parseDouble(String.format("%.3f", beacon.getDistance())) + "m\n");
                     bcuuid = beacon.getId1().toString();
                 }

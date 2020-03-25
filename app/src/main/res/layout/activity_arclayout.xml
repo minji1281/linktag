@@ -43,13 +43,13 @@
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="250dp"
+            android:layout_height="260dp"
             android:background="@drawable/arc_round_background"
             android:gravity="center|bottom">
 
             <LinearLayout
                 android:layout_width="fill_parent"
-                android:layout_height="205dp"
+                android:layout_height="215dp"
                 android:layout_marginBottom="-2dp"
                 android:layout_marginLeft="30dp"
                 android:layout_marginRight="30dp"
@@ -100,8 +100,7 @@
                 android:text="BEACON"
                 android:gravity="bottom|center_horizontal"
                 android:textColor="#000000"
-                app:arc_angle="90"
-                />
+                app:arc_angle="90"/>
 
 
 
@@ -127,10 +126,10 @@
         android:layout_alignParentBottom="true">
         <ImageButton
             android:id="@+id/fab"
-            android:layout_width="165dp"
+            android:layout_width="110dp"
             android:layout_height="110dp"
-            android:scaleType="centerCrop"
-            android:layout_marginBottom="-30dp"
+            android:scaleType="fitCenter"
+            android:layout_marginBottom="-34dp"
             android:src="@drawable/footer_scan2"
             android:background="@android:color/transparent" />
     </LinearLayout>
