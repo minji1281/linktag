@@ -53,13 +53,13 @@
     <dimen name="layout_radius_medium">168dp</dimen>
     <dimen name="layout_radius_small">144dp</dimen>
     <dimen name="layout_radius_tumblr">135dp</dimen>
-    <dimen name="layout_radius_path">100dp</dimen>
+    <dimen name="layout_radius_path">140dp</dimen>
 
     <dimen name="layout_child_offset_large">144dp</dimen>
     <dimen name="layout_child_offset_medium">120dp</dimen>
     <dimen name="layout_child_offset_small">96dp</dimen>
     <dimen name="layout_child_offset_tumblr">100dp</dimen>
-    <dimen name="layout_child_offset_path">130dp</dimen>
+    <dimen name="layout_child_offset_path">135dp</dimen>
 
     <dimen name="item_circle_size_large">72dp</dimen>
     <dimen name="item_circle_size_medium">60dp</dimen>
