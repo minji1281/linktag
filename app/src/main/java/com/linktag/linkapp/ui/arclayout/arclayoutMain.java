@@ -20,7 +20,6 @@ import com.linktag.base.util.ScanCode;
 import com.linktag.linkapp.ui.beacon.beaconMain;
 import com.linktag.linkapp.ui.jdm.JdmRecycleAdapter;
 import com.linktag.linkapp.ui.nfc.nfcMain;
-import com.linktag.linkapp.ui.scanner.ScanResult;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.view.LayoutInflater;
@@ -41,6 +40,7 @@ import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.ui.scanner.ScanBarcode;
+import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.ogaclejapan.arclayout.ArcLayout;
 
@@ -207,7 +207,7 @@ public class arclayoutMain extends BaseActivity  implements View.OnClickListener
 
                 if (result.getFormatName() != null){
                     String str = result.getContents();
-                    scanResult(str);
+                    scanResultArc(str);
                 }
 
                 break;
@@ -307,8 +307,8 @@ public class arclayoutMain extends BaseActivity  implements View.OnClickListener
         return anim;
     }
 
-    @Override
-    protected void scanResult(String str){
+
+    protected void scanResultArc(String str){
         ScanResult scanResult = new ScanResult(mContext, str, null);
         scanResult.run();
     }
