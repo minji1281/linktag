@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="5dp"
-    android:background="@android:color/white">
+    android:background="#9ab6ff">
 
     <ImageButton
         android:id="@+id/btnExit"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_alignParentRight="true"
-        android:src="@drawable/btn_cancel"
+        android:src="@drawable/btn_cancel_white"
         android:background="@android:color/transparent"
         />
     <ImageView
@@ -22,12 +22,25 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/login_logo2" />
+        android:src="@drawable/home_logo" />
+    <TextView
+        android:id="@+id/txtlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imglogo"
+        android:fontFamily="@font/notosans_regular"
+        android:text="@string/note_advanced_nfc"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        />
     <ImageView
         android:id="@+id/imgnfc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imglogo"
+        android:layout_below="@+id/txtlogo"
         android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/nfc" />
@@ -36,7 +49,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:scaleType="center"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="20dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/imgnfc"
         android:fontFamily="@font/notosans_medium"

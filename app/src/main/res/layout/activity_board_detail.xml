@@ -58,9 +58,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.6"
-        android:background="@null"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:background="@drawable/shape_noti_border"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_marginBottom="5dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -75,11 +77,20 @@
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
-                android:text="제목"   />
+                android:text="제목"
+                android:gravity="center"
+                android:fontFamily="@font/notosans_medium"
+                android:textColor="@color/black"/>
+
+            <View
+                android:layout_width="0.1dp"
+                android:layout_height="match_parent"
+                android:background="#4682B4" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
                 android:orientation="horizontal">
 
                 <TextView
@@ -88,6 +99,8 @@
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
                     android:gravity="center_vertical|left"
+                    android:fontFamily="@font/notosans_medium"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/text_normal" />
 
             </LinearLayout>
@@ -103,9 +116,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="0.6"
-        android:background="@null"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:background="@drawable/shape_noti_border"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
         android:layout_marginBottom="5dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
@@ -120,11 +135,19 @@
             <TextView
                 android:layout_width="80dp"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/notosans_medium"
+                android:textColor="@color/black"
+                android:gravity="center"
                 android:text="공지기간"   />
+            <View
+                android:layout_width="0.1dp"
+                android:layout_height="match_parent"
+                android:background="#4682B4" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
                 android:orientation="horizontal">
 
                 <TextView
@@ -132,6 +155,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_marginStart="10dp"
+                    android:fontFamily="@font/notosans_medium"
+                    android:textColor="@color/black"
                     android:gravity="center_vertical|left"
                     android:textSize="@dimen/text_normal" />
 
@@ -153,28 +178,35 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_weight="25"
-        android:background="@null"
-        android:paddingLeft="15dp"
-        android:paddingRight="15dp"
+        android:background="@drawable/shape_noti_border"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
             <TextView
                 android:layout_width="80dp"
+                android:gravity="center"
                 android:layout_height="wrap_content"
-                android:text="내용"   />
-
+                android:text="내용"
+                android:fontFamily="@font/notosans_medium"
+                android:textColor="@color/black"/>
+        <View
+            android:layout_width="0.1dp"
+            android:layout_height="match_parent"
+            android:background="#4682B4" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:background="@color/white"
+                android:layout_marginLeft="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
                 android:orientation="horizontal">
-                <View
-                    android:layout_width="0.3dp"
-                    android:layout_height="wrap_content"
-                    android:background="#1B1919" />
-
                 <EditText
                     android:id="@+id/etContent"
                     android:layout_width="match_parent"
@@ -183,7 +215,8 @@
                     android:hint="@string/dash_09"
                     android:gravity="start"
                     android:layout_gravity="center"
-                    android:layout_margin="15dp"
+                    android:fontFamily="@font/notosans_medium"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/text_normal" />
 
             </LinearLayout>

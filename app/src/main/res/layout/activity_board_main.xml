@@ -5,7 +5,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:descendantFocusability="blocksDescendants"
     tools:context=".ui.board.BoardMain">
 
     <com.linktag.base.base_header.BaseHeader
@@ -38,7 +37,9 @@
             android:hint="@string/dash_08"
             android:maxLength="20"
             android:singleLine="true"
-            android:textSize="@dimen/text_normal" />
+            android:textSize="@dimen/text_normal"
+            android:focusable="true"
+            android:focusableInTouchMode="true"/>
     </LinearLayout>
 
     <LinearLayout
@@ -94,8 +95,9 @@
             android:id="@+id/linearLayout1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-
-            android:orientation="vertical" android:layout_alignParentRight="true" android:layout_alignParentBottom="true">
+            android:orientation="vertical"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true">
             <Button
                 android:id="@+id/button1"
                 android:layout_width="60dp"
