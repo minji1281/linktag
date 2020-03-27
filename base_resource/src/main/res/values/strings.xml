@@ -171,6 +171,8 @@
     <string name="note_advanced_freeangle"><![CDATA[app:arc_freeAngle=&quot;<b>true</b>&quot;<br/>Can be free angle to place the child view]]></string>
     <string name="note_advanced_tumblr">Try pressing the button</string>
     <string name="note_advanced_path">인식방법을 선택해 주세요</string>
+    <string name="note_advanced_beacon">BEACON SEARCH</string>
+    <string name="note_advanced_nfc">NFC SEARCH</string>
 
 
 

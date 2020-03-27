@@ -68,7 +68,8 @@ public class AlarmListAdapter extends BaseAdapter {
             viewHolder.tvArm_01 = convertView.findViewById(R.id.tvArm_01);
             viewHolder.tvCtn_02 = convertView.findViewById(R.id.tvCtn_02);
             viewHolder.tvCtm_19 = convertView.findViewById(R.id.tvCtm_19);
-            viewHolder.btnMove.setOnClickListener(v -> test(viewHolder.tvArm_01.getText().toString(), viewHolder.tvSvcl_04.getText().toString(), viewHolder.tvCtn_02.getText().toString(), viewHolder.tvCtm_19.getText().toString()));
+            viewHolder.tvCtm_04 = convertView.findViewById(R.id.tvCtm_04);
+            viewHolder.btnMove.setOnClickListener(v -> test(viewHolder.tvArm_01.getText().toString(), viewHolder.tvSvcl_04.getText().toString(), viewHolder.tvCtn_02.getText().toString(), viewHolder.tvCtm_19.getText().toString(), viewHolder.tvCtm_04.getText().toString()));
 
         //    viewHolder.btnMove.setOnClickListener(v -> test(viewHolder.hidd_gubun.getText().toString()));
 
@@ -127,6 +128,7 @@ public class AlarmListAdapter extends BaseAdapter {
         viewHolder.tvArm_01.setText(mList.get(position).ARM_01);
         viewHolder.tvCtn_02.setText(mList.get(position).ARM_ID);
         viewHolder.tvCtm_19.setText(mList.get(position).CTM_19);
+        viewHolder.tvCtm_04.setText(mList.get(position).CTM_04);
 
 
         return convertView;
@@ -136,7 +138,7 @@ public class AlarmListAdapter extends BaseAdapter {
         mList = list;
     }
 
-    private void test(String scancode, String Svcl_04, String Ctn_02, String Ctm_19){
+    private void test(String scancode, String Svcl_04, String Ctn_02, String Ctm_19, String Ctm_04){
 
 
         if(!Svcl_04.equals("") && Svcl_04 != null)
@@ -150,6 +152,7 @@ public class AlarmListAdapter extends BaseAdapter {
                 CtdVO intentVO = new CtdVO();
                 intentVO.CTN_02 = Ctn_02;
                 intentVO.CTM_19 = Ctm_19;
+                intentVO.CTM_04 = Ctm_04;
 
 
                Intent intent = new Intent(mContext, clsList);
@@ -181,6 +184,7 @@ public class AlarmListAdapter extends BaseAdapter {
         TextView tvArm_01;
         TextView tvCtn_02;
         TextView tvCtm_19;
+        TextView tvCtm_04;
         LinearLayout btnMove;
     }
 }

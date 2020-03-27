@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.animation.AnimationUtils;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -39,6 +40,7 @@ public class beaconMain extends BaseActivity implements BeaconConsumer {
     ImageView searchload;
     String bcuuid ="";
     ImageButton btnExit;
+    Button button;
 
 
 
@@ -48,7 +50,7 @@ public class beaconMain extends BaseActivity implements BeaconConsumer {
         setContentView(R.layout.activity_beacon);
         textView = (TextView) findViewById(R.id.Textview);
         searchload = (ImageView)  findViewById(R.id.searchload);
-
+        button = (Button)  findViewById(R.id.button);
         btnExit = findViewById(R.id.btnExit);
         btnExit.setOnClickListener(v -> finish());
 
@@ -56,6 +58,7 @@ public class beaconMain extends BaseActivity implements BeaconConsumer {
         beaconManager.getBeaconParsers().add(new BeaconParser().setBeaconLayout("m:2-3=0215,i:4-19,i:20-21,i:22-23,p:24-24,d:25-25"));
 
         beaconManager.bind(this);
+        button.performClick();
     }
 
     @Override
@@ -88,22 +91,27 @@ public class beaconMain extends BaseActivity implements BeaconConsumer {
     }
     Handler handler = new Handler() {
         public void handleMessage(Message msg) {
-            textView.setText("");
+            searchload.startAnimation(  AnimationUtils.loadAnimation( beaconMain.this,  R.anim.load_change ) );
+//            textView.setText("");
             for (Beacon beacon : beaconList) {
                 if(Double.parseDouble(String.format("%.3f", beacon.getDistance())) <= 1.0){
                     textView.setText("장치 : " + beacon.getBluetoothName()  + "\n " + "거리 : " + Double.parseDouble(String.format("%.3f", beacon.getDistance())) + "m\n");
                     bcuuid = beacon.getId1().toString();
                 }
             }
-            handler.sendEmptyMessageDelayed(0, 1000);
-            searchload.startAnimation(  AnimationUtils.loadAnimation( beaconMain.this,  R.anim.load_change ) );
+            if(bcuuid.equals("")|| bcuuid.equals(null)){
+                handler.sendEmptyMessageDelayed(0, 1000);
+            }else{
+                handler.removeMessages(0);
+                searchload.clearAnimation();
+            }
         }
     };
 
     public void OnButtonClicked2(View view) {
-        handler.removeMessages(0);
-        searchload.clearAnimation();
-        if(bcuuid.equals(""))
+      //  handler.removeMessages(0);
+      //  searchload.clearAnimation();
+        if(bcuuid.equals("")|| bcuuid.equals(null))
         {
             Toast.makeText(this, "검색된 비콘이 없습니다. \n 찾기를 실행해 주세요.", Toast.LENGTH_LONG).show();
 

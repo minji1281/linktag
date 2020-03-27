@@ -6,14 +6,14 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:paddingBottom="5dp"
-    android:background="@android:color/white">
+    android:background="#9ab6ff">
 
     <ImageButton
         android:id="@+id/btnExit"
         android:layout_width="48dp"
         android:layout_height="48dp"
         android:layout_alignParentRight="true"
-        android:src="@drawable/btn_cancel"
+        android:src="@drawable/btn_cancel_white"
         android:background="@android:color/transparent"
         />
 
@@ -21,15 +21,28 @@
         android:id="@+id/imglogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="80dp"
+        android:layout_marginTop="100dp"
         android:layout_centerHorizontal="true"
-        android:src="@drawable/login_logo2" />
+        android:src="@drawable/home_logo" />
+    <TextView
+        android:id="@+id/txtlogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="center"
+        android:layout_marginTop="40dp"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@+id/imglogo"
+        android:fontFamily="@font/notosans_regular"
+        android:text="@string/note_advanced_beacon"
+        android:textColor="#FFFFFF"
+        android:textSize="20sp"
+        />
 
     <ImageView
         android:id="@+id/searchload"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/imglogo"
+        android:layout_below="@+id/txtlogo"
         android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/load" />
@@ -39,13 +52,13 @@
         android:layout_height="80dp"
         android:layout_weight="1"
         android:layout_below="@+id/searchload"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="10dp"
         tools:text="ssssssssssss"
         android:layout_centerHorizontal="true"
         android:id="@+id/Textview"
         android:gravity="center"
         android:fontFamily="@font/notosans_medium"
-        android:textColor="#3F53A1"
+        android:textColor="#FFFFFF"
         android:textSize="20sp"/>
 
 
@@ -73,6 +86,7 @@
             android:paddingTop="20dp"
             android:paddingBottom="20dp"
             android:textSize="18dp"
+            android:visibility="gone"
             android:fontFamily="@font/notosans_regular"/>
 
         <Button
@@ -81,13 +95,14 @@
             android:text="사용"
             android:id="@+id/button2"
             android:layout_weight="1"
-            android:layout_marginLeft="10dp"
             android:paddingLeft="50dp"
             android:paddingRight="50dp"
             android:paddingTop="20dp"
+            android:background="@color/transparent_color"
             android:paddingBottom="20dp"
-            android:textSize="18dp"
-            android:fontFamily="@font/notosans_regular"
+            android:textSize="20sp"
+            android:textColor="@color/white"
+            android:fontFamily="@font/notosansmono_bold"
             android:onClick="OnButtonClicked2" />
 
 
