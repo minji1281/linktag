@@ -1,19 +1,25 @@
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:paddingStart="12dp"
+    android:layout_height="90dp"
     android:background="#f4f4f2"
-    android:descendantFocusability="blocksDescendants"
-    android:paddingEnd="12dp">
+    android:orientation="horizontal">
+    <View
+        android:id= "@+id/top1"
+        android:layout_alignParentTop="true"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:background="@color/listitem_text2"/>
 
     <LinearLayout
+        android:id= "@+id/top2"
         android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_marginTop="6dp"
-        android:layout_marginBottom="6dp"
+        android:layout_height="88dp"
         android:background="@null"
+        android:layout_below="@+id/top1"
         android:orientation="horizontal">
+
 
 <!--        <ImageView-->
 <!--            android:id="@+id/imgUserPhoto"-->
@@ -28,8 +34,8 @@
             android:id= "@+id/btnMove"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
+            android:layout_marginStart="5dp"
+            android:layout_marginEnd="5dp"
             android:layout_marginTop="6dp"
             android:layout_marginBottom="6dp"
             android:layout_weight="1"
@@ -40,53 +46,71 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:layout_gravity="center"
-                android:layout_weight="2">
+                android:layout_weight="1.9">
                 <ImageView
                     android:id="@+id/tv_calenType"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleType="fitCenter"
                     android:layout_gravity="center"
                     tools:background="@drawable/solo">
                 </ImageView>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="76dp"
                 android:layout_weight="1"
                 android:orientation="vertical">
-                <TextView
-                    android:id="@+id/tv_calenTitle"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingStart="10dp"
-                    android:gravity="start|center"
-                    android:layout_weight="1"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    android:text="ssdfsdfsdf">
-                </TextView>
-                <TextView
-                    android:id="@+id/tv_calenSubject"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingStart="10dp"
-                    android:gravity="start|center"
-                    android:layout_weight="1"
-                    android:maxLines="1"
-                    android:ellipsize="end"
-                    android:text="ssdfsdfsdf">
-                </TextView>
+                    <TextView
+                        android:id="@+id/tv_calenTitle"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="ssdfsdfsdf"
+                        android:textSize="13dp"
+                        android:fontFamily="@font/notosans_bold">
+                    </TextView>
+                    <TextView
+                        android:id="@+id/tv_calenSubject"
+                        android:layout_width="match_parent"
+                        android:layout_height="25dp"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginRight="10dp"
+                        android:maxLines="1"
+                        android:ellipsize="end"
+                        android:text="ssdfsdfsdf"
+                        android:textSize="13dp"
+                        android:fontFamily="@font/notosans_medium">
+                    </TextView>
             </LinearLayout>
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_weight="1.7">
+                android:gravity="center"
+                android:layout_weight="2">
+                <ImageView
+                    android:layout_width="20dp"
+                    android:layout_height="20dp"
+                    android:layout_centerInParent="true"
+                    android:scaleType="fitCenter"
+                    android:src="@drawable/clock" />
+            </LinearLayout>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="1.6">
                 <TextView
                     android:id="@+id/tv_calenTime"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="ssdfsdfsdf">
+                    android:text="ssdfsdfsdf"
+                    android:textSize="12dp"
+                    android:fontFamily="@font/notosans_medium">
                 </TextView>
             </LinearLayout>
             <TextView
@@ -124,9 +148,12 @@
                 android:gravity="center"
                 android:visibility="gone">
             </TextView>
-
         </LinearLayout>
-
     </LinearLayout>
-
+    <View
+        android:layout_alignParentBottom="true"
+        android:layout_width="wrap_content"
+        android:layout_height="1dp"
+        android:layout_below="@+id/top2"
+        android:background="@color/listitem_text2"/>
 </RelativeLayout>

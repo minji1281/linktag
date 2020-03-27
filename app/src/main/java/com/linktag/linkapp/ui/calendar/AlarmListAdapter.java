@@ -105,8 +105,8 @@ public class AlarmListAdapter extends BaseAdapter {
 
         text1 = mList.get(position).ARM_92.substring(4,6)+"/"+mList.get(position).ARM_92.substring(6,8)+" ";
         if(Integer.parseInt(mList.get(position).ARM_92.substring(8,10)) >= 12){
-            text2 = "오후 ";
-        }else {text2 = "오전 ";}
+            text2 = "pm ";
+        }else {text2 = "am ";}
 
         if(Integer.parseInt(mList.get(position).ARM_92.substring(8,10)) > 12){
             text3 = String.valueOf(Integer.parseInt(mList.get(position).ARM_92.substring(8,10))-12);
