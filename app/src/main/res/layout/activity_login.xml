@@ -1,192 +1,191 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorDefaultBackground"
     android:orientation="vertical"
-    android:layout_weight="1"
     tools:context=".ui.login.Login">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:gravity="bottom"
-        android:layout_gravity="bottom"
-        android:layout_weight="1">
-    </LinearLayout>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:gravity="bottom"
-        android:layout_gravity="bottom"
-        android:layout_weight="2">
+    <ImageView
+        android:id="@+id/logimg1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="130dp"
+        android:src="@drawable/login_logo2" />
 
-        <ImageView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="bottom"
-            android:layout_gravity="bottom"
-            android:scaleType="center"
-            android:adjustViewBounds="true"
-            android:maxWidth="100dp"
-            android:maxHeight="100dp"
-            android:src="@drawable/login_logo2" />
+    <LinearLayout
+        android:id="@+id/logtext1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:paddingTop="16dp"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:layout_marginTop="80dp"
+        android:layout_below="@+id/logimg1"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+
+        <EditText
+            android:id="@+id/etAccount"
+            style="@style/login_input"
+            android:layout_height="50dp"
+            android:background="@drawable/border3"
+            android:paddingLeft="10dp"
+            android:minHeight="40dp"
+            android:singleLine="true"
+            android:text="admin@esansoft.co.kr"
+            android:nextFocusDown="@+id/etPassword"
+            android:textCursorDrawable="@null"
+            android:layout_weight="1"
+            android:hint="@string/login_hint1"
+            android:textSize="@dimen/text_small"
+            android:drawablePadding="15dp"
+            android:textColor="@color/colorMadGray"
+            android:drawableLeft="@drawable/envelope"/>
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/logtext2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingLeft="16dp"
+        android:paddingRight="16dp"
+        android:paddingBottom="16dp"
+        android:layout_below="@+id/logtext1"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <EditText
+            android:id="@+id/etPassword"
+            style="@style/login_input"
+            android:layout_height="50dp"
+            android:background="@drawable/border3"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="8dp"
+            android:minHeight="40dp"
+            android:nextFocusDown="@+id/etPassword"
+            android:inputType="textPassword"
+            android:textCursorDrawable="@null"
+            android:text="1234"
+            android:hint="@string/login_hint2"
+            android:textSize="@dimen/text_small"
+            android:drawablePadding="15dp"
+            android:textColor="@color/colorMadGray"
+            android:drawableLeft="@drawable/password"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/logtext3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="10dp"
+        android:layout_marginLeft="25dp"
+        android:layout_marginRight="15dp"
+        android:orientation="horizontal"
+        android:layout_below="@+id/logtext2"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
+
+        <CheckBox
+            android:id="@+id/chkAutoAccount"
+            style="@style/login_checkbox"
+            android:paddingLeft="10dp"
+            android:paddingRight="40dp"
+            android:fontFamily="@font/notosans_medium"
+            android:text="@string/login_hint3"
+            android:textSize="@dimen/text_small"/>
+
+
+        <CheckBox
+            android:id="@+id/chkAutoLogin"
+            style="@style/login_checkbox"
+            android:paddingLeft="10dp"
+            android:fontFamily="@font/notosans_medium"
+            android:text="@string/login_hint4"
+            android:textSize="@dimen/text_small"/>
+
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/selector_login_button"
+        android:text="@string/login_btn1"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="10dp"
+        android:textColor="@color/white"
+        android:fontFamily="@font/notosans_medium"
+        android:textSize="@dimen/text_normal"
+        android:layout_below="@+id/logtext3"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="0.5"
-        android:layout_marginStart="16dp"
-        android:layout_marginEnd="16dp"
-        android:orientation="vertical">
+        android:layout_gravity="center_horizontal"
+        android:gravity="center"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="60dp"
+        android:layout_below="@+id/btnLogin"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <TextView
+            android:id="@+id/tvSignUp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:paddingTop="16dp"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="16dp">
-
-
-            <EditText
-                android:id="@+id/etAccount"
-                style="@style/login_input"
-                android:layout_height="50dp"
-                android:background="@drawable/border3"
-                android:paddingLeft="10dp"
-                android:minHeight="40dp"
-                android:singleLine="true"
-                android:text="admin@esansoft.co.kr"
-                android:nextFocusDown="@+id/etPassword"
-                android:textCursorDrawable="@null"
-                android:layout_weight="1"
-                android:hint="@string/login_hint1"
-                android:textSize="@dimen/text_normal"
-                android:drawablePadding="15dp"
-                android:textColor="@color/colorMadGray"
-                android:drawableLeft="@drawable/envelope"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:paddingLeft="16dp"
-            android:paddingRight="16dp"
-            android:paddingBottom="16dp">
-
-            <EditText
-                android:id="@+id/etPassword"
-                style="@style/login_input"
-                android:layout_height="50dp"
-                android:background="@drawable/border3"
-                android:paddingLeft="10dp"
-                android:layout_marginTop="8dp"
-                android:minHeight="40dp"
-                android:nextFocusDown="@+id/etPassword"
-                android:inputType="textPassword"
-                android:textCursorDrawable="@null"
-                android:text="1234"
-                android:hint="@string/login_hint2"
-                android:textSize="@dimen/text_normal"
-                android:drawablePadding="15dp"
-                android:textColor="@color/colorMadGray"
-                android:drawableLeft="@drawable/password"/>
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center_vertical"
-            android:layout_marginTop="10dp"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="15dp"
-            android:orientation="horizontal">
-
-            <CheckBox
-                android:id="@+id/chkAutoAccount"
-                style="@style/login_checkbox"
-                android:paddingLeft="10dp"
-                android:paddingRight="40dp"
-                android:fontFamily="@font/notosans_medium"
-                android:text="@string/login_hint3" />
-
-
-            <CheckBox
-                android:id="@+id/chkAutoLogin"
-                style="@style/login_checkbox"
-                android:paddingLeft="10dp"
-                android:fontFamily="@font/notosans_medium"
-                android:text="@string/login_hint4" />
-
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/btnLogin"
-            android:layout_width="match_parent"
-            android:layout_height="45dp"
-            android:layout_marginTop="70dp"
-            android:background="@drawable/selector_login_button"
-            android:text="@string/login_btn1"
-            android:layout_marginStart="16dp"
-            android:layout_marginEnd="16dp"
-            android:layout_marginBottom="10dp"
-            android:textColor="@color/white"
-            android:fontFamily="@font/notosans_medium"
-            android:textSize="@dimen/text_normal" />
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:gravity="center"
-            android:layout_marginTop="10dp"
-            android:layout_marginBottom="60dp">
-
-            <TextView
-                android:id="@+id/tvSignUp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sign_up_0"
-                android:textStyle="bold"
-                android:layout_gravity="center_horizontal"
-                android:textSize="@dimen/text_normal" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginEnd="8dp"
-                android:text="|"
-                android:textColor="@color/colorTextGray"
-                android:textSize="@dimen/text_normal"
-                android:visibility="gone"/>
-
-            <TextView
-                android:id="@+id/tvFindIdPassword"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/sign_up_1"
-                android:textColor="@color/colorTextGray"
-                android:textSize="@dimen/text_normal"
-                android:visibility="gone"/>
-        </LinearLayout>
+            android:text="@string/sign_up_0"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_small"
+            android:layout_gravity="center_horizontal" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center|bottom"
-            android:gravity="bottom"
-            android:layout_marginTop="30dp"
-            android:layout_marginBottom="24dp"
-            android:text="Copyright ⓒ (주)ESANSOFT All rights reserved."
-            android:textSize="@dimen/text_small" />
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:text="|"
+            android:textColor="@color/colorTextGray"
+            android:textSize="@dimen/text_normal"
+            android:visibility="gone"/>
+
+        <TextView
+            android:id="@+id/tvFindIdPassword"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/sign_up_1"
+            android:textColor="@color/colorTextGray"
+            android:textSize="@dimen/text_normal"
+            android:visibility="gone"/>
     </LinearLayout>
-</LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center|bottom"
+        android:gravity="bottom"
+        android:layout_marginTop="30dp"
+        android:layout_marginBottom="24dp"
+        android:text="Copyright ⓒ (주)ESANSOFT All rights reserved."
+        android:textSize="@dimen/text_smallest"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_alignParentBottom="true"/>
+
+
+</RelativeLayout>

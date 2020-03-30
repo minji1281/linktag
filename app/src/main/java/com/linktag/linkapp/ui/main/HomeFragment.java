@@ -17,6 +17,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -74,7 +75,7 @@ public class HomeFragment extends BaseFragment {
 
     private TextView BmkSpacer;
 //    private TextView btnNotNew;
-    private ImageView btnNotList;
+    private LinearLayout btnNotList;
     private TextView btnSql;
     private TextView btnBeacon;
     private TextView btnArc;
