@@ -1,0 +1,387 @@
+package com.linktag.linkapp.ui.rmm;
+
+import android.annotation.SuppressLint;
+import android.content.Context;
+import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
+import android.support.annotation.NonNull;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.Filter;
+import android.widget.Filterable;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.linktag.base.network.ClsNetworkCheck;
+import com.linktag.base.user_interface.InterfaceUser;
+import com.linktag.base.util.BaseAlert;
+import com.linktag.linkapp.R;
+import com.linktag.linkapp.model.TRDModel;
+import com.linktag.linkapp.model.TRPModel;
+import com.linktag.linkapp.network.BaseConst;
+import com.linktag.linkapp.network.Http;
+import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.trp.TrdRecycleAdapter_horizontal;
+import com.linktag.linkapp.ui.trp.TrpDetail;
+import com.linktag.linkapp.value_object.RMD_VO;
+import com.linktag.linkapp.value_object.TrdVO;
+import com.linktag.linkapp.value_object.TrpVO;
+
+import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
+
+public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.ViewHolder> {
+
+    private Context mContext;
+    private ArrayList<RMD_VO> mList;
+//    private ArrayList<TrpVO> filteredmlist;
+    private LayoutInflater mInflater;
+    private View view;
+    private InterfaceUser mUser;
+
+    Filter listFilter;
+
+    RmdRecycleAdapter(Context context, ArrayList<RMD_VO> list) {
+        mContext = context;
+        mList = list;
+        mUser = InterfaceUser.getInstance();
+//        filteredmlist = list;
+    }
+
+//    @Override
+//    public Filter getFilter() {
+//        if (listFilter == null)
+//            listFilter = new ListFilter();
+//
+//        return listFilter;
+//    }
+
+
+//    private class ListFilter extends Filter {
+//
+//        @Override
+//        protected FilterResults performFiltering(CharSequence constraint) {
+//            FilterResults results = new FilterResults();
+//
+//            String charString = constraint.toString();
+//            if (charString.isEmpty()) {
+//                results.values = mList;
+//                results.count = mList.size();
+//            } else {
+//                ArrayList<TrpVO> itemList = new ArrayList<>();
+//                for (TrpVO item : mList) {
+//                    if (item.TRP_02.toLowerCase().contains(constraint.toString().toLowerCase())) {
+//                        itemList.add(item);
+//                    }
+//                }
+//                results.values = itemList;
+//                results.count = itemList.size();
+//            }
+//            return results;
+//        }
+//
+//        @Override
+//        protected void publishResults(CharSequence constraint, FilterResults results) {
+//
+//            filteredmlist = (ArrayList<TrpVO>) results.values;
+//
+//            notifyDataSetChanged();
+//        }
+//    }
+
+    @NonNull
+    @Override
+    public RmdRecycleAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int i) {
+        mInflater = (LayoutInflater) mContext.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        view = mInflater.inflate(R.layout.listitem_find_rmd
+                , parent, false);
+        RmdRecycleAdapter.ViewHolder viewHolder = new RmdRecycleAdapter.ViewHolder(view);
+
+
+        return viewHolder;
+    }
+
+    @Override
+    public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
+
+        viewHolder.tvName.setText(mList.get(position).RMD_03);
+        viewHolder.tvEquip.setText(mList.get(position).RMD_04);
+
+
+//        requestTRD_SELECT(viewHolder, filteredmlist, position);
+//
+//        viewHolder.filteredmlist_trd = new ArrayList<>();
+//        viewHolder.linearLayoutManager_TRD = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+//        viewHolder.mAdapter_trd = new TrdRecycleAdapter_horizontal(mContext, viewHolder.filteredmlist_trd);
+//
+//        viewHolder.recyclerView_TRD.setLayoutManager(viewHolder.linearLayoutManager_TRD);
+//        viewHolder.recyclerView_TRD.setAdapter(viewHolder.mAdapter_trd);
+//
+//
+//        if (filteredmlist.get(position).ARM_03.equals("Y")) {
+//            viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
+//        } else if (filteredmlist.get(position).ARM_03.equals("N")) {
+//            viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
+//        }
+
+//        viewHolder.imageview.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//
+//                if (viewHolder.filteredmlist_trd.size() == 0) {
+//                    Toast.makeText(mContext, mContext.getString(R.string.common_no_alarm_toast), Toast.LENGTH_LONG).show();
+//                    return;
+//                }
+//
+//                if (filteredmlist.get(position).ARM_03.equals("Y")) {
+//                    filteredmlist.get(position).setARM_03("N");
+//                    viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
+//                    Toast.makeText(mContext, "[" + filteredmlist.get(position).TRP_02 + "]- " +mContext.getString(R.string.common_alarm_off) , Toast.LENGTH_SHORT).show();
+//                } else {
+//                    filteredmlist.get(position).setARM_03("Y");
+//                    viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
+//                    Toast.makeText(mContext, "[" + filteredmlist.get(position).TRP_02 + "]- " + mContext.getString(R.string.common_alarm_on), Toast.LENGTH_SHORT).show();
+//                }
+//
+////                ArmVO armVO = new ArmVO();
+////
+////                armVO.setARM_ID(filteredmlist.get(position).TRP_ID);
+////                armVO.setARM_01(filteredmlist.get(position).TRP_01);
+////                armVO.setARM_02(mUser.Value.OCM_01);
+////                armVO.setARM_03(filteredmlist.get(position).ARM_03);
+////                armVO.setARM_95("");
+////                armVO.setARM_90(filteredmlist.get(position).JDM_02);
+////                armVO.setARM_91(filteredmlist.get(position).JDM_03);
+////                armVO.setARM_92(filteredmlist.get(position).JDM_96);
+////                armVO.setARM_93("");
+////                armVO.setARM_94("N");
+////                armVO.setARM_98(mUser.Value.OCM_01);
+////
+////                requestARM_CONTROL(armVO, position);
+//
+//                TrpVO trpvo = new TrpVO();
+//                trpvo.setTRP_ID(filteredmlist.get(position).TRP_ID);
+//                trpvo.setTRP_01(filteredmlist.get(position).TRP_01);
+//                trpvo.setTRP_02(filteredmlist.get(position).TRP_02);
+//                trpvo.setTRP_03(filteredmlist.get(position).TRP_03);
+//                trpvo.setTRP_04(filteredmlist.get(position).TRP_04);
+//                trpvo.setTRP_05(filteredmlist.get(position).TRP_05);
+//                trpvo.setTRP_06(filteredmlist.get(position).TRP_06);
+//                trpvo.setTRP_07(filteredmlist.get(position).TRP_07);
+//                trpvo.setTRP_97(filteredmlist.get(position).TRP_97);
+//                trpvo.setARM_03(filteredmlist.get(position).ARM_03);
+//
+//                requestTRP_CONTROL(trpvo, position);
+//
+//            }
+//        });
+
+    }
+
+//    public void requestTRD_SELECT(ViewHolder viewHolder, ArrayList<TrpVO> filteredmlist, int position) {
+//        // 인터넷 연결 여부 확인
+//        if (!ClsNetworkCheck.isConnectable(mContext)) {
+//            BaseAlert.show(mContext.getString(R.string.common_network_error));
+//            return;
+//        }
+//
+//        //openLoadingBar();
+//
+//        //String strToday = ClsDateTime.getNow("yyyyMMdd");
+//
+//
+//        Call<TRDModel> call = Http.trd(HttpBaseService.TYPE.POST).TRD_SELECT(
+//                BaseConst.URL_HOST,
+//                "LIST",
+//                filteredmlist.get(position).TRP_ID,
+//                filteredmlist.get(position).TRP_01,
+//                ""
+//        );
+//
+//
+//        call.enqueue(new Callback<TRDModel>() {
+//            @SuppressLint("HandlerLeak")
+//            @Override
+//            public void onResponse(Call<TRDModel> call, Response<TRDModel> response) {
+//                Message msg = new Message();
+//                msg.obj = response;
+//                msg.what = 100;
+//
+//                new Handler() {
+//                    @Override
+//                    public void handleMessage(Message msg) {
+//                        if (msg.what == 100) {
+//
+//                            Response<TRDModel> response = (Response<TRDModel>) msg.obj;
+//
+//                            viewHolder.filteredmlist_trd = response.body().Data;
+//                            if (viewHolder.filteredmlist_trd == null)
+//                                viewHolder.filteredmlist_trd = new ArrayList<>();
+//
+//                            if (viewHolder.filteredmlist_trd.size() == 0) {
+//                                viewHolder.tv_alarmNone.setVisibility(View.VISIBLE);
+//                                viewHolder.recyclerView_TRD.setVisibility(View.GONE);
+//                            } else {
+//                                viewHolder.tv_alarmNone.setVisibility(View.GONE);
+//                                viewHolder.recyclerView_TRD.setVisibility(View.VISIBLE);
+//                            }
+//                            viewHolder.mAdapter_trd.updateData(viewHolder.filteredmlist_trd);
+//                            viewHolder.mAdapter_trd.notifyDataSetChanged();
+//
+//                        }
+//                    }
+//                }.sendMessage(msg);
+//            }
+//
+//            @Override
+//            public void onFailure(Call<TRDModel> call, Throwable t) {
+//                Log.d("Test", t.getMessage());
+//
+//            }
+//        });
+//
+//    }
+
+//    public String patternToWeeks(String pattern) {
+//
+//        String[] array_pattern;
+//        String result_Weeks = "";
+//        array_pattern = pattern.split("");
+//        if (pattern.equals("YYYYYYY")) {
+//            result_Weeks = mContext.getString(R.string.trp_Everyday);
+//            return result_Weeks;
+//        } else {
+//            for (int i = 0; i < array_pattern.length; i++) {
+//                if (array_pattern[i].equals("Y") && i == 1) {
+//                    result_Weeks += mContext.getString(R.string.trp_Sun) +" ";
+//                } else if (array_pattern[i].equals("Y") && i == 2) {
+//                    result_Weeks += mContext.getString(R.string.trp_Mon) +" ";
+//                } else if (array_pattern[i].equals("Y") && i == 3) {
+//                    result_Weeks += mContext.getString(R.string.trp_Tue) +" ";
+//                } else if (array_pattern[i].equals("Y") && i == 4) {
+//                    result_Weeks += mContext.getString(R.string.trp_Wed) +" ";
+//                } else if (array_pattern[i].equals("Y") && i == 5) {
+//                    result_Weeks += mContext.getString(R.string.trp_Thu) +" ";
+//                } else if (array_pattern[i].equals("Y") && i == 6) {
+//                    result_Weeks += mContext.getString(R.string.trp_Fri) +" ";
+//                } else if (array_pattern[i].equals("Y") && i == 7) {
+//                    result_Weeks += mContext.getString(R.string.trp_Sat) +" ";
+//                }
+//            }
+//        }
+//        return result_Weeks;
+//    }
+
+
+    @Override
+    public int getItemCount() {
+        return mList.size();
+    }
+
+
+    public class ViewHolder extends RecyclerView.ViewHolder {
+        TextView tvName;
+        Button btnReserve;
+        TextView tvEquip;
+//        RecyclerView recyclerView_RMR;
+//
+//        private TrdRecycleAdapter_horizontal mAdapter_trd;
+//        private LinearLayoutManager linearLayoutManager_TRD;
+//        private ArrayList<TrdVO> filteredmlist_trd;
+
+//        RecyclerView recyclerView_TRD;
+//
+//        TextView tv_alarmNone;
+
+        public ViewHolder(@NonNull View itemView) {
+            super(itemView);
+
+            tvName = itemView.findViewById(R.id.tvName);
+            btnReserve = itemView.findViewById(R.id.btnReserve);
+            tvEquip = itemView.findViewById(R.id.tvEquip);
+
+//            recyclerView_TRD = itemView.findViewById(R.id.recyclerView_TRD);
+//
+//            tv_alarmNone = itemView.findViewById(R.id.tv_alarmNone);
+
+//            itemView.setOnClickListener(new View.OnClickListener() {
+//                @Override
+//                public void onClick(View view) {
+//                    int position = getAdapterPosition();
+//
+//                    TrpVO trpvo = new TrpVO();
+//                    trpvo.setTRP_ID(filteredmlist.get(position).TRP_ID);
+//                    trpvo.setTRP_01(filteredmlist.get(position).TRP_01);
+//                    trpvo.setTRP_02(filteredmlist.get(position).TRP_02);
+//                    trpvo.setTRP_03(filteredmlist.get(position).TRP_03);
+//                    trpvo.setTRP_04(filteredmlist.get(position).TRP_04);
+//                    trpvo.setTRP_05(filteredmlist.get(position).TRP_05);
+//                    trpvo.setTRP_06(filteredmlist.get(position).TRP_06);
+//                    trpvo.setTRP_07(filteredmlist.get(position).TRP_07);
+//                    trpvo.setTRP_97(filteredmlist.get(position).TRP_97);
+//                    trpvo.setARM_03(filteredmlist.get(position).ARM_03);
+//
+//                    Intent intent = new Intent(mContext, TrpDetail.class);
+//                    intent.putExtra("TrpVO", trpvo);
+//                    mContext.startActivity(intent);
+//                }
+//            });
+
+        }
+    }
+
+    public void updateData(ArrayList<RMD_VO> list) {
+        mList = list;
+    }
+
+
+//    public void requestTRP_CONTROL(TrpVO trpVO, int position) {
+//        // 인터넷 연결 여부 확인
+//        if (!ClsNetworkCheck.isConnectable(mContext)) {
+//            BaseAlert.show(mContext.getString(R.string.common_network_error));
+//            return;
+//        }
+//
+//        Call<TRPModel> call = Http.trp(HttpBaseService.TYPE.POST).TRP_CONTROL(
+//                BaseConst.URL_HOST,
+//                "UPDATE_2",
+//                trpVO.TRP_ID,
+//                trpVO.TRP_01,
+//                trpVO.TRP_02,
+//                trpVO.TRP_03,
+//                trpVO.TRP_04,
+//                trpVO.TRP_05,
+//                trpVO.TRP_06,
+//                trpVO.TRP_07,
+//                mUser.Value.OCM_01,
+//                mUser.Value.OCM_01,
+//                trpVO.ARM_03
+//        );
+//
+//
+//        call.enqueue(new Callback<TRPModel>() {
+//            @Override
+//            public void onResponse(Call<TRPModel> call, Response<TRPModel> response) {
+//
+//            }
+//
+//            @Override
+//            public void onFailure(Call<TRPModel> call, Throwable t) {
+//                Log.d("Test", t.getMessage());
+//
+//            }
+//        });
+//
+//    }
+
+}

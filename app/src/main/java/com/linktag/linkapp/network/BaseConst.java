@@ -117,4 +117,20 @@ public class BaseConst {
     public static final String URL_VAD_SELECT = "{host}/Mobile/VAD_SELECT";
     public static final String URL_VAD_CONTROL = "{host}/Mobile/VAD_CONTROL";
 
+    //연습실 예약 관리
+    public static final String RMM_SELECT = "{host}/Mobile/RMM_SELECT";
+    public static final String RMM_CONTROL = "{host}/Mobile/RMM_CONTROL";
+    public static final String RMD_SELECT = "{host}/Mobile/RMD_SELECT";
+    public static final String RMD_CONTROL = "{host}/Mobile/RMD_CONTROL";
+    public static final String RMR_SELECT = "{host}/Mobile/RMR_SELECT";
+    public static final String RMR_CONTROL = "{host}/Mobile/RMR_CONTROL";
+
+    //투표 관리
+    public static final String VOT_SELECT = "{host}/Mobile/VOT_SELECT";
+    public static final String VOT_CONTROL = "{host}/Mobile/VOT_CONTROL";
+    public static final String VIT_SELECT = "{host}/Mobile/VIT_SELECT";
+    public static final String VIT_CONTROL = "{host}/Mobile/VIT_CONTROL";
+    public static final String VIC_SELECT = "{host}/Mobile/VIC_SELECT";
+    public static final String VIC_CONTROL = "{host}/Mobile/VIC_CONTROL";
+
 }

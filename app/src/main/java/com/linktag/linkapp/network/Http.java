@@ -20,6 +20,9 @@ import com.linktag.linkapp.model.PCMModel;
 import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.model.RFDModel;
 import com.linktag.linkapp.model.RFMModel;
+import com.linktag.linkapp.model.RMDModel;
+import com.linktag.linkapp.model.RMMModel;
+import com.linktag.linkapp.model.RMRModel;
 import com.linktag.linkapp.model.SVC_Model;
 import com.linktag.linkapp.model.LOGIN_Model;
 import com.linktag.linkapp.model.DSHModel;
@@ -32,6 +35,9 @@ import com.linktag.linkapp.model.ARM_Model;
 import com.linktag.linkapp.model.VACModel;
 import com.linktag.linkapp.model.VADModel;
 import com.linktag.linkapp.model.VAMModel;
+import com.linktag.linkapp.model.VICModel;
+import com.linktag.linkapp.model.VITModel;
+import com.linktag.linkapp.model.VOTModel;
 
 import retrofit2.Call;
 import retrofit2.http.Field;
@@ -1199,4 +1205,204 @@ public class Http extends HttpBaseService {
         );
 
     }
+
+    //--------------------------------------------------
+    // 연습실 예약 관리
+    //--------------------------------------------------
+    public static IRMM rmm(TYPE type) {
+        return (IRMM) retrofit(IRMM.class, type);
+    }
+
+    public interface IRMM {
+
+        @FormUrlEncoded
+        @POST(BaseConst.RMM_SELECT)
+        Call<RMMModel> RMM_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "RMM_ID") String RMM_ID,
+                @Field(value = "RMM_01") String RMM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.RMM_CONTROL)
+        Call<RMMModel> RMM_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "RMM_ID") String RMM_ID,
+                @Field(value = "RMM_01") String RMM_01,
+                @Field(value = "RMM_02") String RMM_02,
+                @Field(value = "RMM_03") String RMM_03,
+
+                @Field(value = "RMM_04") String RMM_04,
+                @Field(value = "RMM_05") String RMM_05,
+                @Field(value = "RMM_98") String RMM_98
+        );
+
+    }
+
+    public static IRMD rmd(TYPE type) {
+        return (IRMD) retrofit(IRMD.class, type);
+    }
+
+    public interface IRMD {
+
+        @FormUrlEncoded
+        @POST(BaseConst.RMD_SELECT)
+        Call<RMDModel> RMD_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "RMD_ID") String RMD_ID,
+                @Field(value = "RMD_01") String RMD_01,
+                @Field(value = "RMD_02") String RMD_02
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.RMD_CONTROL)
+        Call<RMDModel> RMD_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "RMD_ID") String RMD_ID,
+                @Field(value = "RMD_01") String RMD_01,
+                @Field(value = "RMD_02") String RMD_02,
+                @Field(value = "RMD_03") String RMD_03,
+
+                @Field(value = "RMD_04") String RMD_04,
+                @Field(value = "RMD_98") String RMD_98
+        );
+
+    }
+
+    public static IRMR rmr(TYPE type) {
+        return (IRMR) retrofit(IRMR.class, type);
+    }
+
+    public interface IRMR {
+
+        @FormUrlEncoded
+        @POST(BaseConst.RMR_SELECT)
+        Call<RMRModel> RMR_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "RMR_ID") String RMR_ID,
+                @Field(value = "RMR_01") String RMR_01,
+                @Field(value = "RMR_02") String RMR_02,
+                @Field(value = "RMR_03") String RMR_03,
+
+                @Field(value = "RMR_04ST") String RMR_04ST,
+                @Field(value = "RMR_04ED") String RMR_04ED,
+                @Field(value = "RMR_05") String RMR_05
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.RMR_CONTROL)
+        Call<RMRModel> RMR_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "RMR_ID") String RMR_ID,
+                @Field(value = "RMR_01") String RMR_01,
+                @Field(value = "RMR_02") String RMR_02,
+                @Field(value = "RMR_03") String RMR_03,
+
+                @Field(value = "RMR_04") String RMR_04,
+                @Field(value = "RMR_05") String RMR_05,
+                @Field(value = "RMR_98") String RMR_98
+        );
+
+    }
+
+    //--------------------------------------------------
+    // 투표 관리
+    //--------------------------------------------------
+    public static IVOT vot(TYPE type) {
+        return (IVOT) retrofit(IVOT.class, type);
+    }
+
+    public interface IVOT {
+
+        @FormUrlEncoded
+        @POST(BaseConst.VOT_SELECT)
+        Call<VOTModel> VOT_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "VOT_ID") String VOT_ID,
+                @Field(value = "VOT_01") String VOT_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.VOT_CONTROL)
+        Call<VOTModel> VOT_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "VOT_ID") String VOT_ID,
+                @Field(value = "VOT_01") String VOT_01,
+                @Field(value = "VOT_02") String VOT_02,
+                @Field(value = "VOT_03") String VOT_03,
+
+                @Field(value = "VOT_04") String VOT_04,
+                @Field(value = "VOT_05") String VOT_05,
+                @Field(value = "VOT_06") String VOT_06,
+                @Field(value = "VOT_97") String VOT_97,
+                @Field(value = "VOT_98") String VOT_98
+        );
+
+    }
+
+    public static IVIT vit(TYPE type) { return (IVIT) retrofit(IVIT.class, type); }
+
+    public interface IVIT {
+
+        @FormUrlEncoded
+        @POST(BaseConst.VIT_SELECT)
+        Call<VITModel> VIT_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "VIT_ID") String VIT_ID,
+                @Field(value = "VIT_01") String VIT_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.VIT_CONTROL)
+        Call<VITModel> VIT_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "VIT_ID") String VIT_ID,
+                @Field(value = "VIT_01") String VIT_01,
+                @Field(value = "VIT_02") String VIT_02,
+                @Field(value = "VIT_03") String VIT_03,
+
+                @Field(value = "VIT_98") String VIT_98
+        );
+
+    }
+
+    public static IVIC vic(TYPE type) { return (IVIC) retrofit(IVIC.class, type); }
+
+    public interface IVIC {
+
+        @FormUrlEncoded
+        @POST(BaseConst.VIC_SELECT)
+        Call<VICModel> VIC_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "VIC_ID") String VIC_ID,
+                @Field(value = "VIC_01") String VIC_01,
+                @Field(value = "VIC_02") String VIC_02
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.VIC_CONTROL)
+        Call<VICModel> VIC_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "VIC_ID") String VIC_ID,
+                @Field(value = "VIC_01") String VIC_01,
+                @Field(value = "VIC_02") String VIC_02,
+                @Field(value = "VIC_03") String VIC_03,
+
+                @Field(value = "VIC_98") String VIC_98
+        );
+
+    }
+
 }

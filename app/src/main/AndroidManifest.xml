@@ -313,6 +313,12 @@
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
 
+        <!-- 연습실 예약 관리 -->
+        <activity
+            android:name=".ui.rmm.RmdMain"
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"/>
+
     </application>
 
 </manifest>

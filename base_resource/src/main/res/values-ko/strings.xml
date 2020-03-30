@@ -427,4 +427,10 @@
     <string name="note_advanced_beacon">BEACON SEARCH</string>
     <string name="note_advanced_nfc">NFC SEARCH</string>
 
+    <!-- 연습실예약 -->
+    <string name="rmm_list_header_title">연습실 목록</string>
+    <string name="rmm_list_myreserve_text">나의\n예약</string>
+    <string name="rmm_list_reserveset_text">예약\n설정</string>
+    <string name="rmm_list_reservation">예약</string>
+
 </resources>

@@ -435,4 +435,10 @@
     <string name="note_advanced_beacon">BEACON SEARCH</string>
     <string name="note_advanced_nfc">NFC SEARCH</string>
 
+    <!-- 연습실예약 -->
+    <string name="rmm_list_header_title">Practice room List</string>
+    <string name="rmm_list_myreserve_text">My\nreservation</string>
+    <string name="rmm_list_reserveset_text">Set up\nthe reservation</string>
+    <string name="rmm_list_reservation">Reservation</string>
+
 </resources>
