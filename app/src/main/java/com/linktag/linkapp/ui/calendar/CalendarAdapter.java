@@ -79,7 +79,7 @@ public class CalendarAdapter extends BaseAdapter {
         }else{
             viewHolder.tv_calenType.setImageResource(R.drawable.team);
         }
-      //  viewHolder.tv_calenType.setText(mList.get(position).CTM_19);
+      //  viewHolder.tv_calenType.setText(mList.get(position).CTD_09);
         viewHolder.tv_calenTime.setText(mList.get(position).ARM_92.substring(8,10)+":"+mList.get(position).ARM_92.substring(10,12));
         viewHolder.tv_calenTitle.setText(mList.get(position).ARM_90);
         viewHolder.tv_calenSubject.setText(mList.get(position).ARM_91);

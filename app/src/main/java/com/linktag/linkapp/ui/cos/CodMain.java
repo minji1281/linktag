@@ -495,14 +495,14 @@ public class CodMain extends BaseActivity {
         footer = findViewById(R.id.footer);
         footer.btnFooterScan.setOnClickListener(v -> goScan());
 
-        if(intentVO.CTM_19.equals("P")){
+        if(intentVO.CTD_09.equals("P")){
             // privateService
             footer.btnFooterSetting.setVisibility(View.VISIBLE);
             footer.btnFooterMember.setVisibility(View.GONE);
         } else {
             // sharedService
             header.tvHeaderTitle2.setVisibility(View.VISIBLE);
-            header.tvHeaderTitle2.setText(intentVO.CTM_17);
+            header.tvHeaderTitle2.setText(intentVO.CTD_10);
 
             if(intentVO.CTM_04.equals(mUser.Value.OCM_01)){
                 header.btnHeaderRight1.setVisibility(View.VISIBLE);

@@ -82,7 +82,7 @@ public class SharedAdapter extends BaseAdapter{
         int resource = convertView.getResources().getIdentifier("service_" + mList.get(position).SVC_01.toLowerCase() , "drawable", mContext.getPackageName());
         ClsBitmap.setSharedPhoto(mContext, viewHolder.ivShared, mList.get(position).CTD_01, mList.get(position).CTD_08, "", resource);
 
-        viewHolder.tvSharedNM.setText(mList.get(position).CTM_17);
+        viewHolder.tvSharedNM.setText(mList.get(position).CTD_10);
         viewHolder.tvServiceNM.setText(mList.get(position).CTD_02_NM);
 
         return convertView;

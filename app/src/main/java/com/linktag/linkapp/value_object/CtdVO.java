@@ -14,9 +14,9 @@ public class CtdVO implements Serializable {
     public double CTD_06;        //
 
     public String CTD_07;        // 해당서비스 관리자 아이디(OCM_01)
-    public String CTD_08;        //
-    public String CTD_09;        //
-    public String CTD_10;        //
+    public String CTD_08;        // 공유 이미지
+    public String CTD_09;        // 유형(P:개인, S:공유)
+    public String CTD_10;        // 공유명
 
     public String CTD_97;        //
     public String CTD_98;        //

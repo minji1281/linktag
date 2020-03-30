@@ -3,6 +3,7 @@ package com.linktag.base.util;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.widget.ImageView;
@@ -47,39 +48,21 @@ public class ClsBitmap {
     public static void setImage(final Context context, String folderPath, String fileName, String preFilename,
                                 final ImageView imgView, int placeHolder) {
         try {
-            final String strSavePath = context.getCacheDir() + "/" + folderPath;
+            final String strSaveFolder = context.getCacheDir() + "/" + folderPath;
+            final String strSavePath = strSaveFolder + "/" + fileName;
 
-            File dir = new File(strSavePath);
-            if (!dir.exists()){
-                dir.mkdirs();
-            } else {
-                if(preFilename.equals(""))
-                    deleteImageFolder(context, folderPath);
-                else
-                    deleteImageFile(context, folderPath, preFilename);
-            }
+            File file = new File(strSavePath);
 
-            final String strFilePath = strSavePath + "/" + fileName;
-
-            File file = new File(strFilePath);
-
-            if (file.exists()) {
-                // Debug
-                // file.delete();
-            }
-
-            if (file.exists()) {
-                // 사진 파일을 받은 경우
+            if(file.exists()){
+                // 캐시에 파일 존재할때
                 try {
                     CustomTarget target = new CustomTarget<Bitmap>(){
                         @Override
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                             imgView.setImageBitmap(resource);
                         }
-
                         @Override
                         public void onLoadCleared(@Nullable Drawable placeholder) {
-
                         }
                     };
 
@@ -88,7 +71,18 @@ public class ClsBitmap {
                     e.printStackTrace();
                 }
             } else {
-                // 사진 파일을 받아야 하는 경우
+                File folder = new File(strSaveFolder);
+
+                if(folder.exists()){
+                    if(preFilename.equals(""))
+                        deleteImageFolder(context, folderPath);
+                    else
+                        deleteImageFile(context, folderPath, preFilename);
+                }
+
+                folder.mkdirs();
+
+                // 캐시에 파일 없고 서버에서 다운 받을때
                 StorageReference storageReference = FirebaseStorage.getInstance().getReference();
                 StorageReference pathRef = storageReference.child(folderPath + "/" + fileName);
                 try {
@@ -97,7 +91,7 @@ public class ClsBitmap {
                         public void onResourceReady(@NonNull Bitmap resource, @Nullable Transition<? super Bitmap> transition) {
                             imgView.setImageBitmap(resource);
 
-                            makeImageFile(context, resource, strFilePath);
+                            makeImageFile(context, resource, strSavePath);
                         }
 
                         @Override
@@ -112,6 +106,7 @@ public class ClsBitmap {
                     e.printStackTrace();
                 }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
         }

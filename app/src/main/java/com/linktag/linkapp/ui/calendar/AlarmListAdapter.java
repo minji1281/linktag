@@ -154,6 +154,8 @@ public class AlarmListAdapter extends BaseAdapter {
                 intentVO.CTM_19 = Ctm_19;
                 intentVO.CTM_04 = Ctm_04;
 
+                intentVO.CTD_09 = Ctm_19;
+
 
                Intent intent = new Intent(mContext, clsList);
                 intent.putExtra("scancode", scancode); //scancode

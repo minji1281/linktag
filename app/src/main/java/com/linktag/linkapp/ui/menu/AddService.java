@@ -117,7 +117,7 @@ public class AddService extends BaseActivity {
             AlertDialog.Builder builder = new AlertDialog.Builder(mActivity);
             builder.setMessage("[" + mList.get(position).SVC_03 + "] " + getString(R.string.alert_service_add));
             builder.setCancelable(true);
-            builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            builder.setPositiveButton(R.string.common_yes, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
                     //GUBUN = contractType.equals("P") ? "INSERT" : "INSERT_SHARED";
@@ -125,7 +125,7 @@ public class AddService extends BaseActivity {
                     requestCTD_CONTROL(mList.get(position).SVC_02);
                 }
             });
-            builder.setNegativeButton("No", new DialogInterface.OnClickListener() {
+            builder.setNegativeButton(R.string.common_no, new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int id) {
                 }
@@ -217,7 +217,7 @@ public class AddService extends BaseActivity {
                 0,
                 mUser.Value.OCM_01,
                 "",
-                "",
+                "P",
                 "",
                 "",
                 mUser.Value.OCM_01

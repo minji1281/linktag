@@ -208,7 +208,7 @@ public class Member extends BaseActivity {
             for (int i=1; i<model.Total + 1; i++){
                 sharedList.add(new ClsShared(model.Data.get(i - 1).CTD_02_NM, model.Data.get(i - 1).CTD_01, model.Data.get(i - 1).CTD_02));
 
-                ar[i] = model.Data.get(i - 1).CTD_02_NM + "[" +  model.Data.get(i - 1).CTM_17 + "]";
+                ar[i] = model.Data.get(i - 1).CTD_02_NM + "[" +  model.Data.get(i - 1).CTD_10 + "]";
 
                 if(model.Data.get(i - 1).CTD_01.equals(intentVO.CTD_01) && model.Data.get(i - 1).CTD_02.equals(intentVO.CTD_02)){
                     sPoisition = i;

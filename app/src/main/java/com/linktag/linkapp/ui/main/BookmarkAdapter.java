@@ -69,7 +69,6 @@ public class BookmarkAdapter extends BaseAdapter{
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
         }
-
         if(deleteChk)
             viewHolder.layDelete.setVisibility(View.VISIBLE);
         else
@@ -77,15 +76,16 @@ public class BookmarkAdapter extends BaseAdapter{
 
         int resource = convertView.getResources().getIdentifier("service_" + mList.get(position).SVC_01.toLowerCase() , "drawable", mContext.getPackageName());
 
-        if(mList.get(position).CTM_19.equals("S")){
+        if(mList.get(position).CTD_09.equals("S")){
             viewHolder.layType.setVisibility(View.VISIBLE);
-            viewHolder.tvService.setText(mList.get(position).CTM_17);
+            viewHolder.tvService.setText(mList.get(position).CTD_10);
             ClsBitmap.setSharedPhoto(mContext, viewHolder.ivService, mList.get(position).CTD_01, mList.get(position).CTD_08, "", resource);
         }
         else {
             viewHolder.layType.setVisibility(View.GONE);
             viewHolder.tvService.setText(mList.get(position).CTD_02_NM);
             viewHolder.ivService.setImageResource(resource);
+
 
         }
 

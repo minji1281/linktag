@@ -45,7 +45,7 @@ public class ChangeActivityCls {
 
         }
         else {
-            Toast.makeText(mContext, R.string.alert_service_location_error + "\n" + R.string.common_call_admin, Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, mContext.getString(R.string.alert_service_location_error) + "\n" + mContext.getString(R.string.common_call_admin), Toast.LENGTH_LONG).show();
         }
 
     }
@@ -85,7 +85,7 @@ public class ChangeActivityCls {
 
         }
         else {
-            Toast.makeText(mContext, R.string.alert_service_location_error + "\n" + R.string.common_call_admin, Toast.LENGTH_LONG).show();
+            Toast.makeText(mContext, mContext.getString(R.string.alert_service_location_error) + "\n" + mContext.getString(R.string.common_call_admin), Toast.LENGTH_LONG).show();
         }
 
     }

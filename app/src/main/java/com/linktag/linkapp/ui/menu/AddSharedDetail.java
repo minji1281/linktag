@@ -155,7 +155,7 @@ public class AddSharedDetail extends BaseActivity {
             typeStr = getResources().getString(R.string.common_updated);
             if(!intentVO.CTD_08.equals(""))
                 ClsBitmap.setSharedPhoto(mContext, imgShared, intentVO.CTD_01, intentVO.CTD_08, "", R.drawable.shared_no_image);
-            etSharedName.setText(intentVO.CTM_17);
+            etSharedName.setText(intentVO.CTD_10);
             header.tvHeaderTitle.setText(getString(R.string.menu_bar2) + " " + getString(R.string.common_update));
         }
 
@@ -435,7 +435,7 @@ public class AddSharedDetail extends BaseActivity {
                 0,
                 mUser.Value.OCM_01,
                 CTD_08,
-                "",
+                "S",
                 CTD_10,
                 "",
                 mUser.Value.OCM_01
