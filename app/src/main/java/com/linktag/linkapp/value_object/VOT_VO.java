@@ -16,4 +16,5 @@ public class VOT_VO implements Serializable {
     public String VOT_98;       // 최종수정자
     //public Date VOT_99;       // 최종수정일시
 
+    public boolean Validation;
 }

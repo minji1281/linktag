@@ -10,7 +10,10 @@ public class RMD_VO implements Serializable {
     public String RMD_02;       // 일련번호(스캔코드)
     public String RMD_03;       // 명칭
     public String RMD_04;       // 장비
+    public String RMD_97;       // 작성자
     public String RMD_98;       // 최종수정자
     //public Date RMD_99;       // 최종수정일시
+
+    public boolean Validation;
 
 }

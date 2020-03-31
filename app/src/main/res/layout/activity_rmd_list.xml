@@ -40,7 +40,8 @@
                 android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:gravity="center_vertical|left"
-                android:paddingLeft="5dp"
+                android:padding="5dp"
+                android:scrollbars="vertical"
                 android:textSize="@dimen/text_normal"
                 android:textStyle="bold" />
 
@@ -152,7 +153,7 @@
             <android.support.v4.widget.SwipeRefreshLayout
                 android:id="@+id/swipeRefresh"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 tools:context=".ui.rmm.RmdMain">
 
                 <android.support.v7.widget.RecyclerView
@@ -162,16 +163,17 @@
                     android:background="@color/list_back"
                     tools:listitem="@layout/listitem_find_rmd" />
 
-            </android.support.v4.widget.SwipeRefreshLayout>
+                <TextView
+                    android:id="@+id/empty"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="16dp"
+                    android:gravity="center|center_vertical"
+                    android:text="@string/list_empty"
+                    android:textSize="@dimen/text_normal"
+                    android:visibility="gone"/>
 
-            <TextView
-                android:id="@+id/empty"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="16dp"
-                android:gravity="center|center_vertical"
-                android:text="@string/list_empty"
-                android:textSize="@dimen/text_normal" />
+            </android.support.v4.widget.SwipeRefreshLayout>
 
         </FrameLayout>
 

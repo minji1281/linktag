@@ -23,16 +23,10 @@ import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.model.TRDModel;
-import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.trp.TrdRecycleAdapter_horizontal;
-import com.linktag.linkapp.ui.trp.TrpDetail;
 import com.linktag.linkapp.value_object.RMD_VO;
-import com.linktag.linkapp.value_object.TrdVO;
-import com.linktag.linkapp.value_object.TrpVO;
 
 import java.util.ArrayList;
 
@@ -49,7 +43,7 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
     private View view;
     private InterfaceUser mUser;
 
-    Filter listFilter;
+//    Filter listFilter;
 
     RmdRecycleAdapter(Context context, ArrayList<RMD_VO> list) {
         mContext = context;
@@ -117,6 +111,25 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
         viewHolder.tvName.setText(mList.get(position).RMD_03);
         viewHolder.tvEquip.setText(mList.get(position).RMD_04);
 
+//        int position = getAdapterPosition();
+        if(mList.get(position).RMD_97.equals(mUser.Value.OCM_01)){ //master일때
+            viewHolder.btnReserve.setText(R.string.list_edit);
+            viewHolder.btnReserve.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    RMD_VO RMD = mList.get(position);
+
+                    Intent intent = new Intent(mContext, RmdDetail.class);
+                    intent.putExtra("RMD", RMD);
+//                        intent.putExtra("intentVO", intentVO);
+
+                    mContext.startActivity(intent);
+                }
+            });
+        }
+        else{ //user일때
+
+        }
 
 //        requestTRD_SELECT(viewHolder, filteredmlist, position);
 //
@@ -313,6 +326,26 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
 //            recyclerView_TRD = itemView.findViewById(R.id.recyclerView_TRD);
 //
 //            tv_alarmNone = itemView.findViewById(R.id.tv_alarmNone);
+
+//            int position = getAdapterPosition();
+//            if(mList.get(position).RMD_97.equals(mUser.Value.OCM_01)){ //master일때
+//                btnReserve.setText(R.string.list_edit);
+//                btnReserve.setOnClickListener(new View.OnClickListener() {
+//                    @Override
+//                    public void onClick(View view) {
+//                        RMD_VO RMD = mList.get(position);
+//
+//                        Intent intent = new Intent(mContext, RmdDetail.class);
+//                        intent.putExtra("RMD", RMD);
+////                        intent.putExtra("intentVO", intentVO);
+//
+//                        mContext.startActivity(intent);
+//                    }
+//                });
+//            }
+//            else{ //user일때
+//
+//            }
 
 //            itemView.setOnClickListener(new View.OnClickListener() {
 //                @Override

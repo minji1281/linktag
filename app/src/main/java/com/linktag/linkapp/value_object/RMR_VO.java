@@ -14,4 +14,5 @@ public class RMR_VO implements Serializable {
     public String RMR_98;       // 최종수정자
     //public Date RMR_99;       // 최종수정일시
 
+    public boolean Validation;
 }

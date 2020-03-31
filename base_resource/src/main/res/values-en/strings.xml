@@ -440,5 +440,20 @@
     <string name="rmm_list_myreserve_text">My\nreservation</string>
     <string name="rmm_list_reserveset_text">Set up\nthe reservation</string>
     <string name="rmm_list_reservation">Reservation</string>
+    <string name="rmd_detail_header_title">Practice room Detail</string>
+    <string name="rmd_detail_reserve_list">Reservation</string>
+    <string name="rmd_detail_equip">Equipment</string>
+    <string name="rmd_detail_equip_hint">Equipment field</string>
+    <string name="dialog_rmm_notice_header_title">Notification Settings</string>
+    <string name="dialog_rmm_notice_hint">Notification field</string>
+    <string name="dialog_rmm_set_reserve_header_title">Reservation Settings</string>
+    <string name="dialog_rmm_set_reserve_timegub">Time interval</string>
+    <string name="dialog_rmm_set_reserve_time">Available time</string>
+    <string name="dialog_rmm_set_reserve_timegub_text1">Half hour</string>
+    <string name="dialog_rmm_set_reserve_timegub_text2">An hour</string>
+    <string name="dialog_rmm_time_filter_header_title">Time filter</string>
+    <string name="dialog_rmm_time_filter_time">Time</string>
+    <string name="dialog_rmm_time_filter_gub1">All</string>
+    <string name="dialog_rmm_time_filter_gub2">Available</string>
 
 </resources>

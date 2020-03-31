@@ -12,4 +12,5 @@ public class VIC_VO implements Serializable {
     public String VIC_98;       // 최종수정자
     //public Date VIC_99;       // 최종수정일시
 
+    public boolean Validation;
 }

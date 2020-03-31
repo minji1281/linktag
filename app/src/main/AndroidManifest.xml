@@ -331,6 +331,10 @@
             android:name=".ui.rmm.RmdMain"
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
+        <activity
+            android:name=".ui.rmm.RmdDetail"
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"/>
 
     </application>
 

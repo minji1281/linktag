@@ -12,4 +12,5 @@ public class VIT_VO implements Serializable {
     public String VIT_98;       // 최종수정자
     //public Date VIT_99;       // 최종수정일시
 
+    public boolean Validation;
 }
