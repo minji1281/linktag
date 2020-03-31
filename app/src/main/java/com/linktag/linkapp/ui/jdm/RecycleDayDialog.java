@@ -147,7 +147,7 @@ public class RecycleDayDialog extends Dialog {
                     }
 
                     if(Integer.parseInt(year + monthString + dayOfMonthString) <= Integer.parseInt(formatDate.format(sCalendar.getTime()))){
-                        Toast.makeText(mContext,str_save_text[4], Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext,mContext.getString(R.string.jdm_text5), Toast.LENGTH_LONG).show();
                         return;
                     }
                     customDialogListener.onPositiveClicked(year,monthString,dayOfMonthString,calendar);

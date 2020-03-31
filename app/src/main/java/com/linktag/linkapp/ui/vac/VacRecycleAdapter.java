@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Filter;
@@ -112,8 +113,7 @@ public class VacRecycleAdapter extends RecyclerView.Adapter<VacRecycleAdapter.Vi
 
         viewHolder.tv_name.setText(filteredmlist.get(position).VAC_02);
 
-
-        requestVAC_SELECT(viewHolder, filteredmlist, position);
+        requestVAD_SELECT(viewHolder, filteredmlist, position);
 
         viewHolder.filteredmlist_vad = new ArrayList<>();
         viewHolder.linearLayoutManager_VAD = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
@@ -155,6 +155,7 @@ public class VacRecycleAdapter extends RecyclerView.Adapter<VacRecycleAdapter.Vi
                 vacvo.setVAC_02(filteredmlist.get(position).VAC_02);
                 vacvo.setVAC_03(filteredmlist.get(position).VAC_03);
                 vacvo.setVAC_04(filteredmlist.get(position).VAC_04);
+                vacvo.setARM_03(filteredmlist.get(position).ARM_03);
 
                 requestVAC_CONTROL(vacvo, position);
 
@@ -163,7 +164,7 @@ public class VacRecycleAdapter extends RecyclerView.Adapter<VacRecycleAdapter.Vi
 
     }
 
-    public void requestVAC_SELECT(ViewHolder viewHolder, ArrayList<VacVO> filteredmlist, int position) {
+    public void requestVAD_SELECT(ViewHolder viewHolder, ArrayList<VacVO> filteredmlist, int position) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(mContext.getString(R.string.common_network_error));
@@ -179,7 +180,8 @@ public class VacRecycleAdapter extends RecyclerView.Adapter<VacRecycleAdapter.Vi
                 BaseConst.URL_HOST,
                 "LIST",
                 filteredmlist.get(position).VAC_ID,
-                filteredmlist.get(position).VAC_01
+                filteredmlist.get(position).VAC_01,
+                ""
         );
 
 
@@ -203,10 +205,10 @@ public class VacRecycleAdapter extends RecyclerView.Adapter<VacRecycleAdapter.Vi
                                 viewHolder.filteredmlist_vad = new ArrayList<>();
 
                             if (viewHolder.filteredmlist_vad.size() == 0) {
-                                viewHolder.tv_alarmNone.setVisibility(View.VISIBLE);
+                                viewHolder.tv_vamNone.setVisibility(View.VISIBLE);
                                 viewHolder.recyclerView_VAD.setVisibility(View.GONE);
                             } else {
-                                viewHolder.tv_alarmNone.setVisibility(View.GONE);
+                                viewHolder.tv_vamNone.setVisibility(View.GONE);
                                 viewHolder.recyclerView_VAD.setVisibility(View.VISIBLE);
                             }
                             viewHolder.mAdapter_vad.updateData(viewHolder.filteredmlist_vad);
@@ -245,7 +247,7 @@ public class VacRecycleAdapter extends RecyclerView.Adapter<VacRecycleAdapter.Vi
 
         RecyclerView recyclerView_VAD;
 
-        TextView tv_alarmNone;
+        TextView tv_vamNone;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -256,7 +258,7 @@ public class VacRecycleAdapter extends RecyclerView.Adapter<VacRecycleAdapter.Vi
 
             recyclerView_VAD = itemView.findViewById(R.id.recyclerView_VAD);
 
-            tv_alarmNone = itemView.findViewById(R.id.tv_alarmNone);
+            tv_vamNone = itemView.findViewById(R.id.tv_vamNone);
 
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
@@ -269,6 +271,7 @@ public class VacRecycleAdapter extends RecyclerView.Adapter<VacRecycleAdapter.Vi
                     vacvo.setVAC_02(filteredmlist.get(position).VAC_02);
                     vacvo.setVAC_03(filteredmlist.get(position).VAC_03);
                     vacvo.setVAC_04(filteredmlist.get(position).VAC_04);
+                    vacvo.setVAC_97(filteredmlist.get(position).VAC_97);
                     vacvo.setARM_03(filteredmlist.get(position).ARM_03);
 
                     Intent intent = new Intent(mContext, VacDetail.class);
@@ -285,7 +288,7 @@ public class VacRecycleAdapter extends RecyclerView.Adapter<VacRecycleAdapter.Vi
     }
 
 
-    public void requestVAC_CONTROL(VacVO trpVO, int position) {
+    public void requestVAC_CONTROL(VacVO vacVO, int position) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(mContext.getString(R.string.common_network_error));
@@ -294,15 +297,15 @@ public class VacRecycleAdapter extends RecyclerView.Adapter<VacRecycleAdapter.Vi
 
         Call<VACModel> call = Http.vac(HttpBaseService.TYPE.POST).VAC_CONTROL(
                 BaseConst.URL_HOST,
-                "UPDATE_2",
-                trpVO.VAC_ID,
-                trpVO.VAC_01,
-                trpVO.VAC_02,
-                trpVO.VAC_03,
-                trpVO.VAC_04,
+                "UPDATE",
+                vacVO.VAC_ID,
+                vacVO.VAC_01,
+                vacVO.VAC_02,
+                vacVO.VAC_03,
+                vacVO.VAC_04,
                 mUser.Value.OCM_01,
                 mUser.Value.OCM_01,
-                trpVO.ARM_03
+                vacVO.ARM_03
         );
 
 

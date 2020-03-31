@@ -98,7 +98,7 @@ public class RfmDetail extends BaseActivity {
                     CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, rfmVO.RFM_01);
                     ctds_control.requestCTDS_CONTROL();
 
-                    RFMMain.RFM_01 = rfmVO.RFM_01;
+                    RfmMain.RFM_01 = rfmVO.RFM_01;
                     Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "냉장고정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
                 }
                 onBackPressed();

@@ -154,7 +154,7 @@ public class RfdDetail extends BaseActivity {
 
                         Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" +getString(R.string.rfd_text1), Toast.LENGTH_SHORT).show();
                     }
-                    RFMMain.RFM_01 = rfdVO.RFD_01;
+                    RfmMain.RFM_01 = rfdVO.RFD_01;
                 } else if (GUBUN.equals("RFD_07_UPDATE")) {
                     if (rfdVO.ARM_03.equals("Y") && rfdVO.RFD_07.equals("") && dateBool) {
                         Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]"  + getString(R.string.rfd_text2)+"\n"+
@@ -165,7 +165,7 @@ public class RfdDetail extends BaseActivity {
                     }
                 } else {
                     Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" +getString(R.string.rfd_text3), Toast.LENGTH_SHORT).show();
-                    RFMMain.RFM_01 = rfdVO.RFD_01;
+                    RfmMain.RFM_01 = rfdVO.RFD_01;
                 }
                 onBackPressed();
             }

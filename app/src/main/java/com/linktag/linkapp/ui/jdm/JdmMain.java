@@ -42,7 +42,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class JDMMain extends BaseActivity {
+public class JdmMain extends BaseActivity {
 
     private BaseHeader header;
     private BaseFooter footer;
@@ -67,7 +67,7 @@ public class JDMMain extends BaseActivity {
     private FrameLayout linearLayout;
     private InputMethodManager imm;
 
-    public JDMMain() {
+    public JdmMain() {
     }
 
     @Override

@@ -17,13 +17,18 @@
             android:layout_height="match_parent"
             android:orientation="horizontal">
 
+            <RadioButton
+                android:id="@+id/radioButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
             <TextView
                 android:id="@+id/tv_name"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
                 android:layout_weight="1"
                 android:layout_gravity="center_vertical"
-                android:text="운영체제" />
+                android:text="이솝메디컬 055 232 0227" />
 
             <Button
                 android:id="@+id/btn_delete"

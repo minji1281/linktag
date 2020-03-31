@@ -11,7 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="@string/pcm_detail_title" />
+        app:title_text="접종관리" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -31,26 +31,62 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="center_vertical">
+                android:orientation="horizontal">
 
-                <TextView
-                    android:layout_width="50dp"
-                    android:layout_height="wrap_content"
-                    android:text="@string/detail_name"
-                    android:textSize="@dimen/text_normal"
-                    android:textStyle="bold" />
-
-                <EditText
-                    android:id="@id/ed_name"
+                <LinearLayout
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
                     android:layout_weight="1"
-                    android:background="@null"
-                    android:hint="@string/detail_name_hint"
-                    android:singleLine="true"
-                    android:textSize="@dimen/text_normal" />
+                    android:gravity="center_vertical">
 
+                    <TextView
+                        android:layout_width="50dp"
+                        android:layout_height="wrap_content"
+                        android:text="@string/detail_name"
+                        android:textSize="@dimen/text_normal"
+                        android:textStyle="bold" />
+
+                    <EditText
+                        android:id="@id/ed_name"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="1"
+                        android:background="@null"
+                        android:hint="@string/detail_name_hint"
+                        android:singleLine="true"
+                        android:textSize="@dimen/text_normal" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/imageView"
+                            android:layout_width="30dp"
+                            android:layout_height="30dp"
+                            android:layout_gravity="center_horizontal"
+                            android:adjustViewBounds="true"
+                            android:background="@drawable/alarm_state_on" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center_horizontal"
+                            android:text="@string/detail_alarm"
+                            android:textSize="10dp" />
+                    </LinearLayout>
+
+                </LinearLayout>
 
             </LinearLayout>
 
@@ -62,7 +98,9 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_detail_root_margin_bottom"
                 android:gravity="center_vertical">
+
 
                 <TextView
                     android:layout_width="50dp"
@@ -92,41 +130,37 @@
                 android:layout_weight="1" />
 
             <LinearLayout
-
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical"
                 android:orientation="horizontal">
 
                 <TextView
-                    android:layout_width="100dp"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/detail_manageDate"
+                    android:layout_weight="1"
+                    android:text="최근 접종 내역"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
-                <TextView
-                    android:id="@+id/tv_manageDay"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_marginStart="10dp"
-                    android:layout_weight="1"
-                    android:gravity="center_vertical"
-                    android:textSize="@dimen/text_normal" />
-
-                <Button
-                    android:id="@+id/btn_update"
-                    android:layout_width="80dp"
-                    android:layout_height="20dp"
-                    android:background="@drawable/btn_round_indigo_5dp"
-                    android:text="@string/pcm_update"
-                    android:textStyle="bold"
-                    android:textColor="#FFF"
-                    android:textSize="13dp" />
-
-
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/activity_detail_root_margin_bottom"
+                android:gravity="center_vertical">
+
+                <TextView
+                    android:id="@+id/tv_vaccineLog"
+                    android:layout_width="match_parent"
+                    android:layout_height="40dp"
+                    android:layout_marginStart="20dp"
+                    android:gravity="center_vertical"
+                    android:text="종합예방접종 2020.09.12"
+                    android:textSize="@dimen/text_normal" />
+
+            </LinearLayout>
 
             <View
                 android:layout_width="match_parent"
@@ -158,9 +192,12 @@
                     android:textSize="@dimen/text_normal" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:layout_marginBottom="@dimen/activity_detail_root_margin_bottom"
                 android:orientation="vertical">
 
                 <LinearLayout
@@ -173,14 +210,15 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|left"
-                        android:text="@string/pcm_hw_info"
+                        android:text="접종기관"
                         android:textSize="@dimen/text_small" />
+
                     <TextView
-                        android:id="@+id/tv_hwCnt"
+                        android:id="@+id/tv_vamCnt"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_small"
-                        android:layout_marginStart="10dp"/>
+                        android:layout_marginStart="10dp"
+                        android:textSize="@dimen/text_small" />
 
                     <View
                         android:layout_width="0dp"
@@ -193,158 +231,145 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginTop="15dp"
                     android:layout_marginBottom="5dp"
-                    android:orientation="horizontal"
-                    android:paddingStart="8dp">
+                    android:orientation="horizontal">
 
-                    <Spinner
-                        android:id="@+id/sp_hw"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:entries="@array/hw"
-                        android:textSize="8dp" />
 
                     <EditText
-                        android:id="@+id/et_hw"
+                        android:id="@+id/ed_item"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2.5"
-                        android:background="@null"
+                        android:hint="ex) 이솝메이컬 055 232 0220"
                         android:singleLine="true"
-                        android:hint="@string/pcm_info_hint"
                         android:textSize="@dimen/small_text" />
 
                     <Button
-                        android:id="@+id/btn_addItem_hw"
+                        android:id="@+id/btn_addItem"
                         android:layout_width="80dp"
                         android:layout_height="20dp"
                         android:layout_gravity="center_vertical|right"
                         android:background="@drawable/btn_round_indigo_5dp"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:text="@string/pcm_info_add"
-                        android:textColor="@color/white"
+                        android:text="추가"
                         android:textAllCaps="false"
+                        android:textColor="@color/white"
                         android:textSize="13dp"
                         android:textStyle="bold" />
                 </LinearLayout>
 
 
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView_hw"
+                <TextView
+                    android:id="@+id/tv_vam_nodata"
                     android:layout_width="match_parent"
                     android:layout_height="100dp"
                     android:layout_marginStart="10dp"
                     android:layout_marginEnd="10dp"
                     android:background="@drawable/list_item_layout"
-                    tools:listitem="@layout/listitem_pcd_list" />
+                    android:gravity="center_vertical"
+                    android:text="접종기관 없음"
+                    android:textAlignment="center"
+                    android:visibility="gone" />
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/recyclerView"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginStart="10dp"
+                    android:layout_marginEnd="10dp"
+                    android:background="@drawable/list_item_layout"
+                    tools:listitem="@layout/listitem_vam_list" />
 
             </LinearLayout>
-
 
             <View
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-
-            <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
-                xmlns:tools="http://schemas.android.com/tools"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/activity_detail_section_margin_top"
-                android:orientation="vertical">
+                android:layout_marginStart="10dp"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
+                    android:text="다음접종 정보"
+                    android:textSize="@dimen/text_small" />
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1" />
+
+                <Button
+                    android:id="@+id/btn_vadEdit"
+                    android:layout_width="80dp"
+                    android:layout_height="20dp"
+                    android:layout_gravity="center_vertical|right"
+                    android:background="@drawable/btn_round_indigo_5dp"
+                    android:minWidth="0dp"
+                    android:minHeight="0dp"
+                    android:text="편집"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
+
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="100dp"
+                    android:layout_weight="0.5" />
 
                 <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:orientation="horizontal">
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="2"
+                    android:orientation="vertical">
 
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_vertical|left"
-                        android:text="@string/pcm_sw_info"
-                        android:textSize="@dimen/text_small" />
-                    <TextView
-                        android:id="@+id/tv_swCnt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textSize="@dimen/text_small"
-                        android:layout_marginStart="10dp"/>
-                    <View
-                        android:layout_width="0dp"
-                        android:layout_height="match_parent"
-                        android:layout_weight="1" />
-
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginBottom="5dp"
-                    android:paddingStart="8dp">
-
+<!--                    <View-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="5dp"-->
+<!--                        android:background="@drawable/btn_round_skyblue_5dp"/>-->
                     <Spinner
-                        android:id="@+id/sp_sw"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2"
-                        android:textSize="13dp" />
-
-                    <EditText
-                        android:id="@+id/et_sw"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="2.5"
-                        android:background="@null"
-                        android:singleLine="true"
-                        android:hint="@string/pcm_info_hint"
-                        android:textSize="@dimen/small_text" />
-
+                        android:id="@+id/vadSpinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="35dp"
+                        android:textSize="8dp" />
 
                     <Button
-                        android:id="@+id/btn_addItem_sw"
-                        android:layout_width="80dp"
-                        android:layout_height="20dp"
-                        android:layout_gravity="center_vertical|right"
-                        android:background="@drawable/btn_round_indigo_5dp"
+                        android:id="@+id/btn_check"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/btn_round_skyblue_5dp"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:text="@string/pcm_info_add"
-                        android:textColor="@color/white"
+                        android:text="접종완료"
                         android:textAllCaps="false"
+                        android:textColor="@color/white"
                         android:textSize="13dp"
                         android:textStyle="bold" />
-
-<!--                    <Button-->
-<!--                        android:id="@+id/btn_addItem_sw"-->
-<!--                        android:layout_width="25dp"-->
-<!--                        android:layout_height="25dp"-->
-<!--                        android:layout_gravity="center_vertical"-->
-<!--                        android:background="@drawable/btn_round_blue_50dp"-->
-<!--                        android:text="+"-->
-<!--                        android:textColor="#FFF"-->
-<!--                        android:textStyle="bold" />-->
-
-
                 </LinearLayout>
 
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView_sw"
-                    android:layout_width="match_parent"
-                    android:layout_height="100dp"
-                    android:layout_marginStart="10dp"
-                    android:layout_marginEnd="10dp"
-                    android:background="@drawable/list_item_layout"
-                    tools:listitem="@layout/listitem_pcd_list" />
-
+                <View
+                    android:layout_width="0dp"
+                    android:layout_height="1dp"
+                    android:layout_weight="0.5" />
             </LinearLayout>
 
             <View

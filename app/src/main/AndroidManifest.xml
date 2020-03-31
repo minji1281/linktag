@@ -172,7 +172,7 @@
             android:value="false" />
         <!--복약-->
         <activity
-            android:name=".ui.trp.TRPMain"
+            android:name=".ui.trp.TrpMain"
             android:excludeFromRecents="true"
             android:screenOrientation="portrait" />
 
@@ -184,7 +184,7 @@
 
         <!--장독-->
         <activity
-            android:name=".ui.jdm.JDMMain"
+            android:name=".ui.jdm.JdmMain"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
@@ -197,7 +197,7 @@
 
         <!--PC-->
         <activity
-            android:name=".ui.pcm.PCMMain"
+            android:name=".ui.pcm.PcmMain"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
@@ -210,7 +210,7 @@
 
         <!--냉장고-->
         <activity
-            android:name=".ui.rfm.RFMMain"
+            android:name=".ui.rfm.RfmMain"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
@@ -308,10 +308,23 @@
 
         <!--접종-->
         <activity
-            android:name=".ui.vac.VACMain"
+            android:name=".ui.vac.VacMain"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
+
+        <activity
+            android:name=".ui.vac.VacDetail"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:excludeFromRecents="true"/>
+
+        <activity
+            android:name=".ui.vac.VadEditDetail"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:excludeFromRecents="true"/>
+
 
         <!-- 연습실 예약 관리 -->
         <activity

@@ -10,8 +10,8 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.ui.jdm.JdmMain;
 import com.linktag.linkapp.ui.login.Login;
-import com.linktag.linkapp.ui.jdm.JDMMain;
 import com.linktag.linkapp.ui.main.Main;
 import com.linktag.linkapp.value_object.JdmVO;
 
@@ -47,7 +47,7 @@ public class Alarm_Receiver extends BroadcastReceiver {
         Intent login = new Intent(context, Login.class);
         Intent intro = new Intent(context, Main.class);
 //        Intent intro = intent;
-//        intro.setClassName(context, context.getPackageName()+"JDMMain");
+//        intro.setClassName(context, context.getPackageName()+"JdmMain");
 //        intro.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, notify_id, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         //PendingIntent pendingIntent = PendingIntent.getActivities(context, notify_id, new Intent[]{intro, intent}, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -59,7 +59,7 @@ public class Alarm_Receiver extends BroadcastReceiver {
         } else {
             builder = new Notification.Builder(context);
         }
-        Intent intent2 = new Intent(context, JDMMain.class);
+        Intent intent2 = new Intent(context, JdmMain.class);
 
 
         builder.setSmallIcon(R.drawable.alarm_state_on)

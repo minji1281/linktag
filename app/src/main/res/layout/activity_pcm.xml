@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:background="@color/list_back"
-    tools:context=".ui.pcm.PCMMain">
+    tools:context=".ui.pcm.PcmMain">
 
     <com.linktag.base.base_header.BaseHeader
         android:id="@+id/header"
@@ -59,7 +59,7 @@
                 android:id="@+id/swipeRefresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:context=".ui.pcm.PCMMain">
+                tools:context=".ui.pcm.PcmMain">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"

@@ -1186,7 +1186,8 @@ public class Http extends HttpBaseService {
                 @Path(value = "host", encoded = true) String host,
                 @Field(value = "GUBUN") String GUBUN,
                 @Field(value = "VAD_ID") String VAD_ID,
-                @Field(value = "VAD_01") String VAD_01
+                @Field(value = "VAD_01") String VAD_01,
+                @Field(value = "VAD_02") String VAD_02
         );
 
         @FormUrlEncoded
@@ -1199,8 +1200,9 @@ public class Http extends HttpBaseService {
                 @Field(value = "VAD_02") String VAD_02,
                 @Field(value = "VAD_03") String VAD_03,
                 @Field(value = "VAD_04") String VAD_04,
-                @Field(value = "VAD_05") String VAD_05,
-                @Field(value = "VAD_98") String VAD_98
+                @Field(value = "VAD_96") String VAD_96,
+                @Field(value = "VAD_98") String VAD_98,
+                @Field(value = "ARM_03") String ARM_03
 
         );
 

@@ -49,7 +49,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class RFMMain extends BaseActivity {
+public class RfmMain extends BaseActivity {
 
     private BaseHeader header;
     private BaseFooter footer;
@@ -88,7 +88,7 @@ public class RFMMain extends BaseActivity {
     private Calendar calendar = Calendar.getInstance();
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
 
-    public RFMMain() {
+    public RfmMain() {
     }
 
     @Override

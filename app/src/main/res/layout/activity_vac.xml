@@ -6,7 +6,7 @@
     android:layout_height="match_parent"
     android:background="@color/list_back"
     android:orientation="vertical"
-    tools:context=".ui.frm.FrmList">
+    tools:context=".ui.vac.VacMain">
 
     <com.linktag.base.base_header.BaseHeader
         android:id="@+id/header"
@@ -59,14 +59,14 @@
                 android:id="@+id/swipeRefresh"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                tools:context=".ui.jdm.JDMMain">
+                tools:context=".ui.jdm.JdmMain">
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/list_back"
-                    tools:listitem="@layout/listitem_trp_list" />
+                    tools:listitem="@layout/listitem_vac_list" />
 
                 <TextView
                     android:id="@+id/empty"

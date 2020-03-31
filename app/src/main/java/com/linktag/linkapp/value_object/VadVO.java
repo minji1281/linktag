@@ -8,7 +8,7 @@ public class VadVO implements Serializable {
     public String VAD_02;
     public String VAD_03;
     public String VAD_04;
-    public String VAD_05;
+    public String VAD_96;
     public String VAD_98;
 
     public String getVAD_ID() {
@@ -51,12 +51,12 @@ public class VadVO implements Serializable {
         this.VAD_04 = VAD_04;
     }
 
-    public String getVAD_05() {
-        return VAD_05;
+    public String getVAD_96() {
+        return VAD_96;
     }
 
-    public void setVAD_05(String VAD_05) {
-        this.VAD_05 = VAD_05;
+    public void setVAD_96(String VAD_96) {
+        this.VAD_96 = VAD_96;
     }
 
     public String getVAD_98() {
