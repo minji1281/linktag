@@ -4,6 +4,7 @@ import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.model.BRCModel;
 import com.linktag.linkapp.model.CADModel;
 import com.linktag.linkapp.model.CARModel;
+import com.linktag.linkapp.model.CDS_Model;
 import com.linktag.linkapp.model.CMTModel;
 import com.linktag.linkapp.model.CODModel;
 import com.linktag.linkapp.model.COSModel;
@@ -311,6 +312,27 @@ public class Http extends HttpBaseService {
                 @Field(value = "CTDS_03") String CTDS_03,
                 @Field(value = "CTDS_04") String CTDS_04,
                 @Field(value = "CTDS_98") String CTDS_98
+        );
+    }
+
+    public static ICDS cds(TYPE type) {
+        return (ICDS) retrofit(ICDS.class, type);
+    }
+
+    public interface ICDS {
+
+        @FormUrlEncoded
+        @POST(BaseConst.CDS_CONTROL)
+        Call<CDS_Model> CDS_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "CDS_01") String CDS_01,
+                @Field(value = "CDS_02") String CDS_02,
+                @Field(value = "CDS_03") String CDS_03,
+                @Field(value = "CDS_04") String CDS_04,
+                @Field(value = "CDS_05") String CDS_05,
+                @Field(value = "CDS_06") String CDS_06,
+                @Field(value = "CDS_98") String CDS_98
         );
     }
 

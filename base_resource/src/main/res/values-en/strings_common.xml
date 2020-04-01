@@ -21,6 +21,7 @@
     <string name="common_call_admin">Please contact the administrator</string>
     <string name="common_file_notfound">File not found</string>
     <string name="common_confirm_delete">Please re-enter it correctly.</string>
+    <string name="common_exception">Please try again</string>
 
     <string name="common_alarm_send">Alarm sending</string>
 

@@ -45,6 +45,8 @@ public class BaseConst {
     public static final String CTDS_SELECT = "{host}/Mobile/CTDS_SELECT";
     public static final String CTDS_CONTROL = "{host}/Mobile/CTDS_CONTROL";
 
+    public static final String CDS_CONTROL = "{host}/Mobile/CDS_CONTROL";
+
     // 메뉴
     public static final String CTD_SELECT = "{host}/Mobile/CTD_SELECT";
     public static final String CTD_CONTROL = "{host}/Mobile/CTD_CONTROL";

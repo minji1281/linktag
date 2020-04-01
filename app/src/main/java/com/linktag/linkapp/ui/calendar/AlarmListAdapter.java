@@ -127,8 +127,8 @@ public class AlarmListAdapter extends BaseAdapter {
         viewHolder.tvSvcl_04.setText(mList.get(position).SVCL_04);
         viewHolder.tvArm_01.setText(mList.get(position).ARM_01);
         viewHolder.tvCtn_02.setText(mList.get(position).ARM_ID);
-        viewHolder.tvCtm_19.setText(mList.get(position).CTM_19);
-        viewHolder.tvCtm_04.setText(mList.get(position).CTM_04);
+        viewHolder.tvCtm_19.setText(mList.get(position).CTD_09);
+        viewHolder.tvCtm_04.setText(mList.get(position).CTD_07);
 
 
         return convertView;
@@ -155,7 +155,8 @@ public class AlarmListAdapter extends BaseAdapter {
                 intentVO.CTM_04 = Ctm_04;
 
                 intentVO.CTD_09 = Ctm_19;
-
+                intentVO.CTD_04 = Ctm_04;
+                intentVO.CTD_09 = Ctm_19;
 
                Intent intent = new Intent(mContext, clsList);
                 intent.putExtra("scancode", scancode); //scancode

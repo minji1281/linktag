@@ -111,8 +111,11 @@ public class ChooseOne extends BaseActivity {
         Bundle bundle = new Bundle(2);
         bundle.putString("type", type);
 
+        System.out.println("!!!!!!!!!!!!!! : " + type);
+
         if(type.equals(CHOOSE_TYPE_SCAN)){
             scanCode = getIntent().getStringExtra("scanCode");
+            System.out.println("!!!!!!!!!!!!!! : " + scanCode);
             bundle.putString("scanCode", scanCode);
         } else {
             bundle.putString("scanCode", "");

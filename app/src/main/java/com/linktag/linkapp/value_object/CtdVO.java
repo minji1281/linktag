@@ -21,7 +21,8 @@ public class CtdVO implements Serializable {
     public String CTD_97;        //
     public String CTD_98;        //
 
-    public String CTDS_03;        // 스캔코드
+    public String CDS_02;        // 스캔코드
+    public String CDS_03;        // 코드 일련번호
 
     public String CTD_02_NM;        // 서비스명(SVC_03)
     public String CTD_07_NM;        //

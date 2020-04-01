@@ -74,7 +74,7 @@ public class CalendarAdapter extends BaseAdapter {
 
      //   viewHolder.tvUserName.setText(mList.get(position).DSH_01);
 
-        if (mList.get(position).CTM_19.equals("P")){
+        if (mList.get(position).CTD_09.equals("P")){
             viewHolder.tv_calenType.setImageResource(R.drawable.solo);
         }else{
             viewHolder.tv_calenType.setImageResource(R.drawable.team);

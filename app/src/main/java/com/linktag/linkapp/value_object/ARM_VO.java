@@ -23,7 +23,11 @@ public class ARM_VO implements Serializable {
     public String ARM_0101;       // 푸시년월시분
 
     public String SVCL_04;
+    public String SVCL_05;
 
+    public String CTD_07;   // 관리자 아이디
+    public String CTD_09;   // 서비스 구분
+    public String CTD_10;   // 공유명
 
     public boolean Validation;
 
