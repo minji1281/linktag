@@ -325,6 +325,19 @@
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
 
+        <!--접종-->
+        <activity
+            android:name=".ui.dam.DamMain"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:excludeFromRecents="true"/>
+
+        <activity
+            android:name=".ui.dam.DamDetail"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:excludeFromRecents="true"/>
+
 
         <!-- 연습실 예약 관리 -->
         <activity

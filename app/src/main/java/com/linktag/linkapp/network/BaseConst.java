@@ -117,6 +117,10 @@ public class BaseConst {
     public static final String URL_VAD_SELECT = "{host}/Mobile/VAD_SELECT";
     public static final String URL_VAD_CONTROL = "{host}/Mobile/VAD_CONTROL";
 
+    //디데이
+    public static final String URL_DAM_SELECT = "{host}/Mobile/DAM_SELECT";
+    public static final String URL_DAM_CONTROL = "{host}/Mobile/DAM_CONTROL";
+
     //연습실 예약 관리
     public static final String RMM_SELECT = "{host}/Mobile/RMM_SELECT";
     public static final String RMM_CONTROL = "{host}/Mobile/RMM_CONTROL";

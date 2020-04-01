@@ -10,6 +10,7 @@ import com.linktag.linkapp.model.COSModel;
 import com.linktag.linkapp.model.CTDS_Model;
 import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.model.CTU_Model;
+import com.linktag.linkapp.model.DAMModel;
 import com.linktag.linkapp.model.FRMModel;
 import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.model.LOG_Model;
@@ -1207,6 +1208,48 @@ public class Http extends HttpBaseService {
         );
 
     }
+
+
+    //--------------------------------------------------
+    // 디데이
+    //--------------------------------------------------
+    public static IDAM dam(TYPE type) {
+        return (IDAM) retrofit(IDAM.class, type);
+    }
+
+    public interface IDAM {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_DAM_SELECT)
+        Call<DAMModel> DAM_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "DAM_ID") String DAM_ID,
+                @Field(value = "DAM_01") String DAM_01,
+                @Field(value = "OCM_01") String OCM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_DAM_CONTROL)
+        Call<DAMModel> DAM_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "DAM_ID") String DAM_ID,
+                @Field(value = "DAM_01") String DAM_01,
+                @Field(value = "DAM_02") String DAM_02,
+                @Field(value = "DAM_03") String DAM_03,
+                @Field(value = "DAM_04") String DAM_04,
+                @Field(value = "DAM_96") String DAM_96,
+                @Field(value = "DAM_97") String DAM_97,
+                @Field(value = "DAM_98") String DAM_98,
+                @Field(value = "ARM_03") String ARM_03
+
+        );
+
+    }
+
+
+
 
     //--------------------------------------------------
     // 연습실 예약 관리
