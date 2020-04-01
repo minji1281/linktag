@@ -28,6 +28,7 @@ import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.model.CDS_Model;
 import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.model.TRDModel;
 import com.linktag.linkapp.model.TRPModel;
@@ -35,6 +36,7 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.master_log.MasterLog;
+import com.linktag.linkapp.ui.menu.CDS_CONTROL;
 import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.LogVO;
@@ -101,6 +103,8 @@ public class TrpDetail extends BaseActivity {
     private String[] array_pattern;
     private String[] str_weeks_text;
 
+    private String scanCode;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +117,7 @@ public class TrpDetail extends BaseActivity {
 
         if (getIntent().hasExtra("scanCode")) {
             header.btnHeaderRight1.setVisibility((View.GONE));
+            scanCode = getIntent().getStringExtra("scanCode");
             intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
         }
     }
@@ -145,10 +150,10 @@ public class TrpDetail extends BaseActivity {
             @Override
             public void onResponse(Call<TRPModel> call, Response<TRPModel> response) {
 
-                if (GUBUN.equals("INSERT")) {
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, trpVO.TRP_01);
-                    ctds_control.requestCTDS_CONTROL();
-                }
+//                if (GUBUN.equals("INSERT")) {
+//                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, trpVO.TRP_01);
+//                    ctds_control.requestCTDS_CONTROL();
+//                }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
                     if (trpVO.ARM_03.equals("Y")) {
                         checkDayOfWeek("[" + ed_name.getText().toString() + "]" + " "+ getString(R.string.trp_text1) +"\n");
@@ -400,8 +405,23 @@ public class TrpDetail extends BaseActivity {
                 trpVO.setTRP_05(map_count.get(sp_count.getSelectedItem()));
                 trpVO.setTRP_06(map_timing.get(sp_timing.getSelectedItem()));
 
-                if (getIntent().hasExtra("scanCode")) {
-                    requestTRP_CONTROL("INSERT");
+                if (scanCode != null) {
+
+//                    public static void requestCDS_CONTROL(Context mContext, Class mClass, String retMethodName, String GUBUN, String adminID, String scanCode, String CDS_03, String CTD_01, String CTD_02, String type, String CDS_98) {
+
+                    CDS_CONTROL.requestCDS_CONTROL(
+                            mContext,
+                            getClass(),
+                            "cdsCallBack",
+                            "INSERT",
+                            intentVO.CTD_07,
+                            scanCode,
+                            "",
+                            intentVO.CTD_01,
+                            intentVO.CTD_02,
+                            intentVO.CTD_09,
+                            mUser.Value.OCM_01);
+
                     requestLOG_CONTROL("1", getString(R.string.trp_text4));
 
                 } else {
@@ -494,6 +514,17 @@ public class TrpDetail extends BaseActivity {
         }
 
 
+    }
+
+    private void cdsCallBack(boolean isSuccess, CDS_Model data, String exceptionStr){
+        if(isSuccess){
+            scanCode = data.Data.get(0).CDS_03;
+            trpVO.TRP_01 = scanCode;
+            requestTRP_CONTROL("INSERT");
+        } else {
+            System.out.println("exception SCAN : " + exceptionStr);
+            Toast.makeText(mContext, R.string.common_exception, Toast.LENGTH_SHORT).show();
+        }
     }
 
     private void deleteDialog() {
@@ -617,7 +648,7 @@ public class TrpDetail extends BaseActivity {
                                 alarmState = true;
                             }
 
-                            if (mList.size() == 0 && getIntent().hasExtra("scanCode")) {
+                            if (mList.size() == 0 && scanCode != null) {
                                 alarmTime = format.format(calendar.getTime()) + formatTime.format(calendar.getTime());
                                 requestTRD_CONTROL();
                             }
@@ -701,7 +732,7 @@ public class TrpDetail extends BaseActivity {
                         }
                     }
                 }.sendMessage(msg);
-                if (!getIntent().hasExtra("scanCode")) {
+                if (scanCode == null) {
                     Toast.makeText(mContext, getString(R.string.trp_text5), Toast.LENGTH_SHORT).show();
                 }
             }

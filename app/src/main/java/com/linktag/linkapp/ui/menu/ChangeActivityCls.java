@@ -62,7 +62,7 @@ public class ChangeActivityCls {
 
                 Intent intent = new Intent(mContext, clsList);
 
-                intent.putExtra("scanCode", ctdVO.CDS_03);
+                intent.putExtra("scanCode", scanCode);
                 intent.putExtra("intentVO", ctdVO);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 //                intent.putExtra("CTM_01", ctdVO.CTD_01);

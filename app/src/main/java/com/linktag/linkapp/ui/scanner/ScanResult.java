@@ -86,7 +86,7 @@ public class ScanResult {
     private void requestCTD_SELECT(String scanCode) {
         Call<CTD_Model> call = Http.ctd(HttpBaseService.TYPE.POST).CTD_SELECT(
                 BaseConst.URL_HOST,
-                "DETAIL_CTDS",
+                "DETAIL_CDS",
                 "",
                 "",
                 mUser.Value.OCM_01,
@@ -124,26 +124,45 @@ public class ScanResult {
     }
 
     private void callBack(CTD_Model model, String scanCode){
-//        System.out.println("###############");
-//        System.out.println(scanCode);
-        if(model.Data.get(0).Validation){
+        if(model.Total > 1){
+            // 결과 여러건
 
-            if (model.Data.get(0).ErrorCode.equals("002")) {
-                Toast.makeText(mContext, R.string.alert_scan_error2, Toast.LENGTH_LONG).show();
-            } else {
+        } else {
+            if(model.Data.get(0).Validation){
+                // 결과 1개
                 // Detail
                 // Detail 조회 페이지 이동
                 ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, model.Data.get(0));
                 changeActivityCls.changeServiceWithScan(scanCode);
+            } else {
+                // 결과 없음
+                // New
+                // 선택 페이지 이동
+                Intent intent = new Intent(mContext, ChooseOne.class);
+                intent.putExtra("type", "SCAN");
+                intent.putExtra("scanCode", scanCode);
+                mContext.startActivity(intent);
             }
-        } else {
-            // New
-            // 선택 페이지 이동
-            Intent intent = new Intent(mContext, ChooseOne.class);
-            intent.putExtra("type", "SCAN");
-            intent.putExtra("scanCode", scanCode);
-            mContext.startActivity(intent);
         }
+
+//        if(model.Data.get(0).Validation){
+//
+//            if (model.Data.get(0).ErrorCode.equals("002")) {
+//                Toast.makeText(mContext, R.string.alert_scan_error2, Toast.LENGTH_LONG).show();
+//            } else {
+//                // Detail
+//                // Detail 조회 페이지 이동
+//                ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, model.Data.get(0));
+//                changeActivityCls.changeServiceWithScan(scanCode);
+//            }
+//        } else {
+//                // New
+//                // 선택 페이지 이동
+//                Intent intent = new Intent(mContext, ChooseOne.class);
+//                intent.putExtra("type", "SCAN");
+//                intent.putExtra("scanCode", scanCode);
+//                mContext.startActivity(intent);
+//        }
 
     }
 
