@@ -48,6 +48,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -65,6 +66,16 @@ public class DamDetail extends BaseActivity {
     private LinearLayout linearLayout_day;
     private TextView tv_message;
 
+    private LinearLayout item1;
+    private LinearLayout item2;
+    private LinearLayout item3;
+
+    private ImageView img_check1;
+    private ImageView img_check2;
+    private ImageView img_check3;
+
+    public static ImageView img_icon;
+
     private DatePicker datePicker;
     private TextView tv_datePicker;
 
@@ -81,12 +92,17 @@ public class DamDetail extends BaseActivity {
     private CtdVO intentVO;
     private DamVO damVO;
     private Calendar calendar = Calendar.getInstance();
+    private Calendar tCalendar = Calendar.getInstance();
     private Calendar dCalendar = Calendar.getInstance();
     private Calendar sCalendar = Calendar.getInstance();
 
     SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
     SimpleDateFormat formatTime = new SimpleDateFormat("HHmm");
+
+    private TextView tv_D_day;
+
+    public static String icon;
 
 
     @Override
@@ -121,7 +137,7 @@ public class DamDetail extends BaseActivity {
                 damVO.DAM_ID,
                 damVO.DAM_01,
                 ed_name.getText().toString(),
-                "",
+                damVO.DAM_03,
                 damVO.DAM_04,
                 damVO.DAM_96,
                 mUser.Value.OCM_01,
@@ -145,11 +161,11 @@ public class DamDetail extends BaseActivity {
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
 
                     if (damVO.ARM_03.equals("Y") && dateBool) {
-                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + getString(R.string.jdm_text1) + "\n" +
-                                getString(R.string.jdm_text2) + "\n" + damVO.DAM_96.substring(0, 4) + "-" + damVO.DAM_96.substring(4, 6) + "-" + damVO.DAM_96.substring(6, 8) + " " +
-                                damVO.DAM_96.substring(8, 10) + ":" + damVO.DAM_96.substring(10, 12) + " " + getString(R.string.jdm_text3), Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + "디데이 정보가 저장되었습니다." + "\n" +
+                                "다음 알림예정은" + "\n" + damVO.DAM_96.substring(0, 4) + "-" + damVO.DAM_96.substring(4, 6) + "-" + damVO.DAM_96.substring(6, 8) + " " +
+                                damVO.DAM_96.substring(8, 10) + ":" + damVO.DAM_96.substring(10, 12) + " " + "입니다.", Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + getString(R.string.jdm_text1), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "디데이 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
                     }
                     onBackPressed();
                 }
@@ -184,6 +200,18 @@ public class DamDetail extends BaseActivity {
         linearLayout_day = findViewById(R.id.linearLayout_day);
         tv_message = findViewById(R.id.tv_message);
 
+        item1 = findViewById(R.id.item1);
+        item2 = findViewById(R.id.item2);
+        item3 = findViewById(R.id.item3);
+
+        img_check1 = findViewById(R.id.img_check1);
+        img_check2 = findViewById(R.id.img_check2);
+        img_check3 = findViewById(R.id.img_check3);
+
+        img_icon = findViewById(R.id.img_icon);
+
+        tv_D_day = findViewById(R.id.tv_D_day);
+
         ed_name = findViewById(R.id.ed_name);
         imageView = findViewById(R.id.imageView);
         imageView2 = findViewById(R.id.imageView2);
@@ -193,11 +221,15 @@ public class DamDetail extends BaseActivity {
 
         damVO = (DamVO) getIntent().getSerializableExtra("DamVO");
 
+        int resource = mContext.getResources().getIdentifier(damVO.DAM_03, "drawable", mContext.getPackageName());
+        img_icon.setImageResource(resource);
+
+
         ed_name.setText(damVO.getDAM_02());
 
 
         if (damVO.getDAM_96().equals("")) {
-            tv_datePicker.setText(format.format(calendar.getTime()));
+            tv_datePicker.setText(format.format(calendar.getTime())+getDateofWeek(calendar));
             damVO.setDAM_96(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime()));
 
         } else {
@@ -205,11 +237,10 @@ public class DamDetail extends BaseActivity {
             calendar.set(Calendar.MONTH, Integer.parseInt(damVO.DAM_96.substring(4, 6)) - 1);
             calendar.set(Calendar.DATE, Integer.parseInt(damVO.DAM_96.substring(6, 8)));
 
-            tv_datePicker.setText(stringTodateFormat(damVO.DAM_96));
+            tv_datePicker.setText(stringTodateFormat(damVO.DAM_96)+getDateofWeek(calendar));
         }
 
         callBackTime = damVO.DAM_96.substring(8, 12);
-
 
 
         if (damVO.ARM_03.equals("Y")) {
@@ -218,10 +249,89 @@ public class DamDetail extends BaseActivity {
             imageView.setImageResource(R.drawable.alarm_state_off);
         }
 
+        dCalendar.set(Calendar.YEAR, Integer.parseInt(damVO.DAM_96.substring(0, 4)));
+        dCalendar.set(Calendar.MONTH, Integer.parseInt(damVO.DAM_96.substring(4, 6)) - 1);
+        dCalendar.set(Calendar.DATE, Integer.parseInt(damVO.DAM_96.substring(6, 8)));
+
+        dCalendar.clear(Calendar.HOUR);
+        dCalendar.clear(Calendar.MINUTE);
+        dCalendar.clear(Calendar.SECOND);
+        dCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
+
+
+        long dDayDiff;
+        int dcount;
+        switch (damVO.getDAM_04()) {
+            case "1":
+                dDayDiff = tCalendar.getTimeInMillis() - dCalendar.getTimeInMillis();
+                dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
+                img_check1.setVisibility(View.VISIBLE);
+                startCountAnimation(dcount, "1");
+                break;
+            case "2":
+                img_check2.setVisibility(View.VISIBLE);
+                dDayDiff = dCalendar.getTimeInMillis() - tCalendar.getTimeInMillis();
+                dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
+                startCountAnimation(dcount, "2");
+                break;
+            case "3":
+                img_check3.setVisibility(View.VISIBLE);
+                dDayDiff = dCalendar.getTimeInMillis() - tCalendar.getTimeInMillis();
+                dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
+                while (dcount < 0){
+                    dCalendar.add(Calendar.YEAR, 1);
+                    dDayDiff = dCalendar.getTimeInMillis() - tCalendar.getTimeInMillis();
+                    dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
+                }
+                startCountAnimation(dcount, "3");
+                break;
+        }
+
     }
 
     @Override
     protected void initialize() {
+
+        img_icon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, DamIconDetail.class);
+                intent.putExtra("index",Integer.parseInt(damVO.DAM_03.replace("dam_icon_","")));
+                mContext.startActivity(intent);
+
+            }
+        });
+
+        item1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img_check1.setVisibility(View.VISIBLE);
+                img_check2.setVisibility(View.GONE);
+                img_check3.setVisibility(View.GONE);
+                damVO.setDAM_04("1");
+            }
+        });
+
+        item2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img_check1.setVisibility(View.GONE);
+                img_check2.setVisibility(View.VISIBLE);
+                img_check3.setVisibility(View.GONE);
+                damVO.setDAM_04("2");
+            }
+        });
+
+        item3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                img_check1.setVisibility(View.GONE);
+                img_check2.setVisibility(View.GONE);
+                img_check3.setVisibility(View.VISIBLE);
+                damVO.setDAM_04("3");
+            }
+        });
+
 
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -253,7 +363,8 @@ public class DamDetail extends BaseActivity {
                         } else {
                             dayOfMonthString = String.valueOf(dayOfMonth);
                         }
-                        tv_datePicker.setText(year + "." + monthString + "." + dayOfMonthString);
+                        damVO.setDAM_96(year+monthString+dayOfMonthString+callBackTime);
+                        tv_datePicker.setText(year + "." + monthString + "." + dayOfMonthString + getDateofWeek(sCalendar));
 
                     }
                 });
@@ -273,8 +384,9 @@ public class DamDetail extends BaseActivity {
                 } else {
                     dayOfMonthString = String.valueOf(dayOfMonth);
                 }
-                tv_datePicker.setText(year + "." + monthString + "." + dayOfMonthString);
                 sCalendar.set(year, month, dayOfMonth);
+                damVO.setDAM_96(year+monthString+dayOfMonthString+callBackTime);
+                tv_datePicker.setText(year + "." + monthString + "." + dayOfMonthString + getDateofWeek(sCalendar));
 
                 datePicker.init(sCalendar.get(Calendar.YEAR), sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.DATE),
                         new DatePicker.OnDateChangedListener() {
@@ -294,7 +406,8 @@ public class DamDetail extends BaseActivity {
                                 } else {
                                     dayOfMonthString = String.valueOf(dayOfMonth);
                                 }
-                                tv_datePicker.setText(year + "." + monthString + "." + dayOfMonthString);
+                                damVO.setDAM_96(year+monthString+dayOfMonthString+callBackTime);
+                                tv_datePicker.setText(year + "." + monthString + "." + dayOfMonthString + getDateofWeek(sCalendar));
 
                             }
                         });
@@ -325,15 +438,15 @@ public class DamDetail extends BaseActivity {
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
                 if (ed_name.getText().equals("")) {
                     Toast.makeText(mContext, getString(R.string.validation_check1), Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                if (getIntent().hasExtra("scanCode")) {
+                damVO.setDAM_03(icon);
+                if (getIntent().hasExtra("GUBUN")) {
                     requestDAM_CONTROL("INSERT");
-                    requestLOG_CONTROL("1", getString(R.string.jdm_text6));
+//                    requestLOG_CONTROL("1", getString(R.string.jdm_text6));
                 } else {
                     requestDAM_CONTROL("UPDATE");
                 }
@@ -448,15 +561,28 @@ public class DamDetail extends BaseActivity {
     }
 
 
-    private void startCountAnimation(int count) {
+    private void startCountAnimation(int count, String GUBUN) {
 
         DecimalFormat format = new DecimalFormat("###,###");
-        ValueAnimator animator = ValueAnimator.ofInt(0, count); //0 is min number, 600 is max number
+        ValueAnimator animator;
+        if (GUBUN.equals("1")) {
+            animator = ValueAnimator.ofInt(0, count + 1); //0 is min number, 600 is max number
+        } else {
+            animator = ValueAnimator.ofInt(0, count); //0 is min number, 600 is max number
+        }
         animator.setDuration(500); //Duration is in milliseconds
         animator.addUpdateListener(new ValueAnimator.AnimatorUpdateListener() {
             public void onAnimationUpdate(ValueAnimator animation) {
+                if (GUBUN.equals("1")) {
+                    tv_D_day.setText(format.format(animation.getAnimatedValue()) + "일");
+                } else {
+                    if (count == 0) {
+                        tv_D_day.setText("D-DAY");
+                    } else {
+                        tv_D_day.setText("D-" + format.format(animation.getAnimatedValue()));
+                    }
+                }
 
-//                tv_D_day.setText(format.format(animation.getAnimatedValue()).toString());
             }
         });
 
@@ -468,6 +594,39 @@ public class DamDetail extends BaseActivity {
         //yyyy.MM.dd
         retStr = str.substring(0, 4) + "." + str.substring(4, 6) + "." + str.substring(6, 8);
         return retStr;
+    }
+
+    public String getDateofWeek(Calendar calendar){
+        String day = "";
+        int dayNum = calendar.get(Calendar.DAY_OF_WEEK);
+
+        switch (dayNum) {
+            case 1:
+                day = "일";
+                break;
+            case 2:
+                day = "월";
+                break;
+            case 3:
+                day = "화";
+                break;
+            case 4:
+                day = "수";
+                break;
+            case 5:
+                day = "목";
+                break;
+            case 6:
+                day = "금";
+                break;
+            case 7:
+                day = "토";
+                break;
+
+        }
+
+        return " ("+day+")";
+
     }
 
 

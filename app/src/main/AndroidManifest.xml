@@ -325,7 +325,7 @@
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
 
-        <!--접종-->
+        <!--디데이-->
         <activity
             android:name=".ui.dam.DamMain"
             android:screenOrientation="portrait"
@@ -334,6 +334,11 @@
 
         <activity
             android:name=".ui.dam.DamDetail"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:excludeFromRecents="true"/>
+        <activity
+            android:name=".ui.dam.DamIconDetail"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>

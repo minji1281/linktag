@@ -42,10 +42,9 @@
                     android:gravity="center_vertical">
 
                     <ImageView
-                        android:id="@+id/imgProfile"
+                        android:id="@+id/img_icon"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="@drawable/shape_round"
                         android:src="@drawable/main_profile_no_image" />
 
                     <EditText
@@ -120,7 +119,7 @@
                 android:layout_weight="1" />
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_detail_root_margin_bottom"
                 android:orientation="horizontal">
@@ -128,11 +127,11 @@
 
                 <TextView
                     android:id="@+id/tv_message"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="기념일을 등록하여 추억을 공유하세요."
-                    android:visibility="gone"
-                    />
+                    android:textAlignment="center"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/linearLayout_day"
@@ -165,17 +164,6 @@
                             android:layout_height="15px"
                             android:background="#3498DB" />
                     </LinearLayout>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:layout_marginBottom="5dp"
-                        android:gravity="bottom"
-                        android:text="Day"
-                        android:textColor="@color/colorBase"
-                        android:textSize="30dp"
-                        android:textStyle="bold" />
 
                 </LinearLayout>
 
@@ -214,20 +202,34 @@
 
 
                     <LinearLayout
+                        android:id="@+id/item1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/list_item_layout"
                         android:orientation="vertical"
-                        android:padding="5dp">
+                        android:paddingBottom="5dp">
 
-                        <TextView
-                            android:layout_width="match_parent"
+                        <LinearLayout
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:text="날짜수"
-                            android:textSize="@dimen/text_small" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:text="날짜수"
+                                android:textSize="@dimen/text_small" />
+
+                            <ImageView
+                                android:id="@+id/img_check1"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/ic_check_on"
+                                android:visibility="gone"/>
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -245,20 +247,34 @@
                         android:layout_weight="0.2" />
 
                     <LinearLayout
+                        android:id="@+id/item2"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/list_item_layout"
                         android:orientation="vertical"
-                        android:padding="5dp">
+                        android:paddingBottom="5dp">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:text="디데이"
-                            android:textSize="@dimen/text_small" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:text="디데이"
+                                android:textSize="@dimen/text_small" />
+
+                            <ImageView
+                                android:id="@+id/img_check2"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/ic_check_on"
+                                android:visibility="gone"/>
+                        </LinearLayout>
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -276,21 +292,34 @@
                         android:layout_weight="0.2" />
 
                     <LinearLayout
+                        android:id="@+id/item3"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/list_item_layout"
                         android:orientation="vertical"
-                        android:padding="5dp">
+                        android:paddingBottom="5dp">
 
-                        <TextView
+                        <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_marginStart="10dp"
-                            android:layout_marginTop="5dp"
-                            android:text="매년반복"
-                            android:textSize="@dimen/text_small" />
+                            android:orientation="horizontal"
+                            android:gravity="center_vertical">
 
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginStart="10dp"
+                                android:text="매년반복"
+                                android:textSize="@dimen/text_small" />
+
+                            <ImageView
+                                android:id="@+id/img_check3"
+                                android:layout_width="20dp"
+                                android:layout_height="20dp"
+                                android:background="@drawable/ic_check_on"
+                                android:visibility="gone"/>
+                        </LinearLayout>
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -331,9 +360,9 @@
                     android:layout_height="20dp"
                     android:background="@drawable/btn_round_indigo_5dp"
                     android:text="달력으로 보기"
-                    android:textStyle="bold"
                     android:textColor="#FFF"
-                    android:textSize="13dp" />
+                    android:textSize="13dp"
+                    android:textStyle="bold" />
 
 
             </LinearLayout>
@@ -356,7 +385,9 @@
                     android:id="@+id/tv_datePicker"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="2020.03.17" />
+                    android:text="2020.03.17"
+                    android:textColor="#2E90DD"
+                    android:textStyle="bold"/>
 
             </LinearLayout>
 

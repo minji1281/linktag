@@ -112,10 +112,13 @@ public class DamRecycleAdapter extends RecyclerView.Adapter<DamRecycleAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
+        int resource = mContext.getResources().getIdentifier(filteredmlist.get(position).DAM_03, "drawable", mContext.getPackageName());
+        viewHolder.img_icon.setImageResource(resource);
+
 
         viewHolder.tv_name.setText(filteredmlist.get(position).DAM_02);
         viewHolder.tv_date.setText(stringTodateFormat(filteredmlist.get(position).DAM_96));
-        if (mList.get(position).DAM_04.equals("3")) {
+        if (filteredmlist.get(position).DAM_04.equals("3")) {
             viewHolder.tv_label.setText("매년반복");
         } else {
             viewHolder.tv_label.setText("");
@@ -132,16 +135,42 @@ public class DamRecycleAdapter extends RecyclerView.Adapter<DamRecycleAdapter.Vi
         sCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
 
 
+        long dDayDiff;
+        int dcount;
+        switch (mList.get(position).DAM_04) {
+            case "1":
+                dDayDiff = calendar.getTimeInMillis() - sCalendar.getTimeInMillis();
+                dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
+                viewHolder.tv_count.setText(dcount + 1 + "일");
+                break;
+            case "2":
+                dDayDiff = sCalendar.getTimeInMillis() - calendar.getTimeInMillis();
+                dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
+                if (dcount == 0) {
+                    viewHolder.tv_count.setText("D-DAY");
+                } else {
+                    viewHolder.tv_count.setText("D-" + dcount);
+                }
+                break;
+            case "3":
+                dDayDiff = sCalendar.getTimeInMillis() - calendar.getTimeInMillis();
+                dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
 
-        if (mList.get(position).DAM_04.equals("1")) {
-            long dDayDiff = calendar.getTimeInMillis() - sCalendar.getTimeInMillis();
-            int dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
-            viewHolder.tv_count.setText(dcount+"일");
-        } else {
-            long dDayDiff = sCalendar.getTimeInMillis() - calendar.getTimeInMillis();
-            int dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
-            viewHolder.tv_count.setText("D-" + dcount);
+                while (dcount < 0){
+                    sCalendar.add(Calendar.YEAR, 1);
+                    dDayDiff = sCalendar.getTimeInMillis() - calendar.getTimeInMillis();
+                    dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
+                }
+
+                if (dcount == 0) {
+                    viewHolder.tv_count.setText("D-DAY");
+                } else {
+                    viewHolder.tv_count.setText("D-" + dcount);
+                }
+
+                break;
         }
+
 
 
         if (filteredmlist.get(position).ARM_03.equals("Y")) {
@@ -197,6 +226,7 @@ public class DamRecycleAdapter extends RecyclerView.Adapter<DamRecycleAdapter.Vi
         TextView tv_date;
         TextView tv_label;
         TextView tv_count;
+        ImageView img_icon;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -207,6 +237,7 @@ public class DamRecycleAdapter extends RecyclerView.Adapter<DamRecycleAdapter.Vi
             tv_date = itemView.findViewById(R.id.tv_date);
             tv_label = itemView.findViewById(R.id.tv_label);
             tv_count = itemView.findViewById(R.id.tv_count);
+            img_icon = itemView.findViewById(R.id.img_icon);
 
 
             itemView.setOnClickListener(new View.OnClickListener() {

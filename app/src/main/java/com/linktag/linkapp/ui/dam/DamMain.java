@@ -85,7 +85,7 @@ public class DamMain extends BaseActivity {
 
         if (getIntent().hasExtra("scanCode")) {
             String scancode = getIntent().getExtras().getString("scanCode");
-            requestJMD_SELECT(scancode);
+            requestDAM_SELECT(scancode);
         }
     }
 
@@ -93,7 +93,7 @@ public class DamMain extends BaseActivity {
     public void onResume() {
         super.onResume();
 
-        requestJMD_SELECT("");
+        requestDAM_SELECT("");
 
         ed_search.addTextChangedListener(new TextWatcher() {
             @Override
@@ -137,7 +137,7 @@ public class DamMain extends BaseActivity {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                requestJMD_SELECT("");
+                requestDAM_SELECT("");
                 swipeRefresh.setRefreshing(false);
             }
         });
@@ -170,9 +170,10 @@ public class DamMain extends BaseActivity {
                 damvo.setDAM_01("");
                 damvo.setDAM_02("");
                 damvo.setDAM_03("");
-                damvo.setDAM_04("");
+                damvo.setDAM_04("1");
                 damvo.setDAM_96("");
                 damvo.setDAM_97(mUser.Value.OCM_01);
+                damvo.setDAM_98(mUser.Value.OCM_01);
                 damvo.setARM_03("N");
                 Intent intent = new Intent(mContext, DamDetail.class);
                 intent.putExtra("DamVO", damvo);
@@ -226,7 +227,7 @@ public class DamMain extends BaseActivity {
         mContext.startActivity(intent);
     }
 
-    public void requestJMD_SELECT(String scancode) {
+    public void requestDAM_SELECT(String scancode) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(getString(R.string.common_network_error));
@@ -280,9 +281,10 @@ public class DamMain extends BaseActivity {
                                     damvo.setDAM_01(scancode);
                                     damvo.setDAM_02("");
                                     damvo.setDAM_03("");
-                                    damvo.setDAM_04("");
+                                    damvo.setDAM_04("1");
                                     damvo.setDAM_96("");
                                     damvo.setDAM_97(mUser.Value.OCM_01);
+                                    damvo.setDAM_98(mUser.Value.OCM_01);
                                     damvo.setARM_03("N");
                                     Intent intent = new Intent(mContext, DamDetail.class);
                                     intent.putExtra("DamVO", damvo);

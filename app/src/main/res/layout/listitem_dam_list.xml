@@ -16,7 +16,7 @@
         android:elevation="5dp"
         android:orientation="horizontal"
         android:paddingLeft="10dp"
-        android:paddingTop="5dp"
+        android:paddingTop="10dp"
         android:paddingRight="10dp"
         android:paddingBottom="10dp">
 
@@ -25,10 +25,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
             <ImageView
-                android:id="@+id/imgProfile"
+                android:id="@+id/img_icon"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:background="@drawable/shape_round"
                 android:src="@drawable/main_profile_no_image" />
         </LinearLayout>
 
@@ -80,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:text="D-145일"
                 android:textStyle="bold"
+                android:textColor="#B24295DB"
                 android:textSize="@dimen/text_normal"/>
         </LinearLayout>
         <LinearLayout
@@ -89,8 +89,8 @@
 
             <ImageView
                 android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
                 tools:srcCompat="@drawable/alarm_state_on" />
 
         </LinearLayout>
