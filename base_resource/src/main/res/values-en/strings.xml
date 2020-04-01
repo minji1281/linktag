@@ -455,5 +455,6 @@
     <string name="dialog_rmm_time_filter_time">Time</string>
     <string name="dialog_rmm_time_filter_gub1">All</string>
     <string name="dialog_rmm_time_filter_gub2">Available</string>
+    <string name="rmm_list_reserve_fail">Reservation failure</string>
 
 </resources>

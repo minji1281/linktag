@@ -454,5 +454,6 @@
     <string name="dialog_rmm_time_filter_time">시간</string>
     <string name="dialog_rmm_time_filter_gub1">모두보기</string>
     <string name="dialog_rmm_time_filter_gub2">예약가능한 연습실만</string>
+    <string name="rmm_list_reserve_fail">예약 실패</string>
 
 </resources>

@@ -70,7 +70,7 @@ public class RmdMain extends BaseActivity {
     private BaseHeader header;
     private BaseFooter footer;
 //    private ListView listView;
-    private View view;
+//    private View view;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private TextView empty;
@@ -101,8 +101,8 @@ public class RmdMain extends BaseActivity {
     private RMM_VO RMM = new RMM_VO(); //setReserveDialog에서 씀
     private String RMM_02_tmp = ""; //setReserveDialog에서 씀
     private String RMR_03 = ""; //dayDialog에서 씀
-    private String RMR_03_FILTER = ""; //filterDialog에서 씀
-    private String RMR_04_FILTER = ""; //filterDialog에서 씀
+    private String RMR_04ST_FILTER = ""; //filterDialog에서 씀
+    private String RMR_04ED_FILTER = ""; //filterDialog에서 씀
     private String RMR_FILTER_GUB = "1"; //filterDialog에서 씀
     private String RMR_FILTER_GUB_tmp = "1"; //filterDialog에서 씀
 
@@ -122,6 +122,8 @@ public class RmdMain extends BaseActivity {
 
         initLayout();
 
+//        requestRMM_SELECT();
+
         initialize();
     }
 
@@ -137,8 +139,8 @@ public class RmdMain extends BaseActivity {
         // 요거
         initLayoutByContractType();
 
-        view = findViewById(R.id.recyclerView);
-        recyclerView = view.findViewById(R.id.recyclerView);
+//        view = findViewById(R.id.recyclerView);
+        recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
 //        listView = (ListView) findViewById(R.id.listView);
 //        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -215,7 +217,11 @@ public class RmdMain extends BaseActivity {
         mList = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new RmdRecycleAdapter(mContext, mList);
+        setAdapter();
+    }
+
+    private void setAdapter(){
+        mAdapter = new RmdRecycleAdapter(mContext, mList, RMR_03, RMR_04ST_FILTER, RMR_04ED_FILTER);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -226,6 +232,11 @@ public class RmdMain extends BaseActivity {
         requestRMM_SELECT();
 
         requestRMD_SELECT("LIST", "");
+//
+//        mAdapter = new RmdRecycleAdapter(mContext, mList, RMR_03, RMR_04ST_FILTER, RMR_04ED_FILTER);
+//        recyclerView.setAdapter(mAdapter);
+
+//        initialize();
 
 //        etSearch.addTextChangedListener(new TextWatcher() {
 //            @Override
@@ -290,14 +301,18 @@ public class RmdMain extends BaseActivity {
                                 RMM.RMM_02 = mRmmList.get(0).RMM_02;
                                 RMM.RMM_03 = mRmmList.get(0).RMM_03;
                                 RMM.RMM_04 = mRmmList.get(0).RMM_04;
-                                RMR_03_FILTER = RMM.RMM_03;
-                                RMR_04_FILTER = RMM.RMM_04;
+                                RMR_04ST_FILTER = RMM.RMM_03;
+                                RMR_04ED_FILTER = RMM.RMM_04;
                                 setFilterText();
 //                                fnFilter();
 
                                 if(mRmmList.get(0).RMM_98.equals(mUser.Value.OCM_01)){
                                     setMaster();
                                 }
+
+//                                initialize();
+//                                requestRMD_SELECT("LIST", "");
+                                setAdapter();
 
                             }
 
@@ -425,7 +440,7 @@ public class RmdMain extends BaseActivity {
             @Override
             public void onFailure(Call<RMDModel> call, Throwable t){
                 Log.d("RMD_SELECT", t.getMessage());
-                closeLoadingBar();
+//                closeLoadingBar();
             }
         });
     }
@@ -568,23 +583,23 @@ public class RmdMain extends BaseActivity {
         View view = inflater.inflate(R.layout.dialog_rmm_set_reserve, null);
         builder.setView(view);
 
-        Spinner spTimeGub = (Spinner) view.findViewById(R.id.spTimeGub);
+//        Spinner spTimeGub = (Spinner) view.findViewById(R.id.spTimeGub);
         ArrayList TimeGubList = new ArrayList();
         TimeGubList.add(mContext.getString(R.string.dialog_rmm_set_reserve_timegub_text1));
         TimeGubList.add(mContext.getString(R.string.dialog_rmm_set_reserve_timegub_text2));
         ArrayAdapter TimeGubAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_detail_item, TimeGubList);
-        spTimeGub.setAdapter(TimeGubAdapter);
-        spTimeGub.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                RMM_02_tmp = String.valueOf(position + 1);
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        spTimeGub.setSelection(Integer.parseInt(RMM.RMM_02) - 1);
+//        spTimeGub.setAdapter(TimeGubAdapter);
+//        spTimeGub.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
+//            @Override
+//            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+//                RMM_02_tmp = String.valueOf(position + 1);
+//            }
+//
+//            @Override
+//            public void onNothingSelected(AdapterView<?> parent) {
+//            }
+//        });
+//        spTimeGub.setSelection(Integer.parseInt(RMM.RMM_02) - 1);
 
         TimePicker tpStartTime = (TimePicker) view.findViewById(R.id.tpStartTime);
         tpStartTime.setCurrentHour(Integer.parseInt(RMM.RMM_03.substring(0,2)));
@@ -625,12 +640,12 @@ public class RmdMain extends BaseActivity {
         builder.setView(view);
 
         TimePicker tpFilterStartTime = (TimePicker) view.findViewById(R.id.tpFilterStartTime);
-        tpFilterStartTime.setCurrentHour(Integer.parseInt(RMR_03_FILTER.substring(0,2)));
-        tpFilterStartTime.setCurrentMinute(Integer.parseInt(RMR_03_FILTER.substring(2)));
+        tpFilterStartTime.setCurrentHour(Integer.parseInt(RMR_04ST_FILTER.substring(0,2)));
+        tpFilterStartTime.setCurrentMinute(Integer.parseInt(RMR_04ST_FILTER.substring(2)));
 
         TimePicker tpFilterEndTime = (TimePicker) view.findViewById(R.id.tpFilterEndTime);
-        tpFilterEndTime.setCurrentHour(Integer.parseInt(RMR_04_FILTER.substring(0,2)));
-        tpFilterEndTime.setCurrentMinute(Integer.parseInt(RMR_04_FILTER.substring(2)));
+        tpFilterEndTime.setCurrentHour(Integer.parseInt(RMR_04ED_FILTER.substring(0,2)));
+        tpFilterEndTime.setCurrentMinute(Integer.parseInt(RMR_04ED_FILTER.substring(2)));
 
         RadioGroup rgFilterGub = (RadioGroup) view.findViewById(R.id.rgFilterGub);
         rgFilterGub.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
@@ -661,9 +676,10 @@ public class RmdMain extends BaseActivity {
                 dialog.dismiss();
 
                 RMR_FILTER_GUB = RMR_FILTER_GUB_tmp;
-                RMR_03_FILTER = fnTime(tpFilterStartTime.getCurrentHour(), tpFilterStartTime.getCurrentMinute());
-                RMR_04_FILTER = fnTime(tpFilterEndTime.getCurrentHour(), tpFilterEndTime.getCurrentMinute());
+                RMR_04ST_FILTER = fnTime(tpFilterStartTime.getCurrentHour(), tpFilterStartTime.getCurrentMinute());
+                RMR_04ED_FILTER = fnTime(tpFilterEndTime.getCurrentHour(), tpFilterEndTime.getCurrentMinute());
                 setFilterText();
+                setAdapter();
 //                requestRMD_SELECT();
             }
         });
@@ -702,6 +718,8 @@ public class RmdMain extends BaseActivity {
 
                 RMR_03 = tmp;
                 tvDay.setText(sDateFormat(RMR_03));
+
+                setAdapter();
 //                requestCAD_SELECT();
             }
         }, RMR_03_C.get(Calendar.YEAR), RMR_03_C.get(Calendar.MONTH), RMR_03_C.get(Calendar.DATE));
@@ -729,8 +747,8 @@ public class RmdMain extends BaseActivity {
     private void setFilterText(){
         String tmp = "";
 
-        tmp = RMR_03_FILTER.substring(0,2) + ":" + RMR_03_FILTER.substring(2) + "~";
-        tmp += RMR_04_FILTER.substring(0,2) + ":" + RMR_04_FILTER.substring(2) + "\n";
+        tmp = RMR_04ST_FILTER.substring(0,2) + ":" + RMR_04ST_FILTER.substring(2) + "~";
+        tmp += RMR_04ED_FILTER.substring(0,2) + ":" + RMR_04ED_FILTER.substring(2) + "\n";
         if(RMR_FILTER_GUB.equals("1")){
             tmp += getString(R.string.dialog_rmm_time_filter_gub1);
         }
