@@ -166,8 +166,17 @@ public class TrpDetail extends BaseActivity {
             @Override
             public void onFailure(Call<TRPModel> call, Throwable t) {
                 Log.d("Test", t.getMessage());
-                closeLoadingBar();
+                requestCDS_CONTROL(
+                        "DELETE",
+                        intentVO.CTD_07,
+                        scanCode,
+                        trpVO.TRP_01,
+                        "",
+                        "",
+                        "",
+                        "");
 
+                closeLoadingBar();
             }
         });
 
@@ -772,17 +781,6 @@ public class TrpDetail extends BaseActivity {
             @Override
             public void onFailure(Call<TRDModel> call, Throwable t) {
                 Log.d("Test", t.getMessage());
-
-                requestCDS_CONTROL(
-                        "DELETE",
-                        intentVO.CTD_07,
-                        scanCode,
-                        trpVO.TRP_01,
-                        "",
-                        "",
-                        "",
-                        "");
-
             }
         });
 
