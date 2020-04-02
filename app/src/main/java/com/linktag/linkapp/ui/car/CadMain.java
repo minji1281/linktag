@@ -27,9 +27,11 @@ import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_footer.BaseFooter;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
+import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.CADModel;
 import com.linktag.linkapp.model.CARModel;
+import com.linktag.linkapp.model.CDS_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
@@ -80,6 +82,7 @@ public class CadMain extends BaseActivity {
     ArrayList<CarSpinnerList> carList = new ArrayList<>();
     public static CAR_VO CAR;
     private String scanGubun = "N";
+    private String scanCode;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -96,6 +99,7 @@ public class CadMain extends BaseActivity {
 
         if (getIntent().hasExtra("scanCode")) {
             CAR.CAR_01 = getIntent().getExtras().getString("scanCode");
+            scanCode = getIntent().getExtras().getString("scanCode");
             requestCAR_SELECT();
         }
     }
@@ -334,8 +338,6 @@ public class CadMain extends BaseActivity {
                 msg.what = 100;
 
                 if (GUBUN.equals("INSERT")) {
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, CAR_01);
-                    ctds_control.requestCTDS_CONTROL();
                     CAR.CAR_01 = CAR_01;
                     CAR.CAR_02 = CAR_02;
                     CAR.CAR_03 = CAR_03;
@@ -366,6 +368,22 @@ public class CadMain extends BaseActivity {
             @Override
             public void onFailure(Call<CARModel> call, Throwable t){
                 Log.d("CAR_CONTROL", t.getMessage());
+
+                if(GUBUN.equals("INSERT")){
+                    requestCDS_CONTROL(
+                            "DELETE",
+                            intentVO.CTD_07,
+                            scanCode,
+                            CAR.CAR_01,
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "",
+                            "");
+                }
+
 //                closeLoadingBar();
             }
         });
@@ -430,7 +448,22 @@ public class CadMain extends BaseActivity {
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                requestCAR_CONTROL(GUBUN, etCarNum.getText().toString(), etCarYear.getText().toString(), etMemo.getText().toString());
+                if (GUBUN.equals("INSERT")) {
+                    requestCDS_CONTROL(
+                            "INSERT",
+                            intentVO.CTD_07,
+                            scanCode,
+                            "",
+                            intentVO.CTD_01,
+                            intentVO.CTD_02,
+                            intentVO.CTD_09,
+                            mUser.Value.OCM_01,
+                            etCarNum.getText().toString(),
+                            etCarYear.getText().toString(),
+                            etMemo.getText().toString());
+                } else {
+                    requestCAR_CONTROL(GUBUN, etCarNum.getText().toString(), etCarYear.getText().toString(), etMemo.getText().toString());
+                }
 
                 dialog.dismiss();
             }
@@ -536,6 +569,56 @@ public class CadMain extends BaseActivity {
     protected void scanResult(String str){
         ScanResult scanResult = new ScanResult(mContext, str, null);
         scanResult.run();
+    }
+
+    private void requestCDS_CONTROL(String GUBUN, String CTD_07, String scanCode, String CDS_03, String CTD_01, String CTD_02, String CTD_09, String OCM_01, String etCarNum, String etCarYear, String Memo){
+        // 인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            BaseAlert.show(mContext.getString(R.string.common_network_error));
+            return;
+        }
+
+        Call<CDS_Model> call = Http.cds(HttpBaseService.TYPE.POST).CDS_CONTROL(
+                BaseConst.URL_HOST,
+                GUBUN,
+                CTD_07,
+                scanCode,
+                CDS_03,
+                CTD_01,
+                CTD_02,
+                CTD_09,
+                OCM_01
+        );
+
+        call.enqueue(new Callback<CDS_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<CDS_Model> call, Response<CDS_Model> response) {
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+                            Response<CDS_Model> response = (Response<CDS_Model>) msg.obj;
+
+                            if(GUBUN.equals("INSERT")){
+                                CAR.CAR_01 = response.body().Data.get(0).CDS_03;
+                                requestCAR_CONTROL(GUBUN, etCarNum, etCarYear, Memo);
+                            }
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<CDS_Model> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+                Toast.makeText(mContext, R.string.common_exception, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

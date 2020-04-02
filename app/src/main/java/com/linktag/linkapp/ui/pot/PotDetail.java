@@ -27,16 +27,17 @@ import android.widget.Toast;
 
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
+import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
 
 import com.linktag.base.network.ClsNetworkCheck;
+import com.linktag.linkapp.model.CDS_Model;
 import com.linktag.linkapp.model.POT_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm.AlarmDialog;
 import com.linktag.linkapp.ui.master_log.MasterLog;
-import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.LogVO;
 import com.linktag.linkapp.value_object.PotVO;
@@ -91,6 +92,7 @@ public class PotDetail extends BaseActivity {
     private CtdVO intentVO;
     private PotVO POT;
     private String GUBUN;
+    private String scanCode;
 
     Calendar POT_03_C = Calendar.getInstance(); //최근물주기
     Calendar POT_96_C = Calendar.getInstance(); //다음물주기(알림)
@@ -110,6 +112,7 @@ public class PotDetail extends BaseActivity {
         else{
             POT = new PotVO();
             POT.POT_01 = getIntent().getStringExtra("scancode");
+            scanCode = getIntent().getStringExtra("scancode");
             GUBUN = "INSERT";
         }
 
@@ -228,7 +231,19 @@ public class PotDetail extends BaseActivity {
             @Override
             public void onClick(View v){
                 if(validationCheck()){
-                    requestPOT_CONTROL(GUBUN);
+                    if (GUBUN.equals("INSERT")) {
+                        requestCDS_CONTROL(
+                                "INSERT",
+                                intentVO.CTD_07,
+                                scanCode,
+                                "",
+                                intentVO.CTD_01,
+                                intentVO.CTD_02,
+                                intentVO.CTD_09,
+                                mUser.Value.OCM_01);
+                    } else {
+                        requestPOT_CONTROL(GUBUN);
+                    }
                 }
             }
         });
@@ -352,10 +367,10 @@ public class PotDetail extends BaseActivity {
                         if(msg.what == 100){
 //                            closeLoadingBar();
 
-                            if(GUB.equals("INSERT")){
-                                CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, POT.POT_01);
-                                ctds_control.requestCTDS_CONTROL();
-                            }
+//                            if(GUB.equals("INSERT")){
+//                                CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, POT.POT_01);
+//                                ctds_control.requestCTDS_CONTROL();
+//                            }
 
                             Response<POT_Model> response = (Response<POT_Model>) msg.obj;
 
@@ -383,6 +398,19 @@ public class PotDetail extends BaseActivity {
             @Override
             public void onFailure(Call<POT_Model> call, Throwable t){
                 Log.d("POT_CONTROL", t.getMessage());
+
+                if(GUB.equals("INSERT")){
+                    requestCDS_CONTROL(
+                            "DELETE",
+                            intentVO.CTD_07,
+                            scanCode,
+                            POT.POT_01,
+                            "",
+                            "",
+                            "",
+                            "");
+                }
+
 //                closeLoadingBar();
             }
         });
@@ -658,6 +686,56 @@ public class PotDetail extends BaseActivity {
         c.set(Calendar.MINUTE, 0);
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
+    }
+
+    private void requestCDS_CONTROL(String GUBUN, String CTD_07, String scanCode, String CDS_03, String CTD_01, String CTD_02, String CTD_09, String OCM_01){
+        // 인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            BaseAlert.show(mContext.getString(R.string.common_network_error));
+            return;
+        }
+
+        Call<CDS_Model> call = Http.cds(HttpBaseService.TYPE.POST).CDS_CONTROL(
+                BaseConst.URL_HOST,
+                GUBUN,
+                CTD_07,
+                scanCode,
+                CDS_03,
+                CTD_01,
+                CTD_02,
+                CTD_09,
+                OCM_01
+        );
+
+        call.enqueue(new Callback<CDS_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<CDS_Model> call, Response<CDS_Model> response) {
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+                            Response<CDS_Model> response = (Response<CDS_Model>) msg.obj;
+
+                            if(GUBUN.equals("INSERT")){
+                                POT.POT_01 = response.body().Data.get(0).CDS_03;
+                                requestPOT_CONTROL("INSERT");
+                            }
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<CDS_Model> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+                Toast.makeText(mContext, R.string.common_exception, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }
