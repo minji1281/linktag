@@ -280,7 +280,7 @@ public class DamMain extends BaseActivity {
                                     damvo.setDAM_ID(intentVO.CTN_02);
                                     damvo.setDAM_01(scancode);
                                     damvo.setDAM_02("");
-                                    damvo.setDAM_03("");
+                                    damvo.setDAM_03("dam_icon_1");
                                     damvo.setDAM_04("1");
                                     damvo.setDAM_96("");
                                     damvo.setDAM_97(mUser.Value.OCM_01);

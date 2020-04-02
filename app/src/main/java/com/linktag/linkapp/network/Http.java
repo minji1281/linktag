@@ -12,6 +12,7 @@ import com.linktag.linkapp.model.CTDS_Model;
 import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.model.CTU_Model;
 import com.linktag.linkapp.model.DAMModel;
+import com.linktag.linkapp.model.DCMModel;
 import com.linktag.linkapp.model.FRMModel;
 import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.model.LOG_Model;
@@ -1269,6 +1270,37 @@ public class Http extends HttpBaseService {
         );
 
     }
+
+    public static IDCM dcm(TYPE type) {
+        return (IDCM) retrofit(IDCM.class, type);
+    }
+
+    public interface IDCM {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_DCM_SELECT)
+        Call<DCMModel> DCM_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "DCM_ID") String DCM_ID,
+                @Field(value = "DCM_01") String DCM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_DCM_CONTROL)
+        Call<DCMModel> DCM_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "DCM_ID") String DCM_ID,
+                @Field(value = "DCM_01") String DCM_01,
+                @Field(value = "DCM_02") String DCM_02,
+                @Field(value = "DCM_03") String DCM_03,
+                @Field(value = "DCM_98") String DCM_98
+
+        );
+
+    }
+
 
 
 

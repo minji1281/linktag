@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
@@ -30,6 +32,7 @@ import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.model.CDS_Model;
 import com.linktag.linkapp.model.DAMModel;
 import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.network.BaseConst;
@@ -104,6 +107,7 @@ public class DamDetail extends BaseActivity {
 
     public static String icon;
 
+    private String scanCode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -116,6 +120,7 @@ public class DamDetail extends BaseActivity {
 
         if (getIntent().hasExtra("GUBUN")) {
             intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
+            scanCode = getIntent().getStringExtra("scanCode");
             header.btnHeaderRight1.setVisibility((View.GONE));
             linearLayout_day.setVisibility(View.GONE);
             tv_message.setVisibility(View.VISIBLE);
@@ -153,11 +158,11 @@ public class DamDetail extends BaseActivity {
                 Calendar calendar = Calendar.getInstance();
                 boolean dateBool = Long.parseLong(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime())) < Long.parseLong(damVO.DAM_96);
 
-                if (GUBUN.equals("INSERT")) {
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, damVO.DAM_01);
-                    ctds_control.requestCTDS_CONTROL();
-                    onBackPressed();
-                }
+//                if (GUBUN.equals("INSERT")) {
+//                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, damVO.DAM_01);
+//                    ctds_control.requestCTDS_CONTROL();
+//                    onBackPressed();
+//                }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
 
                     if (damVO.ARM_03.equals("Y") && dateBool) {
@@ -229,7 +234,7 @@ public class DamDetail extends BaseActivity {
 
 
         if (damVO.getDAM_96().equals("")) {
-            tv_datePicker.setText(format.format(calendar.getTime())+getDateofWeek(calendar));
+            tv_datePicker.setText(format.format(calendar.getTime()) + getDateofWeek(calendar));
             damVO.setDAM_96(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime()));
 
         } else {
@@ -237,7 +242,7 @@ public class DamDetail extends BaseActivity {
             calendar.set(Calendar.MONTH, Integer.parseInt(damVO.DAM_96.substring(4, 6)) - 1);
             calendar.set(Calendar.DATE, Integer.parseInt(damVO.DAM_96.substring(6, 8)));
 
-            tv_datePicker.setText(stringTodateFormat(damVO.DAM_96)+getDateofWeek(calendar));
+            tv_datePicker.setText(stringTodateFormat(damVO.DAM_96) + getDateofWeek(calendar));
         }
 
         callBackTime = damVO.DAM_96.substring(8, 12);
@@ -278,7 +283,7 @@ public class DamDetail extends BaseActivity {
                 img_check3.setVisibility(View.VISIBLE);
                 dDayDiff = dCalendar.getTimeInMillis() - tCalendar.getTimeInMillis();
                 dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
-                while (dcount < 0){
+                while (dcount < 0) {
                     dCalendar.add(Calendar.YEAR, 1);
                     dDayDiff = dCalendar.getTimeInMillis() - tCalendar.getTimeInMillis();
                     dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
@@ -296,7 +301,9 @@ public class DamDetail extends BaseActivity {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(mContext, DamIconDetail.class);
-                intent.putExtra("index",Integer.parseInt(damVO.DAM_03.replace("dam_icon_","")));
+                intent.putExtra("DAM_ID", damVO.DAM_ID);
+                intent.putExtra("DAM_01", damVO.DAM_01);
+                intent.putExtra("index", Integer.parseInt(damVO.DAM_03.replace("dam_icon_", "")));
                 mContext.startActivity(intent);
 
             }
@@ -363,7 +370,7 @@ public class DamDetail extends BaseActivity {
                         } else {
                             dayOfMonthString = String.valueOf(dayOfMonth);
                         }
-                        damVO.setDAM_96(year+monthString+dayOfMonthString+callBackTime);
+                        damVO.setDAM_96(year + monthString + dayOfMonthString + callBackTime);
                         tv_datePicker.setText(year + "." + monthString + "." + dayOfMonthString + getDateofWeek(sCalendar));
 
                     }
@@ -385,7 +392,7 @@ public class DamDetail extends BaseActivity {
                     dayOfMonthString = String.valueOf(dayOfMonth);
                 }
                 sCalendar.set(year, month, dayOfMonth);
-                damVO.setDAM_96(year+monthString+dayOfMonthString+callBackTime);
+                damVO.setDAM_96(year + monthString + dayOfMonthString + callBackTime);
                 tv_datePicker.setText(year + "." + monthString + "." + dayOfMonthString + getDateofWeek(sCalendar));
 
                 datePicker.init(sCalendar.get(Calendar.YEAR), sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.DATE),
@@ -406,7 +413,7 @@ public class DamDetail extends BaseActivity {
                                 } else {
                                     dayOfMonthString = String.valueOf(dayOfMonth);
                                 }
-                                damVO.setDAM_96(year+monthString+dayOfMonthString+callBackTime);
+                                damVO.setDAM_96(year + monthString + dayOfMonthString + callBackTime);
                                 tv_datePicker.setText(year + "." + monthString + "." + dayOfMonthString + getDateofWeek(sCalendar));
 
                             }
@@ -444,12 +451,22 @@ public class DamDetail extends BaseActivity {
                 }
 
                 damVO.setDAM_03(icon);
-                if (getIntent().hasExtra("GUBUN")) {
-                    requestDAM_CONTROL("INSERT");
-//                    requestLOG_CONTROL("1", getString(R.string.jdm_text6));
+
+                if (scanCode != null) {
+                    requestCDS_CONTROL(
+                            "INSERT",
+                            intentVO.CTD_07,
+                            scanCode,
+                            "",
+                            intentVO.CTD_01,
+                            intentVO.CTD_02,
+                            intentVO.CTD_09,
+                            mUser.Value.OCM_01);
                 } else {
                     requestDAM_CONTROL("UPDATE");
                 }
+
+
             }
         });
 
@@ -526,6 +543,58 @@ public class DamDetail extends BaseActivity {
     }
 
 
+    private void requestCDS_CONTROL(String GUBUN, String CTD_07, String scanCode, String CDS_03, String CTD_01, String CTD_02, String CTD_09, String OCM_01) {
+        // 인터넷 연결 여부 확인
+        if (!ClsNetworkCheck.isConnectable(mContext)) {
+            BaseAlert.show(mContext.getString(R.string.common_network_error));
+            return;
+        }
+
+        Call<CDS_Model> call = Http.cds(HttpBaseService.TYPE.POST).CDS_CONTROL(
+                BaseConst.URL_HOST,
+                GUBUN,
+                CTD_07,
+                scanCode,
+                CDS_03,
+                CTD_01,
+                CTD_02,
+                CTD_09,
+                OCM_01
+        );
+
+        call.enqueue(new Callback<CDS_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<CDS_Model> call, Response<CDS_Model> response) {
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler() {
+                    @Override
+                    public void handleMessage(Message msg) {
+                        if (msg.what == 100) {
+                            Response<CDS_Model> response = (Response<CDS_Model>) msg.obj;
+
+                            if (GUBUN.equals("INSERT")) {
+                                damVO.DAM_01 = response.body().Data.get(0).CDS_03;
+                                requestDAM_CONTROL("INSERT");
+//                                requestLOG_CONTROL("1", getString(R.string.jdm_text6));
+                            }
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<CDS_Model> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+                Toast.makeText(mContext, R.string.common_exception, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
     private void requestLOG_CONTROL(String LOG_03, String LOG_04) {
         //인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
@@ -596,7 +665,7 @@ public class DamDetail extends BaseActivity {
         return retStr;
     }
 
-    public String getDateofWeek(Calendar calendar){
+    public String getDateofWeek(Calendar calendar) {
         String day = "";
         int dayNum = calendar.get(Calendar.DAY_OF_WEEK);
 
@@ -625,7 +694,7 @@ public class DamDetail extends BaseActivity {
 
         }
 
-        return " ("+day+")";
+        return " (" + day + ")";
 
     }
 

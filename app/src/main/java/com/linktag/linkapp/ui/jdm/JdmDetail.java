@@ -9,6 +9,8 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.util.Log;
@@ -30,6 +32,7 @@ import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.model.CDS_Model;
 import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.network.BaseConst;
@@ -99,6 +102,10 @@ public class JdmDetail extends BaseActivity {
 
 
     private String[] str_cycle;
+
+    private String scanCode;
+
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -111,12 +118,13 @@ public class JdmDetail extends BaseActivity {
         if (getIntent().hasExtra("scanCode")) {
             intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
             check_area.setVisibility(View.GONE);
+            scanCode = getIntent().getStringExtra("scanCode");
             header.btnHeaderRight1.setVisibility((View.GONE));
         }
 
     }
 
-    public void requestJMD_CONTROL(String GUBUN) {
+    public void requestJDM_CONTROL(String GUBUN) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(JdmDetail.this)) {
             BaseAlert.show(getString(R.string.common_network_error));
@@ -172,11 +180,11 @@ public class JdmDetail extends BaseActivity {
                 Calendar calendar = Calendar.getInstance();
                 boolean dateBool = Long.parseLong(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime())) < Long.parseLong(jdmVO.JDM_96);
 
-                if (GUBUN.equals("INSERT")) {
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, jdmVO.JDM_01);
-                    ctds_control.requestCTDS_CONTROL();
-                    onBackPressed();
-                }
+//                if (GUBUN.equals("INSERT")) {
+//                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, jdmVO.JDM_01);
+//                    ctds_control.requestCTDS_CONTROL();
+//                    onBackPressed();
+//                }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
 
                     if (jdmVO.ARM_03.equals("Y") && dateBool) {
@@ -207,6 +215,17 @@ public class JdmDetail extends BaseActivity {
             @Override
             public void onFailure(Call<JDMModel> call, Throwable t) {
                 Log.d("Test", t.getMessage());
+
+                requestCDS_CONTROL(
+                        "DELETE",
+                        intentVO.CTD_07,
+                        scanCode,
+                        jdmVO.JDM_01,
+                        "",
+                        "",
+                        "",
+                        "");
+
                 closeLoadingBar();
 
             }
@@ -384,11 +403,20 @@ public class JdmDetail extends BaseActivity {
 
                 jdmVO.setJDM_05(map_size.get(sp_size.getSelectedItem()));
                 jdmVO.setJDM_04(tv_datePicker.getText().toString().replace(".", ""));
-                if (getIntent().hasExtra("scanCode")) {
-                    requestJMD_CONTROL("INSERT");
-                    requestLOG_CONTROL("1",getString(R.string.jdm_text6));
+
+                if (scanCode != null) {
+                    requestCDS_CONTROL(
+                            "INSERT",
+                            intentVO.CTD_07,
+                            scanCode,
+                            "",
+                            intentVO.CTD_01,
+                            intentVO.CTD_02,
+                            intentVO.CTD_09,
+                            mUser.Value.OCM_01);
+
                 } else {
-                    requestJMD_CONTROL("UPDATE");
+                    requestJDM_CONTROL("UPDATE");
                 }
             }
         });
@@ -445,7 +473,7 @@ public class JdmDetail extends BaseActivity {
             public void onClick(View v) {
 
                 if (Integer.parseInt(jdmVO.JDM_96.substring(0, 8)) < Integer.parseInt(formatDate.format(calendar.getTime()))) {
-                    requestJMD_CONTROL("UPDATE_NEXT");
+                    requestJDM_CONTROL("UPDATE_NEXT");
                     requestLOG_CONTROL("2",getString(R.string.jdm_text7));
                 } else {
 
@@ -455,7 +483,7 @@ public class JdmDetail extends BaseActivity {
                                 @RequiresApi(api = Build.VERSION_CODES.M)
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    requestJMD_CONTROL("UPDATE_NEXT");
+                                    requestJDM_CONTROL("UPDATE_NEXT");
                                     requestLOG_CONTROL("2",getString(R.string.jdm_text7));
                                 }
                             })
@@ -523,7 +551,7 @@ public class JdmDetail extends BaseActivity {
             public void onClick(View v) {
                 if(etDeleteName.getText().toString().equals(jdmVO.JDM_02)){
                     dialog.dismiss();
-                    requestJMD_CONTROL("DELETE");
+                    requestJDM_CONTROL("DELETE");
                 }
                 else{
                     Toast.makeText(mActivity,  getResources().getString(com.linktag.base.R.string.common_confirm_delete), Toast.LENGTH_SHORT).show();
@@ -576,6 +604,57 @@ public class JdmDetail extends BaseActivity {
         }
     }
 
+
+    private void requestCDS_CONTROL(String GUBUN, String CTD_07, String scanCode, String CDS_03, String CTD_01, String CTD_02, String CTD_09, String OCM_01){
+        // 인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            BaseAlert.show(mContext.getString(R.string.common_network_error));
+            return;
+        }
+
+        Call<CDS_Model> call = Http.cds(HttpBaseService.TYPE.POST).CDS_CONTROL(
+                BaseConst.URL_HOST,
+                GUBUN,
+                CTD_07,
+                scanCode,
+                CDS_03,
+                CTD_01,
+                CTD_02,
+                CTD_09,
+                OCM_01
+        );
+
+        call.enqueue(new Callback<CDS_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<CDS_Model> call, Response<CDS_Model> response) {
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+                            Response<CDS_Model> response = (Response<CDS_Model>) msg.obj;
+
+                            if(GUBUN.equals("INSERT")){
+                                jdmVO.JDM_01 = response.body().Data.get(0).CDS_03;
+                                requestJDM_CONTROL("INSERT");
+                                requestLOG_CONTROL("1",getString(R.string.jdm_text6));
+                            }
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<CDS_Model> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+                Toast.makeText(mContext, R.string.common_exception, Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     private void requestLOG_CONTROL(String LOG_03, String LOG_04){
         //인터넷 연결 여부 확인

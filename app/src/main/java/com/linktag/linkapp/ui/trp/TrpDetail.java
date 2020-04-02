@@ -424,8 +424,6 @@ public class TrpDetail extends BaseActivity {
                             intentVO.CTD_09,
                             mUser.Value.OCM_01);
 
-                    requestLOG_CONTROL("1", getString(R.string.trp_text4));
-
                 } else {
                     requestTRP_CONTROL("UPDATE");
                 }
@@ -586,6 +584,7 @@ public class TrpDetail extends BaseActivity {
                             if(GUBUN.equals("INSERT")){
                                 trpVO.TRP_01 = response.body().Data.get(0).CDS_03;
                                 requestTRP_CONTROL("INSERT");
+                                requestLOG_CONTROL("1", getString(R.string.trp_text4));
                             }
                         }
                     }

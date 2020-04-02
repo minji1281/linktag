@@ -179,10 +179,6 @@ public class TrpMain extends BaseActivity {
             return;
         }
 
-        //openLoadingBar();
-
-        //String strToday = ClsDateTime.getNow("yyyyMMdd");
-
 
         Call<TRPModel> call = Http.trp(HttpBaseService.TYPE.POST).TRP_SELECT(
                 BaseConst.URL_HOST,

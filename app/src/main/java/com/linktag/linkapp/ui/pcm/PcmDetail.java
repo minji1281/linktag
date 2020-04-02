@@ -27,6 +27,7 @@ import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.model.CDS_Model;
 import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.model.PCDModel;
 import com.linktag.linkapp.model.PCMModel;
@@ -96,6 +97,8 @@ public class PcmDetail extends BaseActivity implements Serializable {
     private CtdVO intentVO;
 
 
+    private String scanCode;
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -108,6 +111,7 @@ public class PcmDetail extends BaseActivity implements Serializable {
 
         if (getIntent().hasExtra("scanCode")) {
             intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
+            scanCode = getIntent().getStringExtra("scanCode");
             btn_update.setVisibility(View.GONE);
             String date = formatDate.format(calendar.getTime());
             pcmVO.setPCM_04(date);
@@ -294,12 +298,12 @@ public class PcmDetail extends BaseActivity implements Serializable {
             public void onResponse(Call<PCMModel> call, Response<PCMModel> response) {
 
 
-                if (GUBUN.equals("INSERT")) {
-                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, pcmVO.PCM_01);
-                    ctds_control.requestCTDS_CONTROL();
-                    tv_manageDay.setText(format1.format(calendar.getTime()));
-                    onBackPressed();
-                }
+//                if (GUBUN.equals("INSERT")) {
+//                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, pcmVO.PCM_01);
+//                    ctds_control.requestCTDS_CONTROL();
+//                    tv_manageDay.setText(format1.format(calendar.getTime()));
+//                    onBackPressed();
+//                }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
                     Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "] " + getString(R.string.pcm_text1), Toast.LENGTH_SHORT).show();
                     onBackPressed();
@@ -315,6 +319,18 @@ public class PcmDetail extends BaseActivity implements Serializable {
             @Override
             public void onFailure(Call<PCMModel> call, Throwable t) {
                 Log.d("Test", t.getMessage());
+
+                requestCDS_CONTROL(
+                        "DELETE",
+                        intentVO.CTD_07,
+                        scanCode,
+                        pcmVO.PCM_01,
+                        "",
+                        "",
+                        "",
+                        "");
+
+
                 closeLoadingBar();
 
             }
@@ -517,8 +533,16 @@ public class PcmDetail extends BaseActivity implements Serializable {
                     return;
                 }
 
-                if (getIntent().hasExtra("scanCode")) {
-                    requestPCM_CONTROL("INSERT");
+                if (scanCode != null) {
+                    requestCDS_CONTROL(
+                            "INSERT",
+                            intentVO.CTD_07,
+                            scanCode,
+                            "",
+                            intentVO.CTD_01,
+                            intentVO.CTD_02,
+                            intentVO.CTD_09,
+                            mUser.Value.OCM_01);
                 } else {
                     requestPCM_CONTROL("UPDATE");
                 }
@@ -587,6 +611,58 @@ public class PcmDetail extends BaseActivity implements Serializable {
         });
 
         dialog.show();
+    }
+
+
+    private void requestCDS_CONTROL(String GUBUN, String CTD_07, String scanCode, String CDS_03, String CTD_01, String CTD_02, String CTD_09, String OCM_01){
+        // 인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            BaseAlert.show(mContext.getString(R.string.common_network_error));
+            return;
+        }
+
+        Call<CDS_Model> call = Http.cds(HttpBaseService.TYPE.POST).CDS_CONTROL(
+                BaseConst.URL_HOST,
+                GUBUN,
+                CTD_07,
+                scanCode,
+                CDS_03,
+                CTD_01,
+                CTD_02,
+                CTD_09,
+                OCM_01
+        );
+
+        call.enqueue(new Callback<CDS_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<CDS_Model> call, Response<CDS_Model> response) {
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+                            Response<CDS_Model> response = (Response<CDS_Model>) msg.obj;
+
+                            if(GUBUN.equals("INSERT")){
+                                pcmVO.PCM_01 = response.body().Data.get(0).CDS_03;
+                                requestPCM_CONTROL("INSERT");
+                                requestLOG_CONTROL("1",getString(R.string.log_new_text));
+                            }
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<CDS_Model> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+                Toast.makeText(mContext, R.string.common_exception, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
