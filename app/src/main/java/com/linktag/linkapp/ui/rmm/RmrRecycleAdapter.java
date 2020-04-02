@@ -52,25 +52,49 @@ public class RmrRecycleAdapter extends RecyclerView.Adapter<RmrRecycleAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        if(mList.get(position).RMR_05.equals(mUser.Value.OCM_01)){ //자신이 예약한것은 파랑
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                viewHolder.layoutRmr.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_round_blue));
-            } else {
-                viewHolder.layoutRmr.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.btn_round_blue));
-            }
+        if(mList.get(position).boolChange){ //변경했을때
+            if(mList.get(position).RMR_05.equals(mUser.Value.OCM_01)){ //예약취소
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    viewHolder.layoutRmr.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_round_gray_8dp));
+                } else {
+                    viewHolder.layoutRmr.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.btn_round_gray_8dp));
+                }
 
-            viewHolder.tvTime.setTextColor(Color.WHITE);
-            viewHolder.tvUser.setTextColor(Color.WHITE);
+                viewHolder.tvTime.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text1));
+                viewHolder.tvUser.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text1));
+            }
+            else{ //예약
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    viewHolder.layoutRmr.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_round_blue));
+                } else {
+                    viewHolder.layoutRmr.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.btn_round_blue));
+                }
+
+                viewHolder.tvTime.setTextColor(Color.WHITE);
+                viewHolder.tvUser.setTextColor(Color.WHITE);
+            }
         }
-        else{ //아니면 회색
-            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                viewHolder.layoutRmr.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_round_gray_8dp));
-            } else {
-                viewHolder.layoutRmr.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.btn_round_gray_8dp));
-            }
+        else{ //변경안됨
+            if(mList.get(position).RMR_05.equals(mUser.Value.OCM_01)){ //예약
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    viewHolder.layoutRmr.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_round_blue));
+                } else {
+                    viewHolder.layoutRmr.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.btn_round_blue));
+                }
 
-            viewHolder.tvTime.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text1));
-            viewHolder.tvUser.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text1));
+                viewHolder.tvTime.setTextColor(Color.WHITE);
+                viewHolder.tvUser.setTextColor(Color.WHITE);
+            }
+            else{ //예약안함
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    viewHolder.layoutRmr.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_round_gray_8dp));
+                } else {
+                    viewHolder.layoutRmr.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.btn_round_gray_8dp));
+                }
+
+                viewHolder.tvTime.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text1));
+                viewHolder.tvUser.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text1));
+            }
         }
 
         viewHolder.tvTime.setText(mList.get(position).RMR_04.substring(0,2) + ":" + mList.get(position).RMR_04.substring(2));
@@ -101,12 +125,15 @@ public class RmrRecycleAdapter extends RecyclerView.Adapter<RmrRecycleAdapter.Vi
                     int position = getAdapterPosition();
 
                     if(mList.get(position).RMR_05.equals(mUser.Value.OCM_01) || mList.get(position).RMR_05.equals("")){ //다른사람이 예약한 시간은 수정할 수 없다.
-                        RmdRecycleAdapter.RMR_02 = mList.get(position).RMR_02;
-                        if(RmdRecycleAdapter.RMR_04_list.contains(mList.get(position).RMR_04)){
-                            RmdRecycleAdapter.RMR_04_list.remove(mList.get(position).RMR_04);
+//                        RmdRecycleAdapter.RMR_02 = mList.get(position).RMR_02;
+                        ReserveList tmp = new ReserveList(mList.get(position).RMR_02, mList.get(position).RMR_04); //예약
+                        if(mList.get(position).boolChange){
+                            RmdRecycleAdapter.RMR_04_list.remove(tmp);
+                            mList.get(position).boolChange = false;
                         }
                         else{
-                            RmdRecycleAdapter.RMR_04_list.add(mList.get(position).RMR_04);
+                            RmdRecycleAdapter.RMR_04_list.add(tmp);
+                            mList.get(position).boolChange = true;
                         }
 
                         setBackgroundChange(layoutRmr, tvTime, tvUser);

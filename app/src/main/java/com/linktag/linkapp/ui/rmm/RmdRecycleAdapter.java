@@ -3,9 +3,11 @@ package com.linktag.linkapp.ui.rmm;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -14,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.user_interface.InterfaceUser;
@@ -30,7 +33,10 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Predicate;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -48,8 +54,10 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
     private String RMR_04ST;
     private String RMR_04ED;
 
-    public static String RMR_02; //예약
-    public static List<String> RMR_04_list = new ArrayList<>(); //예약
+//    public static String RMR_02; //예약
+//    public static List<String> RMR_04_list = new ArrayList<>(); //예약
+//    public static HashMap<String, String> RMR_04_list = new HashMap<>(); //예약
+    public static ArrayList<ReserveList> RMR_04_list = new ArrayList<>(); //예약
 //    private Boolean reserveBool = true;
 
     RmdRecycleAdapter(Context context, ArrayList<RMD_VO> list, String RMR_03_tmp, String RMR_04ST_tmp, String RMR_04ED_tmp) {
@@ -69,6 +77,17 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
         view = mInflater.inflate(R.layout.listitem_find_rmd
                 , parent, false);
         RmdRecycleAdapter.ViewHolder viewHolder = new RmdRecycleAdapter.ViewHolder(view);
+
+//        viewHolder.mList_RMR = new ArrayList<>();
+////        viewHolder.mList_RMR_tmp = new ArrayList<>();
+//        viewHolder.linearLayoutManager_RMR = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+//        viewHolder.recyclerView_RMR.setLayoutManager(viewHolder.linearLayoutManager_RMR);
+//        viewHolder.mAdapter_RMR = new RmrRecycleAdapter(mContext, viewHolder.mList_RMR);
+//        viewHolder.recyclerView_RMR.setAdapter(viewHolder.mAdapter_RMR);
+
+//        viewHolder.recyclerView_RMR.getRecycledViewPool().setMaxRecycledViews(0, 0);
+
+//        requestRMR_SELECT(viewHolder, mList, position);
 
         return viewHolder;
     }
@@ -96,17 +115,30 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
         }
         else{ //user일때 - 예약
             viewHolder.btnReserve.setOnClickListener(new View.OnClickListener() {
+                @RequiresApi(api = Build.VERSION_CODES.N)
                 @Override
                 public void onClick(View view) {
                     RMD_VO RMD = mList.get(position);
 
+//                    Collections.sort(RMR_04_list);
                     Collections.sort(RMR_04_list);
                     //값 테스트해보고 SP타도록...
-//                    for(int i=0; i<RMR_04_list.size(); i++){
-//                        String RMD_04 = RMR_04_list.get(i);
-//                        requestRMR_CONTROL(RMD.RMD_ID, RMD.RMD_01, RMD_04);
-//                    }
+                    if(RMR_04_list.size()>0){
+                        for(int i=0; i<RMR_04_list.size(); i++){
+                            if(RMR_04_list.get(i).getCode().equals(RMD.RMD_02)){ //해당연습실만 예약
+                                String RMD_04 = RMR_04_list.get(i).getTime();
+                                requestRMR_CONTROL(RMD.RMD_ID, RMD.RMD_01, RMD.RMD_02, RMD_04);
+                            }
+                        }
 
+//                        RMR_04_list.clear();
+                        Predicate<ReserveList> condition = reserveList -> reserveList.getCode().equals(RMD.RMD_02);
+                        RMR_04_list.removeIf(condition);
+                        requestRMR_SELECT(viewHolder, mList, position);
+                    }
+                    else{
+                        Toast.makeText(mContext, mContext.getString(R.string.rmm_list_reserve_fail), Toast.LENGTH_SHORT).show();
+                    }
                 }
             });
         }
@@ -117,9 +149,9 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
         viewHolder.recyclerView_RMR.setLayoutManager(viewHolder.linearLayoutManager_RMR);
         viewHolder.mAdapter_RMR = new RmrRecycleAdapter(mContext, viewHolder.mList_RMR);
         viewHolder.recyclerView_RMR.setAdapter(viewHolder.mAdapter_RMR);
-
-//        viewHolder.recyclerView_RMR.getRecycledViewPool().setMaxRecycledViews(0, 0);
-
+//
+////        viewHolder.recyclerView_RMR.getRecycledViewPool().setMaxRecycledViews(0, 0);
+//
         requestRMR_SELECT(viewHolder, mList, position);
 
     }
@@ -219,6 +251,7 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
 
                             viewHolder.mAdapter_RMR.updateData(viewHolder.mList_RMR);
                             viewHolder.mAdapter_RMR.notifyDataSetChanged();
+//                            viewHolder.recyclerView_RMR.getRecycledViewPool().setMaxRecycledViews(0, 0);
 
                         }
                     }
@@ -233,7 +266,7 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
         });
     }
 
-    private void requestRMR_CONTROL(String RMR_ID, String RMR_01, String RMR_04) {
+    private void requestRMR_CONTROL(String RMR_ID, String RMR_01, String RMR_02, String RMR_04) {
 
         //인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {

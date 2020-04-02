@@ -265,7 +265,7 @@ public class RmdMain extends BaseActivity {
 
         String GUBUN = "DETAIL";
         String RMM_ID = intentVO.CTN_02; //컨테이너
-        String RMM_01 = intentVO.CTM_01; //Master일련번호(RMM_01)
+        String RMM_01 = intentVO.CTD_01; //Master일련번호(RMM_01)
 
         Call<RMMModel> call = Http.rmm(HttpBaseService.TYPE.POST).RMM_SELECT(
                 BaseConst.URL_HOST,
@@ -369,7 +369,7 @@ public class RmdMain extends BaseActivity {
 //        openLoadingBar();
 
         String RMD_ID = intentVO.CTN_02; //컨테이너
-        String RMD_01 = intentVO.CTM_01; //Master일련번호(RMM_01)
+        String RMD_01 = intentVO.CTD_01; //Master일련번호(RMM_01)
 
         Call<RMDModel> call = Http.rmd(HttpBaseService.TYPE.POST).RMD_SELECT(
                 BaseConst.URL_HOST,
@@ -456,7 +456,7 @@ public class RmdMain extends BaseActivity {
 //        openLoadingBar();
 
         String RMM_ID = intentVO.CTN_02; //컨테이너
-        String RMM_01 = intentVO.CTM_01; //일련번호(CTM_01)
+        String RMM_01 = intentVO.CTD_01; //일련번호(CTD_01)
         String RMM_98 = mUser.Value.OCM_01; //최종수정자
 
         Call<RMMModel> call = Http.rmm(HttpBaseService.TYPE.POST).RMM_CONTROL(
@@ -487,7 +487,7 @@ public class RmdMain extends BaseActivity {
 //                            closeLoadingBar();
 
 //                            if(GUB.equals("INSERT")){
-//                                CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, RMD.RMD_02);
+//                                CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTD_01, intentVO.CTD_02, RMD.RMD_02);
 //                                ctds_control.requestCTDS_CONTROL();
 //                            }
 
@@ -718,6 +718,8 @@ public class RmdMain extends BaseActivity {
 
                 RMR_03 = tmp;
                 tvDay.setText(sDateFormat(RMR_03));
+
+                RmdRecycleAdapter.RMR_04_list.clear();
 
                 setAdapter();
 //                requestCAD_SELECT();
