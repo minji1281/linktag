@@ -18,6 +18,7 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.menu.ChangeActivityCls;
 import com.linktag.linkapp.ui.menu.ChooseOne;
+import com.linktag.linkapp.ui.menu.ChooseScan;
 import com.linktag.linkapp.value_object.CtdVO;
 
 import retrofit2.Call;
@@ -126,14 +127,16 @@ public class ScanResult {
     private void callBack(CTD_Model model, String scanCode){
         if(model.Total > 1){
             // 결과 여러건
-
+            Intent intent = new Intent(mContext, ChooseScan.class);
+            intent.putExtra("mList", model.Data);
+            mContext.startActivity(intent);
         } else {
             if(model.Data.get(0).Validation){
                 // 결과 1개
                 // Detail
                 // Detail 조회 페이지 이동
                 ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, model.Data.get(0));
-                changeActivityCls.changeServiceWithScan(scanCode);
+                changeActivityCls.changeServiceWithScan(model.Data.get(0).CDS_03);
             } else {
                 // 결과 없음
                 // New

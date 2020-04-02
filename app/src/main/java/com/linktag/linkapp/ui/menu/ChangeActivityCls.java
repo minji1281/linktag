@@ -33,10 +33,6 @@ public class ChangeActivityCls {
 
                 intent.putExtra("intentVO", ctdVO);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                intent.putExtra("CTM_01", ctdVO.CTD_01);
-//                intent.putExtra("CTD_02", ctdVO.CTD_02);
-//                intent.putExtra("CTN_02", ctdVO.CTN_02);
-//                intent.putExtra("CTM_19", ctdVO.CTM_19);
                 mContext.startActivity(intent);
 
             } catch (Exception e){
@@ -47,13 +43,11 @@ public class ChangeActivityCls {
         else {
             Toast.makeText(mContext, mContext.getString(R.string.alert_service_location_error) + "\n" + mContext.getString(R.string.common_call_admin), Toast.LENGTH_LONG).show();
         }
-
     }
 
     //ChooseOne에서 change
     public void changeServiceWithScan(String scanCode){
-        if(!ctdVO.SVCL_04.equals("") && ctdVO.SVCL_04 != null && !ctdVO.SVCL_05.equals("") && ctdVO.SVCL_05 != null )
-        {
+
             String packageName = mContext.getPackageName();
 
             try{
@@ -65,10 +59,6 @@ public class ChangeActivityCls {
                 intent.putExtra("scanCode", scanCode);
                 intent.putExtra("intentVO", ctdVO);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-//                intent.putExtra("CTM_01", ctdVO.CTD_01);
-//                intent.putExtra("CTD_02", ctdVO.CTD_02);
-//                intent.putExtra("CTN_02", ctdVO.CTN_02);
-//                intent.putExtra("CTM_19", ctdVO.CTM_19);
 
                 mContext.startActivity(intent);
 
@@ -83,10 +73,9 @@ public class ChangeActivityCls {
                 e.printStackTrace();
             }
 
-        }
-        else {
-            Toast.makeText(mContext, mContext.getString(R.string.alert_service_location_error) + "\n" + mContext.getString(R.string.common_call_admin), Toast.LENGTH_LONG).show();
-        }
+//        else {
+//            Toast.makeText(mContext, mContext.getString(R.string.alert_service_location_error) + "\n" + mContext.getString(R.string.common_call_admin), Toast.LENGTH_LONG).show();
+//        }
 
     }
 

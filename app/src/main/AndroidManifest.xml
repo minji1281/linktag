@@ -115,6 +115,9 @@
             android:name=".ui.menu.ChooseOne"
             android:theme="@android:style/Theme.Dialog" />
         <activity
+            android:name=".ui.menu.ChooseScan"
+            android:theme="@android:style/Theme.Dialog" />
+        <activity
             android:name=".ui.menu.Member"
             android:screenOrientation="portrait"
             android:theme="@style/TranslucentUser"/>

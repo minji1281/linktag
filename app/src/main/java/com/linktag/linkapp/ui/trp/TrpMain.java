@@ -53,7 +53,7 @@ public class TrpMain extends BaseActivity {
 
     private EditText ed_search;
     private TextView empty;
-    // 요거
+
     private CtdVO intentVO;
 
     public TrpMain() {
@@ -136,7 +136,7 @@ public class TrpMain extends BaseActivity {
             header.tvHeaderTitle2.setVisibility(View.VISIBLE);
             header.tvHeaderTitle2.setText(intentVO.CTD_10);
 
-            if(intentVO.CTM_04.equals(mUser.Value.OCM_01)){
+            if(intentVO.CTD_07.equals(mUser.Value.OCM_01)){
                 header.btnHeaderRight1.setVisibility(View.VISIBLE);
                 header.btnHeaderRight1.setOnClickListener(new View.OnClickListener() {
                     @Override

@@ -110,7 +110,6 @@ public class TrpDetail extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_detail_trp2);
 
-
         initLayout();
 
         initialize();
@@ -406,13 +405,7 @@ public class TrpDetail extends BaseActivity {
                 trpVO.setTRP_06(map_timing.get(sp_timing.getSelectedItem()));
 
                 if (scanCode != null) {
-
-//                    public static void requestCDS_CONTROL(Context mContext, Class mClass, String retMethodName, String GUBUN, String adminID, String scanCode, String CDS_03, String CTD_01, String CTD_02, String type, String CDS_98) {
-
-                    CDS_CONTROL.requestCDS_CONTROL(
-                            mContext,
-                            getClass(),
-                            "cdsCallBack",
+                    requestCDS_CONTROL(
                             "INSERT",
                             intentVO.CTD_07,
                             scanCode,
@@ -513,19 +506,8 @@ public class TrpDetail extends BaseActivity {
 
         }
 
-
     }
 
-    private void cdsCallBack(boolean isSuccess, CDS_Model data, String exceptionStr){
-        if(isSuccess){
-            scanCode = data.Data.get(0).CDS_03;
-            trpVO.TRP_01 = scanCode;
-            requestTRP_CONTROL("INSERT");
-        } else {
-            System.out.println("exception SCAN : " + exceptionStr);
-            Toast.makeText(mContext, R.string.common_exception, Toast.LENGTH_SHORT).show();
-        }
-    }
 
     private void deleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
@@ -557,6 +539,56 @@ public class TrpDetail extends BaseActivity {
         });
 
         dialog.show();
+    }
+
+    private void requestCDS_CONTROL(String GUBUN, String CTD_07, String scanCode, String CDS_03, String CTD_01, String CTD_02, String CTD_09, String OCM_01){
+        // 인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            BaseAlert.show(mContext.getString(R.string.common_network_error));
+            return;
+        }
+
+        Call<CDS_Model> call = Http.cds(HttpBaseService.TYPE.POST).CDS_CONTROL(
+                BaseConst.URL_HOST,
+                GUBUN,
+                CTD_07,
+                scanCode,
+                CDS_03,
+                CTD_01,
+                CTD_02,
+                CTD_09,
+                OCM_01
+        );
+
+        call.enqueue(new Callback<CDS_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<CDS_Model> call, Response<CDS_Model> response) {
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+                            Response<CDS_Model> response = (Response<CDS_Model>) msg.obj;
+
+                            if(GUBUN.equals("INSERT")){
+                                trpVO.TRP_01 = response.body().Data.get(0).CDS_03;
+                                requestTRP_CONTROL("INSERT");
+                            }
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<CDS_Model> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+                Toast.makeText(mContext, R.string.common_exception, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 
@@ -740,6 +772,17 @@ public class TrpDetail extends BaseActivity {
             @Override
             public void onFailure(Call<TRDModel> call, Throwable t) {
                 Log.d("Test", t.getMessage());
+
+                requestCDS_CONTROL(
+                        "DELETE",
+                        intentVO.CTD_07,
+                        scanCode,
+                        trpVO.TRP_01,
+                        "",
+                        "",
+                        "",
+                        "");
+
             }
         });
 
@@ -786,5 +829,9 @@ public class TrpDetail extends BaseActivity {
             Toast.makeText(mContext, msg + getString(R.string.trp_text6) + " "+ str_weeks_text[6] + " " +ToastMessage +  " " +getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
         }
     }
+
+
+
+
 
 }

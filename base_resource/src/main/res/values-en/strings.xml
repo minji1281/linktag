@@ -89,6 +89,7 @@
     <string name="login_btn1">Login</string>
 
     <!-- 스캔 -->
+    <string name="scan_header">SCAN LIST</string>
     <string name="alert_scan_error1">Invalid code</string>
     <string name="alert_scan_error2">Use code</string>
 
