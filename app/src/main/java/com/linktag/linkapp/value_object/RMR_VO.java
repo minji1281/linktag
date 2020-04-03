@@ -17,4 +17,7 @@ public class RMR_VO implements Serializable {
     public boolean Validation;
     public String RMR_05_NM;       // 사용자명
     public boolean boolChange = false;       // 변경여부(RmrRecycleAdapter에서 사용)
+    public String RMR_02_NM;       // 연습실명
+    public String RMR_04ST;       // 시작시간(HHMM)
+    public String RMR_04ED;       // 종료시간(HHMM)
 }

@@ -53,7 +53,29 @@ public class RmrRecycleAdapter extends RecyclerView.Adapter<RmrRecycleAdapter.Vi
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
         if(mList.get(position).boolChange){ //변경했을때
-            if(mList.get(position).RMR_05.equals(mUser.Value.OCM_01)){ //예약취소
+            if(mList.get(position).RMR_05.equals("")){ //예약
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    viewHolder.layoutRmr.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_round_blue));
+                } else {
+                    viewHolder.layoutRmr.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.btn_round_blue));
+                }
+
+                viewHolder.tvTime.setTextColor(Color.WHITE);
+                viewHolder.tvUser.setTextColor(Color.WHITE);
+            }
+            else{ //예약취소
+                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                    viewHolder.layoutRmr.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_round_gray_8dp));
+                } else {
+                    viewHolder.layoutRmr.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.btn_round_gray_8dp));
+                }
+
+                viewHolder.tvTime.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text1));
+                viewHolder.tvUser.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text1));
+            }
+        }
+        else{ //변경안됨
+            if(mList.get(position).RMR_05.equals("")){ //예약안함
                 if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
                     viewHolder.layoutRmr.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_round_gray_8dp));
                 } else {
@@ -72,28 +94,6 @@ public class RmrRecycleAdapter extends RecyclerView.Adapter<RmrRecycleAdapter.Vi
 
                 viewHolder.tvTime.setTextColor(Color.WHITE);
                 viewHolder.tvUser.setTextColor(Color.WHITE);
-            }
-        }
-        else{ //변경안됨
-            if(mList.get(position).RMR_05.equals(mUser.Value.OCM_01)){ //예약
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    viewHolder.layoutRmr.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_round_blue));
-                } else {
-                    viewHolder.layoutRmr.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.btn_round_blue));
-                }
-
-                viewHolder.tvTime.setTextColor(Color.WHITE);
-                viewHolder.tvUser.setTextColor(Color.WHITE);
-            }
-            else{ //예약안함
-                if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
-                    viewHolder.layoutRmr.setBackground(ContextCompat.getDrawable(mContext, R.drawable.btn_round_gray_8dp));
-                } else {
-                    viewHolder.layoutRmr.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.btn_round_gray_8dp));
-                }
-
-                viewHolder.tvTime.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text1));
-                viewHolder.tvUser.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text1));
             }
         }
 

@@ -32,6 +32,7 @@ import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.RMDModel;
 import com.linktag.linkapp.model.RMMModel;
+import com.linktag.linkapp.model.RMRModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
@@ -41,6 +42,7 @@ import com.linktag.linkapp.ui.scanner.ScanResult;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.RMD_VO;
 import com.linktag.linkapp.value_object.RMM_VO;
+import com.linktag.linkapp.value_object.RMR_VO;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -78,9 +80,11 @@ public class RmdMain extends BaseActivity {
     //======================
 //    private FrmAdapter mAdapter;
     private RmdRecycleAdapter mAdapter;
+    private myRmrRecycleAdapter mAdapter_myRmr; //myReserveDialog에서 씀
     private ArrayList<RMD_VO> mList;
     private ArrayList<RMD_VO> mList2;
     private ArrayList<RMM_VO> mRmmList;
+    private ArrayList<RMR_VO> mList_myRmr; //myReserveDialog에서 씀
     private String scancode;
     private CtdVO intentVO;
 
@@ -154,7 +158,7 @@ public class RmdMain extends BaseActivity {
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-//                requestFRM_SELECT("LIST", "");
+                requestRMD_SELECT("LIST", "");
                 swipeRefresh.setRefreshing(false);
             }
         });
@@ -165,8 +169,8 @@ public class RmdMain extends BaseActivity {
         btnReserve.setOnClickListener(new View.OnClickListener(){ //user일때
             @Override
             public void onClick(View v){
-//                myReserveDialog();
-                Toast.makeText(mActivity, "나의예약정보", Toast.LENGTH_SHORT).show();
+                myReserveDialog();
+//                Toast.makeText(mActivity, "나의예약정보", Toast.LENGTH_SHORT).show();
             }
         });
         imgDay = findViewById(R.id.imgDay);
@@ -206,10 +210,10 @@ public class RmdMain extends BaseActivity {
         mList = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayoutManager);
-        setAdapter();
+        setRmdAdapter();
     }
 
-    private void setAdapter(){
+    private void setRmdAdapter(){
         mAdapter = new RmdRecycleAdapter(mContext, mList, RMR_03, RMR_04ST_FILTER, RMR_04ED_FILTER);
         recyclerView.setAdapter(mAdapter);
     }
@@ -301,7 +305,7 @@ public class RmdMain extends BaseActivity {
 
 //                                initialize();
 //                                requestRMD_SELECT("LIST", "");
-                                setAdapter();
+                                setRmdAdapter();
 
                             }
 
@@ -359,13 +363,21 @@ public class RmdMain extends BaseActivity {
 
         String RMD_ID = intentVO.CTN_02; //컨테이너
         String RMD_01 = intentVO.CTD_01; //Master일련번호(RMM_01)
+        String LIST_GUB = RMR_FILTER_GUB; //LIST구분자
+        String RMR_04ST = RMR_04ST_FILTER; //시작시간
+        String RMR_04ED = RMR_04ED_FILTER; //종료일자
 
         Call<RMDModel> call = Http.rmd(HttpBaseService.TYPE.POST).RMD_SELECT(
                 BaseConst.URL_HOST,
                 GUBUN,
                 RMD_ID,
                 RMD_01,
-                RMD_02
+                RMD_02,
+                LIST_GUB,
+
+                RMR_03,
+                RMR_04ST,
+                RMR_04ED
         );
 
         call.enqueue(new Callback<RMDModel>(){
@@ -396,8 +408,9 @@ public class RmdMain extends BaseActivity {
                                     empty.setVisibility(View.GONE);
                                 }
 
-                                mAdapter.updateData(mList);
-                                mAdapter.notifyDataSetChanged();
+                                setRmdAdapter();
+//                                mAdapter.updateData(mList);
+//                                mAdapter.notifyDataSetChanged();
                                 swipeRefresh.setRefreshing(false);
                             }
                             else{ //DETAIL (스캔찍을때)
@@ -522,6 +535,75 @@ public class RmdMain extends BaseActivity {
 
     }
 
+    private void requestRMR_SELECT(String GUBUN, String RMR_ID, String RMR_01, String RMR_05){
+        //인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            Toast.makeText(mActivity, "인터넷 연결을 확인 후 다시 시도해 주세요.", Toast.LENGTH_SHORT).show();
+            return;
+        }
+
+//        openLoadingBar();
+
+        Call<RMRModel> call = Http.rmr(HttpBaseService.TYPE.POST).RMR_SELECT(
+                BaseConst.URL_HOST,
+                GUBUN,
+                RMR_ID,
+                RMR_01,
+                "",
+                "",
+
+                "",
+                "",
+                RMR_05
+        );
+
+        call.enqueue(new Callback<RMRModel>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<RMRModel> call, Response<RMRModel> response){
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+//                            closeLoadingBar();
+
+                            Response<RMRModel> response = (Response<RMRModel>) msg.obj;
+
+                            mList_myRmr = response.body().Data;
+                            if (mList_myRmr == null)
+                                mList_myRmr = new ArrayList<>();
+
+                            if(mList_myRmr.size()>0){
+                                for(int i=1; i<mList_myRmr.size(); i++){
+                                    if(mList_myRmr.get(i-1).RMR_02.equals(mList_myRmr.get(i).RMR_02)){ //같은 연습실일때
+                                        if(mList_myRmr.get(i-1).RMR_04ED.equals(mList_myRmr.get(i).RMR_04ST)){ //시간이 연달아일때
+                                            mList_myRmr.get(i-1).RMR_04ED = mList_myRmr.get(i).RMR_04ED;
+                                            mList_myRmr.remove(i);
+                                            i--;
+                                        }
+                                    }
+                                }
+                            }
+
+                            mAdapter_myRmr.updateData(mList_myRmr);
+                            mAdapter_myRmr.notifyDataSetChanged();
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<RMRModel> call, Throwable t){
+                Log.d("RMD_SELECT", t.getMessage());
+//                closeLoadingBar();
+            }
+        });
+    }
+
     private void goRmdNew(){
         Intent intent = new Intent(mContext, RmdDetail.class);
         intent.putExtra("scancode", scancode);
@@ -566,6 +648,36 @@ public class RmdMain extends BaseActivity {
         dialog.show();
     }
 
+    private void myReserveDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        LayoutInflater inflater = getLayoutInflater();
+        View view = inflater.inflate(R.layout.dialog_rmm_my_reserve, null);
+        builder.setView(view);
+
+        BaseHeader nameHeader = view.findViewById(R.id.header);
+        nameHeader.btnHeaderRight1.setImageResource(R.drawable.btn_cancel_gray);
+        nameHeader.btnHeaderRight1.setVisibility(View.VISIBLE);
+        RecyclerView recyclerView_myRmr = (RecyclerView) view.findViewById(R.id.recyclerView_myRmr);
+        mList_myRmr = new ArrayList<>();
+        LinearLayoutManager linearLayoutManager_myRmr = new LinearLayoutManager(mContext);
+        recyclerView_myRmr.setLayoutManager(linearLayoutManager_myRmr);
+        mAdapter_myRmr = new myRmrRecycleAdapter(mContext, mList_myRmr);
+        recyclerView_myRmr.setAdapter(mAdapter_myRmr);
+
+        requestRMR_SELECT("MYLIST", intentVO.CTN_02, intentVO.CTD_01, mUser.Value.OCM_01);
+
+        AlertDialog dialog = builder.create();
+
+        nameHeader.btnHeaderRight1.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
+    }
+
     private void setReserveDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
@@ -573,10 +685,10 @@ public class RmdMain extends BaseActivity {
         builder.setView(view);
 
 //        Spinner spTimeGub = (Spinner) view.findViewById(R.id.spTimeGub);
-        ArrayList TimeGubList = new ArrayList();
-        TimeGubList.add(mContext.getString(R.string.dialog_rmm_set_reserve_timegub_text1));
-        TimeGubList.add(mContext.getString(R.string.dialog_rmm_set_reserve_timegub_text2));
-        ArrayAdapter TimeGubAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_detail_item, TimeGubList);
+//        ArrayList TimeGubList = new ArrayList();
+//        TimeGubList.add(mContext.getString(R.string.dialog_rmm_set_reserve_timegub_text1));
+//        TimeGubList.add(mContext.getString(R.string.dialog_rmm_set_reserve_timegub_text2));
+//        ArrayAdapter TimeGubAdapter = new ArrayAdapter<>(getApplicationContext(), R.layout.spinner_detail_item, TimeGubList);
 //        spTimeGub.setAdapter(TimeGubAdapter);
 //        spTimeGub.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener(){
 //            @Override
@@ -609,7 +721,6 @@ public class RmdMain extends BaseActivity {
 
                 String RMM_03_tmp = fnTime(tpStartTime.getCurrentHour(), tpStartTime.getCurrentMinute());
                 String RMM_04_tmp = fnTime(tpEndTime.getCurrentHour(), tpEndTime.getCurrentMinute());
-//                Toast.makeText(mActivity, "RMM_02=" + RMM_02_tmp + "\nRMM_03=" + RMM_03_tmp + "\nRMM_04=" + RMM_04_tmp, Toast.LENGTH_SHORT).show();
                 requestRMM_CONTROL("UPDATE_TIME", RMM_02_tmp, RMM_03_tmp, RMM_04_tmp, "");
             }
         });
@@ -668,8 +779,8 @@ public class RmdMain extends BaseActivity {
                 RMR_04ST_FILTER = fnTime(tpFilterStartTime.getCurrentHour(), tpFilterStartTime.getCurrentMinute());
                 RMR_04ED_FILTER = fnTime(tpFilterEndTime.getCurrentHour(), tpFilterEndTime.getCurrentMinute());
                 setFilterText();
-                setAdapter();
-//                requestRMD_SELECT();
+//                setRmdAdapter();
+                requestRMD_SELECT("LIST", "");
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -710,7 +821,7 @@ public class RmdMain extends BaseActivity {
 
                 RmdRecycleAdapter.RMR_04_list.clear();
 
-                setAdapter();
+                setRmdAdapter();
 //                requestCAD_SELECT();
             }
         }, RMR_03_C.get(Calendar.YEAR), RMR_03_C.get(Calendar.MONTH), RMR_03_C.get(Calendar.DATE));
@@ -838,26 +949,6 @@ public class RmdMain extends BaseActivity {
         c.set(Calendar.SECOND, 0);
         c.set(Calendar.MILLISECOND, 0);
     }
-
-//    private String cDateFormat(Calendar c) {
-//        String yyyy = String.valueOf(c.get(Calendar.YEAR));
-//        String mm = "";
-//        String dd = "";
-//        if(c.get(Calendar.MONTH) < 10){
-//            mm = "0" + String.valueOf(c.get(Calendar.MONTH));
-//        }
-//        else{
-//            mm = String.valueOf(c.get(Calendar.MONTH));
-//        }
-//        if(c.get(Calendar.DATE) < 10){
-//            dd = "0" + String.valueOf(c.get(Calendar.DATE));
-//        }
-//        else{
-//            dd = String.valueOf(c.get(Calendar.DATE));
-//        }
-//
-//        return yyyy + "." + mm + "." + dd;
-//    }
 
     private String sDateFormat(String sDate) {
         String result = sDate.substring(0,4) + "." + sDate.substring(4,6) + "." + sDate.substring(6,8);

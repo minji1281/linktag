@@ -32,6 +32,7 @@ import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.RMD_VO;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -72,6 +73,7 @@ public class RmdDetail extends BaseActivity {
     private RMD_VO RMD;
     private String GUBUN;
     private String scanCode;
+    private String RMR_03 = "";
 
     Calendar RMR_03_C = Calendar.getInstance(); //예약일자
 
@@ -107,6 +109,8 @@ public class RmdDetail extends BaseActivity {
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
         clearCalTime(RMR_03_C);
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        RMR_03 = sdf.format(RMR_03_C.getTime());
 
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
         linearLayout = findViewById(R.id.linearLayout);
@@ -127,6 +131,7 @@ public class RmdDetail extends BaseActivity {
                 reserveDayDialog();
             }
         });
+        tvReserveDay.setText(sDateFormat(RMR_03));
         imgReserveDay = (ImageView) findViewById(R.id.imgReserveDay);
         imgReserveDay.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -323,14 +328,14 @@ public class RmdDetail extends BaseActivity {
             @Override
             public void onDateSet(DatePicker datePicker, int year, int month, int date) {
                 RMR_03_C.set(year, month, date);
-                String tmp = String.valueOf(year) + ".";
+                String tmp = String.valueOf(year);
 
                 month++;
                 if(month<10){
-                    tmp += "0" + String.valueOf(month) + ".";
+                    tmp += "0" + String.valueOf(month);
                 }
                 else{
-                    tmp += String.valueOf(month) + ".";
+                    tmp += String.valueOf(month);
                 }
 
                 if(date<10){
@@ -340,8 +345,8 @@ public class RmdDetail extends BaseActivity {
                     tmp += String.valueOf(date);
                 }
 
-                tvReserveDay.setText(tmp);
-
+                RMR_03 = tmp;
+                tvReserveDay.setText(sDateFormat(RMR_03));
             }
         }, RMR_03_C.get(Calendar.YEAR), RMR_03_C.get(Calendar.MONTH), RMR_03_C.get(Calendar.DATE));
 
@@ -453,6 +458,12 @@ public class RmdDetail extends BaseActivity {
                 Toast.makeText(mContext, R.string.common_exception, Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    private String sDateFormat(String sDate) {
+        String result = sDate.substring(0,4) + "." + sDate.substring(4,6) + "." + sDate.substring(6,8);
+
+        return result;
     }
 
 }

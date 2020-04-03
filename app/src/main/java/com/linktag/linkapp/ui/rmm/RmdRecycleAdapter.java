@@ -143,16 +143,16 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
             });
         }
 
-        viewHolder.mList_RMR = new ArrayList<>();
-//        viewHolder.mList_RMR_tmp = new ArrayList<>();
-        viewHolder.linearLayoutManager_RMR = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
-        viewHolder.recyclerView_RMR.setLayoutManager(viewHolder.linearLayoutManager_RMR);
-        viewHolder.mAdapter_RMR = new RmrRecycleAdapter(mContext, viewHolder.mList_RMR);
-        viewHolder.recyclerView_RMR.setAdapter(viewHolder.mAdapter_RMR);
-//
-////        viewHolder.recyclerView_RMR.getRecycledViewPool().setMaxRecycledViews(0, 0);
-//
         requestRMR_SELECT(viewHolder, mList, position);
+
+        viewHolder.mList_RMR = new ArrayList<>();
+        viewHolder.linearLayoutManager_RMR = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+        viewHolder.mAdapter_RMR = new RmrRecycleAdapter(mContext, viewHolder.mList_RMR);
+
+        viewHolder.recyclerView_RMR.setLayoutManager(viewHolder.linearLayoutManager_RMR);
+        viewHolder.recyclerView_RMR.setAdapter(viewHolder.mAdapter_RMR);
+
+
 
     }
 
@@ -225,13 +225,31 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
                             time_c_ed.set(Calendar.SECOND, 0);
                             time_c_ed.set(Calendar.MILLISECOND, 0);
 
+//                            viewHolder.mList_RMR_tmp.clear();
                             viewHolder.mList_RMR.clear();
-                            while(!time_c.equals(time_c_ed)){
+//                            viewHolder.mAdapter_RMR.notifyDataSetChanged();
+                            while(time_c.compareTo(time_c_ed) < 0){
                                 String time_s = (time_c.get(Calendar.HOUR_OF_DAY)<10 ? "0" + String.valueOf(time_c.get(Calendar.HOUR_OF_DAY)) : String.valueOf(time_c.get(Calendar.HOUR_OF_DAY))) + (time_c.get(Calendar.MINUTE)<10 ? "0" + String.valueOf(time_c.get(Calendar.MINUTE)) : String.valueOf(time_c.get(Calendar.MINUTE)));
-                                if(response.body().Data.size() > 0 && time_s.equals(response.body().Data.get(i).RMR_04)){
-                                    viewHolder.mList_RMR.add(response.body().Data.get(i));
-                                    if(i < response.body().Data.size() - 1){
-                                        i++;
+                                if(response.body().Data.size() > 0){
+                                    if(time_s.equals(response.body().Data.get(i).RMR_04)){
+                                        response.body().Data.get(i).boolChange = false;
+                                        viewHolder.mList_RMR.add(response.body().Data.get(i));
+//                                    viewHolder.mAdapter_RMR.notifyDataSetChanged();
+                                        if(i < response.body().Data.size() - 1){
+                                            i++;
+                                        }
+                                    }
+                                    else{
+                                        RMR_VO RMR_tmp = new RMR_VO();
+                                        RMR_tmp.RMR_ID = RMR_ID;
+                                        RMR_tmp.RMR_01 = RMR_01;
+                                        RMR_tmp.RMR_02 = RMR_02;
+                                        RMR_tmp.RMR_03 = RMR_03;
+                                        RMR_tmp.RMR_04 = time_s;
+                                        RMR_tmp.RMR_05 = "";
+                                        RMR_tmp.RMR_05_NM = "";
+                                        RMR_tmp.boolChange = false;
+                                        viewHolder.mList_RMR.add(RMR_tmp);
                                     }
                                 }
                                 else{
@@ -243,16 +261,17 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
                                     RMR_tmp.RMR_04 = time_s;
                                     RMR_tmp.RMR_05 = "";
                                     RMR_tmp.RMR_05_NM = "";
+                                    RMR_tmp.boolChange = false;
                                     viewHolder.mList_RMR.add(RMR_tmp);
+//                                    viewHolder.mAdapter_RMR.notifyDataSetChanged();
                                 }
 
                                 time_c.add(Calendar.MINUTE, 30); //30분 고정
                             }
 
+
                             viewHolder.mAdapter_RMR.updateData(viewHolder.mList_RMR);
                             viewHolder.mAdapter_RMR.notifyDataSetChanged();
-//                            viewHolder.recyclerView_RMR.getRecycledViewPool().setMaxRecycledViews(0, 0);
-
                         }
                     }
                 }.sendMessage(msg);
@@ -307,15 +326,10 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
                         if(msg.what == 100){
 //                            closeLoadingBar();
 
-//                            if(GUB.equals("INSERT")){
-//                                CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, RMD.RMD_02);
-//                                ctds_control.requestCTDS_CONTROL();
-//                            }
-
                             Response<RMRModel> response = (Response<RMRModel>) msg.obj;
 
                             if(response.body().Data.size()==0){
-                                BaseAlert.show(RMR_04.substring(0,2) + ":" + RMR_04.substring(2) + " " + mContext.getString(R.string.rmm_list_reserve_fail));
+                                Toast.makeText(mContext, RMR_04.substring(0,2) + ":" + RMR_04.substring(2) + " " + mContext.getString(R.string.rmm_list_reserve_fail), Toast.LENGTH_SHORT).show();
                             }
                         }
                     }
@@ -346,7 +360,7 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
         LinearLayoutManager linearLayoutManager_RMR;
         RmrRecycleAdapter mAdapter_RMR;
         ArrayList<RMR_VO> mList_RMR;
-//        ArrayList<RMR_VO> mList_RMR_tmp;
+        ArrayList<RMR_VO> mList_RMR_tmp;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -356,6 +370,12 @@ public class RmdRecycleAdapter extends RecyclerView.Adapter<RmdRecycleAdapter.Vi
             tvEquip = itemView.findViewById(R.id.tvEquip);
 
             recyclerView_RMR = itemView.findViewById(R.id.recyclerView_RMR);
+
+//            mList_RMR = new ArrayList<>();
+//            linearLayoutManager_RMR = new LinearLayoutManager(mContext, LinearLayoutManager.HORIZONTAL, false);
+//            recyclerView_RMR.setLayoutManager(linearLayoutManager_RMR);
+//            mAdapter_RMR = new RmrRecycleAdapter(mContext, mList_RMR);
+//            recyclerView_RMR.setAdapter(mAdapter_RMR);
 
         }
     }

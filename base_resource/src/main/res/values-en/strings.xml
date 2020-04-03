@@ -457,5 +457,7 @@
     <string name="dialog_rmm_time_filter_gub1">All</string>
     <string name="dialog_rmm_time_filter_gub2">Available</string>
     <string name="rmm_list_reserve_fail">Reservation failure</string>
+    <string name="dialog_rmm_my_reserve_header_title">My Reservation</string>
+    <string name="dialog_rmm_my_reserve_today">Today</string>
 
 </resources>

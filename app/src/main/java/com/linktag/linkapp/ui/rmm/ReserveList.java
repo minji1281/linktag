@@ -27,4 +27,26 @@ public class ReserveList implements Comparable<ReserveList> {
         }
         return 0;
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (this.getCode().equals(((ReserveList) obj).getCode()) && (this.getTime()
+                .equals(((ReserveList) obj).getTime())));
+    }
+
+//    @Override
+//    public boolean equals(ReserveList reserveList) {
+//        if (reserveList == null) return false;
+//        if (reserveList == this) return true;
+//        if (!(reserveList instanceof ReserveList)) return false;
+//        ReserveList o = (ReserveList) reserveList;
+//
+//        boolean tmp = false;
+//        if(o.getCode() == this.getCode()){
+//            if(o.getTime() == this.getTime()){
+//                tmp = true;
+//            }
+//        }
+//        return tmp;
+//    }
 }

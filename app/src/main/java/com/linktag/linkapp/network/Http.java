@@ -1353,7 +1353,12 @@ public class Http extends HttpBaseService {
                 @Field(value = "GUBUN") String GUBUN,
                 @Field(value = "RMD_ID") String RMD_ID,
                 @Field(value = "RMD_01") String RMD_01,
-                @Field(value = "RMD_02") String RMD_02
+                @Field(value = "RMD_02") String RMD_02,
+                @Field(value = "LIST_GUB") String LIST_GUB,
+
+                @Field(value = "RMR_03") String RMR_03,
+                @Field(value = "RMR_04ST") String RMR_04ST,
+                @Field(value = "RMR_04ED") String RMR_04ED
         );
 
         @FormUrlEncoded

@@ -457,5 +457,7 @@
     <string name="dialog_rmm_time_filter_gub1">모두보기</string>
     <string name="dialog_rmm_time_filter_gub2">예약가능한 연습실만</string>
     <string name="rmm_list_reserve_fail">예약 실패</string>
+    <string name="dialog_rmm_my_reserve_header_title">나의 예약 정보</string>
+    <string name="dialog_rmm_my_reserve_today">오늘</string>
 
 </resources>
