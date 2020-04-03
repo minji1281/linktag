@@ -9,11 +9,6 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="1f1c9a51-c9a1-4e2a-a16f-3078d33a47ab" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/model/DCMModel.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/value_object/DcmVO.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/dam_icon_7.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/dam_icon_8.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/dam_icon_9.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.1.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -109,18 +104,26 @@
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__de_hdodenhof_circleimageview_2_2_0_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__de_hdodenhof_circleimageview_2_2_0_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Gradle__org_altbeacon_android_beacon_library_2_16_3_aar.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Gradle__org_altbeacon_android_beacon_library_2_16_3_aar.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/network/BaseConst.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/network/BaseConst.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/network/Http.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/network/Http.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamDetail.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamIconDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamIconDetail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamMain.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamUserIconRecycleAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamUserIconRecycleAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmRecycleAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmRecycleAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcdHwRecycleAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcdHwRecycleAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcdSwRecycleAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcdSwRecycleAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcmDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcmDetail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfmDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfmDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfdDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfdDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfdRecycleAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfdRecycleAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/settings_profile/ProfileMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/settings_profile/ProfileMain.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrdRecycleAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrdRecycleAdapter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpDetail.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpMain.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpMain.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/vac/VacDetail.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/vac/VacDetail.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpRecycleAdapter.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpRecycleAdapter.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/value_object/DcmVO.java" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/value_object/DcmVO.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_dam.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_dam.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfm.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfm.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base/src/main/java/com/linktag/base/util/ClsBitmap.java" beforeDir="false" afterPath="$PROJECT_DIR$/base/src/main/java/com/linktag/base/util/ClsBitmap.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base_resource/src/main/res/values-en/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/base_resource/src/main/res/values-en/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base_resource/src/main/res/values-ko/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/base_resource/src/main/res/values-ko/strings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/base_resource/src/main/res/values/strings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/base_resource/src/main/res/values/strings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/local.properties" beforeDir="false" afterPath="$PROJECT_DIR$/local.properties" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -136,30 +139,30 @@
     <window id="2">
       <content type="file-editors">
         <state>
-          <leaf>
+          <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
             <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/settings_profile/ProfileMain.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="460">
-                    <caret line="448" selection-start-line="448" selection-end-line="448" />
+                  <state relative-caret-position="2312">
+                    <caret line="199" column="28" selection-start-line="199" selection-start-column="28" selection-end-line="199" selection-end-column="28" />
+                  </state>
+                </provider>
+              </entry>
+            </file>
+            <file pinned="false" current-in-tab="false">
+              <entry file="file://$PROJECT_DIR$/base/src/main/java/com/linktag/base/base_activity/BaseActivity.java">
+                <provider selected="true" editor-type-id="text-editor">
+                  <state relative-caret-position="867">
+                    <caret line="67" column="7" selection-start-line="67" selection-start-column="7" selection-end-line="67" selection-end-column="7" />
                   </state>
                 </provider>
               </entry>
             </file>
             <file pinned="false" current-in-tab="true">
-              <entry file="file://$PROJECT_DIR$/base/src/main/java/com/linktag/base/base_activity/BaseActivity.java">
-                <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="386">
-                    <caret line="72" column="34" selection-start-line="72" selection-start-column="34" selection-end-line="72" selection-end-column="34" />
-                  </state>
-                </provider>
-              </entry>
-            </file>
-            <file pinned="false" current-in-tab="false">
               <entry file="file://$PROJECT_DIR$/base/src/main/java/com/linktag/base/util/ClsBitmap.java">
                 <provider selected="true" editor-type-id="text-editor">
-                  <state relative-caret-position="493">
-                    <caret line="45" column="5" selection-start-line="45" selection-start-column="5" selection-end-line="45" selection-end-column="5" />
+                  <state relative-caret-position="17">
+                    <caret line="65" column="60" selection-start-line="65" selection-start-column="60" selection-end-line="65" selection-end-column="60" />
                   </state>
                 </provider>
               </entry>
@@ -169,7 +172,7 @@
       </content>
     </window>
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Pixel_2_API_28" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="284bedc9d31c7ece" />
   <component name="ExternalProjectsData">
     <projectState path="$PROJECT_DIR$">
       <ProjectState />
@@ -187,19 +190,110 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpDetail.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="318">
-              <caret line="586" column="87" selection-start-line="586" selection-start-column="87" selection-end-line="586" selection-end-column="87" />
+            <state relative-caret-position="310">
+              <caret line="798" column="46" selection-start-line="798" selection-start-column="46" selection-end-line="798" selection-end-column="46" />
+              <folding>
+                <element signature="e#21252#21877#0" expanded="true" />
+                <element signature="e#21876#21877#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_trp2.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="235">
+              <caret line="154" column="47" selection-start-line="154" selection-start-column="41" selection-end-line="154" selection-end-column="47" />
+            </state>
+          </provider>
+          <provider editor-type-id="android-designer2" />
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcmDetail.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="352">
+              <caret line="115" column="44" selection-start-line="115" selection-start-column="44" selection-end-line="115" selection-end-column="44" />
               <folding>
                 <element signature="imports" expanded="true" />
-                <element signature="e#13320#13321#0" expanded="true" />
-                <element signature="e#13374#13375#0" expanded="true" />
-                <element signature="e#20162#20163#0" expanded="true" />
-                <element signature="e#20210#20211#0" expanded="true" />
-                <element signature="e#21750#21779#0" expanded="true" />
+                <element signature="e#2547#2563#0" expanded="true" />
+                <element signature="e#2623#2639#0" expanded="true" />
+                <element signature="e#3980#3981#0" expanded="true" />
+                <element signature="e#4025#4026#0" expanded="true" />
+                <element signature="e#9403#9443#0" expanded="true" />
+                <element signature="e#12702#12710#0" expanded="true" />
+                <element signature="e#13277#13285#0" expanded="true" />
+                <element signature="e#21805#21806#0" expanded="true" />
+                <element signature="e#21859#21860#0" expanded="true" />
+                <element signature="e#23006#23007#0" expanded="true" />
+                <element signature="e#23054#23055#0" expanded="true" />
+                <element signature="e#25416#25448#0" expanded="true" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpMain.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="460">
+              <caret line="240" column="67" selection-start-line="240" selection-start-column="67" selection-end-line="240" selection-end-column="67" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpRecycleAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="408">
+              <caret line="129" column="111" selection-start-line="129" selection-start-column="111" selection-end-line="129" selection-end-column="111" />
+              <folding>
+                <element signature="e#17300#17338#0" expanded="true" />
+                <element signature="e#17392#17430#0" expanded="true" />
+                <element signature="e#17609#17647#0" expanded="true" />
+                <element signature="e#17700#17738#0" expanded="true" />
+                <element signature="e#17917#17955#0" expanded="true" />
+                <element signature="e#18008#18046#0" expanded="true" />
+                <element signature="e#18226#18264#0" expanded="true" />
+                <element signature="e#18318#18356#0" expanded="true" />
+                <element signature="e#18535#18573#0" expanded="true" />
+                <element signature="e#18627#18665#0" expanded="true" />
+                <element signature="e#18844#18882#0" expanded="true" />
+                <element signature="e#18936#18974#0" expanded="true" />
+                <element signature="e#19153#19191#0" expanded="true" />
+                <element signature="e#19245#19283#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values/strings_array.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="198">
+              <caret line="151" column="24" selection-start-line="151" selection-start-column="24" selection-end-line="151" selection-end-column="24" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/android/os/Looper.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="206">
+              <caret line="241" selection-start-line="241" selection-end-line="241" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcdHwRecycleAdapter.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-68">
+              <caret line="109" selection-start-line="109" selection-end-line="109" />
             </state>
           </provider>
         </entry>
@@ -207,150 +301,22 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmDetail.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="572">
-              <caret line="419" column="17" selection-start-line="406" selection-start-column="15" selection-end-line="419" selection-end-column="17" />
-              <folding>
-                <element signature="e#19253#19254#0" expanded="true" />
-                <element signature="e#19331#19332#0" expanded="true" />
-                <element signature="e#21839#21840#0" expanded="true" />
-                <element signature="e#21887#21888#0" expanded="true" />
-                <element signature="e#23714#23763#0" expanded="true" />
-                <element signature="e#24945#24974#0" expanded="true" />
-                <element signature="e#25287#25312#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="30">
+              <caret line="162" column="29" selection-start-line="162" selection-start-column="29" selection-end-line="162" selection-end-column="29" />
             </state>
           </provider>
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcmDetail.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-600">
-              <caret line="407" column="52" selection-start-line="407" selection-start-column="52" selection-end-line="407" selection-end-column="52" />
-              <folding>
-                <element signature="imports" expanded="true" />
-                <element signature="e#2547#2563#0" expanded="true" />
-                <element signature="e#2623#2639#0" expanded="true" />
-                <element signature="e#3980#3981#0" expanded="true" />
-                <element signature="e#4025#4026#0" expanded="true" />
-                <element signature="e#4186#4226#0" expanded="true" />
-                <element signature="e#4908#6205#0" expanded="true" />
-                <element signature="e#6204#6205#0" expanded="true" />
-                <element signature="e#6619#6668#0" expanded="true" />
-                <element signature="e#7398#9031#0" expanded="true" />
-                <element signature="e#8195#8224#0" expanded="true" />
-                <element signature="e#8253#8282#0" expanded="true" />
-                <element signature="e#8845#8874#0" expanded="true" />
-                <element signature="e#8902#8931#0" expanded="true" />
-                <element signature="e#9030#9031#0" expanded="true" />
-                <element signature="e#9403#9443#0" expanded="true" />
-                <element signature="e#10729#10758#0" expanded="true" />
-                <element signature="e#10936#10965#0" expanded="true" />
-                <element signature="e#12702#12710#0" expanded="true" />
-                <element signature="e#13277#13285#0" expanded="true" />
-                <element signature="e#15628#15657#0" expanded="true" />
-                <element signature="e#16485#16514#0" expanded="true" />
-                <element signature="e#18122#18151#0" expanded="true" />
-                <element signature="e#18408#18445#0" expanded="true" />
-                <element signature="e#20111#20112#0" expanded="true" />
-                <element signature="e#20165#20166#0" expanded="true" />
-                <element signature="e#21088#21144#0" expanded="true" />
-                <element signature="e#21324#21325#0" expanded="true" />
-                <element signature="e#21372#21373#0" expanded="true" />
-                <element signature="e#21681#21730#0" expanded="true" />
-                <element signature="e#22415#23042#0" expanded="true" />
-                <element signature="e#22912#22944#0" expanded="true" />
-                <element signature="e#23041#23042#0" expanded="true" />
-                <element signature="e#23257#23282#0" expanded="true" />
-                <element signature="e#23529#23584#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfmDetail.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="476">
-              <caret line="226" column="17" selection-start-line="214" selection-start-column="16" selection-end-line="226" selection-end-column="17" />
-              <folding>
-                <element signature="e#4002#4051#0" expanded="true" />
-                <element signature="e#5488#5513#0" expanded="true" />
-                <element signature="e#8640#8641#0" expanded="true" />
-                <element signature="e#8710#8711#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/vac/VacDetail.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="686">
-              <caret line="485" column="50" selection-start-line="485" selection-start-column="50" selection-end-line="485" selection-end-column="50" />
-              <folding>
-                <element signature="e#8992#8993#0" expanded="true" />
-                <element signature="e#9046#9047#0" expanded="true" />
-                <element signature="e#19209#19210#0" expanded="true" />
-                <element signature="e#19257#19258#0" expanded="true" />
-                <element signature="e#19567#19616#0" expanded="true" />
-                <element signature="e#20862#20891#0" expanded="true" />
-                <element signature="e#21204#21229#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamDetail.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="385">
-              <caret line="310" lean-forward="true" selection-start-line="310" selection-end-line="310" />
-              <folding>
-                <element signature="e#21088#21089#0" expanded="true" />
-                <element signature="e#21136#21137#0" expanded="true" />
-                <element signature="e#21445#21494#0" expanded="true" />
-                <element signature="e#22931#22956#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamMain.java">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrdRecycleAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="255">
-              <caret line="233" column="19" selection-start-line="233" selection-start-column="19" selection-end-line="233" selection-end-column="19" />
+              <caret line="59" selection-start-line="59" selection-end-line="59" />
               <folding>
-                <element signature="imports" expanded="true" />
+                <element signature="e#3972#4017#0" expanded="true" />
+                <element signature="e#8732#8733#0" expanded="true" />
+                <element signature="e#8760#8761#0" expanded="true" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values/strings.xml">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="257">
-              <caret line="437" column="18" selection-start-line="437" selection-start-column="18" selection-end-line="437" selection-end-column="18" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcmMain.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1105">
-              <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmMain.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="495">
-              <caret line="265" column="61" selection-start-line="265" selection-start-column="53" selection-end-line="265" selection-end-column="61" />
             </state>
           </provider>
         </entry>
@@ -366,36 +332,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>ARM_SELECT</find>
-      <find>CAL_LIST</find>
-      <find>requestTRP_SELECT</find>
-      <find>DETAIL_CDS</find>
-      <find>run()</find>
-      <find>1111111111111111 :</find>
-      <find>!!!!!!!!!!!!!! :</find>
-      <find>CHOOSE_TYPE_SCAN</find>
-      <find>@@@@@@@@@@@@@@@ :</find>
-      <find>System</find>
-      <find>recyclerView_TRD</find>
-      <find>linearLayoutManager_TRD</find>
-      <find>CTM_04</find>
-      <find>INSERt</find>
-      <find>INSERT</find>
-      <find>CDS_</find>
-      <find>CONTROL</find>
-      <find>TRP</find>
-      <find>CTM_19</find>
-      <find>TRP_CONTROL</find>
-      <find>tempFile</find>
-      <find>PCM_CONTROL</find>
-      <find>scanCode</find>
-      <find>tv_manageDay</find>
-      <find>requestLOG_CONTROL</find>
-      <find>requestCDS_CONTROL</find>
-      <find>신규등록</find>
+      <find>DAM</find>
+      <find>isChangeImg</find>
+      <find>storage</find>
+      <find>storageRef</find>
+      <find>mList</find>
+      <find>addShare</find>
+      <find>uploadFile</find>
+      <find>ed_name</find>
+      <find>startCountAnimation</find>
+      <find>nextDay</find>
+      <find>jdm</find>
+      <find>imageView_check</find>
+      <find>tv_D_day</find>
+      <find>save</find>
+      <find>PCD_CONT</find>
+      <find>TRD_CON</find>
       <find>save.</find>
-      <find>scancode</find>
-      <find>requestDAM_SELECT</find>
+      <find>btn_a</find>
+      <find>requestTRD_SELECT</find>
+      <find>bt</find>
+      <find>calendar</find>
+      <find>array_pattern</find>
+      <find>requestTRD_SELECT();</find>
+      <find>recyclerView_TRD</find>
+      <find>formatTime</find>
+      <find>str_weeks_text</find>
+      <find>checkDayOfWeek</find>
+      <find>btn_arl</find>
+      <find>btn_addAlarm</find>
+      <find>requestTRD_CONTROL</find>
     </findStrings>
     <replaceStrings>
       <replace>DCM</replace>
@@ -413,20 +379,7 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/AddService.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/main/HomeFragment.java" />
-        <option value="$PROJECT_DIR$/base/src/main/java/com/linktag/base/util/ClsBitmap.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/AddSharedDetail.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/SharedAdapter.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/MemberInvite.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/Member.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JDMMain.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TRPMain.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PCMMain.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RFMMain.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/vac/VACMain.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/main/BookmarkAdapter.java" />
-        <option value="$PROJECT_DIR$/base_resource/src/main/res/values/strings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/value_object/ARM_VO.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/calendar/CalendarAdapter.java" />
@@ -437,13 +390,10 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/SharedFragment.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/ChooseOne.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listitem_dam_icon_list.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_dam.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamRecycleAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listitem_dam_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamIconRecycleAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/listitem_dam_user_icon_list.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamIconDetail.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamUserIconRecycleAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_dam_icon.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/CDS_CONTROL.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcmMain.java" />
@@ -456,18 +406,35 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rmm/RmdMain.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmMain.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpMain.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpDetail.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmDetail.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcmDetail.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/vac/VacDetail.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfmDetail.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamDetail.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamMain.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_dam.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/settings_profile/ProfileMain.java" />
+        <option value="$PROJECT_DIR$/base/src/main/java/com/linktag/base/util/ClsBitmap.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/value_object/DcmVO.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamIconDetail.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamUserIconRecycleAdapter.java" />
+        <option value="$PROJECT_DIR$/base_resource/src/main/res/values/strings.xml" />
+        <option value="$PROJECT_DIR$/base_resource/src/main/res/values-ko/strings.xml" />
+        <option value="$PROJECT_DIR$/base_resource/src/main/res/values-en/strings.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmRecycleAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfm.xml" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfdRecycleAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfdDetail.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcdHwRecycleAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcdSwRecycleAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrdRecycleAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcmDetail.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmDetail.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpRecycleAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpDetail.java" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1912" />
+    <option name="x" value="-8" />
     <option name="y" value="-8" />
     <option name="width" value="1936" />
     <option name="height" value="1096" />
@@ -482,6 +449,108 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="AndroidView">
+        <subPane>
+          <expand>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="jdm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="pcm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="rfm" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="app" type="feadf853:AndroidModuleNode" />
+              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
+              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
+              <item name="ui" type="462c0819:PsiDirectoryNode" />
+              <item name="trp" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="base_resource" type="feadf853:AndroidModuleNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="base_resource" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="base_resource" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="base_resource" type="feadf853:AndroidModuleNode" />
+              <item name="res" type="d4f16f75:AndroidResFolderNode" />
+              <item name="values" type="ddeffd01:AndroidResFolderTypeNode" />
+              <item name="strings" type="c431d0b8:AndroidResGroupNode" />
+            </path>
+            <path>
+              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
+              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
+      <pane id="PackagesPane">
+        <subPane>
+          <expand>
+            <path>
+              <item name="linktag" type="58d84e3e:PackageViewProjectNode" />
+              <item name="app" type="616d4139:PackageViewModuleNode" />
+            </path>
+            <path>
+              <item name="linktag" type="58d84e3e:PackageViewProjectNode" />
+              <item name="base" type="616d4139:PackageViewModuleNode" />
+            </path>
+          </expand>
+          <select />
+        </subPane>
+      </pane>
       <pane id="Scope">
         <subPane subId="Scope 'Problems'; set:Problems; class com.intellij.psi.search.scope.ProblemsScope">
           <expand>
@@ -593,142 +662,6 @@
               <item name="linktag" type="3d21c010:ScopeViewTreeModel$ProjectNode" />
               <item name="C:\Android\linktag" type="442cc68d:ScopeViewTreeModel$RootNode" />
               <item name="base_resource" type="9f88c78c:ScopeViewTreeModel$FileNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="PackagesPane">
-        <subPane>
-          <expand>
-            <path>
-              <item name="linktag" type="58d84e3e:PackageViewProjectNode" />
-              <item name="app" type="616d4139:PackageViewModuleNode" />
-            </path>
-            <path>
-              <item name="linktag" type="58d84e3e:PackageViewProjectNode" />
-              <item name="base" type="616d4139:PackageViewModuleNode" />
-            </path>
-          </expand>
-          <select />
-        </subPane>
-      </pane>
-      <pane id="AndroidView">
-        <subPane>
-          <expand>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="network" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="dam" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="jdm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="pcm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="rfm" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="trp" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="ui" type="462c0819:PsiDirectoryNode" />
-              <item name="vac" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="linkapp" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="Utils" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="base" type="cbb59c9e:AndroidPsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base" type="feadf853:AndroidModuleNode" />
-              <item name="java" type="edd41e36:AndroidSourceTypeNode" />
-              <item name="base" type="cbb59c9e:AndroidPsiDirectoryNode" />
-              <item name="util" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="base_resource" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="linktag" type="1abcf292:AndroidViewProjectNode" />
-              <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
             </path>
           </expand>
           <select />
@@ -922,7 +855,7 @@
   </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="aa3c53df-bc95-4b7d-9e2f-bea3f9802aaf" name="Default Changelist" comment="" />
+      <changelist id="1f1c9a51-c9a1-4e2a-a16f-3078d33a47ab" name="Default Changelist" comment="" />
       <created>1583909435798</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
@@ -1061,7 +994,14 @@
       <option name="project" value="LOCAL" />
       <updated>1585789394184</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="장독,냉장고,복약,PC 스캔 수정">
+      <created>1585805505824</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1585805505824</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -1077,8 +1017,8 @@
       <window_info id="Image Layers" order="6" />
       <window_info id="Resources Explorer" order="7" />
       <window_info id="Structure" order="8" side_tool="true" />
-      <window_info anchor="bottom" id="Build" order="0" weight="0.24091381" />
-      <window_info anchor="bottom" id="Run" order="1" visible="true" weight="0.32917964" />
+      <window_info active="true" anchor="bottom" id="Build" order="0" visible="true" weight="0.24091381" />
+      <window_info anchor="bottom" id="Run" order="1" weight="0.32917964" />
       <window_info anchor="bottom" id="Android Profiler" order="2" />
       <window_info anchor="bottom" id="Event Log" order="3" side_tool="true" />
       <window_info anchor="bottom" id="TODO" order="4" />
@@ -1091,9 +1031,9 @@
       <window_info anchor="right" id="Palette&#9;" order="0" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" weight="0.32995737" />
-      <window_info anchor="right" id="Device File Explorer" order="3" side_tool="true" weight="0.3022388" />
+      <window_info anchor="right" id="Device File Explorer" order="3" sideWeight="0.500684" side_tool="true" weight="0.32995737" />
       <window_info anchor="right" id="Theme Preview" order="4" />
-      <window_info anchor="right" id="Preview" order="5" visible="true" weight="0.32995737" />
+      <window_info anchor="right" id="Preview" order="5" sideWeight="0.499316" weight="0.32995737" />
     </layout>
     <layout-to-restore>
       <window_info id="Designer" order="0" />
@@ -1185,7 +1125,8 @@
     <MESSAGE value="메인화면 리스트 오류 수정 및 ui 수정" />
     <MESSAGE value="에러 수정" />
     <MESSAGE value="스캔 수정" />
-    <option name="LAST_COMMIT_MESSAGE" value="스캔 수정" />
+    <MESSAGE value="장독,냉장고,복약,PC 스캔 수정" />
+    <option name="LAST_COMMIT_MESSAGE" value="장독,냉장고,복약,PC 스캔 수정" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1198,356 +1139,261 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pot/PotDetail.java</url>
-          <line>213</line>
+          <line>216</line>
           <properties />
           <option name="timeStamp" value="2" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamRecycleAdapter.java</url>
-          <line>114</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamIconDetail.java</url>
+          <line>310</line>
           <properties />
-          <option name="timeStamp" value="7" />
+          <option name="timeStamp" value="17" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamIconRecycleAdapter.java</url>
-          <line>49</line>
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamIconDetail.java</url>
+          <line>293</line>
           <properties />
-          <option name="timeStamp" value="8" />
+          <option name="timeStamp" value="18" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmDetail.java</url>
+          <line>284</line>
+          <properties />
+          <option name="timeStamp" value="19" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpRecycleAdapter.java</url>
+          <line>422</line>
+          <properties />
+          <option name="timeStamp" value="21" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/../Sdk/sources/android-28/java/util/ArrayList.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/value_object/ARM_VO.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="159">
-          <caret line="17" column="42" lean-forward="true" selection-start-line="17" selection-start-column="42" selection-end-line="17" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/main/CalendarFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="314" lean-forward="true" selection-start-line="314" selection-end-line="314" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/calendar/CalendarAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="453">
-          <caret line="89" lean-forward="true" selection-start-line="89" selection-end-line="89" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/CDS_CONTROL.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="140">
-          <caret line="93" column="20" lean-forward="true" selection-start-line="93" selection-start-column="20" selection-end-line="93" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/SharedFragment.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-46">
-          <caret line="201" selection-start-line="201" selection-end-line="201" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/ChooseOne.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="258">
-          <caret line="110" column="38" lean-forward="true" selection-start-line="110" selection-start-column="38" selection-end-line="110" selection-end-column="38" />
-          <folding>
-            <element signature="e#3876#3877#0" expanded="true" />
-            <element signature="e#3908#3909#0" expanded="true" />
-            <element signature="e#4780#4781#0" expanded="true" />
-            <element signature="e#4826#4827#0" expanded="true" />
-            <element signature="e#4875#4876#0" expanded="true" />
-            <element signature="e#4899#4900#0" expanded="true" />
-            <element signature="e#4934#4935#0" expanded="true" />
-            <element signature="e#4958#4959#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/scanner/ScanBarcode.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="418">
-          <caret line="25" lean-forward="true" selection-start-line="25" selection-end-line="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/scanner/ScanResult.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="444">
-          <caret line="137" column="24" lean-forward="true" selection-start-line="137" selection-start-column="24" selection-end-line="137" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/ChangeActivityCls.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="216">
-          <caret line="61" lean-forward="true" selection-start-line="61" selection-end-line="61" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/work_place_search/FindWorkPlaceAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="352">
-          <caret line="44" column="69" selection-start-line="44" selection-start-column="69" selection-end-line="44" selection-end-column="69" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/AddServiceAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-39">
-          <caret line="45" column="54" selection-start-line="45" selection-start-column="43" selection-end-line="45" selection-end-column="54" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/android/content/res/Resources.java" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/griditem_add_service.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="289">
-          <caret line="17" column="24" selection-start-line="17" selection-start-column="24" selection-end-line="17" selection-end-column="24" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrdRecycleAdapter_horizontal.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="391">
-          <caret line="51" column="62" selection-start-line="51" selection-start-column="62" selection-end-line="51" selection-end-column="62" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listitem_trd_list_horizontal.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpRecycleAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-2703">
-          <caret line="138" column="27" selection-start-line="138" selection-start-column="27" selection-end-line="138" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/vac/VamRecycleAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="103" column="16" selection-start-line="103" selection-start-column="16" selection-end-line="103" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/drawable/shape_round.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" column="29" selection-start-line="6" selection-start-column="29" selection-end-line="6" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/main_profile_no_image.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_dam.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="47" column="72" lean-forward="true" selection-start-line="47" selection-start-column="72" selection-end-line="47" selection-end-column="72" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/alarm/AlarmDialog.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="22" column="11" selection-start-line="22" selection-start-column="11" selection-end-line="22" selection-end-column="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamRecycleAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="104" column="51" selection-start-line="104" selection-start-column="51" selection-end-line="104" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listitem_dam_list.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="207">
-          <caret line="21" lean-forward="true" selection-start-line="21" selection-end-line="21" />
+        <state relative-caret-position="269">
+          <caret line="350" column="56" selection-start-line="350" selection-start-column="56" selection-end-line="350" selection-end-column="56" />
         </state>
       </provider>
       <provider editor-type-id="android-designer2" />
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamIconRecycleAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="79">
-          <caret line="38" lean-forward="true" selection-start-line="38" selection-end-line="38" />
+        <state relative-caret-position="361">
+          <caret line="63" lean-forward="true" selection-start-line="63" selection-end-line="63" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_dam_user_icon.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listitem_dam_icon_list.xml">
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/android/app/Activity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="54" selection-start-line="21" selection-start-column="54" selection-end-line="21" selection-end-column="54" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/listitem_dam_user_icon_list.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="19" column="43" selection-start-line="19" selection-start-column="43" selection-end-line="19" selection-end-column="43" />
-        </state>
-      </provider>
-      <provider editor-type-id="android-designer2" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamUserIconRecycleAdapter.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-730">
-          <caret line="102" selection-start-line="102" selection-end-line="102" />
+        <state relative-caret-position="206">
+          <caret line="8291" selection-start-line="8291" selection-end-line="8291" />
           <folding>
-            <element signature="e#3712#3738#0" expanded="true" />
-            <element signature="e#3758#3780#0" expanded="true" />
+            <element signature="e#352039#352040#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/linktag/base/util/ImageResizeUtils.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="26" column="33" lean-forward="true" selection-start-line="26" selection-start-column="33" selection-end-line="26" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ed4844ada85155477dbcb86659be3b1/jars/classes.jar!/com/google/firebase/storage/DeleteStorageTask.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="30" column="5" lean-forward="true" selection-start-line="30" selection-start-column="5" selection-end-line="30" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/samsung-sm_n960n-284bedc9d31c7ece/sdcard/Android/data/com.linktag.linkapp/files/linktag/20200309_5624_3330352249743151390.jpg" />
+    <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/samsung-sm_n960n-284bedc9d31c7ece/sdcard/Android/data/com.linktag.linkapp/files/linktag/20200310_2120_5768518108004761565.jpg" />
+    <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/samsung-sm_n960n-284bedc9d31c7ece/sdcard/Android/data/com.linktag.linkapp/files/linktag/20200310_2354_4811281071381698015.jpg" />
+    <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/samsung-sm_n960n-284bedc9d31c7ece/sdcard/Android/data/com.linktag.linkapp/files/linktag/20200410_4241_956731555119140247.png" />
+    <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/samsung-sm_n960n-284bedc9d31c7ece/sdcard/Android/data/com.linktag.linkapp/files/linktag/20200415_5358_3630127922011791370.png" />
+    <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/samsung-sm_n960n-284bedc9d31c7ece/sdcard/Android/data/com.linktag.linkapp/files/linktag/20200416_1746_6781203225899203456.png" />
+    <entry file="file://$USER_HOME$/Documents/AndroidStudio/DeviceExplorer/samsung-sm_n960n-284bedc9d31c7ece/sdcard/Android/data/com.linktag.linkapp/files/linktag/20200416_2339_868074317863333583.jpg" />
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ed4844ada85155477dbcb86659be3b1/jars/classes.jar!/com/google/firebase/storage/UploadTask.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-3808">
+          <caret line="38" column="13" selection-start-line="38" selection-start-column="13" selection-end-line="38" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ed4844ada85155477dbcb86659be3b1/jars/classes.jar!/com/google/firebase/storage/StorageReference.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="223">
+          <caret line="147" column="16" selection-start-line="147" selection-start-column="16" selection-end-line="147" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/value_object/DamVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="86">
+          <caret line="45" column="16" selection-start-line="45" selection-start-column="16" selection-end-line="45" selection-end-column="16" />
+          <folding>
+            <element signature="e#966#967#0" expanded="true" />
+            <element signature="e#1002#1003#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamRecycleAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2522">
+          <caret line="122" column="16" lean-forward="true" selection-start-line="122" selection-start-column="16" selection-end-line="122" selection-end-column="16" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/8ed4844ada85155477dbcb86659be3b1/jars/classes.jar!/com/google/firebase/storage/FirebaseStorage.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="119">
+          <caret line="22" column="13" selection-start-line="22" selection-start-column="13" selection-end-line="22" selection-end-column="13" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamIconDetail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="121">
-          <caret line="191" selection-start-line="191" selection-end-line="191" />
+        <state relative-caret-position="4301">
+          <caret line="308" column="12" selection-start-line="308" selection-start-column="12" selection-end-line="308" selection-end-column="12" />
           <folding>
             <element signature="imports" expanded="true" />
-            <element signature="e#3422#3423#0" expanded="true" />
-            <element signature="e#3454#3455#0" expanded="true" />
-            <element signature="e#3346#3395#0" expanded="true" />
-            <element signature="e#6587#6614#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_dam_icon.xml">
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/android/app/ActivityThread.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="139">
-          <caret line="54" lean-forward="true" selection-start-line="54" selection-end-line="54" />
+        <state relative-caret-position="82127">
+          <caret line="5091" selection-start-line="5091" selection-end-line="5091" />
         </state>
       </provider>
-      <provider editor-type-id="android-designer2" />
     </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/ed17b9cb94bc15aa3dbca285db0f8bd7/jars/classes.jar!/com/soundcloud/android/crop/Crop.class">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="189">
-          <caret line="27" column="12" selection-start-line="27" selection-start-column="12" selection-end-line="27" selection-end-column="12" />
+        <state relative-caret-position="4454">
+          <caret line="305" column="13" selection-start-line="305" selection-start-column="13" selection-end-line="305" selection-end-column="13" />
           <folding>
-            <element signature="e#719#720#0" expanded="true" />
-            <element signature="e#771#772#0" expanded="true" />
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/drawable-xxhdpi/btn_add.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/drawable/ic_plus_add.png">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/model/DCMModel.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamUserIconRecycleAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="170">
-          <caret line="14" column="1" selection-start-line="14" selection-start-column="1" selection-end-line="14" selection-end-column="1" />
+        <state relative-caret-position="1088">
+          <caret line="90" column="75" selection-start-line="90" selection-start-column="75" selection-end-line="90" selection-end-column="75" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpMain.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrdRecycleAdapter_horizontal.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2432">
-          <caret line="264" lean-forward="true" selection-start-line="264" selection-end-line="265" selection-end-column="13" />
+        <state relative-caret-position="612">
+          <caret line="64" column="10" selection-start-line="64" selection-end-line="64" selection-end-column="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/value_object/DcmVO.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
+          <folding>
+            <element signature="e#330#331#0" expanded="true" />
+            <element signature="e#359#360#0" expanded="true" />
+            <element signature="e#403#404#0" expanded="true" />
+            <element signature="e#439#440#0" expanded="true" />
+            <element signature="e#472#473#0" expanded="true" />
+            <element signature="e#501#502#0" expanded="true" />
+            <element signature="e#545#546#0" expanded="true" />
+            <element signature="e#581#582#0" expanded="true" />
+            <element signature="e#614#615#0" expanded="true" />
+            <element signature="e#643#644#0" expanded="true" />
+            <element signature="e#687#688#0" expanded="true" />
+            <element signature="e#723#724#0" expanded="true" />
+            <element signature="e#756#757#0" expanded="true" />
+            <element signature="e#785#786#0" expanded="true" />
+            <element signature="e#829#830#0" expanded="true" />
+            <element signature="e#865#866#0" expanded="true" />
+            <element signature="e#898#899#0" expanded="true" />
+            <element signature="e#927#928#0" expanded="true" />
+            <element signature="e#971#972#0" expanded="true" />
+            <element signature="e#1007#1008#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-28/java/io/File.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="32912">
+          <caret line="1985" column="23" selection-start-line="1985" selection-start-column="23" selection-end-line="1985" selection-end-column="23" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/settings_profile/ProfileMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="2312">
+          <caret line="199" column="28" selection-start-line="199" selection-start-column="28" selection-end-line="199" selection-end-column="28" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/base/src/main/java/com/linktag/base/base_activity/BaseActivity.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="386">
-          <caret line="72" column="34" selection-start-line="72" selection-start-column="34" selection-end-line="72" selection-end-column="34" />
+        <state relative-caret-position="867">
+          <caret line="67" column="7" selection-start-line="67" selection-start-column="7" selection-end-line="67" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base/src/main/java/com/linktag/base/util/ClsBitmap.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="65" column="60" selection-start-line="65" selection-start-column="60" selection-end-line="65" selection-end-column="60" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/menu/AddSharedDetail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="254" column="116" selection-start-line="254" selection-start-column="116" selection-end-line="254" selection-end-column="116" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="495">
-          <caret line="265" column="61" selection-start-line="265" selection-start-column="53" selection-end-line="265" selection-end-column="61" />
+        <state relative-caret-position="18">
+          <caret line="208" column="71" selection-start-line="208" selection-start-column="71" selection-end-line="208" selection-end-column="71" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpDetail.java">
+    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values-en/strings.xml">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="318">
-          <caret line="586" column="87" selection-start-line="586" selection-start-column="87" selection-end-line="586" selection-end-column="87" />
+        <state relative-caret-position="460">
+          <caret line="229" column="27" selection-start-line="229" selection-start-column="18" selection-end-line="229" selection-end-column="27" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values-ko/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="224" column="47" selection-start-line="224" selection-start-column="47" selection-end-line="224" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmRecycleAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="323">
+          <caret line="161" column="70" selection-start-line="161" selection-start-column="70" selection-end-line="161" selection-end-column="70" />
           <folding>
-            <element signature="imports" expanded="true" />
-            <element signature="e#13320#13321#0" expanded="true" />
-            <element signature="e#13374#13375#0" expanded="true" />
-            <element signature="e#20162#20163#0" expanded="true" />
-            <element signature="e#20210#20211#0" expanded="true" />
-            <element signature="e#21750#21779#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/network/BaseConst.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="126" selection-start-line="126" selection-end-line="126" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcmMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1105">
-          <caret line="60" column="5" selection-start-line="60" selection-start-column="5" selection-end-line="60" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmDetail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="572">
-          <caret line="419" column="17" selection-start-line="406" selection-start-column="15" selection-end-line="419" selection-end-column="17" />
-          <folding>
-            <element signature="e#19253#19254#0" expanded="true" />
-            <element signature="e#19331#19332#0" expanded="true" />
-            <element signature="e#21839#21840#0" expanded="true" />
-            <element signature="e#21887#21888#0" expanded="true" />
-            <element signature="e#23714#23763#0" expanded="true" />
-            <element signature="e#24945#24974#0" expanded="true" />
-            <element signature="e#25287#25312#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/network/Http.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="327">
-          <caret line="1292" column="53" lean-forward="true" selection-start-line="1292" selection-start-column="53" selection-end-line="1292" selection-end-column="53" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/7efeecffcf71c33b49d3d20746d7f408/jars/classes.jar!/android/support/v7/widget/RecyclerView.class">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-701">
-          <caret line="6117" column="48" selection-start-line="6117" selection-start-column="48" selection-end-line="6117" selection-end-column="48" />
-          <folding>
-            <element signature="e#239868#239869#0" expanded="true" />
-            <element signature="e#239924#239925#0" expanded="true" />
+            <element signature="e#9711#9749#0" expanded="true" />
+            <element signature="e#10072#10110#0" expanded="true" />
+            <element signature="e#10336#10389#0" expanded="true" />
+            <element signature="e#12197#12235#0" expanded="true" />
           </folding>
         </state>
       </provider>
@@ -1555,109 +1401,180 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfmMain.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="391">
-          <caret line="85" lean-forward="true" selection-start-line="85" selection-end-line="85" />
+          <caret line="85" selection-start-line="85" selection-end-line="85" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfmDetail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="60" column="47" selection-start-line="60" selection-start-column="47" selection-end-line="60" selection-end-column="47" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfm.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="10" column="44" selection-start-line="10" selection-start-column="44" selection-end-line="10" selection-end-column="44" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_rfd.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="388">
+          <caret line="444" column="70" selection-start-line="444" selection-start-column="70" selection-end-line="444" selection-end-column="70" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values/strings.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="217">
+          <caret line="347" column="19" selection-start-line="347" selection-start-column="19" selection-end-line="347" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfdRecycleAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="459">
+          <caret line="225" column="72" selection-start-line="225" selection-start-column="72" selection-end-line="225" selection-end-column="72" />
+          <folding>
+            <element signature="e#9975#10013#0" expanded="true" />
+            <element signature="e#10348#10386#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcdSwRecycleAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="144" column="21" selection-start-line="144" selection-start-column="21" selection-end-line="144" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_pcm.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="442">
+          <caret line="152" column="43" selection-start-line="152" selection-start-column="37" selection-end-line="152" selection-end-column="43" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfdDetail.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="227">
+          <caret line="229" column="104" selection-start-line="229" selection-start-column="104" selection-end-line="229" selection-end-column="104" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcdHwRecycleAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-68">
+          <caret line="109" selection-start-line="109" selection-end-line="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrdRecycleAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="59" selection-start-line="59" selection-end-line="59" />
+          <folding>
+            <element signature="e#3972#4017#0" expanded="true" />
+            <element signature="e#8732#8733#0" expanded="true" />
+            <element signature="e#8760#8761#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/activity_detail_trp2.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="154" column="47" selection-start-line="154" selection-start-column="41" selection-end-line="154" selection-end-column="47" />
+        </state>
+      </provider>
+      <provider editor-type-id="android-designer2" />
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/pcm/PcmDetail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-600">
-          <caret line="407" column="52" selection-start-line="407" selection-start-column="52" selection-end-line="407" selection-end-column="52" />
+        <state relative-caret-position="352">
+          <caret line="115" column="44" selection-start-line="115" selection-start-column="44" selection-end-line="115" selection-end-column="44" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2547#2563#0" expanded="true" />
             <element signature="e#2623#2639#0" expanded="true" />
             <element signature="e#3980#3981#0" expanded="true" />
             <element signature="e#4025#4026#0" expanded="true" />
-            <element signature="e#4186#4226#0" expanded="true" />
-            <element signature="e#4908#6205#0" expanded="true" />
-            <element signature="e#6204#6205#0" expanded="true" />
-            <element signature="e#6619#6668#0" expanded="true" />
-            <element signature="e#7398#9031#0" expanded="true" />
-            <element signature="e#8195#8224#0" expanded="true" />
-            <element signature="e#8253#8282#0" expanded="true" />
-            <element signature="e#8845#8874#0" expanded="true" />
-            <element signature="e#8902#8931#0" expanded="true" />
-            <element signature="e#9030#9031#0" expanded="true" />
             <element signature="e#9403#9443#0" expanded="true" />
-            <element signature="e#10729#10758#0" expanded="true" />
-            <element signature="e#10936#10965#0" expanded="true" />
             <element signature="e#12702#12710#0" expanded="true" />
             <element signature="e#13277#13285#0" expanded="true" />
-            <element signature="e#15628#15657#0" expanded="true" />
-            <element signature="e#16485#16514#0" expanded="true" />
-            <element signature="e#18122#18151#0" expanded="true" />
-            <element signature="e#18408#18445#0" expanded="true" />
-            <element signature="e#20111#20112#0" expanded="true" />
-            <element signature="e#20165#20166#0" expanded="true" />
-            <element signature="e#21088#21144#0" expanded="true" />
-            <element signature="e#21324#21325#0" expanded="true" />
-            <element signature="e#21372#21373#0" expanded="true" />
-            <element signature="e#21681#21730#0" expanded="true" />
-            <element signature="e#22415#23042#0" expanded="true" />
-            <element signature="e#22912#22944#0" expanded="true" />
-            <element signature="e#23041#23042#0" expanded="true" />
-            <element signature="e#23257#23282#0" expanded="true" />
-            <element signature="e#23529#23584#0" expanded="true" />
+            <element signature="e#21805#21806#0" expanded="true" />
+            <element signature="e#21859#21860#0" expanded="true" />
+            <element signature="e#23006#23007#0" expanded="true" />
+            <element signature="e#23054#23055#0" expanded="true" />
+            <element signature="e#25416#25448#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values/strings.xml">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/jdm/JdmDetail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="257">
-          <caret line="437" column="18" selection-start-line="437" selection-start-column="18" selection-end-line="437" selection-end-column="18" />
+        <state relative-caret-position="30">
+          <caret line="162" column="29" selection-start-line="162" selection-start-column="29" selection-end-line="162" selection-end-column="29" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/vac/VacDetail.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpMain.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="686">
-          <caret line="485" column="50" selection-start-line="485" selection-start-column="50" selection-end-line="485" selection-end-column="50" />
+        <state relative-caret-position="460">
+          <caret line="240" column="67" selection-start-line="240" selection-start-column="67" selection-end-line="240" selection-end-column="67" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/AppData/Local/Android/Sdk/sources/android-29/android/os/Looper.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="241" selection-start-line="241" selection-end-line="241" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/base_resource/src/main/res/values/strings_array.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="151" column="24" selection-start-line="151" selection-start-column="24" selection-end-line="151" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpRecycleAdapter.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="129" column="111" selection-start-line="129" selection-start-column="111" selection-end-line="129" selection-end-column="111" />
           <folding>
-            <element signature="e#8992#8993#0" expanded="true" />
-            <element signature="e#9046#9047#0" expanded="true" />
-            <element signature="e#19209#19210#0" expanded="true" />
-            <element signature="e#19257#19258#0" expanded="true" />
-            <element signature="e#19567#19616#0" expanded="true" />
-            <element signature="e#20862#20891#0" expanded="true" />
-            <element signature="e#21204#21229#0" expanded="true" />
+            <element signature="e#17300#17338#0" expanded="true" />
+            <element signature="e#17392#17430#0" expanded="true" />
+            <element signature="e#17609#17647#0" expanded="true" />
+            <element signature="e#17700#17738#0" expanded="true" />
+            <element signature="e#17917#17955#0" expanded="true" />
+            <element signature="e#18008#18046#0" expanded="true" />
+            <element signature="e#18226#18264#0" expanded="true" />
+            <element signature="e#18318#18356#0" expanded="true" />
+            <element signature="e#18535#18573#0" expanded="true" />
+            <element signature="e#18627#18665#0" expanded="true" />
+            <element signature="e#18844#18882#0" expanded="true" />
+            <element signature="e#18936#18974#0" expanded="true" />
+            <element signature="e#19153#19191#0" expanded="true" />
+            <element signature="e#19245#19283#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/rfm/RfmDetail.java">
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/trp/TrpDetail.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="476">
-          <caret line="226" column="17" selection-start-line="214" selection-start-column="16" selection-end-line="226" selection-end-column="17" />
+        <state relative-caret-position="310">
+          <caret line="798" column="46" selection-start-line="798" selection-start-column="46" selection-end-line="798" selection-end-column="46" />
           <folding>
-            <element signature="e#4002#4051#0" expanded="true" />
-            <element signature="e#5488#5513#0" expanded="true" />
-            <element signature="e#8640#8641#0" expanded="true" />
-            <element signature="e#8710#8711#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamMain.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="233" column="19" selection-start-line="233" selection-start-column="19" selection-end-line="233" selection-end-column="19" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/linktag/linkapp/ui/dam/DamDetail.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="385">
-          <caret line="310" lean-forward="true" selection-start-line="310" selection-end-line="310" />
-          <folding>
-            <element signature="e#21088#21089#0" expanded="true" />
-            <element signature="e#21136#21137#0" expanded="true" />
-            <element signature="e#21445#21494#0" expanded="true" />
-            <element signature="e#22931#22956#0" expanded="true" />
+            <element signature="e#21252#21877#0" expanded="true" />
+            <element signature="e#21876#21877#0" expanded="true" />
           </folding>
         </state>
       </provider>

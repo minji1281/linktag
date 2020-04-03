@@ -84,7 +84,19 @@ public class PcdSwRecycleAdapter extends RecyclerView.Adapter<PcdSwRecycleAdapte
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View view) {
-                requestPCD_CONTROL(mList.get(position));
+
+                if (mList.get(position).PCD_01.equals("")){
+                    mList.remove(position);
+                    if (mList == null)
+                        mList = new ArrayList<>();
+                    PcmDetail.tv_swCnt.setText("("+mList.size()+")");
+                    mAdapter.updateData(mList);
+                    mAdapter.notifyDataSetChanged();
+                }
+                else{
+                    requestPCD_CONTROL(mList.get(position));
+                }
+
             }
         });
 

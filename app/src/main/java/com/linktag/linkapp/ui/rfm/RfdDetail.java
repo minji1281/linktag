@@ -103,6 +103,7 @@ public class RfdDetail extends BaseActivity {
 
         if (getIntent().hasExtra("GUBUN")) {  //신규등록시 넘어오는 인텐트
             header.btnHeaderRight1.setVisibility((View.GONE));
+            imageView_check.setVisibility(View.GONE);
             rfm_move.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -147,24 +148,24 @@ public class RfdDetail extends BaseActivity {
 
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
                     if (rfdVO.ARM_03.equals("Y") && dateBool) {
-                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + getString(R.string.rfd_text1)+"\n"+
-                                getString(R.string.rfd_text4) +"\n"+ rfdVO.RFD_96.substring(0, 4) +"-"+ rfdVO.RFD_96.substring(4, 6) + "-" + rfdVO.RFD_96.substring(6, 8) + " " +
-                                rfdVO.RFD_96.substring(8, 10) + ":" + rfdVO.RFD_96.substring(10, 12) +" " + getString(R.string.rfd_text5), Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + getString(R.string.rfd_text1) + "\n" +
+                                getString(R.string.rfd_text4) + "\n" + rfdVO.RFD_96.substring(0, 4) + "-" + rfdVO.RFD_96.substring(4, 6) + "-" + rfdVO.RFD_96.substring(6, 8) + " " +
+                                rfdVO.RFD_96.substring(8, 10) + ":" + rfdVO.RFD_96.substring(10, 12) + " " + getString(R.string.rfd_text5), Toast.LENGTH_LONG).show();
                     } else {
 
-                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" +getString(R.string.rfd_text1), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + getString(R.string.rfd_text1), Toast.LENGTH_SHORT).show();
                     }
                     RfmMain.RFM_01 = rfdVO.RFD_01;
                 } else if (GUBUN.equals("RFD_07_UPDATE")) {
                     if (rfdVO.ARM_03.equals("Y") && rfdVO.RFD_07.equals("") && dateBool) {
-                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]"  + getString(R.string.rfd_text2)+"\n"+
-                                getString(R.string.rfd_text4) +"\n"+ rfdVO.RFD_96.substring(0, 4) +"-"+ rfdVO.RFD_96.substring(4, 6) + "-" + rfdVO.RFD_96.substring(6, 8) + " " +
-                                rfdVO.RFD_96.substring(8, 10) + ":" + rfdVO.RFD_96.substring(10, 12) +" " + getString(R.string.rfd_text5), Toast.LENGTH_LONG).show();
-                    }else{
-                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" +getString(R.string.rfd_text2), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + getString(R.string.rfd_text2) + "\n" +
+                                getString(R.string.rfd_text4) + "\n" + rfdVO.RFD_96.substring(0, 4) + "-" + rfdVO.RFD_96.substring(4, 6) + "-" + rfdVO.RFD_96.substring(6, 8) + " " +
+                                rfdVO.RFD_96.substring(8, 10) + ":" + rfdVO.RFD_96.substring(10, 12) + " " + getString(R.string.rfd_text5), Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + getString(R.string.rfd_text2), Toast.LENGTH_SHORT).show();
                     }
                 } else {
-                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" +getString(R.string.rfd_text3), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + getString(R.string.rfd_text3), Toast.LENGTH_SHORT).show();
                     RfmMain.RFM_01 = rfdVO.RFD_01;
                 }
                 onBackPressed();
@@ -220,36 +221,34 @@ public class RfdDetail extends BaseActivity {
 
         if (rfdVO.getRFD_96().equals("")) {
             calendar.add(Calendar.DATE, 14);
-            tv_datePicker.setText(format.format(calendar.getTime()));
-
             rfdVO.setRFD_96(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime()));
-        } else {
-            String year = rfdVO.getRFD_96().substring(0, 4);
-            String month = rfdVO.getRFD_96().substring(4, 6);
-            String dayOfMonth = rfdVO.getRFD_96().substring(6, 8);
-            tv_datePicker.setText(year + "." + month + "." + dayOfMonth);
-
-            Calendar dCalendar = Calendar.getInstance();
-            dCalendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(dayOfMonth));
-
-
-            calendar.clear(Calendar.HOUR);
-            calendar.clear(Calendar.MINUTE);
-            calendar.clear(Calendar.SECOND);
-            calendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
-
-            dCalendar.clear(Calendar.HOUR);
-            dCalendar.clear(Calendar.MINUTE);
-            dCalendar.clear(Calendar.SECOND);
-            dCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
-
-            long dDayDiff = dCalendar.getTimeInMillis() - calendar.getTimeInMillis();
-            int day = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
-
-            startCountAnimation(day);
-
-
         }
+        String year = rfdVO.getRFD_96().substring(0, 4);
+        String month = rfdVO.getRFD_96().substring(4, 6);
+        String dayOfMonth = rfdVO.getRFD_96().substring(6, 8);
+        tv_datePicker.setText(year + "." + month + "." + dayOfMonth);
+        calendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(dayOfMonth));
+
+        Calendar dCalendar = Calendar.getInstance();
+        dCalendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(dayOfMonth));
+
+
+        Calendar sCalendar = Calendar.getInstance();
+        sCalendar.clear(Calendar.HOUR);
+        sCalendar.clear(Calendar.MINUTE);
+        sCalendar.clear(Calendar.SECOND);
+        sCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
+
+        dCalendar.clear(Calendar.HOUR);
+        dCalendar.clear(Calendar.MINUTE);
+        dCalendar.clear(Calendar.SECOND);
+        dCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
+
+        long dDayDiff = dCalendar.getTimeInMillis() - sCalendar.getTimeInMillis();
+        int day = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
+
+        startCountAnimation(day);
+
 
         callBackTime = rfdVO.RFD_96.substring(8, 12);
 
@@ -342,6 +341,29 @@ public class RfdDetail extends BaseActivity {
                 }
                 rfdVO.setRFD_96(year + monthString + dayOfMonthString + rfdVO.RFD_96.substring(8, 12));
                 tv_datePicker.setText(year + "." + monthString + "." + dayOfMonthString);
+
+                calendar.set(year,month,dayOfMonth);
+
+                Calendar dCalendar = Calendar.getInstance();
+                dCalendar.set(year, month, dayOfMonth);
+
+
+                Calendar tCalendar = Calendar.getInstance();
+                tCalendar.clear(Calendar.HOUR);
+                tCalendar.clear(Calendar.MINUTE);
+                tCalendar.clear(Calendar.SECOND);
+                tCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
+
+                dCalendar.clear(Calendar.HOUR);
+                dCalendar.clear(Calendar.MINUTE);
+                dCalendar.clear(Calendar.SECOND);
+                dCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
+
+                long dDayDiff = dCalendar.getTimeInMillis() - tCalendar.getTimeInMillis();
+                int day = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
+
+                startCountAnimation(day);
+
             }
         };
 
@@ -351,12 +373,8 @@ public class RfdDetail extends BaseActivity {
             public void onClick(View view) {
                 Locale locale = getResources().getConfiguration().locale;
                 Locale.setDefault(locale);
-                Calendar dCalendar = Calendar.getInstance();
-                dCalendar.set(Calendar.YEAR,Integer.parseInt(rfdVO.RFD_96.substring(0,4)));
-                dCalendar.set(Calendar.MONTH,Integer.parseInt(rfdVO.RFD_96.substring(4,6))-1);
-                dCalendar.set(Calendar.DATE,Integer.parseInt(rfdVO.RFD_96.substring(6,8)));
 
-                DatePickerDialog dialog = new DatePickerDialog(RfdDetail.this, callbackMethod, dCalendar.get(Calendar.YEAR), dCalendar.get(Calendar.MONTH), dCalendar.get(Calendar.DATE));
+                DatePickerDialog dialog = new DatePickerDialog(RfdDetail.this, callbackMethod, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
                 dialog.show();
             }
         });
@@ -374,8 +392,8 @@ public class RfdDetail extends BaseActivity {
             @Override
             public void onClick(View view) {
 
-                if( ed_name.getText().equals("")){
-                    Toast.makeText(mContext,getString(R.string.validation_check1),Toast.LENGTH_LONG).show();
+                if (ed_name.getText().toString().equals("")) {
+                    Toast.makeText(mContext, getString(R.string.validation_check1), Toast.LENGTH_LONG).show();
                     return;
                 }
 

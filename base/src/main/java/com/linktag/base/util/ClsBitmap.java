@@ -45,6 +45,21 @@ public class ClsBitmap {
         }
     }
 
+    public static void setSharedDamIcon(Context context, ImageView imageProfile, String fileFolder, String fileName, String preFilename, int nNoImage){
+        imageProfile.setImageResource(nNoImage);
+
+        if(fileName.equals("")){
+//            deleteImageFile(context, "shared" + "/" + fileFolder, preFilename);
+            deleteImageFolder(context, "shared_dam_icon" + "/" + fileFolder);
+
+            imageProfile.setImageResource(nNoImage);
+        } else {
+            setImage(context, "shared_dam_icon" + "/" + fileFolder, fileName, preFilename, imageProfile, nNoImage);
+        }
+    }
+
+
+
     public static void setImage(final Context context, String folderPath, String fileName, String preFilename,
                                 final ImageView imgView, int placeHolder) {
         try {

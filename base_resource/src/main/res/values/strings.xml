@@ -259,6 +259,7 @@
     <string name="jdm_text5">청소 예정일은 현재일자보다 커야합니다.</string>
     <string name="jdm_text6">신규등록</string>
     <string name="jdm_text7">장독청소 완료</string>
+    <string name="jdm_text8">취소 하였습니다.</string>
 
 
     <!--장독 다이얼로그 -->

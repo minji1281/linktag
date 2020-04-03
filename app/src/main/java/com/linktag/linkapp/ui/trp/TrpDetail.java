@@ -116,6 +116,7 @@ public class TrpDetail extends BaseActivity {
 
         if (getIntent().hasExtra("scanCode")) {
             header.btnHeaderRight1.setVisibility((View.GONE));
+            tv_Log.setVisibility(View.GONE);
             scanCode = getIntent().getStringExtra("scanCode");
             intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
         }
@@ -339,19 +340,53 @@ public class TrpDetail extends BaseActivity {
                         callBackTime = time;
                         alarmTime = format.format(calendar.getTime()) + time;
 
-                        requestTRD_CONTROL();
+                        if (scanCode !=null){
+                            TrdVO trdVO = new TrdVO();
+                            trdVO.setTRD_ID(trpVO.TRP_ID);
+                            trdVO.setTRD_01("");
+                            trdVO.setTRD_02("");
+                            trdVO.setTRD_96(alarmTime);
+                            trdVO.setTRD_98(mUser.Value.OCM_01);
 
-                        String am_pm = "";
-                        int hourOfDay = Integer.parseInt(time.substring(0, 2));
-                        int minute = Integer.parseInt(time.substring(2, 4));
-                        if (hourOfDay > 12) {
-                            hourOfDay -= 12;
-                            am_pm = getString(R.string.trp_Pm);
-                        } else {
-                            am_pm = getString(R.string.trp_Am);
+                            if (mList == null)
+                                mList = new ArrayList<>();
+                            mList.add(trdVO);
+                            tv_alarmCnt.setText("(" + mList.size() + ")");
+
+                            recyclerView.setVisibility(View.VISIBLE);
+                            tv_alarmLabel.setVisibility(View.GONE);
+                            alarmState = true;
+
+
+                            mAdapter.updateData(mList);
+                            mAdapter.notifyDataSetChanged();
+
+                        }
+                        else{
+                            TrdVO trdVO = new TrdVO();
+                            trdVO.setTRD_ID(trpVO.TRP_ID);
+                            trdVO.setTRD_01(trpVO.TRP_01);
+                            trdVO.setTRD_02("");
+                            trdVO.setTRD_96(alarmTime);
+                            trdVO.setTRD_98(mUser.Value.OCM_01);
+
+                            trdVO.setTRP_04(trpVO.TRP_04);
+                            trdVO.setARM_03(trpVO.ARM_03);
+                            requestTRD_CONTROL(trdVO);
+
+                            String am_pm = "";
+                            int hourOfDay = Integer.parseInt(time.substring(0, 2));
+                            int minute = Integer.parseInt(time.substring(2, 4));
+                            if (hourOfDay > 12) {
+                                hourOfDay -= 12;
+                                am_pm = getString(R.string.trp_Pm);
+                            } else {
+                                am_pm = getString(R.string.trp_Am);
+                            }
+
+                            requestLOG_CONTROL("2",  getString(R.string.trp_text3) +" " + am_pm + hourOfDay + ":" + minute);
                         }
 
-                        requestLOG_CONTROL("2",  getString(R.string.trp_text3) +" " + am_pm + hourOfDay + ":" + minute);
                     }
 
                     @Override
@@ -405,7 +440,7 @@ public class TrpDetail extends BaseActivity {
             @Override
             public void onClick(View view) {
 
-                if( ed_name.getText().equals("")){
+                if( ed_name.getText().toString().equals("")){
                     Toast.makeText(mContext,getString(R.string.validation_check1),Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -585,6 +620,17 @@ public class TrpDetail extends BaseActivity {
                                 trpVO.TRP_01 = response.body().Data.get(0).CDS_03;
                                 requestTRP_CONTROL("INSERT");
                                 requestLOG_CONTROL("1", getString(R.string.trp_text4));
+                                if (scanCode != null){
+                                    for (int i = 0; i < mList.size(); i++) {
+                                        mList.get(i).setTRD_01(response.body().Data.get(0).CDS_03);
+                                        mList.get(i).setTRP_02(ed_name.getText().toString());
+                                        mList.get(i).setTRP_03(ed_memo.getText().toString());
+                                        mList.get(i).setTRP_04(trpVO.TRP_04);
+                                        mList.get(i).setTRP_03(trpVO.TRP_03);
+                                        mList.get(i).setARM_03(trpVO.ARM_03);
+                                        requestTRD_CONTROL(mList.get(i));
+                                    }
+                                }
                             }
                         }
                     }
@@ -690,7 +736,6 @@ public class TrpDetail extends BaseActivity {
 
                             if (mList.size() == 0 && scanCode != null) {
                                 alarmTime = format.format(calendar.getTime()) + formatTime.format(calendar.getTime());
-                                requestTRD_CONTROL();
                             }
 
 
@@ -712,7 +757,7 @@ public class TrpDetail extends BaseActivity {
     }
 
 
-    public void requestTRD_CONTROL() {
+    public void requestTRD_CONTROL(TrdVO trdVO) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(mContext.getString(R.string.common_network_error));
@@ -722,15 +767,15 @@ public class TrpDetail extends BaseActivity {
         Call<TRDModel> call = Http.trd(HttpBaseService.TYPE.POST).TRD_CONTROL(
                 BaseConst.URL_HOST,
                 "INSERT",
-                trpVO.TRP_ID,
-                trpVO.TRP_01,
+                trdVO.TRD_ID,
+                trdVO.TRD_01,
                 "",
                 alarmTime,
                 mUser.Value.OCM_01,
                 ed_name.getText().toString(),
                 ed_memo.getText().toString(),
-                trpVO.TRP_04,
-                trpVO.ARM_03
+                trdVO.TRP_04,
+                trdVO.ARM_03
         );
 
 

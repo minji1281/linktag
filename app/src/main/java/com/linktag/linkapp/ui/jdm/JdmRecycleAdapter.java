@@ -56,7 +56,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
     private Calendar calendar = Calendar.getInstance();
     SimpleDateFormat format = new SimpleDateFormat("yyyy.MM.dd");
     SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
-    private Calendar nextDay = Calendar.getInstance();
+
 
     Filter listFilter;
 
@@ -171,7 +171,18 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
             String year = filteredmlist.get(position).JDM_04.substring(0, 4);
             String month = filteredmlist.get(position).JDM_04.substring(4, 6);
             String dayOfMonth = filteredmlist.get(position).JDM_04.substring(6, 8);
+
+
+            calendar.clear(Calendar.HOUR);
+            calendar.clear(Calendar.MINUTE);
+            calendar.clear(Calendar.SECOND);
+            calendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
+
             Calendar aCalendar = Calendar.getInstance();
+            aCalendar.clear(Calendar.HOUR);
+            aCalendar.clear(Calendar.MINUTE);
+            aCalendar.clear(Calendar.SECOND);
+            aCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
             aCalendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(dayOfMonth));
 
             int count = (int) ((calendar.getTimeInMillis() - aCalendar.getTimeInMillis()) / (24 * 60 * 60 * 1000));
@@ -203,8 +214,14 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
                     Toast.makeText(mContext, "[" + filteredmlist.get(position).JDM_02 + "]-" + mContext.getResources().getString(R.string.common_alarm_off), Toast.LENGTH_SHORT).show();
                 } else if (filteredmlist.get(position).ARM_03.equals("N")) {
+
+                    Toast.makeText(mContext, "[" + filteredmlist.get(position).JDM_02 + "]" + "\n" +
+                            mContext.getString(R.string.jdm_text2) + filteredmlist.get(position).JDM_96.substring(0, 4) + "-" + filteredmlist.get(position).JDM_96.substring(4, 6) + "-" + filteredmlist.get(position).JDM_96.substring(6, 8) + " " +
+                            filteredmlist.get(position).JDM_96.substring(8, 10) + ":" + filteredmlist.get(position).JDM_96.substring(10, 12) + " " + mContext.getString(R.string.jdm_text3), Toast.LENGTH_LONG).show();
+
+
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + filteredmlist.get(position).JDM_02 + "]-" + mContext.getResources().getString(R.string.common_alarm_on), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(mContext, "[" + filteredmlist.get(position).JDM_02 + "]-" + mContext.getResources().getString(R.string.common_alarm_on), Toast.LENGTH_SHORT).show();
                 }
 
                 ArmVO armVO = new ArmVO();
@@ -247,6 +264,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                             .setNegativeButton(mContext.getResources().getString(com.linktag.base.R.string.common_no), new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
+                                    Toast.makeText(mContext,mContext.getString(R.string.jdm_text8),Toast.LENGTH_SHORT).show();
                                     return;
                                 }
                             })
@@ -301,7 +319,10 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
         }
 
 
+        Calendar nextDay = Calendar.getInstance();
+
         switch (jdmVO.JDM_07) {
+
             case "0":
                 nextDay.add(Calendar.DATE, Integer.parseInt(jdmVO.JDM_06));
                 break;
@@ -341,6 +362,7 @@ public class JdmRecycleAdapter extends RecyclerView.Adapter<JdmRecycleAdapter.Vi
                 viewHolder.imageView_check.setBackgroundResource(R.drawable.btn_round_skyblue_5dp);
                 viewHolder.tv_nextDay.setText(format.format(nextDay.getTime()));
                 viewHolder.progressBar.setProgress(dcount);
+
             }
 
             @Override

@@ -30,7 +30,9 @@ import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.value_object.TrdVO;
 import com.linktag.linkapp.value_object.TrpVO;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,10 +42,16 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
 
     private Context mContext;
     private ArrayList<TrpVO> mList;
+    private ArrayList<TrdVO> mList_trd;
     private ArrayList<TrpVO> filteredmlist;
     private LayoutInflater mInflater;
     private View view;
     private InterfaceUser mUser;
+
+    private String[] array_pattern;
+    private String[] str_weeks_text;
+
+    SimpleDateFormat formatTime = new SimpleDateFormat("HHmm");
 
     Filter listFilter;
 
@@ -104,6 +112,8 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
         TrpRecycleAdapter.ViewHolder viewHolder = new TrpRecycleAdapter.ViewHolder(view);
 
 
+        str_weeks_text = mContext.getResources().getStringArray(R.array.trp3);
+
         return viewHolder;
     }
 
@@ -142,11 +152,12 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
                 if (filteredmlist.get(position).ARM_03.equals("Y")) {
                     filteredmlist.get(position).setARM_03("N");
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
-                    Toast.makeText(mContext, "[" + filteredmlist.get(position).TRP_02 + "]- " +mContext.getString(R.string.common_alarm_off) , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(mContext, "[" + filteredmlist.get(position).TRP_02 + "]- " + mContext.getString(R.string.common_alarm_off), Toast.LENGTH_SHORT).show();
                 } else {
                     filteredmlist.get(position).setARM_03("Y");
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + filteredmlist.get(position).TRP_02 + "]- " + mContext.getString(R.string.common_alarm_on), Toast.LENGTH_SHORT).show();
+                    checkDayOfWeek(filteredmlist.get(position).TRP_04, viewHolder.filteredmlist_trd);
+//                    Toast.makeText(mContext, "[" + filteredmlist.get(position).TRP_02 + "]- " + mContext.getString(R.string.common_alarm_on), Toast.LENGTH_SHORT).show();
                 }
 
 //                ArmVO armVO = new ArmVO();
@@ -259,19 +270,19 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
         } else {
             for (int i = 0; i < array_pattern.length; i++) {
                 if (array_pattern[i].equals("Y") && i == 1) {
-                    result_Weeks += mContext.getString(R.string.trp_Sun) +" ";
+                    result_Weeks += mContext.getString(R.string.trp_Sun) + " ";
                 } else if (array_pattern[i].equals("Y") && i == 2) {
-                    result_Weeks += mContext.getString(R.string.trp_Mon) +" ";
+                    result_Weeks += mContext.getString(R.string.trp_Mon) + " ";
                 } else if (array_pattern[i].equals("Y") && i == 3) {
-                    result_Weeks += mContext.getString(R.string.trp_Tue) +" ";
+                    result_Weeks += mContext.getString(R.string.trp_Tue) + " ";
                 } else if (array_pattern[i].equals("Y") && i == 4) {
-                    result_Weeks += mContext.getString(R.string.trp_Wed) +" ";
+                    result_Weeks += mContext.getString(R.string.trp_Wed) + " ";
                 } else if (array_pattern[i].equals("Y") && i == 5) {
-                    result_Weeks += mContext.getString(R.string.trp_Thu) +" ";
+                    result_Weeks += mContext.getString(R.string.trp_Thu) + " ";
                 } else if (array_pattern[i].equals("Y") && i == 6) {
-                    result_Weeks += mContext.getString(R.string.trp_Fri) +" ";
+                    result_Weeks += mContext.getString(R.string.trp_Fri) + " ";
                 } else if (array_pattern[i].equals("Y") && i == 7) {
-                    result_Weeks += mContext.getString(R.string.trp_Sat) +" ";
+                    result_Weeks += mContext.getString(R.string.trp_Sat) + " ";
                 }
             }
         }
@@ -378,5 +389,54 @@ public class TrpRecycleAdapter extends RecyclerView.Adapter<TrpRecycleAdapter.Vi
         });
 
     }
+
+
+    public void checkDayOfWeek(String TRP_04, ArrayList<TrdVO> mList_trd) {
+
+
+        array_pattern = TRP_04.split("");
+
+
+        Calendar calendar = Calendar.getInstance();
+
+        int nowWeek = calendar.get(Calendar.DAY_OF_WEEK);
+        int nowTime = Integer.parseInt(formatTime.format(calendar.getTime()));
+        String time = "";
+        int count = 0;
+        for (TrdVO trdVO : mList_trd) {
+            int setTime = Integer.parseInt(trdVO.TRD_96.substring(8, 12));
+            time = trdVO.TRD_96.substring(8, 12);
+            if (nowTime < setTime) {
+                count++;
+                break;
+            }
+        }
+        if (count == 0) {  // 예정알림시간이 이미 다 지난경우 다음요일로 넘어감
+            for (int i = 1; i < array_pattern.length; i++) {
+                if (array_pattern[nowWeek + i].equals("Y")) {
+                    nowWeek = nowWeek + i;
+                    break;
+                }
+            }
+        }
+
+        String ToastMessage = time.substring(0, 2) + ":" + time.substring(2, 4);
+        if (nowWeek == 1 && array_pattern[1].equals("Y")) { //일요일
+            Toast.makeText(mContext, mContext.getString(R.string.trp_text6) + " " + str_weeks_text[0] + " " + ToastMessage + " " + mContext.getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 2 && array_pattern[2].equals("Y")) { //월요일
+            Toast.makeText(mContext, mContext.getString(R.string.trp_text6) + " " + str_weeks_text[1] + " " + ToastMessage + " " + mContext.getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 3 && array_pattern[3].equals("Y")) { //화요일
+            Toast.makeText(mContext, mContext.getString(R.string.trp_text6) + " " + str_weeks_text[2] + " " + ToastMessage + " " + mContext.getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 4 && array_pattern[4].equals("Y")) { //수요일
+            Toast.makeText(mContext, mContext.getString(R.string.trp_text6) + " " + str_weeks_text[3] + " " + ToastMessage + " " + mContext.getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 5 && array_pattern[5].equals("Y")) { //목요일
+            Toast.makeText(mContext, mContext.getString(R.string.trp_text6) + " " + str_weeks_text[4] + " " + ToastMessage + " " + mContext.getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 6 && array_pattern[6].equals("Y")) { //금요일
+            Toast.makeText(mContext, mContext.getString(R.string.trp_text6) + " " + str_weeks_text[5] + " " + ToastMessage + " " + mContext.getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
+        } else if (nowWeek == 7 && array_pattern[7].equals("Y")) { //토요일
+            Toast.makeText(mContext, mContext.getString(R.string.trp_text6) + " " + str_weeks_text[6] + " " + ToastMessage + " " + mContext.getString(R.string.trp_text7), Toast.LENGTH_LONG).show();
+        }
+    }
+
 
 }

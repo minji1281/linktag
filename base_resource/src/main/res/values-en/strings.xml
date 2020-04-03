@@ -227,7 +227,7 @@
     <string name="jdm_text5">The scheduled cleaning date must be greater than the current date.</string>
     <string name="jdm_text6">New registration</string>
     <string name="jdm_text7">Cleaning finished</string>
-
+    <string name="jdm_text8">Cancel</string>
 
     <!--장독 다이얼로그 -->
     <string name="jdm_dialog_title">Cleaning cycle Setting</string>

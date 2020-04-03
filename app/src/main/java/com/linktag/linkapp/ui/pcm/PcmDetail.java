@@ -113,9 +113,10 @@ public class PcmDetail extends BaseActivity implements Serializable {
             intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
             scanCode = getIntent().getStringExtra("scanCode");
             btn_update.setVisibility(View.GONE);
+            tv_Log.setVisibility(View.GONE);
             String date = formatDate.format(calendar.getTime());
             pcmVO.setPCM_04(date);
-            tv_manageDay.setText(date.substring(0,4)+"."+date.substring(4,6)+"."+date.substring(6,8));
+            tv_manageDay.setText(date.substring(0, 4) + "." + date.substring(4, 6) + "." + date.substring(6, 8));
             header.btnHeaderRight1.setVisibility((View.GONE));
         }
 
@@ -169,14 +170,14 @@ public class PcmDetail extends BaseActivity implements Serializable {
                                 mList_HW = response.body().Data;
                                 if (mList_HW == null)
                                     mList_HW = new ArrayList<>();
-                                tv_hwCnt.setText("("+mList_HW.size()+")");
+                                tv_hwCnt.setText("(" + mList_HW.size() + ")");
                                 mHwAdapter.updateData(mList_HW);
                                 mHwAdapter.notifyDataSetChanged();
                             } else if (GUBUN.equals("LIST_SW")) {
                                 mList_SW = response.body().Data;
                                 if (mList_SW == null)
                                     mList_SW = new ArrayList<>();
-                                tv_swCnt.setText("("+mList_SW.size()+")");
+                                tv_swCnt.setText("(" + mList_SW.size() + ")");
                                 mSwAdapter.updateData(mList_SW);
                                 mSwAdapter.notifyDataSetChanged();
                             }
@@ -237,22 +238,22 @@ public class PcmDetail extends BaseActivity implements Serializable {
                                 mList_HW = response.body().Data;
                                 if (mList_HW == null)
                                     mList_HW = new ArrayList<>();
-                                tv_hwCnt.setText("("+mList_HW.size()+")");
+                                tv_hwCnt.setText("(" + mList_HW.size() + ")");
                                 mHwAdapter.updateData(mList_HW);
                                 mHwAdapter.notifyDataSetChanged();
                                 et_hw.setText("");
 
-                                requestLOG_CONTROL("2",getString(R.string.pcm_text5) +" " + pcdVO.PCD_05 + " " + getString(R.string.pcm_text7));
+                                requestLOG_CONTROL("2", getString(R.string.pcm_text5) + " " + pcdVO.PCD_05 + " " + getString(R.string.pcm_text7));
 
                             } else if (GUBUN.equals("SW")) {
                                 mList_SW = response.body().Data;
                                 if (mList_SW == null)
                                     mList_SW = new ArrayList<>();
-                                tv_swCnt.setText("("+mList_SW.size()+")");
+                                tv_swCnt.setText("(" + mList_SW.size() + ")");
                                 mSwAdapter.updateData(mList_SW);
                                 mSwAdapter.notifyDataSetChanged();
                                 et_sw.setText("");
-                                requestLOG_CONTROL("2",getString(R.string.pcm_text6) +" "+ pcdVO.PCD_05 + " " + getString(R.string.pcm_text7));
+                                requestLOG_CONTROL("2", getString(R.string.pcm_text6) + " " + pcdVO.PCD_05 + " " + getString(R.string.pcm_text7));
                             }
 
 
@@ -308,10 +309,10 @@ public class PcmDetail extends BaseActivity implements Serializable {
                     Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "] " + getString(R.string.pcm_text1), Toast.LENGTH_SHORT).show();
                     onBackPressed();
                 }
-                if(GUBUN.equals("UPDATE_DATE")){
-                    Toast.makeText(mContext,getString(R.string.pcm_text2), Toast.LENGTH_SHORT).show();
+                if (GUBUN.equals("UPDATE_DATE")) {
+                    Toast.makeText(mContext, getString(R.string.pcm_text2), Toast.LENGTH_SHORT).show();
                 }
-                if(GUBUN.equals("DELETE")){
+                if (GUBUN.equals("DELETE")) {
                     onBackPressed();
                 }
             }
@@ -463,16 +464,39 @@ public class PcmDetail extends BaseActivity implements Serializable {
                     return;
                 }
 
-                PcdVO pcdVO = new PcdVO();
-                pcdVO.GUBUN = "INSERT";
-                pcdVO.PCD_ID = pcmVO.PCM_ID;
-                pcdVO.PCD_01 = pcmVO.PCM_01;
-                pcdVO.PCD_02 = "";
-                pcdVO.PCD_03 = "1";
-                pcdVO.PCD_04 = map_hw.get(sp_hw.getSelectedItem());
-                pcdVO.PCD_05 = et_hw.getText().toString();
-                pcdVO.PCD_98 = mUser.Value.OCM_01;
-                requestPCD_CONTROL(pcdVO, "HW");
+                if (scanCode != null) {
+                    PcdVO pcdVO = new PcdVO();
+                    pcdVO.GUBUN = "INSERT";
+                    pcdVO.PCD_ID = pcmVO.PCM_ID;
+                    pcdVO.PCD_01 = "";
+                    pcdVO.PCD_02 = "";
+                    pcdVO.PCD_03 = "1";
+                    pcdVO.PCD_04 = map_hw.get(sp_hw.getSelectedItem());
+                    pcdVO.PCD_05 = et_hw.getText().toString();
+                    pcdVO.PCD_98 = mUser.Value.OCM_01;
+
+                    if (mList_HW == null)
+                        mList_HW = new ArrayList<>();
+                    mList_HW.add(pcdVO);
+                    tv_hwCnt.setText("(" + mList_HW.size() + ")");
+                    mHwAdapter.updateData(mList_HW);
+                    mHwAdapter.notifyDataSetChanged();
+
+
+                } else {
+                    PcdVO pcdVO = new PcdVO();
+                    pcdVO.GUBUN = "INSERT";
+                    pcdVO.PCD_ID = pcmVO.PCM_ID;
+                    pcdVO.PCD_01 = pcmVO.PCM_01;
+                    pcdVO.PCD_02 = "";
+                    pcdVO.PCD_03 = "1";
+                    pcdVO.PCD_04 = map_hw.get(sp_hw.getSelectedItem());
+                    pcdVO.PCD_05 = et_hw.getText().toString();
+                    pcdVO.PCD_98 = mUser.Value.OCM_01;
+                    requestPCD_CONTROL(pcdVO, "HW");
+                }
+
+
             }
         });
 
@@ -486,16 +510,37 @@ public class PcmDetail extends BaseActivity implements Serializable {
                     return;
                 }
 
-                PcdVO pcdVO = new PcdVO();
-                pcdVO.GUBUN = "INSERT";
-                pcdVO.PCD_ID = pcmVO.PCM_ID;
-                pcdVO.PCD_01 = pcmVO.PCM_01;
-                pcdVO.PCD_02 = "";
-                pcdVO.PCD_03 = "2";
-                pcdVO.PCD_04 = map_sw.get(sp_sw.getSelectedItem());
-                pcdVO.PCD_05 = et_sw.getText().toString();
-                pcdVO.PCD_98 = mUser.Value.OCM_01;
-                requestPCD_CONTROL(pcdVO, "SW");
+                if (scanCode != null) {
+                    PcdVO pcdVO = new PcdVO();
+                    pcdVO.GUBUN = "INSERT";
+                    pcdVO.PCD_ID = pcmVO.PCM_ID;
+                    pcdVO.PCD_01 = "";
+                    pcdVO.PCD_02 = "";
+                    pcdVO.PCD_03 = "2";
+                    pcdVO.PCD_04 = map_sw.get(sp_sw.getSelectedItem());
+                    pcdVO.PCD_05 = et_sw.getText().toString();
+                    pcdVO.PCD_98 = mUser.Value.OCM_01;
+
+                    if (mList_SW == null)
+                        mList_SW = new ArrayList<>();
+                    mList_SW.add(pcdVO);
+
+                    tv_swCnt.setText("(" + mList_SW.size() + ")");
+                    mSwAdapter.updateData(mList_SW);
+                    mSwAdapter.notifyDataSetChanged();
+
+                } else {
+                    PcdVO pcdVO = new PcdVO();
+                    pcdVO.GUBUN = "INSERT";
+                    pcdVO.PCD_ID = pcmVO.PCM_ID;
+                    pcdVO.PCD_01 = pcmVO.PCM_01;
+                    pcdVO.PCD_02 = "";
+                    pcdVO.PCD_03 = "2";
+                    pcdVO.PCD_04 = map_sw.get(sp_sw.getSelectedItem());
+                    pcdVO.PCD_05 = et_sw.getText().toString();
+                    pcdVO.PCD_98 = mUser.Value.OCM_01;
+                    requestPCD_CONTROL(pcdVO, "SW");
+                }
             }
         });
 
@@ -520,7 +565,7 @@ public class PcmDetail extends BaseActivity implements Serializable {
                 String manageDay = year + "." + month + "." + dayOfMonth + ".";
                 tv_manageDay.setText(manageDay);
 
-                requestLOG_CONTROL("1",getString(R.string.pcm_text4));
+                requestLOG_CONTROL("1", getString(R.string.pcm_text4));
             }
         });
 
@@ -528,8 +573,8 @@ public class PcmDetail extends BaseActivity implements Serializable {
         bt_save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if( ed_name.getText().equals("")){
-                    Toast.makeText(mContext,getString(R.string.validation_check1),Toast.LENGTH_LONG).show();
+                if (ed_name.getText().toString().equals("")) {
+                    Toast.makeText(mContext, getString(R.string.validation_check1), Toast.LENGTH_LONG).show();
                     return;
                 }
 
@@ -549,9 +594,9 @@ public class PcmDetail extends BaseActivity implements Serializable {
             }
         });
 
-        tv_Log.setOnClickListener(new View.OnClickListener(){
+        tv_Log.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View v){
+            public void onClick(View v) {
                 LogVO LOG = new LogVO();
                 LOG.LOG_ID = pcmVO.PCM_ID;
                 LOG.LOG_01 = pcmVO.PCM_01;
@@ -580,7 +625,7 @@ public class PcmDetail extends BaseActivity implements Serializable {
         }
     }
 
-    private void deleteDialog(){
+    private void deleteDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         LayoutInflater inflater = getLayoutInflater();
         View view = inflater.inflate(R.layout.dialog_delete, null);
@@ -595,11 +640,10 @@ public class PcmDetail extends BaseActivity implements Serializable {
 
         btnDelete.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                if(etDeleteName.getText().toString().equals(pcmVO.PCM_02)){
+                if (etDeleteName.getText().toString().equals(pcmVO.PCM_02)) {
                     dialog.dismiss();
                     requestPCM_CONTROL("DELETE");
-                }
-                else{
+                } else {
                     Toast.makeText(mActivity, getResources().getString(R.string.common_confirm_delete), Toast.LENGTH_SHORT).show();
                 }
             }
@@ -614,9 +658,9 @@ public class PcmDetail extends BaseActivity implements Serializable {
     }
 
 
-    private void requestCDS_CONTROL(String GUBUN, String CTD_07, String scanCode, String CDS_03, String CTD_01, String CTD_02, String CTD_09, String OCM_01){
+    private void requestCDS_CONTROL(String GUBUN, String CTD_07, String scanCode, String CDS_03, String CTD_01, String CTD_02, String CTD_09, String OCM_01) {
         // 인터넷 연결 여부 확인
-        if(!ClsNetworkCheck.isConnectable(mContext)){
+        if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(mContext.getString(R.string.common_network_error));
             return;
         }
@@ -641,16 +685,26 @@ public class PcmDetail extends BaseActivity implements Serializable {
                 msg.obj = response;
                 msg.what = 100;
 
-                new Handler(){
+                new Handler() {
                     @Override
-                    public void handleMessage(Message msg){
-                        if(msg.what == 100){
+                    public void handleMessage(Message msg) {
+                        if (msg.what == 100) {
                             Response<CDS_Model> response = (Response<CDS_Model>) msg.obj;
 
-                            if(GUBUN.equals("INSERT")){
+                            if (GUBUN.equals("INSERT")) {
                                 pcmVO.PCM_01 = response.body().Data.get(0).CDS_03;
+                                if (scanCode != null) {
+                                    for (int i = 0; i < mList_HW.size(); i++) {
+                                        mList_HW.get(i).setPCD_01(response.body().Data.get(0).CDS_03);
+                                        requestPCD_CONTROL(mList_HW.get(i), "HW");
+                                    }
+                                    for (int i = 0; i < mList_SW.size(); i++) {
+                                        mList_SW.get(i).setPCD_01(response.body().Data.get(0).CDS_03);
+                                        requestPCD_CONTROL(mList_SW.get(i), "SW");
+                                    }
+                                }
                                 requestPCM_CONTROL("INSERT");
-                                requestLOG_CONTROL("1",getString(R.string.log_new_text));
+                                requestLOG_CONTROL("1", getString(R.string.log_new_text));
                             }
                         }
                     }
@@ -666,10 +720,10 @@ public class PcmDetail extends BaseActivity implements Serializable {
     }
 
 
-    private void requestLOG_CONTROL(String LOG_03, String LOG_04){
+    private void requestLOG_CONTROL(String LOG_03, String LOG_04) {
         //인터넷 연결 여부 확인
-        if(!ClsNetworkCheck.isConnectable(mContext)){
-            Toast.makeText(mActivity,  getResources().getString(R.string.common_network_error), Toast.LENGTH_SHORT).show();
+        if (!ClsNetworkCheck.isConnectable(mContext)) {
+            Toast.makeText(mActivity, getResources().getString(R.string.common_network_error), Toast.LENGTH_SHORT).show();
             return;
         }
 
@@ -686,15 +740,15 @@ public class PcmDetail extends BaseActivity implements Serializable {
                 "SP_PCML_CONTROL"
         );
 
-        call.enqueue(new Callback<LOG_Model>(){
+        call.enqueue(new Callback<LOG_Model>() {
             @SuppressLint("HandlerLeak")
             @Override
-            public void onResponse(Call<LOG_Model> call, Response<LOG_Model> response){
+            public void onResponse(Call<LOG_Model> call, Response<LOG_Model> response) {
 
             }
 
             @Override
-            public void onFailure(Call<LOG_Model> call, Throwable t){
+            public void onFailure(Call<LOG_Model> call, Throwable t) {
                 Log.d("LOG_CONTROL", t.getMessage());
 //                closeLoadingBar();
             }

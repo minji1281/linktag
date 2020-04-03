@@ -208,13 +208,14 @@ public class RfdRecycleAdapter extends RecyclerView.Adapter<RfdRecycleAdapter.Vi
                 @Override
                 public void onClick(View view) {
 
-
                     if (filteredmlist.get(position).ARM_03.equals("Y")) {
                         viewHolder.imageview.setImageResource(R.drawable.alarm_state_off);
                         Toast.makeText(mContext, "[" + filteredmlist.get(position).RFD_03 + "]-" +mContext.getResources().getString(R.string.common_alarm_off), Toast.LENGTH_SHORT).show();
                     } else if (filteredmlist.get(position).ARM_03.equals("N")) {
                         viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                        Toast.makeText(mContext, "[" + filteredmlist.get(position).RFD_03 + "]-" +mContext.getResources().getString(R.string.common_alarm_on), Toast.LENGTH_SHORT).show();
+                        Toast.makeText(mContext, "[" + filteredmlist.get(position).RFD_03 + "]" +"\n"+
+                                mContext.getString(R.string.rfd_text4) + filteredmlist.get(position).RFD_96.substring(0, 4) +"-"+filteredmlist.get(position).RFD_96.substring(4, 6) + "-" + filteredmlist.get(position).RFD_96.substring(6, 8) + " " +
+                                filteredmlist.get(position).RFD_96.substring(8, 10) + ":" + filteredmlist.get(position).RFD_96.substring(10, 12) +" " + mContext.getString(R.string.rfd_text5), Toast.LENGTH_LONG).show();
                     } else {
                         Toast.makeText(mContext, mContext.getString(R.string.common_no_alarm_toast), Toast.LENGTH_SHORT).show();
                         return;

@@ -24,6 +24,7 @@ import com.linktag.linkapp.model.TRPModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.ui.pcm.PcmDetail;
 import com.linktag.linkapp.value_object.TrdVO;
 
 import java.util.ArrayList;
@@ -32,6 +33,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.linktag.linkapp.ui.trp.TrpDetail.tv_alarmCnt;
 import static com.linktag.linkapp.ui.trp.TrpDetail.tv_alarmLabel;
 import static com.linktag.linkapp.ui.trp.TrpDetail.recyclerView;
 import static com.linktag.linkapp.ui.trp.TrpDetail.alarmState;
@@ -90,17 +92,27 @@ public class TrdRecycleAdapter extends RecyclerView.Adapter<TrdRecycleAdapter.Vi
         viewHolder.btn_delete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                TrdVO trdVO = new TrdVO();
 
-                trdVO.setTRD_ID(mList.get(position).TRD_ID);
-                trdVO.setTRD_01(mList.get(position).TRD_01);
-                trdVO.setTRD_02(mList.get(position).TRD_02);
+                if (mList.get(position).TRD_01.equals("")){
+                    mList.remove(position);
+                    if (mList == null)
+                        mList = new ArrayList<>();
+                    tv_alarmCnt.setText("("+mList.size()+")");
+                    mAdapter.updateData(mList);
+                    mAdapter.notifyDataSetChanged();
+                }
+                else{
+                    TrdVO trdVO = new TrdVO();
 
-                requestTRD_CONTROL(trdVO, position);
+                    trdVO.setTRD_ID(mList.get(position).TRD_ID);
+                    trdVO.setTRD_01(mList.get(position).TRD_01);
+                    trdVO.setTRD_02(mList.get(position).TRD_02);
 
-                requestLOG_CONTROL("2",mContext.getString(R.string.trp_Alarm_delete) + " " + am_pm+ hourOfDay +":" +minute);
+                    requestTRD_CONTROL(trdVO, position);
 
+                    requestLOG_CONTROL("2",mContext.getString(R.string.trp_Alarm_delete) + " " + am_pm+ hourOfDay +":" +minute);
 
+                }
             }
         });
 

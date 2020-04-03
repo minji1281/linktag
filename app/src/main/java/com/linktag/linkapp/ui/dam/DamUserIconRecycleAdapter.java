@@ -72,7 +72,12 @@ public class DamUserIconRecycleAdapter extends RecyclerView.Adapter<DamUserIconR
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        ClsBitmap.setSharedPhoto(mContext, viewHolder.img_icon,  mUser.Value.OCM_01, mUser.Value.OCM_52, "", R.drawable.btn_add);
+        if(mList.size()>0 && mList.size() <= position){
+            ClsBitmap.setSharedDamIcon(mContext, viewHolder.img_icon,  mList.get(position).DCM_01, mList.get(position).DCM_03, "", R.drawable.btn_add);
+        }
+        else{
+            ClsBitmap.setSharedDamIcon(mContext, viewHolder.img_icon,  "", "", "", R.drawable.btn_add);
+        }
 
 
         if (lastSelectedPosition != -1) {

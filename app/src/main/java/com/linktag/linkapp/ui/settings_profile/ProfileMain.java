@@ -565,6 +565,7 @@ public class ProfileMain extends BaseActivity {
         isChangeImg = true;
         setFileName = tempFile.getName();
         tempFile = null;
+
     }
 
 

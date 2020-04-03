@@ -50,6 +50,7 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 import java.util.Locale;
+import java.util.concurrent.TimeUnit;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -118,6 +119,7 @@ public class JdmDetail extends BaseActivity {
         if (getIntent().hasExtra("scanCode")) {
             intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
             check_area.setVisibility(View.GONE);
+            tv_Log.setVisibility(View.GONE);
             scanCode = getIntent().getStringExtra("scanCode");
             header.btnHeaderRight1.setVisibility((View.GONE));
         }
@@ -203,7 +205,7 @@ public class JdmDetail extends BaseActivity {
                     imageView_check.setImageResource(R.drawable.btn_round_skyblue_50dp);
 
                     if (jdmVO.ARM_03.equals("Y") && dateBool) {
-                        Toast.makeText(mContext,"[" + ed_name.getText().toString() + "]" +getString(R.string.jdm_text1) +"\n"+
+                        Toast.makeText(mContext,
                                 getString(R.string.jdm_text2) +"\n"+ jdmVO.JDM_96.substring(0,4)+"-" + jdmVO.JDM_96.substring(4,6)+"-"+ jdmVO.JDM_96.substring(6,8)+" " +
                                 jdmVO.JDM_96.substring(8,10)+":" + jdmVO.JDM_96.substring(10,12)+ " " + getString(R.string.jdm_text3), Toast.LENGTH_LONG ).show();
                     }
@@ -282,6 +284,7 @@ public class JdmDetail extends BaseActivity {
 
         if (jdmVO.getJDM_04().equals("")) {
             tv_datePicker.setText(format.format(calendar.getTime()));
+            jdmVO.setJDM_04(formatDate.format(calendar.getTime()));
         } else {
             String year = jdmVO.getJDM_04().substring(0, 4);
             String month = jdmVO.getJDM_04().substring(4, 6);
@@ -289,15 +292,29 @@ public class JdmDetail extends BaseActivity {
             tv_datePicker.setText(year + "." + month + "." + dayOfMonth);
 
 
+            calendar.clear(Calendar.HOUR);
+            calendar.clear(Calendar.MINUTE);
+            calendar.clear(Calendar.SECOND);
+            calendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
+
             Calendar dCalendar = Calendar.getInstance();
+            dCalendar.clear(Calendar.HOUR);
+            dCalendar.clear(Calendar.MINUTE);
+            dCalendar.clear(Calendar.SECOND);
+            dCalendar.clear(Calendar.MILLISECOND); // 시간, 분, 초, 밀리초 초기화
             dCalendar.set(Integer.parseInt(year), Integer.parseInt(month) - 1, Integer.parseInt(dayOfMonth));
 
-            int count = (int) ((calendar.getTimeInMillis() - dCalendar.getTimeInMillis()) / (24 * 60 * 60 * 1000));
-            startCountAnimation(count);
+            long dDayDiff = calendar.getTimeInMillis() - dCalendar.getTimeInMillis();
+            int day = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
+
+
+//            int count = (int) ((calendar.getTimeInMillis() - dCalendar.getTimeInMillis()) / (24 * 60 * 60 * 1000));
+            startCountAnimation(day);
         }
 
 
         if (jdmVO.getJDM_96().equals("")) {
+            Calendar calendar = Calendar.getInstance();
             calendar.add(Calendar.DATE, Integer.parseInt(jdmVO.JDM_06));
             tv_nextDate.setText(format.format(calendar.getTime()));
             jdmVO.setJDM_96(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime()));
@@ -365,6 +382,17 @@ public class JdmDetail extends BaseActivity {
                     dayOfMonthString = String.valueOf(dayOfMonth);
                 }
                 tv_datePicker.setText(year + "." + monthString + "." + dayOfMonthString);
+
+                calendar.set(year, month,dayOfMonth);
+
+                Calendar calendar = Calendar.getInstance();
+
+                Calendar dCalendar = Calendar.getInstance();
+                dCalendar.set(year, month,dayOfMonth);
+
+                int count = (int) ((calendar.getTimeInMillis() - dCalendar.getTimeInMillis()) / (24 * 60 * 60 * 1000));
+                startCountAnimation(count);
+
             }
         };
 
@@ -374,11 +402,11 @@ public class JdmDetail extends BaseActivity {
             public void onClick(View view) {
                 Locale locale = getResources().getConfiguration().locale;
                 Locale.setDefault(locale);
-                Calendar sCalendar = Calendar.getInstance();
-                sCalendar.set(Calendar.YEAR,Integer.parseInt(jdmVO.JDM_04.substring(0,4)));
-                sCalendar.set(Calendar.MONTH,Integer.parseInt(jdmVO.JDM_04.substring(4,6))-1);
-                sCalendar.set(Calendar.DATE,Integer.parseInt(jdmVO.JDM_04.substring(6,8)));
-                DatePickerDialog dialog = new DatePickerDialog(JdmDetail.this, callbackMethod, sCalendar.get(Calendar.YEAR), sCalendar.get(Calendar.MONTH), sCalendar.get(Calendar.DATE));
+//                Calendar sCalendar = Calendar.getInstance();
+//                sCalendar.set(Calendar.YEAR,Integer.parseInt(jdmVO.JDM_04.substring(0,4)));
+//                sCalendar.set(Calendar.MONTH,Integer.parseInt(jdmVO.JDM_04.substring(4,6))-1);
+//                sCalendar.set(Calendar.DATE,Integer.parseInt(jdmVO.JDM_04.substring(6,8)));
+                DatePickerDialog dialog = new DatePickerDialog(JdmDetail.this, callbackMethod, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DATE));
                 dialog.show();
             }
         });
@@ -396,7 +424,7 @@ public class JdmDetail extends BaseActivity {
             @Override
             public void onClick(View view) {
 
-                if( ed_name.getText().equals("")){
+                if( ed_name.getText().toString().equals("")){
                     Toast.makeText(mContext,getString(R.string.validation_check1),Toast.LENGTH_LONG).show();
                     return;
                 }
