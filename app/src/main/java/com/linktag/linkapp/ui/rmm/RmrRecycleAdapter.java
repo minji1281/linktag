@@ -25,17 +25,12 @@ public class RmrRecycleAdapter extends RecyclerView.Adapter<RmrRecycleAdapter.Vi
     private LayoutInflater mInflater;
     private View view;
     private InterfaceUser mUser;
-//    private RmrRecycleAdapter mAdapter;
 
     RmrRecycleAdapter(Context context, ArrayList<RMR_VO> list) {
         mContext = context;
         mList = list;
         mUser = InterfaceUser.getInstance();
     }
-
-//    public void setmAdapter(RmrRecycleAdapter mAdapter) {
-//        this.mAdapter = mAdapter;
-//    }
 
     @NonNull
     @Override
@@ -125,7 +120,6 @@ public class RmrRecycleAdapter extends RecyclerView.Adapter<RmrRecycleAdapter.Vi
                     int position = getAdapterPosition();
 
                     if(mList.get(position).RMR_05.equals(mUser.Value.OCM_01) || mList.get(position).RMR_05.equals("")){ //다른사람이 예약한 시간은 수정할 수 없다.
-//                        RmdRecycleAdapter.RMR_02 = mList.get(position).RMR_02;
                         ReserveList tmp = new ReserveList(mList.get(position).RMR_02, mList.get(position).RMR_04); //예약
                         if(mList.get(position).boolChange){
                             RmdRecycleAdapter.RMR_04_list.remove(tmp);

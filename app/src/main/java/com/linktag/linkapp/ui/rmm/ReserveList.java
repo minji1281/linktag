@@ -1,7 +1,5 @@
 package com.linktag.linkapp.ui.rmm;
 
-import java.util.ArrayList;
-
 public class ReserveList implements Comparable<ReserveList> {
     private String code;
     private String time;
@@ -33,20 +31,4 @@ public class ReserveList implements Comparable<ReserveList> {
         return (this.getCode().equals(((ReserveList) obj).getCode()) && (this.getTime()
                 .equals(((ReserveList) obj).getTime())));
     }
-
-//    @Override
-//    public boolean equals(ReserveList reserveList) {
-//        if (reserveList == null) return false;
-//        if (reserveList == this) return true;
-//        if (!(reserveList instanceof ReserveList)) return false;
-//        ReserveList o = (ReserveList) reserveList;
-//
-//        boolean tmp = false;
-//        if(o.getCode() == this.getCode()){
-//            if(o.getTime() == this.getTime()){
-//                tmp = true;
-//            }
-//        }
-//        return tmp;
-//    }
 }

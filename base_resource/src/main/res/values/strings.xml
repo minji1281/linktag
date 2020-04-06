@@ -501,5 +501,10 @@
     <string name="rmm_list_reserve_fail">예약 실패</string>
     <string name="dialog_rmm_my_reserve_header_title">나의 예약 정보</string>
     <string name="dialog_rmm_my_reserve_today">오늘</string>
+    <string name="rmd_detail_no_master">등록할 수 없습니다.</string>
+    <string name="rmd_detail_save_text">예약되었습니다.</string>
+    <string name="rmd_detail_day_text">지난일자는 예약할 수 없습니다.</string>
+    <string name="dialog_rmm_set_reserve_wrong_time">시작시간이 종료시간보다 이전이어야합니다.</string>
+    <string name="dialog_rmm_time_filter_wrong_time">이용가능시간 안에서 검색해주세요.</string>
 
 </resources>

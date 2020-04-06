@@ -23,17 +23,12 @@ public class myRmrRecycleAdapter extends RecyclerView.Adapter<myRmrRecycleAdapte
     private LayoutInflater mInflater;
     private View view;
     private InterfaceUser mUser;
-//    private RmrRecycleAdapter mAdapter;
 
     myRmrRecycleAdapter(Context context, ArrayList<RMR_VO> list) {
         mContext = context;
         mList = list;
         mUser = InterfaceUser.getInstance();
     }
-
-//    public void setmAdapter(RmrRecycleAdapter mAdapter) {
-//        this.mAdapter = mAdapter;
-//    }
 
     @NonNull
     @Override

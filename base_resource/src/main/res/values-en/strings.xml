@@ -501,5 +501,10 @@
     <string name="rmm_list_reserve_fail">Reservation failure</string>
     <string name="dialog_rmm_my_reserve_header_title">My Reservation</string>
     <string name="dialog_rmm_my_reserve_today">Today</string>
+    <string name="rmd_detail_no_master">You have no permission to register.</string>
+    <string name="rmd_detail_save_text">Complete the reservation.</string>
+    <string name="rmd_detail_day_text">You cannot make reservations for past days.</string>
+    <string name="dialog_rmm_set_reserve_wrong_time">Start time must be earlier than end time.</string>
+    <string name="dialog_rmm_time_filter_wrong_time">Search within the available time.</string>
 
 </resources>
