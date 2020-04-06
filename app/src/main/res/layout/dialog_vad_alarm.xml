@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical|left"
-            android:text="접종 예정일 설정"
+            android:text="@string/vac_dialog_text1"
             android:textColor="#FFF"
             android:textSize="20dp"
             android:textStyle="bold" />
@@ -31,13 +31,13 @@
             android:id="@+id/tabItem1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="접종예정일" />
+            android:text="@string/vac_dialog_text2" />
 
         <android.support.design.widget.TabItem
             android:id="@+id/tabItem2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="알림시간" />
+            android:text="@string/vac_dialog_text3" />
     </android.support.design.widget.TabLayout>
 
     <FrameLayout

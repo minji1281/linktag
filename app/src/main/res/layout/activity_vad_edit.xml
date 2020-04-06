@@ -10,7 +10,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="접종정보 편집"/>
+        app:title_text="@string/vac_detail_text11"/>
 
 
     <LinearLayout
@@ -31,7 +31,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|left"
-                android:text="접종기관"
+                android:text="@string/vac_detail_text2"
                 android:textSize="@dimen/text_small" />
 
             <TextView
@@ -86,7 +86,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|left"
-                android:text="접종정보"
+                android:text="@string/vac_detail_text8"
                 android:textSize="@dimen/text_small" />
 
             <TextView
@@ -128,7 +128,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
-                    android:text="접종 예정일 선택"
+                    android:text="@string/vac_detail_text9"
                     android:textSize="@dimen/text_small"
                     android:textStyle="bold" />
 
@@ -148,7 +148,7 @@
                 android:layout_weight="1"
                 android:layout_marginStart="15dp"
                 android:layout_marginEnd="15dp"
-                android:hint="ex) 종합 예방접종"
+                android:hint="@string/vac_detail_text10"
                 android:singleLine="true"
                 android:textSize="@dimen/small_text" />
 

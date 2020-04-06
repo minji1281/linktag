@@ -11,7 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="접종관리" />
+        app:title_text="@string/vac_detail_title" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -139,7 +139,7 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:text="최근 접종 내역"
+                    android:text="@string/vac_detail_text1"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -210,7 +210,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center_vertical|left"
-                        android:text="접종기관"
+                        android:text="@string/vac_detail_text2"
                         android:textSize="@dimen/text_small" />
 
                     <TextView
@@ -242,7 +242,7 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="2.5"
-                        android:hint="ex) 이솝메이컬 055 232 0220"
+                        android:hint="@string/vac_detail_text3"
                         android:singleLine="true"
                         android:textSize="@dimen/small_text" />
 
@@ -254,7 +254,7 @@
                         android:background="@drawable/btn_round_indigo_5dp"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:text="추가"
+                        android:text="@string/vac_detail_text4"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="13dp"
@@ -300,7 +300,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical|left"
-                    android:text="다음접종 정보"
+                    android:text="@string/vac_detail_text5"
                     android:textSize="@dimen/text_small" />
 
                 <View
@@ -316,7 +316,7 @@
                     android:background="@drawable/btn_round_indigo_5dp"
                     android:minWidth="0dp"
                     android:minHeight="0dp"
-                    android:text="편집"
+                    android:text="@string/vac_detail_text6"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="13dp"
@@ -359,7 +359,7 @@
                         android:background="@drawable/btn_round_skyblue_5dp"
                         android:minWidth="0dp"
                         android:minHeight="0dp"
-                        android:text="접종완료"
+                        android:text="@string/vac_detail_text7"
                         android:textAllCaps="false"
                         android:textColor="@color/white"
                         android:textSize="13dp"

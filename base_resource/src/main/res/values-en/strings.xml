@@ -404,7 +404,49 @@
     <string name="frm_log_func_text">Filter replacement complete</string>
 
     <!-- 접종 리스트  -->
-    <string name="vac_list_title">접종목록</string>
+    <string name="vac_list_title">Vaccination list</string>
+    <string name="vac_list_text1">No Schedule</string>
+
+
+    <!--접종 디테일 -->
+    <string name="vac_detail_title">Vaccination Management</string>
+    <string name="vac_detail_text1">Recent Vaccination History</string>
+    <string name="vac_detail_text2">Vaccination Agency</string>
+    <string name="vac_detail_text3">ex)Aesop Medical 992 1154 0024</string>
+    <string name="vac_detail_text4">Add</string>
+    <string name="vac_detail_text5">Next Vaccination Information</string>
+    <string name="vac_detail_text6">Edit</string>
+    <string name="vac_detail_text7">Vaccination Complete</string>
+    <string name="vac_detail_text8">Vaccination Information</string>
+    <string name="vac_detail_text9">Scheduled date Selection</string>
+    <string name="vac_detail_text10">ex) Comprehensive Vaccination 1st</string>
+    <string name="vac_detail_text11">Vaccination Information Edit</string>
+
+
+    <string name="vac_dialog_text1">Scheduled date Setting</string>
+    <string name="vac_dialog_text2">Scheduled date</string>
+    <string name="vac_dialog_text3">Alarm Time</string>
+    <string name="vac_dialog_text4">The scheduled date of vaccination must be greater than the current date.</string>
+
+
+
+    <string name="vac_text1">Enter Vaccination Agency Information.</string>
+    <string name="vac_text2">Vaccination Agency Add</string>
+    <string name="vac_text3">Initially, you can save and register.</string>
+    <string name="vac_text4">Select, Vaccination Information.</string>
+    <string name="vac_text5">Vaccination Complete</string>
+    <string name="vac_text6">The next Alarm will be </string>
+    <string name="vac_text7"></string>
+    <string name="vac_text8">That information has been saved.</string>
+    <string name="vac_text9">Select, Vaccination Agency</string>
+    <string name="vac_text10">No Data</string>
+    <string name="vac_text11">Vaccination is complete.</string>
+    <string name="vac_text12">Select first, Vaccination Agency</string>
+    <string name="vac_text13">Select, Scheduled date</string>
+    <string name="vac_text14">Enter Vaccination Information.</string>
+
+
+
     <string name="app_license">License</string>
     <string name="app_github">GitHub</string>
     <string name="app_github_url"><![CDATA[https://github.com/ogaclejapan/ArcLayout]]></string>

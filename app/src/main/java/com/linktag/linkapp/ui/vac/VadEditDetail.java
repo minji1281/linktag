@@ -25,6 +25,7 @@ import com.linktag.linkapp.model.VAMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
+import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.VadVO;
 import com.linktag.linkapp.value_object.VamVO;
 
@@ -47,7 +48,7 @@ public class VadEditDetail extends BaseActivity {
 
     private String VAC_ID;
     private String VAC_01;
-    public static String VAM_02 ="";
+    public static String VAM_02 = "";
     private String ARM_03;
 
     private InterfaceUser mUser = InterfaceUser.getInstance();
@@ -81,11 +82,17 @@ public class VadEditDetail extends BaseActivity {
     private Calendar calendar = Calendar.getInstance();
     private Calendar dialogcalendar = Calendar.getInstance();
 
+    private String scanCode;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_vad_edit);
+
+        if (getIntent().hasExtra("scanCode")) {
+            scanCode = getIntent().getStringExtra("scanCode");
+        }
 
         initLayout();
         initialize();
@@ -141,8 +148,8 @@ public class VadEditDetail extends BaseActivity {
 
         requestVAM_SELECT();
 
-        ed_vadInfo = findViewById(R.id.ed_vadInfo);
 
+        ed_vadInfo = findViewById(R.id.ed_vadInfo);
 
 
         callBackTime = formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime());
@@ -152,16 +159,13 @@ public class VadEditDetail extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-                if(VAM_02.equals("")){
-                    Toast.makeText(mContext,"접종기관을 먼저 선택하세요.",Toast.LENGTH_LONG);
-                }
-                else if (tv_datePicker.getText().equals("접종 예정일 선택")){
-                    Toast.makeText(mContext,"접종예정 일자를 선택하세요.",Toast.LENGTH_LONG);
-                }
-                else if (ed_vadInfo.getText().equals("")){
-                    Toast.makeText(mContext,"접종정보를 입력하세요.",Toast.LENGTH_LONG);
-                }
-                else{
+                if (VAM_02.equals("")) {
+                    Toast.makeText(mContext, getString(R.string.vac_text12), Toast.LENGTH_LONG).show();
+                } else if (tv_datePicker.getText().equals(getString(R.string.vac_detail_text9))) {
+                    Toast.makeText(mContext, getString(R.string.vac_text13), Toast.LENGTH_LONG).show();
+                } else if (ed_vadInfo.getText().equals("")) {
+                    Toast.makeText(mContext,  getString(R.string.vac_text14), Toast.LENGTH_LONG).show();
+                } else {
                     requestVAD_CONTROL("INSERT");
                 }
             }
@@ -230,12 +234,11 @@ public class VadEditDetail extends BaseActivity {
                             mList_vad = response.body().Data;
                             if (mList_vad == null)
                                 mList_vad = new ArrayList<>();
-                            tv_vadCnt.setText("("+mList_vad.size()+")");
-                            if(mList_vad.size()==0){
+                            tv_vadCnt.setText("(" + mList_vad.size() + ")");
+                            if (mList_vad.size() == 0) {
                                 tv_vad_nodata.setVisibility(View.VISIBLE);
                                 recyclerView_vad.setVisibility(View.GONE);
-                            }
-                            else{
+                            } else {
                                 recyclerView_vad.setVisibility(View.VISIBLE);
                                 tv_vad_nodata.setVisibility(View.GONE);
                             }

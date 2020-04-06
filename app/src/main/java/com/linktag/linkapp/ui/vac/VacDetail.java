@@ -97,13 +97,13 @@ public class VacDetail extends BaseActivity {
 
 
     private CtdVO intentVO;
+    private String scanCode;
+
 
     private String VAD_02;
     private String VAD_03;
     private String VAD_04;
     private String[] str;
-
-    private String scanCode;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -115,17 +115,13 @@ public class VacDetail extends BaseActivity {
 
         initialize();
 
+
         if (getIntent().hasExtra("scanCode")) {
             header.btnHeaderRight1.setVisibility((View.GONE));
             intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
             scanCode = getIntent().getStringExtra("scanCode");
-
-            btn_addItem.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Toast.makeText(mContext, "기본정보 저장후 입력가능합니다.", Toast.LENGTH_LONG).show();
-                }
-            });
+            btn_check.setVisibility(View.GONE);
+            tv_Log.setVisibility(View.GONE);
 
         }
     }
@@ -135,8 +131,7 @@ public class VacDetail extends BaseActivity {
         super.onResume();
 
         requestVAM_SELECT();
-        requestVAD_SELECT();
-
+        requestVAD_SELECT("-1");
     }
 
     @Override
@@ -191,6 +186,7 @@ public class VacDetail extends BaseActivity {
     @Override
     protected void initialize() {
 
+
         mList = new ArrayList<>();
         linearLayoutManager = new LinearLayoutManager(mContext);
         recyclerView.setLayoutManager(linearLayoutManager);
@@ -223,20 +219,51 @@ public class VacDetail extends BaseActivity {
             @Override
             public void onClick(View v) {
 
-
                 if (ed_item.getText().toString().equals("")) {
-                    Toast.makeText(mContext, "접종기관정보를 입력하세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext,  getString(R.string.vac_text1), Toast.LENGTH_LONG).show();
                     return;
                 }
 
-                VamVO vamVO = new VamVO();
-                vamVO.VAM_ID = vacVO.VAC_ID;
-                vamVO.VAM_01 = vacVO.VAC_01;
-                vamVO.VAM_02 = "";
-                vamVO.VAM_03 = ed_item.getText().toString();
-                vamVO.VAM_98 = mUser.Value.OCM_01;
-                requestVAM_CONTROL("INSERT", vamVO);
-                requestLOG_CONTROL("2", "접종기관 추가");
+                if (scanCode != null) {
+                    VamVO vamVO = new VamVO();
+                    vamVO.VAM_ID = vacVO.VAC_ID;
+                    vamVO.VAM_01 = "";
+                    vamVO.VAM_02 = "";
+                    vamVO.VAM_03 = ed_item.getText().toString();
+                    vamVO.VAM_98 = mUser.Value.OCM_01;
+
+                    if (mList == null)
+                        mList = new ArrayList<>();
+
+                    mList.add(vamVO);
+
+                    tv_vamCnt.setText("(" + mList.size() + ")");
+                    if (mList.size() == 0) {
+                        tv_vam_nodata.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
+                        alarmState = false;
+
+                        imageView.setImageResource(R.drawable.alarm_state_off);
+                        vacVO.setARM_03("N");
+
+                    } else {
+                        recyclerView.setVisibility(View.VISIBLE);
+                        tv_vam_nodata.setVisibility(View.GONE);
+                        alarmState = true;
+                    }
+
+                    mAdapter.updateData(mList);
+                    mAdapter.notifyDataSetChanged();
+                } else {
+                    VamVO vamVO = new VamVO();
+                    vamVO.VAM_ID = vacVO.VAC_ID;
+                    vamVO.VAM_01 = vacVO.VAC_01;
+                    vamVO.VAM_02 = "";
+                    vamVO.VAM_03 = ed_item.getText().toString();
+                    vamVO.VAM_98 = mUser.Value.OCM_01;
+                    requestVAM_CONTROL("INSERT", vamVO);
+                    requestLOG_CONTROL("2",  getString(R.string.vac_text2));
+                }
             }
         });
 
@@ -260,12 +287,18 @@ public class VacDetail extends BaseActivity {
         btn_vadEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(mContext, VadEditDetail.class);
 
-                intent.putExtra("VAC_ID", vacVO.VAC_ID);
-                intent.putExtra("VAC_01", vacVO.VAC_01);
-                intent.putExtra("ARM_03", vacVO.ARM_03);
-                mContext.startActivity(intent);
+                if (scanCode != null) {
+                    Toast.makeText(mContext,  getString(R.string.vac_text3), Toast.LENGTH_SHORT).show();
+                    return;
+                } else {
+                    Intent intent = new Intent(mContext, VadEditDetail.class);
+
+                    intent.putExtra("VAC_ID", vacVO.VAC_ID);
+                    intent.putExtra("VAC_01", vacVO.VAC_01);
+                    intent.putExtra("ARM_03", vacVO.ARM_03);
+                    mContext.startActivity(intent);
+                }
 
             }
         });
@@ -296,14 +329,14 @@ public class VacDetail extends BaseActivity {
             @Override
             public void onClick(View v) {
                 if (VAD_04.equals("")) {
-                    Toast.makeText(mContext, "접종정보를 선택하세요.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext,  getString(R.string.vac_text4), Toast.LENGTH_LONG).show();
                     return;
                 }
                 vacVO.VAC_04 = VAD_04;
                 tv_vaccineLog.setText(VAD_04);
                 requestVAC_CONTROL("UPDATE_VAC_04");
                 requestVAD_CONTROL();
-                requestLOG_CONTROL("2", VAD_04 + "접종 완료");
+                requestLOG_CONTROL("2", VAD_04 +  getString(R.string.vac_text5));
             }
         });
 
@@ -326,7 +359,7 @@ public class VacDetail extends BaseActivity {
             @Override
             public void onClick(View view) {
 
-                if (ed_name.getText().equals("")) {
+                if (ed_name.getText().toString().equals("")) {
                     Toast.makeText(mContext, getString(R.string.validation_check1), Toast.LENGTH_LONG).show();
                     return;
                 }
@@ -351,7 +384,7 @@ public class VacDetail extends BaseActivity {
 
     }
 
-    public void requestVAD_SELECT() {
+    public void requestVAD_SELECT(String VAD_02) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(mContext.getString(R.string.common_network_error));
@@ -362,9 +395,9 @@ public class VacDetail extends BaseActivity {
         Call<VADModel> call = Http.vad(HttpBaseService.TYPE.POST).VAD_SELECT(
                 BaseConst.URL_HOST,
                 "LIST",
-                vacVO.VAD_ID,
-                vacVO.VAD_01,
-                "-1"
+                vacVO.VAC_ID,
+                vacVO.VAC_01,
+                VAD_02
         );
 
 
@@ -383,17 +416,27 @@ public class VacDetail extends BaseActivity {
 
                             Response<VADModel> response = (Response<VADModel>) msg.obj;
 
-                            if (response.body().Total > 0) {
-                                str = new String[response.body().Total];
+                            if (VAD_02.equals("")) {
+                                if (response.body().Total >0 && vacVO.ARM_03.equals("Y")){
+                                    Toast.makeText(mContext, getString(R.string.vac_text6)+ " " + response.body().Data.get(0).VAD_04+"\n"+
+                                            stringTodateTimeFormat(response.body().Data.get(0).VAD_96)+" "+  getString(R.string.vac_text7),Toast.LENGTH_LONG).show();
+                                }
+                                else{
+                                    Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + " " +  getString(R.string.vac_text8), Toast.LENGTH_LONG).show();
+                                }
                             } else {
-                                str = new String[1];
-                            }
+                                if (response.body().Total > 0) {
+                                    str = new String[response.body().Total];
+                                } else {
+                                    str = new String[1];
+                                }
 
-                            mSpinnerList.clear();
-                            str[0] = "접종기관을 선택하세요";
-                            mSpinnerList.add(new VacDetail.SpinnerList("","",""));
-                            final ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item_list, str);
-                            vadSpinner.setAdapter(adapter);
+                                mSpinnerList.clear();
+                                str[0] =  getString(R.string.vac_text9);
+                                mSpinnerList.add(new VacDetail.SpinnerList("", "", ""));
+                                final ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item_list, str);
+                                vadSpinner.setAdapter(adapter);
+                            }
 
                         }
                     }
@@ -456,16 +499,16 @@ public class VacDetail extends BaseActivity {
 
                             if (response.body().Total > 0) {
                                 for (int i = 0; i < response.body().Total; i++) {
-                                    str[i] =  stringTodateFormat(response.body().Data.get(i).VAD_96) +" "+ response.body().Data.get(i).VAD_04;
+                                    str[i] = stringTodateFormat(response.body().Data.get(i).VAD_96) + " " + response.body().Data.get(i).VAD_04;
                                     mSpinnerList.add(new VacDetail.SpinnerList(response.body().Data.get(i).VAD_02,
                                             response.body().Data.get(i).VAD_03,
-                                            "["+VAM_03+"]" +"\n"+ response.body().Data.get(i).VAD_04));
+                                            "[" + VAM_03 + "]" + "\n" + response.body().Data.get(i).VAD_04));
                                 }
                                 final ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item_list, str);
                                 vadSpinner.setAdapter(adapter);
                             } else {
                                 str[0] = "정보 없음";
-                                mSpinnerList.add(new VacDetail.SpinnerList("","",""));
+                                mSpinnerList.add(new VacDetail.SpinnerList("", "", ""));
                                 final ArrayAdapter<String> adapter = new ArrayAdapter<String>(mContext, R.layout.spinner_item_list, str);
                                 vadSpinner.setAdapter(adapter);
                             }
@@ -514,17 +557,26 @@ public class VacDetail extends BaseActivity {
 //                    onBackPressed();
 //                }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
-                    Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + " " + "해당 접종정보가 저장되었습니다.", Toast.LENGTH_LONG).show();
+                    requestVAD_SELECT("");
                     onBackPressed();
                 }
                 if (GUBUN.equals("UPDATE_VAC_04")) {
-                    Toast.makeText(mContext, "[" + vacVO.VAC_04 + "] 접종완료 하였습니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, "[" + vacVO.VAC_04 + "] " +  getString(R.string.vac_text11), Toast.LENGTH_LONG).show();
                 }
             }
 
             @Override
             public void onFailure(Call<VACModel> call, Throwable t) {
                 Log.d("Test", t.getMessage());
+                requestCDS_CONTROL(
+                        "DELETE",
+                        intentVO.CTD_07,
+                        scanCode,
+                        vacVO.VAC_01,
+                        "",
+                        "",
+                        "",
+                        "");
                 closeLoadingBar();
 
             }
@@ -566,10 +618,9 @@ public class VacDetail extends BaseActivity {
     }
 
 
-
-    private void requestCDS_CONTROL(String GUBUN, String CTD_07, String scanCode, String CDS_03, String CTD_01, String CTD_02, String CTD_09, String OCM_01){
+    private void requestCDS_CONTROL(String GUBUN, String CTD_07, String scanCode, String CDS_03, String CTD_01, String CTD_02, String CTD_09, String OCM_01) {
         // 인터넷 연결 여부 확인
-        if(!ClsNetworkCheck.isConnectable(mContext)){
+        if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(mContext.getString(R.string.common_network_error));
             return;
         }
@@ -594,16 +645,23 @@ public class VacDetail extends BaseActivity {
                 msg.obj = response;
                 msg.what = 100;
 
-                new Handler(){
+                new Handler() {
                     @Override
-                    public void handleMessage(Message msg){
-                        if(msg.what == 100){
+                    public void handleMessage(Message msg) {
+                        if (msg.what == 100) {
                             Response<CDS_Model> response = (Response<CDS_Model>) msg.obj;
 
-                            if(GUBUN.equals("INSERT")){
+                            if (GUBUN.equals("INSERT")) {
                                 vacVO.VAC_01 = response.body().Data.get(0).CDS_03;
                                 requestVAC_CONTROL("INSERT");
                                 requestLOG_CONTROL("1", getString(R.string.log_new_text));
+
+                                if (scanCode != null) {
+                                    for (int i = 0; i < mList.size(); i++) {
+                                        mList.get(i).setVAM_01(response.body().Data.get(0).CDS_03);
+                                        requestVAM_CONTROL("INSERT", mList.get(i));
+                                    }
+                                }
                             }
                         }
                     }
@@ -801,17 +859,29 @@ public class VacDetail extends BaseActivity {
         return retStr;
     }
 
+
+    public String stringTodateTimeFormat(String str) {
+        String retStr = "";
+        //yyyy.MM.dd
+        retStr = str.substring(0, 4) + "." + str.substring(4, 6) + "." + str.substring(6, 8) +" " + str.substring(8,10) + " : " + str.substring(10,12);
+        return retStr;
+    }
+
+
+
+
     public static class SpinnerList {
         private String VAD_02;
         private String VAD_03;
         private String VAD_04;
 
-        public SpinnerList(String VAD_02, String VAD_03, String VAD_04){
+        public SpinnerList(String VAD_02, String VAD_03, String VAD_04) {
             this.VAD_02 = VAD_02;
             this.VAD_03 = VAD_03;
             this.VAD_04 = VAD_04;
 
         }
+
         public String getVAD_02() {
             return VAD_02;
         }

@@ -27,7 +27,6 @@ import com.linktag.linkapp.model.VAMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.spinner.SpinnerList;
 import com.linktag.linkapp.value_object.VadVO;
 import com.linktag.linkapp.value_object.VamVO;
 
@@ -38,8 +37,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 import static com.linktag.linkapp.ui.vac.VacDetail.mSpinnerList;
+import static com.linktag.linkapp.ui.vac.VacDetail.tv_vamCnt;
+import static com.linktag.linkapp.ui.vac.VacDetail.tv_vam_nodata;
 import static com.linktag.linkapp.ui.vac.VacDetail.vadSpinner;
-import static com.linktag.linkapp.ui.vac.VadEditDetail.VAM_02;
 
 public class VamRecycleAdapter extends RecyclerView.Adapter<VamRecycleAdapter.ViewHolder> {
 
@@ -109,7 +109,33 @@ public class VamRecycleAdapter extends RecyclerView.Adapter<VamRecycleAdapter.Vi
             @SuppressLint("ResourceType")
             @Override
             public void onClick(View view) {
-                requestVAM_CONTROL(mList.get(position));
+                if (mList.get(position).VAM_01.equals("")){
+                    mList.remove(position);
+                    if (mList == null)
+                        mList = new ArrayList<>();
+                    tv_vamCnt.setText("("+mList.size()+")");
+
+                    if (mList.size() == 0) {
+                        tv_vam_nodata.setVisibility(View.VISIBLE);
+                        VacDetail.recyclerView.setVisibility(View.GONE);
+                        VacDetail.alarmState = false;
+
+                        VacDetail.imageView.setImageResource(R.drawable.alarm_state_off);
+                        VacDetail.vacVO.setARM_03("N");
+
+                    } else {
+                        VacDetail.recyclerView.setVisibility(View.VISIBLE);
+                        tv_vam_nodata.setVisibility(View.GONE);
+                        VacDetail.alarmState = true;
+                    }
+
+                    mAdapter.updateData(mList);
+                    mAdapter.notifyDataSetChanged();
+                }
+                else{
+                    requestVAM_CONTROL(mList.get(position));
+                }
+
             }
         });
 

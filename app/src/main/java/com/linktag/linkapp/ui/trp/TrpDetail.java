@@ -353,10 +353,19 @@ public class TrpDetail extends BaseActivity {
                             mList.add(trdVO);
                             tv_alarmCnt.setText("(" + mList.size() + ")");
 
-                            recyclerView.setVisibility(View.VISIBLE);
-                            tv_alarmLabel.setVisibility(View.GONE);
-                            alarmState = true;
+                            if (mList.size() == 0) {
+                                tv_alarmLabel.setVisibility(View.VISIBLE);
+                                recyclerView.setVisibility(View.GONE);
+                                alarmState = false;
 
+                                imageView.setImageResource(R.drawable.alarm_state_off);
+                                trpVO.setARM_03("N");
+
+                            } else {
+                                recyclerView.setVisibility(View.VISIBLE);
+                                tv_alarmLabel.setVisibility(View.GONE);
+                                alarmState = true;
+                            }
 
                             mAdapter.updateData(mList);
                             mAdapter.notifyDataSetChanged();

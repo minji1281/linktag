@@ -149,7 +149,7 @@ public class VadAlarmDialog extends Dialog {
                 }
 
                 if(Integer.parseInt(year + monthString + dayOfMonthString) <= Integer.parseInt(formatDate.format(sCalendar.getTime()))){
-                    Toast.makeText(mContext,"접종예정일은 현재일자보다 커야합니다.", Toast.LENGTH_LONG).show();
+                    Toast.makeText(mContext, mContext.getString(R.string.vac_dialog_text4), Toast.LENGTH_LONG).show();
                     return;
                 }
                 customDialogListener.onPositiveClicked(calendar);

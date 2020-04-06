@@ -13,6 +13,7 @@ import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.ImageView;
@@ -144,8 +145,9 @@ public class VacRecycleAdapter extends RecyclerView.Adapter<VacRecycleAdapter.Vi
                     Toast.makeText(mContext, "[" + filteredmlist.get(position).VAC_02 + "]- " +mContext.getString(R.string.common_alarm_off) , Toast.LENGTH_SHORT).show();
                 } else {
                     filteredmlist.get(position).setARM_03("Y");
+                    Toast.makeText(mContext, mContext.getString(R.string.vac_text6)+" " + viewHolder.filteredmlist_vad.get(0).VAD_04+"\n"+
+                            stringTodateTimeFormat(viewHolder.filteredmlist_vad.get(0).VAD_96)+" " + mContext.getString(R.string.vac_text7),Toast.LENGTH_LONG).show();
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + filteredmlist.get(position).VAC_02 + "]- " + mContext.getString(R.string.common_alarm_on), Toast.LENGTH_SHORT).show();
                 }
 
 
@@ -322,6 +324,13 @@ public class VacRecycleAdapter extends RecyclerView.Adapter<VacRecycleAdapter.Vi
             }
         });
 
+    }
+
+    public String stringTodateTimeFormat(String str) {
+        String retStr = "";
+        //yyyy.MM.dd
+        retStr = str.substring(0, 4) + "." + str.substring(4, 6) + "." + str.substring(6, 8) +" " + str.substring(8,10) + " : " + str.substring(10,12);
+        return retStr;
     }
 
 }

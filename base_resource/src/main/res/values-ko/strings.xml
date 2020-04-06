@@ -397,7 +397,48 @@
     <string name="frm_log_func_text">필터교체 완료</string>
 
     <!-- 접종 리스트  -->
-    <string name="vac_list_title">Vaccination list</string>
+    <string name="vac_list_title">접종목록</string>
+    <string name="vac_list_text1">접종일정 없음</string>
+
+
+    <!--접종 디테일 -->
+    <string name="vac_detail_title">접종관리</string>
+    <string name="vac_detail_text1">최근 접종 내역</string>
+    <string name="vac_detail_text2">접종기관</string>
+    <string name="vac_detail_text3">ex) 이솝메디컬 051 1154 9924</string>
+    <string name="vac_detail_text4">추가</string>
+    <string name="vac_detail_text5">다음 접종정보</string>
+    <string name="vac_detail_text6">편집</string>
+    <string name="vac_detail_text7">접종완료</string>
+    <string name="vac_detail_text8">접종정보</string>
+    <string name="vac_detail_text9">접종 예정일 선택</string>
+    <string name="vac_detail_text10">ex) 종합 예방 접종 1차</string>
+    <string name="vac_detail_text11">접종정보 편집</string>
+
+
+    <string name="vac_dialog_text1">접종 예정일 설정</string>
+    <string name="vac_dialog_text2">접종예정일</string>
+    <string name="vac_dialog_text3">알림시간</string>
+    <string name="vac_dialog_text4">접종예정일은 현재일자보다 커야합니다.</string>
+
+
+    <string name="vac_text1">접종기관정보를 입력하세요.</string>
+    <string name="vac_text2">접종기관 추가</string>
+    <string name="vac_text3">최초 입력 시 저장 후 등록가능합니다.</string>
+    <string name="vac_text4">접종정보를 선택하세요.</string>
+    <string name="vac_text5">접종 완료</string>
+    <string name="vac_text6">다음 알람예정은</string>
+    <string name="vac_text7">입니다</string>
+    <string name="vac_text8">해당 접종정보가 저장되었습니다.</string>
+    <string name="vac_text9">접종기관을 선택하세요.</string>
+    <string name="vac_text10">정보 없음</string>
+    <string name="vac_text11">접종완료 하였습니다.</string>
+    <string name="vac_text12">접종기관을 먼저 선택하세요.</string>
+    <string name="vac_text13">접종예정 일자를 선택하세요.</string>
+    <string name="vac_text14">접종정보를 입력하세요.</string>
+
+
+
     <string name="app_license">License</string>
     <string name="app_github">GitHub</string>
     <string name="app_github_url"><![CDATA[https://github.com/ogaclejapan/ArcLayout]]></string>
