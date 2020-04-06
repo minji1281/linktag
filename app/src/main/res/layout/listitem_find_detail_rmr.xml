@@ -6,66 +6,33 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="70dp"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginRight="20dp"
-        android:layout_marginBottom="10dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="5dp"
+        android:layout_marginRight="5dp"
         android:padding="5dp"
-        android:orientation="vertical">
+        android:orientation="horizontal">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1">
-
-            <TextView
-                android:id="@+id/tvDay"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:textColor="@color/listitem_text1"
-                android:textSize="@dimen/text_normal"
-                android:text="2020.03.25(수)"/>
-
-            <TextView
-                android:id="@+id/tvTime"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:layout_marginLeft="5dp"
-                android:textColor="@color/listitem_text1"
-                android:textSize="@dimen/text_normal"
-                android:text="09:00~10:00"/>
-
-            <Button
-                android:id="@+id/btnToday"
-                android:layout_width="70dp"
-                android:layout_height="match_parent"
-                android:background="@drawable/btn_round_blue"
-                android:layout_marginLeft="10dp"
-                android:textColor="@color/white"
-                android:text="@string/dialog_rmm_my_reserve_today"/>
-
-        </LinearLayout>
+        <ImageView
+            android:id="@+id/imgCheck"
+            android:layout_width="30dp"
+            android:layout_height="30dp" />
 
         <TextView
-            android:id="@+id/tvRmdName"
+            android:id="@+id/tvTime"
+            android:layout_width="80dp"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|center"
+            android:textStyle="bold"
+            android:textSize="@dimen/text_normal"/>
+
+        <TextView
+            android:id="@+id/tvName"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="match_parent"
             android:gravity="center_vertical|left"
-            android:textColor="@color/listitem_text1"
-            android:textSize="@dimen/text_normal"
-            android:text="피아노 연습실 1번"/>
+            android:textStyle="bold"
+            android:textSize="@dimen/text_normal"/>
 
     </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_marginLeft="20dp"
-        android:layout_marginRight="20dp"
-        android:background="@color/listitem_text2"/>
 
 </LinearLayout>

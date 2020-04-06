@@ -15,7 +15,6 @@ import android.text.method.ScrollingMovementMethod;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -60,13 +59,10 @@ public class RmdMain extends BaseActivity {
     //======================
     private BaseHeader header;
     private BaseFooter footer;
-//    private ListView listView;
-//    private View view;
     private RecyclerView recyclerView;
     private LinearLayoutManager linearLayoutManager;
     private TextView empty;
     private SwipeRefreshLayout swipeRefresh;
-//    private EditText etSearch;
 
     private TextView tvNotice;
     private Button btnReserve;
@@ -78,14 +74,13 @@ public class RmdMain extends BaseActivity {
     //======================
     // Variable
     //======================
-//    private FrmAdapter mAdapter;
     private RmdRecycleAdapter mAdapter;
     private myRmrRecycleAdapter mAdapter_myRmr; //myReserveDialog에서 씀
     private ArrayList<RMD_VO> mList;
     private ArrayList<RMD_VO> mList2;
     private ArrayList<RMM_VO> mRmmList;
     private ArrayList<RMR_VO> mList_myRmr; //myReserveDialog에서 씀
-    private String scancode;
+    public static String scancode;
     private CtdVO intentVO;
 
     //======================
@@ -99,7 +94,7 @@ public class RmdMain extends BaseActivity {
     private String RMR_FILTER_GUB = "1"; //filterDialog에서 씀
     private String RMR_FILTER_GUB_tmp = "1"; //filterDialog에서 씀
 
-    Calendar RMR_03_C = Calendar.getInstance(); //일자
+    public static Calendar RMR_03_C = Calendar.getInstance(); //일자
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -108,16 +103,14 @@ public class RmdMain extends BaseActivity {
         setContentView(R.layout.activity_rmd_list);
 
         intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
-        if (getIntent().hasExtra("scanCode")) {
-            scancode = getIntent().getExtras().getString("scanCode");
-            requestRMD_SELECT("DETAIL", scancode);
-        }
 
         initLayout();
 
-//        requestRMM_SELECT();
-
         initialize();
+
+        if (getIntent().hasExtra("scanCode")) {
+            scancode = getIntent().getExtras().getString("scanCode");
+        }
     }
 
     @Override
@@ -126,33 +119,13 @@ public class RmdMain extends BaseActivity {
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
         clearCalTime(RMR_03_C);
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        RMR_03 = sdf.format(RMR_03_C.getTime());
 
         // 요거
         initLayoutByContractType();
 
-//        view = findViewById(R.id.recyclerView);
         recyclerView = (RecyclerView) findViewById(R.id.recyclerView);
 
-//        listView = (ListView) findViewById(R.id.listView);
-//        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                FRM_VO FRM = mList.get(position);
-//
-//                Intent intent = new Intent(mContext, FrmDetail.class);
-//                intent.putExtra("FRM", FRM);
-//                intent.putExtra("intentVO", intentVO);
-//
-//                mContext.startActivity(intent);
-//            }
-//        });
         empty = findViewById(R.id.empty);
-//        listView.setEmptyView(emptyText);
-//        etSearch = findViewById(R.id.etSearch);
-//        imgSearch = findViewById(R.id.imgSearch);
-//        imgSearch.setOnClickListener(v -> requestFRM_SELECT("LIST", ""));
 
         swipeRefresh = findViewById(R.id.swipeRefresh);
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -170,7 +143,6 @@ public class RmdMain extends BaseActivity {
             @Override
             public void onClick(View v){
                 myReserveDialog();
-//                Toast.makeText(mActivity, "나의예약정보", Toast.LENGTH_SHORT).show();
             }
         });
         imgDay = findViewById(R.id.imgDay);
@@ -187,7 +159,7 @@ public class RmdMain extends BaseActivity {
                 dayDialog();
             }
         });
-        tvDay.setText(sDateFormat(RMR_03));
+//        tvDay.setText(sDateFormat(RMR_03));
         tvFilter = findViewById(R.id.tvFilter);
         tvFilter.setOnClickListener(new View.OnClickListener(){
             @Override
@@ -214,7 +186,7 @@ public class RmdMain extends BaseActivity {
     }
 
     private void setRmdAdapter(){
-        mAdapter = new RmdRecycleAdapter(mContext, mList, RMR_03, RMR_04ST_FILTER, RMR_04ED_FILTER);
+        mAdapter = new RmdRecycleAdapter(mContext, mList, RMR_03, RMR_04ST_FILTER, RMR_04ED_FILTER, RMM.RMM_03, RMM.RMM_04, RMM.RMM_98);
         recyclerView.setAdapter(mAdapter);
     }
 
@@ -222,29 +194,13 @@ public class RmdMain extends BaseActivity {
     protected void onResume(){
         super.onResume();
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        RMR_03 = sdf.format(RMR_03_C.getTime());
+        tvDay.setText(sDateFormat(RMR_03));
+
         requestRMM_SELECT();
 
         requestRMD_SELECT("LIST", "");
-//
-//        mAdapter = new RmdRecycleAdapter(mContext, mList, RMR_03, RMR_04ST_FILTER, RMR_04ED_FILTER);
-//        recyclerView.setAdapter(mAdapter);
-
-//        initialize();
-
-//        etSearch.addTextChangedListener(new TextWatcher() {
-//            @Override
-//            public void beforeTextChanged(CharSequence charSequence, int start, int count, int after) {
-//            }
-//
-//            @Override
-//            public void onTextChanged(CharSequence charSequence, int start, int before, int count) {
-//                mAdapter.getFilter().filter(charSequence);
-//            }
-//
-//            @Override
-//            public void afterTextChanged(Editable edit) {
-//            }
-//        });
     }
 
     private void requestRMM_SELECT(){
@@ -283,8 +239,6 @@ public class RmdMain extends BaseActivity {
 
                             Response<RMMModel> response = (Response<RMMModel>) msg.obj;
 
-                            //공지설정, 시간설정 등등 여기서해용!!!
-
                             mRmmList = response.body().Data;
                             if(mRmmList == null)
                                 mRmmList = new ArrayList<>();
@@ -294,6 +248,7 @@ public class RmdMain extends BaseActivity {
                                 RMM.RMM_02 = mRmmList.get(0).RMM_02;
                                 RMM.RMM_03 = mRmmList.get(0).RMM_03;
                                 RMM.RMM_04 = mRmmList.get(0).RMM_04;
+                                RMM.RMM_98 = mRmmList.get(0).RMM_98;
                                 RMR_04ST_FILTER = RMM.RMM_03;
                                 RMR_04ED_FILTER = RMM.RMM_04;
                                 setFilterText();
@@ -303,41 +258,13 @@ public class RmdMain extends BaseActivity {
                                     setMaster();
                                 }
 
-//                                initialize();
-//                                requestRMD_SELECT("LIST", "");
                                 setRmdAdapter();
 
-                            }
+                                if (scancode != null && !scancode.equals("")) {
+                                    requestRMD_SELECT("DETAIL", scancode);
+                                }
 
-//                            if(GUBUN.equals("LIST")){
-//                                mList = response.body().Data;
-//                                if(mList == null)
-//                                    mList = new ArrayList<>();
-//
-//                                mAdapter.updateData(mList);
-//                                mAdapter.notifyDataSetChanged();
-//                                swipeRefresh.setRefreshing(false);
-//                            }
-//                            else{ //DETAIL (스캔찍을때)
-//                                mList2 = response.body().Data;
-//                                if(mList2 == null)
-//                                    mList2 = new ArrayList<>();
-//
-//                                if(mList2.size() == 0){ //등록된 정보가 없는경우
-//                                    goFrmNew();
-//                                }
-//                                else{ //등록된 정보가 있는경우
-//                                    FRM_VO FRM = mList2.get(0);
-//
-//                                    Intent intent = new Intent(mContext, FrmDetail.class);
-//                                    intent.putExtra("FRM", FRM);
-//                                    intent.putExtra("intentVO", intentVO);
-//
-//                                    mContext.startActivity(intent);
-//                                }
-//                            }
-//
-//                            mAdapter.getFilter().filter(etSearch.getText());
+                            }
 
                         }
                     }
@@ -409,8 +336,6 @@ public class RmdMain extends BaseActivity {
                                 }
 
                                 setRmdAdapter();
-//                                mAdapter.updateData(mList);
-//                                mAdapter.notifyDataSetChanged();
                                 swipeRefresh.setRefreshing(false);
                             }
                             else{ //DETAIL (스캔찍을때)
@@ -423,6 +348,9 @@ public class RmdMain extends BaseActivity {
                                 }
                                 else{ //등록된 정보가 있는경우
                                     RMD_VO RMD = mList2.get(0);
+                                    RMD.RMM_03 = RMM.RMM_03;
+                                    RMD.RMM_04 = RMM.RMM_04;
+                                    RMD.RMM_98 = RMM.RMM_98;
 
                                     Intent intent = new Intent(mContext, RmdDetail.class);
                                     intent.putExtra("RMD", RMD);
@@ -431,8 +359,6 @@ public class RmdMain extends BaseActivity {
                                     mContext.startActivity(intent);
                                 }
                             }
-//
-//                            mAdapter.getFilter().filter(etSearch.getText());
 
                         }
                     }
@@ -488,11 +414,6 @@ public class RmdMain extends BaseActivity {
                         if(msg.what == 100){
 //                            closeLoadingBar();
 
-//                            if(GUB.equals("INSERT")){
-//                                CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTD_01, intentVO.CTD_02, RMD.RMD_02);
-//                                ctds_control.requestCTDS_CONTROL();
-//                            }
-
                             Response<RMMModel> response = (Response<RMMModel>) msg.obj;
 
                             if(GUB.equals("UPDATE_NOTICE")){
@@ -503,24 +424,6 @@ public class RmdMain extends BaseActivity {
                                 RMM.RMM_03 = response.body().Data.get(0).RMM_03;
                                 RMM.RMM_04 = response.body().Data.get(0).RMM_04;
                             }
-
-//                            if(!GUB.equals("DELETE")){
-//                                if(FRM.ARM_03.equals("Y")){
-//                                    if(GUB.equals("WATER")){
-//                                        FRM.FRM_96 = response.body().Data.get(0).FRM_96;
-//                                    }
-//                                    String NextDay = FRM.FRM_96;
-//                                    Toast.makeText(mContext,mContext.getString(R.string.dialog_alarm_toast_text) + " " + NextDay.substring(0,4)+"." + NextDay.substring(4,6)+"."+ NextDay.substring(6,8)+" " +
-//                                            NextDay.substring(8,10)+":" + NextDay.substring(10,12), Toast.LENGTH_LONG ).show();
-//                                }
-//                            }
-//
-//                            if(GUB.equals("FILTER")){
-//                                setUserData(response.body().Data.get(0));
-//                            }
-//                            else{
-//                                finish();
-//                            }
                         }
                     }
                 }.sendMessage(msg);
@@ -608,14 +511,7 @@ public class RmdMain extends BaseActivity {
         Intent intent = new Intent(mContext, RmdDetail.class);
         intent.putExtra("scancode", scancode);
         intent.putExtra("intentVO", intentVO);
-
-        mContext.startActivity(intent);
-    }
-
-    private void goRmdDetail(RMD_VO RMD){
-        Intent intent = new Intent(mContext, RmdDetail.class);
-        intent.putExtra("RMD", RMD);
-        intent.putExtra("intentVO", intentVO);
+        intent.putExtra("RMM_98", RMM.RMM_98);
 
         mContext.startActivity(intent);
     }
@@ -717,11 +613,15 @@ public class RmdMain extends BaseActivity {
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                dialog.dismiss();
-
                 String RMM_03_tmp = fnTime(tpStartTime.getCurrentHour(), tpStartTime.getCurrentMinute());
                 String RMM_04_tmp = fnTime(tpEndTime.getCurrentHour(), tpEndTime.getCurrentMinute());
-                requestRMM_CONTROL("UPDATE_TIME", RMM_02_tmp, RMM_03_tmp, RMM_04_tmp, "");
+                if(Integer.valueOf(RMM_03_tmp) < Integer.valueOf(RMM_04_tmp)){
+                    requestRMM_CONTROL("UPDATE_TIME", RMM_02_tmp, RMM_03_tmp, RMM_04_tmp, "");
+                    dialog.dismiss();
+                }
+                else{
+                    Toast.makeText(mActivity, R.string.dialog_rmm_set_reserve_wrong_time, Toast.LENGTH_SHORT).show();
+                }
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -773,14 +673,32 @@ public class RmdMain extends BaseActivity {
 
         btnSave.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                dialog.dismiss();
+                if(Integer.valueOf(RMM.RMM_03) <= Integer.valueOf(fnTime(tpFilterStartTime.getCurrentHour(), tpFilterStartTime.getCurrentMinute()))){
+                    if(Integer.valueOf(RMM.RMM_04) >= Integer.valueOf(fnTime(tpFilterEndTime.getCurrentHour(), tpFilterEndTime.getCurrentMinute()))){
+                        if(Integer.valueOf(fnTime(tpFilterStartTime.getCurrentHour(), tpFilterStartTime.getCurrentMinute())) < Integer.valueOf(fnTime(tpFilterEndTime.getCurrentHour(), tpFilterEndTime.getCurrentMinute()))){
+                            RMR_FILTER_GUB = RMR_FILTER_GUB_tmp;
+                            RMR_04ST_FILTER = fnTime(tpFilterStartTime.getCurrentHour(), tpFilterStartTime.getCurrentMinute());
+                            RMR_04ED_FILTER = fnTime(tpFilterEndTime.getCurrentHour(), tpFilterEndTime.getCurrentMinute());
+                            setFilterText();
+                            requestRMD_SELECT("LIST", "");
 
-                RMR_FILTER_GUB = RMR_FILTER_GUB_tmp;
-                RMR_04ST_FILTER = fnTime(tpFilterStartTime.getCurrentHour(), tpFilterStartTime.getCurrentMinute());
-                RMR_04ED_FILTER = fnTime(tpFilterEndTime.getCurrentHour(), tpFilterEndTime.getCurrentMinute());
-                setFilterText();
-//                setRmdAdapter();
-                requestRMD_SELECT("LIST", "");
+                            dialog.dismiss();
+                        }
+                        else{
+                            Toast.makeText(mActivity, R.string.dialog_rmm_set_reserve_wrong_time, Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                    else{
+                        String tmp = getString(R.string.dialog_rmm_time_filter_wrong_time) + " (" + RMM.RMM_03.substring(0,2) + ":" + RMM.RMM_03.substring(2) + "~" + RMM.RMM_04.substring(0,2) + ":" + RMM.RMM_04.substring(2) + ")";
+                        Toast.makeText(mActivity, tmp, Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    String tmp = getString(R.string.dialog_rmm_time_filter_wrong_time) + " (" + RMM.RMM_03.substring(0,2) + ":" + RMM.RMM_03.substring(2) + "~" + RMM.RMM_04.substring(0,2) + ":" + RMM.RMM_04.substring(2) + ")";
+                    Toast.makeText(mActivity, tmp, Toast.LENGTH_SHORT).show();
+                }
+
+
             }
         });
         btnCancel.setOnClickListener(new View.OnClickListener() {
@@ -822,7 +740,6 @@ public class RmdMain extends BaseActivity {
                 RmdRecycleAdapter.RMR_04_list.clear();
 
                 setRmdAdapter();
-//                requestCAD_SELECT();
             }
         }, RMR_03_C.get(Calendar.YEAR), RMR_03_C.get(Calendar.MONTH), RMR_03_C.get(Calendar.DATE));
 
@@ -880,21 +797,6 @@ public class RmdMain extends BaseActivity {
 
         return tmp;
     }
-
-//    private void fnFilter(){
-//        imgFilter.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//                filterDialog();
-//            }
-//        });
-//        tvFilter.setOnClickListener(new View.OnClickListener(){
-//            @Override
-//            public void onClick(View v){
-//                filterDialog();
-//            }
-//        });
-//    }
 
     // 요거
     private void initLayoutByContractType(){

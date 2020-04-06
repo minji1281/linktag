@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
     android:background="@color/white"
     android:orientation="vertical">
 
@@ -96,6 +97,7 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/layoutReserve"
                     android:layout_width="match_parent"
                     android:layout_height="30dp"
                     android:orientation="horizontal">
@@ -136,18 +138,27 @@
 
 
                     <LinearLayout
+                        android:id="@+id/layoutReserve2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/list_item_layout"
-                        android:orientation="vertical"
-                        android:paddingBottom="5dp">
+                        android:orientation="vertical">
 
-                        <TextView
+                        <android.support.v4.widget.SwipeRefreshLayout
+                            android:id="@+id/swipeRefresh"
                             android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical|center"
-                            android:textSize="@dimen/text_normal"
-                            android:text="리스트뷰 보이셈"/>
+                            android:layout_height="wrap_content"
+                            tools:context=".ui.rmm.RmdMain">
+
+                            <android.support.v7.widget.RecyclerView
+                                android:id="@+id/recyclerView_DetailRmr"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:paddingLeft="5dp"
+                                android:paddingRight="5dp"
+                                tools:listitem="@layout/listitem_find_detail_rmr" />
+
+                        </android.support.v4.widget.SwipeRefreshLayout>
 
                     </LinearLayout>
 
