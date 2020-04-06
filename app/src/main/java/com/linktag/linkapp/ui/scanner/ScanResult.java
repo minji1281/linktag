@@ -43,6 +43,7 @@ public class ScanResult {
 
     public void run(){
         String scanCode = "";
+        String o = "N";
         try{
             String[] split = str.split("\\?");
             if(split[0].equals("http://linktag.io/scan") || split[0].equals("http://www.linktag.io/scan")) {
@@ -51,6 +52,7 @@ public class ScanResult {
                 String t = uri.getQueryParameter("t");
                 String u = uri.getQueryParameter("u");
                 String s = uri.getQueryParameter("s");
+                o = uri.getQueryParameter("o");
 
                 ClsAES aes = new ClsAES();
                 String dec = aes.Decrypt(aes.Base64Decoding(s));
@@ -78,7 +80,10 @@ public class ScanResult {
         }
 
         if(validation){
-            requestCTD_SELECT(scanCode);
+//            if(o.equals("Y"))
+//                System.out.println("Open Select");
+//            else
+                requestCTD_SELECT(scanCode);
         } else {
             Toast.makeText(mContext, R.string.alert_scan_error1, Toast.LENGTH_LONG).show();
         }
