@@ -357,6 +357,16 @@
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
 
+        <!-- 투표 관리 -->
+        <activity
+            android:name=".ui.vot.VotMain"
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"/>
+<!--        <activity-->
+<!--            android:name=".ui.vot.VotDetail"-->
+<!--            android:screenOrientation="portrait"-->
+<!--            android:excludeFromRecents="true"/>-->
+
     </application>
 
 </manifest>

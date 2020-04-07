@@ -37,7 +37,6 @@ import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm.AlarmDialog;
 import com.linktag.linkapp.ui.master_log.MasterLog;
-import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.FRM_VO;
 import com.linktag.linkapp.value_object.LogVO;
@@ -365,11 +364,6 @@ public class FrmDetail extends BaseActivity {
                     public void handleMessage(Message msg){
                         if(msg.what == 100){
 //                            closeLoadingBar();
-
-                            if(GUB.equals("INSERT")){
-                                CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, FRM.FRM_01);
-                                ctds_control.requestCTDS_CONTROL();
-                            }
 
                             Response<FRMModel> response = (Response<FRMModel>) msg.obj;
 
