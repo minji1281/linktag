@@ -115,7 +115,6 @@ public class BaseFooter extends LinearLayout {
 
         layoutFooter = (LinearLayout) v.findViewById(R.id.layoutFooter);
         marginFooter= (LinearLayout) v.findViewById(R.id.marginFooter);
-        marginFooter.setBackgroundColor(Color.parseColor("#00ff0000"));
         btnFooterHome = (LinearLayout) v.findViewById(R.id.btnFooterHome);
         btnFooterCalendar = (LinearLayout) v.findViewById(R.id.btnFooterCalendar);
         btnFooterScan = (ImageView) v.findViewById(R.id.btnFooterScan);
