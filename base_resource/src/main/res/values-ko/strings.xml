@@ -439,6 +439,46 @@
 
 
 
+    <!--    디데이  리스트  -->
+    <string name="dam_list_title">디데이 목록</string>
+    <string name="dam_list_text1">매년반복</string>
+
+    <!--    디데이  디테일   -->
+    <string name="dam_detail_title">디데이 정보</string>
+    <string name="dam_detail_text1">디데이 정보를 입력하세요.</string>
+    <string name="dam_detail_text2">기념일을 등록하여 추억을 공유하세요.</string>
+    <string name="dam_detail_text3">계산방법</string>
+    <string name="dam_detail_text4">날짜수</string>
+    <string name="dam_detail_text5">1일부터 시작</string>
+    <string name="dam_detail_text6">디데이</string>
+    <string name="dam_detail_text7">0일부터 시작</string>
+    <string name="dam_detail_text8">매년반복</string>
+    <string name="dam_detail_text9">생일,기념일</string>
+    <string name="dam_detail_text10">날짜</string>
+    <string name="dam_detail_text11">달력으로 보기</string>
+    <string name="dam_detail_text12">아이콘 설정</string>
+    <string name="dam_detail_text13">기본아이콘</string>
+    <string name="dam_detail_text14">사진사용</string>
+    <string name="dam_detail_text15">일</string>
+
+    <string name="dam_text1">디데이 정보가 저장되었습니다.</string>
+    <string name="dam_text2">다음 알림예정은</string>
+    <string name="dam_text3">입니다.</string>
+    <string name="dam_text4">월</string>
+    <string name="dam_text5">화</string>
+    <string name="dam_text6">수</string>
+    <string name="dam_text7">목</string>
+    <string name="dam_text8">금</string>
+    <string name="dam_text9">토</string>
+    <string name="dam_text10">일</string>
+    <string name="dam_text11">업로드 완료</string>
+    <string name="dam_text12">디데이 알림</string>
+
+
+
+
+
+
     <string name="app_license">License</string>
     <string name="app_github">GitHub</string>
     <string name="app_github_url"><![CDATA[https://github.com/ogaclejapan/ArcLayout]]></string>

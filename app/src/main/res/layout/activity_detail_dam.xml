@@ -11,7 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="디데이 정보" />
+        app:title_text="@string/dam_detail_title" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -54,7 +54,7 @@
                         android:layout_marginStart="10dp"
                         android:layout_weight="1"
                         android:background="@null"
-                        android:hint="디데이 정보를 입력하세요."
+                        android:hint="@string/dam_detail_text1"
                         android:singleLine="true"
                         android:textSize="@dimen/text_normal" />
 
@@ -129,7 +129,7 @@
                     android:id="@+id/tv_message"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="기념일을 등록하여 추억을 공유하세요."
+                    android:text="@string/dam_detail_text2"
                     android:textAlignment="center"
                     android:visibility="gone" />
 
@@ -187,7 +187,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical|left"
-                    android:text="계산방법"
+                    android:text="@string/dam_detail_text3"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -220,13 +220,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:text="날짜수"
+                                android:text="@string/dam_detail_text4"
                                 android:textSize="@dimen/text_small" />
 
                             <ImageView
                                 android:id="@+id/img_check1"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
                                 android:background="@drawable/ic_check_on"
                                 android:visibility="gone"/>
                         </LinearLayout>
@@ -236,7 +236,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
-                            android:text="1일부터 시작"
+                            android:text="@string/dam_detail_text5"
                             android:textSize="@dimen/text_small" />
 
                     </LinearLayout>
@@ -265,13 +265,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:text="디데이"
+                                android:text="@string/dam_detail_text6"
                                 android:textSize="@dimen/text_small" />
 
                             <ImageView
                                 android:id="@+id/img_check2"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
                                 android:background="@drawable/ic_check_on"
                                 android:visibility="gone"/>
                         </LinearLayout>
@@ -281,7 +281,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
-                            android:text="0일부터 시작"
+                            android:text="@string/dam_detail_text7"
                             android:textSize="@dimen/text_small" />
 
                     </LinearLayout>
@@ -310,13 +310,13 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_marginStart="10dp"
-                                android:text="매년반복"
+                                android:text="@string/dam_detail_text8"
                                 android:textSize="@dimen/text_small" />
 
                             <ImageView
                                 android:id="@+id/img_check3"
-                                android:layout_width="20dp"
-                                android:layout_height="20dp"
+                                android:layout_width="18dp"
+                                android:layout_height="18dp"
                                 android:background="@drawable/ic_check_on"
                                 android:visibility="gone"/>
                         </LinearLayout>
@@ -325,7 +325,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginStart="10dp"
                             android:layout_marginTop="5dp"
-                            android:text="생일,기념일"
+                            android:text="@string/dam_detail_text9"
                             android:textSize="@dimen/text_small" />
 
                     </LinearLayout>
@@ -344,14 +344,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/activity_detail_root_margin_bottom"
-                android:paddingBottom="5dp">
+                >
 
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="center_vertical|left"
-                    android:text="날짜"
+                    android:text="@string/dam_detail_text10"
                     android:textSize="@dimen/text_normal"
                     android:textStyle="bold" />
 
@@ -360,7 +360,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="20dp"
                     android:background="@drawable/btn_round_indigo_5dp"
-                    android:text="달력으로 보기"
+                    android:text="@string/dam_detail_text11"
+                    android:layout_gravity="center_vertical"
                     android:textColor="#FFF"
                     android:textSize="13dp"
                     android:textStyle="bold" />

@@ -159,11 +159,11 @@ public class DamDetail extends BaseActivity {
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
 
                     if (damVO.ARM_03.equals("Y") && !damVO.DAM_04.equals("1")) {
-                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + "디데이 정보가 저장되었습니다." + "\n" +
-                                "다음 알림예정은" + "\n" + damVO.DAM_96.substring(0, 4) + "-" + damVO.DAM_96.substring(4, 6) + "-" + damVO.DAM_96.substring(6, 8) + " " +
-                                damVO.DAM_96.substring(8, 10) + ":" + damVO.DAM_96.substring(10, 12) + " " + "입니다.", Toast.LENGTH_LONG).show();
+                        Toast.makeText(mContext, "[" + ed_name.getText().toString() + "] " + getString(R.string.dam_text1) + "\n" +
+                                getString(R.string.dam_text2) +" " + damVO.DAM_96.substring(0, 4) + "-" + damVO.DAM_96.substring(4, 6) + "-" + damVO.DAM_96.substring(6, 8) + " " +
+                                damVO.DAM_96.substring(8, 10) + ":" + damVO.DAM_96.substring(10, 12) + " " + getString(R.string.dam_text3), Toast.LENGTH_LONG).show();
                     } else {
-                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "디데이 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "] " + getString(R.string.dam_text1), Toast.LENGTH_SHORT).show();
                     }
                     onBackPressed();
                 }
@@ -241,17 +241,8 @@ public class DamDetail extends BaseActivity {
 
         damVO = (DamVO) getIntent().getSerializableExtra("DamVO");
 
+
         filename = damVO.DAM_03;
-
-
-        if (damVO.DAM_03.length()<20){
-            int resource = mContext.getResources().getIdentifier(damVO.DAM_03, "drawable", mContext.getPackageName());
-            img_icon.setImageResource(resource);
-        }
-        else{
-
-            ClsBitmap.setSharedDamIcon(mContext, img_icon,damVO.DAM_ID, damVO.DAM_01, damVO.DAM_03, "", R.drawable.dam_icon_1);
-        }
 
 
         ed_name.setText(damVO.getDAM_02());
@@ -695,25 +686,25 @@ public class DamDetail extends BaseActivity {
 
         switch (dayNum) {
             case 1:
-                day = "일";
+                day = getString(R.string.dam_text10);
                 break;
             case 2:
-                day = "월";
+                day = getString(R.string.dam_text4);
                 break;
             case 3:
-                day = "화";
+                day = getString(R.string.dam_text5);
                 break;
             case 4:
-                day = "수";
+                day = getString(R.string.dam_text6);
                 break;
             case 5:
-                day = "목";
+                day = getString(R.string.dam_text7);
                 break;
             case 6:
-                day = "금";
+                day = getString(R.string.dam_text8);
                 break;
             case 7:
-                day = "토";
+                day = getString(R.string.dam_text9);
                 break;
 
         }

@@ -447,6 +447,45 @@
 
 
 
+    <!--    디데이  리스트  -->
+    <string name="dam_list_title">D-Day list</string>
+    <string name="dam_list_text1">Repeat every year</string>
+
+    <!--    디데이  디테일   -->
+    <string name="dam_detail_title">D-Day Management</string>
+    <string name="dam_detail_text1">Enter the D-day Information.</string>
+    <string name="dam_detail_text2">Register your anniversary to share your memories.</string>
+    <string name="dam_detail_text3">Calculation method</string>
+    <string name="dam_detail_text4">Day</string>
+    <string name="dam_detail_text5">Start from 1</string>
+    <string name="dam_detail_text6">D-Day</string>
+    <string name="dam_detail_text7">Start from 0</string>
+    <string name="dam_detail_text8">Repeat</string>
+    <string name="dam_detail_text9">Anniversary</string>
+    <string name="dam_detail_text10">Date</string>
+    <string name="dam_detail_text11">Calendar</string>
+    <string name="dam_detail_text12">Icon Set</string>
+    <string name="dam_detail_text13">Basic Icon</string>
+    <string name="dam_detail_text14">Use Photo</string>
+    <string name="dam_detail_text15">Day</string>
+
+    <string name="dam_text1">That information has been saved.</string>
+    <string name="dam_text2">The next Alarm will be </string>
+    <string name="dam_text3"></string>
+    <string name="dam_text4">Mon</string>
+    <string name="dam_text5">Tue</string>
+    <string name="dam_text6">Wed</string>
+    <string name="dam_text7">Thu</string>
+    <string name="dam_text8">Fri</string>
+    <string name="dam_text9">Sat</string>
+    <string name="dam_text10">Sun</string>
+    <string name="dam_text11">Upload Complete</string>
+    <string name="dam_text12">D-Day Alarm</string>
+
+
+
+
+
     <string name="app_license">License</string>
     <string name="app_github">GitHub</string>
     <string name="app_github_url"><![CDATA[https://github.com/ogaclejapan/ArcLayout]]></string>

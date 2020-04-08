@@ -370,7 +370,7 @@ public class DamIconDetail extends BaseActivity {
                         DamIconDetail.mAdapter.notifyDataSetChanged();
 
                         progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-                        Toast.makeText(getApplicationContext(), "업로드 완료", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), getString(R.string.dam_text11), Toast.LENGTH_SHORT).show();
                         if(tempFile.delete()){
                             tempFile = null;
                         }

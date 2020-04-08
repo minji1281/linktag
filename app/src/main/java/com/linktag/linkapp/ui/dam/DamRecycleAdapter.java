@@ -132,7 +132,7 @@ public class DamRecycleAdapter extends RecyclerView.Adapter<DamRecycleAdapter.Vi
         viewHolder.tv_name.setText(filteredmlist.get(position).DAM_02);
         viewHolder.tv_date.setText(stringTodateFormat(filteredmlist.get(position).DAM_96));
         if (filteredmlist.get(position).DAM_04.equals("3")) {
-            viewHolder.tv_label.setText("매년반복");
+            viewHolder.tv_label.setText(mContext.getString(R.string.dam_detail_text8));
         } else {
             viewHolder.tv_label.setText("");
         }
@@ -154,7 +154,7 @@ public class DamRecycleAdapter extends RecyclerView.Adapter<DamRecycleAdapter.Vi
             case "1":
                 dDayDiff = calendar.getTimeInMillis() - sCalendar.getTimeInMillis();
                 dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
-                viewHolder.tv_count.setText(dcount + 1 + "일");
+                viewHolder.tv_count.setText(dcount + 1 + " " +mContext.getString(R.string.dam_detail_text15));
                 viewHolder.imageview.setVisibility(View.GONE);
                 break;
             case "2":
@@ -205,8 +205,8 @@ public class DamRecycleAdapter extends RecyclerView.Adapter<DamRecycleAdapter.Vi
 
                     if (!filteredmlist.get(position).DAM_04.equals("1")) {
                         Toast.makeText(mContext, "[" + filteredmlist.get(position).DAM_02 + "]" + "\n" +
-                                "다음 알림예정은 " + filteredmlist.get(position).DAM_96.substring(0, 4) + "-" + filteredmlist.get(position).DAM_96.substring(4, 6) + "-" + filteredmlist.get(position).DAM_96.substring(6, 8) + " " +
-                                filteredmlist.get(position).DAM_96.substring(8, 10) + ":" + filteredmlist.get(position).DAM_96.substring(10, 12) + " " + "입니다.", Toast.LENGTH_LONG).show();
+                                mContext.getString(R.string.dam_text2) + " " + filteredmlist.get(position).DAM_96.substring(0, 4) + "-" + filteredmlist.get(position).DAM_96.substring(4, 6) + "-" + filteredmlist.get(position).DAM_96.substring(6, 8) + " " +
+                                filteredmlist.get(position).DAM_96.substring(8, 10) + ":" + filteredmlist.get(position).DAM_96.substring(10, 12) + " " + mContext.getString(R.string.dam_text3), Toast.LENGTH_LONG).show();
                     }
                 }
 
@@ -218,7 +218,7 @@ public class DamRecycleAdapter extends RecyclerView.Adapter<DamRecycleAdapter.Vi
                 armVO.setARM_03(filteredmlist.get(position).ARM_03);
                 armVO.setARM_95("");
                 armVO.setARM_90(filteredmlist.get(position).DAM_02);
-                armVO.setARM_91("디데이 알림");
+                armVO.setARM_91(mContext.getString(R.string.dam_text12));
                 armVO.setARM_92(filteredmlist.get(position).DAM_96);
                 armVO.setARM_93("");
                 armVO.setARM_94("N");
