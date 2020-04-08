@@ -3,6 +3,9 @@ package com.linktag.linkapp.ui.dam;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -19,6 +22,7 @@ import android.widget.Toast;
 
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.user_interface.InterfaceUser;
+import com.linktag.base.util.ClsBitmap;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.ARMModel;
 import com.linktag.linkapp.network.BaseConst;
@@ -112,8 +116,17 @@ public class DamRecycleAdapter extends RecyclerView.Adapter<DamRecycleAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        int resource = mContext.getResources().getIdentifier(filteredmlist.get(position).DAM_03, "drawable", mContext.getPackageName());
-        viewHolder.img_icon.setImageResource(resource);
+        if (filteredmlist.get(position).DAM_03.length()<20){
+            int resource = mContext.getResources().getIdentifier(filteredmlist.get(position).DAM_03, "drawable", mContext.getPackageName());
+            viewHolder.img_icon.setImageResource(resource);
+            viewHolder.img_icon.setBackground(null);
+
+        }else{
+            viewHolder.img_icon.setBackground(new ShapeDrawable(new OvalShape()));
+            if (Build.VERSION.SDK_INT >= 21)
+                viewHolder.img_icon.setClipToOutline(true);
+            ClsBitmap.setSharedDamIcon(mContext, viewHolder.img_icon, mList.get(position).DAM_ID, mList.get(position).DAM_01, mList.get(position).DAM_03, "", R.drawable.btn_add);
+        }
 
 
         viewHolder.tv_name.setText(filteredmlist.get(position).DAM_02);
@@ -142,6 +155,7 @@ public class DamRecycleAdapter extends RecyclerView.Adapter<DamRecycleAdapter.Vi
                 dDayDiff = calendar.getTimeInMillis() - sCalendar.getTimeInMillis();
                 dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
                 viewHolder.tv_count.setText(dcount + 1 + "일");
+                viewHolder.imageview.setVisibility(View.GONE);
                 break;
             case "2":
                 dDayDiff = sCalendar.getTimeInMillis() - calendar.getTimeInMillis();
@@ -188,7 +202,12 @@ public class DamRecycleAdapter extends RecyclerView.Adapter<DamRecycleAdapter.Vi
                     Toast.makeText(mContext, "[" + filteredmlist.get(position).DAM_02 + "]-" + mContext.getResources().getString(R.string.common_alarm_off), Toast.LENGTH_SHORT).show();
                 } else if (filteredmlist.get(position).ARM_03.equals("N")) {
                     viewHolder.imageview.setImageResource(R.drawable.alarm_state_on);
-                    Toast.makeText(mContext, "[" + filteredmlist.get(position).DAM_02 + "]-" + mContext.getResources().getString(R.string.common_alarm_on), Toast.LENGTH_SHORT).show();
+
+                    if (!filteredmlist.get(position).DAM_04.equals("1")) {
+                        Toast.makeText(mContext, "[" + filteredmlist.get(position).DAM_02 + "]" + "\n" +
+                                "다음 알림예정은 " + filteredmlist.get(position).DAM_96.substring(0, 4) + "-" + filteredmlist.get(position).DAM_96.substring(4, 6) + "-" + filteredmlist.get(position).DAM_96.substring(6, 8) + " " +
+                                filteredmlist.get(position).DAM_96.substring(8, 10) + ":" + filteredmlist.get(position).DAM_96.substring(10, 12) + " " + "입니다.", Toast.LENGTH_LONG).show();
+                    }
                 }
 
                 ArmVO armVO = new ArmVO();

@@ -49,4 +49,14 @@ public class DcmVO implements Serializable  {
     public void setDCM_98(String DCM_98) {
         this.DCM_98 = DCM_98;
     }
+
+    public DcmVO init(){
+        this.DCM_ID = "";
+        this.DCM_01 = "";
+        this.DCM_02 = "";
+        this.DCM_03 = "";
+        this.DCM_98 = "";
+
+        return this;
+    }
 }

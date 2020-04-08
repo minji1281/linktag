@@ -5,25 +5,23 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.OvalShape;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
-import android.support.annotation.RequiresApi;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,6 +29,7 @@ import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
+import com.linktag.base.util.ClsBitmap;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.CDS_Model;
 import com.linktag.linkapp.model.DAMModel;
@@ -39,17 +38,12 @@ import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.alarm.AlarmDialog;
-import com.linktag.linkapp.ui.jdm.RecycleDayDialog;
-import com.linktag.linkapp.ui.master_log.MasterLog;
-import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.DamVO;
-import com.linktag.linkapp.value_object.LogVO;
 
 import java.text.DecimalFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Locale;
 import java.util.concurrent.TimeUnit;
 
@@ -105,9 +99,9 @@ public class DamDetail extends BaseActivity {
 
     private TextView tv_D_day;
 
-    public static String icon;
-
     private String scanCode;
+
+    public static String filename;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -156,7 +150,6 @@ public class DamDetail extends BaseActivity {
             public void onResponse(Call<DAMModel> call, Response<DAMModel> response) {
 
                 Calendar calendar = Calendar.getInstance();
-                boolean dateBool = Long.parseLong(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime())) < Long.parseLong(damVO.DAM_96);
 
 //                if (GUBUN.equals("INSERT")) {
 //                    CTDS_CONTROL ctds_control = new CTDS_CONTROL(mContext, intentVO.CTM_01, intentVO.CTD_02, damVO.DAM_01);
@@ -165,7 +158,7 @@ public class DamDetail extends BaseActivity {
 //                }
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
 
-                    if (damVO.ARM_03.equals("Y") && dateBool) {
+                    if (damVO.ARM_03.equals("Y") && !damVO.DAM_04.equals("1")) {
                         Toast.makeText(mContext, "[" + ed_name.getText().toString() + "]" + "디데이 정보가 저장되었습니다." + "\n" +
                                 "다음 알림예정은" + "\n" + damVO.DAM_96.substring(0, 4) + "-" + damVO.DAM_96.substring(4, 6) + "-" + damVO.DAM_96.substring(6, 8) + " " +
                                 damVO.DAM_96.substring(8, 10) + ":" + damVO.DAM_96.substring(10, 12) + " " + "입니다.", Toast.LENGTH_LONG).show();
@@ -192,12 +185,33 @@ public class DamDetail extends BaseActivity {
 
 
     @Override
+    protected void onResume() {
+
+        super.onResume();
+
+        if (filename.length()<20){
+            int resource = mContext.getResources().getIdentifier(filename, "drawable", mContext.getPackageName());
+            img_icon.setImageResource(resource);
+            img_icon.setBackground(null);
+        }
+        else{
+            img_icon.setBackground(new ShapeDrawable(new OvalShape()));
+            if (Build.VERSION.SDK_INT >= 21)
+                img_icon.setClipToOutline(true);
+            ClsBitmap.setSharedDamIcon(mContext, img_icon,damVO.DAM_ID, damVO.DAM_01, filename, "", R.drawable.dam_icon_1);
+        }
+
+
+    }
+
+    @Override
     protected void initLayout() {
 
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
 
         imm = (InputMethodManager) getSystemService(INPUT_METHOD_SERVICE);
+
 
         linearLayout = findViewById(R.id.linearLayout);
         datePicker = findViewById(R.id.datePicker);
@@ -215,6 +229,7 @@ public class DamDetail extends BaseActivity {
 
         img_icon = findViewById(R.id.img_icon);
 
+
         tv_D_day = findViewById(R.id.tv_D_day);
 
         ed_name = findViewById(R.id.ed_name);
@@ -226,8 +241,17 @@ public class DamDetail extends BaseActivity {
 
         damVO = (DamVO) getIntent().getSerializableExtra("DamVO");
 
-        int resource = mContext.getResources().getIdentifier(damVO.DAM_03, "drawable", mContext.getPackageName());
-        img_icon.setImageResource(resource);
+        filename = damVO.DAM_03;
+
+
+        if (damVO.DAM_03.length()<20){
+            int resource = mContext.getResources().getIdentifier(damVO.DAM_03, "drawable", mContext.getPackageName());
+            img_icon.setImageResource(resource);
+        }
+        else{
+
+            ClsBitmap.setSharedDamIcon(mContext, img_icon,damVO.DAM_ID, damVO.DAM_01, damVO.DAM_03, "", R.drawable.dam_icon_1);
+        }
 
 
         ed_name.setText(damVO.getDAM_02());
@@ -303,7 +327,7 @@ public class DamDetail extends BaseActivity {
                 Intent intent = new Intent(mContext, DamIconDetail.class);
                 intent.putExtra("DAM_ID", damVO.DAM_ID);
                 intent.putExtra("DAM_01", damVO.DAM_01);
-                intent.putExtra("index", Integer.parseInt(damVO.DAM_03.replace("dam_icon_", "")));
+                intent.putExtra("DAM_03", filename);
                 mContext.startActivity(intent);
 
             }
@@ -450,7 +474,7 @@ public class DamDetail extends BaseActivity {
                     return;
                 }
 
-                damVO.setDAM_03(icon);
+                damVO.setDAM_03(filename);
 
                 if (scanCode != null) {
                     requestCDS_CONTROL(

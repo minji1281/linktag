@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import com.linktag.linkapp.R;
 
 import static com.linktag.linkapp.ui.dam.DamDetail.img_icon;
-import static com.linktag.linkapp.ui.dam.DamDetail.icon;
 
 public class DamIconRecycleAdapter extends RecyclerView.Adapter<DamIconRecycleAdapter.ViewHolder> {
 
@@ -22,10 +21,11 @@ public class DamIconRecycleAdapter extends RecyclerView.Adapter<DamIconRecycleAd
 
     private int lastSelectedPosition = -1;
     private int mIndex;
+    private String DAM_03;
 
-    DamIconRecycleAdapter(Context context, int index) {
+    DamIconRecycleAdapter(Context context, String filename) {
         mContext = context;
-        mIndex = index;
+        DAM_03 = filename;
     }
 
 
@@ -44,15 +44,18 @@ public class DamIconRecycleAdapter extends RecyclerView.Adapter<DamIconRecycleAd
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
 
-        String name = "dam_icon_" + (position + 1);
-//        String name = "dam_icon_1";
+        if (!DAM_03.equals("")) {
+            mIndex = Integer.parseInt(DAM_03.replace("dam_icon_", "")) - 1;
 
-        if (position == mIndex) {
-            viewHolder.img_check.setVisibility(View.VISIBLE);
+            if (position == mIndex) {
+                viewHolder.img_check.setVisibility(View.VISIBLE);
+            }
+        } else {
+            viewHolder.img_check.setVisibility(View.GONE);
         }
-
-        int resource = mContext.getResources().getIdentifier(name, "drawable", mContext.getPackageName());
+        int resource = mContext.getResources().getIdentifier("dam_icon_" + (position + 1), "drawable", mContext.getPackageName());
         viewHolder.img_icon.setImageResource(resource);
+
 
         if (lastSelectedPosition != -1) {
             if (position == lastSelectedPosition) {
@@ -65,12 +68,14 @@ public class DamIconRecycleAdapter extends RecyclerView.Adapter<DamIconRecycleAd
         viewHolder.img_icon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = "dam_icon_" + (position + 1);
+                String filename = "dam_icon_" + (position + 1);
                 lastSelectedPosition = position;
-                int resource = mContext.getResources().getIdentifier(name, "drawable", mContext.getPackageName());
+                int resource = mContext.getResources().getIdentifier(filename, "drawable", mContext.getPackageName());
                 img_icon.setImageResource(resource);
-                icon = name;
+                DamDetail.filename = filename;
                 notifyDataSetChanged();
+                DamIconDetail.mAdapter2.updateDAM_03(filename);
+
             }
         });
 
@@ -80,6 +85,12 @@ public class DamIconRecycleAdapter extends RecyclerView.Adapter<DamIconRecycleAd
     @Override
     public int getItemCount() {
         return 16;
+    }
+
+    public void updateDAM_03(String filename, int initPos) {
+        DAM_03 = filename;
+        lastSelectedPosition = initPos;
+        notifyDataSetChanged();
     }
 
 

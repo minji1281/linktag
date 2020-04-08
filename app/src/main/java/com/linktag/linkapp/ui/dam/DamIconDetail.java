@@ -14,14 +14,10 @@ import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
-import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
-import com.google.android.gms.tasks.Task;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -30,19 +26,14 @@ import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
+import com.linktag.base.util.ClsBitmap;
 import com.linktag.base.util.ImageResizeUtils;
 import com.linktag.linkapp.R;
-import com.linktag.linkapp.model.DAMModel;
 import com.linktag.linkapp.model.DCMModel;
-import com.linktag.linkapp.model.TRDModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.trp.TrpRecycleAdapter;
-import com.linktag.linkapp.value_object.DamVO;
 import com.linktag.linkapp.value_object.DcmVO;
-import com.linktag.linkapp.value_object.TrpVO;
-import com.linktag.linkapp.value_object.VamVO;
 import com.soundcloud.android.crop.Crop;
 
 import java.io.File;
@@ -55,27 +46,29 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
+import static com.linktag.linkapp.ui.dam.DamDetail.filename;
+import static com.linktag.linkapp.ui.dam.DamDetail.img_icon;
+
 public class DamIconDetail extends BaseActivity {
 
     private BaseHeader header;
 
     private LinearLayoutManager linearLayoutManager;
     private RecyclerView recyclerView;
-    private DamIconRecycleAdapter mAdapter;
+    public static DamIconRecycleAdapter mAdapter;
 
     private LinearLayoutManager linearLayoutManager2;
     private RecyclerView recyclerView2;
-    private DamUserIconRecycleAdapter mAdapter2;
+    public static DamUserIconRecycleAdapter mAdapter2;
 
     private ArrayList<DcmVO> mList;
 
     private final String FIREBASE_URL = "gs://linktag-a43f8.appspot.com";
 
 
-    private final int PICK_FROM_CAMERA = 0;
+    private final int ICON_SELECT = 0;
     private final int PICK_FROM_ALBUM = 1;
-    private final int DELETE_PHOTO= 2;
-
+    private final int DELETE_PHOTO = 2;
 
     private FirebaseStorage storage;
     private StorageReference storageRef;
@@ -85,6 +78,7 @@ public class DamIconDetail extends BaseActivity {
     private Uri filePath;
 
     private String setFileName;
+    private String preFilename;
 
 
     public static Boolean isCamera = false;
@@ -92,6 +86,9 @@ public class DamIconDetail extends BaseActivity {
 
     private String DAM_ID;
     private String DAM_01;
+    private String DAM_03;
+    private String DCM_02 = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,16 +98,18 @@ public class DamIconDetail extends BaseActivity {
         if (getIntent().hasExtra("DAM_ID")) {
             DAM_ID = getIntent().getExtras().getString("DAM_ID");
             DAM_01 = getIntent().getExtras().getString("DAM_01");
+            DAM_03 = getIntent().getExtras().getString("DAM_03");
         }
 
+
         initLayout();
-        initialize();
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
+        initialize();
     }
 
     @Override
@@ -121,29 +120,37 @@ public class DamIconDetail extends BaseActivity {
 
         recyclerView = findViewById(R.id.recyclerView);
 
-        linearLayoutManager = new GridLayoutManager(mContext, 4);
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        mAdapter = new DamIconRecycleAdapter(mContext, getIntent().getIntExtra("index",0));
-        recyclerView.setAdapter(mAdapter);
-
         storage = FirebaseStorage.getInstance();
+
 
     }
 
     @Override
     protected void initialize() {
+
+        linearLayoutManager = new GridLayoutManager(mContext, 4);
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        if (DAM_03.length() < 20) {
+            mAdapter = new DamIconRecycleAdapter(mContext, DAM_03);
+        } else {
+            mAdapter = new DamIconRecycleAdapter(mContext, "");
+        }
+        recyclerView.setAdapter(mAdapter);
+
+
         mList = new ArrayList<>();
 
-        requestDCM_SELECT();
 
         recyclerView2 = findViewById(R.id.recyclerView2);
 
         linearLayoutManager2 = new GridLayoutManager(mContext, 4);
         linearLayoutManager2.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView2.setLayoutManager(linearLayoutManager2);
-        mAdapter2 = new DamUserIconRecycleAdapter(mActivity, mContext, mList);
+        mAdapter2 = new DamUserIconRecycleAdapter(mActivity, mContext, mList, DAM_03);
         recyclerView2.setAdapter(mAdapter2);
+
+        requestDCM_SELECT();
     }
 
 
@@ -177,7 +184,6 @@ public class DamIconDetail extends BaseActivity {
                         if (msg.what == 100) {
 
                             Response<DCMModel> response = (Response<DCMModel>) msg.obj;
-
                             mList = response.body().Data;
                             if (mList == null)
                                 mList = new ArrayList<>();
@@ -203,16 +209,37 @@ public class DamIconDetail extends BaseActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (resultCode == RESULT_OK){
+        if (resultCode != RESULT_OK) {
+            System.out.println("########### NOT RESULT_OK");
+            Toast.makeText(this, R.string.common_canceled, Toast.LENGTH_SHORT).show();
+
+            if (tempFile != null) {
+                if (tempFile.delete()) {
+                    Toast.makeText(this, R.string.common_deleted, Toast.LENGTH_SHORT).show();
+                    tempFile = null;
+                }
+            }
+            return;
+        }
+
+        if (resultCode == RESULT_OK) {
 
             switch (requestCode) {
-                case PICK_FROM_CAMERA: {
-                    Uri photoUri = Uri.fromFile(tempFile);
-
-                    cropImage(photoUri);
+                case ICON_SELECT:
+                    ClsBitmap.setSharedDamIcon(mContext, img_icon, DAM_ID, DAM_01, DAM_03, "", R.drawable.btn_add);
                     break;
-                }
+
+//                case PICK_FROM_CAMERA: {
+//                    Uri photoUri = Uri.fromFile(tempFile);
+//
+//                    cropImage(photoUri);
+//                    break;
+//                }
                 case PICK_FROM_ALBUM: {
+                    if (getIntent().hasExtra("filename")) {
+                        preFilename = getIntent().getStringExtra("filename");
+                        DCM_02 = getIntent().getStringExtra("DCM_02");
+                    }
                     Uri photoUri = data.getData();
 
                     cropImage(photoUri);
@@ -228,13 +255,13 @@ public class DamIconDetail extends BaseActivity {
 
 
     /**
-     *  Crop 기능
+     * Crop 기능
      */
     private void cropImage(Uri photoUri) {
         /**
          *  갤러리에서 선택한 경우에는 tempFile 이 없으므로 새로 생성해줍니다.
          */
-        if(tempFile == null) {
+        if (tempFile == null) {
             try {
                 tempFile = createImageFile();
             } catch (IOException e) {
@@ -251,7 +278,7 @@ public class DamIconDetail extends BaseActivity {
     }
 
     /**
-     *  폴더 및 파일 만들기
+     * 폴더 및 파일 만들기
      */
     private File createImageFile() throws IOException {
         // 이미지 파일 이름
@@ -271,14 +298,13 @@ public class DamIconDetail extends BaseActivity {
     }
 
     /**
-     *  tempFile 을 bitmap 으로 변환 후 ImageView 에 설정한다.
+     * tempFile 을 bitmap 으로 변환 후 ImageView 에 설정한다.
      */
     private void setImage() {
         ImageResizeUtils.resizeFile(tempFile, tempFile, 1280, isCamera);
 
         BitmapFactory.Options options = new BitmapFactory.Options();
         Bitmap originalBm = BitmapFactory.decodeFile(tempFile.getAbsolutePath(), options);
-
 
 
 //        mAdapter2.updateData(originalBm);
@@ -293,63 +319,87 @@ public class DamIconDetail extends BaseActivity {
 //        isChangeImg = true;
         setFileName = tempFile.getName();
 
-        uploadFile();
-        requestDCM_CONTROL();
-        tempFile = null;
+        storageTask();
+
     }
 
 
-
-    private void uploadFile(){
-        if(filePath != null) {
+    private void storageTask() {
+        if (filePath != null) {
             final ProgressDialog progressDialog = new ProgressDialog(this);
             progressDialog.setTitle(R.string.common_uploading);
             progressDialog.show();
 
-            //storage 주소와 폴더 파일명을 지정해 준다.
-            // 기존 파일 삭제 후 업로드
-            storageRef = storage.getReferenceFromUrl(FIREBASE_URL).child("shared_dam_icon" + "/" +  DAM_01+ "/" + setFileName );
-            storageRef.delete().addOnCompleteListener(new OnCompleteListener<Void>() {
-                @Override
-                public void onComplete(@NonNull Task<Void> task) {
-                    storageRef = storage.getReferenceFromUrl(FIREBASE_URL).child("shared_dam_icon" + "/" + DAM_01 + "/" + setFileName);
-                    storageRef.putFile(filePath)
-                            //성공시
-                            .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                                    progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
-                                    Toast.makeText(getApplicationContext(), R.string.common_updated, Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            //실패시
-                            .addOnFailureListener(new OnFailureListener() {
-                                @Override
-                                public void onFailure(@NonNull Exception e) {
-                                    progressDialog.dismiss();
-                                    Toast.makeText(getApplicationContext(), R.string.alert_image_error1, Toast.LENGTH_SHORT).show();
-                                }
-                            })
-                            //진행중
-                            .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
-                                @Override
-                                public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
-                                    @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
-                                            double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
-                                    //dialog에 진행률을 퍼센트로 출력해 준다
-                                    progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
-                                }
-                            });
-                }
-            });
-
+            if (preFilename != null && !preFilename.equals("")) {
+                storageRef = storage.getReferenceFromUrl(FIREBASE_URL).child("shared_dam_icon" + "/" + DAM_ID + "/" + "/" + DAM_01 + "/" + preFilename);
+                storageRef.delete().addOnSuccessListener(new OnSuccessListener<Void>() {
+                    @Override
+                    public void onSuccess(Void aVoid) {
+                        requestDCM_CONTROL("DELETE");
+                        uploadFile(progressDialog);
+                    }
+                }).addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        uploadFile(progressDialog);
+                    }
+                });
+            } else {
+                uploadFile(progressDialog);
+            }
         } else {
             Toast.makeText(this, R.string.common_file_notfound, Toast.LENGTH_SHORT).show();
         }
     }
 
+    private void uploadFile(ProgressDialog progressDialog) {
+        ClsBitmap.setSharedDamIcon(mContext, img_icon, DAM_ID, DAM_01, setFileName, "", R.drawable.btn_add);
 
-    public void requestDCM_CONTROL() {
+
+        storageRef = storage.getReferenceFromUrl(FIREBASE_URL).child("shared_dam_icon" + "/" + DAM_ID + "/" + "/" + DAM_01 + "/" + setFileName);
+        storageRef.putFile(filePath)
+                //성공시
+                .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                        filename = setFileName;
+                        requestDCM_CONTROL("INSERT");
+                        DamIconDetail.mAdapter2.updateDAM_03(setFileName);
+                        DamIconDetail.mAdapter2.notifyDataSetChanged();
+                        DamIconDetail.mAdapter.updateDAM_03("", -1);
+                        DamIconDetail.mAdapter.notifyDataSetChanged();
+
+                        progressDialog.dismiss(); //업로드 진행 Dialog 상자 닫기
+                        Toast.makeText(getApplicationContext(), "업로드 완료", Toast.LENGTH_SHORT).show();
+                        if(tempFile.delete()){
+                            tempFile = null;
+                        }
+                    }
+                })
+                //실패시
+                .addOnFailureListener(new OnFailureListener() {
+                    @Override
+                    public void onFailure(@NonNull Exception e) {
+                        progressDialog.dismiss();
+                        if(tempFile.delete()){
+                            tempFile = null;
+                        }
+                        Toast.makeText(getApplicationContext(), R.string.alert_image_error1, Toast.LENGTH_SHORT).show();
+                    }
+                })
+                //진행중
+                .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                    @Override
+                    public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                        @SuppressWarnings("VisibleForTests") //이걸 넣어 줘야 아랫줄에 에러가 사라진다. 넌 누구냐?
+                                double progress = (100 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+                        //dialog에 진행률을 퍼센트로 출력해 준다
+                        progressDialog.setMessage("Uploaded " + ((int) progress) + "% ...");
+                    }
+                });
+    }
+
+    public void requestDCM_CONTROL(String GUBUN) {
         // 인터넷 연결 여부 확인
         if (!ClsNetworkCheck.isConnectable(mContext)) {
             BaseAlert.show(getString(R.string.common_network_error));
@@ -359,10 +409,10 @@ public class DamIconDetail extends BaseActivity {
 
         Call<DCMModel> call = Http.dcm(HttpBaseService.TYPE.POST).DCM_CONTROL(
                 BaseConst.URL_HOST,
-                "INSERT",
+                GUBUN,
                 DAM_ID,
                 DAM_01,
-                "",
+                DCM_02,
                 setFileName,
                 mUser.Value.OCM_01
         );
@@ -384,12 +434,12 @@ public class DamIconDetail extends BaseActivity {
 
                             Response<DCMModel> response = (Response<DCMModel>) msg.obj;
                             mList = response.body().Data;
-                                if (mList == null) mList = new ArrayList<>();
+                            if (mList == null) mList = new ArrayList<>();
 
                             mAdapter2.updateData(mList);
                             mAdapter2.notifyDataSetChanged();
 
-                            }
+                        }
                     }
                 }.sendMessage(msg);
             }

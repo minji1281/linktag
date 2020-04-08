@@ -33,6 +33,16 @@
 
 
 
+
+    <!--    디데이 아이콘 -->
+    <string-array name="dam_icon_select">
+        <item>아이콘으로 선택</item>
+        <item>앨범에서 선택</item>
+        <item>아이콘 사진 삭제</item>
+    </string-array>
+
+
+
     <!--    날짜 시간 텍스트 -->
     <string-array name="datetime">
         <item>년</item>
