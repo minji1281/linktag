@@ -28,7 +28,6 @@ import com.linktag.linkapp.model.RFMModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.menu.CTDS_CONTROL;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.RfmVO;
 

@@ -43,9 +43,6 @@ public class BaseConst {
 //    public static final String URL_CMTL_CONTROL = "{host}/Mobile/CMTL_CONTROL";
 
     // 코드 스캔
-    public static final String CTDS_SELECT = "{host}/Mobile/CTDS_SELECT";
-    public static final String CTDS_CONTROL = "{host}/Mobile/CTDS_CONTROL";
-
     public static final String CDS_CONTROL = "{host}/Mobile/CDS_CONTROL";
 
     // 메뉴
