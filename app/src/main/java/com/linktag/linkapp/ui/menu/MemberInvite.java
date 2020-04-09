@@ -29,6 +29,7 @@ import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.model.CTU_Model;
+import com.linktag.linkapp.model.INV_Model;
 import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.model.SVC_Model;
 import com.linktag.linkapp.network.BaseConst;
@@ -71,13 +72,19 @@ public class MemberInvite extends BaseActivity {
 
     private EditText etSearch1;
     private EditText etSearch2;
+    private ImageView btnSearchEmail;
+    private ImageView btnSearchShared;
 
     private TextView tvShared;
-    private ImageView btnSearch;
-    private ListView listview;
-    private ArrayList<OcmVO> mList;
-    private MemberAdapter mAdapter;
-    private TextView emptyText;
+
+    private ListView listview1;
+    private ListView listview2;
+    private ArrayList<OcmVO> mList1;
+    private ArrayList<OcmVO> mList2;
+    private MemberAdapter mAdapter1;
+    private MemberAdapter mAdapter2;
+    private TextView empty1;
+    private TextView empty2;
 
 
     //===================================
@@ -112,6 +119,18 @@ public class MemberInvite extends BaseActivity {
         selectTypeShared.setOnClickListener(v -> changeState(STATE_SHARED));
 
         etSearch1 = findViewById(R.id.etSearch1);
+        etSearch1.setOnKeyListener(new View.OnKeyListener(){
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if((event.getAction() == KeyEvent.ACTION_DOWN) && (keyCode == KeyEvent.KEYCODE_ENTER)){
+                    requestOCM_SELECT();
+                    return true;
+                }
+                return false;
+            }
+        });
+        btnSearchEmail = findViewById(R.id.btnSearchEmail);
+        btnSearchEmail.setOnClickListener(v -> requestOCM_SELECT());
 
         etSearch2 = findViewById(R.id.etSearch2);
         etSearch2.setOnKeyListener(new View.OnKeyListener(){
@@ -124,11 +143,34 @@ public class MemberInvite extends BaseActivity {
                 return false;
             }
         });
-        btnSearch = findViewById(R.id.btnSearch);
-        btnSearch.setOnClickListener(v -> requestOCM_SELECT());
+        btnSearchShared = findViewById(R.id.btnSearchShared);
+        btnSearchShared.setOnClickListener(v -> requestOCM_SELECT());
 
-        listview = findViewById(R.id.listview);
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        listview1 = findViewById(R.id.listview1);
+        listview1.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                new AlertDialog.Builder(mActivity)
+                        .setMessage(R.string.alert_member_invite)
+                        .setPositiveButton(R.string.common_yes, new DialogInterface.OnClickListener() {
+                            @RequiresApi(api = Build.VERSION_CODES.M)
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                requestINV_CONTROL(position);
+                            }
+                        })
+                        .setNegativeButton(R.string.common_no, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                return;
+                            }
+                        })
+                        .show();
+            }
+        });
+
+        listview2 = findViewById(R.id.listview2);
+        listview2.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 int spinnerPosition = spinnerShared.getSelectedItemPosition();
@@ -143,7 +185,7 @@ public class MemberInvite extends BaseActivity {
                                 @RequiresApi(api = Build.VERSION_CODES.M)
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    requestCTU_CONTROL(mList.get(position));
+                                    requestCTU_CONTROL(mList2.get(position));
 
                                 }
                             })
@@ -160,8 +202,10 @@ public class MemberInvite extends BaseActivity {
 
         tvShared = findViewById(R.id.tvShared);
 
-        emptyText = findViewById(R.id.empty);
-        listview.setEmptyView(emptyText);
+        empty1 = findViewById(R.id.empty1);
+        listview1.setEmptyView(empty1);
+        empty2 = findViewById(R.id.empty2);
+        listview2.setEmptyView(empty2);
     }
 
     @Override
@@ -169,11 +213,15 @@ public class MemberInvite extends BaseActivity {
         intentVO = (CtdVO) getIntent().getSerializableExtra("intentVO");
         tvShared.setText(intentVO.CTD_10);
 
+        mList1 = new ArrayList<>();
+        mAdapter1 = new MemberAdapter(mContext, mList1);
+        listview1.setAdapter(mAdapter1);
+
         sharedList = new ArrayList<>();
 
-        mList = new ArrayList<>();
-        mAdapter = new MemberAdapter(mContext, mList);
-        listview.setAdapter(mAdapter);
+        mList2 = new ArrayList<>();
+        mAdapter2 = new MemberAdapter(mContext, mList2);
+        listview2.setAdapter(mAdapter2);
     }
 
     @Override
@@ -294,25 +342,41 @@ public class MemberInvite extends BaseActivity {
     }
 
     private void requestOCM_SELECT(){
-        int position = spinnerShared.getSelectedItemPosition();
-        String CTM_01s = sharedList.get(position).getContract();
-        String OCM_02 = etSearch2.getText().toString();
-
         // 인터넷 연결 여부 확인
         if(!ClsNetworkCheck.isConnectable(mContext)){
             BaseAlert.show(getString(R.string.common_network_error));
             return;
         }
 
+        String GUBUN;
+        String CTD_01;
+        String CTD_02;
+        String OCM_02;
+
+        if(STATE == STATE_EMAIL){
+            GUBUN = "LIST_INVITE1";
+            CTD_01 = intentVO.CTD_01;
+            CTD_02 = intentVO.CTD_02;
+            OCM_02 = etSearch1.getText().toString();
+        } else {
+            int position = spinnerShared.getSelectedItemPosition();
+
+            GUBUN = "LIST_INVITE2";
+            CTD_01 = sharedList.get(position).getContract();
+            CTD_02 = sharedList.get(position).getService();
+            OCM_02 = etSearch2.getText().toString();
+        }
+
         //openLoadingBar();
 
         Call<OCM_Model> call = Http.ocm(HttpBaseService.TYPE.POST).OCM_SELECT(
                 BaseConst.URL_HOST,
-                "LIST_INVITE",
+                GUBUN,
                 mUser.Value.OCM_01,
                 OCM_02,
                 "",
-                CTM_01s
+                CTD_01,
+                CTD_02
         );
 
         call.enqueue(new Callback<OCM_Model>() {
@@ -330,12 +394,21 @@ public class MemberInvite extends BaseActivity {
 
                             Response<OCM_Model> response = (Response<OCM_Model>) msg.obj;
 
-                            mList = response.body().Data;
-                            if(mList == null)
-                                mList = new ArrayList<>();
+                            if(STATE == STATE_EMAIL){
+                                mList1 = response.body().Data;
+                                if(mList1 == null)
+                                    mList1 = new ArrayList<>();
 
-                            mAdapter.updateData(mList);
-                            mAdapter.notifyDataSetChanged();
+                                mAdapter1.updateData(mList1);
+                                mAdapter1.notifyDataSetChanged();
+                            } else {
+                                mList2 = response.body().Data;
+                                if(mList2 == null)
+                                    mList2 = new ArrayList<>();
+
+                                mAdapter2.updateData(mList2);
+                                mAdapter2.notifyDataSetChanged();
+                            }
                         }
                     }
                 }.sendMessage(msg);
@@ -361,7 +434,7 @@ public class MemberInvite extends BaseActivity {
         Call<CTU_Model> call = Http.ctu(HttpBaseService.TYPE.POST).CTU_CONTROL(
                 BaseConst.URL_HOST,
                 "INSERT_SHARED",
-                intentVO.CTM_01,
+                intentVO.CTD_01,
                 intentVO.CTD_02,
                 ocmVO.OCM_01,
                 "N",
@@ -407,6 +480,57 @@ public class MemberInvite extends BaseActivity {
         } else {
             Toast.makeText(mContext, R.string.alert_member_callback2, Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void requestINV_CONTROL(int position){
+        // 인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            BaseAlert.show(getString(R.string.common_network_error));
+            return;
+        }
+
+        //openLoadingBar();
+
+        Call<INV_Model> call = Http.inv(HttpBaseService.TYPE.POST).INV_CONTROL(
+                BaseConst.URL_HOST,
+                "INSERT",
+                intentVO.CTD_01,
+                intentVO.CTD_02,
+                mList1.get(position).OCM_01,
+                mUser.Value.OCM_01,
+                "A",
+                ""
+
+        );
+
+        call.enqueue(new Callback<INV_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<INV_Model> call, Response<INV_Model> response) {
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+                            //Response<INV_Model> response = (Response<INV_Model>) msg.obj;
+
+                            Toast.makeText(mContext, R.string.alert_member_invite_success, Toast.LENGTH_SHORT).show();
+                            requestOCM_SELECT();
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<INV_Model> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+
+                Toast.makeText(mContext, R.string.alert_member_invite_fail, Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 
 }

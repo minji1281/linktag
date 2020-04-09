@@ -240,7 +240,8 @@ public class Member extends BaseActivity {
 
     private void requestOCM_SELECT(){
         int position = spinnerShared.getSelectedItemPosition();
-        String CTM_01 = sharedList.get(position).getContract();
+        String CTD_01 = sharedList.get(position).getContract();
+        String CTD_02 = sharedList.get(position).getService();
         String OCM_02 = etSearch.getText().toString();
 /*
         if(CTM_01.equals("") || CTM_01 == null){
@@ -262,7 +263,8 @@ public class Member extends BaseActivity {
                 mUser.Value.OCM_01,
                 OCM_02,
                 "",
-                 CTM_01
+                CTD_01,
+                CTD_02
         );
 
         call.enqueue(new Callback<OCM_Model>() {

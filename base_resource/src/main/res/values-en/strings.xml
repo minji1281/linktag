@@ -115,6 +115,8 @@
 
     <string name="alert_member_invite_error">Please select a share to add</string>
     <string name="alert_member_invite">Would you like to register this user?</string>
+    <string name="alert_member_invite_success">Success in invitation</string>
+    <string name="alert_member_invite_fail">Invitation failed</string>
     <string name="alert_member_callback1">Has been registered</string>
     <string name="alert_member_callback2">User already registered.</string>
 

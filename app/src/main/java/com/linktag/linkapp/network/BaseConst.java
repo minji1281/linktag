@@ -53,6 +53,9 @@ public class BaseConst {
     public static final String CTU_SELECT = "{host}/Mobile/CTU_SELECT";
     public static final String CTU_CONTROL = "{host}/Mobile/CTU_CONTROL";
 
+    public static final String INV_SELECT = "{host}/Mobile/INV_SELECT";
+    public static final String INV_CONTROL = "{host}/Mobile/INV_CONTROL";
+
     // 즐겨찾기
     public static final String BMK_CONTROL = "{host}/Mobile/BMK_CONTROL";
 

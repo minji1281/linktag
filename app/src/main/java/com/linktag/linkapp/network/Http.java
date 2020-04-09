@@ -13,6 +13,7 @@ import com.linktag.linkapp.model.CTU_Model;
 import com.linktag.linkapp.model.DAMModel;
 import com.linktag.linkapp.model.DCMModel;
 import com.linktag.linkapp.model.FRMModel;
+import com.linktag.linkapp.model.INV_Model;
 import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.model.LOG_Model;
 import com.linktag.linkapp.model.NOCModel;
@@ -135,7 +136,8 @@ public class Http extends HttpBaseService {
                 @Field(value = "OCM_01") String OCM_01,
                 @Field(value = "OCM_02") String OCM_02,
                 @Field(value = "OCM_21") String OCM_21,
-                @Field(value = "CTM_01") String CTM_01
+                @Field(value = "CTD_01") String CTD_01,
+                @Field(value = "CTD_02") String CTD_02
         );
 
     }
@@ -407,6 +409,33 @@ public class Http extends HttpBaseService {
 
                 @Field(value = "CTU_97") String CTU_97,
                 @Field(value = "CTU_98") String CTU_98
+        );
+    }
+
+    public static IINV inv(TYPE type) { return (IINV) retrofit(IINV.class, type); }
+
+    public interface IINV {
+
+        @FormUrlEncoded
+        @POST(BaseConst.INV_SELECT)
+        Call<INV_Model> INV_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "INV_01") String INV_01,
+                @Field(value = "INV_02") String INV_02
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.INV_CONTROL)
+        Call<INV_Model> INV_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "INV_01") String INV_01,
+                @Field(value = "INV_02") String INV_02,
+                @Field(value = "INV_03") String INV_03,
+                @Field(value = "INV_04") String INV_04,
+                @Field(value = "INV_05") String INV_05,
+                @Field(value = "INV_06") String INV_06
         );
     }
 

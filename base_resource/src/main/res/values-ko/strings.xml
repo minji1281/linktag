@@ -114,6 +114,8 @@
     <string name="member_invite">멤버 초대하기</string>
     <string name="alert_member_invite_error">추가 할 공유를 선택해 주세요</string>
     <string name="alert_member_invite">해당 유저를 초대 하시겠습니까?</string>
+    <string name="alert_member_invite_success">해당 유저를 초대 하였습니다</string>
+    <string name="alert_member_invite_fail">해당 유저 초대에 실패 하였습니다</string>
     <string name="alert_member_callback1">등록 되었습니다</string>
     <string name="alert_member_callback2">이미 등록 된 사용자 입니다</string>
 
