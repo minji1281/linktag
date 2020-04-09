@@ -9,8 +9,11 @@ public class VIT_VO implements Serializable {
     public String VIT_01;       // 투표코드(VOT_01)
     public String VIT_02;       // 일련번호(자동생성)
     public String VIT_03;       // 명칭
+    public String VIT_04;       // 투표수
     public String VIT_98;       // 최종수정자
     //public Date VIT_99;       // 최종수정일시
 
     public boolean Validation;
+    public int VIT_RANK;
+    public boolean boolCheck;
 }

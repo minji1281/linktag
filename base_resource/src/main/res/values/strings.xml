@@ -548,4 +548,26 @@
     <string name="dialog_rmm_set_reserve_wrong_time">시작시간이 종료시간보다 이전이어야합니다.</string>
     <string name="dialog_rmm_time_filter_wrong_time">이용가능시간 안에서 검색해주세요.</string>
 
+    <!-- 투표 관리 -->
+    <string name="vot_list_header_title">투표 목록</string>
+    <string name="vot_list_button_end">투표마감</string>
+    <string name="vot_list_progress_text">참여율</string>
+    <string name="vot_list_first">1등</string>
+    <string name="vot_list_second">2등</string>
+    <string name="vot_list_pre">투표참여 전입니다.</string>
+    <string name="vot_detail_header_title">투표 정보</string>
+    <string name="vot_detail_multi_text">복수선택</string>
+    <string name="vot_detail_secret_text">익명</string>
+    <string name="vot_detail_vit_name_text">투표 내역</string>
+    <string name="vot_detail_add">추가</string>
+    <string name="vot_detail_end">투표마감</string>
+    <string name="vot_detail_day">작성일자</string>
+    <string name="vot_detail_user_name">작성자</string>
+    <string name="vot_detail_count">참여인원</string>
+    <string name="vot_detail_voting">투표 완료</string>
+    <string name="vot_detail_vit_name_hint">투표내역 입력란입니다.</string>
+    <string name="vot_detail_vit_name_re">투표내역을 입력하세요.</string>
+    <string name="vot_detail_validation2">투표내역을 2개이상 입력하세요.</string>
+    <string name="vot_detail_validation3">선택한 투표항목이 없습니다.</string>
+
 </resources>

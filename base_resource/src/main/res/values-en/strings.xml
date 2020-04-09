@@ -546,4 +546,26 @@
     <string name="dialog_rmm_set_reserve_wrong_time">Start time must be earlier than end time.</string>
     <string name="dialog_rmm_time_filter_wrong_time">Search within the available time.</string>
 
+    <!-- 투표 관리 -->
+    <string name="vot_list_header_title">Voting List</string>
+    <string name="vot_list_button_end">Close</string>
+    <string name="vot_list_progress_text">Participation rate</string>
+    <string name="vot_list_first">1st</string>
+    <string name="vot_list_second">2nd</string>
+    <string name="vot_list_pre">It is before voting.</string>
+    <string name="vot_detail_header_title">Voting Detail</string>
+    <string name="vot_detail_multi_text">Multiple Vote</string>
+    <string name="vot_detail_secret_text">Anonymity</string>
+    <string name="vot_detail_vit_name_text">Voting Item</string>
+    <string name="vot_detail_add">Add</string>
+    <string name="vot_detail_end">Close</string>
+    <string name="vot_detail_day">Date</string>
+    <string name="vot_detail_user_name">Writer</string>
+    <string name="vot_detail_count">Participation</string>
+    <string name="vot_detail_voting">Vote</string>
+    <string name="vot_detail_vit_name_hint">Voting item Field.</string>
+    <string name="vot_detail_vit_name_re">Enter the Voting item.</string>
+    <string name="vot_detail_validation2">Enter at least 2 voting items.</string>
+    <string name="vot_detail_validation3">No voting items selected.</string>
+
 </resources>

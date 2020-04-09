@@ -12,9 +12,12 @@ public class VOT_VO implements Serializable {
     public String VOT_04;       // 마감일자(YYYYMMDD)
     public String VOT_05;       // 복수여부(Y/N)
     public String VOT_06;       // 익명여부(Y/N)
+    public int VOT_07;       // 투표수
     public String VOT_97;       // 작성자
     public String VOT_98;       // 최종수정자
     //public Date VOT_99;       // 최종수정일시
 
     public boolean Validation;
+    public String VOTE;       // 투표여부
+    public int ALL_CNT;       // 전체투표인원
 }
