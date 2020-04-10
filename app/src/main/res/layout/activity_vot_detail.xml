@@ -153,12 +153,20 @@
                         android:textSize="@dimen/text_normal"
                         android:background="@null"/>
 
+                    <View
+                        android:id="@+id/vRevoteArea"
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1"
+                        android:visibility="gone"/>
+
                     <Button
                         android:id="@+id/btnVitAdd"
                         android:layout_width="70dp"
                         android:layout_height="match_parent"
                         android:layout_marginTop="3dp"
                         android:layout_marginBottom="3dp"
+                        android:layout_gravity="right"
                         android:background="@drawable/btn_round_indigo_5dp"
                         android:textColor="@color/white"
                         android:textStyle="bold"
@@ -193,7 +201,7 @@
                                 android:paddingBottom="10dp"
                                 android:paddingLeft="20dp"
                                 android:paddingRight="20dp"
-                                tools:listitem="@layout/listitem_find_detail_vit"/>
+                                tools:listitem="@layout/listitem_find_detail_vit_result"/>
 
                         </android.support.v4.widget.SwipeRefreshLayout>
 

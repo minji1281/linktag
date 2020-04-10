@@ -20,4 +20,5 @@ public class VOT_VO implements Serializable {
     public boolean Validation;
     public String VOTE;       // 투표여부
     public int ALL_CNT;       // 전체투표인원
+    public String VOT_97_NM;       // 작성자명
 }

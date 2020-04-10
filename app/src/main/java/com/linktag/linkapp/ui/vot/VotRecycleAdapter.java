@@ -1,13 +1,15 @@
 package com.linktag.linkapp.ui.vot;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -17,26 +19,24 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Filter;
 import android.widget.Filterable;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.user_interface.InterfaceUser;
 import com.linktag.base.util.BaseAlert;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.VITModel;
+import com.linktag.linkapp.model.VOTModel;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
-import com.linktag.linkapp.ui.rmm.ReserveList;
 import com.linktag.linkapp.value_object.CtdVO;
 import com.linktag.linkapp.value_object.VIT_VO;
 import com.linktag.linkapp.value_object.VOT_VO;
 
 import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Collections;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -115,28 +115,81 @@ public class VotRecycleAdapter extends RecyclerView.Adapter<VotRecycleAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        viewHolder.tvName.setText(filteredmlist.get(position).VOT_02);
+        if(filteredmlist.get(position).VOT_04.equals("")){ //투표 진행중
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                viewHolder.layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.list_round_shape));
+            } else {
+                viewHolder.layout.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.list_round_shape));
+            }
 
-        viewHolder.pbRate.setMax(filteredmlist.get(position).ALL_CNT);
-        viewHolder.pbRate.setProgress(filteredmlist.get(position).VOT_07);
-        if(filteredmlist.get(position).ALL_CNT == filteredmlist.get(position).VOT_07){
-            viewHolder.pbRate.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.progressbar_full_listitem));
+            if(filteredmlist.get(position).VOT_97.equals(mUser.Value.OCM_01)){ //작성자가 나일때 투표마감 가능
+                viewHolder.btnEnd.setVisibility(View.VISIBLE);
+                viewHolder.btnEnd.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        new AlertDialog.Builder(mContext)
+                                .setMessage(R.string.vot_list_button_end_dialog_text)
+                                .setPositiveButton(R.string.onPositive, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        requestVOT_CONTROL("VOT_END", filteredmlist.get(position), position);
+                                    }
+                                })
+                                .setNegativeButton(R.string.onNegative, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        return;
+                                    }
+                                })
+                                .show();
+                    }
+                });
+            }
+            else{
+                viewHolder.btnEnd.setVisibility(View.GONE);
+            }
+
+            viewHolder.tvRate.setVisibility(View.VISIBLE);
+            viewHolder.pbRate.setVisibility(View.VISIBLE);
+            viewHolder.pbRate.setMax(filteredmlist.get(position).ALL_CNT);
+            viewHolder.pbRate.setProgress(filteredmlist.get(position).VOT_07);
+            if(filteredmlist.get(position).ALL_CNT == filteredmlist.get(position).VOT_07){
+                viewHolder.pbRate.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.progressbar_full_listitem));
+            }
+            else{
+                viewHolder.pbRate.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.progressbar_listitem));
+            }
+
+            if(filteredmlist.get(position).VOTE.equals("Y")){ //투표했을때
+                viewHolder.recyclerView_VIT.setVisibility(View.VISIBLE);
+                viewHolder.tvVotPre.setVisibility(View.GONE);
+
+                requestVIT_SELECT(viewHolder, filteredmlist, position);
+
+                viewHolder.mList_VIT = new ArrayList<>();
+                viewHolder.linearLayoutManager_VIT = new LinearLayoutManager(mContext);
+                viewHolder.mAdapter_VIT = new VitRecycleAdapter(mContext, viewHolder.mList_VIT, filteredmlist.get(position), intentVO);
+                viewHolder.recyclerView_VIT.setLayoutManager(viewHolder.linearLayoutManager_VIT);
+                viewHolder.recyclerView_VIT.setAdapter(viewHolder.mAdapter_VIT);
+            }
+            else{ //투표전
+                viewHolder.recyclerView_VIT.setVisibility(View.GONE);
+                viewHolder.tvVotPre.setVisibility(View.VISIBLE);
+            }
+
+            viewHolder.tvEndDay.setVisibility(View.GONE);
         }
-        else{
-            viewHolder.pbRate.setProgressDrawable(mContext.getResources().getDrawable(R.drawable.progressbar_listitem));
-        }
+        else{ //마감된 투표
+            if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+                viewHolder.layout.setBackground(ContextCompat.getDrawable(mContext, R.drawable.list_round_shape_gray));
+            } else {
+                viewHolder.layout.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.list_round_shape_gray));
+            }
 
-//        requestVIT_SELECT(viewHolder, mList, position);
+            viewHolder.btnEnd.setVisibility(View.GONE);
+            viewHolder.tvRate.setVisibility(View.GONE);
+            viewHolder.pbRate.setVisibility(View.GONE);
 
-//        viewHolder.mList_VIT = new ArrayList<>();
-//        viewHolder.linearLayoutManager_VIT = new LinearLayoutManager(mContext);
-//        viewHolder.mAdapter_VIT = new VitRecycleAdapter(mContext, viewHolder.mList_VIT);
-//        viewHolder.recyclerView_VIT.setLayoutManager(viewHolder.linearLayoutManager_VIT);
-//        viewHolder.recyclerView_VIT.setAdapter(viewHolder.mAdapter_VIT);
-
-//        requestVIT_SELECT(viewHolder, mList, position);
-
-        if(filteredmlist.get(position).VOTE.equals("Y")){ //투표했을때
             viewHolder.recyclerView_VIT.setVisibility(View.VISIBLE);
             viewHolder.tvVotPre.setVisibility(View.GONE);
 
@@ -144,15 +197,86 @@ public class VotRecycleAdapter extends RecyclerView.Adapter<VotRecycleAdapter.Vi
 
             viewHolder.mList_VIT = new ArrayList<>();
             viewHolder.linearLayoutManager_VIT = new LinearLayoutManager(mContext);
-            viewHolder.mAdapter_VIT = new VitRecycleAdapter(mContext, viewHolder.mList_VIT);
+            viewHolder.mAdapter_VIT = new VitRecycleAdapter(mContext, viewHolder.mList_VIT, filteredmlist.get(position), intentVO);
             viewHolder.recyclerView_VIT.setLayoutManager(viewHolder.linearLayoutManager_VIT);
             viewHolder.recyclerView_VIT.setAdapter(viewHolder.mAdapter_VIT);
-        }
-        else{ //투표전
-            viewHolder.recyclerView_VIT.setVisibility(View.GONE);
-            viewHolder.tvVotPre.setVisibility(View.VISIBLE);
+
+            viewHolder.tvEndDay.setVisibility(View.VISIBLE);
+            viewHolder.tvEndDay.setText(mContext.getString(R.string.vot_list_end_day) + " " + sDateFormat(filteredmlist.get(position).VOT_04));
         }
 
+        viewHolder.tvName.setText(filteredmlist.get(position).VOT_02);
+
+    }
+
+    private void requestVOT_CONTROL(String GUB, VOT_VO data, int position){
+        //인터넷 연결 여부 확인
+        if (!ClsNetworkCheck.isConnectable(mContext)) {
+            BaseAlert.show(mContext.getString(R.string.common_network_error));
+            return;
+        }
+
+//        openLoadingBar();
+
+        String VOT_ID = data.VOT_ID; //컨테이너
+        String VOT_01 = data.VOT_01; //일련번호
+        String VOT_02 = "";
+        String VOT_03 = "";
+
+        String VOT_04 = "";
+        String VOT_05 = "";
+        String VOT_06 = "";
+        String VOT_98 = mUser.Value.OCM_01; //최종수정자
+
+        Call<VOTModel> call = Http.vot(HttpBaseService.TYPE.POST).VOT_CONTROL(
+                BaseConst.URL_HOST,
+                GUB,
+                VOT_ID,
+                VOT_01,
+                VOT_02,
+                VOT_03,
+
+                VOT_04,
+                VOT_05,
+                VOT_06,
+                VOT_98
+        );
+
+        call.enqueue(new Callback<VOTModel>(){
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<VOTModel> call, Response<VOTModel> response){
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+//                            closeLoadingBar();
+
+                            Response<VOTModel> response = (Response<VOTModel>) msg.obj;
+
+                            ArrayList<VOT_VO> responseData = response.body().Data;
+
+                            if(responseData.get(0).Validation){
+                                filteredmlist.get(position).VOT_04 = responseData.get(0).VOT_04;
+                            }
+
+                            updateData(filteredmlist);
+                            notifyDataSetChanged();
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<VOTModel> call, Throwable t){
+                Log.d("VOT_SELECT", t.getMessage());
+//                closeLoadingBar();
+            }
+        });
     }
 
     private void requestVIT_SELECT(ViewHolder viewHolder, ArrayList<VOT_VO> mList, int position){
@@ -191,63 +315,21 @@ public class VotRecycleAdapter extends RecyclerView.Adapter<VotRecycleAdapter.Vi
 
                             Response<VITModel> response = (Response<VITModel>) msg.obj;
 
+
+
+                            viewHolder.mList_VIT.clear();
+
+                            if(response.body().Data.size() > 1){
+                                for(int i=0; i<response.body().Data.size()-1; i++){
+                                    if(response.body().Data.get(i).VIT_RANK == response.body().Data.get(i+1).VIT_RANK){
+                                        response.body().Data.get(i).VIT_03 += ", " + response.body().Data.get(i+1).VIT_03;
+                                        response.body().Data.remove(i+1);
+                                        i--;
+                                    }
+                                }
+                            }
+
                             viewHolder.mList_VIT = response.body().Data;
-                            if(viewHolder.mList_VIT == null)
-                                viewHolder.mList_VIT = new ArrayList<>();
-
-//                            int i = 0;
-//                            Calendar time_c = Calendar.getInstance();
-//                            time_c.set(Calendar.HOUR_OF_DAY, Integer.parseInt(RMR_04ST.substring(0,2)));
-//                            time_c.set(Calendar.MINUTE, Integer.parseInt(RMR_04ST.substring(2)));
-//                            time_c.set(Calendar.SECOND, 0);
-//                            time_c.set(Calendar.MILLISECOND, 0);
-//
-//                            Calendar time_c_ed = Calendar.getInstance();
-//                            time_c_ed.set(Calendar.HOUR_OF_DAY, Integer.parseInt(RMR_04ED.substring(0,2)));
-//                            time_c_ed.set(Calendar.MINUTE, Integer.parseInt(RMR_04ED.substring(2)));
-//                            time_c_ed.set(Calendar.SECOND, 0);
-//                            time_c_ed.set(Calendar.MILLISECOND, 0);
-//
-//                            viewHolder.mList_RMR.clear();
-//                            while(time_c.compareTo(time_c_ed) < 0){
-//                                String time_s = (time_c.get(Calendar.HOUR_OF_DAY)<10 ? "0" + String.valueOf(time_c.get(Calendar.HOUR_OF_DAY)) : String.valueOf(time_c.get(Calendar.HOUR_OF_DAY))) + (time_c.get(Calendar.MINUTE)<10 ? "0" + String.valueOf(time_c.get(Calendar.MINUTE)) : String.valueOf(time_c.get(Calendar.MINUTE)));
-//                                if(response.body().Data.size() > 0){
-//                                    if(time_s.equals(response.body().Data.get(i).RMR_04)){
-//                                        response.body().Data.get(i).boolChange = false;
-//                                        viewHolder.mList_RMR.add(response.body().Data.get(i));
-//                                        if(i < response.body().Data.size() - 1){
-//                                            i++;
-//                                        }
-//                                    }
-//                                    else{
-//                                        RMR_VO RMR_tmp = new RMR_VO();
-//                                        RMR_tmp.RMR_ID = RMR_ID;
-//                                        RMR_tmp.RMR_01 = RMR_01;
-//                                        RMR_tmp.RMR_02 = RMR_02;
-//                                        RMR_tmp.RMR_03 = RMR_03;
-//                                        RMR_tmp.RMR_04 = time_s;
-//                                        RMR_tmp.RMR_05 = "";
-//                                        RMR_tmp.RMR_05_NM = "";
-//                                        RMR_tmp.boolChange = false;
-//                                        viewHolder.mList_RMR.add(RMR_tmp);
-//                                    }
-//                                }
-//                                else{
-//                                    RMR_VO RMR_tmp = new RMR_VO();
-//                                    RMR_tmp.RMR_ID = RMR_ID;
-//                                    RMR_tmp.RMR_01 = RMR_01;
-//                                    RMR_tmp.RMR_02 = RMR_02;
-//                                    RMR_tmp.RMR_03 = RMR_03;
-//                                    RMR_tmp.RMR_04 = time_s;
-//                                    RMR_tmp.RMR_05 = "";
-//                                    RMR_tmp.RMR_05_NM = "";
-//                                    RMR_tmp.boolChange = false;
-//                                    viewHolder.mList_RMR.add(RMR_tmp);
-//                                }
-//
-//                                time_c.add(Calendar.MINUTE, 30); //30분 고정
-//                            }
-
 
                             viewHolder.mAdapter_VIT.updateData(viewHolder.mList_VIT);
                             viewHolder.mAdapter_VIT.notifyDataSetChanged();
@@ -271,10 +353,13 @@ public class VotRecycleAdapter extends RecyclerView.Adapter<VotRecycleAdapter.Vi
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
+        LinearLayout layout;
         TextView tvName;
         Button btnEnd;
         TextView tvVotPre;
+        TextView tvRate;
         ProgressBar pbRate;
+        TextView tvEndDay;
 
         RecyclerView recyclerView_VIT;
         LinearLayoutManager linearLayoutManager_VIT;
@@ -284,10 +369,13 @@ public class VotRecycleAdapter extends RecyclerView.Adapter<VotRecycleAdapter.Vi
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
+            layout = itemView.findViewById(R.id.layout);
             tvName = itemView.findViewById(R.id.tvName);
             btnEnd = itemView.findViewById(R.id.btnEnd);
             tvVotPre = itemView.findViewById(R.id.tvVotPre);
+            tvRate = itemView.findViewById(R.id.tvRate);
             pbRate = itemView.findViewById(R.id.pbRate);
+            tvEndDay = itemView.findViewById(R.id.tvEndDay);
 
             recyclerView_VIT = itemView.findViewById(R.id.recyclerView_VIT);
 
@@ -309,6 +397,12 @@ public class VotRecycleAdapter extends RecyclerView.Adapter<VotRecycleAdapter.Vi
 
     public void updateData(ArrayList<VOT_VO> list) {
         mList = list;
+    }
+
+    private String sDateFormat(String sDate) {
+        String result = sDate.substring(0,4) + "." + sDate.substring(4,6) + "." + sDate.substring(6,8);
+
+        return result;
     }
 
 }

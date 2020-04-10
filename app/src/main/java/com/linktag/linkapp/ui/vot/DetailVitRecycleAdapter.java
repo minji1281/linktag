@@ -23,12 +23,14 @@ public class DetailVitRecycleAdapter extends RecyclerView.Adapter<DetailVitRecyc
     private View view;
     private InterfaceUser mUser;
     private String GUBUN;
+    private String VOT_05;
 
-    DetailVitRecycleAdapter(Context context, ArrayList<VIT_VO> list, String GUB) {
+    DetailVitRecycleAdapter(Context context, ArrayList<VIT_VO> list, String GUB, String VOT_05_tmp) {
         mContext = context;
         mList = list;
         mUser = InterfaceUser.getInstance();
         GUBUN = GUB;
+        VOT_05 = VOT_05_tmp;
     }
 
     @NonNull
@@ -60,34 +62,73 @@ public class DetailVitRecycleAdapter extends RecyclerView.Adapter<DetailVitRecyc
             });
         }
         else{ //UPDATE
-            if(mList.get(position).boolCheck){
-                viewHolder.imgFunc.setBackgroundResource(R.drawable.ic_check_on);
-                viewHolder.imgFunc.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v){
-                        viewHolder.imgFunc.setBackgroundResource(R.drawable.ic_check_off);
-                        VotDetail.mList_VIT.get(position).boolCheck = false;
-                        VotDetail.voteItemList.remove(mList.get(position).VIT_02);
+            if(VOT_05.equals("Y")){ //복수투표
+                if(mList.get(position).boolCheck){
+                    viewHolder.imgFunc.setBackgroundResource(R.drawable.ic_check_on);
+                    viewHolder.imgFunc.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            viewHolder.imgFunc.setBackgroundResource(R.drawable.ic_check_off);
+                            VotDetail.mList_VIT.get(position).boolCheck = false;
+                            VotDetail.voteItemList.remove(mList.get(position).VIT_02);
 
-                        VotDetail.mAdapter_VIT.updateData(VotDetail.mList_VIT);
-                        VotDetail.mAdapter_VIT.notifyDataSetChanged();
-                    }
-                });
-            }
-            else{
-                viewHolder.imgFunc.setBackgroundResource(R.drawable.ic_check_off);
-                viewHolder.imgFunc.setOnClickListener(new View.OnClickListener(){
-                    @Override
-                    public void onClick(View v){
-                        viewHolder.imgFunc.setBackgroundResource(R.drawable.ic_check_on);
-                        VotDetail.mList_VIT.get(position).boolCheck = true;
-                        VotDetail.voteItemList.add(mList.get(position).VIT_02);
+                            VotDetail.mAdapter_VIT.updateData(VotDetail.mList_VIT);
+                            VotDetail.mAdapter_VIT.notifyDataSetChanged();
+                        }
+                    });
+                }
+                else{
+                    viewHolder.imgFunc.setBackgroundResource(R.drawable.ic_check_off);
+                    viewHolder.imgFunc.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            viewHolder.imgFunc.setBackgroundResource(R.drawable.ic_check_on);
+                            VotDetail.mList_VIT.get(position).boolCheck = true;
+                            VotDetail.voteItemList.add(mList.get(position).VIT_02);
 
-                        VotDetail.mAdapter_VIT.updateData(VotDetail.mList_VIT);
-                        VotDetail.mAdapter_VIT.notifyDataSetChanged();
-                    }
-                });
+                            VotDetail.mAdapter_VIT.updateData(VotDetail.mList_VIT);
+                            VotDetail.mAdapter_VIT.notifyDataSetChanged();
+                        }
+                    });
+                }
             }
+            else{ //단일투표
+                if(mList.get(position).boolCheck){
+                    viewHolder.imgFunc.setBackgroundResource(R.drawable.ic_check_on);
+                    viewHolder.imgFunc.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            viewHolder.imgFunc.setBackgroundResource(R.drawable.ic_check_off);
+                            VotDetail.voteInt = -1;
+                            VotDetail.mList_VIT.get(position).boolCheck = false;
+                            VotDetail.voteItemList.clear();
+
+                            VotDetail.mAdapter_VIT.updateData(VotDetail.mList_VIT);
+                            VotDetail.mAdapter_VIT.notifyDataSetChanged();
+                        }
+                    });
+                }
+                else{
+                    viewHolder.imgFunc.setBackgroundResource(R.drawable.ic_check_off);
+                    viewHolder.imgFunc.setOnClickListener(new View.OnClickListener(){
+                        @Override
+                        public void onClick(View v){
+                            viewHolder.imgFunc.setBackgroundResource(R.drawable.ic_check_on);
+                            if(VotDetail.voteItemList.size() > 0){
+                                VotDetail.mList_VIT.get(VotDetail.voteInt).boolCheck = false;
+                                VotDetail.voteItemList.clear();
+                            }
+                            VotDetail.mList_VIT.get(position).boolCheck = true;
+                            VotDetail.voteItemList.add(mList.get(position).VIT_02);
+                            VotDetail.voteInt = position;
+
+                            VotDetail.mAdapter_VIT.updateData(VotDetail.mList_VIT);
+                            VotDetail.mAdapter_VIT.notifyDataSetChanged();
+                        }
+                    });
+                }
+            }
+
         }
 
     }

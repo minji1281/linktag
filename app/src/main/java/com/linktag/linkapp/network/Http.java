@@ -1506,7 +1506,8 @@ public class Http extends HttpBaseService {
                 @Field(value = "VIC_02") String VIC_02,
                 @Field(value = "VIC_03") String VIC_03,
 
-                @Field(value = "VIC_98") String VIC_98
+                @Field(value = "VIC_98") String VIC_98,
+                @Field(value = "ENDGUB") String ENDGUB
         );
 
     }

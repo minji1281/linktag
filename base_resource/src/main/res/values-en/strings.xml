@@ -574,5 +574,10 @@
     <string name="vot_detail_vit_name_re">Enter the Voting item.</string>
     <string name="vot_detail_validation2">Enter at least 2 voting items.</string>
     <string name="vot_detail_validation3">No voting items selected.</string>
+    <string name="vot_dialog_vic_header_title">Voter List</string>
+    <string name="vot_dialog_vic_me">Me</string>
+    <string name="vot_list_button_end_dialog_text">Do you want to close the vote?</string>
+    <string name="vot_list_end_day">Closing date</string>
+    <string name="vot_detail_revote">Revoting</string>
 
 </resources>
