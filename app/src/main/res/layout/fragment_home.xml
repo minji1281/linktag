@@ -14,6 +14,29 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:id="@+id/layInvite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#1E88E5"
+            android:orientation="horizontal"
+            android:padding="15dp"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tvInvite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/selector_text_black_white" />
+
+            <ImageView
+                android:id="@+id/btnInviteClose"
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:src="@drawable/btn_cancel_white" />
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="#F7F7F7"
@@ -157,7 +180,7 @@
         <LinearLayout
             android:id="@+id/btnNotList"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="40dp"
             android:layout_marginBottom="15dp"
             android:background="@color/white"
             android:orientation="vertical">
@@ -172,10 +195,10 @@
                     android:id="@+id/tvnotinm"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="@string/dash_23"
                     android:paddingLeft="10dp"
-                    android:textSize="@dimen/text_small"
+                    android:text="@string/dash_23"
                     android:textColor="#FF8787"
+                    android:textSize="@dimen/text_small"
                     android:textStyle="bold" />
 
                 <TextView
@@ -183,12 +206,12 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:layout_gravity="center"
+                    android:layout_toRightOf="@+id/tvnotinm"
                     android:ellipsize="end"
                     android:gravity="center|start"
-                    android:paddingLeft="10dp"
                     android:maxLines="1"
+                    android:paddingLeft="10dp"
                     android:textSize="@dimen/text_small"
-                    android:layout_toRightOf="@+id/tvnotinm"
                     tools:text="이건 임시로 작성한겁니다."></TextView>
 
                 <TextView

@@ -422,7 +422,8 @@ public class Http extends HttpBaseService {
                 @Path(value = "host", encoded = true) String host,
                 @Field(value = "GUBUN") String GUBUN,
                 @Field(value = "INV_01") String INV_01,
-                @Field(value = "INV_02") String INV_02
+                @Field(value = "INV_02") String INV_02,
+                @Field(value = "INV_03") String INV_03
         );
 
         @FormUrlEncoded

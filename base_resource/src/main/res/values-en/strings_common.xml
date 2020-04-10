@@ -11,6 +11,8 @@
     <string name="common_update">Update</string>
     <string name="common_delete">Delete</string>
     <string name="common_change">Change</string>
+    <string name="common_accept">Accept</string>
+    <string name="common_deny">Deny</string>
 
     <string name="common_canceled">Canceled</string>
     <string name="common_added">Added</string>

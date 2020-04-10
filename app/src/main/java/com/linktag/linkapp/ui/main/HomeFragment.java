@@ -30,6 +30,7 @@ import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.ARM_Model;
 import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.model.DSHModel;
+import com.linktag.linkapp.model.INV_Model;
 import com.linktag.linkapp.network.BaseConst;
 import com.linktag.linkapp.network.Http;
 import com.linktag.linkapp.network.HttpBaseService;
@@ -41,6 +42,7 @@ import com.linktag.linkapp.ui.board.BoardMain;
 import com.linktag.linkapp.ui.calendar.AlarmListAdapter;
 import com.linktag.linkapp.ui.menu.ChangeActivityCls;
 import com.linktag.linkapp.ui.menu.ChooseOne;
+import com.linktag.linkapp.ui.menu.InviteList;
 import com.linktag.linkapp.ui.sqllite.SqlMain;
 import com.linktag.linkapp.value_object.ARM_VO;
 import com.linktag.linkapp.value_object.CtdVO;
@@ -62,6 +64,10 @@ public class HomeFragment extends BaseFragment {
     private TextView tvNotice;
     private SwipeRefreshLayout swipeRefresh;
 
+    private LinearLayout layInvite;
+    private TextView tvInvite;
+    private ImageView btnInviteClose;
+
     private ImageView imgProfile;
     private TextView tvHomeName;
     private TextView tvHomeEmail;
@@ -74,7 +80,7 @@ public class HomeFragment extends BaseFragment {
     private ImageView btnBmkCancel;
 
     private TextView BmkSpacer;
-//    private TextView btnNotNew;
+    //    private TextView btnNotNew;
     private LinearLayout btnNotList;
     private TextView btnSql;
     private TextView btnBeacon;
@@ -120,12 +126,24 @@ public class HomeFragment extends BaseFragment {
 
         ClsBitmap.setProfilePhoto(mContext, imgProfile, mUser.Value.OCM_01, mUser.Value.OCM_52, "", R.drawable.main_profile_no_image);
 
+        requestINV_SELECT();
         requestCTD_SELECT();
         requestARM_SELECT("");
         requestDSH_SELECT();
     }
 
     private void initLayout() {
+        layInvite = view.findViewById(R.id.layInvite);
+        layInvite.setOnClickListener(v -> goInvite());
+        tvInvite = view.findViewById(R.id.tvInvite);
+        btnInviteClose = view.findViewById(R.id.btnInviteClose);
+        btnInviteClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                requestINV_CONTROL();
+            }
+        });
+
         gridBMK = (ExpandableHeightGridView) view.findViewById(R.id.gridBMK);
         gridBMK.setExpanded(true);
         gridBMK.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -238,6 +256,58 @@ public class HomeFragment extends BaseFragment {
         gridARM.setAdapter(mAdapter2);
     }
 
+    public void requestINV_SELECT() {
+        // 인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            BaseAlert.show(getString(R.string.common_network_error));
+            return;
+        }
+
+        //openLoadingBar();
+
+        Call<INV_Model> call = Http.inv(HttpBaseService.TYPE.POST).INV_SELECT(
+                BaseConst.URL_HOST,
+                "LIST_MAIN",
+                "",
+                "",
+                mUser.Value.OCM_01
+        );
+
+        call.enqueue(new Callback<INV_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<INV_Model> call, Response<INV_Model> response) {
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+                            closeLoadingBar();
+
+                            Response<INV_Model> response = (Response<INV_Model>) msg.obj;
+
+                            if(response.body().Total > 0){
+                                tvInvite.setText(getString(R.string.alert_invite) + " (" + response.body().Total + ")");
+                                layInvite.setVisibility(View.VISIBLE);
+                            }
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<INV_Model> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+                closeLoadingBar();
+
+            }
+        });
+
+    }
+
 
     public void requestCTD_SELECT() {
         // 인터넷 연결 여부 확인
@@ -293,6 +363,11 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
+    }
+
+    private void goInvite(){
+        Intent intent = new Intent(mContext, InviteList.class);
+        mContext.startActivity(intent);
     }
 
     private void goBmkAdd(){
@@ -525,6 +600,53 @@ public class HomeFragment extends BaseFragment {
             }
         });
 
+    }
+
+    private void requestINV_CONTROL(){
+        // 인터넷 연결 여부 확인
+        if(!ClsNetworkCheck.isConnectable(mContext)){
+            BaseAlert.show(getString(R.string.common_network_error));
+            return;
+        }
+
+        //openLoadingBar();
+
+        Call<INV_Model> call = Http.inv(HttpBaseService.TYPE.POST).INV_CONTROL(
+                BaseConst.URL_HOST,
+                "UPDATE06",
+                "",
+                "",
+                mUser.Value.OCM_01,
+                "",
+                "",
+                ""
+        );
+
+        call.enqueue(new Callback<INV_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<INV_Model> call, Response<INV_Model> response) {
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler(){
+                    @Override
+                    public void handleMessage(Message msg){
+                        if(msg.what == 100){
+                            //Response<INV_Model> response = (Response<INV_Model>) msg.obj;
+
+                            layInvite.setVisibility(View.GONE);
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<INV_Model> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+            }
+        });
     }
 
 }

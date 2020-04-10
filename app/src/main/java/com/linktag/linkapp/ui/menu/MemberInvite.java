@@ -26,6 +26,7 @@ import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
 import com.linktag.base.network.ClsNetworkCheck;
 import com.linktag.base.util.BaseAlert;
+import com.linktag.base.util.ClsDateTime;
 import com.linktag.linkapp.R;
 import com.linktag.linkapp.model.CTD_Model;
 import com.linktag.linkapp.model.CTU_Model;
@@ -498,8 +499,8 @@ public class MemberInvite extends BaseActivity {
                 intentVO.CTD_02,
                 mList1.get(position).OCM_01,
                 mUser.Value.OCM_01,
-                "A",
-                ""
+                ClsDateTime.getNow("yyyyMMdd"),
+                "N"
 
         );
 

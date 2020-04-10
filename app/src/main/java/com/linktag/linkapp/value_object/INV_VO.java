@@ -9,13 +9,16 @@ public class INV_VO implements Serializable {
     public String INV_02;       // 서비스 일련번호
     public String INV_03;       // 이용자
     public String INV_04;       // 초대자
-    public String INV_05;       // 승인여부
-    public String INV_06;       // 초대자 확인여부
+    public String INV_05;       // 초대일자
+    public String INV_06;       // 확인여부
 
     public String INV_01_NM;        //
     public String INV_02_NM;        //
     public String INV_03_NM;        //
     public String INV_04_NM;
+
+    public String SVC_01;
+    public String CTD_08;
 
     public boolean Validation;
     public String ErrorCode;

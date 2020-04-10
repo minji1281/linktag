@@ -115,15 +115,16 @@
                     android:textSize="@dimen/text_small" />
 
                 <TextView
-                    android:id="@+id/btnLogout"
+                    android:id="@+id/btnInvite"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:drawableTop="@drawable/icon_logout"
+                    android:drawableTop="@drawable/icon_invite"
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
-                    android:text="@string/setting_05"
+                    android:text="@string/invite"
                     android:textAlignment="center"
                     android:textSize="@dimen/text_small" />
+
             </LinearLayout>
 
             <LinearLayout
@@ -190,6 +191,17 @@
                     android:paddingTop="5dp"
                     android:paddingBottom="5dp"
                     android:text="@string/setting_04"
+                    android:textAlignment="center"
+                    android:textSize="@dimen/text_small" />
+
+                <TextView
+                    android:id="@+id/btnLogout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableTop="@drawable/icon_logout"
+                    android:paddingTop="5dp"
+                    android:paddingBottom="5dp"
+                    android:text="@string/setting_05"
                     android:textAlignment="center"
                     android:textSize="@dimen/text_small" />
 

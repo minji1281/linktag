@@ -119,6 +119,11 @@
     <string name="alert_member_invite_fail">Invitation failed</string>
     <string name="alert_member_callback1">Has been registered</string>
     <string name="alert_member_callback2">User already registered.</string>
+    <string name="title_invite">INVITE LIST</string>
+    <string name="invite">Invite</string>
+    <string name="alert_accept">Do you accept?</string>
+    <string name="alert_deny">Do you deny?</string>
+    <string name="alert_invite">New invitation</string>
 
     <!-- 세팅 / 이미지 처리 -->
     <string name="set_profile_image">Change profile picture</string>
