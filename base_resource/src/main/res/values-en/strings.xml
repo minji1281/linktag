@@ -82,7 +82,7 @@
 
     <!-- 로그인 설명 -->
     <string name="title_name">Cloud platform</string>
-    <string name="login_hint1">Enter your mobile number</string>
+    <string name="login_hint1">Enter your Email</string>
     <string name="login_hint2">Enter Password</string>
     <string name="login_hint3">Save ID</string>
     <string name="login_hint4">Auto-Login</string>

@@ -26,200 +26,193 @@
     </string-array>
 
     <string-array name="photo_select">
-        <item>사진 촬영</item>
-        <item>앨범에서 선택</item>
-        <item>프로필 사진 삭제</item>
+        <item>Camera</item>
+        <item>Album</item>
+        <item>Clear</item>
     </string-array>
-
-
-
 
     <!--    디데이 아이콘 -->
     <string-array name="dam_icon_select">
-        <item>아이콘으로 선택</item>
-        <item>앨범에서 선택</item>
-        <item>아이콘 사진 삭제</item>
+        <item>Icon</item>
+        <item>Album</item>
+        <item>Clear</item>
     </string-array>
-
-
 
     <!--    날짜 시간 텍스트 -->
     <string-array name="datetime">
-        <item>년</item>
-        <item>월</item>
-        <item>일</item>
-        <item>시</item>
-        <item>분</item>
+        <item>year</item>
+        <item>month</item>
+        <item>day</item>
+        <item>hour</item>
+        <item>minute</item>
     </string-array>
+
 
 
     <!--    장독      -->
     <string-array name="jdm_size">
-        <item>대</item>
-        <item>중</item>
-        <item>소</item>
+        <item>Big</item>
+        <item>Normal</item>
+        <item>Small</item>
     </string-array>
 
     <string-array name="jdm_cycle">
-        <item>일</item>
-        <item>개월</item>
-        <item>지정일</item>
+        <item>Day</item>
+        <item>Month</item>
+        <item>Designated date</item>
     </string-array>
 
     <string-array name="jdm_save_text">
-        <item>해당 장독정보가 저장되었습니다. </item>
-        <item>다음 알람예정은 </item>
-        <item>입니다.</item>
-        <item>예정 청소일 전입니다. 청소확인 처리하시겠습니까?</item>
-        <item>청소 예정일은 현재일자보다 커야합니다.</item>
-        <item>신규등록</item>
-        <item>장독청소 완료</item>
+        <item>That information has been saved.</item>
+        <item>The next Alarm will be </item>
+        <item></item>
+        <item>It is before the scheduled cleaning date. Would you like to confirm the cleaning?</item>
+        <item>The scheduled cleaning date must be greater than the current date.</item>
+        <item>New registration</item>
+        <item>Cleaning finished</item>
     </string-array>
 
-
-
-
-    <!--    냉장고      -->
+    <!--    냉장고     -->
     <string-array name="rfd_pos">
-        <item>냉장실</item>
-        <item>냉동실</item>
-        <item>야채실</item>
-        <item>기타</item>
+        <item>Cold room</item>
+        <item>Freezer room</item>
+        <item>Vegetable room</item>
+        <item>Other</item>
     </string-array>
 
     <string-array name="rfd_label">
-        <item>유통기한 마감</item>
-        <item>오늘까지</item>
-        <item>일 남음</item>
-        <item>사용종료</item>
-        <item>유통기간</item>
+        <item>Expired</item>
+        <item>Until Today</item>
+        <item>days left</item>
+        <item>End of Use</item>
+        <item>Expiry Date</item>
     </string-array>
 
+
     <string-array name="rfd_save_text">
-        <item>해당 식품정보가 저장되었습니다. </item>
-        <item>해당 식품정보의 사용상태가 변경 되었습니다. </item>
-        <item>해당 식품정보가 이동되었습니다. </item>
-        <item>다음 알람예정은 </item>
-        <item>입니다.</item>
-        <item>사용 재시작 하시겠습니까?</item>
-        <item>사용종료 처리하시겠습니까?</item>
-        <item>등록진행 중인 식품은 이동할 수 없습니다.</item>
+        <item>That information has been saved.</item>
+        <item>The use status of the food information has been changed. </item>
+        <item>The food information has been moved. </item>
+        <item>The next Alarm will be </item>
+        <item></item>
+        <item>Would you like to restart use?</item>
+        <item>Do you want to end use?</item>
+        <item>Food in progress cannot be moved.</item>
     </string-array>
+
+
 
     <!--    PC      -->
     <string-array name="hw">
-        <item>선택</item>
+        <item>Selection</item>
         <item>CPU</item>
-        <item>메인보드</item>
-        <item>그래픽카드</item>
+        <item>Main board</item>
+        <item>Graphic card</item>
         <item>RAM</item>
         <item>SSD</item>
         <item>HDD</item>
-        <item>파워</item>
-        <item>쿨러</item>
+        <item>Power</item>
+        <item>Cooler</item>
         <item>OOD</item>
-        <item>케이스</item>
+        <item>Case</item>
+    </string-array>
+
+    <string-array name="sw">
+        <item>Selection</item>
+        <item>OS</item>
+        <item>Graphics driver</item>
+        <item>Adobe</item>
+        <item>Vaccine</item>
+        <item>Other</item>
     </string-array>
 
     <string-array name="pcm_save_text">
-        <item>해당 PC관리 저장되었습니다.</item>
-        <item>관리일자 갱신 되었습니다.</item>
-        <item>선택 필요</item>
-        <item>관리일자 업데이트</item>
-        <item>H/W 정보</item>
-        <item>S/W 정보</item>
-        <item>추가</item>
-        <item>제거</item>
+        <item>That information has been saved.</item>
+        <item>The management date has been updated.</item>
+        <item>Need to Selection</item>
+        <item>Management Date Update</item>
+        <item>H/W Info</item>
+        <item>S/W Info</item>
+        <item>Add</item>
+        <item>Delete</item>
     </string-array>
-
-
-    <string-array name="sw">
-        <item>선택</item>
-        <item>운영체제</item>
-        <item>그래픽드라이버</item>
-        <item>어도비</item>
-        <item>백신</item>
-        <item>기타</item>
-    </string-array>
-
 
 
     <!--    복약      -->
     <string-array name="trp">
-        <item>1회</item>
-        <item>2회</item>
-        <item>3회</item>
-        <item>4회</item>
-        <item>5회</item>
+        <item>1 times</item>
+        <item>2 times</item>
+        <item>3 times</item>
+        <item>4 times</item>
+        <item>5 times</item>
     </string-array>
 
     <string-array name="trp2">
-        <item>식전 30분</item>
-        <item>식후 30분</item>
-        <item>상관없음</item>
+        <item>30 minutes before meals</item>
+        <item>30 minutes after meals</item>
+        <item>Any time</item>
     </string-array>
 
     <string-array name="trp3">
-        <item>일요일</item>
-        <item>월요일</item>
-        <item>화요일</item>
-        <item>수요일</item>
-        <item>목요일</item>
-        <item>금요일</item>
-        <item>토요일</item>
+        <item>Sunday</item>
+        <item>Monday</item>
+        <item>Tuesday</item>
+        <item>Wednesday</item>
+        <item>Thursday</item>
+        <item>Friday</item>
+        <item>Saturday</item>
     </string-array>
 
-
     <string-array name="trp_save_text">
-        <item>해당 복약정보가 저장되었습니다. </item>
-        <item>지정된 알림이 없습니다. </item>
-        <item>알림추가</item>
-        <item>신규등록 </item>
-        <item>추가되었습니다.</item>
-        <item>다음 알림예정일은</item>
-        <item>입니다.</item>
+        <item>That information has been saved.</item>
+        <item>No Alarm specified. </item>
+        <item>Alarm added</item>
+        <item>New registration </item>
+        <item>Alarm was added</item>
+        <item>The next Alarm will be </item>
+        <item></item>
     </string-array>
 
     <!-- 차량 -->
     <string-array name="cad">
-        <item>엔진오일</item>
-        <item>미션오일</item>
-        <item>브레이크 오일</item>
-        <item>클러치 오일</item>
-        <item>파워스티어링 오일</item>
-        <item>변속기 오일</item>
-        <item>디퍼런셜 오일</item>
-        <item>냉각수(부동액)</item>
-        <item>오일 필터</item>
-        <item>연료 필터</item>
-        <item>히터 필터</item>
-        <item>에어컨 필터</item>
-        <item>에어클리너 필터</item>
-        <item>타이어 위치 교환</item>
-        <item>타이어 교체</item>
-        <item>타이어 공기압</item>
-        <item>브레이크 라이닝</item>
-        <item>브레이크 패드</item>
-        <item>휠 밸런스</item>
-        <item>휠 얼라이먼트</item>
-        <item>배터리</item>
-        <item>파워벨트</item>
-        <item>타이밍 벨트</item>
-        <item>구동벨트</item>
-        <item>점화플러그</item>
-        <item>점화플러그 케이블</item>
-        <item>와이퍼</item>
-        <item>워터펌프</item>
-        <item>클러치디스크 베어링</item>
-        <item>흡기크리닝</item>
-        <item>인젝터(연료분사노즐)</item>
-        <item>전조등</item>
-        <item>브레이크등</item>
-        <item>산소센서</item>
-        <item>캐니스터</item>
-        <item>에어컨 가스점검 및 보충</item>
-        <item>정기점검</item>
-        <!--        <item>기타</item>-->
+        <item>Engine oil</item>
+        <item>Transmission fluid</item>
+        <item>Brake oil</item>
+        <item>Clutch oil</item>
+        <item>Power steering oil</item>
+        <item>Transmission oil</item>
+        <item>Reference oil</item>
+        <item>Coolant</item>
+        <item>Oil filter</item>
+        <item>Fuel filter</item>
+        <item>Fuel filter heater</item>
+        <item>Cabin filter </item>
+        <item>Air filter</item>
+        <item>Tire Position Replacement</item>
+        <item>Tire replacement</item>
+        <item>Tire pressure</item>
+        <item>Brake lining</item>
+        <item>Brake pad</item>
+        <item>Wheel balance</item>
+        <item>Wheel alignment</item>
+        <item>Battery</item>
+        <item>Power belt</item>
+        <item>Timing belt</item>
+        <item>Drive belt</item>
+        <item>Spark plug</item>
+        <item>Spark plug cable</item>
+        <item>Wiper</item>
+        <item>Water pumps</item>
+        <item>Clutch disc bearing</item>
+        <item>Intake cleaning</item>
+        <item>Fuel injector</item>
+        <item>Headlight</item>
+        <item>Brake light</item>
+        <item>Oxygen sensor</item>
+        <item>Canister</item>
+        <item>Check and Replenish Air Conditioning Gas</item>
+        <item>Service</item>
+        <!--        <item>etc</item>-->
     </string-array>
 
 </resources>

@@ -23,6 +23,7 @@
     <string name="common_call_admin">관리자에게 문의 바랍니다</string>
     <string name="common_file_notfound">파일을 찾을 수 없습니다</string>
     <string name="common_confirm_delete">명칭을 정확하게 다시 입력해주세요.</string>
+    <string name="common_exception">다시 시도해 주세요</string>
 
     <string name="common_alarm_send">알림발송</string>
 
