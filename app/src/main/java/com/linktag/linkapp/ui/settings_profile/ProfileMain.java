@@ -28,6 +28,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnCompleteListener;
@@ -39,6 +40,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.linktag.base.util.ClsBitmap;
+import com.linktag.base.util.ClsDateTime;
 import com.linktag.base.util.ImageResizeUtils;
 import com.linktag.linkapp.model.OCM_Model;
 import com.linktag.linkapp.network.BaseConst;
@@ -79,6 +81,8 @@ public class ProfileMain extends BaseActivity {
     private BaseHeader header;
 
     private ImageView imgProfile;
+    private TextView tvUserEmail;
+    private TextView tvUserSignDate;
 
     //private Button btnChangePhoto;
     private EditText etUserName;
@@ -138,6 +142,11 @@ public class ProfileMain extends BaseActivity {
             imgProfile.setClipToOutline(true);
 
         imgProfile.setOnClickListener(v -> setUserPhoto());
+
+        tvUserEmail = findViewById(R.id.tvUserEmail);
+        tvUserEmail.setText(mUser.Value.OCM_21);
+        tvUserSignDate = findViewById(R.id.tvUserSignDate);
+        tvUserSignDate.setText(ClsDateTime.ConvertDateFormat("yyyyMMdd", "yyyy. MM. dd", mUser.Value.OCM_28));
 
         etUserName = findViewById(R.id.etUserName);
         etUserName.setText(mUser.Value.OCM_02);
