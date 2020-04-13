@@ -66,6 +66,7 @@ public class VotDetail extends BaseActivity implements DetailVitResultRecycleAda
     private LinearLayoutManager linearLayoutManager;
     private SwipeRefreshLayout swipeRefresh;
 
+    private TextView tvDayLabel;
     private TextView tvDay;
     private TextView tvWriter;
     private TextView tvCount;
@@ -152,6 +153,7 @@ public class VotDetail extends BaseActivity implements DetailVitResultRecycleAda
         recyclerView_DetailVit = (RecyclerView) findViewById(R.id.recyclerView_DetailVit);
         swipeRefresh = findViewById(R.id.swipeRefresh);
 
+        tvDayLabel = (TextView) findViewById(R.id.tvDayLabel);
         tvDay = (TextView) findViewById(R.id.tvDay);
         tvWriter = (TextView) findViewById(R.id.tvWriter);
         tvCount = (TextView) findViewById(R.id.tvCount);
@@ -267,7 +269,13 @@ public class VotDetail extends BaseActivity implements DetailVitResultRecycleAda
             }
         });
 
-        tvDay.setText(sDateFormat(VOT.VOT_03));
+        if(!VOT.VOT_04.equals("")){ //마감된 투표
+            tvDayLabel.setText(R.string.vot_list_end_day);
+            tvDay.setText(sDateFormat(VOT.VOT_04));
+        }
+        else{
+            tvDay.setText(sDateFormat(VOT.VOT_03));
+        }
         tvWriter.setText(VOT.VOT_97_NM);
 
         mList_VIT = new ArrayList<>();

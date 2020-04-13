@@ -297,15 +297,6 @@
         <activity
             android:name=".ui.arclayout.arclayoutMain"
             android:theme="@style/Theme.MyDialog" />
-        <!-- 푸시알람 -->
-        <!--        <receiver android:name=".ui.alarm.DeviceBootReceiver"-->
-        <!--            android:enabled="false">-->
-        <!--            <intent-filter>-->
-        <!--                <action android:name="android.intent.action.BOOT_COMPLETED" />-->
-        <!--            </intent-filter>-->
-        <!--        </receiver>-->
-
-        <!--        <receiver android:name=".ui.alarm.AlarmReceiver" />-->
 
         <!-- 이력 -->
         <activity
