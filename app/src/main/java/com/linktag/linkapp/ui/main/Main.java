@@ -1,14 +1,18 @@
 package com.linktag.linkapp.ui.main;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.LocalBroadcastManager;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -19,13 +23,24 @@ import com.linktag.base.base_view_pager.BaseViewPager;
 import com.linktag.base.base_view_pager.ViewPagerAdapter;
 import com.linktag.base_resource.broadcast_action.ClsBroadCast;
 import com.linktag.linkapp.R;
+import com.linktag.linkapp.model.CTD_Model;
+import com.linktag.linkapp.network.BaseConst;
+import com.linktag.linkapp.network.Http;
+import com.linktag.linkapp.network.HttpBaseService;
 import com.linktag.linkapp.ui.arclayout.arclayoutMain;
 import com.linktag.linkapp.ui.login.Login;
+import com.linktag.linkapp.ui.menu.ChangeActivityCls;
+import com.linktag.linkapp.ui.menu.ChooseOne;
+import com.linktag.linkapp.ui.menu.ChooseScan;
 import com.linktag.linkapp.ui.scanner.ScanResult;
 
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class Main extends BaseActivity {
     private final int TAB_PAGE_HOME = 0;
@@ -63,6 +78,9 @@ public class Main extends BaseActivity {
 
         initialize();
 
+        if (getIntent().hasExtra("toActivity")) {
+            requestCTD_SELECT();
+        }
     }
 
     @Override
@@ -81,7 +99,7 @@ public class Main extends BaseActivity {
 
         //footer.btnFooterMember.setOnClickListener(v -> goMember());
 
-   //     footer.btnFooterScan.setOnClickListener(v -> goScan());
+        //     footer.btnFooterScan.setOnClickListener(v -> goScan());
         footer.btnFooterScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -108,7 +126,7 @@ public class Main extends BaseActivity {
     @Override
     protected void onPause() {
         super.onPause();
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
         //액티비티 애니메이션 x
     }
 
@@ -118,12 +136,12 @@ public class Main extends BaseActivity {
         setTag();
 
 
-        if(getIntent().hasExtra("startFragment")){
+        if (getIntent().hasExtra("startFragment")) {
             String g = getIntent().getStringExtra("startFragment");
 
-            if(g.equals("home"))
+            if (g.equals("home"))
                 setCurrentViewPager(TAB_PAGE_HOME);
-            else if(g.equals("calendar"))
+            else if (g.equals("calendar"))
                 setCurrentViewPager(TAB_PAGE_CALENDAR);
         }
 
@@ -200,6 +218,64 @@ public class Main extends BaseActivity {
         mContext.startActivity(intent);
     }
 
+
+    private void requestCTD_SELECT() {
+        Call<CTD_Model> call = Http.ctd(HttpBaseService.TYPE.POST).CTD_SELECT(
+                BaseConst.URL_HOST,
+                "PUSH_DETAIL",
+                getIntent().getStringExtra("CTD_01"),
+                getIntent().getStringExtra("CTD_02"),
+                mUser.Value.OCM_01,
+                ""
+        );
+
+        call.enqueue(new Callback<CTD_Model>() {
+            @SuppressLint("HandlerLeak")
+            @Override
+            public void onResponse(Call<CTD_Model> call, Response<CTD_Model> response) {
+                Message msg = new Message();
+                msg.obj = response;
+                msg.what = 100;
+
+                new Handler() {
+                    @Override
+                    public void handleMessage(Message msg) {
+                        if (msg.what == 100) {
+
+                            Response<CTD_Model> response = (Response<CTD_Model>) msg.obj;
+
+                            callBack(response.body());
+
+                        }
+                    }
+                }.sendMessage(msg);
+            }
+
+            @Override
+            public void onFailure(Call<CTD_Model> call, Throwable t) {
+                Log.d("Test", t.getMessage());
+                //closeLoadingBar();
+            }
+        });
+    }
+
+    private void callBack(CTD_Model model) {
+        if (model.Total > 1) {
+            // 결과 여러건
+            Intent intent = new Intent(mContext, ChooseScan.class);
+            intent.putExtra("mList", model.Data);
+            mContext.startActivity(intent);
+        } else {
+            // 결과 1개
+            // Detail
+            // Detail 조회 페이지 이동
+            ChangeActivityCls changeActivityCls = new ChangeActivityCls(mContext, model.Data.get(0));
+            changeActivityCls.changeServiceWithScan(getIntent().getStringExtra("scanCode"));
+        }
+
+    }
+
+
     /**
      * 바코드를 스캔한다.
      */
@@ -224,12 +300,12 @@ public class Main extends BaseActivity {
     //================================
 
     @Override
-    protected void scanResult(String str){
+    protected void scanResult(String str) {
         ScanResult scanResult = new ScanResult(mContext, str, null);
         scanResult.run();
     }
 
-    public void clearAppCache(File dir){
+    public void clearAppCache(File dir) {
         if (dir == null)
             dir = getCacheDir();
         if (dir == null)
@@ -237,8 +313,8 @@ public class Main extends BaseActivity {
 
         File[] caches = dir.listFiles();
 
-        for (File aCache : caches){
-            if(aCache.isDirectory()){
+        for (File aCache : caches) {
+            if (aCache.isDirectory()) {
                 clearAppCache(aCache);
             } else {
                 aCache.delete();
@@ -250,10 +326,10 @@ public class Main extends BaseActivity {
     protected long IBackPressedTime;
 
     @Override
-    public void onBackPressed(){
+    public void onBackPressed() {
         long now = System.currentTimeMillis();
 
-        if((now - IBackPressedTime) < 2 * 1000){
+        if ((now - IBackPressedTime) < 2 * 1000) {
             unregisterReceiver();
 
             //clearAppCache(null);

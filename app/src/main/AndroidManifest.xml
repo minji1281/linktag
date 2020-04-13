@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE" />
 
     <application
         android:name="com.linktag.base.linkapp"
@@ -350,6 +351,49 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:excludeFromRecents="true"/>
+
+
+        <!-- 무한알람 -->
+        <activity
+            android:name=".ui.iam.IamMain"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan"
+            android:excludeFromRecents="true"/>
+        <activity
+            android:name=".ui.iam.IamDetail"
+            android:excludeFromRecents="true"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </activity>
+
+
+        <receiver
+            android:name=".ui.iam.DeviceBootReceiver"
+            android:enabled="false">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+
+        <receiver android:name=".ui.iam.AlarmReceiver"
+            android:enabled="true"
+            android:exported="true">
+            <intent-filter>
+                <action android:name=".ui.iam.IamDetail"/>
+            </intent-filter>
+        </receiver>
+
+        <service
+            android:name=".ui.iam.RingtonePlayingService"
+            android:enabled="true"
+            android:exported="true"
+            android:stopWithTask ="false">
+        </service>
+
+
 
 
         <!-- 연습실 예약 관리 -->
