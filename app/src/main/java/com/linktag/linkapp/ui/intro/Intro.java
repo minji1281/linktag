@@ -78,8 +78,14 @@ public class Intro extends BaseActivity {
      * 로그인화면으로 이동
      */
     private void goLogin() {
-        Intent intent = new Intent(mContext, Login.class);
-        mContext.startActivity(intent);
+        if (getIntent().hasExtra("goActivity")) {
+            Intent intent = getIntent();
+            intent.setClass(mContext, Login.class);
+            mContext.startActivity(intent);
+        } else {
+            Intent intent = new Intent(mContext, Login.class);
+            mContext.startActivity(intent);
+        }
         finish();
     }
 

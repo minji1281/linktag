@@ -15,52 +15,50 @@ public class ChangeActivityCls {
     private InterfaceUser mUser;
 
     // 서비스 생성할때 LINK.DBO.T_SVCL 테이블에 추가 해주기
-    public ChangeActivityCls(Context mContext, CtdVO ctdVO){
+    public ChangeActivityCls(Context mContext, CtdVO ctdVO) {
         this.mContext = mContext;
         this.ctdVO = ctdVO;
         mUser = InterfaceUser.getInstance();
     }
 
+
     // Menu에서 change
-    public void changeService(){
-        if(!ctdVO.SVCL_04.equals("") && ctdVO.SVCL_04 != null)
-        {
+    public void changeService() {
+        if (!ctdVO.SVCL_04.equals("") && ctdVO.SVCL_04 != null) {
             String packageName = mContext.getPackageName();
 
-            try{
+            try {
                 Class cls = Class.forName(packageName + ctdVO.SVCL_04);
                 Intent intent = new Intent(mContext, cls);
-
                 intent.putExtra("intentVO", ctdVO);
                 //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 mContext.startActivity(intent);
 
-            } catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
 
-        }
-        else {
+        } else {
             Toast.makeText(mContext, mContext.getString(R.string.alert_service_location_error) + "\n" + mContext.getString(R.string.common_call_admin), Toast.LENGTH_LONG).show();
         }
     }
 
     //ChooseOne에서 change
-    public void changeServiceWithScan(String scanCode){
+    public void changeServiceWithScan(String scanCode) {
 
-            String packageName = mContext.getPackageName();
+        String packageName = mContext.getPackageName();
 
-            try{
-                // List 액티비티 실행
-                Class clsList = Class.forName(packageName + ctdVO.SVCL_04);
+        try {
+            // List 액티비티 실행
+            Class clsList = Class.forName(packageName + ctdVO.SVCL_04);
 
-                Intent intent = new Intent(mContext, clsList);
+            Intent intent = new Intent(mContext, clsList);
 
-                intent.putExtra("scanCode", scanCode);
-                intent.putExtra("intentVO", ctdVO);
-                //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+            intent.putExtra("scanCode", scanCode);
+            intent.putExtra("intentVO", ctdVO);
+            //intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
 
-                mContext.startActivity(intent);
+            mContext.startActivity(intent);
 
                 /*
                 // Detail 액티비티 실행
@@ -69,9 +67,9 @@ public class ChangeActivityCls {
 
                 mContext.startActivity(intent);
 */
-            } catch (Exception e){
-                e.printStackTrace();
-            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
 //        else {
 //            Toast.makeText(mContext, mContext.getString(R.string.alert_service_location_error) + "\n" + mContext.getString(R.string.common_call_admin), Toast.LENGTH_LONG).show();

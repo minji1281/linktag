@@ -125,6 +125,10 @@ public class BaseConst {
     public static final String URL_DCM_SELECT = "{host}/Mobile/DCM_SELECT";
     public static final String URL_DCM_CONTROL = "{host}/Mobile/DCM_CONTROL";
 
+    //무한알람
+    public static final String URL_IAM_SELECT = "{host}/Mobile/IAM_SELECT";
+    public static final String URL_IAM_CONTROL = "{host}/Mobile/IAM_CONTROL";
+
     //연습실 예약 관리
     public static final String RMM_SELECT = "{host}/Mobile/RMM_SELECT";
     public static final String RMM_CONTROL = "{host}/Mobile/RMM_CONTROL";

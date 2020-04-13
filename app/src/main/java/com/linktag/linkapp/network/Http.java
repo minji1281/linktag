@@ -13,6 +13,7 @@ import com.linktag.linkapp.model.CTU_Model;
 import com.linktag.linkapp.model.DAMModel;
 import com.linktag.linkapp.model.DCMModel;
 import com.linktag.linkapp.model.FRMModel;
+import com.linktag.linkapp.model.IAMModel;
 import com.linktag.linkapp.model.INV_Model;
 import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.model.LOG_Model;
@@ -1302,6 +1303,42 @@ public class Http extends HttpBaseService {
 
     }
 
+
+
+    //--------------------------------------------------
+    // 무한 알람
+    //--------------------------------------------------
+    public static IIAM iam(TYPE type) {
+        return (IIAM) retrofit(IIAM.class, type);
+    }
+
+    public interface IIAM {
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_IAM_SELECT)
+        Call<IAMModel> IAM_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "IAM_ID") String IAM_ID,
+                @Field(value = "IAM_01") String IAM_01,
+                @Field(value = "OCM_01") String OCM_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.URL_IAM_CONTROL)
+        Call<IAMModel> IAM_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "IAM_ID") String IAM_ID,
+                @Field(value = "IAM_01") String IAM_01,
+                @Field(value = "IAM_02") int IAM_02,
+                @Field(value = "IAM_02") String IAM_03,
+                @Field(value = "IAM_96") String IAM_96,
+                @Field(value = "IAM_97") String IAM_97,
+                @Field(value = "IAM_98") String IAM_98
+        );
+
+    }
 
 
 
