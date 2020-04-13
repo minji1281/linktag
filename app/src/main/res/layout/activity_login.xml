@@ -12,11 +12,21 @@
         android:id="@+id/logimg1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="110dp"
-        android:adjustViewBounds="true"
         android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="130dp"
         android:src="@drawable/login_logo2" />
+    <ImageView
+        android:id="@+id/logimg3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:scaleType="fitCenter"
+        android:adjustViewBounds="true"
+        android:layout_centerHorizontal="true"
+        android:layout_toRightOf="@+id/logimg1"
+        android:layout_marginTop="130dp"
+        android:src="@drawable/login_logo3" />
 
     <LinearLayout
         android:id="@+id/logtext1"
@@ -37,18 +47,19 @@
             android:id="@+id/etAccount"
             style="@style/login_input"
             android:layout_height="50dp"
-            android:layout_weight="1"
             android:background="@drawable/border3"
-            android:drawableLeft="@drawable/envelope"
-            android:drawablePadding="15dp"
-            android:hint="@string/login_hint1"
-            android:minHeight="40dp"
-            android:nextFocusDown="@+id/etPassword"
             android:paddingLeft="10dp"
+            android:minHeight="40dp"
             android:singleLine="true"
-            android:textColor="@color/colorMadGray"
+            android:text="admin@esansoft.co.kr"
+            android:nextFocusDown="@+id/etPassword"
             android:textCursorDrawable="@null"
-            android:textSize="@dimen/text_small" />
+            android:layout_weight="1"
+            android:hint="@string/login_hint1"
+            android:textSize="@dimen/text_small"
+            android:drawablePadding="15dp"
+            android:textColor="@color/colorMadGray"
+            android:drawableLeft="@drawable/envelope"/>
     </LinearLayout>
 
     <LinearLayout
@@ -67,18 +78,19 @@
             android:id="@+id/etPassword"
             style="@style/login_input"
             android:layout_height="50dp"
-            android:layout_marginTop="8dp"
             android:background="@drawable/border3"
-            android:drawableLeft="@drawable/password"
-            android:drawablePadding="15dp"
-            android:hint="@string/login_hint2"
-            android:inputType="textPassword"
+            android:paddingLeft="10dp"
+            android:layout_marginTop="8dp"
             android:minHeight="40dp"
             android:nextFocusDown="@+id/etPassword"
-            android:paddingLeft="10dp"
-            android:textColor="@color/colorMadGray"
+            android:inputType="textPassword"
             android:textCursorDrawable="@null"
-            android:textSize="@dimen/text_small" />
+            android:text="1234"
+            android:hint="@string/login_hint2"
+            android:textSize="@dimen/text_small"
+            android:drawablePadding="15dp"
+            android:textColor="@color/colorMadGray"
+            android:drawableLeft="@drawable/password"/>
     </LinearLayout>
 
     <LinearLayout
@@ -119,19 +131,21 @@
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_below="@+id/logtext3"
-        android:layout_centerInParent="true"
+        android:layout_marginTop="80dp"
+        android:background="@drawable/selector_login_button"
+        android:text="@string/login_btn1"
         android:layout_marginStart="16dp"
-        android:layout_marginTop="70dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="10dp"
-        android:background="@drawable/selector_login_button"
-        android:fontFamily="@font/notosans_medium"
-        android:text="@string/login_btn1"
         android:textColor="@color/white"
-        android:textSize="@dimen/text_normal" />
+        android:fontFamily="@font/notosans_medium"
+        android:textSize="@dimen/text_normal"
+        android:layout_below="@+id/logtext3"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"/>
 
     <LinearLayout
+        android:id="@+id/txtSignUp"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
@@ -176,10 +190,10 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center|bottom"
         android:gravity="bottom"
-        android:layout_marginTop="30dp"
         android:layout_marginBottom="24dp"
         android:text="Copyright ⓒ (주)ESANSOFT All rights reserved."
         android:textSize="@dimen/text_smallest"
+        android:layout_below="@+id/txtSignUp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:layout_alignParentBottom="true"/>
