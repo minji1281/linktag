@@ -19,32 +19,20 @@
 
     <ImageView
         android:id="@+id/imglogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_width="200dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="80dp"
         android:layout_centerHorizontal="true"
         android:src="@drawable/home_logo" />
-    <TextView
-        android:id="@+id/txtlogo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:scaleType="center"
-        android:layout_marginTop="40dp"
-        android:layout_centerHorizontal="true"
-        android:layout_below="@+id/imglogo"
-        android:fontFamily="@font/notosans_regular"
-        android:text="@string/note_advanced_beacon"
-        android:textColor="#FFFFFF"
-        android:textSize="20sp"
-        />
 
     <ImageView
         android:id="@+id/searchload"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/txtlogo"
+        android:layout_width="130dp"
+        android:layout_height="130dp"
+        android:layout_below="@+id/imglogo"
         android:layout_marginTop="60dp"
         android:layout_centerHorizontal="true"
+        android:scaleType="fitCenter"
         android:src="@drawable/load" />
 
 
@@ -52,7 +40,7 @@
         android:layout_height="80dp"
         android:layout_weight="1"
         android:layout_below="@+id/searchload"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="60dp"
         tools:text="ssssssssssss"
         android:layout_centerHorizontal="true"
         android:id="@+id/Textview"
@@ -70,7 +58,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_below="@+id/Textview"
-        android:layout_marginTop="50dp"
+        android:layout_marginTop="30dp"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true">
         <Button
@@ -89,20 +77,18 @@
             android:visibility="gone"
             android:fontFamily="@font/notosans_regular"/>
 
-        <Button
-            android:layout_width="wrap_content"
+        <ImageButton
+            android:layout_width="120dp"
             android:layout_height="wrap_content"
             android:text="사용"
             android:id="@+id/button2"
             android:layout_weight="1"
-            android:paddingLeft="50dp"
-            android:paddingRight="50dp"
-            android:paddingTop="20dp"
             android:background="@color/transparent_color"
-            android:paddingBottom="20dp"
             android:textSize="20sp"
             android:textColor="@color/white"
             android:fontFamily="@font/notosansmono_bold"
+            android:src="@drawable/blu_ico2"
+            android:scaleType="fitCenter"
             android:onClick="OnButtonClicked2" />
 
 
