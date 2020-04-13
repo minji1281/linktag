@@ -162,7 +162,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_weight="1"
                 android:gravity="center|center_vertical"
-                android:text="조회된 멤버가 없습니다."
+                android:text="@string/list_empty"
                 android:textSize="@dimen/text_normal" />
 
         </LinearLayout>
@@ -241,7 +241,7 @@
                 android:layout_marginBottom="15dp"
                 android:layout_weight="1"
                 android:gravity="center|center_vertical"
-                android:text="조회된 멤버가 없습니다."
+                android:text="@string/list_empty"
                 android:textSize="@dimen/text_normal" />
 
         </LinearLayout>

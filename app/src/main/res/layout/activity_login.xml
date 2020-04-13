@@ -119,18 +119,17 @@
         android:id="@+id/btnLogin"
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:layout_marginTop="80dp"
-        android:background="@drawable/selector_login_button"
-        android:text="@string/login_btn1"
+        android:layout_below="@+id/logtext3"
+        android:layout_centerInParent="true"
         android:layout_marginStart="16dp"
+        android:layout_marginTop="70dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="10dp"
-        android:textColor="@color/white"
+        android:background="@drawable/selector_login_button"
         android:fontFamily="@font/notosans_medium"
-        android:textSize="@dimen/text_normal"
-        android:layout_below="@+id/logtext3"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"/>
+        android:text="@string/login_btn1"
+        android:textColor="@color/white"
+        android:textSize="@dimen/text_normal" />
 
     <LinearLayout
         android:layout_width="match_parent"

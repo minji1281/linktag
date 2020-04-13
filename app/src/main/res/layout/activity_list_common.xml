@@ -116,7 +116,7 @@
             android:layout_height="match_parent"
             android:layout_margin="16dp"
             android:gravity="center|center_vertical"
-            android:text="조회된 정보가 없습니다."
+            android:text="@string/list_empty"
             android:textSize="@dimen/text_normal" />
 
     </LinearLayout>

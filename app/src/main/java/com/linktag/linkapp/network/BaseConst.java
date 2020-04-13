@@ -2,12 +2,11 @@ package com.linktag.linkapp.network;
 
 
 public class BaseConst {
-
     //--------------------------------------------------
     // 공통 - 도메인
     //--------------------------------------------------
-    public static String URL_HOST = "http://app.linktag.io";
-//    public static String URL_HOST = "https://linktag.azurewebsites.net";
+//    public static String URL_HOST = "http://app.linktag.io";
+    public static String URL_HOST = "https://linktagapp.azurewebsites.net";
 
     //토큰발행
     public static final String URL_TKN_SELECT = "{host}/Mobile/TKN_SELECT";
