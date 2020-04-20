@@ -1332,7 +1332,9 @@ public class Http extends HttpBaseService {
                 @Field(value = "IAM_ID") String IAM_ID,
                 @Field(value = "IAM_01") String IAM_01,
                 @Field(value = "IAM_02") int IAM_02,
-                @Field(value = "IAM_02") String IAM_03,
+                @Field(value = "IAM_03") String IAM_03,
+                @Field(value = "IAM_04") String IAM_04,
+                @Field(value = "IAM_05") String IAM_05,
                 @Field(value = "IAM_96") String IAM_96,
                 @Field(value = "IAM_97") String IAM_97,
                 @Field(value = "IAM_98") String IAM_98

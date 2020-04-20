@@ -11,7 +11,7 @@
         android:id="@+id/header"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:title_text="@string/jdm_detail_title" />
+        app:title_text="@string/iam_detail_title" />
 
     <LinearLayout
         android:id="@+id/linearLayout"
@@ -88,28 +88,6 @@
                             android:textSize="10dp" />
                     </LinearLayout>
 
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_marginStart="10dp"
-                        android:orientation="vertical">
-
-                        <ImageView
-                            android:id="@+id/imageView2"
-                            android:layout_width="30dp"
-                            android:layout_height="30dp"
-                            android:layout_gravity="center_horizontal"
-                            android:adjustViewBounds="true"
-                            android:background="@android:drawable/ic_lock_idle_alarm" />
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center_horizontal"
-                            android:text="@string/detail_time"
-                            android:textSize="10dp" />
-                    </LinearLayout>
-
                 </LinearLayout>
 
             </LinearLayout>
@@ -120,35 +98,230 @@
                 android:layout_weight="1" />
 
 
-            <TimePicker
-                android:id="@+id/timePicker"
-                android:layout_width="wrap_content"
+            <LinearLayout
+                android:id="@+id/tabItem2"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:timePickerMode="spinner"/>
+                android:orientation="vertical">
 
-            <Button
-                android:text="지정한 시간에 노티피케이션 발생시키기"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:id="@+id/bt_alarm" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical|left"
+                    android:text="@string/trp_alarm_cycle"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
 
-            <Button
-                android:id="@+id/bt_goScan"
-                android:layout_width="wrap_content"
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_centerInParent="true"
+                    android:layout_centerVertical="true">
+
+                    <Button
+                        android:id="@+id/btn_Sunday"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toLeftOf="@+id/btn_Monday"
+                        android:background="@drawable/btn_round_yellow"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:text="@string/trp_Sun"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/small_text" />
+
+                    <Button
+                        android:id="@+id/btn_Monday"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toLeftOf="@+id/btn_Tuesday"
+                        android:background="@drawable/btn_round_yellow"
+                        android:text="@string/trp_Mon"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/small_text" />
+
+                    <Button
+                        android:id="@+id/btn_Tuesday"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toLeftOf="@+id/btn_Wednesday"
+                        android:background="@drawable/btn_round_yellow"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:text="@string/trp_Tue"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/small_text" />
+
+                    <Button
+                        android:id="@+id/btn_Wednesday"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerInParent="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:background="@drawable/btn_round_yellow"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:text="@string/trp_Wed"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/small_text" />
+
+                    <Button
+                        android:id="@+id/btn_Thursday"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toRightOf="@+id/btn_Wednesday"
+                        android:background="@drawable/btn_round_yellow"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:text="@string/trp_Thu"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/small_text" />
+
+                    <Button
+                        android:id="@+id/btn_Friday"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:layout_toRightOf="@+id/btn_Thursday"
+                        android:background="@drawable/btn_round_yellow"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:text="@string/trp_Fri"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/small_text" />
+
+                    <Button
+                        android:id="@+id/btn_Saturday"
+                        android:layout_width="35dp"
+                        android:layout_height="35dp"
+                        android:layout_centerVertical="true"
+                        android:layout_toRightOf="@+id/btn_Friday"
+                        android:background="@drawable/btn_round_yellow"
+                        android:minWidth="0dp"
+                        android:minHeight="0dp"
+                        android:text="@string/trp_Sat"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/small_text" />
+
+
+                </RelativeLayout>
+
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="스캔하러가기"/>
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/iam_detail_text1"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/tv_alarmItem"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:text="2020. 04.26(금) 06 : 30"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:orientation="vertical">
+
+                <TimePicker
+                    android:id="@+id/timePicker"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:timePickerMode="spinner" />
+
+
+<!--                <Button-->
+<!--                    android:id="@+id/bt_alarm"-->
+<!--                    android:layout_width="wrap_content"-->
+<!--                    android:layout_height="wrap_content"-->
+<!--                    android:layout_marginTop="20dp"-->
+<!--                    android:text="지정한 시간 알림 ON" />-->
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal|center_vertical">
+
+                <FrameLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:id="@+id/img_goScan"
+                            android:layout_width="100dp"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:adjustViewBounds="true"
+                            android:src="@drawable/btn_round_skyblue_50dp" />
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerHorizontal="true"
+                            android:layout_centerVertical="true"
+                            android:text="@string/iam_detail_text2"
+                            android:textColor="@color/white"
+                            android:textStyle="bold" />
+                    </RelativeLayout>
+                </FrameLayout>
+
+            </LinearLayout>
 
 
             <Button
                 android:id="@+id/bt_stop"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="정지"/>
+                android:text="@string/iam_detail_text3" />
 
 
         </LinearLayout>
     </LinearLayout>
+
     <Button
         android:id="@+id/bt_save"
         android:layout_width="match_parent"

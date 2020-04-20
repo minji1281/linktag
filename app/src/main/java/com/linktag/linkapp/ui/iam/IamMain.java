@@ -260,6 +260,8 @@ public class IamMain extends BaseActivity {
                                     iamvo.setIAM_01(scancode);
                                     iamvo.setIAM_02(0);
                                     iamvo.setIAM_03("");
+                                    iamvo.setIAM_04("YYYYYYY");
+                                    iamvo.setIAM_05("Y");
                                     iamvo.setIAM_96("");
                                     iamvo.setIAM_97(mUser.Value.OCM_01);
                                     Intent intent = new Intent(mContext, IamDetail.class);

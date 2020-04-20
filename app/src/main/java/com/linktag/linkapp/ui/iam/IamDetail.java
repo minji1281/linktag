@@ -23,7 +23,9 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
@@ -77,8 +79,13 @@ public class IamDetail extends BaseActivity {
 
     private EditText ed_name;
 
-    private Button bt_alarm;
-    private Button bt_goScan;
+    private ImageView imageView;
+    private TextView tv_alarmItem;
+
+    Button[] mBtnArray = new Button[7];
+    private String[] array_pattern;
+
+    private ImageView img_goScan;
     private Button bt_stop;
     private Button bt_save;
 
@@ -87,6 +94,9 @@ public class IamDetail extends BaseActivity {
     private String scanCode;
 
     private Vibrator vibrator;
+
+    SimpleDateFormat formatDate = new SimpleDateFormat("yyyyMMdd");
+    SimpleDateFormat formatTime = new SimpleDateFormat("HHmm");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,14 +140,48 @@ public class IamDetail extends BaseActivity {
 
         iamVO = (IamVO) getIntent().getSerializableExtra("IamVO");
 
-
         picker = findViewById(R.id.timePicker);
         picker.setIs24HourView(true);
 
         ed_name = findViewById(R.id.ed_name);
 
-        bt_alarm = findViewById(R.id.bt_alarm);
-        bt_goScan = findViewById(R.id.bt_goScan);
+        imageView = findViewById(R.id.imageView);
+        tv_alarmItem = findViewById(R.id.tv_alarmItem);
+//        bt_alarm = findViewById(R.id.bt_alarm);
+
+        mBtnArray[0] = (Button) findViewById(R.id.btn_Sunday);
+        mBtnArray[1] = (Button) findViewById(R.id.btn_Monday);
+        mBtnArray[2] = (Button) findViewById(R.id.btn_Tuesday);
+        mBtnArray[3] = (Button) findViewById(R.id.btn_Wednesday);
+        mBtnArray[4] = (Button) findViewById(R.id.btn_Thursday);
+        mBtnArray[5] = (Button) findViewById(R.id.btn_Friday);
+        mBtnArray[6] = (Button) findViewById(R.id.btn_Saturday);
+
+
+        array_pattern = iamVO.IAM_04.split("");
+
+        if (iamVO.IAM_04.equals("")) {
+            for (int i = 0; i < mBtnArray.length; i++) {
+                mBtnArray[i].setBackgroundResource(R.drawable.btn_round_yellow);
+            }
+        } else {
+            for (int i = 0; i < mBtnArray.length; i++) {
+                if (array_pattern[i + 1].equals("Y")) {
+                    mBtnArray[i].setBackgroundResource(R.drawable.btn_round_yellow);
+                } else {
+                    mBtnArray[i].setBackgroundResource(R.drawable.btn_round_gray);
+                }
+            }
+        }
+
+        if (iamVO.IAM_05.equals("Y")) {
+            imageView.setImageResource(R.drawable.alarm_state_on);
+        } else {
+            imageView.setImageResource(R.drawable.alarm_state_off);
+        }
+
+
+        img_goScan = findViewById(R.id.img_goScan);
         bt_stop = findViewById(R.id.bt_stop);
 
         bt_save = findViewById(R.id.bt_save);
@@ -149,18 +193,21 @@ public class IamDetail extends BaseActivity {
     @Override
     protected void initialize() {
 
-
         // 앞서 설정한 값으로 보여주기
         // 없으면 디폴트 값은 현재시간
-        SharedPreferences sharedPreferences = getSharedPreferences("daily alarm", MODE_PRIVATE);
-        long millis = sharedPreferences.getLong("nextNotifyTime", calendar.getTimeInMillis());
+//        SharedPreferences sharedPreferences = getSharedPreferences("daily alarm", MODE_PRIVATE);
+//        long millis = sharedPreferences.getLong("nextNotifyTime", calendar.getTimeInMillis());
+//
+//        Calendar nextNotifyTime = new GregorianCalendar();
+//        nextNotifyTime.setTimeInMillis(millis);
 
-        Calendar nextNotifyTime = new GregorianCalendar();
-        nextNotifyTime.setTimeInMillis(millis);
 
-        Date nextDate = nextNotifyTime.getTime();
-        String date_text = new SimpleDateFormat("yyyy년 MM월 dd일 EE요일 a hh시 mm분 ", Locale.getDefault()).format(nextDate);
-        Toast.makeText(getApplicationContext(), "[처음 실행시] 다음 알람은 " + date_text + "으로 알람이 설정되었습니다!", Toast.LENGTH_SHORT).show();
+        Calendar nextNotifyTime = Calendar.getInstance();
+        nextNotifyTime.set(Calendar.YEAR, Integer.parseInt(iamVO.IAM_96.substring(0, 4)));
+        nextNotifyTime.set(Calendar.MONTH, Integer.parseInt(iamVO.IAM_96.substring(4, 6)) - 1);
+        nextNotifyTime.set(Calendar.DATE, Integer.parseInt(iamVO.IAM_96.substring(6, 8)));
+        nextNotifyTime.set(Calendar.HOUR_OF_DAY, Integer.parseInt(iamVO.IAM_96.substring(8, 10)));
+        nextNotifyTime.set(Calendar.MINUTE, Integer.parseInt(iamVO.IAM_96.substring(10, 12)));
 
 
         // 이전 설정값으로 TimePicker 초기화
@@ -181,56 +228,34 @@ public class IamDetail extends BaseActivity {
         }
 
 
-        bt_alarm.setOnClickListener(new View.OnClickListener() {
+        Date nextDate = nextNotifyTime.getTime();
+        String date_text = new SimpleDateFormat("yyyy.MM.dd (EE) a hh : mm ", Locale.getDefault()).format(nextDate);
+//        Toast.makeText(getApplicationContext(), "[처음 실행시] 다음 알람은 " + date_text + "으로 알람이 설정되었습니다!", Toast.LENGTH_SHORT).show();
+
+
+        if (!iamVO.IAM_96.equals("")) {
+            tv_alarmItem.setText(date_text);
+        } else {
+            tv_alarmItem.setText("");
+        }
+
+
+        imageView.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick(View arg0) {
+            public void onClick(View v) {
 
-                int hour, hour_24, minute;
-                String am_pm;
-                if (Build.VERSION.SDK_INT >= 23) {
-                    hour_24 = picker.getHour();
-                    minute = picker.getMinute();
-                } else {
-                    hour_24 = picker.getCurrentHour();
-                    minute = picker.getCurrentMinute();
+                if (iamVO.IAM_05.equals("Y")) {
+                    imageView.setImageResource(R.drawable.alarm_state_off);
+                    iamVO.setIAM_05("N");
+                } else if (iamVO.IAM_05.equals("N")) {
+                    imageView.setImageResource(R.drawable.alarm_state_on);
+                    iamVO.setIAM_05("Y");
                 }
-                if (hour_24 > 12) {
-                    am_pm = "PM";
-                    hour = hour_24 - 12;
-                } else {
-                    hour = hour_24;
-                    am_pm = "AM";
-                }
-
-                // 현재 지정된 시간으로 알람 시간 설정
-                Calendar calendar = Calendar.getInstance();
-                calendar.setTimeInMillis(System.currentTimeMillis());
-                calendar.set(Calendar.HOUR_OF_DAY, hour_24);
-                calendar.set(Calendar.MINUTE, minute);
-                calendar.set(Calendar.SECOND, 0);
-
-                // 이미 지난 시간을 지정했다면 다음날 같은 시간으로 설정
-                if (calendar.before(Calendar.getInstance())) {
-                    calendar.add(Calendar.DATE, 1);
-                }
-
-                Date currentDateTime = calendar.getTime();
-                String date_text = new SimpleDateFormat("yyyy년 MM월 dd일 EE요일 a hh시 mm분 ", Locale.getDefault()).format(currentDateTime);
-                Toast.makeText(getApplicationContext(), date_text + "으로 알람이 설정되었습니다!", Toast.LENGTH_SHORT).show();
-
-                //  Preference에 설정한 값 저장
-                SharedPreferences.Editor editor = getSharedPreferences("daily alarm", MODE_PRIVATE).edit();
-                editor.putLong("nextNotifyTime", (long) calendar.getTimeInMillis());
-                editor.apply();
-
-
-                diaryNotification(calendar);
             }
-
         });
 
 
-        bt_goScan.setOnClickListener(new View.OnClickListener() {
+        img_goScan.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 goScan();
@@ -244,6 +269,7 @@ public class IamDetail extends BaseActivity {
                 Intent intent = new Intent(mContext, RingtonePlayingService.class);
                 intent.setAction("startForeground");
                 getApplicationContext().stopService(intent);
+                alarmSet("[" + ed_name.getText().toString() + "]");
             }
         });
 
@@ -274,7 +300,151 @@ public class IamDetail extends BaseActivity {
             }
         });
 
+        // 버튼들에 대한 클릭리스너 등록 및 각 버튼이 클릭되었을 때
+        for (int i = 0; i < mBtnArray.length; i++) {
+            // 버튼의 포지션(배열에서의 index)를 태그로 저장
+            // 클릭 리스너 등록
+            mBtnArray[i].setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
 
+                    array_pattern = iamVO.IAM_04.split("");
+
+                    switch (v.getId()) {
+                        case R.id.btn_Sunday:
+                            if (array_pattern[1].equals("Y")) {
+                                mBtnArray[0].setBackgroundResource(R.drawable.btn_round_gray);
+                                array_pattern[1] = "N";
+                            } else {
+                                mBtnArray[0].setBackgroundResource(R.drawable.btn_round_yellow);
+                                array_pattern[1] = "Y";
+                            }
+                            break;
+                        case R.id.btn_Monday:
+                            if (array_pattern[2].equals("Y")) {
+                                mBtnArray[1].setBackgroundResource(R.drawable.btn_round_gray);
+                                array_pattern[2] = "N";
+                            } else {
+                                mBtnArray[1].setBackgroundResource(R.drawable.btn_round_yellow);
+                                array_pattern[2] = "Y";
+                            }
+                            break;
+                        case R.id.btn_Tuesday:
+                            if (array_pattern[3].equals("Y")) {
+                                mBtnArray[2].setBackgroundResource(R.drawable.btn_round_gray);
+                                array_pattern[3] = "N";
+                            } else {
+                                mBtnArray[2].setBackgroundResource(R.drawable.btn_round_yellow);
+                                array_pattern[3] = "Y";
+                            }
+                            break;
+                        case R.id.btn_Wednesday:
+                            if (array_pattern[4].equals("Y")) {
+                                mBtnArray[3].setBackgroundResource(R.drawable.btn_round_gray);
+                                array_pattern[4] = "N";
+                            } else {
+                                mBtnArray[3].setBackgroundResource(R.drawable.btn_round_yellow);
+                                array_pattern[4] = "Y";
+                            }
+                            break;
+                        case R.id.btn_Thursday:
+                            if (array_pattern[5].equals("Y")) {
+                                mBtnArray[4].setBackgroundResource(R.drawable.btn_round_gray);
+                                array_pattern[5] = "N";
+                            } else {
+                                mBtnArray[4].setBackgroundResource(R.drawable.btn_round_yellow);
+                                array_pattern[5] = "Y";
+                            }
+                            break;
+                        case R.id.btn_Friday:
+                            if (array_pattern[6].equals("Y")) {
+                                mBtnArray[5].setBackgroundResource(R.drawable.btn_round_gray);
+                                array_pattern[6] = "N";
+                            } else {
+                                mBtnArray[5].setBackgroundResource(R.drawable.btn_round_yellow);
+                                array_pattern[6] = "Y";
+                            }
+                            break;
+                        case R.id.btn_Saturday:
+                            if (array_pattern[7].equals("Y")) {
+                                mBtnArray[6].setBackgroundResource(R.drawable.btn_round_gray);
+                                array_pattern[7] = "N";
+                            } else {
+                                mBtnArray[6].setBackgroundResource(R.drawable.btn_round_yellow);
+                                array_pattern[7] = "Y";
+                            }
+                            break;
+
+                    }
+                    iamVO.setIAM_04(array_pattern[1] + array_pattern[2] + array_pattern[3] + array_pattern[4] + array_pattern[5] + array_pattern[6] + array_pattern[7]);
+
+                    if (iamVO.IAM_04.equals("NNNNNNN")) { //아무것도 선택안함.
+                        imageView.setImageResource(R.drawable.alarm_state_off);
+                        iamVO.setIAM_05("N");
+                    }
+                }
+            });
+
+        }
+
+
+    }
+
+    private void alarmSet(String msg) {
+        int hour, hour_24, minute;
+        String am_pm;
+        if (Build.VERSION.SDK_INT >= 23) {
+            hour_24 = picker.getHour();
+            minute = picker.getMinute();
+        } else {
+            hour_24 = picker.getCurrentHour();
+            minute = picker.getCurrentMinute();
+        }
+        if (hour_24 > 12) {
+            am_pm = "PM";
+            hour = hour_24 - 12;
+        } else {
+            hour = hour_24;
+            am_pm = "AM";
+        }
+
+        // 현재 지정된 시간으로 알람 시간 설정
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTimeInMillis(System.currentTimeMillis());
+        calendar.set(Calendar.HOUR_OF_DAY, hour_24);
+        calendar.set(Calendar.MINUTE, minute);
+        calendar.set(Calendar.SECOND, 0);
+
+        // 이미 지난 시간을 지정했다면 다음날 같은 시간으로 설정
+        if (calendar.before(Calendar.getInstance())) {
+
+            //요일별 더하기
+            int nowWeek = calendar.get(Calendar.DAY_OF_WEEK);
+            int dateAdd = 1;
+            for (int i = 1; i < array_pattern.length; i++) {
+                if (nowWeek + i >= 8) {
+                    nowWeek = 0;
+                    i = 1;
+                }
+                if (array_pattern[nowWeek + i].equals("Y")) {
+                    calendar.add(Calendar.DATE, dateAdd);
+                    break;
+                }
+                dateAdd++;
+            }
+        }
+
+        Date currentDateTime = calendar.getTime();
+        String date_text = new SimpleDateFormat("yyyy.MM.dd (EE) a hh : mm ", Locale.getDefault()).format(currentDateTime);
+        Toast.makeText(getApplicationContext(), msg + "\n" + date_text + "으로 알람이 설정되었습니다!", Toast.LENGTH_SHORT).show();
+
+        //  Preference에 설정한 값 저장
+        SharedPreferences.Editor editor = getSharedPreferences("daily alarm", MODE_PRIVATE).edit();
+        editor.putLong("nextNotifyTime", (long) calendar.getTimeInMillis());
+        editor.apply();
+
+
+        diaryNotification(calendar);
     }
 
     private void requestCDS_CONTROL(String GUBUN, String CTD_07, String scanCode, String CDS_03, String CTD_01, String CTD_02, String CTD_09, String OCM_01) {
@@ -343,6 +513,8 @@ public class IamDetail extends BaseActivity {
                 iamVO.IAM_01,
                 iamVO.IAM_02,
                 ed_name.getText().toString(),
+                iamVO.IAM_04,
+                iamVO.IAM_05,
                 iamVO.IAM_96,
                 mUser.Value.OCM_01,
                 mUser.Value.OCM_01
@@ -356,19 +528,15 @@ public class IamDetail extends BaseActivity {
 
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
 
-                    Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "해당 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
-//                    if (iamVO.ARM_03.equals("Y") && dateBool) {
-//                        Toast.makeText(mContext,"[" + ed_name.getText().toString() + "]" + getString(R.string.iam_text1) +"\n"+
-//                                getString(R.string.iam_text2) +"\n"+ iamVO.IAM_96.substring(0,4)+"-" + iamVO.IAM_96.substring(4,6)+"-"+ iamVO.IAM_96.substring(6,8)+" " +
-//                                iamVO.IAM_96.substring(8,10)+":" + iamVO.IAM_96.substring(10,12)+ " " + getString(R.string.iam_text3), Toast.LENGTH_LONG ).show();
-//                    }else{
-//                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + getString(R.string.iam_text1), Toast.LENGTH_SHORT).show();
-//                    }
-                    onBackPressed();
+                    if (iamVO.IAM_05.equals("N")) {
+                        cancelAlarmManager();
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "해당 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    }
+                    alarmSet("[" + ed_name.getText().toString() + "]");
+
                 }
-                if (GUBUN.equals("DELETE")) {
-                    onBackPressed();
-                }
+
+                onBackPressed();
 
             }
 
@@ -500,14 +668,24 @@ public class IamDetail extends BaseActivity {
                 Intent intent = new Intent(mContext, RingtonePlayingService.class);
                 intent.setAction("startForeground");
                 getApplicationContext().stopService(intent);
+                alarmSet("[" + ed_name.getText().toString() + "]");
+
             } else {
                 Toast.makeText(mContext, "이거 아닌데?", Toast.LENGTH_SHORT).show();
             }
-        }else{
+        } else {
             Toast.makeText(mContext, "이거 아닌데?", Toast.LENGTH_SHORT).show();
         }
     }
 
+    void cancelAlarmManager() {
+        alarmIntent = new Intent(this, AlarmReceiver.class);
+        alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+        pendingIntent = PendingIntent.getBroadcast(this, iamVO.IAM_02, alarmIntent, 0);
+        pendingIntent.cancel();
+        alarmManager.cancel(pendingIntent);
+        alarmManager = null;
+    }
 
     void diaryNotification(Calendar calendar) {
 //        PreferenceManager.setDefaultValues(this, R.xml.preferences, false);
@@ -535,7 +713,7 @@ public class IamDetail extends BaseActivity {
 
 
         // 사용자가 매일 알람을 허용했다면
-        if (dailyNotify) {
+        if (dailyNotify && iamVO.IAM_05.equals("Y")) {
 
             //createNotify();
 
@@ -546,6 +724,9 @@ public class IamDetail extends BaseActivity {
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                 }
+
+                iamVO.setIAM_96(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime()));
+                requestIAM_CONTROL("UPDATE_TIME");
             }
 
             // 부팅 후 실행되는 리시버 사용가능하게 설정

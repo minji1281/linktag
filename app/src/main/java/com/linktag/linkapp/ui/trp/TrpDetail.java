@@ -855,11 +855,16 @@ public class TrpDetail extends BaseActivity {
         }
         if (count == 0) {  // 예정알림시간이 이미 다 지난경우 다음요일로 넘어감
             for (int i = 1; i < array_pattern.length; i++) {
+                if (nowWeek + i >= 8) {
+                    nowWeek = 0;
+                    i=1;
+                }
                 if (array_pattern[nowWeek + i].equals("Y")) {
                     nowWeek = nowWeek + i;
                     break;
                 }
             }
+
         }
 
         String ToastMessage = time.substring(0, 2) + ":" + time.substring(2, 4) ;

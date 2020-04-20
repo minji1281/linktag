@@ -1,8 +1,8 @@
 <component name="libraryTable">
   <library name="Gradle: com.intuit.sdp:sdp-android:1.0.5@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e8610478e2dd0d889f3f4fe2dab14a29/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e8610478e2dd0d889f3f4fe2dab14a29/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d89cdf9b1acbbcd0783422d2428797fc/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/d89cdf9b1acbbcd0783422d2428797fc/res" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />

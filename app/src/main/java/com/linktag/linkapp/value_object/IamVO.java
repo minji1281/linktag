@@ -7,6 +7,8 @@ public class IamVO implements Serializable {
     public String IAM_01; // 코드 일련번호
     public int IAM_02; // 알림번호
     public String IAM_03; // 명칭
+    public String IAM_04; // 요일
+    public String IAM_05; // 알림여부
     public String IAM_96; // 알림 지정일자
     public String IAM_97; // 작성자 아이디
     public String IAM_98; // 최종수정자 아이디
@@ -42,6 +44,22 @@ public class IamVO implements Serializable {
 
     public void setIAM_03(String IAM_03) {
         this.IAM_03 = IAM_03;
+    }
+
+    public String getIAM_04() {
+        return IAM_04;
+    }
+
+    public void setIAM_04(String IAM_04) {
+        this.IAM_04 = IAM_04;
+    }
+
+    public String getIAM_05() {
+        return IAM_05;
+    }
+
+    public void setIAM_05(String IAM_05) {
+        this.IAM_05 = IAM_05;
     }
 
     public String getIAM_96() {
