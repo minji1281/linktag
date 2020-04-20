@@ -49,10 +49,8 @@
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp"
         android:layout_marginBottom="20dp"
-        android:background="#4E4444">
+        android:background="@color/List2">
 
     </FrameLayout>
 
@@ -68,14 +66,15 @@
             android:id="@+id/tvTitleMem"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="4"
+            android:layout_weight="3"
+            android:gravity="center_vertical"
             android:text="@string/home_05"
             android:textSize="@dimen/text_big" />
 
         <FrameLayout
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="6"
+            android:layout_weight="7"
             android:background="@drawable/shape_base_border">
 
             <Spinner
@@ -92,8 +91,7 @@
         android:layout_marginStart="15dp"
         android:layout_marginTop="15dp"
         android:layout_marginEnd="15dp"
-        android:layout_marginBottom="10dp"
-        android:background="@drawable/shape_base_border"
+        android:background="@drawable/shape_search_edit_gray"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -101,7 +99,7 @@
             android:id="@+id/btnSearch"
             android:layout_width="20dp"
             android:layout_height="20dp"
-            android:layout_margin="16dp"
+            android:layout_margin="15dp"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
             android:src="@drawable/find_work_place_search" />
@@ -121,9 +119,7 @@
     <ListView
         android:id="@+id/listview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginStart="15dp"
-        android:layout_marginEnd="15dp">
+        android:layout_height="match_parent">
 
     </ListView>
 

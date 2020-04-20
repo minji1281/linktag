@@ -28,8 +28,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="12dp"
-            android:background="@drawable/shape_base_border"
+            android:layout_margin="15dp"
+            android:background="@drawable/shape_search_edit_gray"
             android:gravity="center_vertical"
             android:orientation="horizontal">
 
@@ -37,7 +37,7 @@
                 android:id="@+id/btnSearch"
                 android:layout_width="20dp"
                 android:layout_height="20dp"
-                android:layout_margin="16dp"
+                android:layout_margin="15dp"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@drawable/find_work_place_search" />
@@ -59,7 +59,9 @@
             android:id="@+id/gridView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_margin="15dp"
+            android:layout_marginStart="15dp"
+            android:layout_marginEnd="15dp"
+            android:layout_marginBottom="15dp"
             android:gravity="center"
             android:horizontalSpacing="10dp"
             android:numColumns="4"

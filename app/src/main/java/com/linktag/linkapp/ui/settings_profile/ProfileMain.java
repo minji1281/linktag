@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
@@ -134,7 +135,12 @@ public class ProfileMain extends BaseActivity {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
         header.btnHeaderText.setVisibility(View.VISIBLE);
+        header.btnHeaderText.setTextColor(Color.WHITE);
         header.btnHeaderText.setOnClickListener(v -> requestOCM_CONTROL("UPDATE"));
+        header.layoutHeader.setBackgroundColor(getResources().getColor(R.color.header_background));
+        header.headerSpacer.setVisibility(View.INVISIBLE);
+        header.tvHeaderTitle.setTextColor(Color.WHITE);
+        header.btnHeaderLeft.setSelected(true);
 
         imgProfile = findViewById(R.id.imgProfile);
         imgProfile.setBackground(new ShapeDrawable(new OvalShape()));

@@ -16,7 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:background="@drawable/shape_base_border"
+        android:background="@drawable/shape_search_edit_gray"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -34,12 +34,12 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@color/transparent_color"
+            android:focusable="true"
+            android:focusableInTouchMode="true"
             android:hint="@string/dash_08"
             android:maxLength="20"
             android:singleLine="true"
-            android:textSize="@dimen/text_normal"
-            android:focusable="true"
-            android:focusableInTouchMode="true"/>
+            android:textSize="@dimen/text_normal" />
     </LinearLayout>
 
     <LinearLayout

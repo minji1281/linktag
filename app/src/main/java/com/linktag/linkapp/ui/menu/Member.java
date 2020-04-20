@@ -86,6 +86,10 @@ public class Member extends BaseActivity {
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
+        header.layoutHeader.setBackgroundColor(getResources().getColor(R.color.header_background));
+        header.headerSpacer.setVisibility(View.INVISIBLE);
+        header.tvHeaderTitle.setTextColor(Color.WHITE);
+        header.btnHeaderLeft.setSelected(true);
 
         layInvite = findViewById(R.id.layInvite);
         layInvite.setOnClickListener(v -> goInvite());

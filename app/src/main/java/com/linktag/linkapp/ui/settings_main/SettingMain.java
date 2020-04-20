@@ -1,6 +1,7 @@
 package com.linktag.linkapp.ui.settings_main;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.OvalShape;
 import android.net.Uri;
@@ -8,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.content.LocalBroadcastManager;
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -70,6 +72,10 @@ public class SettingMain extends BaseActivity {
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
+        header.layoutHeader.setBackgroundColor(getResources().getColor(R.color.header_background));
+        header.headerSpacer.setVisibility(View.INVISIBLE);
+        header.tvHeaderTitle.setTextColor(Color.WHITE);
+        header.btnHeaderLeft.setSelected(true);
 
         layProfile = findViewById(R.id.layProfile);
         layProfile.setOnClickListener(v -> goProfileMain());

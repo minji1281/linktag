@@ -112,6 +112,7 @@ public class ChooseOne extends BaseActivity {
         bundle.putString("type", type);
 
         if(type.equals(CHOOSE_TYPE_SCAN)){
+            header.tvHeaderTitle.setText("신규등록");
             scanCode = getIntent().getStringExtra("scanCode");
             bundle.putString("scanCode", scanCode);
         } else {

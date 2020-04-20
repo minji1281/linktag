@@ -3,6 +3,7 @@ package com.linktag.linkapp.ui.menu;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,9 +12,11 @@ import android.text.TextWatcher;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.linktag.base.base_activity.BaseActivity;
 import com.linktag.base.base_header.BaseHeader;
@@ -39,7 +42,7 @@ public class AddService extends BaseActivity {
     //===================================
     private BaseHeader header;
     private EditText etSearch;
-    private GridView gridView;
+    private ListView listview;
     private ImageView btnSearch;
 
     //===================================
@@ -70,6 +73,11 @@ public class AddService extends BaseActivity {
     protected void initLayout() {
         header = findViewById(R.id.header);
         header.btnHeaderLeft.setOnClickListener(v -> finish());
+        header.layoutHeader.setBackgroundColor(getResources().getColor(R.color.header_background));
+        header.headerSpacer.setVisibility(View.INVISIBLE);
+        header.tvHeaderTitle.setTextColor(Color.WHITE);
+        header.btnHeaderLeft.setSelected(true);
+
         btnSearch = findViewById(R.id.btnSearch);
         btnSearch.setOnClickListener(v -> requestSVC_SELECT());
         etSearch = findViewById(R.id.etSearch);
@@ -85,8 +93,13 @@ public class AddService extends BaseActivity {
             }
         });
 
-        gridView = findViewById(R.id.gridView);
-        gridView.setOnItemClickListener((parent, view, position, id) -> onSelect(position));
+        listview = findViewById(R.id.listview);
+        listview.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                onSelect(position);
+            }
+        });
     }
 
     @Override
@@ -102,7 +115,7 @@ public class AddService extends BaseActivity {
 
         mList = new ArrayList<>();
         mAdapter = new AddServiceAdapter(mContext, mList);
-        gridView.setAdapter(mAdapter);
+        listview.setAdapter(mAdapter);
     }
 
     @Override

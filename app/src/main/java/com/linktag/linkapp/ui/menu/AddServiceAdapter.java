@@ -45,7 +45,7 @@ public class AddServiceAdapter extends BaseAdapter {
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         ViewHolder viewHolder;
-        String imageUrl;
+//        String imageUrl;
 
         if (convertView == null) {
             convertView = mInflater.inflate(R.layout.griditem_add_service, parent, false);

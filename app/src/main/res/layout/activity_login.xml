@@ -47,19 +47,20 @@
             android:id="@+id/etAccount"
             style="@style/login_input"
             android:layout_height="50dp"
-            android:background="@drawable/border3"
-            android:paddingLeft="10dp"
-            android:minHeight="40dp"
-            android:singleLine="true"
-            tools:text="admin@esansoft.co.kr"
-            android:nextFocusDown="@+id/etPassword"
-            android:textCursorDrawable="@null"
             android:layout_weight="1"
-            android:hint="@string/login_hint1"
-            android:textSize="@dimen/text_small"
+            android:background="@drawable/border3"
+            android:drawableLeft="@drawable/envelope"
             android:drawablePadding="15dp"
+            android:hint="@string/login_hint1"
+            android:minHeight="40dp"
+            android:nextFocusDown="@+id/etPassword"
+            android:paddingLeft="10dp"
+            android:singleLine="true"
+            android:text="admin@esansoft.co.kr"
             android:textColor="@color/colorMadGray"
-            android:drawableLeft="@drawable/envelope"/>
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_small"
+            tools:text="admin@esansoft.co.kr" />
     </LinearLayout>
 
     <LinearLayout
@@ -78,19 +79,20 @@
             android:id="@+id/etPassword"
             style="@style/login_input"
             android:layout_height="50dp"
-            android:background="@drawable/border3"
-            android:paddingLeft="10dp"
             android:layout_marginTop="8dp"
+            android:background="@drawable/border3"
+            android:drawableLeft="@drawable/password"
+            android:drawablePadding="15dp"
+            android:hint="@string/login_hint2"
+            android:inputType="textPassword"
             android:minHeight="40dp"
             android:nextFocusDown="@+id/etPassword"
-            android:inputType="textPassword"
-            android:textCursorDrawable="@null"
-            tools:text="1234"
-            android:hint="@string/login_hint2"
-            android:textSize="@dimen/text_small"
-            android:drawablePadding="15dp"
+            android:paddingLeft="10dp"
+            android:text="1234"
             android:textColor="@color/colorMadGray"
-            android:drawableLeft="@drawable/password"/>
+            android:textCursorDrawable="@null"
+            android:textSize="@dimen/text_small"
+            tools:text="1234" />
     </LinearLayout>
 
     <LinearLayout
