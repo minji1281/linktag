@@ -407,6 +407,16 @@
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
 
+        <!-- 육아 관리 -->
+        <activity
+            android:name=".ui.icm.IcrMain"
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"/>
+        <activity
+            android:name=".ui.icm.IcrDetail"
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"/>
+
     </application>
 
 </manifest>

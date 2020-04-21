@@ -208,4 +208,36 @@
         <!--        <item>etc</item>-->
     </string-array>
 
+    <!-- 육아일지 항목 -->
+    <string-array name="ici">
+        <item>Feeding</item>
+        <item>Diaper</item>
+        <item>Sleep</item>
+        <item>Baby food</item>
+        <item>Snack</item>
+        <item>Bath</item>
+        <item>Hospital</item>
+        <item>Medicine</item>
+        <item>Play</item>
+        <item>etc.</item>
+    </string-array>
+
+    <string-array name="ici_0">
+        <item>Breast milk</item>
+        <item>Dry milk</item>
+        <item>Breast pump</item>
+    </string-array>
+
+    <string-array name="ici_1">
+        <item>Feces</item>
+        <item>Urine</item>
+        <item>Urine and feces</item>
+    </string-array>
+
+    <string-array name="ici_2">
+        <item>Nap</item>
+        <item></item>
+        <item>Sleep</item>
+    </string-array>
+
 </resources>

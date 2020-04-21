@@ -206,4 +206,37 @@
         <item>정기점검</item>
         <!--        <item>기타</item>-->
     </string-array>
+
+    <!-- 육아일지 항목 -->
+    <string-array name="ici">
+        <item>수유</item>
+        <item>기저귀</item>
+        <item>수면</item>
+        <item>이유식</item>
+        <item>간식</item>
+        <item>목욕</item>
+        <item>병원</item>
+        <item>투약</item>
+        <item>놀이</item>
+        <item>기타</item>
+    </string-array>
+
+    <string-array name="ici_0">
+        <item>모유</item>
+        <item>분유</item>
+        <item>유축</item>
+    </string-array>
+
+    <string-array name="ici_1">
+        <item>대변</item>
+        <item>소변</item>
+        <item>대+소변</item>
+    </string-array>
+
+    <string-array name="ici_2">
+        <item>낮잠</item>
+        <item></item>
+        <item>밤잠</item>
+    </string-array>
+
 </resources>

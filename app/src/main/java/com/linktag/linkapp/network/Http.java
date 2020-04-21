@@ -14,6 +14,8 @@ import com.linktag.linkapp.model.DAMModel;
 import com.linktag.linkapp.model.DCMModel;
 import com.linktag.linkapp.model.FRMModel;
 import com.linktag.linkapp.model.IAMModel;
+import com.linktag.linkapp.model.ICMModel;
+import com.linktag.linkapp.model.ICRModel;
 import com.linktag.linkapp.model.INV_Model;
 import com.linktag.linkapp.model.JDMModel;
 import com.linktag.linkapp.model.LOG_Model;
@@ -1547,6 +1549,75 @@ public class Http extends HttpBaseService {
 
                 @Field(value = "VIC_98") String VIC_98,
                 @Field(value = "ENDGUB") String ENDGUB
+        );
+
+    }
+
+    //--------------------------------------------------
+    // 육아 관리
+    //--------------------------------------------------
+    public static IICM icm(TYPE type) {
+        return (IICM) retrofit(IICM.class, type);
+    }
+
+    public interface IICM {
+
+        @FormUrlEncoded
+        @POST(BaseConst.ICM_SELECT)
+        Call<ICMModel> ICM_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "ICM_ID") String VOT_ID,
+                @Field(value = "ICM_01") String VOT_01
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.ICM_CONTROL)
+        Call<ICMModel> ICM_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "ICM_ID") String ICM_ID,
+                @Field(value = "ICM_01") String ICM_01,
+                @Field(value = "ICM_02") String ICM_02,
+                @Field(value = "ICM_03") String ICM_03,
+
+                @Field(value = "ICM_98") String ICM_98
+        );
+
+    }
+
+    public static IICR icr(TYPE type) { return (IICR) retrofit(IICR.class, type); }
+
+    public interface IICR {
+
+        @FormUrlEncoded
+        @POST(BaseConst.ICR_SELECT)
+        Call<ICRModel> ICR_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "ICR_ID") String ICR_ID,
+                @Field(value = "ICR_01") String ICR_01,
+                @Field(value = "ICR_02") String ICR_02,
+                @Field(value = "ICR_03") String ICR_03
+        );
+
+        @FormUrlEncoded
+        @POST(BaseConst.ICR_CONTROL)
+        Call<ICRModel> ICR_CONTROL(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "ICR_ID") String ICR_ID,
+                @Field(value = "ICR_01") String ICR_01,
+                @Field(value = "ICR_02") String ICR_02,
+                @Field(value = "ICR_03") String ICR_03,
+
+                @Field(value = "ICR_04") String ICR_04,
+                @Field(value = "ICR_05") String ICR_05,
+                @Field(value = "ICR_06") String ICR_06,
+                @Field(value = "ICR_07") String ICR_07,
+                @Field(value = "ICR_08") String ICR_08,
+
+                @Field(value = "ICR_98") String ICR_98
         );
 
     }

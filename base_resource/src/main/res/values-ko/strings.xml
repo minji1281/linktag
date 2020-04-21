@@ -580,4 +580,19 @@
     <string name="vot_list_end_day">마감일자</string>
     <string name="vot_detail_revote">재투표</string>
 
+    <!-- 육아 일지 -->
+    <string name="icm_list_header_title">육아 일지</string>
+    <string name="icm_list_baby_info">아기\n수첩</string>
+    <string name="icm_list_feeding">수유</string>
+    <string name="icm_list_diaper">기저귀</string>
+    <string name="icm_list_sleep">수면</string>
+    <string name="dialog_icm_header_title">아기 수첩</string>
+    <string name="dialog_icm_birthdate">생년월일</string>
+    <string name="icr_detail_item_title">항목</string>
+    <string name="icr_detail_date_title">날짜</string>
+    <string name="icr_detail_time_title">시간</string>
+    <string name="icr_detail_detail_title">상세</string>
+    <string name="icr_detail_delete">삭제하시겠습니까?</string>
+    <string name="dialog_time_header_title">시간 설정</string>
+
 </resources>

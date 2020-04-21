@@ -591,4 +591,19 @@
     <string name="vot_list_end_day">Closing date</string>
     <string name="vot_detail_revote">Revoting</string>
 
+    <!-- 육아 일지 -->
+    <string name="icm_list_header_title">Infant care List</string>
+    <string name="icm_list_baby_info">Baby\nnote</string>
+    <string name="icm_list_feeding">Feeding</string>
+    <string name="icm_list_diaper">Diaper</string>
+    <string name="icm_list_sleep">Sleep</string>
+    <string name="dialog_icm_header_title">Baby note</string>
+    <string name="dialog_icm_birthdate">Birthdate</string>
+    <string name="icr_detail_item_title">Item</string>
+    <string name="icr_detail_date_title">Date</string>
+    <string name="icr_detail_time_title">Time</string>
+    <string name="icr_detail_detail_title">Detail</string>
+    <string name="icr_detail_delete">Do you want to delete it?</string>
+    <string name="dialog_time_header_title">Time Setting</string>
+
 </resources>

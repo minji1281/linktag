@@ -145,4 +145,10 @@ public class BaseConst {
     public static final String VIC_SELECT = "{host}/Mobile/VIC_SELECT";
     public static final String VIC_CONTROL = "{host}/Mobile/VIC_CONTROL";
 
+    //육아 관리
+    public static final String ICM_SELECT = "{host}/Mobile/ICM_SELECT";
+    public static final String ICM_CONTROL = "{host}/Mobile/ICM_CONTROL";
+    public static final String ICR_SELECT = "{host}/Mobile/ICR_SELECT";
+    public static final String ICR_CONTROL = "{host}/Mobile/ICR_CONTROL";
+
 }
