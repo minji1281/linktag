@@ -168,11 +168,11 @@ public class RingtonePlayingService extends Service {
 
         startForeground(mRoutCode, builder.build());
 
-//        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
-//        r = RingtoneManager.getRingtone(getApplicationContext(), notification);
-//        AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build();
-//        r.setAudioAttributes(audioAttributes);
-//        r.play();
+        Uri notification = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_ALARM);
+        r = RingtoneManager.getRingtone(getApplicationContext(), notification);
+        AudioAttributes audioAttributes = new AudioAttributes.Builder().setUsage(AudioAttributes.USAGE_ALARM).build();
+        r.setAudioAttributes(audioAttributes);
+        r.play();
 
 
         InfinityAlarm();
@@ -189,7 +189,7 @@ public class RingtonePlayingService extends Service {
     public void onDestroy() {
         super.onDestroy();
         vibrator.cancel();
-//        r.stop();
+        r.stop();
         Log.d("onDestory() 실행", "서비스 파괴");
 
     }

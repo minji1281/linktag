@@ -269,7 +269,13 @@ public class IamDetail extends BaseActivity {
                 Intent intent = new Intent(mContext, RingtonePlayingService.class);
                 intent.setAction("startForeground");
                 getApplicationContext().stopService(intent);
-                alarmSet("[" + ed_name.getText().toString() + "]");
+                alarmSet();
+
+                Date currentDateTime = calendar.getTime();
+                String date_text = new SimpleDateFormat("yyyy.MM.dd (EE) a hh : mm ", Locale.getDefault()).format(currentDateTime);
+                Toast.makeText(getApplicationContext(), ed_name.getText().toString() + "\n" + date_text + getString(R.string.iam_text1), Toast.LENGTH_SHORT).show();
+                diaryNotification(calendar);
+
             }
         });
 
@@ -295,6 +301,7 @@ public class IamDetail extends BaseActivity {
                             mUser.Value.OCM_01);
 
                 } else {
+                    alarmSet();
                     requestIAM_CONTROL("UPDATE");
                 }
             }
@@ -390,7 +397,7 @@ public class IamDetail extends BaseActivity {
 
     }
 
-    private void alarmSet(String msg) {
+    private void alarmSet() {
         int hour, hour_24, minute;
         String am_pm;
         if (Build.VERSION.SDK_INT >= 23) {
@@ -409,7 +416,7 @@ public class IamDetail extends BaseActivity {
         }
 
         // 현재 지정된 시간으로 알람 시간 설정
-        Calendar calendar = Calendar.getInstance();
+        calendar = Calendar.getInstance();
         calendar.setTimeInMillis(System.currentTimeMillis());
         calendar.set(Calendar.HOUR_OF_DAY, hour_24);
         calendar.set(Calendar.MINUTE, minute);
@@ -434,9 +441,7 @@ public class IamDetail extends BaseActivity {
             }
         }
 
-        Date currentDateTime = calendar.getTime();
-        String date_text = new SimpleDateFormat("yyyy.MM.dd (EE) a hh : mm ", Locale.getDefault()).format(currentDateTime);
-        Toast.makeText(getApplicationContext(), msg + "\n" + date_text + "으로 알람이 설정되었습니다!", Toast.LENGTH_SHORT).show();
+        iamVO.setIAM_96(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime()));
 
         //  Preference에 설정한 값 저장
         SharedPreferences.Editor editor = getSharedPreferences("daily alarm", MODE_PRIVATE).edit();
@@ -444,7 +449,6 @@ public class IamDetail extends BaseActivity {
         editor.apply();
 
 
-        diaryNotification(calendar);
     }
 
     private void requestCDS_CONTROL(String GUBUN, String CTD_07, String scanCode, String CDS_03, String CTD_01, String CTD_02, String CTD_09, String OCM_01) {
@@ -482,6 +486,7 @@ public class IamDetail extends BaseActivity {
 
                             if (GUBUN.equals("INSERT")) {
                                 iamVO.IAM_01 = response.body().Data.get(0).CDS_03;
+                                alarmSet();
                                 requestIAM_CONTROL("INSERT");
                             }
                         }
@@ -525,15 +530,18 @@ public class IamDetail extends BaseActivity {
             @Override
             public void onResponse(Call<IAMModel> call, Response<IAMModel> response) {
 
-
                 if (GUBUN.equals("INSERT") || GUBUN.equals("UPDATE")) {
 
-                    if (iamVO.IAM_05.equals("N")) {
-                        cancelAlarmManager();
-                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + "해당 정보가 저장되었습니다.", Toast.LENGTH_SHORT).show();
+                    if (iamVO.IAM_05.equals("Y")){
+                        Date currentDateTime = calendar.getTime();
+                        String date_text = new SimpleDateFormat("yyyy.MM.dd (EE) a hh : mm ", Locale.getDefault()).format(currentDateTime);
+                        Toast.makeText(getApplicationContext(), ed_name.getText().toString() + "\n" + date_text + getString(R.string.iam_text1), Toast.LENGTH_SHORT).show();
+                        diaryNotification(calendar);
                     }
-                    alarmSet("[" + ed_name.getText().toString() + "]");
-
+                    else if (iamVO.IAM_05.equals("N")) {
+                        cancelAlarmManager();
+                        Toast.makeText(getApplicationContext(), "[" + ed_name.getText().toString() + "]" + getString(R.string.iam_text1), Toast.LENGTH_SHORT).show();
+                    }
                 }
 
                 onBackPressed();
@@ -668,13 +676,13 @@ public class IamDetail extends BaseActivity {
                 Intent intent = new Intent(mContext, RingtonePlayingService.class);
                 intent.setAction("startForeground");
                 getApplicationContext().stopService(intent);
-                alarmSet("[" + ed_name.getText().toString() + "]");
+                alarmSet();
 
             } else {
-                Toast.makeText(mContext, "이거 아닌데?", Toast.LENGTH_SHORT).show();
+                Toast.makeText(mContext, getString(R.string.iam_text2), Toast.LENGTH_SHORT).show();
             }
         } else {
-            Toast.makeText(mContext, "이거 아닌데?", Toast.LENGTH_SHORT).show();
+            Toast.makeText(mContext, getString(R.string.iam_text2), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -705,8 +713,8 @@ public class IamDetail extends BaseActivity {
         alarmIntent.putExtra("CTD_02", intentVO.CTD_02);
         alarmIntent.putExtra("scanCode", iamVO.IAM_01);
         alarmIntent.putExtra("mRoutCode", iamVO.IAM_02);
-        alarmIntent.putExtra("alarmTitle", iamVO.IAM_03 + "알람이 시작되었습니다.");
-        alarmIntent.putExtra("alarmText", "스캔을하여 종료하세요.");
+        alarmIntent.putExtra("alarmTitle", iamVO.IAM_03 + getString(R.string.iam_text3));
+        alarmIntent.putExtra("alarmText", getString(R.string.iam_text4));
 
         pendingIntent = PendingIntent.getBroadcast(this, iamVO.IAM_02, alarmIntent, 0);
         alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
@@ -725,9 +733,14 @@ public class IamDetail extends BaseActivity {
                     alarmManager.setExactAndAllowWhileIdle(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
                 }
 
-                iamVO.setIAM_96(formatDate.format(calendar.getTime()) + formatTime.format(calendar.getTime()));
-                requestIAM_CONTROL("UPDATE_TIME");
             }
+
+
+            SharedPreferences.Editor editor = getSharedPreferences("daily alarm", MODE_PRIVATE).edit();
+            editor.putString("alarmCycle", iamVO.IAM_04);
+            editor.putInt("mRoutCode", iamVO.IAM_02);
+            editor.apply();
+
 
             // 부팅 후 실행되는 리시버 사용가능하게 설정
             pm.setComponentEnabledSetting(receiver,

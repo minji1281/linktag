@@ -492,6 +492,11 @@
     <string name="iam_detail_text2">스캔하러 가기</string>
     <string name="iam_detail_text3">강제종료</string>
 
+    <string name="iam_text1">해당 정보가 저장되었습니다.</string>
+    <string name="iam_text2">해당알람의 스캔이 아닙니다.</string>
+    <string name="iam_text3">알람이 시작되었습니다.</string>
+    <string name="iam_text4">스캔을하여 종료하세요.</string>
+
 
     <string name="app_license">License</string>
     <string name="app_github">GitHub</string>

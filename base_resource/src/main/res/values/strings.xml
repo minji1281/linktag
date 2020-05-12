@@ -500,7 +500,10 @@
     <string name="iam_detail_text2">Go to Scan</string>
     <string name="iam_detail_text3">Force quit</string>
 
-
+    <string name="iam_text1">That information has been saved.</string>
+    <string name="iam_text2">It is not a scan of the alarm.</string>
+    <string name="iam_text3">Alarm has started.</string>
+    <string name="iam_text4">Scan to exit.</string>
 
 
 

@@ -22,7 +22,11 @@ public class DeviceBootReceiver extends BroadcastReceiver {
     public void onReceive(Context context, Intent intent) {
         if (Objects.equals(intent.getAction(), "android.intent.action.BOOT_COMPLETED")) {
 
-            int mRoutCode = intent.getExtras().getInt("mRoutCode");
+            SharedPreferences sharedPreferences = context.getSharedPreferences("daily alarm", MODE_PRIVATE);
+
+            int mRoutCode = sharedPreferences.getInt("mRoutCode", 1);
+            String pattern = sharedPreferences.getString("alarmCycle", "");
+            String array_pattern[] = pattern.split("");
 
             // on device boot complete, reset the alarm
             Intent alarmIntent = new Intent(context, AlarmReceiver.class);
@@ -31,20 +35,34 @@ public class DeviceBootReceiver extends BroadcastReceiver {
             AlarmManager manager = (AlarmManager) context.getSystemService(Context.ALARM_SERVICE);
 //
 
-            SharedPreferences sharedPreferences = context.getSharedPreferences("linktag alarm", MODE_PRIVATE);
             long millis = sharedPreferences.getLong("nextNotifyTime", Calendar.getInstance().getTimeInMillis());
 
 
-            Calendar current_calendar = Calendar.getInstance();
             Calendar nextNotifyTime = new GregorianCalendar();
             nextNotifyTime.setTimeInMillis(sharedPreferences.getLong("nextNotifyTime", millis));
 
-            if (current_calendar.after(nextNotifyTime)) {
-                nextNotifyTime.add(Calendar.DATE, 1);
-            }
 
+            // 이미 지난 시간을 지정했다면 다음날 같은 시간으로 설정
+            if (nextNotifyTime.before(Calendar.getInstance())) {
+
+                //요일별 더하기
+                int nowWeek = nextNotifyTime.get(Calendar.DAY_OF_WEEK);
+                int dateAdd = 1;
+                for (int i = 1; i < array_pattern.length; i++) {
+                    if (nowWeek + i >= 8) {
+                        nowWeek = 0;
+                        i = 1;
+                    }
+                    if (array_pattern[nowWeek + i].equals("Y")) {
+                        nextNotifyTime.add(Calendar.DATE, dateAdd);
+                        break;
+                    }
+                    dateAdd++;
+                }
+
+            }
             Date currentDateTime = nextNotifyTime.getTime();
-            String date_text = new SimpleDateFormat("yyyy년 MM월 dd일 EE요일 a hh시 mm분 ", Locale.getDefault()).format(currentDateTime);
+            String date_text = new SimpleDateFormat("yyyy.MM.dd (EE) a hh : mm ", Locale.getDefault()).format(currentDateTime);
             Toast.makeText(context.getApplicationContext(),"[재부팅후] 다음 알람은 " + date_text + "으로 알람이 설정되었습니다!", Toast.LENGTH_SHORT).show();
 
 

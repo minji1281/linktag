@@ -467,16 +467,8 @@ public class DamDetail extends BaseActivity {
 
                 damVO.setDAM_03(filename);
 
-                if (scanCode != null) {
-                    requestCDS_CONTROL(
-                            "INSERT",
-                            intentVO.CTD_07,
-                            scanCode,
-                            "",
-                            intentVO.CTD_01,
-                            intentVO.CTD_02,
-                            intentVO.CTD_09,
-                            mUser.Value.OCM_01);
+                if (getIntent().hasExtra("GUBUN")) {
+                    requestDAM_CONTROL("INSERT");
                 } else {
                     requestDAM_CONTROL("UPDATE");
                 }
