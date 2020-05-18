@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.linktag.base.user_interface.InterfaceUser;
@@ -52,7 +53,8 @@ public class DetailIciRecycleAdapter extends RecyclerView.Adapter<DetailIciRecyc
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        viewHolder.tvIciIcon.setText(mList.get(position));
+        String tmp = "ici_" + String.valueOf(position);
+        viewHolder.imgIciIcon.setBackgroundResource(mContext.getResources().getIdentifier(tmp, "drawable", mContext.getPackageName()));
         viewHolder.tvIciName.setText(mList.get(position));
     }
 
@@ -63,13 +65,13 @@ public class DetailIciRecycleAdapter extends RecyclerView.Adapter<DetailIciRecyc
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvIciIcon;
+        ImageView imgIciIcon;
         TextView tvIciName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvIciIcon = itemView.findViewById(R.id.tvIciIcon);
+            imgIciIcon = itemView.findViewById(R.id.imgIciIcon);
             tvIciName = itemView.findViewById(R.id.tvIciName);
 
             itemView.setOnClickListener(new View.OnClickListener() {

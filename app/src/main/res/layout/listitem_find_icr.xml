@@ -52,19 +52,10 @@
                 android:layout_marginLeft="15dp"
                 android:layout_marginRight="15dp">
 
-                <TextView
-                    android:id="@+id/tvIcon"
+                <ImageView
+                    android:id="@+id/imgIcon"
                     android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:background="@drawable/cyan_oval"
-                    android:gravity="center_vertical|center"
-                    android:textSize="@dimen/text_small"
-                    android:textColor="@color/white"/>
-
-<!--                <ImageView-->
-<!--                    android:layout_width="50dp"-->
-<!--                    android:layout_height="50dp"-->
-<!--                    android:background="@drawable/cyan_oval" />-->
+                    android:layout_height="50dp" />
 
             </LinearLayout>
 

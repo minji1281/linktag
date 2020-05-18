@@ -599,5 +599,8 @@
     <string name="icr_detail_detail_title">상세</string>
     <string name="icr_detail_delete">삭제하시겠습니까?</string>
     <string name="dialog_time_header_title">시간 설정</string>
+    <string name="icm_minutes_ago">분전</string>
+    <string name="icm_hours_ago">시간</string>
+    <string name="icm_more_hours">24시간 이상</string>
 
 </resources>

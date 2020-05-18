@@ -7,6 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.linktag.base.user_interface.InterfaceUser;
@@ -76,7 +77,6 @@ public class IcrRecycleAdapter extends RecyclerView.Adapter<IcrRecycleAdapter.Vi
             viewHolder.tvEndTime.setText("~" + EndMM + ":" + EndDD);
         }
 
-        String ICIIcon = mList_ICI.get(Integer.valueOf(mList.get(position).ICR_06));
         String ICIName = mList_ICI.get(Integer.valueOf(mList.get(position).ICR_06));
         if(!mList.get(position).ICR_07.equals("")){
             if(mList.get(position).ICR_06.equals("0")){ //수유
@@ -92,7 +92,8 @@ public class IcrRecycleAdapter extends RecyclerView.Adapter<IcrRecycleAdapter.Vi
                 ICIName += " (" + mList_ICI_detail.get(Integer.valueOf(mList.get(position).ICR_07)) + ")";
             }
         }
-        viewHolder.tvIcon.setText(ICIIcon);
+        String tmp = "ici_" + mList.get(position).ICR_06;
+        viewHolder.imgIcon.setBackgroundResource(mContext.getResources().getIdentifier(tmp, "drawable", mContext.getPackageName()));
         viewHolder.tvIci.setText(ICIName);
 
         if(mList.get(position).MM_CNT > 0){
@@ -114,7 +115,7 @@ public class IcrRecycleAdapter extends RecyclerView.Adapter<IcrRecycleAdapter.Vi
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView tvStartTime;
         TextView tvEndTime;
-        TextView tvIcon;
+        ImageView imgIcon;
         TextView tvIci;
         TextView tvRunTime;
         TextView tvMemo;
@@ -124,7 +125,7 @@ public class IcrRecycleAdapter extends RecyclerView.Adapter<IcrRecycleAdapter.Vi
 
             tvStartTime = itemView.findViewById(R.id.tvStartTime);
             tvEndTime = itemView.findViewById(R.id.tvEndTime);
-            tvIcon = itemView.findViewById(R.id.tvIcon);
+            imgIcon = itemView.findViewById(R.id.imgIcon);
             tvIci = itemView.findViewById(R.id.tvIci);
             tvRunTime = itemView.findViewById(R.id.tvRunTime);
             tvMemo = itemView.findViewById(R.id.tvMemo);

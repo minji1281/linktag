@@ -48,14 +48,11 @@
                         android:textSize="@dimen/text_normal"
                         android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/tvIcon"
+                    <ImageView
+                        android:id="@+id/imgIcon"
                         android:layout_width="40dp"
                         android:layout_height="40dp"
-                        android:background="@drawable/cyan_oval"
-                        android:gravity="center_vertical|center"
-                        android:textSize="@dimen/text_small"
-                        android:textColor="@color/white" />
+                        android:gravity="center_vertical|center"/>
 
                     <TextView
                         android:id="@+id/tvItem"

@@ -292,14 +292,45 @@ public class IcrMain extends BaseActivity {
 
                                 String tmp = "";
                                 if(ICM.MM_CNT>0){
-                                    tmp += String.valueOf(ICM.MM_CNT) + "개월 ";
+                                    tmp += String.valueOf(ICM.MM_CNT) + getString(R.string.dialog_cycle_month) + " ";
                                 }
-                                tmp += String.valueOf(ICM.DD_CNT) + "일 (" + String.valueOf(ICM.ALL_DD_CNT) + "일)";
+                                tmp += String.valueOf(ICM.DD_CNT) + getString(R.string.dialog_cycle_day) + " (" + String.valueOf(ICM.ALL_DD_CNT) + getString(R.string.dialog_cycle_day) + ")";
                                 tvBabyDay.setText(tmp);
 
-                                tvMinute1.setText(String.valueOf(ICM.MINUTE1) + "분전");
-                                tvMinute2.setText(String.valueOf(ICM.MINUTE2) + "분전");
-                                tvMinute3.setText(String.valueOf(ICM.MINUTE3) + "분전");
+                                String minute1 = "";
+                                String minute2 = "";
+                                String minute3 = "";
+                                if(ICM.MINUTE1 <= 1440){ //하루
+                                    if(ICM.MINUTE1 / 60 > 0){
+                                        minute1 += String.valueOf(ICM.MINUTE1 / 60) + getString(R.string.icm_hours_ago) + " ";
+                                    }
+                                    minute1 += String.valueOf(ICM.MINUTE1 % 60) + getString(R.string.icm_minutes_ago);
+                                }
+                                else{
+                                    minute1 = getString(R.string.icm_more_hours);
+                                }
+                                if(ICM.MINUTE2 <= 60){
+                                    if(ICM.MINUTE2 / 60 > 0){
+                                        minute2 += String.valueOf(ICM.MINUTE2 / 60) + getString(R.string.icm_hours_ago) + " ";
+                                    }
+                                    minute2 += String.valueOf(ICM.MINUTE2 % 60) + getString(R.string.icm_minutes_ago);
+                                }
+                                else{
+                                    minute2 = getString(R.string.icm_more_hours);
+                                }
+                                if(ICM.MINUTE3 <= 60){
+                                    if(ICM.MINUTE1 / 60 > 0){
+                                        minute3 += String.valueOf(ICM.MINUTE1 / 60) + getString(R.string.icm_hours_ago) + " ";
+                                    }
+                                    minute3 += String.valueOf(ICM.MINUTE1 % 60) + getString(R.string.icm_minutes_ago);
+                                }
+                                else{
+                                    minute3 = getString(R.string.icm_more_hours);
+                                }
+
+                                tvMinute1.setText(minute1);
+                                tvMinute2.setText(minute2);
+                                tvMinute3.setText(minute3);
                             }
 
                         }
@@ -362,9 +393,9 @@ public class IcrMain extends BaseActivity {
 
                                 String tmp = "";
                                 if(ICM.MM_CNT>0){
-                                    tmp += String.valueOf(ICM.MM_CNT) + "개월 ";
+                                    tmp += String.valueOf(ICM.MM_CNT) + getString(R.string.dialog_cycle_month) + " ";
                                 }
-                                tmp += String.valueOf(ICM.DD_CNT) + "일 (" + String.valueOf(ICM.ALL_DD_CNT) + "일)";
+                                tmp += String.valueOf(ICM.DD_CNT) + getString(R.string.dialog_cycle_day) + " (" + String.valueOf(ICM.ALL_DD_CNT) + getString(R.string.dialog_cycle_day) + ")";
                                 tvBabyDay.setText(tmp);
 
                                 dialog.dismiss();

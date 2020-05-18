@@ -56,7 +56,7 @@ public class IcrDetail extends BaseActivity implements DetailIciRecycleAdapter.I
     private LinearLayout linearLayout;
     private InputMethodManager imm;
 
-    private TextView tvIcon;
+    private ImageView imgIcon;
     private TextView tvItem;
     private TextView tvDay;
     private TextView tvStartTime;
@@ -126,8 +126,8 @@ public class IcrDetail extends BaseActivity implements DetailIciRecycleAdapter.I
             }
         });
 
-        tvIcon = (TextView) findViewById(R.id.tvIcon);
-        tvIcon.setOnClickListener(new View.OnClickListener() {
+        imgIcon = (ImageView) findViewById(R.id.imgIcon);
+        imgIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 iciDialog();
@@ -286,7 +286,8 @@ public class IcrDetail extends BaseActivity implements DetailIciRecycleAdapter.I
     }
 
     private void getDetail() {
-        tvIcon.setText(mList_ICI.get(Integer.valueOf(ICR.ICR_06)));
+        String tmp = "ici_" + ICR.ICR_06;
+        imgIcon.setBackgroundResource(mContext.getResources().getIdentifier(tmp, "drawable", mContext.getPackageName()));
         tvItem.setText(mList_ICI.get(Integer.valueOf(ICR.ICR_06)));
 
         ICR_03_C.set(Integer.valueOf(ICR.ICR_03.substring(0,4)), Integer.valueOf(ICR.ICR_03.substring(4,6)) - 1, Integer.valueOf(ICR.ICR_03.substring(6)));
@@ -448,7 +449,8 @@ public class IcrDetail extends BaseActivity implements DetailIciRecycleAdapter.I
         if(!ICR.ICR_06.equals(String.valueOf(position))){
             ICR.ICR_06 = String.valueOf(position);
             ICR.ICR_07 = "";
-            tvIcon.setText(mList_ICI.get(Integer.valueOf(ICR.ICR_06)));
+            String tmp = "ici_" + ICR.ICR_06;
+            imgIcon.setBackgroundResource(mContext.getResources().getIdentifier(tmp, "drawable", mContext.getPackageName()));
             tvItem.setText(mList_ICI.get(Integer.valueOf(ICR.ICR_06)));
             setIciDetail();
         }

@@ -2,14 +2,17 @@ package com.linktag.linkapp.ui.icm;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.linktag.base.network.ClsNetworkCheck;
@@ -59,7 +62,8 @@ public class IciRecycleAdapter extends RecyclerView.Adapter<IciRecycleAdapter.Vi
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int position) {
-        viewHolder.tvIcon.setText(mList.get(position));
+        String tmp = "ici_" + String.valueOf(position);
+        viewHolder.imgIcon.setBackgroundResource(mContext.getResources().getIdentifier(tmp, "drawable", mContext.getPackageName()));
         viewHolder.tvName.setText(mList.get(position));
 
     }
@@ -71,13 +75,13 @@ public class IciRecycleAdapter extends RecyclerView.Adapter<IciRecycleAdapter.Vi
 
 
     public class ViewHolder extends RecyclerView.ViewHolder {
-        TextView tvIcon;
+        ImageView imgIcon;
         TextView tvName;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
 
-            tvIcon = itemView.findViewById(R.id.tvIcon);
+            imgIcon = itemView.findViewById(R.id.imgIcon);
             tvName = itemView.findViewById(R.id.tvName);
 
             itemView.setOnClickListener(new View.OnClickListener() {

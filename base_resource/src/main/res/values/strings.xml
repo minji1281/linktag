@@ -608,5 +608,8 @@
     <string name="icr_detail_detail_title">Detail</string>
     <string name="icr_detail_delete">Do you want to delete it?</string>
     <string name="dialog_time_header_title">Time Setting</string>
+    <string name="icm_minutes_ago">Minutes ago</string>
+    <string name="icm_hours_ago">Hours</string>
+    <string name="icm_more_hours">More than 24 hours</string>
 
 </resources>

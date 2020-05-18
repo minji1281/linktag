@@ -9,14 +9,11 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/tvIcon"
+    <ImageView
+        android:id="@+id/imgIcon"
         android:layout_width="match_parent"
         android:layout_height="51dp"
-        android:background="@drawable/cyan_oval"
-        android:gravity="center_vertical|center"
-        android:textColor="@color/white"
-        android:textSize="@dimen/text_small" />
+        android:gravity="center_vertical|center"/>
 
     <TextView
         android:id="@+id/tvName"
