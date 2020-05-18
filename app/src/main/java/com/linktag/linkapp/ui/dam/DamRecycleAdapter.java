@@ -150,7 +150,7 @@ public class DamRecycleAdapter extends RecyclerView.Adapter<DamRecycleAdapter.Vi
 
         long dDayDiff;
         int dcount;
-        switch (mList.get(position).DAM_04) {
+        switch (filteredmlist.get(position).DAM_04) {
             case "1":
                 dDayDiff = calendar.getTimeInMillis() - sCalendar.getTimeInMillis();
                 dcount = (int) (Math.floor(TimeUnit.HOURS.convert(dDayDiff, TimeUnit.MILLISECONDS) / 24f));
