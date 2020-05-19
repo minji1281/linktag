@@ -290,12 +290,14 @@ public class IcrMain extends BaseActivity {
                             if(response.body().Data.size()>0){
                                 ICM = response.body().Data.get(0);
 
-                                String tmp = "";
-                                if(ICM.MM_CNT>0){
-                                    tmp += String.valueOf(ICM.MM_CNT) + getString(R.string.dialog_cycle_month) + " ";
+                                if(ICM.ALL_DD_CNT > 0){
+                                    String tmp = "";
+                                    if(ICM.MM_CNT>0){
+                                        tmp += String.valueOf(ICM.MM_CNT) + getString(R.string.dialog_cycle_month) + " ";
+                                    }
+                                    tmp += String.valueOf(ICM.DD_CNT) + getString(R.string.dialog_cycle_day) + " (" + String.valueOf(ICM.ALL_DD_CNT) + getString(R.string.dialog_cycle_day) + ")";
+                                    tvBabyDay.setText(tmp);
                                 }
-                                tmp += String.valueOf(ICM.DD_CNT) + getString(R.string.dialog_cycle_day) + " (" + String.valueOf(ICM.ALL_DD_CNT) + getString(R.string.dialog_cycle_day) + ")";
-                                tvBabyDay.setText(tmp);
 
                                 String minute1 = "";
                                 String minute2 = "";
