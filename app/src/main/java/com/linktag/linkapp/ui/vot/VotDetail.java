@@ -117,6 +117,7 @@ public class VotDetail extends BaseActivity implements DetailVitResultRecycleAda
             VOT.VOT_01 = "";
             SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
             VOT.VOT_03 = sdf.format(Calendar.getInstance().getTime());
+            VOT.VOT_04 = "";
             VOT.VOT_05 = "N";
             VOT.VOT_06 = "N";
             VOT.VOT_97_NM = mUser.Value.OCM_02;
