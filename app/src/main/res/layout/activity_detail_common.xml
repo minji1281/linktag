@@ -69,8 +69,7 @@
                             android:id="@+id/imageView"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
-                            android:layout_gravity="center_horizontal"
-                            android:background="@drawable/alarm_state_on" />
+                            android:layout_gravity="center_horizontal" />
 
                         <TextView
                             android:layout_width="wrap_content"

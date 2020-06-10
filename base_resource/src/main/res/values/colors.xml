@@ -74,4 +74,6 @@
 
     <color name="transparent_arc">#FFFFFF</color>
     <color name="transparent_arc2">#00ffffff</color>
+
+    <color name="dropdownAreaBack">#F0F0F0</color>
 </resources>

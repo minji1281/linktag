@@ -5,7 +5,14 @@
             <shape
                 android:shape="rectangle">
 
-                <solid android:color="@android:color/transparent" />
+                <corners
+                    android:radius="5dp" />
+
+                <solid android:color="@android:color/white" />
+
+                <stroke
+                    android:width="1px"
+                    android:color="#E3E3E3" />
 
             </shape>
         </item>

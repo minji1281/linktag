@@ -5,7 +5,7 @@
     android:textSize="16dp"
     android:textStyle="bold"
     android:paddingRight="10dp"
-    android:paddingLeft="10dp"
+    android:paddingLeft="15dp"
     android:singleLine="true"
     android:ellipsize="end"
     android:gravity="center_vertical|left"

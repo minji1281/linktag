@@ -18,28 +18,31 @@
         android:id="@+id/layoutSpinner"
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:paddingLeft="20dp"
-        android:paddingRight="20dp"
-        android:background="@color/white">
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:background="@color/dropdownAreaBack">
 
         <Spinner
             android:id="@+id/spCar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="31dp"
             android:layout_weight="1"
+            android:layout_gravity="center_vertical"
             android:gravity="center_vertical|left"
+            android:spinnerMode="dialog"
             android:background="@drawable/spinner_background_list"
             android:popupBackground="@color/white"/>
 
         <Button
             android:id="@+id/btnCarEdit"
-            android:layout_width="45dp"
-            android:layout_height="25dp"
+            android:layout_width="50dp"
+            android:layout_height="30dp"
+            android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/btn_round_black_non_back"
+            android:background="@drawable/btn_round_blue2"
             android:gravity="center_vertical|center"
             android:textAllCaps="false"
-            android:textColor="@color/listitem_text1"
+            android:textColor="@color/white"
             android:textSize="@dimen/text_small"
             android:text="@string/list_edit"/>
 
