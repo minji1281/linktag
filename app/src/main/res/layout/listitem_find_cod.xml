@@ -84,19 +84,19 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="center_vertical|left"
+                            android:gravity="bottom|left"
                             android:text="@string/cod_list_date_title1"
-                            android:textColor="@color/listitem_text2"
-                            android:textSize="@dimen/text_small" />
+                            android:textColor="@color/listitem_text1"
+                            android:textSize="@dimen/text_smaller" />
 
                         <TextView
                             android:id="@+id/tvEndDay"
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="1"
-                            android:gravity="center_vertical|right"
-                            android:textColor="@color/listitem_text2"
-                            android:textSize="@dimen/text_small" />
+                            android:gravity="bottom|right"
+                            android:textColor="@color/listitem_text1"
+                            android:textSize="@dimen/text_smaller" />
 
                     </LinearLayout>
 
@@ -130,7 +130,7 @@
                         android:id="@+id/btnUseEnd"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/btn_round_blue2"
+                        android:background="@drawable/btn_round_main"
                         android:gravity="center_vertical|center"
                         android:text="@string/cod_list_useend_button"
                         android:textAllCaps="false"

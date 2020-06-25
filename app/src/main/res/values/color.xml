@@ -26,8 +26,8 @@
     <color name="listitem_progressbar">#9ab6ff</color>
     <color name="listitem_progressbar_full">#fd8495</color>
     <color name="listitem_button_back">#34495e</color>
-    <color name="listitem_text1">#5e5e5e</color>
-    <color name="listitem_text2">#a7a7a7</color>
+    <color name="listitem_text1">#2c2c2c</color>
+    <color name="listitem_text2">#b3b3b3</color>
     <color name="listitem_text3">#e74d3c</color>
 
     <color name="arc_main">#9ab6ff</color>

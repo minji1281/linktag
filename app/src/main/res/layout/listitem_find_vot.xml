@@ -49,7 +49,7 @@
                     android:layout_width="80dp"
                     android:layout_height="match_parent"
                     android:layout_marginTop="3dp"
-                    android:background="@drawable/btn_round_blue2"
+                    android:background="@drawable/btn_round_main"
                     android:textColor="@color/white"
                     android:textStyle="bold"
                     android:text="@string/vot_list_button_end"/>

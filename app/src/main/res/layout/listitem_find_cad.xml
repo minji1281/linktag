@@ -13,8 +13,8 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
         android:paddingLeft="15dp"
         android:paddingRight="15dp"
         android:background="@drawable/list_round_shape"
@@ -24,77 +24,87 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:paddingBottom="5dp"
-                android:orientation="horizontal">
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:paddingTop="3dp"
+                android:paddingRight="5dp"
+                android:orientation="vertical">
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1">
-
-                    <ImageView
-                        android:id="@+id/imgGubunIcon"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="bottom" />
-
-                    <TextView
-                        android:id="@+id/tvName"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:ellipsize="end"
-                        android:gravity="bottom|left"
-                        android:paddingLeft="5dp"
-                        android:singleLine="true"
-                        android:textColor="@color/listitem_text1"
-                        android:textSize="@dimen/text_normal"
-                        android:textStyle="bold" />
-
-                </LinearLayout>
+                <ImageView
+                    android:id="@+id/imgGubunIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical" />
 
                 <TextView
-                    android:id="@+id/tvMoney"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:ellipsize="end"
-                    android:gravity="bottom|right"
-                    android:singleLine="true"
-                    android:textColor="@color/listitem_text2"
-                    android:textSize="@dimen/text_small" />
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1" />
 
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:paddingTop="5dp"
-                android:orientation="horizontal">
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvName"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ellipsize="end"
+                    android:gravity="center_vertical|left"
+                    android:singleLine="true"
+                    android:text="엔진오일"
+                    android:textColor="@color/listitem_text1"
+                    android:textSize="@dimen/text_normal"
+                    android:textStyle="bold" />
 
                 <TextView
                     android:id="@+id/tvDay"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:gravity="top|left"
+                    android:gravity="center_vertical|left"
                     android:singleLine="true"
-                    android:textColor="@color/listitem_text2"
+                    android:text="정비일자 2020.03.23"
+                    android:textColor="@color/listitem_text1"
                     android:textSize="@dimen/text_small" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/tvMoney"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
+                    android:singleLine="true"
+                    android:text="50,000원"
+                    android:textColor="@color/listitem_text1"
+                    android:textSize="@dimen/text_normal" />
 
                 <TextView
                     android:id="@+id/tvKm"
-                    android:layout_width="100dp"
-                    android:layout_height="match_parent"
-                    android:gravity="top|right"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:gravity="center_vertical|right"
                     android:singleLine="true"
-                    android:textColor="@color/listitem_text2"
-                    android:textSize="@dimen/text_small" />
+                    android:text="20,230km"
+                    android:textColor="@color/listitem_text1"
+                    android:textSize="@dimen/text_normal" />
 
             </LinearLayout>
 

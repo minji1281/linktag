@@ -12,30 +12,29 @@
         android:layout_marginTop="10dp"
         android:layout_marginRight="20dp"
         android:layout_marginBottom="10dp"
-        android:paddingTop="5dp"
-        android:paddingBottom="10dp"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
+        android:paddingTop="15dp"
+        android:paddingBottom="15dp"
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
         android:background="@drawable/list_round_shape"
         android:elevation="5dp"
         android:orientation="horizontal">
 
         <LinearLayout
-            android:layout_width="0dp"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:orientation="vertical">
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
                 <TextView
                     android:id="@+id/tv_name"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
                     android:ellipsize="end"
                     android:gravity="center_vertical|left"
@@ -45,97 +44,86 @@
                     android:textStyle="bold"
                     tools:text="명칭" />
 
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1"
-                android:orientation="horizontal">
-
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:orientation="vertical">
+                    android:orientation="horizontal">
 
-                    <LinearLayout
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:gravity="center_vertical|left"
+                        android:paddingRight="5dp"
+                        android:text="@string/pcm_list_recent_management"
+                        android:textColor="@color/listitem_text1"
+                        android:textSize="@dimen/text_small" />
+
+                    <TextView
+                        android:id="@+id/tv_date"
                         android:layout_width="match_parent"
-                        android:layout_height="0dp"
+                        android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:gravity="center_vertical|left"
-                            android:text="@string/pcm_list_recent_management"
-                            android:textColor="@color/listitem_text2"
-                            android:textSize="@dimen/text_small" />
-
-                        <TextView
-                            android:id="@+id/tv_date"
-                            android:layout_width="0dp"
-                            android:layout_height="match_parent"
-                            android:layout_weight="1"
-                            android:layout_marginStart="5dp"
-                            android:gravity="center_vertical|left"
-                            android:textColor="@color/listitem_text2"
-                            android:textSize="@dimen/text_small"
-                            tools:text="2020-03-30" />
-
-                    </LinearLayout>
-
+                        android:gravity="center_vertical|left"
+                        android:textColor="@color/listitem_text1"
+                        android:textSize="@dimen/text_small"
+                        tools:text="2020-03-30" />
 
                 </LinearLayout>
 
             </LinearLayout>
 
-        </LinearLayout>
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="100dp"
+                android:layout_height="match_parent">
 
-        <LinearLayout
-            android:orientation="vertical"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:layout_weight="1">
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="3dp">
-                <TextView
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/listitem_text2"
-                    android:text="@string/pcm_list_hwText"/>
-                <TextView
-                    android:id="@+id/tv_hwCount"
-                    android:layout_width="wrap_content"
+                    android:gravity="center_vertical|right"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/listitem_text1"
+                        android:text="@string/pcm_list_hwText"/>
+
+                    <TextView
+                        android:id="@+id/tv_hwCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@color/listitem_text1"
+                        android:text="2"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/listitem_text2"
-                    android:textStyle="bold"
-                    android:text="2"/>
+                    android:gravity="center_vertical|right"
+                    android:layout_weight="1">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/listitem_text1"
+                        android:text="@string/pcm_list_swText"/>
+
+                    <TextView
+                        android:id="@+id/tv_swCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="5dp"
+                        android:textColor="@color/listitem_text1"
+                        android:text="2"/>
+
+                </LinearLayout>
+
             </LinearLayout>
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:padding="3dp">
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/listitem_text2"
-                    android:text="@string/pcm_list_swText"/>
-                <TextView
-                    android:id="@+id/tv_swCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="10dp"
-                    android:textColor="@color/listitem_text2"
-                    android:textStyle="bold"
-                    android:text="2"/>
-            </LinearLayout>
+
         </LinearLayout>
 
     </LinearLayout>

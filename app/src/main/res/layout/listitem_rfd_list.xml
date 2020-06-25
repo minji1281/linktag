@@ -132,7 +132,7 @@
                         android:id="@+id/btn_label"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/btn_round_blue2"
+                        android:background="@drawable/btn_round_main"
                         android:gravity="center_vertical|center"
                         android:text="15일이상 남음"
                         android:textColor="@color/white"

@@ -40,7 +40,7 @@
             android:layout_height="30dp"
             android:layout_gravity="center_vertical"
             android:layout_marginLeft="10dp"
-            android:background="@drawable/btn_round_blue2"
+            android:background="@drawable/btn_round_main"
             android:gravity="center_vertical|center"
             android:textAllCaps="false"
             android:textColor="@color/white"

@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Handler;
 import android.os.Message;
@@ -111,6 +112,9 @@ public class CodAdapter extends BaseAdapter {
             } else {
                 viewHolder.layoutCod.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.list_round_shape));
             }
+            viewHolder.tvCodName.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text1));
+            viewHolder.tvDayLabel.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text1));
+            viewHolder.tvEndDay.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text1));
             viewHolder.tvDayLabel.setText(R.string.cod_list_date_title1);
             viewHolder.imgAlarmIcon.setVisibility(View.VISIBLE);
             viewHolder.btnUseEnd.setVisibility(View.VISIBLE);
@@ -139,6 +143,9 @@ public class CodAdapter extends BaseAdapter {
             } else {
                 viewHolder.layoutCod.setBackgroundDrawable(ContextCompat.getDrawable(mContext, R.drawable.list_round_shape_gray));
             }
+            viewHolder.tvCodName.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text2));
+            viewHolder.tvDayLabel.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text2));
+            viewHolder.tvEndDay.setTextColor(ContextCompat.getColor(mContext, R.color.listitem_text2));
             viewHolder.tvDayLabel.setText(R.string.cod_list_date_title2);
             viewHolder.imgAlarmIcon.setVisibility(View.GONE);
             viewHolder.btnUseEnd.setVisibility(View.GONE);
