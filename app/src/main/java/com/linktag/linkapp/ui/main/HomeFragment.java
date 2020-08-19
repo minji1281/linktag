@@ -44,6 +44,7 @@ import com.linktag.linkapp.ui.menu.ChangeActivityCls;
 import com.linktag.linkapp.ui.menu.ChooseOne;
 import com.linktag.linkapp.ui.menu.InviteList;
 import com.linktag.linkapp.ui.sqllite.SqlMain;
+import com.linktag.linkapp.ui.srsv.SrsvMain;
 import com.linktag.linkapp.value_object.ARM_VO;
 import com.linktag.linkapp.value_object.CtdVO;
 
@@ -72,6 +73,10 @@ public class HomeFragment extends BaseFragment {
     private TextView tvHomeName;
     private TextView tvHomeEmail;
     private TextView tvHomeDate;
+
+    private LinearLayout layoutService1;
+    private ImageView ivService1;
+    private TextView tvService1;
 
     private ExpandableHeightGridView gridBMK;
     private ExpandableHeightGridView gridARM;
@@ -143,6 +148,18 @@ public class HomeFragment extends BaseFragment {
                 requestINV_CONTROL();
             }
         });
+
+        layoutService1 = view.findViewById(R.id.layoutService1);
+        layoutService1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(mContext, SrsvMain.class);
+
+                mContext.startActivity(intent);
+            }
+        });
+        ivService1 = view.findViewById(R.id.ivService1);
+        tvService1 = view.findViewById(R.id.tvService1);
 
         gridBMK = (ExpandableHeightGridView) view.findViewById(R.id.gridBMK);
         gridBMK.setExpanded(true);

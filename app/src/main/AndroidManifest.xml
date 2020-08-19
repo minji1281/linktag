@@ -417,6 +417,12 @@
             android:screenOrientation="portrait"
             android:excludeFromRecents="true"/>
 
+        <!-- 스마트 예약 -->
+        <activity
+            android:name=".ui.srsv.SrsvMain"
+            android:screenOrientation="portrait"
+            android:excludeFromRecents="true"/>
+
     </application>
 
 </manifest>

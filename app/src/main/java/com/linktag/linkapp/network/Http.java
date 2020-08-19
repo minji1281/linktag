@@ -29,6 +29,7 @@ import com.linktag.linkapp.model.RFMModel;
 import com.linktag.linkapp.model.RMDModel;
 import com.linktag.linkapp.model.RMMModel;
 import com.linktag.linkapp.model.RMRModel;
+import com.linktag.linkapp.model.SIFModel;
 import com.linktag.linkapp.model.SVC_Model;
 import com.linktag.linkapp.model.LOGIN_Model;
 import com.linktag.linkapp.model.DSHModel;
@@ -1567,8 +1568,8 @@ public class Http extends HttpBaseService {
         Call<ICMModel> ICM_SELECT(
                 @Path(value = "host", encoded = true) String host,
                 @Field(value = "GUBUN") String GUBUN,
-                @Field(value = "ICM_ID") String VOT_ID,
-                @Field(value = "ICM_01") String VOT_01
+                @Field(value = "ICM_ID") String ICM_ID,
+                @Field(value = "ICM_01") String ICM_01
         );
 
         @FormUrlEncoded
@@ -1618,6 +1619,34 @@ public class Http extends HttpBaseService {
                 @Field(value = "ICR_08") String ICR_08,
 
                 @Field(value = "ICR_98") String ICR_98
+        );
+
+    }
+
+    //--------------------------------------------------
+    // 스마트 예약
+    //--------------------------------------------------
+    public static ISIF sif(TYPE type) {
+        return (ISIF) retrofit(ISIF.class, type);
+    }
+
+    public interface ISIF {
+
+        @FormUrlEncoded
+        @POST(BaseConst.SIF_SELECT)
+        Call<SIFModel> SIF_SELECT(
+                @Path(value = "host", encoded = true) String host,
+                @Field(value = "GUBUN") String GUBUN,
+                @Field(value = "SIF_01") String SIF_01,
+                @Field(value = "SIF_02") String SIF_02,
+                @Field(value = "SIF_03") String SIF_03,
+                @Field(value = "SIF_05") String SIF_05,
+
+                @Field(value = "SIF_14") double SIF_14,
+                @Field(value = "SIF_15") double SIF_15,
+                @Field(value = "SIF_19") String SIF_19,
+                @Field(value = "WEEK") String WEEK,
+                @Field(value = "TIME") String TIME
         );
 
     }

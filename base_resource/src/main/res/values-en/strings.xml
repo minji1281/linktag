@@ -79,6 +79,8 @@
     <string name="dash_25">Favorites</string>
     <string name="dash_26">List</string>
     <string name="alert_bookmark1">Do you delete bookmark?</string>
+    <string name="dash_27">Basic</string>
+    <string name="dash_28">Reservation</string>
 
     <!-- 로그인 설명 -->
     <string name="title_name">Cloud platform</string>
@@ -610,5 +612,11 @@
     <string name="icm_minutes_ago">Minutes ago</string>
     <string name="icm_hours_ago">Hours</string>
     <string name="icm_more_hours">More than 24 hours</string>
+
+    <!-- 스마트 예약 -->
+    <string name="srsv_menu1">Bookmark</string>
+    <string name="srsv_menu2">Latest</string>
+    <string name="srsv_menu3">My Shop</string>
+    <string name="srsv_store_insert">Registration</string>
 
 </resources>

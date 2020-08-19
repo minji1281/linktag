@@ -5,8 +5,8 @@ public class BaseConst {
     //--------------------------------------------------
     // 공통 - 도메인
     //--------------------------------------------------
-    //public static String URL_HOST = "http://app.linktag.io";
-    public static String URL_HOST = "https://linktagapp.azurewebsites.net";
+    public static String URL_HOST = "http://app.linktag.io";
+//    public static String URL_HOST = "https://linktagapp.azurewebsites.net";
 
     //토큰발행
     public static final String URL_TKN_SELECT = "{host}/Mobile/TKN_SELECT";
@@ -150,5 +150,8 @@ public class BaseConst {
     public static final String ICM_CONTROL = "{host}/Mobile/ICM_CONTROL";
     public static final String ICR_SELECT = "{host}/Mobile/ICR_SELECT";
     public static final String ICR_CONTROL = "{host}/Mobile/ICR_CONTROL";
+
+    //스마트 예약
+    public static final String SIF_SELECT = "{host}/Mobile/SIF_SELECT";
 
 }
